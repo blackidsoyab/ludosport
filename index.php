@@ -177,6 +177,12 @@ if (is_dir($application_folder)) {
     define('APPPATH', BASEPATH . $application_folder . '/');
 }
 
+/* --------------------------------------------------------------------
+ * LOAD THE DATAMAPPER BOOTSTRAP FILE
+ * --------------------------------------------------------------------
+ */
+require_once APPPATH . 'third_party/datamapper/bootstrap.php';
+
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
