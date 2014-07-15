@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class home_layout {
+class layout {
 
     var $obj;
     var $layout;
@@ -14,7 +14,7 @@ class home_layout {
     var $page_name;
     var $is_index;
 
-    function home_layout($layout = "template/layout_main") {
+    function layout($layout = "template/layout_main") {
         $this->obj = & get_instance();
         $this->layout = $layout;
     }

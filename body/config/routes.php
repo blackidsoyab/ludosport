@@ -44,6 +44,29 @@ if (!defined('BASEPATH'))
 $route['default_controller'] = "dashboard";
 $route['404_override'] = '';
 
+//Country Management
+$route['country'] = "countries/viewcountry";
+$route['country/list'] = "countries/viewcountry";
+$route['country/add'] = "countries/addcountry";
+$route['country/edit/(:num)'] = "countries/editcountry/$1";
+$route['country/delete/(:num)'] = "countries/deletecountry/$1";
+$route['country/getJson'] = "json/getCountryJsonData";
+
+//State Management
+$route['states'] = "states/viewstates";
+$route['states/list'] = "states/viewstates";
+$route['states/add'] = "states/addstates";
+$route['states/edit/(:num)'] = "states/editstates/$1";
+$route['states/delete/(:num)'] = "states/deletestates/$1";
+$route['states/getJson'] = "json/getStatesJsonData";
+
+//State Management
+$route['city'] = "cities/viewcity";
+$route['city/list'] = "cities/viewcity";
+$route['city/add'] = "cities/addcity";
+$route['city/edit/(:num)'] = "cities/editcity/$1";
+$route['city/delete/(:num)'] = "cities/deletecity/$1";
+$route['city/getJson'] = "json/getCitiesJsonData";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

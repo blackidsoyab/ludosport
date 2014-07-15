@@ -35,8 +35,12 @@ if (!defined('JS_URL')) {
     define('JS_URL', $config['base_url'] . 'assets/js/');
 }
 
-if (!defined('IMAGE_URL')) {
-    define('IMAGE_URL', $config['base_url'] . 'assets/img/');
+if (!defined('IMG_URL')) {
+    define('IMG_URL', $config['base_url'] . 'assets/img/');
+}
+
+if (!defined('PLUGIN_URL')) {
+    define('PLUGIN_URL', $config['base_url'] . 'assets/plugins/');
 }
 
 /*
@@ -382,4 +386,6 @@ $config['proxy_ips'] = '';
 
 
 /* End of file config.php */
-/* Location: ./application/config/config.php */
+    /* Location: ./application/config/config.php */
+
+    
