@@ -25,9 +25,11 @@
             }
         });
         
-        if ($('.datepicker').length > 0){
-            $('.datepicker').datepicker();
-        }
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy'
+        }).on('changeDate', function (ev) {
+            $(this).datepicker('hide');
+        });
     });
     //]]>
 </script>
@@ -60,7 +62,7 @@
     </div>
 
     <div class="form-group has-feedback lg left-feedback no-label">
-        <input type="text" name="date_of_birth" class="form-control no-border input-lg rounded required datepicker" data-date-format="dd/mm/yyyy" placeholder="<?php echo $this->lang->line('dob'); ?>">
+        <input type="text" name="date_of_birth" class="form-control no-border input-lg rounded required datepicker" placeholder="<?php echo $this->lang->line('dob'); ?>" readonly="readonly">
 
         <span class="fa fa-user form-control-feedback"></span>
     </div>

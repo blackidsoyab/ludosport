@@ -24,7 +24,6 @@ class authenticate extends CI_Controller {
     }
 
     function validateUser() {
-        print_r($_POST);
         $user = new User();
         $user->where('username', $this->input->post('username'));
         $user->where('password', md5($this->input->post('password')));
