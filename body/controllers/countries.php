@@ -60,6 +60,10 @@ class countries extends CI_Controller {
         if (!empty($id)) {
             $c = new Country();
             $c->where('id', $id)->get();
+            foreach ($c->State as $v) {
+                $v->City->delete_all();
+            }
+            $c->State->delete_all();
             $c->delete();
             $this->session->set_flashdata('success', 'Country Deleted Successfully');
             redirect(base_url() . 'country', 'refresh');

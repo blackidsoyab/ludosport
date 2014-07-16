@@ -68,6 +68,7 @@ class states extends CI_Controller {
         if (!empty($id)) {
             $c = new State();
             $c->where('id', $id)->get();
+            $c->City->delete_all();
             $c->delete();
             $this->session->set_flashdata('success', 'State Deleted Successfully');
             redirect(base_url() . 'states', 'refresh');
