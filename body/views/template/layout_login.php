@@ -1,47 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <title><?php echo $page_title; ?></title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Bootstrap -->
-        <link href="<?php echo CSS_URL; ?>bootstrap.css" rel="stylesheet" media="screen">
-        <!-- custom -->
-        <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet" media="screen">
-        <link href="<?php echo CSS_URL; ?>signin.css" rel="stylesheet" media="screen">
+        <title><?php echo @$page_title . ' | MyLudosport'; ?></title>
 
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="<?php echo JS_URL; ?>jq.js"></script>
-        <script src="<?php echo JS_URL; ?>jquery.validate.js" type="text/javascript"></script>
+
+        <link href="<?php echo CSS_URL; ?>bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo PLUGIN_URL; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="<?php echo CSS_URL; ?>style.css" rel="stylesheet">
+        <link href="<?php echo CSS_URL; ?>style-responsive.css" rel="stylesheet">
+
+        <script src="<?php echo JS_URL; ?>jquery.min.js"></script>
+        <script src="<?php echo JS_URL; ?>jquery.validate.js"></script>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
-          <script src="js/html5shiv.js"></script>
-          <script src="js/respond.js"></script>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body style="background: url('http://www.wallscorner.com/walls/galaxy-iv-wallpaper-wide.jpg')">
-        <div class="container">
-            <!--Header-->
-            <div class="row padding-killer margin-killer"">
-                <div class="container padding-killer">
-                    <div class="project-logo-area">
-                        <h1 class="text-center">ACL Interface Demo</h1>
+
+    <body class="login tooltips">
+        <div class="login-header text-center">
+            <img src="<?php echo IMG_URL; ?>logo-login.png" class="logo" alt="Logo">
+        </div>
+        <div class="login-wrapper">
+            <?php if ($this->session->flashdata('success') != '') { ?>
+                <div>&nbsp;</div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-success fade in alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <p class="text-center">
+                                <?php echo parse_smileys($this->session->flashdata('success'), IMG_URL . "smileys/"); ?>
+                            </p>
+                        </div>
                     </div>
-                </div>   	
-            </div>
-            <!--/Header-->
+                </div>
+            <?php } ?>
 
-            <!--Main Container-->
-            <div class="">
-                <?php echo @$content_for_layout; ?>
-            </div>
-            <!--Main Container-->
+            <?php if ($this->session->flashdata('warning') != '') { ?>
+                <div>&nbsp;</div>
+                <div class="row">
+                    <div class="alert alert-warning fade in alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <p class="text-center">
+                            <?php echo parse_smileys($this->session->flashdata('warning'), IMG_URL . "smileys/"); ?>
+                        </p>
+                    </div>
+                </div>
+            <?php } ?>
 
-            <div class="text-center footer-style">
-                <hr />
-                <!--/Navigation Bar-->
-                Copyrights &copy; <?php echo date('Y'); ?> | Powered By <a href="#">BlackIDSolutions</a>
-            </div>
+            <?php if ($this->session->flashdata('info') != '') { ?>
+                <div>&nbsp;</div>
+                <div class="row">
+                    <div class="alert alert-info fade in alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <p class="text-center">
+                            <?php echo parse_smileys($this->session->flashdata('info'), IMG_URL . "smileys/"); ?>
+                        </p>
+                    </div>
+                </div>
+            <?php } ?>
+
+            <?php if ($this->session->flashdata('danger') != '') { ?>
+                <div>&nbsp;</div>
+                <div class="row">
+                    <div class="alert alert-danger fade in alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <p class="text-center">
+                            <?php echo parse_smileys($this->session->flashdata('danger'), IMG_URL . "smileys/"); ?>
+                        </p>
+                    </div>
+                </div>
+            <?php } ?>
+            <?php echo @$content_for_layout; ?>
         </div>
     </body>
 </html>

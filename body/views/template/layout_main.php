@@ -80,11 +80,18 @@
 
                         <!-- Begin user session nav -->
                         <ul class="nav-user navbar-right">
+                            <?php $session = $this->session->userdata('user_session'); ?>
                             <li class="dropdown">
-                                <a href="my-profile.html" class="dropdown-toggle" >
+
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="<?php echo IMG_URL; ?>avatar/avatar-1.jpg" class="avatar img-circle" alt="Avatar">
-                                    Hi, <strong>Paris Hawker</strong>
+                                    Hi, <strong><?php echo $session->name; ?></strong>
                                 </a>
+                                <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
+                                    <li><a href="my-profile.html">Change Profile</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="<?php echo base_url() . 'logout'; ?>">Log out</a></li>
+                                </ul>
                             </li>
                         </ul>
                         <!-- End user session nav -->

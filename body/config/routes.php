@@ -44,6 +44,13 @@ if (!defined('BASEPATH'))
 $route['default_controller'] = "dashboard";
 $route['404_override'] = '';
 
+//Authenticate
+$route['login'] = "authenticate/index";
+$route['validate'] = "authenticate/validateUser";
+$route['logout'] = "authenticate/logout";
+
+//Dashboard
+$route['dashboard'] = "dashboard";
 //Country Management
 $route['country'] = "countries/viewcountry";
 $route['country/list'] = "countries/viewcountry";

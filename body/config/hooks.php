@@ -12,6 +12,15 @@ if (!defined('BASEPATH'))
   |	http://codeigniter.com/user_guide/general/hooks.html
   |
  */
+
+$hook['pre_controller'] = array(
+    'class' => 'Authentication',
+    'function' => 'checkLogin',
+    'filename' => 'Authentication.php',
+    'filepath' => 'hooks/',
+);
+
+
 /*$hook['pre_controller'] = array(
     'class' => 'AccessControl',
     'function' => 'checkPermission',
