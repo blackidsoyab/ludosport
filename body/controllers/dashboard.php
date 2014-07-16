@@ -7,9 +7,10 @@ class dashboard extends CI_Controller {
     
     function __construct() {
         parent::__construct();
+         $this->layout->setField('page_title', 'Dashboard');
     }
 
     public function index() {
-        $this->load->view('welcome');
+        $this->layout->view('welcome');
     }
 }

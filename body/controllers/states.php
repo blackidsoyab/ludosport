@@ -7,7 +7,7 @@ class states extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->layout->setField('page_title', 'Manage Countries');
+        $this->layout->setField('page_title', 'Manage States');
     }
 
     function viewstates() {
@@ -25,6 +25,7 @@ class states extends CI_Controller {
             $this->session->set_flashdata('success', 'State Added Successfully');
             redirect(base_url() . 'states', 'refresh');
         } else {
+            $this->layout->setField('page_title', 'Add State');
             $country = new Country();
             $data['countries'] = $country->get();
             $this->layout->view('states/add', $data);
@@ -44,6 +45,7 @@ class states extends CI_Controller {
                 $this->session->set_flashdata('success', 'State Updated Successfully');
                 redirect(base_url() . 'states', 'refresh');
             } else {
+                $this->layout->setField('page_title', 'Edit State');
                 $states = new State();
                 $data['states'] = $states->where('id', $id)->get();
 

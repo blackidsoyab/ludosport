@@ -96,10 +96,22 @@
 
 
             <!-- BEGIN SIDEBAR LEFT -->
+            <?php $page = ($this->uri->segment(1) ? $this->uri->segment(1) : 'dashboard'); ?>
             <div class="sidebar-left sidebar-nicescroller">
                 <ul class="sidebar-menu">
-                    <li><a href="<?php echo base_url(); ?>"><i class="fa fa-dashboard icon-sidebar"></i>Dashboard</a></li> 
-                    <li>
+                    <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(); ?>"><i class="fa fa-dashboard icon-sidebar"></i>Dashboard</a></li>
+                    <li class="<?php echo ($page == 'permission' || $page == 'role') ? 'active selected' : ''; ?>">
+                        <a href="javascript:;">
+                            <i class="fa fa-table icon-sidebar"></i>
+                            <i class="fa fa-angle-right chevron-icon-sidebar"></i>
+                            Access Management
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="<?php echo base_url() . 'permission'; ?>">Permission</a></li>
+                            <li><a href="<?php echo base_url() . 'role'; ?>">Roles</a></li>
+                        </ul>
+                    </li>
+                    <li class="<?php echo ($page == 'country' || $page == 'states' || $page == 'city') ? 'active selected' : ''; ?>">
                         <a href="javascript:;">
                             <i class="fa fa-table icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>

@@ -24,6 +24,7 @@ class countries extends CI_Controller {
             $this->session->set_flashdata('success', 'Country Added Successfully');
             redirect(base_url() . 'country', 'refresh');
         } else {
+            $this->layout->setField('page_title', 'Add Country');
             $this->layout->view('countries/add');
         }
     }
@@ -40,6 +41,7 @@ class countries extends CI_Controller {
                 $this->session->set_flashdata('success', 'Country Updated Successfully');
                 redirect(base_url() . 'country', 'refresh');
             } else {
+                $this->layout->setField('page_title', 'Edit Country');
                 $country = new Country();
                 $data['country'] = $country->where('id', $id)->get();
                 $this->layout->view('countries/edit', $data);

@@ -7,7 +7,7 @@ class cities extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->layout->setField('page_title', 'Manage Countries');
+        $this->layout->setField('page_title', 'Manage Cities');
     }
 
     function viewcity() {
@@ -25,6 +25,7 @@ class cities extends CI_Controller {
             $this->session->set_flashdata('success', 'City Added Successfully');
             redirect(base_url() . 'city', 'refresh');
         } else {
+            $this->layout->setField('page_title', 'Add City');
             $states = new State();
             $data['states'] = $states->get();
             $this->layout->view('cities/add', $data);
@@ -44,6 +45,7 @@ class cities extends CI_Controller {
                 $this->session->set_flashdata('success', 'City Updated Successfully');
                 redirect(base_url() . 'city', 'refresh');
             } else {
+                $this->layout->setField('page_title', 'Edit City');
                 $city = new City();
                 $data['city'] = $city->where('id', $id)->get();
 
