@@ -13,7 +13,8 @@ class Authentication extends CI_Controller {
     }
 
     function checkLogin() {
-        if ($this->router->class != 'authenticate') {
+        $array = array('authenticate', 'ajax');
+        if (!in_array($this->router->class, $array)) {
             $session = $this->session->userdata('user_session');
             if (empty($session)) {
                 redirect(base_url() . 'login', 'refresh');

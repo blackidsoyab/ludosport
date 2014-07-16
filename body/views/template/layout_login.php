@@ -3,14 +3,16 @@
     <head>
         <title><?php echo @$page_title . ' | MyLudosport'; ?></title>
 
-
         <link href="<?php echo CSS_URL; ?>bootstrap.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href="<?php echo CSS_URL; ?>style.css" rel="stylesheet">
         <link href="<?php echo CSS_URL; ?>style-responsive.css" rel="stylesheet">
+        <link href="<?php echo PLUGIN_URL; ?>datepicker/datepicker.min.css" rel="stylesheet">
 
         <script src="<?php echo JS_URL; ?>jquery.min.js"></script>
         <script src="<?php echo JS_URL; ?>jquery.validate.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>datepicker/bootstrap-datepicker.js"></script>
+        <script src="<?php echo JS_URL; ?>bootstrap.min.js"></script>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -75,6 +77,5 @@
             <?php } ?>
             <?php echo @$content_for_layout; ?>
         </div>
-        <script src="<?php echo JS_URL; ?>bootstrap.min.js"></script>
     </body>
 </html>

@@ -9,6 +9,13 @@ class ajax extends CI_Controller {
         parent::__construct();
     }
 
+    /*
+     * ------------------------------------------
+     *           Methos for the Dashboard
+     *                   START
+     * ------------------------------------------
+     */
+
     function setNewLanguage($lang_prefix) {
         $session = $this->session->userdata('user_session');
         $session->language = $lang_prefix;
@@ -16,6 +23,47 @@ class ajax extends CI_Controller {
         $this->session->set_userdata($newdata);
         echo TRUE;
     }
+
+    /*
+     * ------------------------------------------
+     * ------------------- END ------------------
+     * ------------------------------------------
+     */
+
+    /*
+     * ------------------------------------------
+     *           Methos for the Register
+     *                   START
+     * ------------------------------------------
+     */
+
+    function registerCheckUsername() {
+        $user = new User();
+        $user->where('username', $this->input->get('username'));
+        $user->get();
+        if ($user->result_count() == 1) {
+            echo 'false';
+        } else {
+            echo 'true';
+        }
+    }
+
+    function registerCheckEmail() {
+        $user = new User();
+        $user->where('email', $this->input->get('email'));
+        $user->get();
+        if ($user->result_count() == 1) {
+            echo 'false';
+        } else {
+            echo 'true';
+        }
+    }
+
+    /*
+     * ------------------------------------------
+     * ------------------- END ------------------
+     * ------------------------------------------
+     */
 
     /*
      * ------------------------------------------
@@ -35,15 +83,15 @@ class ajax extends CI_Controller {
         $permission = new Permission();
         $permission->where('controller', $this->input->post('controller'));
         $permission->where('method', $this->input->post('method'));
-        $permission->get(1, 0);
+        $permission->get();
         if ($id != '0') {
-            if (count($permission) && $permission->id != $id) {
+            if ($permission->result_count() == 1 && $permission->id != $id) {
                 echo 'false';
             } else {
                 echo 'true';
             }
         } else {
-            if (count($permission)) {
+            if ($permission->result_count() == 1) {
                 echo 'false';
             } else {
                 echo 'true';
@@ -67,15 +115,15 @@ class ajax extends CI_Controller {
     function checkValidRole($id = null) {
         $role = new Role();
         $role->where('en_role_name', $this->input->post('en_role_name'));
-        $role->get(1, 0);
+        $role->get();
         if ($id != '0') {
-            if (count($role) && $role->id != $id) {
+            if ($role->result_count() == 1 && $role->id != $id) {
                 echo 'false';
             } else {
                 echo 'true';
             }
         } else {
-            if (count($role)) {
+            if ($role->result_count() == 1) {
                 echo 'false';
             } else {
                 echo 'true';

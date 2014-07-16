@@ -48,6 +48,10 @@ $route['404_override'] = '';
 $route['login'] = "authenticate/index";
 $route['validate'] = "authenticate/validateUser";
 $route['logout'] = "authenticate/logout";
+$route['register'] = "authenticate/register";
+$route['add_user'] = "authenticate/saveUser";
+$route['register/checkusername'] = "ajax/registerCheckUsername";
+$route['register/checkemail'] = "ajax/registerCheckEmail";
 
 //Dashboard
 $route['dashboard'] = "dashboard";
