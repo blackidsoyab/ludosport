@@ -77,5 +77,14 @@ $route['permission/delete/(:num)'] = "permissions/deletepermission/$1";
 $route['permission/getJson'] = "json/getPermissionsJsonData";
 $route['permission/get_method/(:any)/(:any)'] = "ajax/getMethodsFromControllers/$1/$2";
 $route['permission/check/(:num)'] = "ajax/checkValidPermision/$1";
+
+//Role Management
+$route['role'] = "roles/viewrole";
+$route['role/list'] = "roles/viewrole";
+$route['role/add'] = "roles/addrole";
+$route['role/edit/(:num)'] = "roles/editrole/$1";
+$route['role/delete/(:num)'] = "roles/deleterole/$1";
+$route['role/getJson'] = "json/getRolesJsonData";
+$route['role/check/(:num)'] = "ajax/checkValidRole/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

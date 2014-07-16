@@ -9,6 +9,13 @@ class ajax extends CI_Controller {
         parent::__construct();
     }
 
+    /*
+     * ------------------------------------------
+     *    Methos for the Permission Controller
+     *                   START
+     * ------------------------------------------
+     */
+
     function getMethodsFromControllers($controlername, $method = null) {
         $methods = $this->controllerlist->getMethods($controlername);
         foreach ($methods as $value) {
@@ -36,4 +43,41 @@ class ajax extends CI_Controller {
         }
     }
 
+    /*
+     * ------------------------------------------
+     * ------------------- END ------------------
+     * ------------------------------------------
+     */
+
+    /*
+     * ------------------------------------------
+     *         Methos for the Roles Controller
+     *                   START
+     * ------------------------------------------
+     */
+
+    function checkValidRole($id = null) {
+        $role = new Role();
+        $role->where('en_role_name', $this->input->post('en_role_name'));
+        $role->get(1, 0);
+        if ($id != '0') {
+            if (count($role) && $role->id != $id) {
+                echo 'false';
+            } else {
+                echo 'true';
+            }
+        } else {
+            if (count($role)) {
+                echo 'false';
+            } else {
+                echo 'true';
+            }
+        }
+    }
+
+    /*
+     * ------------------------------------------
+     * ------------------- END ------------------
+     * ------------------------------------------
+     */
 }
