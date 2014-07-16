@@ -68,5 +68,14 @@ $route['city/edit/(:num)'] = "cities/editcity/$1";
 $route['city/delete/(:num)'] = "cities/deletecity/$1";
 $route['city/getJson'] = "json/getCitiesJsonData";
 
+//Permission Management
+$route['permission'] = "permissions/viewpermission";
+$route['permission/list'] = "permissions/viewpermission";
+$route['permission/add'] = "permissions/addpermission";
+$route['permission/edit/(:num)'] = "permissions/editpermission/$1";
+$route['permission/delete/(:num)'] = "permissions/deletepermission/$1";
+$route['permission/getJson'] = "json/getPermissionsJsonData";
+$route['permission/get_method/(:any)/(:any)'] = "ajax/getMethodsFromControllers/$1/$2";
+$route['permission/check/(:num)'] = "ajax/checkValidPermision/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

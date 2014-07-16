@@ -27,8 +27,13 @@ class ControllerList {
     }
 
     public function setControllerMethods($ControllerName, $ControllerMethods, $Folder = 'root') {
-        $this->controllers[$Folder . '_folder'][] = $ControllerName;
-        $this->controllers_methods[$ControllerName] = $ControllerMethods;
+        $not_display_controller = array(
+            'json', 'ajax', 'dashboard'
+        );
+        if (!in_array($ControllerName, $not_display_controller)) {
+            $this->controllers[$Folder . '_folder'][] = $ControllerName;
+            $this->controllers_methods[$ControllerName] = $ControllerMethods;
+        }
     }
 
     private function setControllers() {

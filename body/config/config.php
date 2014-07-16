@@ -43,6 +43,8 @@ if (!defined('PLUGIN_URL')) {
     define('PLUGIN_URL', $config['base_url'] . 'assets/plugins/');
 }
 
+$config['custom_languages'] = array('en' => 'english', 'it' => 'italian');
+
 /*
   |--------------------------------------------------------------------------
   | Index File

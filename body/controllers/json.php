@@ -71,4 +71,25 @@ class json extends CI_Controller {
         exit();
     }
 
+    public function getPermissionsJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('en_perm_name', 'controller', 'method');
+        $this->datatable->eColumns = array('id');
+        $this->datatable->sIndexColumn = "id";
+        $this->datatable->sTable = " permissions";
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['en_perm_name'];
+            $temp_arr[] = $aRow['controller'];
+            $temp_arr[] = $aRow['method'];
+            $temp_arr[] = '<a href="' . base_url() . 'permission/edit/' . $aRow['id'] . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
 }
