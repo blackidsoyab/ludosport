@@ -18,25 +18,20 @@
 <div class="the-box">
 
     <form id="edit" method="post" class="form-horizontal" action="<?php echo base_url() . 'country/edit/' . @$country->id; ?>">
-        <div class="form-group">
-            <label for="question" class="col-md-2 control-label">
-                Country Name
-                <span class="text-danger">*</span>
-            </label>
-            <div class="col-md-4">
-                <input type="text" name="en_name"  class="form-control required" placeholder="Country Name in English" value="<?php echo @$country->en_name; ?>"/>
+        <?php
+        foreach ($this->config->item('custom_languages') as $key => $value) {
+            $temp = $key . '_name';
+            ?>
+            <div class="form-group">
+                <label for="question" class="col-md-2 control-label">
+                    <?php echo ucwords($value) . ' Name'; ?>
+                    <span class="text-danger"><?php echo ($key == 'en') ? '*' : '&nbsp;'; ?></span>
+                </label>
+                <div class="col-md-4">
+                    <input type="text" name="<?php echo $temp; ?>"  class="<?php echo ($key == 'en') ? 'form-control required' : 'form-control'; ?>" placeholder="Country Name in <?php echo ucwords($value); ?>" value="<?php echo $country->$temp; ?>"/>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label for="question" class="col-md-2 control-label">
-                Country Name
-                <span class="text-danger">&nbsp;</span>
-            </label>
-            <div class="col-md-4">
-                <input type="text" name="it_name"  class="form-control" placeholder="Country Name in Itlian" value="<?php echo @$country->it_name; ?>" />
-            </div>
-        </div>
+        <?php } ?>
 
         <div class="form-group">
             <label class="col-md-2 control-label">&nbsp;</label>

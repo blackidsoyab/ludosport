@@ -18,8 +18,10 @@ class cities extends CI_Controller {
         if ($this->input->post() !== false) {
             $c = new City();
             $c->state_id = $this->input->post('state_id');
-            $c->en_name = $this->input->post('en_name');
-            $c->it_name = ($this->input->post('it_name') == '') ? $this->input->post('en_name') : $this->input->post('it_name');
+            foreach ($this->config->item('custom_languages') as $key => $value) {
+                $temp = $key . '_name';
+                $c->$temp = $this->input->post($temp);
+            }
             $c->user_id = '1';
             $c->save();
             $this->session->set_flashdata('success', 'City Added Successfully');
@@ -38,8 +40,10 @@ class cities extends CI_Controller {
                 $c = new City();
                 $c->where('id', $id)->get();
                 $c->state_id = $this->input->post('state_id');
-                $c->en_name = $this->input->post('en_name');
-                $c->it_name = ($this->input->post('it_name') == '') ? $this->input->post('en_name') : $this->input->post('it_name');
+                foreach ($this->config->item('custom_languages') as $key => $value) {
+                    $temp = $key . '_name';
+                    $c->$temp = $this->input->post($temp);
+                }
                 $c->user_id = '1';
                 $c->save();
                 $this->session->set_flashdata('success', 'City Updated Successfully');
@@ -60,7 +64,7 @@ class cities extends CI_Controller {
         }
     }
 
-    function deltecity($id) {
+    function deletecity($id) {
         if (!empty($id)) {
             $c = new City();
             $c->where('id', $id)->get();

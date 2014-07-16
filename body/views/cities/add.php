@@ -33,25 +33,17 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="question" class="col-md-2 control-label">
-                City Name
-                <span class="text-danger">*</span>
-            </label>
-            <div class="col-md-4">
-                <input type="text" name="en_name"  class="form-control required" placeholder="City Name in English"/>
+        <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
+            <div class="form-group">
+                <label for="question" class="col-md-2 control-label">
+                    <?php echo ucwords($value) . ' Name'; ?>
+                    <span class="text-danger"><?php echo ($key == 'en') ? '*' : '&nbsp;'; ?></span>
+                </label>
+                <div class="col-md-4">
+                    <input type="text" name="<?php echo $key . '_name'; ?>"  class="<?php echo ($key == 'en') ? 'form-control required' : 'form-control'; ?>" placeholder="City Name in <?php echo ucwords($value); ?>"/>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label for="question" class="col-md-2 control-label">
-                City Name
-                <span class="text-danger">&nbsp;</span>
-            </label>
-            <div class="col-md-4">
-                <input type="text" name="it_name"  class="form-control" placeholder="City Name in Itlian"/>
-            </div>
-        </div>
+        <?php } ?>
 
         <div class="form-group">
             <label class="col-md-2 control-label">&nbsp;</label>

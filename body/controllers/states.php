@@ -18,8 +18,10 @@ class states extends CI_Controller {
         if ($this->input->post() !== false) {
             $c = new State();
             $c->country_id = $this->input->post('country_id');
-            $c->en_name = $this->input->post('en_name');
-            $c->it_name = ($this->input->post('it_name') == '') ? $this->input->post('en_name') : $this->input->post('it_name');
+            foreach ($this->config->item('custom_languages') as $key => $value) {
+                $temp = $key . '_name';
+                $c->$temp = $this->input->post($temp);
+            }
             $c->user_id = '1';
             $c->save();
             $this->session->set_flashdata('success', 'State Added Successfully');
@@ -38,8 +40,10 @@ class states extends CI_Controller {
                 $c = new State();
                 $c->where('id', $id)->get();
                 $c->country_id = $this->input->post('country_id');
-                $c->en_name = $this->input->post('en_name');
-                $c->it_name = ($this->input->post('it_name') == '') ? $this->input->post('en_name') : $this->input->post('it_name');
+                foreach ($this->config->item('custom_languages') as $key => $value) {
+                    $temp = $key . '_name';
+                    $c->$temp = $this->input->post($temp);
+                }
                 $c->user_id = '1';
                 $c->save();
                 $this->session->set_flashdata('success', 'State Updated Successfully');
