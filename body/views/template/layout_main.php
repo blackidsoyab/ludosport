@@ -35,6 +35,19 @@
         <?php echo smiley_js(); ?>
         <script>
             var http_host_js = '<?php base_url(); ?>';
+            
+            function UpdateLang(ele) {
+                $.ajax({
+                    type: 'POST',
+                    url: http_host_js + 'change_language/' + $(ele).data('lang'),
+                    success: function() {
+                        window.location.reload();
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        alert('error');
+                    }
+                });
+            }
         </script>
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -71,12 +84,6 @@
                         <!-- Begin button sidebar right toggle --><!-- /.btn-collapse-sidebar-right -->
                         <!-- End button sidebar right toggle -->
 
-                        <!-- Begin button nav toggle -->
-                        <div class="btn-collapse-nav" data-toggle="collapse" data-target="#main-fixed-nav">
-                            <i class="fa fa-plus icon-plus"></i>
-                        </div><!-- /.btn-collapse-sidebar-right -->
-                        <!-- End button nav toggle -->
-
 
                         <!-- Begin user session nav -->
                         <ul class="nav-user navbar-right">
@@ -84,7 +91,7 @@
                             <li class="dropdown">
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="<?php echo IMG_URL; ?>avatar/avatar-1.jpg" class="avatar img-circle" alt="Avatar">
+                                    <img src="<?php echo IMG_URL; ?>avatar/avatar-2.jpg" class="avatar img-circle" alt="Avatar">
                                     Hi, <strong><?php echo $session->name; ?></strong>
                                 </a>
                                 <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
@@ -95,6 +102,36 @@
                             </li>
                         </ul>
                         <!-- End user session nav -->
+
+                        <div class="collapse navbar-collapse" id="main-fixed-nav">
+                            <!-- Begin nav search form --><!-- End nav search form -->
+                            <ul class="nav navbar-nav navbar-left">
+                                <!-- Begin nav notification -->
+                                <li class="dropdown">
+                                    <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="badge badge-danger icon-count"><?php echo strtoupper($session->language); ?></span>
+                                        <i class="fa fa-bell-o"></i>
+                                    </a>
+                                    <ul class="dropdown-menu square with-triangle">
+                                        <li>
+                                            <div class="nav-dropdown-heading">
+                                                Languages
+                                            </div>
+                                            <!-- /.nav-dropdown-heading -->
+                                            <div class="nav-dropdown-content scroll-nav-dropdown">
+                                                <ul>
+                                                    <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
+                                                        <li class="<?php echo ($session->language == $key) ? 'unread' : ''; ?>"><a href="javascript:;" onclick="UpdateLang(this)" class="language" data-lang ="<?php echo $key; ?>"><?php echo ucwords($value); ?></a></li>
+                                                    <? } ?>
+                                                </ul>
+                                            </div>
+                                            <!-- /.nav-dropdown-content scroll-nav-dropdown -->
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!-- End nav notification -->
+                            </ul>
+                        </div>
                     </div><!-- /.top-nav-content -->
                 </div><!-- /.top-navbar-inner -->
             </div><!-- /.top-navbar -->

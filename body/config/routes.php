@@ -51,6 +51,7 @@ $route['logout'] = "authenticate/logout";
 
 //Dashboard
 $route['dashboard'] = "dashboard";
+$route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
 //Country Management
 $route['country'] = "countries/viewcountry";
 $route['country/list'] = "countries/viewcountry";

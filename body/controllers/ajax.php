@@ -9,6 +9,14 @@ class ajax extends CI_Controller {
         parent::__construct();
     }
 
+    function setNewLanguage($lang_prefix) {
+        $session = $this->session->userdata('user_session');
+        $session->language = $lang_prefix;
+        $newdata = array('user_session' => $session,);
+        $this->session->set_userdata($newdata);
+        echo TRUE;
+    }
+
     /*
      * ------------------------------------------
      *    Methos for the Permission Controller

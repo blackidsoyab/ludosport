@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="alert alert-success fade in alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
                             <p class="text-center">
                                 <?php echo parse_smileys($this->session->flashdata('success'), IMG_URL . "smileys/"); ?>
                             </p>
@@ -42,7 +42,7 @@
                 <div>&nbsp;</div>
                 <div class="row">
                     <div class="alert alert-warning fade in alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
                         <p class="text-center">
                             <?php echo parse_smileys($this->session->flashdata('warning'), IMG_URL . "smileys/"); ?>
                         </p>
@@ -54,7 +54,7 @@
                 <div>&nbsp;</div>
                 <div class="row">
                     <div class="alert alert-info fade in alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
                         <p class="text-center">
                             <?php echo parse_smileys($this->session->flashdata('info'), IMG_URL . "smileys/"); ?>
                         </p>
@@ -62,18 +62,19 @@
                 </div>
             <?php } ?>
 
-            <?php if ($this->session->flashdata('danger') != '') { ?>
+            <?php if ($this->session->flashdata('error') != '') { ?>
                 <div>&nbsp;</div>
                 <div class="row">
                     <div class="alert alert-danger fade in alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
                         <p class="text-center">
-                            <?php echo parse_smileys($this->session->flashdata('danger'), IMG_URL . "smileys/"); ?>
+                            <?php echo parse_smileys($this->session->flashdata('error'), IMG_URL . "smileys/"); ?>
                         </p>
                     </div>
                 </div>
             <?php } ?>
             <?php echo @$content_for_layout; ?>
         </div>
+        <script src="<?php echo JS_URL; ?>bootstrap.min.js"></script>
     </body>
 </html>

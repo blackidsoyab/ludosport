@@ -9,6 +9,8 @@ class authenticate extends CI_Controller {
         parent::__construct();
         $this->layout->setLayout('template/layout_login');
         $this->layout->setField('page_title', 'User Login');
+
+        setLanguage();
     }
 
     public function index() {
@@ -61,6 +63,10 @@ class authenticate extends CI_Controller {
         $this->layout->setLayout('template/layout_permission');
         $this->layout->setField('page_title', 'Permission Denied');
         $this->layout->view('authenticate/permission');
+    }
+
+    function register() {
+        //$this->layout->view()
     }
 
 }

@@ -1,5 +1,24 @@
 <?php
 
+if (!function_exists('setLanguage')) {
+
+    function setLanguage() {
+        $ci = & get_instance();
+        $session = $ci->session->userdata('user_session');
+        if (!empty($session)) {
+            $lang = $session->language;
+        } else {
+            $lang = 'en';
+        }
+        $all_langs = $ci->config->item('custom_languages');
+        $lang = $all_langs[$lang];
+        $ci->config->set_item('language', $lang);
+        $file = 'main';
+        $ci->lang->load($file, $lang);
+    }
+
+}
+
 if (!function_exists('getSystemConfiguration')) {
 
     function getSystemConfiguration($key) {
@@ -21,17 +40,6 @@ function getAllLanguages() {
         return $data;
     } else {
         return false;
-    }
-}
-
-function currentLanguage() {
-    $session = get_instance()->session->userdata('user_session');
-    if (!empty($session)) {
-        $obj = new language_master_model();
-        $data = $obj->getwhere(array('lang_prefix' => $session->language));
-        return $data[0]->lang_name;
-    } else {
-        echo 'English';
     }
 }
 
