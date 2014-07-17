@@ -5,9 +5,12 @@ if (!defined('BASEPATH'))
 
 class countries extends CI_Controller {
 
+    var $session;
+
     function __construct() {
         parent::__construct();
-        $this->layout->setField('page_title', 'Manage Countries');
+        $this->layout->setField('page_title', $this->lang->line('country'));
+        $this->session = $this->session->userdata('user_session');
     }
 
     function viewCountry() {
@@ -21,12 +24,12 @@ class countries extends CI_Controller {
                 $temp = $key . '_name';
                 $c->$temp = $this->input->post($temp);
             }
-            $c->user_id = '1';
+            $c->user_id = $this->session->id;
             $c->save();
-            $this->session->set_flashdata('success', 'Country Added Successfully');
+            $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
             redirect(base_url() . 'country', 'refresh');
         } else {
-            $this->layout->setField('page_title', 'Add Country');
+            $this->layout->setField('page_title', $this->lang->line('add') . ' ' . $this->lang->line('country'));
             $this->layout->view('countries/add');
         }
     }
@@ -40,18 +43,18 @@ class countries extends CI_Controller {
                     $temp = $key . '_name';
                     $c->$temp = $this->input->post($temp);
                 }
-                $c->user_id = '1';
+                $c->user_id = $this->session->id;
                 $c->save();
-                $this->session->set_flashdata('success', 'Country Updated Successfully');
+                $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
                 redirect(base_url() . 'country', 'refresh');
             } else {
-                $this->layout->setField('page_title', 'Edit Country');
+                $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('country'));
                 $country = new Country();
                 $data['country'] = $country->where('id', $id)->get();
                 $this->layout->view('countries/edit', $data);
             }
         } else {
-            $this->session->set_flashdata('error', 'Not able to Edit Country');
+            $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
             redirect(base_url() . 'country', 'refresh');
         }
     }
@@ -65,10 +68,10 @@ class countries extends CI_Controller {
             }
             $c->State->delete_all();
             $c->delete();
-            $this->session->set_flashdata('success', 'Country Deleted Successfully');
+            $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
             redirect(base_url() . 'country', 'refresh');
         } else {
-            $this->session->set_flashdata('error', 'Not able to delete Country');
+            $this->session->set_flashdata('error', $this->lang->line('delete_data_error'));
             redirect(base_url() . 'country', 'refresh');
         }
     }
