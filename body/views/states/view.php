@@ -24,7 +24,7 @@
                     'action': function() {
                         $.ajax({
                             type: 'POST',
-                            url: http_host_js + 'states/delete/' + current_id,
+                            url: http_host_js + 'state/delete/' + current_id,
                             data: id = current_id,
                             success: function() {
                                 window.location.reload();

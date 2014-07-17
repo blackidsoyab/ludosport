@@ -25,13 +25,13 @@ $lang['delete_data_success'] = 'Data delete successfully';
 $lang['delete_data_error'] = 'Not able to delete data';
 
 //Menus
-$lang['dashboard'] = 'Dashboard';
-$lang['access_management'] = 'Access Management';
-$lang['permission'] = 'Permission';
-$lang['roles'] = 'Roles';
-$lang['location_management'] = 'Location Management';
-$lang['country'] = 'Country';
-$lang['state'] = 'State';
+$lang['dashboard'] = 'Cruscotto';
+$lang['access_management'] = 'Accesso Gestione';
+$lang['permission'] = 'Autorizzazione';
+$lang['roles'] = 'Ruolo';
+$lang['location_management'] = 'Posizione Gestione';
+$lang['country'] = 'Paese';
+$lang['state'] = 'Stato';
 $lang['city'] = 'Città';
 
 //Loign

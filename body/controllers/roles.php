@@ -78,7 +78,7 @@ class roles extends CI_Controller {
             $role = new Role();
             $role->where('id', $id)->get();
             $role->delete();
-            $this->session->set_flashdata('success', $this->lang->line('delete_data_successr'));
+            $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
             redirect(base_url() . 'role', 'refresh');
         } else {
             $this->session->set_flashdata('error', $this->lang->line('delete_data_error'));
