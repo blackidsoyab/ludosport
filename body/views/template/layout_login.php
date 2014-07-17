@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title><?php echo @$page_title . ' | MyLudosport'; ?></title>
+        <title><?php echo @$page_title . ' |MYLUDOSPORT'; ?></title>
 
         <link href="<?php echo CSS_URL; ?>bootstrap.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -23,7 +23,7 @@
 
     <body class="login tooltips">
         <div class="login-header text-center">
-            <img src="<?php echo IMG_URL; ?>logo-login.png" class="logo" alt="Logo">
+            <img src="<?php echo IMG_URL; ?>logo-login.png" class="logo" alt="Logo" title="MYLUDOSPORT">
         </div>
         <div class="login-wrapper">
             <?php if ($this->session->flashdata('success') != '') { ?>

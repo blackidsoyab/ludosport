@@ -5,13 +5,16 @@ if (!defined('BASEPATH'))
 
 class json extends CI_Controller {
 
+    var $session_data;
+
     function __construct() {
         parent::__construct();
+        $this->session_data = $this->session->userdata('user_session');
     }
 
     public function getCountryJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('en_name');
+        $this->datatable->aColumns = array($this->session_data->language . '_name');
         $this->datatable->eColumns = array('id');
         $this->datatable->sIndexColumn = "id";
         $this->datatable->sTable = " countries";
@@ -19,8 +22,8 @@ class json extends CI_Controller {
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
-            $temp_arr[] = $aRow['en_name'];
-            $temp_arr[] = '<a href="' . base_url() . 'country/edit/' . $aRow['id'] . '" title="'.$this->lang->line('edit').'"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="'.$this->lang->line('delete').'"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            $temp_arr[] = $aRow[$this->session_data->language . '_name'];
+            $temp_arr[] = '<a href="' . base_url() . 'country/edit/' . $aRow['id'] . '" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }
@@ -30,7 +33,7 @@ class json extends CI_Controller {
 
     public function getStatesJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('states.en_name AS states', 'countries.en_name AS country');
+        $this->datatable->aColumns = array('states.' . $this->session_data->language . '_name AS states', 'countries.' . $this->session_data->language . '_name AS country');
         $this->datatable->eColumns = array('states.id');
         $this->datatable->sIndexColumn = "states.id";
         $this->datatable->sTable = " states, countries";
@@ -41,7 +44,7 @@ class json extends CI_Controller {
             $temp_arr = array();
             $temp_arr[] = $aRow['states'];
             $temp_arr[] = $aRow['country'];
-            $temp_arr[] = '<a href="' . base_url() . 'state/edit/' . $aRow['id'] . '" title="'.$this->lang->line('edit').'"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="'.$this->lang->line('delete').'"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            $temp_arr[] = '<a href="' . base_url() . 'state/edit/' . $aRow['id'] . '" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }
@@ -51,7 +54,7 @@ class json extends CI_Controller {
 
     public function getCitiesJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('states.en_name AS states', 'cities.en_name AS city', 'countries.en_name AS country');
+        $this->datatable->aColumns = array('states.' . $this->session_data->language . '_name AS states', 'countries.' . $this->session_data->language . '_name AS country', 'states.' . $this->session_data->language . '_name AS city');
         $this->datatable->eColumns = array('cities.id');
         $this->datatable->sIndexColumn = "cities.id";
         $this->datatable->sTable = " states, cities, countries";
@@ -63,7 +66,7 @@ class json extends CI_Controller {
             $temp_arr[] = $aRow['city'];
             $temp_arr[] = $aRow['states'];
             $temp_arr[] = $aRow['country'];
-            $temp_arr[] = '<a href="' . base_url() . 'city/edit/' . $aRow['id'] . '" title="'.$this->lang->line('edit').'"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="'.$this->lang->line('delete').'"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            $temp_arr[] = '<a href="' . base_url() . 'city/edit/' . $aRow['id'] . '" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }
@@ -73,7 +76,7 @@ class json extends CI_Controller {
 
     public function getPermissionsJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('en_perm_name', 'controller', 'method');
+        $this->datatable->aColumns = array($this->session_data->language . '_perm_name', 'controller', 'method');
         $this->datatable->eColumns = array('id');
         $this->datatable->sIndexColumn = "id";
         $this->datatable->sTable = " permissions";
@@ -81,10 +84,10 @@ class json extends CI_Controller {
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
-            $temp_arr[] = $aRow['en_perm_name'];
+            $temp_arr[] = $aRow[$this->session_data->language . '_perm_name'];
             $temp_arr[] = $aRow['controller'];
             $temp_arr[] = $aRow['method'];
-            $temp_arr[] = '<a href="' . base_url() . 'permission/edit/' . $aRow['id'] . '" title="'.$this->lang->line('edit').'"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="'.$this->lang->line('delete').'"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            $temp_arr[] = '<a href="' . base_url() . 'permission/edit/' . $aRow['id'] . '" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }
@@ -94,7 +97,7 @@ class json extends CI_Controller {
 
     public function getRolesJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('en_role_name');
+        $this->datatable->aColumns = array($this->session_data->language . '_role_name');
         $this->datatable->eColumns = array('id');
         $this->datatable->sIndexColumn = "id";
         $this->datatable->sTable = " roles";
@@ -102,8 +105,8 @@ class json extends CI_Controller {
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
-            $temp_arr[] = $aRow['en_role_name'];
-            $temp_arr[] = '<a href="' . base_url() . 'role/edit/' . $aRow['id'] . '" title="'.$this->lang->line('edit').'"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="'.$this->lang->line('delete').'"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            $temp_arr[] = $aRow[$this->session_data->language . '_role_name'];
+            $temp_arr[] = '<a href="' . base_url() . 'role/edit/' . $aRow['id'] . '" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }

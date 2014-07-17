@@ -2,17 +2,11 @@
 <html lang="it">
     <head>
         <meta charset="utf-8">
-        <title><?php echo @$page_title . ' |  My LudoSport'; ?></title>
+        <title><?php echo @$page_title . ' |MYLUDOSPORT'; ?></title>
 
         <link href="<?php echo CSS_URL; ?>bootstrap.min.css" rel="stylesheet">
         <link href="<?php echo CSS_URL; ?>style.css" rel="stylesheet">
-
         <link href="<?php echo CSS_URL; ?>style-responsive.css" rel="stylesheet">
-
-        <script src="<?php echo JS_URL; ?>jquery.min.js"></script>
-        <script src="<?php echo JS_URL; ?>jquery.validate.js"></script>
-        <script src="<?php echo PLUGIN_URL; ?>datatable/js/jquery.dataTables.min.js"></script>
-        <script src="<?php echo PLUGIN_URL; ?>datatable/js/bootstrap.datatable.js"></script>
         <link href="<?php echo PLUGIN_URL; ?>weather-icon/css/weather-icons.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>prettify/prettify.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>magnific-popup/magnific-popup.min.css" rel="stylesheet">
@@ -31,6 +25,11 @@
         <link href="<?php echo PLUGIN_URL; ?>slider/slider.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href="<?php echo CSS_URL; ?>jquery.confirm.css" rel="stylesheet" />
+
+        <script src="<?php echo JS_URL; ?>jquery.min.js"></script>
+        <script src="<?php echo JS_URL; ?>jquery.validate.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>datatable/js/jquery.dataTables.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>datatable/js/bootstrap.datatable.js"></script>
         <script src="<?php echo JS_URL; ?>jquery.confirm.js" type="text/javascript"></script>
         <?php echo smiley_js(); ?>
         <script>
@@ -57,56 +56,35 @@
     </head>
 
     <body class="tooltips">
-
-        <!-- BEGIN PANEL DEMO -->
-        <div class="box-demo"></div>
-        <!-- END PANEL DEMO -->
-
+        <!-- Wrapper -->
         <div class="wrapper">
-            <!-- BEGIN TOP NAV -->
+            <!-- Top Nav -->
             <div class="top-navbar">
                 <div class="top-navbar-inner">
-
-                    <!-- Begin Logo brand -->
                     <div class="logo-brand">
-                        <a href="<?php echo base_url(); ?>"><img src="<?php echo IMG_URL; ?>sentir-logo-primary.png" alt="Sentir logo"></a>
-                    </div><!-- /.logo-brand -->
-                    <!-- End Logo brand -->
+                        <a href="<?php echo base_url(); ?>" title="MYLUDOSPORT"><img src="<?php echo IMG_URL; ?>sentir-logo-primary.png" alt="Sentir logo"></a>
+                    </div>
 
                     <div class="top-nav-content">
-
-                        <!-- Begin button sidebar left toggle -->
                         <div class="btn-collapse-sidebar-left">
                             <i class="fa fa-long-arrow-right icon-dinamic"></i>
-                        </div><!-- /.btn-collapse-sidebar-left -->
-                        <!-- End button sidebar left toggle -->
+                        </div>
 
-                        <!-- Begin button sidebar right toggle --><!-- /.btn-collapse-sidebar-right -->
-                        <!-- End button sidebar right toggle -->
-
-
-                        <!-- Begin user session nav -->
                         <ul class="nav-user navbar-right">
                             <?php $session = $this->session->userdata('user_session'); ?>
                             <li class="dropdown">
-
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="<?php echo IMG_URL; ?>avatar/avatar-2.jpg" class="avatar img-circle" alt="Avatar">
+                                    <img src="<?php echo IMG_URL; ?>avatar/avatar-2.jpg" class="avatar img-circle" alt="<?php echo $session->name; ?>" title="<?php echo $session->name; ?>">
                                     <?php echo $this->lang->line('hello'); ?>, <strong><?php echo $session->name; ?></strong>
                                 </a>
                                 <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
-                                    <li><a href="my-profile.html">Change Profile</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="<?php echo base_url() . 'logout'; ?>"><?php echo $this->lang->line('logout'); ?></a></li>
+                                    <li><a href="<?php echo base_url() . 'logout'; ?>" title="<?php echo $this->lang->line('logout'); ?>"><?php echo $this->lang->line('logout'); ?></a></li>
                                 </ul>
                             </li>
                         </ul>
-                        <!-- End user session nav -->
 
                         <div class="collapse navbar-collapse" id="main-fixed-nav">
-                            <!-- Begin nav search form --><!-- End nav search form -->
                             <ul class="nav navbar-nav navbar-left">
-                                <!-- Begin nav notification -->
                                 <li class="dropdown">
                                     <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
                                         <span class="badge badge-danger icon-count"><?php echo strtoupper($session->language); ?></span>
@@ -117,54 +95,49 @@
                                             <div class="nav-dropdown-heading">
                                                 Languages
                                             </div>
-                                            <!-- /.nav-dropdown-heading -->
                                             <div class="nav-dropdown-content scroll-nav-dropdown">
                                                 <ul>
                                                     <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
-                                                        <li class="<?php echo ($session->language == $key) ? 'unread' : ''; ?>"><a href="javascript:;" onclick="UpdateLang(this)" class="language" data-lang ="<?php echo $key; ?>"><?php echo ucwords($value); ?></a></li>
+                                                        <li class="<?php echo ($session->language == $key) ? 'unread' : ''; ?>"><a href="javascript:;" onclick="UpdateLang(this)" class="language" data-lang ="<?php echo $key; ?>" title="<?php echo ucwords($value); ?>"><?php echo ucwords($value); ?></a></li>
                                                     <? } ?>
                                                 </ul>
                                             </div>
-                                            <!-- /.nav-dropdown-content scroll-nav-dropdown -->
                                         </li>
                                     </ul>
                                 </li>
-                                <!-- End nav notification -->
                             </ul>
                         </div>
-                    </div><!-- /.top-nav-content -->
-                </div><!-- /.top-navbar-inner -->
-            </div><!-- /.top-navbar -->
-            <!-- END TOP NAV -->
-
-
+                    </div>
+                </div>
+            </div>
+            <!-- /.Top Nav -->
 
             <!-- BEGIN SIDEBAR LEFT -->
             <?php $page = ($this->uri->segment(1) ? $this->uri->segment(1) : 'dashboard'); ?>
             <div class="sidebar-left sidebar-nicescroller">
                 <ul class="sidebar-menu">
-                    <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a></li>
+                    <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(); ?>" title="<?php echo $this->lang->line('dashboard'); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a></li>
                     <li class="<?php echo ($page == 'permission' || $page == 'role') ? 'active selected' : ''; ?>">
-                        <a href="javascript:;">
+                        <a href="javascript:;" title="<?php echo $this->lang->line('access_management'); ?>">
                             <i class="fa fa-table icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                             <?php echo $this->lang->line('access_management'); ?>
                         </a>
                         <ul class="submenu">
-                            <li><a href="<?php echo base_url() . 'permission'; ?>"><?php echo $this->lang->line('permission'); ?></a></li>
-                            <li><a href="<?php echo base_url() . 'role'; ?>"><?php echo $this->lang->line('role'); ?></a></li>
+                            <li><a href="<?php echo base_url() . 'permission'; ?>" title="<?php echo $this->lang->line('permission'); ?>"><?php echo $this->lang->line('permission'); ?></a></li>
+                            <li><a href="<?php echo base_url() . 'role'; ?>" title="<?php echo $this->lang->line('role'); ?>"><?php echo $this->lang->line('role'); ?></a></li>
                         </ul>
                     </li>
                     <li class="<?php echo ($page == 'country' || $page == 'states' || $page == 'city') ? 'active selected' : ''; ?>">
-                        <a href="javascript:;">
+                        <a href="javascript:;" title="<?php echo $this->lang->line('location_management'); ?>">
                             <i class="fa fa-table icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                             <?php echo $this->lang->line('location_management'); ?>
                         </a>
                         <ul class="submenu">
-                            <li><a href="<?php echo base_url() . 'country'; ?>"><?php echo $this->lang->line('country'); ?></a></li>
-                            <li><a href="<?php echo base_url() . 'state'; ?>"><?php echo $this->lang->line('state'); ?></a></li>
-                            <li><a href="<?php echo base_url() . 'city'; ?>"><?php echo $this->lang->line('city'); ?></a></li>
+                            <li><a href="<?php echo base_url() . 'country'; ?>" title="<?php echo $this->lang->line('country'); ?>"><?php echo $this->lang->line('country'); ?></a></li>
+                            <li><a href="<?php echo base_url() . 'state'; ?>" title="<?php echo $this->lang->line('state'); ?>"><?php echo $this->lang->line('state'); ?></a></li>
+                            <li><a href="<?php echo base_url() . 'city'; ?>" title="<?php echo $this->lang->line('city'); ?>"><?php echo $this->lang->line('city'); ?></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -173,10 +146,7 @@
 
             <!-- BEGIN PAGE CONTENT -->
             <div class="page-content">
-
-                <!-- BEGIN container-fluid -->
                 <div class="container-fluid">
-
                     <?php if ($this->session->flashdata('success') != '') { ?>
                         <div>&nbsp;</div>
                         <div class="row">
@@ -228,17 +198,13 @@
                     <?php } ?>
                     <?php echo @$content_for_layout; ?>
                 </div>
-                <!-- END container-fluid -->
-
                 <!-- BEGIN FOOTER -->
                 <footer>
                     &copy; 2014Ludosport<a href="#fakelink"></a><br />
                 </footer>
                 <!-- END FOOTER -->
-
             </div>
             <!-- /.page-content -->
-
         </div>
         <!-- /.wrapper -->
 

@@ -22,7 +22,11 @@ class countries extends CI_Controller {
             $c = new Country();
             foreach ($this->config->item('custom_languages') as $key => $value) {
                 $temp = $key . '_name';
-                $c->$temp = $this->input->post($temp);
+                if ($this->input->post($temp) != '') {
+                    $c->$temp = $this->input->post($temp);
+                } else {
+                    $c->$temp = $this->input->post('en_name');
+                }
             }
             $c->user_id = $this->session_data->id;
             $c->save();
@@ -41,7 +45,11 @@ class countries extends CI_Controller {
                 $c->where('id', $id)->get();
                 foreach ($this->config->item('custom_languages') as $key => $value) {
                     $temp = $key . '_name';
-                    $c->$temp = $this->input->post($temp);
+                    if ($this->input->post($temp) != '') {
+                        $c->$temp = $this->input->post($temp);
+                    } else {
+                        $c->$temp = $this->input->post('en_name');
+                    }
                 }
                 $c->user_id = $this->session_data->id;
                 $c->save();

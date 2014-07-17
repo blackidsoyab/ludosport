@@ -20,14 +20,14 @@
     <div class="form-group">
         <div class="checkbox">
             <label>
-                <input type="checkbox" class="i-yellow-flat"> <?php echo $this->lang->line('remember_me'); ?>
+                <input type="checkbox" class="i-yellow-flat" title="<?php echo $this->lang->line('remember_me'); ?>"><?php echo $this->lang->line('remember_me'); ?>
             </label>
         </div>
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-warning btn-lg btn-perspective btn-block"><?php echo $this->lang->line('login'); ?></button>
+        <button type="submit" class="btn btn-warning btn-lg btn-perspective btn-block" title="<?php echo $this->lang->line('login'); ?>"><?php echo $this->lang->line('login'); ?></button>
     </div>
 </form>
-<p class="text-center"><strong><a href="<?php echo base_url() . 'forgot_password'; ?>"><?php echo $this->lang->line('forgot_password'); ?></a></strong></p>
+<p class="text-center"><strong><a href="<?php echo base_url() . 'forgot_password'; ?>" title="<?php echo $this->lang->line('forgot_password'); ?>"><?php echo $this->lang->line('forgot_password'); ?></a></strong></p>
 <p class="text-center"><?php echo $this->lang->line('or'); ?></p>
-<p class="text-center"><strong><a href="<?php echo base_url() . 'register'; ?>"><?php echo $this->lang->line('create_new_account'); ?></a></strong></p>
+<p class="text-center"><strong><a href="<?php echo base_url() . 'register'; ?>" title="<?php echo $this->lang->line('create_new_account'); ?>"><?php echo $this->lang->line('create_new_account'); ?></a></strong></p>

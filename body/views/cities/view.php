@@ -52,7 +52,7 @@
     </div>
 
     <div class="col-md-6">
-        <a href="<?php echo base_url() . 'city/add' ?>" class="btn btn-primary h1 pull-right"><?php echo $this->lang->line('add'), ' ', $this->lang->line('city'); ?></a>
+        <a href="<?php echo base_url() . 'city/add' ?>" class="btn btn-primary h1 pull-right" title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('city'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('city'); ?></a>
     </div>
 </div>
 

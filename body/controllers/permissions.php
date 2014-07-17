@@ -22,7 +22,11 @@ class permissions extends CI_Controller {
             $permission = new Permission();
             foreach ($this->config->item('custom_languages') as $key => $value) {
                 $temp = $key . '_perm_name';
-                $permission->$temp = $this->input->post($key . '_perm_name');
+                if ($this->input->post($temp) != '') {
+                    $permission->$temp = $this->input->post($temp);
+                } else {
+                    $permission->$temp = $this->input->post('en__perm_name');
+                }
             }
 
             $permission->controller = $this->input->post('controller');
@@ -45,7 +49,11 @@ class permissions extends CI_Controller {
                 $permission->where('id', $id)->get();
                 foreach ($this->config->item('custom_languages') as $key => $value) {
                     $temp = $key . '_perm_name';
-                    $permission->$temp = $this->input->post($key . '_perm_name');
+                    if ($this->input->post($temp) != '') {
+                        $permission->$temp = $this->input->post($temp);
+                    } else {
+                        $permission->$temp = $this->input->post('en__perm_name');
+                    }
                 }
 
                 $permission->controller = $this->input->post('controller');

@@ -111,8 +111,8 @@
         <div class="form-group">
             <label class="col-md-2 control-label">&nbsp;</label>
             <div class="col-md-8">
-                <button type="submit" class="btn btn-primary"><?php echo $this->lang->line('update'); ?></button>
-                <a href="<?php echo base_url() . 'permission' ?>" class="btn btn-default"><?php echo $this->lang->line('cancel'); ?></a>
+                <button type="submit" class="btn btn-primary" title="<?php echo $this->lang->line('update'); ?>"><?php echo $this->lang->line('update'); ?></button>
+                <a href="<?php echo base_url() . 'permission' ?>" class="btn btn-default" title="<?php echo $this->lang->line('cancel'); ?>"><?php echo $this->lang->line('cancel'); ?></a>
             </div>
         </div>
 

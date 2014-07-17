@@ -39,7 +39,7 @@ class AccessControl extends CI_Controller {
                 !in_array($action, $this->allowed_for_all)) {
 
             $session = $this->session->userdata('user_session');
-            if (isset($session) && !empty($session)) {
+            if (isset($session) && !empty($session) && $session->id != 1) {
                 if (hasPermission($session->id, getPermmissionID($action)) === false) {
                     $this->session->set_flashdata('error', 'You dont have permission to see it :-/ Please contact Admin');
                     redirect(base_url() . 'denied', 'refresh');

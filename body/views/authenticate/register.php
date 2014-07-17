@@ -85,14 +85,14 @@
     <div class="form-group">
         <div class="checkbox">
             <label class="inline-popups">
-                <input type="checkbox" class="i-yellow-flat" name="terms_conditions"> <?php echo $this->lang->line('i_accept'); ?> <a href="#text-popup" data-toggle="modal" data-target="#terms_conditions"><?php echo $this->lang->line('terms_conditions'); ?></a>
+                <input type="checkbox" class="i-yellow-flat" name="terms_conditions" title="<?php echo $this->lang->line('terms_conditions'); ?>"> <?php echo $this->lang->line('i_accept'); ?> <a href="#text-popup" data-toggle="modal" data-target="#terms_conditions" title="<?php echo $this->lang->line('terms_conditions'); ?>"><?php echo $this->lang->line('terms_conditions'); ?></a>
             </label>
             <div id="chkerror"></div>
         </div>
     </div>
 
     <div class="form-group">
-        <button type="submit" class="btn btn-warning btn-lg btn-perspective btn-block"><?php echo $this->lang->line('enter'); ?></button>
+        <button type="submit" class="btn btn-warning btn-lg btn-perspective btn-block" title="<?php echo $this->lang->line('enter'); ?>"><?php echo $this->lang->line('enter'); ?></button>
     </div>
 
 </form>

@@ -48,8 +48,8 @@
         <div class="form-group">
             <label class="col-md-2 control-label">&nbsp;</label>
             <div class="col-md-8">
-                <button type="submit" class="btn btn-primary"><?php echo $this->lang->line('save'); ?></button>
-                <a href="<?php echo base_url() . 'state' ?>" class="btn btn-default"><?php echo $this->lang->line('cancel'); ?></a>
+                <button type="submit" class="btn btn-primary" title="<?php echo $this->lang->line('save'); ?>"><?php echo $this->lang->line('save'); ?></button>
+                <a href="<?php echo base_url() . 'state' ?>" class="btn btn-default" title="<?php echo $this->lang->line('cancel'); ?>"><?php echo $this->lang->line('cancel'); ?></a>
             </div>
         </div>
             

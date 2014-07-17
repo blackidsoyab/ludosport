@@ -23,11 +23,15 @@ class roles extends CI_Controller {
             $role = new Role();
             foreach ($this->config->item('custom_languages') as $key => $value) {
                 $temp = $key . '_role_name';
-                $role->$temp = $this->input->post($key . '_role_name');
+                if ($this->input->post($temp) != '') {
+                    $role->$temp = $this->input->post($temp);
+                } else {
+                    $role->$temp = $this->input->post('en_role_name');
+                }
             }
 
             $role->permission = serialize($this->input->post('prem'));
-            $role->user_id =  $this->session_data->id;
+            $role->user_id = $this->session_data->id;
             $role->save();
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
             redirect(base_url() . 'role', 'refresh');
@@ -47,11 +51,15 @@ class roles extends CI_Controller {
                 $role->where('id', $id)->get();
                 foreach ($this->config->item('custom_languages') as $key => $value) {
                     $temp = $key . '_role_name';
-                    $role->$temp = $this->input->post($key . '_role_name');
+                    if ($this->input->post($temp) != '') {
+                        $role->$temp = $this->input->post($temp);
+                    } else {
+                        $role->$temp = $this->input->post('en_role_name');
+                    }
                 }
 
                 $role->permission = serialize($this->input->post('prem'));
-                $role->user_id =  $this->session_data->id;
+                $role->user_id = $this->session_data->id;
                 $role->save();
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
                 redirect(base_url() . 'role', 'refresh');

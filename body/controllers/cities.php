@@ -23,7 +23,11 @@ class cities extends CI_Controller {
             $c->state_id = $this->input->post('state_id');
             foreach ($this->config->item('custom_languages') as $key => $value) {
                 $temp = $key . '_name';
-                $c->$temp = $this->input->post($temp);
+                if ($this->input->post($temp) != '') {
+                    $c->$temp = $this->input->post($temp);
+                } else {
+                    $c->$temp = $this->input->post('en_name');
+                }
             }
             $c->user_id = $this->session_data->id;
             $c->save();
@@ -45,7 +49,11 @@ class cities extends CI_Controller {
                 $c->state_id = $this->input->post('state_id');
                 foreach ($this->config->item('custom_languages') as $key => $value) {
                     $temp = $key . '_name';
-                    $c->$temp = $this->input->post($temp);
+                    if ($this->input->post($temp) != '') {
+                        $c->$temp = $this->input->post($temp);
+                    } else {
+                        $c->$temp = $this->input->post('en_name');
+                    }
                 }
                 $c->user_id = $this->session_data->id;
                 $c->save();

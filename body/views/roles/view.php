@@ -52,7 +52,7 @@
     </div>
 
     <div class="col-md-6">
-        <a href="<?php echo base_url() . 'role/add' ?>" class="btn btn-primary h1 pull-right"><?php echo $this->lang->line('add'), ' ', $this->lang->line('role'); ?></a>
+        <a href="<?php echo base_url() . 'role/add' ?>" class="btn btn-primary h1 pull-right" title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('role'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('role'); ?></a>
     </div>
 </div>
 
