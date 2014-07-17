@@ -32,18 +32,18 @@
     });
     //]]>
 </script>
-<h1 class="page-heading">Add New Role</h1>
+<h1 class="page-heading"><?php echo $this->lang->line('add'), ' ', $this->lang->line('role'); ?></h1>
 <div class="the-box">
 
     <form id="add" method="post" class="form-horizontal" action="<?php echo base_url() . 'role/add'; ?>">
         <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
             <div class="form-group">
                 <label for="question" class="col-md-2 control-label">
-                    <?php echo ucwords($value) . ' Name'; ?>
+                    <?php echo ucwords($value), ' ', $this->lang->line('name'); ?>
                     <span class="text-danger"><?php echo ($key == 'en') ? '*' : '&nbsp;'; ?></span>
                 </label>
                 <div class="col-md-4">
-                    <input type="text" id="<?php echo $key . '_role_name'; ?>" name="<?php echo $key . '_role_name'; ?>"  class="<?php echo ($key == 'en') ? 'form-control required' : 'form-control'; ?>" placeholder="Role Name in <?php echo ucwords($value); ?>"/>
+                    <input type="text" id="<?php echo $key . '_role_name'; ?>" name="<?php echo $key . '_role_name'; ?>"  class="<?php echo ($key == 'en') ? 'form-control required' : 'form-control'; ?>" placeholder="Role in <?php echo ucwords($value); ?>"/>
                 </div>
             </div>
         <?php } ?>
@@ -53,27 +53,27 @@
                 <label class="col-md-2 control-label" for="radios"><?php echo $v['name']; ?></label>
                 <div class="col-md-4"> 
                     <label class="radio-inline" for="radios-0">
-                        <input type="radio" name="<?php echo'prem[' . $v['id'] . ']'; ?>" id="<?php echo 'perm_' . $v['id'] . '_1'; ?>" value="1" />Allow
+                        <input type="radio" name="<?php echo'prem[' . $v['id'] . ']'; ?>" id="<?php echo 'perm_' . $v['id'] . '_1'; ?>" value="1" /><?php echo $this->lang->line('allow'); ?>
                     </label> 
                     <label class="radio-inline" for="radios-0">
-                        <input type="radio" name="<?php echo'prem[' . $v['id'] . ']'; ?>" id="<?php echo 'perm_' . $v['id'] . '_0'; ?>" value="0" checked="checked"/>Deny
+                        <input type="radio" name="<?php echo'prem[' . $v['id'] . ']'; ?>" id="<?php echo 'perm_' . $v['id'] . '_0'; ?>" value="0" checked="checked"/><?php echo $this->lang->line('deny'); ?>
                     </label> 
                 </div>
             </div>
         <?php } ?>
 
-        <div class="form-group">
+       <div class="form-group">
             <label class="col-md-2 control-label">&nbsp;</label>
             <div class="col-md-8">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <a href="<?php echo base_url() . 'role' ?>" class="btn btn-default">Cancel</a>
+                <button type="submit" class="btn btn-primary"><?php echo $this->lang->line('save'); ?></button>
+                <a href="<?php echo base_url() . 'role' ?>" class="btn btn-default"><?php echo $this->lang->line('cancel'); ?></a>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-2 control-label">&nbsp;</label>
             <div class="col-md-8">
-                Fields marked with  <span class="text-danger">*</span>  are mandatory.
+                <?php echo $this->lang->line('compulsory_note'); ?>
             </div>
         </div>
     </form>

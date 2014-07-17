@@ -152,7 +152,7 @@
                         </a>
                         <ul class="submenu">
                             <li><a href="<?php echo base_url() . 'permission'; ?>"><?php echo $this->lang->line('permission'); ?></a></li>
-                            <li><a href="<?php echo base_url() . 'role'; ?>"><?php echo $this->lang->line('roles'); ?></a></li>
+                            <li><a href="<?php echo base_url() . 'role'; ?>"><?php echo $this->lang->line('role'); ?></a></li>
                         </ul>
                     </li>
                     <li class="<?php echo ($page == 'country' || $page == 'states' || $page == 'city') ? 'active selected' : ''; ?>">

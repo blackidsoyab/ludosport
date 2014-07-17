@@ -48,11 +48,11 @@
 
 <div class="row">
     <div class="col-md-6">
-        <h1 class="page-heading h1">Manage Roles</h1>    
+        <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('role'); ?></h1>    
     </div>
 
     <div class="col-md-6">
-        <a href="<?php echo base_url() . 'role/add' ?>" class="btn btn-primary h1 pull-right">Add New Role</a>
+        <a href="<?php echo base_url() . 'role/add' ?>" class="btn btn-primary h1 pull-right"><?php echo $this->lang->line('add'), ' ', $this->lang->line('role'); ?></a>
     </div>
 </div>
 
@@ -62,8 +62,8 @@
         <table class="table table-striped table-hover" id="list_data">
             <thead class="the-box dark full">
                 <tr align="left">
-                    <th>Name</th>
-                    <th width="150">&nbsp;</th>
+                    <th><?php echo $this->lang->line('role'), ' ', $this->lang->line('name'); ?></th>
+                    <th width="150"><?php echo $this->lang->line('actions'); ?></th>
                 </tr>
             </thead>
             <tbody>

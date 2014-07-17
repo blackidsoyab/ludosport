@@ -28,7 +28,7 @@ $lang['delete_data_error'] = 'Not able to delete data';
 $lang['dashboard'] = 'Dashboard';
 $lang['access_management'] = 'Access Management';
 $lang['permission'] = 'Permission';
-$lang['roles'] = 'Roles';
+$lang['role'] = 'Role';
 $lang['location_management'] = 'Location Management';
 $lang['country'] = 'Country';
 $lang['state'] = 'State';
@@ -59,4 +59,8 @@ $lang['terms_conditions'] = 'Terms and conditions';
 //Manage Permission
 $lang['controller'] = 'Controller';
 $lang['method'] = 'Method';
+
+//Role
+$lang['allow'] = 'Allow';
+$lang['deny'] = 'Deny';
 ?>

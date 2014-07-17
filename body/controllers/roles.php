@@ -5,10 +5,12 @@ if (!defined('BASEPATH'))
 
 class roles extends CI_Controller {
 
+    var $session;
+
     function __construct() {
         parent::__construct();
-        $this->layout->setField('page_title', 'Manage Roles');
-
+        $this->layout->setField('page_title', $this->lang->line('role'));
+        $this->session = $this->session->userdata('user_session');
         $this->load->library('acl');
     }
 
@@ -25,9 +27,9 @@ class roles extends CI_Controller {
             }
 
             $role->permission = serialize($this->input->post('prem'));
-            $role->user_id = '1';
+            $role->user_id =  $this->session->id;
             $role->save();
-            $this->session->set_flashdata('success', 'Role Added Successfully :-)');
+            $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
             redirect(base_url() . 'role', 'refresh');
         } else {
             $this->layout->setField('page_title', 'Add Role');
@@ -49,9 +51,9 @@ class roles extends CI_Controller {
                 }
 
                 $role->permission = serialize($this->input->post('prem'));
-                $role->user_id = '1';
+                $role->user_id =  $this->session->id;
                 $role->save();
-                $this->session->set_flashdata('success', 'Role Updated Successfully :)');
+                $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
                 redirect(base_url() . 'role', 'refresh');
             } else {
                 $this->layout->setField('page_title', 'Edit Role');
@@ -66,7 +68,7 @@ class roles extends CI_Controller {
                 $this->layout->view('roles/edit', $data);
             }
         } else {
-            $this->session->set_flashdata('error', 'Not able to Edit Role :-S');
+            $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
             redirect(base_url() . 'role', 'refresh');
         }
     }
@@ -76,10 +78,10 @@ class roles extends CI_Controller {
             $role = new Role();
             $role->where('id', $id)->get();
             $role->delete();
-            $this->session->set_flashdata('success', 'Role Deleted Successfully :-)');
+            $this->session->set_flashdata('success', $this->lang->line('delete_data_successr'));
             redirect(base_url() . 'role', 'refresh');
         } else {
-            $this->session->set_flashdata('error', 'Not able to delete Role :-S');
+            $this->session->set_flashdata('error', $this->lang->line('delete_data_error'));
             redirect(base_url() . 'role', 'refresh');
         }
     }

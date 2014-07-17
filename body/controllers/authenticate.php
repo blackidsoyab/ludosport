@@ -31,6 +31,7 @@ class authenticate extends CI_Controller {
 
         if ($user->result_count() === 1) {
             $user_data = new stdClass();
+            $user_data->id = $user->id;
             $user_data->name = $user->firstname . ' ' . $user->lastname;
             $user_data->language = 'en';
             $user_data->role = $user->role_id;
