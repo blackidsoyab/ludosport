@@ -34,7 +34,7 @@
         <script src="<?php echo JS_URL; ?>jquery.confirm.js" type="text/javascript"></script>
         <?php echo smiley_js(); ?>
         <script>
-            var http_host_js = '<?php base_url(); ?>';
+            var http_host_js = '<?php echo base_url(); ?>';
             
             function UpdateLang(ele) {
                 $.ajax({
@@ -69,7 +69,7 @@
 
                     <!-- Begin Logo brand -->
                     <div class="logo-brand">
-                        <a href="index.html"><img src="<?php echo IMG_URL; ?>sentir-logo-primary.png" alt="Sentir logo"></a>
+                        <a href="<?php echo base_url(); ?>"><img src="<?php echo IMG_URL; ?>sentir-logo-primary.png" alt="Sentir logo"></a>
                     </div><!-- /.logo-brand -->
                     <!-- End Logo brand -->
 
@@ -92,12 +92,12 @@
 
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="<?php echo IMG_URL; ?>avatar/avatar-2.jpg" class="avatar img-circle" alt="Avatar">
-                                    Hi, <strong><?php echo $session->name; ?></strong>
+                                    <?php echo $this->lang->line('hello'); ?>, <strong><?php echo $session->name; ?></strong>
                                 </a>
                                 <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
                                     <li><a href="my-profile.html">Change Profile</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="<?php echo base_url() . 'logout'; ?>">Log out</a></li>
+                                    <li><a href="<?php echo base_url() . 'logout'; ?>"><?php echo $this->lang->line('logout'); ?></a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -143,28 +143,28 @@
             <?php $page = ($this->uri->segment(1) ? $this->uri->segment(1) : 'dashboard'); ?>
             <div class="sidebar-left sidebar-nicescroller">
                 <ul class="sidebar-menu">
-                    <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(); ?>"><i class="fa fa-dashboard icon-sidebar"></i>Dashboard</a></li>
+                    <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a></li>
                     <li class="<?php echo ($page == 'permission' || $page == 'role') ? 'active selected' : ''; ?>">
                         <a href="javascript:;">
                             <i class="fa fa-table icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
-                            Access Management
+                            <?php echo $this->lang->line('access_management'); ?>
                         </a>
                         <ul class="submenu">
-                            <li><a href="<?php echo base_url() . 'permission'; ?>">Permission</a></li>
-                            <li><a href="<?php echo base_url() . 'role'; ?>">Roles</a></li>
+                            <li><a href="<?php echo base_url() . 'permission'; ?>"><?php echo $this->lang->line('permission'); ?></a></li>
+                            <li><a href="<?php echo base_url() . 'role'; ?>"><?php echo $this->lang->line('roles'); ?></a></li>
                         </ul>
                     </li>
                     <li class="<?php echo ($page == 'country' || $page == 'states' || $page == 'city') ? 'active selected' : ''; ?>">
                         <a href="javascript:;">
                             <i class="fa fa-table icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
-                            Location Management
+                            <?php echo $this->lang->line('location_management'); ?>
                         </a>
                         <ul class="submenu">
-                            <li><a href="<?php echo base_url() . 'country'; ?>">Country</a></li>
-                            <li><a href="<?php echo base_url() . 'state'; ?>">State</a></li>
-                            <li><a href="<?php echo base_url() . 'city'; ?>">City</a></li>
+                            <li><a href="<?php echo base_url() . 'country'; ?>"><?php echo $this->lang->line('country'); ?></a></li>
+                            <li><a href="<?php echo base_url() . 'state'; ?>"><?php echo $this->lang->line('state'); ?></a></li>
+                            <li><a href="<?php echo base_url() . 'city'; ?>"><?php echo $this->lang->line('city'); ?></a></li>
                         </ul>
                     </li>
                 </ul>

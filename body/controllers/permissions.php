@@ -7,7 +7,7 @@ class permissions extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->layout->setField('page_title', 'Manage Permissions');
+        $this->layout->setField('page_title', $this->lang->line('permission'));
     }
 
     function viewPermission() {
@@ -26,10 +26,10 @@ class permissions extends CI_Controller {
             $permission->method = $this->input->post('method');
             $permission->user_id = '1';
             $permission->save();
-            $this->session->set_flashdata('success', 'Permission Added Successfully :-)');
+            $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
             redirect(base_url() . 'permission', 'refresh');
         } else {
-            $this->layout->setField('page_title', 'Add Permissions');
+            $this->layout->setField('page_title', $this->lang->line('add') . ' ' . $this->lang->line('permission'));
             $data['all_controllers'] = $this->controllerlist->getControllers();
             $this->layout->view('permissions/add', $data);
         }
@@ -49,10 +49,10 @@ class permissions extends CI_Controller {
                 $permission->method = $this->input->post('method');
                 $permission->user_id = '1';
                 $permission->save();
-                $this->session->set_flashdata('success', 'Permission Updated Successfully :)');
+                $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
                 redirect(base_url() . 'permission', 'refresh');
             } else {
-                $this->layout->setField('page_title', 'Edit Permission');
+                $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('permission'));
 
                 $permission = new Permission();
                 $data['permission'] = $permission->where('id', $id)->get();
@@ -63,7 +63,7 @@ class permissions extends CI_Controller {
                 $this->layout->view('permissions/edit', $data);
             }
         } else {
-            $this->session->set_flashdata('error', 'Not able to Edit Permission :-S');
+            $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
             redirect(base_url() . 'permission', 'refresh');
         }
     }
@@ -73,10 +73,10 @@ class permissions extends CI_Controller {
             $permission = new Permission();
             $permission->where('id', $id)->get();
             $permission->delete();
-            $this->session->set_flashdata('success', 'Permissions Deleted Successfully :-)');
+            $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
             redirect(base_url() . 'permission', 'refresh');
         } else {
-            $this->session->set_flashdata('error', 'Not able to delete Permission :-S');
+            $this->session->set_flashdata('error',  $this->lang->line('delete_data_error'));
             redirect(base_url() . 'permission', 'refresh');
         }
     }

@@ -2,6 +2,16 @@
 
 $lang['hello'] = 'Ciao';
 $lang['welcome'] = 'Benvenuto';
+$lang['logout'] = 'Log out';
+//Menus
+$lang['dashboard'] = 'Dashboard';
+$lang['access_management'] = 'Access Management';
+$lang['permission'] = 'Permission';
+$lang['roles'] = 'Roles';
+$lang['location_management'] = 'Location Management';
+$lang['country'] = 'Country';
+$lang['state'] = 'State';
+$lang['city'] = 'City';
 
 //Loign
 $lang['welcome_to_login'] = 'Benvenuto su MyLudosport, per accedere inserisci le tue credenziali.';

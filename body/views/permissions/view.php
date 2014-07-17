@@ -48,11 +48,11 @@
 
 <div class="row">
     <div class="col-md-6">
-        <h1 class="page-heading h1">Manage Permissions</h1>    
+        <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('permission'); ?></h1>    
     </div>
 
     <div class="col-md-6">
-        <a href="<?php echo base_url() . 'permission/add' ?>" class="btn btn-primary h1 pull-right">Add New Permission</a>
+        <a href="<?php echo base_url() . 'permission/add' ?>" class="btn btn-primary h1 pull-right"><?php echo $this->lang->line('add'), ' ', $this->lang->line('permission'); ?></a>
     </div>
 </div>
 
@@ -62,10 +62,10 @@
         <table class="table table-striped table-hover" id="list_data">
             <thead class="the-box dark full">
                 <tr align="left">
-                    <th>Permission</th>
-                    <th>Controller</th>
-                    <th>Method</th>
-                    <th width="150">&nbsp;</th>
+                    <th><?php echo $this->lang->line('permission'); ?></th>
+                    <th><?php echo $this->lang->line('controller'); ?></th>
+                    <th><?php echo $this->lang->line('method'); ?></th>
+                    <th width="150"><?php echo $this->lang->line('actions'); ?></th>
                 </tr>
             </thead>
             <tbody>

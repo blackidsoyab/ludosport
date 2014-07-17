@@ -9,7 +9,6 @@ class dashboard extends CI_Controller {
         parent::__construct();
         $this->layout->setField('page_title', 'Dashboard');
 
-        setLanguage();
     }
 
     public function index() {

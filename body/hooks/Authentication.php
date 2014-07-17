@@ -5,6 +5,7 @@ class Authentication extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->__clear_cache();
+        setLanguage();
     }
 
     private function __clear_cache() {

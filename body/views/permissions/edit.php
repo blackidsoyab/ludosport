@@ -52,7 +52,7 @@
     });
     //]]>
 </script>
-<h1 class="page-heading">Add New Permission</h1>
+<h1 class="page-heading"><?php echo $this->lang->line('edit'), ' ', $this->lang->line('permission'); ?></h1>
 <div class="the-box">
 
     <form id="add" method="post" class="form-horizontal" action="<?php echo base_url() . 'permission/edit/' . $permission->id; ?>">
@@ -62,7 +62,7 @@
             ?>
             <div class="form-group">
                 <label for="question" class="col-md-2 control-label">
-                    <?php echo ucwords($value) . ' Name'; ?>
+                    <?php echo ucwords($value), ' ', $this->lang->line('name'); ?>
                     <span class="text-danger"><?php echo ($key == 'en') ? '*' : '&nbsp;'; ?></span>
                 </label>
                 <div class="col-md-4">
@@ -72,12 +72,12 @@
         <?php } ?>
         <div class="form-group">
             <label for="question" class="col-md-2 control-label">
-                Select Controller
+                <?php echo $this->lang->line('select'), ' ', $this->lang->line('controller'); ?>
                 <span class="text-danger">*</span>
             </label>
             <div class="col-md-4">
                 <select id="controller" name="controller" class="form-control required">
-                    <option value="">Select Controller</option>
+                    <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('controller'); ?></option>
                     <?php
                     foreach ($all_controllers as $k => $v) {
                         echo '<optgroup label="' . ucwords(str_replace('_', ' ', $k)) . '">';
@@ -95,7 +95,7 @@
 
         <div class="form-group">
             <label for="question" class="col-md-2 control-label">
-                Select Method
+                <?php echo $this->lang->line('select'), ' ', $this->lang->line('method'); ?>
                 <span class="text-danger">*</span>
             </label>
             <div class="col-md-4">
@@ -111,15 +111,15 @@
         <div class="form-group">
             <label class="col-md-2 control-label">&nbsp;</label>
             <div class="col-md-8">
-                <button type="submit" class="btn btn-primary">Update</button>
-                <a href="<?php echo base_url() . 'permission' ?>" class="btn btn-default">Cancel</a>
+                <button type="submit" class="btn btn-primary"><?php echo $this->lang->line('update'); ?></button>
+                <a href="<?php echo base_url() . 'permission' ?>" class="btn btn-default"><?php echo $this->lang->line('cancel'); ?></a>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-md-2 control-label">&nbsp;</label>
             <div class="col-md-8">
-                Fields marked with  <span class="text-danger">*</span>  are mandatory.
+                <?php echo $this->lang->line('compulsory_note'); ?>
             </div>
         </div>
     </form>

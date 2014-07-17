@@ -20,7 +20,7 @@ class json extends CI_Controller {
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
             $temp_arr[] = $aRow['en_name'];
-            $temp_arr[] = '<a href="' . base_url() . 'country/edit/' . $aRow['id'] . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            $temp_arr[] = '<a href="' . base_url() . 'country/edit/' . $aRow['id'] . '" title="'.$this->lang->line('edit').'"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="'.$this->lang->line('delete').'"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }
@@ -41,7 +41,7 @@ class json extends CI_Controller {
             $temp_arr = array();
             $temp_arr[] = $aRow['states'];
             $temp_arr[] = $aRow['country'];
-            $temp_arr[] = '<a href="' . base_url() . 'state/edit/' . $aRow['id'] . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            $temp_arr[] = '<a href="' . base_url() . 'state/edit/' . $aRow['id'] . '" title="'.$this->lang->line('edit').'"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="'.$this->lang->line('delete').'"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }
@@ -63,7 +63,7 @@ class json extends CI_Controller {
             $temp_arr[] = $aRow['city'];
             $temp_arr[] = $aRow['states'];
             $temp_arr[] = $aRow['country'];
-            $temp_arr[] = '<a href="' . base_url() . 'city/edit/' . $aRow['id'] . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            $temp_arr[] = '<a href="' . base_url() . 'city/edit/' . $aRow['id'] . '" title="'.$this->lang->line('edit').'"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="'.$this->lang->line('delete').'"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }
@@ -84,7 +84,7 @@ class json extends CI_Controller {
             $temp_arr[] = $aRow['en_perm_name'];
             $temp_arr[] = $aRow['controller'];
             $temp_arr[] = $aRow['method'];
-            $temp_arr[] = '<a href="' . base_url() . 'permission/edit/' . $aRow['id'] . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            $temp_arr[] = '<a href="' . base_url() . 'permission/edit/' . $aRow['id'] . '" title="'.$this->lang->line('edit').'"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="'.$this->lang->line('delete').'"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }
@@ -103,7 +103,7 @@ class json extends CI_Controller {
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
             $temp_arr[] = $aRow['en_role_name'];
-            $temp_arr[] = '<a href="' . base_url() . 'role/edit/' . $aRow['id'] . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            $temp_arr[] = '<a href="' . base_url() . 'role/edit/' . $aRow['id'] . '" title="'.$this->lang->line('edit').'"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="'.$this->lang->line('delete').'"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }
