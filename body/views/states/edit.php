@@ -17,7 +17,7 @@
 <h1 class="page-heading">Edit State</h1>
 <div class="the-box">
 
-    <form id="add" method="post" class="form-horizontal" action="<?php echo base_url() . 'states/edit/' . @$states->id; ?>">
+    <form id="add" method="post" class="form-horizontal" action="<?php echo base_url() . 'state/edit/' . @$states->id; ?>">
         <div class="form-group">
             <label for="question" class="col-md-2 control-label">
                 Select Country
@@ -52,7 +52,7 @@
             <label class="col-md-2 control-label">&nbsp;</label>
             <div class="col-md-8">
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a href="<?php echo base_url() . 'states' ?>" class="btn btn-default">Cancel</a>
+                <a href="<?php echo base_url() . 'state' ?>" class="btn btn-default">Cancel</a>
             </div>
         </div>
 

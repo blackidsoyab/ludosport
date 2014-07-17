@@ -8,7 +8,7 @@
             "aoColumns": [
                 {"sClass": ""},{"sClass": ""}, {"sClass": "text-center"}
             ],
-            "sAjaxSource": "<?php echo base_url() . "states/getJson"; ?>"
+            "sAjaxSource": "<?php echo base_url() . "state/getjson"; ?>"
         });
     });
 
@@ -52,7 +52,7 @@
     </div>
 
     <div class="col-md-6">
-        <a href="<?php echo base_url() . 'states/add' ?>" class="btn btn-primary h1 pull-right">Add New State</a>
+        <a href="<?php echo base_url() . 'state/add' ?>" class="btn btn-primary h1 pull-right">Add New State</a>
     </div>
 </div>
 

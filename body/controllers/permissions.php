@@ -10,11 +10,11 @@ class permissions extends CI_Controller {
         $this->layout->setField('page_title', 'Manage Permissions');
     }
 
-    function viewpermission() {
+    function viewPermission() {
         $this->layout->view('permissions/view');
     }
 
-    function addpermission() {
+    function addPermission() {
         if ($this->input->post() !== false) {
             $permission = new Permission();
             foreach ($this->config->item('custom_languages') as $key => $value) {
@@ -35,7 +35,7 @@ class permissions extends CI_Controller {
         }
     }
 
-    function editpermission($id) {
+    function editPermission($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
                 $permission = new Permission();
@@ -68,7 +68,7 @@ class permissions extends CI_Controller {
         }
     }
 
-    function deletepermission($id) {
+    function deletePermission($id) {
         if (!empty($id)) {
             $permission = new Permission();
             $permission->where('id', $id)->get();

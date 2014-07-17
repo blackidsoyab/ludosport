@@ -163,7 +163,7 @@
                         </a>
                         <ul class="submenu">
                             <li><a href="<?php echo base_url() . 'country'; ?>">Country</a></li>
-                            <li><a href="<?php echo base_url() . 'states'; ?>">State</a></li>
+                            <li><a href="<?php echo base_url() . 'state'; ?>">State</a></li>
                             <li><a href="<?php echo base_url() . 'city'; ?>">City</a></li>
                         </ul>
                     </li>

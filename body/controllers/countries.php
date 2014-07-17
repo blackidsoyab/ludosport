@@ -10,11 +10,11 @@ class countries extends CI_Controller {
         $this->layout->setField('page_title', 'Manage Countries');
     }
 
-    function viewcountry() {
+    function viewCountry() {
         $this->layout->view('countries/view');
     }
 
-    function addcountry() {
+    function addCountry() {
         if ($this->input->post() !== false) {
             $c = new Country();
             foreach ($this->config->item('custom_languages') as $key => $value) {
@@ -31,7 +31,7 @@ class countries extends CI_Controller {
         }
     }
 
-    function editcountry($id) {
+    function editCountry($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
                 $c = new Country();
@@ -56,7 +56,7 @@ class countries extends CI_Controller {
         }
     }
 
-    function deletecountry($id) {
+    function deleteCountry($id) {
         if (!empty($id)) {
             $c = new Country();
             $c->where('id', $id)->get();

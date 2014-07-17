@@ -36,7 +36,7 @@
         $('#controller').change(function() {
             $.ajax({
                 type: 'GET',
-                url: '<?php echo base_url(); ?>permission/get_method/' + $('#controller').val() +'/'+ '<?php echo isset($permission->method) ? $permission->method : 0; ?>',
+                url: '<?php echo base_url(); ?>permission/getmethod/' + $('#controller').val() +'/'+ '<?php echo isset($permission->method) ? $permission->method : 0; ?>',
                 success: function(data)
                 {
                     console.log(data);

@@ -14,7 +14,7 @@
     });
     //]]>
 </script>
-<h1 class="page-heading">Add New City</h1>
+<h1 class="page-heading">Add New State</h1>
 <div class="the-box">
 
     <form id="add" method="post" class="form-horizontal" action="<?php echo base_url() . 'states/add'; ?>">
@@ -49,7 +49,7 @@
             <label class="col-md-2 control-label">&nbsp;</label>
             <div class="col-md-8">
                 <button type="submit" class="btn btn-primary">Save</button>
-                <a href="<?php echo base_url() . 'states' ?>" class="btn btn-default">Cancel</a>
+                <a href="<?php echo base_url() . 'state' ?>" class="btn btn-default">Cancel</a>
             </div>
         </div>
 

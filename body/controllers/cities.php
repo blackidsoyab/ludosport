@@ -10,11 +10,11 @@ class cities extends CI_Controller {
         $this->layout->setField('page_title', 'Manage Cities');
     }
 
-    function viewcity() {
+    function viewCity() {
         $this->layout->view('cities/view');
     }
 
-    function addcity() {
+    function addCity() {
         if ($this->input->post() !== false) {
             $c = new City();
             $c->state_id = $this->input->post('state_id');
@@ -34,7 +34,7 @@ class cities extends CI_Controller {
         }
     }
 
-    function editcity($id) {
+    function editCity($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
                 $c = new City();
@@ -64,7 +64,7 @@ class cities extends CI_Controller {
         }
     }
 
-    function deletecity($id) {
+    function deleteCity($id) {
         if (!empty($id)) {
             $c = new City();
             $c->where('id', $id)->get();

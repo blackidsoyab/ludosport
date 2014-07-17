@@ -8,7 +8,7 @@
             "aoColumns": [
                 {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center"}
             ],
-            "sAjaxSource": "<?php echo base_url() . "city/getJson"; ?>"
+            "sAjaxSource": "<?php echo base_url() . "city/getjson"; ?>"
         });
     });
 

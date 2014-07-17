@@ -41,7 +41,7 @@ class json extends CI_Controller {
             $temp_arr = array();
             $temp_arr[] = $aRow['states'];
             $temp_arr[] = $aRow['country'];
-            $temp_arr[] = '<a href="' . base_url() . 'states/edit/' . $aRow['id'] . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            $temp_arr[] = '<a href="' . base_url() . 'state/edit/' . $aRow['id'] . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }

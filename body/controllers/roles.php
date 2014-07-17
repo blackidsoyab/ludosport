@@ -12,11 +12,11 @@ class roles extends CI_Controller {
         $this->load->library('acl');
     }
 
-    function viewrole() {
+    function viewRole() {
         $this->layout->view('roles/view');
     }
 
-    function addrole() {
+    function addRole() {
         if ($this->input->post() !== false) {
             $role = new Role();
             foreach ($this->config->item('custom_languages') as $key => $value) {
@@ -38,7 +38,7 @@ class roles extends CI_Controller {
         }
     }
 
-    function editrole($id) {
+    function editRole($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
                 $role = new Role();
@@ -71,7 +71,7 @@ class roles extends CI_Controller {
         }
     }
 
-    function deleterole($id) {
+    function deleteRole($id) {
         if (!empty($id)) {
             $role = new Role();
             $role->where('id', $id)->get();

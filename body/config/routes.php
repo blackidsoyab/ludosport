@@ -57,46 +57,46 @@ $route['register/checkemail'] = "ajax/registerCheckEmail";
 $route['dashboard'] = "dashboard";
 $route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
 //Country Management
-$route['country'] = "countries/viewcountry";
-$route['country/list'] = "countries/viewcountry";
-$route['country/add'] = "countries/addcountry";
-$route['country/edit/(:num)'] = "countries/editcountry/$1";
-$route['country/delete/(:num)'] = "countries/deletecountry/$1";
-$route['country/getJson'] = "json/getCountryJsonData";
+$route['country'] = "countries/viewCountry";
+$route['country/list'] = "countries/viewCountry";
+$route['country/add'] = "countries/addCountry";
+$route['country/edit/(:num)'] = "countries/editCountry/$1";
+$route['country/delete/(:num)'] = "countries/deleteCountry/$1";
+$route['country/getjson'] = "json/getCountryJsonData";
 
 //State Management
-$route['states'] = "states/viewstates";
-$route['states/list'] = "states/viewstates";
-$route['states/add'] = "states/addstates";
-$route['states/edit/(:num)'] = "states/editstates/$1";
-$route['states/delete/(:num)'] = "states/deletestates/$1";
-$route['states/getJson'] = "json/getStatesJsonData";
+$route['state'] = "states/viewStates";
+$route['state/list'] = "states/viewStates";
+$route['state/add'] = "states/addStates";
+$route['state/edit/(:num)'] = "states/editStates/$1";
+$route['state/delete/(:num)'] = "states/deleteStates/$1";
+$route['state/getjson'] = "json/getStatesJsonData";
 
 //State Management
-$route['city'] = "cities/viewcity";
-$route['city/list'] = "cities/viewcity";
-$route['city/add'] = "cities/addcity";
-$route['city/edit/(:num)'] = "cities/editcity/$1";
-$route['city/delete/(:num)'] = "cities/deletecity/$1";
-$route['city/getJson'] = "json/getCitiesJsonData";
+$route['city'] = "cities/viewCity";
+$route['city/list'] = "cities/viewCity";
+$route['city/add'] = "cities/addCity";
+$route['city/edit/(:num)'] = "cities/editCity/$1";
+$route['city/delete/(:num)'] = "cities/deleteCity/$1";
+$route['city/getjson'] = "json/getCitiesJsonData";
 
 //Permission Management
-$route['permission'] = "permissions/viewpermission";
-$route['permission/list'] = "permissions/viewpermission";
-$route['permission/add'] = "permissions/addpermission";
-$route['permission/edit/(:num)'] = "permissions/editpermission/$1";
-$route['permission/delete/(:num)'] = "permissions/deletepermission/$1";
-$route['permission/getJson'] = "json/getPermissionsJsonData";
-$route['permission/get_method/(:any)/(:any)'] = "ajax/getMethodsFromControllers/$1/$2";
+$route['permission'] = "permissions/viewPermission";
+$route['permission/list'] = "permissions/viewPermission";
+$route['permission/add'] = "permissions/addPermission";
+$route['permission/edit/(:num)'] = "permissions/editPermission/$1";
+$route['permission/delete/(:num)'] = "permissions/deletePermission/$1";
+$route['permission/getjson'] = "json/getPermissionsJsonData";
+$route['permission/getmethod/(:any)/(:any)'] = "ajax/getMethodsFromControllers/$1/$2";
 $route['permission/check/(:num)'] = "ajax/checkValidPermision/$1";
 
 //Role Management
-$route['role'] = "roles/viewrole";
-$route['role/list'] = "roles/viewrole";
-$route['role/add'] = "roles/addrole";
-$route['role/edit/(:num)'] = "roles/editrole/$1";
-$route['role/delete/(:num)'] = "roles/deleterole/$1";
-$route['role/getJson'] = "json/getRolesJsonData";
+$route['role'] = "roles/viewRole";
+$route['role/list'] = "roles/viewRole";
+$route['role/add'] = "roles/addRole";
+$route['role/edit/(:num)'] = "roles/editRole/$1";
+$route['role/delete/(:num)'] = "roles/deleteRole/$1";
+$route['role/getjson'] = "json/getRolesJsonData";
 $route['role/check/(:num)'] = "ajax/checkValidRole/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
