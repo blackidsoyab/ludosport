@@ -6,4 +6,4 @@
 */cache/!.htaccess
 /nbproject/*
 
-/body/config/database.php
+body/config/database.php
