@@ -13,6 +13,27 @@ class permissions extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
     }
 
+    public function get_menu_tree_add($id) {
+        $permission = new Permission();
+        $permission->where('parent_id', $id);
+        $permission->where('is_menu', 1);
+        $data = $permission->get();
+
+        $children = array();
+        if ($permission->result_count() > 0) {
+            foreach ($data as $value) {
+                $temp = $this->session_data->language . '_menu_title';
+                $children[$value->id]['name'] = $value->$temp;
+                $arr = $this->get_menu_tree_add($value->id);
+                if (count($arr) > 0) {
+                    $children[$value->id]['child'] = $this->get_menu_tree_add($value->id);
+                }
+            }
+        }
+
+        return $children;
+    }
+
     function viewPermission() {
         $this->layout->view('permissions/view');
     }
@@ -25,12 +46,25 @@ class permissions extends CI_Controller {
                 if ($this->input->post($temp) != '') {
                     $permission->$temp = $this->input->post($temp);
                 } else {
-                    $permission->$temp = $this->input->post('en__perm_name');
+                    $permission->$temp = $this->input->post('en_perm_name');
                 }
             }
 
             $permission->controller = $this->input->post('controller');
             $permission->method = $this->input->post('method');
+            $permission->parent_id = $this->input->post('parent_id');
+            $permission->is_menu = $this->input->post('is_menu');
+            if ($this->input->post('is_menu') == 1) {
+                foreach ($this->config->item('custom_languages') as $key => $value) {
+                    $temp = $key . '_menu_title';
+                    if ($this->input->post($temp) != '') {
+                        $permission->$temp = $this->input->post($temp);
+                    } else {
+                        $permission->$temp = $this->input->post('en_menu_title');
+                    }
+                }
+            }
+
             $permission->user_id = $this->session_data->id;
             $permission->save();
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
@@ -38,6 +72,7 @@ class permissions extends CI_Controller {
         } else {
             $this->layout->setField('page_title', $this->lang->line('add') . ' ' . $this->lang->line('permission'));
             $data['all_controllers'] = $this->controllerlist->getControllers();
+            $data['menu_tree'] = $this->get_menu_tree_add(0);
             $this->layout->view('permissions/add', $data);
         }
     }
@@ -58,6 +93,25 @@ class permissions extends CI_Controller {
 
                 $permission->controller = $this->input->post('controller');
                 $permission->method = $this->input->post('method');
+
+                $permission->parent_id = $this->input->post('parent_id');
+                $permission->is_menu = $this->input->post('is_menu');
+                if ($this->input->post('is_menu') == 1) {
+                    foreach ($this->config->item('custom_languages') as $key => $value) {
+                        $temp = $key . '_menu_title';
+                        if ($this->input->post($temp) != '') {
+                            $permission->$temp = $this->input->post($temp);
+                        } else {
+                            $permission->$temp = $this->input->post('en_menu_title');
+                        }
+                    }
+                } else {
+                    foreach ($this->config->item('custom_languages') as $key => $value) {
+                        $temp = $key . '_menu_title';
+                        $permission->$temp = Null;
+                    }
+                }
+
                 $permission->user_id = $this->session_data->id;
                 $permission->save();
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
@@ -70,6 +124,8 @@ class permissions extends CI_Controller {
 
                 $data['all_controllers'] = $this->controllerlist->getControllers();
                 $data['all_methods'] = $this->controllerlist->getMethods($data['permission']->controller);
+
+                $data['menu_tree'] = $this->get_menu_tree_add(0);
 
                 $this->layout->view('permissions/edit', $data);
             }

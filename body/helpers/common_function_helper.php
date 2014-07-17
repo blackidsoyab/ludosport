@@ -65,4 +65,24 @@ function hasPermission($userid, $permissionid) {
     }
 }
 
+function printMenu($k, $array, $round, $parrent_id) {
+    foreach ($array as $key => $value) {
+        if ($key != 'child') {
+            $str = ($k == $parrent_id) ? 'selected' : '';
+            echo '<option value="' . $k . ' "' . $str . '>' . repeater("&nbsp;", $round) . $value . '</option>';
+        }
+    }
+}
+
+function loopMenuArray($array, $round, $parrent_id) {
+    foreach ($array as $key => $value) {
+        if (isset($value['child'])) {
+            printMenu($key, $value, $round, $parrent_id);
+            loopMenuArray($value['child'], $round + 8);
+        } else {
+            printMenu($key, $value, $round, $parrent_id);
+        }
+    }
+}
+
 ?>

@@ -49,6 +49,10 @@
                 }
             });
         });
+        
+        $('#is_menu').click(function(){
+            $("#menu_title").toggle(this.checked);
+        });
     });
     //]]>
 </script>
@@ -105,6 +109,48 @@
                     <?php } ?>
                 </select>
             </div>
+        </div>
+
+        <div class="form-group">
+            <label for="question" class="col-md-2 control-label">
+                <?php echo $this->lang->line('select'), ' ', $this->lang->line('parent'); ?>
+                <span class="text-danger">&nbsp;</span>
+            </label>
+            <div class="col-md-4">
+                <select name="parent_id" class="form-control">
+                    <option value="0"><?php echo $this->lang->line('no'), ' ', $this->lang->line('parent'); ?></option>
+                    <?php loopMenuArray($menu_tree, 0, @$permission->parent_id); ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="question" class="col-md-2 control-label">
+                <?php echo $this->lang->line('is') . ' ' . $this->lang->line('menu'); ?>
+                <span class="text-danger">&nbsp;</span>
+            </label>
+            <div class="col-md-4">
+                <label class="checkbox-inline" for="is_menu">
+                    <input type="checkbox" name="is_menu" id="is_menu" value="1" <?php echo (@$permission->is_menu == '1') ? 'checked' : ''; ?>>
+                </label>
+            </div>
+        </div>
+
+        <div id="menu_title" style="display:<?php echo (@$permission->is_menu == '1') ? 'block' : 'none'; ?>">
+            <?php
+            foreach ($this->config->item('custom_languages') as $key => $value) {
+                $temp = $key . '_menu_title';
+                ?>
+                <div class="form-group">
+                    <label for="question" class="col-md-2 control-label">
+                        <?php echo ucwords($value), ' ', $this->lang->line('menu'), ' ', $this->lang->line('name'); ?>
+                        <span class="text-danger"><?php echo ($key == 'en') ? '*' : '&nbsp;'; ?></span>
+                    </label>
+                    <div class="col-md-4">
+                        <input type="text" name="<?php echo $temp; ?>"  class="<?php echo ($key == 'en') ? 'form-control required' : 'form-control'; ?>" placeholder="<?php echo $this->lang->line('menu'), ' ', $this->lang->line('name'), ' ', ucwords($value); ?>" value="<?php echo @$permission->$temp; ?>"/>
+                    </div>
+                </div>
+            <?php } ?>
         </div>
 
 

@@ -58,6 +58,10 @@ $lang['terms_conditions'] = 'Terms and conditions';
 //Manage Permission
 $lang['controller'] = 'Controller';
 $lang['method'] = 'Method';
+$lang['parent'] = 'Parent';
+$lang['no'] = 'No';
+$lang['is'] = 'is';
+$lang['menu'] = 'Menu';
 
 //Role
 $lang['allow'] = 'Allow';

@@ -87,7 +87,8 @@
                             <ul class="nav navbar-nav navbar-left">
                                 <li class="dropdown">
                                     <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
-                                        <span class="badge badge-danger icon-count"><?php echo strtoupper($session->language); ?></span>
+                                        <?php $languages = $this->config->item('custom_languages'); ?>
+                                        <span class="badge badge-danger icon-count" title="<?php echo ucwords($languages[$session->language]); ?>"><?php echo strtoupper($session->language); ?></span>
                                         <i class="fa fa-bell-o"></i>
                                     </a>
                                     <ul class="dropdown-menu square with-triangle">
