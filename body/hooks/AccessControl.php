@@ -2,14 +2,15 @@
 
 class AccessControl extends CI_Controller {
 
-    var $allowed_c;
-    var $allowed_m;
+    var $allowed_for_all;
+    var $allowed_controller;
 
     public function __construct() {
         parent::__construct();
         $this->__clear_cache();
-        $this->setAllowedControllers();
         $this->setAllowedMethod();
+        $this->setAllowedController();
+        setLanguage();
     }
 
     private function __clear_cache() {
@@ -17,26 +18,32 @@ class AccessControl extends CI_Controller {
         $this->output->set_header("Pragma: no-cache");
     }
 
-    private function setAllowedControllers() {
-        $this->allowed_c = array('authenticate');
+    private function setAllowedController() {
+        $this->allowed_controller = array(
+            'authenticate',
+            'json',
+            'ajax',
+            'dashboard'
+        );
     }
 
     private function setAllowedMethod() {
-        $this->allowed_m = array('');
+        // array('controllername_methodname')
+        $this->allowed_for_all = array('');
     }
 
     function checkPermission() {
-        if ($this->router->fetch_directory() == "" && !in_array($this->router->class, $this->allowed_c)) {
+        $action = $this->router->class . '_' . $this->router->method;
+        if ($this->router->fetch_directory() == "" &&
+                !in_array($this->router->class, $this->allowed_controller) &&
+                !in_array($action, $this->allowed_for_all)) {
+
             $session = $this->session->userdata('user_session');
             if (isset($session) && !empty($session)) {
-                $userACL = new ACL($session->ID);
-                if ($userACL->hasPermission($this->router->class . '_' . $this->router->method) === false) {
-                    $this->session->set_flashdata('error', 'You dont have permission to see it :-/ Please contact Administrator');
-                    redirect(base_url() . 'permission_denied', 'refresh');
+                if (hasPermission($session->id, getPermmissionID($action)) === false) {
+                    $this->session->set_flashdata('error', 'You dont have permission to see it :-/ Please contact Admin');
+                    redirect(base_url() . 'denied', 'refresh');
                 }
-            } else {
-                echo 'Let me think what to Do';
-                exit;
             }
         }
     }

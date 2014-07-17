@@ -52,10 +52,12 @@ $route['register'] = "authenticate/register";
 $route['add_user'] = "authenticate/saveUser";
 $route['register/checkusername'] = "ajax/registerCheckUsername";
 $route['register/checkemail'] = "ajax/registerCheckEmail";
+$route['denied'] = "authenticate/permissionDenied";
 
 //Dashboard
 $route['dashboard'] = "dashboard";
 $route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
+
 //Country Management
 $route['country'] = "countries/viewCountry";
 $route['country/list'] = "countries/viewCountry";

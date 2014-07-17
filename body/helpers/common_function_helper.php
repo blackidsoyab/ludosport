@@ -45,17 +45,19 @@ function getAllLanguages() {
 
 function getPermmissionID($action) {
     $var = explode('_', $action);
-    $obj = new perm_data_model();
-    $data = $obj->getWhere(array('controllername' => $var[0], 'methodname' => $var[1]));
-    if (!empty($data)) {
-        return $data[0]->pid;
+    $obj = new Permission();
+    $obj->where('controller', $var[0]);
+    $obj->where('method', $var[1]);
+    $obj->get();
+    if ($obj->result_count() == 1) {
+        return $obj->id;
     } else {
-        return false;
+        return 0;
     }
 }
 
 function hasPermission($userid, $permissionid) {
-    $data = user_data_model::userRoleByID($userid);
+    $data = User::userRoleByID($userid);
     if (array_key_exists($permissionid, $data)) {
         return TRUE;
     } else {

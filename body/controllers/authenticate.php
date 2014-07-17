@@ -91,4 +91,8 @@ class authenticate extends CI_Controller {
         }
     }
 
+    function permissionDenied() {
+        $this->layout->view('authenticate/permission');
+    }
+
 }
