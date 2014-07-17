@@ -5,12 +5,12 @@ if (!defined('BASEPATH'))
 
 class roles extends CI_Controller {
 
-    var $session;
+    var $session_data;
 
     function __construct() {
         parent::__construct();
         $this->layout->setField('page_title', $this->lang->line('role'));
-        $this->session = $this->session->userdata('user_session');
+        $this->session_data = $this->session->userdata('user_session');
         $this->load->library('acl');
     }
 
@@ -27,7 +27,7 @@ class roles extends CI_Controller {
             }
 
             $role->permission = serialize($this->input->post('prem'));
-            $role->user_id =  $this->session->id;
+            $role->user_id =  $this->session_data->id;
             $role->save();
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
             redirect(base_url() . 'role', 'refresh');
@@ -51,7 +51,7 @@ class roles extends CI_Controller {
                 }
 
                 $role->permission = serialize($this->input->post('prem'));
-                $role->user_id =  $this->session->id;
+                $role->user_id =  $this->session_data->id;
                 $role->save();
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
                 redirect(base_url() . 'role', 'refresh');

@@ -5,12 +5,12 @@ if (!defined('BASEPATH'))
 
 class countries extends CI_Controller {
 
-    var $session;
+    var $session_data;
 
     function __construct() {
         parent::__construct();
         $this->layout->setField('page_title', $this->lang->line('country'));
-        $this->session = $this->session->userdata('user_session');
+        $this->session_data = $this->session->userdata('user_session');
     }
 
     function viewCountry() {
@@ -24,7 +24,7 @@ class countries extends CI_Controller {
                 $temp = $key . '_name';
                 $c->$temp = $this->input->post($temp);
             }
-            $c->user_id = $this->session->id;
+            $c->user_id = $this->session_data->id;
             $c->save();
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
             redirect(base_url() . 'country', 'refresh');
@@ -43,7 +43,7 @@ class countries extends CI_Controller {
                     $temp = $key . '_name';
                     $c->$temp = $this->input->post($temp);
                 }
-                $c->user_id = $this->session->id;
+                $c->user_id = $this->session_data->id;
                 $c->save();
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
                 redirect(base_url() . 'country', 'refresh');

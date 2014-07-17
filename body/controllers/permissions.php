@@ -5,12 +5,12 @@ if (!defined('BASEPATH'))
 
 class permissions extends CI_Controller {
 
-    var $session;
+    var $session_data;
 
     function __construct() {
         parent::__construct();
         $this->layout->setField('page_title', $this->lang->line('permission'));
-        $this->session = $this->session->userdata('user_session');
+        $this->session_data = $this->session->userdata('user_session');
     }
 
     function viewPermission() {
@@ -27,7 +27,7 @@ class permissions extends CI_Controller {
 
             $permission->controller = $this->input->post('controller');
             $permission->method = $this->input->post('method');
-            $permission->user_id = $this->session->id;
+            $permission->user_id = $this->session_data->id;
             $permission->save();
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
             redirect(base_url() . 'permission', 'refresh');
@@ -50,7 +50,7 @@ class permissions extends CI_Controller {
 
                 $permission->controller = $this->input->post('controller');
                 $permission->method = $this->input->post('method');
-                $permission->user_id = $this->session->id;
+                $permission->user_id = $this->session_data->id;
                 $permission->save();
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
                 redirect(base_url() . 'permission', 'refresh');

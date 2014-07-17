@@ -1,5 +1,6 @@
 <?php
 
+//Common
 $lang['hello'] = 'Ciao';
 $lang['welcome'] = 'Benvenuto';
 $lang['logout'] = 'Log out';
@@ -15,6 +16,13 @@ $lang['select'] = 'Selezionare';
 $lang['name'] = 'Nome';
 $lang['compulsory_note'] = 'Campi contrassegnati con <span class="text-danger">*</span> sono obbligatori.';
 
+//Messages
+$lang['add_data_success'] = 'Data added successfully';
+$lang['add_data_error'] = 'Not able to add data';
+$lang['edit_data_success'] = 'Data updated successfully';
+$lang['edit_data_error'] = 'Not able to edit data';
+$lang['delete_data_success'] = 'Data delete successfully';
+$lang['delete_data_error'] = 'Not able to delete data';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';
@@ -46,4 +54,13 @@ $lang['re_enter_password'] = 're-enter password';
 $lang['enter'] = 'Entra';
 $lang['i_accept'] = 'Accetto';
 $lang['terms_conditions'] = 'Termini e Condizioni';
+
+
+//Manage Permission
+$lang['controller'] = 'Controller';
+$lang['method'] = 'Method';
+
+//Role
+$lang['allow'] = 'Consentire';
+$lang['deny'] = 'Negare';
 ?>

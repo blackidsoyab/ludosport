@@ -48,7 +48,6 @@ $lang['create_new_account'] = 'Create New account';
 $lang['firstname'] = 'Firstname';
 $lang['lastname'] = 'Lastname';
 $lang['nickname'] = 'Nickname';
-$lang['city'] = 'City';
 $lang['dob'] = 'Date of birth';
 $lang['email'] = 'Email';
 $lang['re_enter_password'] = 're-enter password';

@@ -48,11 +48,11 @@
 
 <div class="row">
     <div class="col-md-6">
-        <h1 class="page-heading h1">Manage States</h1>    
+        <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('state'); ?></h1>    
     </div>
 
     <div class="col-md-6">
-        <a href="<?php echo base_url() . 'state/add' ?>" class="btn btn-primary h1 pull-right">Add New State</a>
+        <a href="<?php echo base_url() . 'state/add' ?>" class="btn btn-primary h1 pull-right"><?php echo $this->lang->line('add'), ' ', $this->lang->line('state'); ?></a>
     </div>
 </div>
 
@@ -62,9 +62,9 @@
         <table class="table table-striped table-hover" id="list_data">
             <thead class="the-box dark full">
                 <tr align="left">
-                    <th>State Name</th>
-                    <th>Country Name</th>
-                    <th width="150">&nbsp;</th>
+                    <th><?php echo $this->lang->line('state'), ' ', $this->lang->line('name'); ?></th>
+                    <th><?php echo $this->lang->line('country'), ' ', $this->lang->line('name'); ?></th>
+                    <th width="150"><?php echo $this->lang->line('actions'); ?></th>
                 </tr>
             </thead>
             <tbody>

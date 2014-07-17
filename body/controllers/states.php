@@ -5,9 +5,12 @@ if (!defined('BASEPATH'))
 
 class states extends CI_Controller {
 
+    var $session_data;
+
     function __construct() {
         parent::__construct();
-        $this->layout->setField('page_title', 'Manage States');
+        $this->layout->setField('page_title', $this->lang->line('state'));
+        $this->session_data = $this->session->userdata('user_session');
     }
 
     function viewStates() {
@@ -22,12 +25,12 @@ class states extends CI_Controller {
                 $temp = $key . '_name';
                 $c->$temp = $this->input->post($temp);
             }
-            $c->user_id = '1';
+            $c->user_id = $this->session_data->id;
             $c->save();
-            $this->session->set_flashdata('success', 'State Added Successfully');
-            redirect(base_url() . 'states', 'refresh');
+            $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
+            redirect(base_url() . 'state', 'refresh');
         } else {
-            $this->layout->setField('page_title', 'Add State');
+            $this->layout->setField('page_title', $this->lang->line('add') . ' ' . $this->lang->line('state'));
             $country = new Country();
             $data['countries'] = $country->get();
             $this->layout->view('states/add', $data);
@@ -44,12 +47,12 @@ class states extends CI_Controller {
                     $temp = $key . '_name';
                     $c->$temp = $this->input->post($temp);
                 }
-                $c->user_id = '1';
+                $c->user_id = $this->session_data->id;
                 $c->save();
-                $this->session->set_flashdata('success', 'State Updated Successfully');
-                redirect(base_url() . 'states', 'refresh');
+                $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
+                redirect(base_url() . 'state', 'refresh');
             } else {
-                $this->layout->setField('page_title', 'Edit State');
+                $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('state'));
                 $states = new State();
                 $data['states'] = $states->where('id', $id)->get();
 
@@ -59,8 +62,8 @@ class states extends CI_Controller {
                 $this->layout->view('states/edit', $data);
             }
         } else {
-            $this->session->set_flashdata('error', 'Not able to Edit State');
-            redirect(base_url() . 'states', 'refresh');
+            $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+            redirect(base_url() . 'state', 'refresh');
         }
     }
 
@@ -70,11 +73,11 @@ class states extends CI_Controller {
             $c->where('id', $id)->get();
             $c->City->delete_all();
             $c->delete();
-            $this->session->set_flashdata('success', 'State Deleted Successfully');
-            redirect(base_url() . 'states', 'refresh');
+            $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
+            redirect(base_url() . 'state', 'refresh');
         } else {
-            $this->session->set_flashdata('error', 'Not able to delete State');
-            redirect(base_url() . 'states', 'refresh');
+            $this->session->set_flashdata('error', $this->lang->line('delete_data_error'));
+            redirect(base_url() . 'state', 'refresh');
         }
     }
 
