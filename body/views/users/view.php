@@ -67,8 +67,8 @@
                 <tr align="left">
                     <th><?php echo $this->lang->line('user'), ' ', $this->lang->line('name'); ?></th>
                     <th><?php echo $this->lang->line('role'); ?></th>
-                    <th><?php echo $this->lang->line('status'); ?></th>
-                    <th width="150"><?php echo $this->lang->line('actions'); ?></th>
+                    <th width="50"><?php echo $this->lang->line('status'); ?></th>
+                    <th width="100"><?php echo $this->lang->line('actions'); ?></th>
                 </tr>
             </thead>
             <tbody>

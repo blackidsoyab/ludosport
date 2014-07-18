@@ -182,6 +182,12 @@ class json extends CI_Controller {
                 $temp_arr[] = '<lable class="label label-warning">' . $this->lang->line('pending') . '</label>';
             }
 
+           /* if (hasPermission('users', 'extraPermissionUser')) {
+                $temp_arr[] = '<a href="' . base_url() . 'user/extrapermission/' . $aRow['id'] . '" class="actions" title="' . $this->lang->line('extra_permission') . '"><label class="label label-primary">' . $this->lang->line('extra_permission') . '</label></a>';
+            } else {
+                $temp_arr[] = '&nbsp;';
+            }*/
+
             $str = NULL;
             if (hasPermission('users', 'editUser')) {
                 $str .= '<a href="' . base_url() . 'user/edit/' . $aRow['id'] . '" class="actions" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';

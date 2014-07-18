@@ -79,4 +79,5 @@ $lang['status'] = 'Status';
 $lang['basic'] = 'Basic';
 $lang['access_control'] = 'Access Controls';
 $lang['change_status'] = 'Change Status';
+$lang['extra_permission'] = 'Extra Permission';
 ?>

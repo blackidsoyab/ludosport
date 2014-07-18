@@ -105,4 +105,28 @@ class users extends CI_Controller {
         }
     }
 
+    function extraPermissionUser($id) {
+        if (!empty($id)) {
+            if ($this->input->post() !== false) {
+               
+                $user = new User();
+                $user->where('id', $id)->update('permission', serialize($this->input->post('perm')));
+                $user->delete();
+                $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
+                redirect(base_url() . 'user', 'refresh');
+            } else {
+                $user = new User();
+                $data['user'] = $user->where('id', $id)->get();
+
+                $role = new Role();
+                $data['role'] = $role->where('id', $data['user']->role_id)->get();
+
+                $this->layout->view('users/extra_permission', $data);
+            }
+        } else {
+            $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+            redirect(base_url() . 'user', 'refresh');
+        }
+    }
+
 }
