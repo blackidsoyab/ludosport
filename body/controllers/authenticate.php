@@ -35,6 +35,7 @@ class authenticate extends CI_Controller {
             $user_data->name = $user->firstname . ' ' . $user->lastname;
             $user_data->language = 'en';
             $user_data->role = $user->role_id;
+            $user_data->permissions = $user->userRoleByID($user->id);
             $newdata = array('user_session' => $user_data);
             $this->session->set_userdata($newdata);
             redirect(base_url() . 'dashboard', 'refresh');

@@ -30,7 +30,7 @@ class roles extends CI_Controller {
                 }
             }
 
-            $role->permission = serialize($this->input->post('prem'));
+            $role->permission = serialize($this->input->post('perm'));
             $role->user_id = $this->session_data->id;
             $role->save();
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
@@ -58,7 +58,7 @@ class roles extends CI_Controller {
                     }
                 }
 
-                $role->permission = serialize($this->input->post('prem'));
+                $role->permission = serialize($this->input->post('perm'));
                 $role->user_id = $this->session_data->id;
                 $role->save();
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
@@ -69,9 +69,9 @@ class roles extends CI_Controller {
                 $role = new Role();
                 $data['role'] = $role->where('id', $id)->get();
 
-                $myACL = new ACL();
-                $data['rPerms'] = $myACL->getRolePerms($id);
-                $data['aPerms'] = $myACL->getAllPerms('full');
+                //$myACL = new ACL();
+                //$data['rPerms'] = $myACL->getRolePerms($id);
+                //$data['aPerms'] = $myACL->getAllPerms('full');
 
                 $this->layout->view('roles/edit', $data);
             }

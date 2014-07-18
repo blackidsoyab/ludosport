@@ -56,9 +56,9 @@ function getPermmissionID($action) {
     }
 }
 
-function hasPermission($userid, $permissionid) {
-    $data = User::userRoleByID($userid);
-    if (array_key_exists($permissionid, $data)) {
+function hasPermission($controller, $method) {
+    $data = get_instance()->session->userdata('user_session');
+    if (is_array($data->permissions) && array_key_exists($controller, $data->permissions) && in_array($method, $data->permissions[$controller])) {
         return TRUE;
     } else {
         return FALSE;
@@ -83,6 +83,69 @@ function loopMenuArray($array, $round, $parrent_id) {
             printMenu($key, $value, $round, $parrent_id);
         }
     }
+}
+
+function printPermission($key, $array, $parent_key, $given_permission) {
+    $str = '';
+    if (!is_null($parent_key)) {
+        $str .= 'name="perm[' . $parent_key . '][]"';
+        if (is_array($given_permission) && array_key_exists($parent_key, $given_permission) && in_array($key, $given_permission[$parent_key])) {
+            $str .= ' checked="checked"';
+        }
+    } else {
+        if (is_array($given_permission) && array_key_exists($key, $given_permission)) {
+            $str .= ' checked="checked"';
+        }
+    }
+
+    foreach ($array as $k => $v) {
+        if ($k != 'hasChild') {
+            return '<li><input type="checkbox" value="' . $key . '"' . $str . '/><span>' . $v . '</span>';
+        }
+    }
+}
+
+function loopPermissionArray($array, $given_permission = null, $parent_key = null) {
+    foreach ($array as $key => $value) {
+        if (isset($value['hasChild'])) {
+            echo printPermission($key, $value, $parent_key, $given_permission), '<ul>';
+            loopPermissionArray($value['hasChild'], $given_permission, $key);
+            echo '</ul>';
+        } else {
+            echo printPermission($key, $value, $parent_key, $given_permission);
+        }
+    }
+}
+
+function createPermissionArray() {
+    $permission = array(
+        'countries' => array(
+            'name' => 'Country',
+            'hasChild' => array(
+                'viewCountry' => array('name' => 'List'),
+                'addCountry' => array('name' => 'Add'),
+                'editCountry' => array('name' => 'Edit'),
+                'deleteCountry' => array('name' => 'Delete'),
+        )),
+        'states' => array(
+            'name' => 'State',
+            'hasChild' => array(
+                'viewStates' => array('name' => 'List'),
+                'addStates' => array('name' => 'Add'),
+                'editStates' => array('name' => 'Edit'),
+                'deleteStates' => array('name' => 'Delete'),
+        )),
+        'cities' => array(
+            'name' => 'City',
+            'hasChild' => array(
+                'viewCity' => array('name' => 'List'),
+                'addCity' => array('name' => 'Add'),
+                'editCity' => array('name' => 'Edit'),
+                'deleteCity' => array('name' => 'Delete'),
+        )),
+    );
+
+    return $permission;
 }
 
 ?>

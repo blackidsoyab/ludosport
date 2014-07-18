@@ -33,14 +33,13 @@ class AccessControl extends CI_Controller {
     }
 
     function checkPermission() {
-        $action = $this->router->class . '_' . $this->router->method;
         if ($this->router->fetch_directory() == "" &&
                 !in_array($this->router->class, $this->allowed_controller) &&
-                !in_array($action, $this->allowed_for_all)) {
+                !in_array($this->router->method, $this->allowed_for_all)) {
 
             $session = $this->session->userdata('user_session');
             if (isset($session) && !empty($session) && $session->id != 1) {
-                if (hasPermission($session->id, getPermmissionID($action)) === false) {
+                if (hasPermission($this->router->class, $this->router->method) === false) {
                     $this->session->set_flashdata('error', 'You dont have permission to see it :-/ Please contact Admin');
                     redirect(base_url() . 'denied', 'refresh');
                 }
