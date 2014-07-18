@@ -147,6 +147,14 @@ function createPermissionArray() {
                 'editCity' => array('name' => 'Edit'),
                 'deleteCity' => array('name' => 'Delete'),
         )),
+        'users' => array(
+            'name' => 'User',
+            'hasChild' => array(
+                'viewUser' => array('name' => 'List'),
+                'addUser' => array('name' => 'Add'),
+                'editUser' => array('name' => 'Edit'),
+                'deleteUser' => array('name' => 'Delete'),
+        )),
     );
 
     return $permission;

@@ -106,7 +106,7 @@ $route['user'] = "users/viewUser";
 $route['user/list'] = "users/viewUser";
 $route['user/add'] = "users/addUser";
 $route['user/edit/(:num)'] = "users/editUser/$1";
-$route['user/status/(:num)'] = "users/changeUserStatus/$1";
+$route['user/delete/(:num)'] = "users/deleteUser/$1";
 $route['user/getjson'] = "json/getUsersJsonData";
 $route['user/check/(:num)'] = "ajax/checkValidUser/$1";
 /* End of file routes.php */

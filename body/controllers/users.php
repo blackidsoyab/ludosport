@@ -92,11 +92,11 @@ class users extends CI_Controller {
         }
     }
 
-    function changeUserStatus($id) {
+    function deleteUser($id) {
         if (!empty($id)) {
             $user = new User();
-            $user->where('id', $id)->update('status', 'D');
-            $user->where('id', $id)->update('user_id', $this->session_data->id);
+            $user->where('id', $id)->get();
+            $user->delete();
             $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
             redirect(base_url() . 'user', 'refresh');
         } else {

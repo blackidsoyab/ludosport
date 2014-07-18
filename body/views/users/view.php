@@ -18,13 +18,13 @@
 
         $.confirm({
             'title': 'Manage User',
-            'message': 'Do you Want to Deactive the User ?',
+            'message': 'Do you Want to Delete the User ?',
             'buttons': {
                 'Yes': {'class': 'btn btn-danger',
                     'action': function() {
                         $.ajax({
                             type: 'POST',
-                            url: http_host_js + 'user/status/' + current_id,
+                            url: http_host_js + 'user/delete/' + current_id,
                             data: id = current_id,
                             success: function() {
                                 window.location.reload();
