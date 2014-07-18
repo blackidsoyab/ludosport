@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 17, 2014 at 09:50 AM
+-- Generation Time: Jul 18, 2014 at 01:44 PM
 -- Server version: 5.5.37
 -- PHP Version: 5.3.10-1ubuntu3.13
 
@@ -41,7 +41,10 @@ CREATE TABLE IF NOT EXISTS `cities` (
 --
 
 INSERT INTO `cities` (`id`, `state_id`, `en_name`, `it_name`, `user_id`, `timestamp`) VALUES
-(4, 3, 'C2_S1_1', '', 1, '2014-07-16 08:17:40');
+(1, 1, 'Vadodara', '', 1, '2014-07-17 07:14:07'),
+(2, 1, 'Ahemedabad', '', 1, '2014-07-17 07:14:14'),
+(3, 2, 'Andheri East ', '', 1, '2014-07-17 07:15:15'),
+(4, 2, 'Church Gate', '', 1, '2014-07-17 07:16:01');
 
 -- --------------------------------------------------------
 
@@ -63,7 +66,8 @@ CREATE TABLE IF NOT EXISTS `countries` (
 --
 
 INSERT INTO `countries` (`id`, `en_name`, `it_name`, `user_id`, `timestamp`) VALUES
-(2, 'C2', 'C2', 1, '2014-07-16 08:15:48');
+(1, 'India', 'India', 1, '2014-07-17 07:11:46'),
+(2, 'Italy', 'Italy', 1, '2014-07-17 07:11:56');
 
 -- --------------------------------------------------------
 
@@ -77,20 +81,31 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `it_perm_name` varchar(65) DEFAULT NULL,
   `controller` varchar(65) NOT NULL,
   `method` varchar(65) NOT NULL,
+  `is_menu` int(1) NOT NULL DEFAULT '0',
+  `en_menu_title` varchar(30) DEFAULT NULL,
+  `it_menu_title` varchar(30) DEFAULT NULL,
+  `parent_id` int(11) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `permissions`
 --
 
-INSERT INTO `permissions` (`id`, `en_perm_name`, `it_perm_name`, `controller`, `method`, `user_id`, `timestamp`) VALUES
-(1, 'Country View', 'Aggiungi vista', 'countries', 'viewcountry', 1, '2014-07-16 06:00:18'),
-(2, 'Country Add', 'Aggiungi paese', 'countries', 'addcountry', 1, '2014-07-16 06:00:28'),
-(3, 'Country Edit', 'Aggiungi modifica', 'countries', 'editcountry', 1, '2014-07-16 06:00:39'),
-(4, 'Country Delete', 'Aggiungi cancellare', 'countries', 'deletecountry', 1, '2014-07-16 06:01:20');
+INSERT INTO `permissions` (`id`, `en_perm_name`, `it_perm_name`, `controller`, `method`, `is_menu`, `en_menu_title`, `it_menu_title`, `parent_id`, `user_id`, `timestamp`) VALUES
+(1, 'Country View', 'Aggiungi vista', 'countries', 'viewCountry', 1, 'Country', 'Country', 0, 1, '2014-07-17 07:08:31'),
+(2, 'Country Add', 'Aggiungi paese', 'countries', 'addCountry', 1, 'Add', 'Add', 1, 1, '2014-07-17 07:08:42'),
+(4, 'Country Edit', 'Aggiungi modifica', 'countries', 'editCountry', 1, 'Edit', 'Edit', 1, 1, '2014-07-17 07:09:36'),
+(5, 'Country Delete', 'Aggiungi cancellare', 'countries', 'deleteCountry', 1, 'Delete', 'Delete', 1, 1, '2014-07-17 07:09:49'),
+(6, 'State View', 'Stato Vista', 'states', 'viewStates', 1, 'State', 'State', 0, 1, '2014-07-17 07:22:00'),
+(7, 'State Add', 'Stato paese', 'states', 'addStates', 1, 'Add', 'Add', 6, 1, '2014-07-17 07:22:32'),
+(8, 'State Edit', 'Stato modifica', 'states', 'editStates', 1, 'Edit', 'Edit', 6, 1, '2014-07-17 07:22:50'),
+(9, 'State Delete', 'Stato cancellare', 'states', 'deleteStates', 1, 'Delete', 'Delete', 6, 1, '2014-07-17 07:23:45'),
+(10, 'City View', 'Città  vista', 'cities', 'viewCity', 1, 'City', 'City', 0, 1, '2014-07-17 12:37:29'),
+(11, 'City Add', 'Città paese', 'cities', 'addCity', 0, NULL, NULL, 0, 1, '2014-07-17 12:38:20'),
+(13, 'City Edit', 'City Edit', 'cities', 'editCity', 0, NULL, NULL, 0, 1, '2014-07-17 12:39:37');
 
 -- --------------------------------------------------------
 
@@ -102,19 +117,23 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `en_role_name` varchar(65) NOT NULL,
   `it_role_name` varchar(65) DEFAULT NULL,
-  `permission` longtext NOT NULL,
+  `permission` longtext,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`id`, `en_role_name`, `it_role_name`, `permission`, `user_id`, `timestamp`) VALUES
-(1, 'Administrator', 'Administrator', 'a:4:{i:2;s:1:"1";i:4;s:1:"1";i:3;s:1:"1";i:1;s:1:"1";}', 1, '2014-07-16 10:31:47'),
-(2, 'Student', 'Student', 'a:4:{i:2;s:1:"0";i:4;s:1:"0";i:3;s:1:"0";i:1;s:1:"0";}', 1, '2014-07-16 10:32:16');
+(1, 'Super Admin', 'Super Amministratore', NULL, 0, '2014-07-17 07:04:55'),
+(2, 'Administrator', 'Amministratore', 'a:3:{s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:10:"viewStates";i:1;s:9:"addStates";i:2;s:10:"editStates";i:3;s:12:"deleteStates";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}}', 1, '2014-07-17 07:27:03'),
+(3, 'Dean', 'Dean', 'a:3:{s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:2:{i:0;s:10:"viewStates";i:1;s:9:"addStates";}s:6:"cities";a:2:{i:0;s:8:"viewCity";i:1;s:7:"addCity";}}', 1, '2014-07-17 10:13:22'),
+(4, 'Principal', 'Principal', 'a:3:{s:9:"countries";a:1:{i:0;s:11:"viewCountry";}s:6:"states";a:1:{i:0;s:10:"viewStates";}s:6:"cities";a:1:{i:0;s:8:"viewCity";}}', 1, '2014-07-17 10:13:43'),
+(5, 'Instructor', 'Instructor', NULL, 1, '2014-07-17 10:16:50'),
+(6, 'Student', 'Student', NULL, 1, '2014-07-17 10:17:08');
 
 -- --------------------------------------------------------
 
@@ -130,15 +149,15 @@ CREATE TABLE IF NOT EXISTS `states` (
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `states`
 --
 
 INSERT INTO `states` (`id`, `country_id`, `en_name`, `it_name`, `user_id`, `timestamp`) VALUES
-(3, 2, 'C2_S1', '', 1, '2014-07-16 08:16:25'),
-(4, 2, 'C2_S2', '', 1, '2014-07-16 08:16:50');
+(1, 1, 'Gujarat', 'Gujarat', 1, '2014-07-17 07:12:28'),
+(2, 1, 'Mumbai', '', 1, '2014-07-17 07:12:55');
 
 -- --------------------------------------------------------
 
@@ -160,16 +179,17 @@ CREATE TABLE IF NOT EXISTS `users` (
   `status` enum('A','D','P') NOT NULL DEFAULT 'P',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `lastname`, `email`, `date_of_birth`, `city_id`, `permission`, `status`, `timestamp`) VALUES
-(1, 1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Soyab', 'Rana', 'soyab@blackidsolutions.com', '0000-00-00', 0, NULL, 'P', '2014-07-16 08:54:54'),
-(2, 2, 'rana', '202cb962ac59075b964b07152d234b70', 'Rana', 'Soyab', 'rana@rana.com', '1990-09-19', 4, NULL, 'P', '2014-07-16 12:31:50'),
-(3, 2, 'iqbal', 'c20ad4d76fe97759aa27a0c99bff6710', 'Iqbal', 'Hussain', 'iqbal@blackid.com', '2014-05-07', 4, NULL, 'P', '2014-07-16 12:43:52');
+(1, 1, 'superadmin', '202cb962ac59075b964b07152d234b70', 'Soyab', 'Rana', 'soyab@blackidsolutions.com', '1990-09-19', 0, NULL, 'A', '2014-07-17 07:05:53'),
+(2, 2, 'admin', '202cb962ac59075b964b07152d234b70', 'Administrator', '.', 'admin@ludosport.com', '1990-09-19', 1, NULL, 'A', '2014-07-17 07:28:01'),
+(3, 3, 'dean', '202cb962ac59075b964b07152d234b70', 'Dean', '.', 'dean@ludosport.com', '1990-09-19', 1, NULL, 'A', '2014-07-17 07:28:01'),
+(4, 4, 'principal', '202cb962ac59075b964b07152d234b70', 'Principal', '.', 'principal@ludosport.com', '1990-09-19', 1, NULL, 'A', '2014-07-17 07:28:01');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
