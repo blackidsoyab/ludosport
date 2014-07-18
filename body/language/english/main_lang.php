@@ -14,6 +14,7 @@ $lang['cancel'] = 'Cancel';
 $lang['actions'] = 'Actions';
 $lang['select'] = 'Select';
 $lang['name'] = 'Name';
+$lang['information'] = 'Informations';
 $lang['compulsory_note'] = 'Fields marked with <span class="text-danger">*</span> are mandatory.';
 
 //Messages
@@ -26,18 +27,21 @@ $lang['delete_data_error'] = 'Not able to delete data';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';
-$lang['access_management'] = 'Access Management';
+$lang['managment'] = 'Managment';
+$lang['access'] = 'Access';
 $lang['permission'] = 'Permission';
 $lang['role'] = 'Role';
-$lang['location_management'] = 'Location Management';
+$lang['location'] = 'Location';
 $lang['country'] = 'Country';
 $lang['state'] = 'State';
 $lang['city'] = 'City';
+$lang['user'] = 'User';
+
 
 //Login
 $lang['welcome_to_login'] = 'Welcome to MyLudosport, enter your credentials to access.';
-$lang['username'] = 'Enter Username';
-$lang['password'] = 'Enter Password';
+$lang['username'] = 'Username';
+$lang['password'] = 'Password';
 $lang['remember_me'] = 'Remember me';
 $lang['login'] = 'Login';
 $lang['forgot_password'] = 'you lost password?';
@@ -50,7 +54,7 @@ $lang['lastname'] = 'Lastname';
 $lang['nickname'] = 'Nickname';
 $lang['dob'] = 'Date of birth';
 $lang['email'] = 'Email';
-$lang['re_enter_password'] = 're-enter password';
+$lang['re_enter_password'] = 'Re-enter password';
 $lang['enter'] = 'Enter';
 $lang['i_accept'] = 'I accept';
 $lang['terms_conditions'] = 'Terms and conditions';
@@ -66,4 +70,13 @@ $lang['menu'] = 'Menu';
 //Role
 $lang['allow'] = 'Allow';
 $lang['deny'] = 'Deny';
+
+//User
+$lang['active'] = 'Active';
+$lang['deactive'] = 'Deactive';
+$lang['pending'] = 'Pending';
+$lang['status'] = 'Status';
+$lang['basic'] = 'Basic';
+$lang['access_control'] = 'Access Controls';
+$lang['change_status'] = 'Change Status';
 ?>

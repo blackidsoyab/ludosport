@@ -75,12 +75,12 @@ class authenticate extends CI_Controller {
 
     function saveUser() {
         $user = new User();
-        $user->role_id = 2;
+        $user->role_id = 6;
         $user->firstname = $this->input->post('firstname');
         $user->lastname = $this->input->post('lastname');
         $user->username = $this->input->post('username');
         $user->city_id = $this->input->post('city_id');
-        $user->date_of_birth = date('Y-m-d', strtotime($this->input->post('date_of_birth')));
+        $user->date_of_birth = strtotime($this->input->post('date_of_birth'));
         $user->email = $this->input->post('email');
         $user->password = md5($this->input->post('password'));
         if ($user->save()) {

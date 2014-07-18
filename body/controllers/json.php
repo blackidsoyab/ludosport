@@ -160,4 +160,42 @@ class json extends CI_Controller {
         exit();
     }
 
+    function getUsersJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('firstname', 'lastname', $this->session_data->language . '_role_name AS role', 'status');
+        $this->datatable->eColumns = array('users.id');
+        $this->datatable->sIndexColumn = "users.id";
+        $this->datatable->sTable = " users, roles";
+        $this->datatable->myWhere = 'WHERE users.id != 1 AND users.role_id=roles.id';
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['firstname'] . ' ' . $aRow['lastname'];
+            $temp_arr[] = $aRow['role'];
+
+            if ($aRow['status'] == 'A') {
+                $temp_arr[] = '<lable class="label label-success">' . $this->lang->line('active') . '</label>';
+            } else if ($aRow['status'] == 'D') {
+                $temp_arr[] = '<lable class="label label-danger">' . $this->lang->line('deactive') . '</label>';
+            } else if ($aRow['status'] == 'P') {
+                $temp_arr[] = '<lable class="label label-warning">' . $this->lang->line('pending') . '</label>';
+            }
+
+            $str = NULL;
+            if (hasPermission('users', 'editUser')) {
+                $str .= '<a href="' . base_url() . 'user/edit/' . $aRow['id'] . '" class="actions" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+
+            if (hasPermission('users', 'changeUserStatus')) {
+                $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" title="' . $this->lang->line('change_status') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
 }

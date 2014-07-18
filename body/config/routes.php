@@ -100,5 +100,14 @@ $route['role/edit/(:num)'] = "roles/editRole/$1";
 $route['role/delete/(:num)'] = "roles/deleteRole/$1";
 $route['role/getjson'] = "json/getRolesJsonData";
 $route['role/check/(:num)'] = "ajax/checkValidRole/$1";
+
+//User Managmanet
+$route['user'] = "users/viewUser";
+$route['user/list'] = "users/viewUser";
+$route['user/add'] = "users/addUser";
+$route['user/edit/(:num)'] = "users/editUser/$1";
+$route['user/status/(:num)'] = "users/changeUserStatus/$1";
+$route['user/getjson'] = "json/getUsersJsonData";
+$route['user/check/(:num)'] = "ajax/checkValidUser/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

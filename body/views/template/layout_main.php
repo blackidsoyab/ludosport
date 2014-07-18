@@ -119,21 +119,22 @@
                 <ul class="sidebar-menu">
                     <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(); ?>" title="<?php echo $this->lang->line('dashboard'); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a></li>
                     <li class="<?php echo ($page == 'permission' || $page == 'role') ? 'active selected' : ''; ?>">
-                        <a href="javascript:;" title="<?php echo $this->lang->line('access_management'); ?>">
+                        <a href="javascript:;" title="<?php echo $this->lang->line('access'), ' ' , $this->lang->line('managment'); ?>">
                             <i class="fa fa-table icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
-                            <?php echo $this->lang->line('access_management'); ?>
+                            <?php echo $this->lang->line('access'), ' ' , $this->lang->line('managment'); ?>
                         </a>
                         <ul class="submenu">
                             <li><a href="<?php echo base_url() . 'permission'; ?>" title="<?php echo $this->lang->line('permission'); ?>"><?php echo $this->lang->line('permission'); ?></a></li>
                             <li><a href="<?php echo base_url() . 'role'; ?>" title="<?php echo $this->lang->line('role'); ?>"><?php echo $this->lang->line('role'); ?></a></li>
                         </ul>
                     </li>
+                    <li class="<?php echo ($page == 'user') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(). 'user'; ?>" title="<?php echo $this->lang->line('user'), ' ' , $this->lang->line('managment'); ?>"><i class="fa fa-users icon-sidebar"></i><?php echo $this->lang->line('user'), ' ' , $this->lang->line('managment'); ?></a></li>
                     <li class="<?php echo ($page == 'country' || $page == 'states' || $page == 'city') ? 'active selected' : ''; ?>">
-                        <a href="javascript:;" title="<?php echo $this->lang->line('location_management'); ?>">
+                        <a href="javascript:;" title="<?php echo $this->lang->line('location'), ' ' , $this->lang->line('managment'); ?>">
                             <i class="fa fa-table icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
-                            <?php echo $this->lang->line('location_management'); ?>
+                            <?php echo $this->lang->line('location'), ' ' , $this->lang->line('managment'); ?>
                         </a>
                         <ul class="submenu">
                             <li><a href="<?php echo base_url() . 'country'; ?>" title="<?php echo $this->lang->line('country'); ?>"><?php echo $this->lang->line('country'); ?></a></li>
