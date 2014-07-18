@@ -52,7 +52,9 @@
     </div>
 
     <div class="col-md-6">
-        <a href="<?php echo base_url() . 'permission/add' ?>" class="btn btn-primary h1 pull-right" title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('permission'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('permission'); ?></a>
+         <?php if (hasPermission('permissions', 'addPermission')) { ?>
+             <a href="<?php echo base_url() . 'permission/add' ?>" class="btn btn-primary h1 pull-right" title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('permission'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('permission'); ?></a>
+        <?php } ?>
     </div>
 </div>
 

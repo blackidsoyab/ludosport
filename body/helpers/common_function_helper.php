@@ -58,10 +58,14 @@ function getPermmissionID($action) {
 
 function hasPermission($controller, $method) {
     $data = get_instance()->session->userdata('user_session');
-    if (is_array($data->permissions) && array_key_exists($controller, $data->permissions) && in_array($method, $data->permissions[$controller])) {
+    if ($data->id == 1) {
         return TRUE;
     } else {
-        return FALSE;
+        if (is_array($data->permissions) && array_key_exists($controller, $data->permissions) && in_array($method, $data->permissions[$controller])) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 }
 

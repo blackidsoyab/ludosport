@@ -23,7 +23,16 @@ class json extends CI_Controller {
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
             $temp_arr[] = $aRow[$this->session_data->language . '_name'];
-            $temp_arr[] = '<a href="' . base_url() . 'country/edit/' . $aRow['id'] . '" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+
+            $str = NULL;
+            if (hasPermission('countries', 'editCountry')) {
+                $str .= '<a href="' . base_url() . 'country/edit/' . $aRow['id'] . '" class="actions" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+
+            if (hasPermission('countries', 'deleteCountry')) {
+                $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }
@@ -44,7 +53,16 @@ class json extends CI_Controller {
             $temp_arr = array();
             $temp_arr[] = $aRow['states'];
             $temp_arr[] = $aRow['country'];
-            $temp_arr[] = '<a href="' . base_url() . 'state/edit/' . $aRow['id'] . '" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+
+            $str = NULL;
+            if (hasPermission('states', 'editState')) {
+                $str .= '<a href="' . base_url() . 'state/edit/' . $aRow['id'] . '" class="actions" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+
+            if (hasPermission('states', 'deleteState')) {
+                $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }
@@ -66,7 +84,16 @@ class json extends CI_Controller {
             $temp_arr[] = $aRow['city'];
             $temp_arr[] = $aRow['states'];
             $temp_arr[] = $aRow['country'];
-            $temp_arr[] = '<a href="' . base_url() . 'city/edit/' . $aRow['id'] . '" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+
+            $str = NULL;
+            if (hasPermission('cities', 'editCity')) {
+                $str .= '<a href="' . base_url() . 'city/edit/' . $aRow['id'] . '" class="actions" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+
+            if (hasPermission('cities', 'deleteCity')) {
+                $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }
@@ -87,7 +114,16 @@ class json extends CI_Controller {
             $temp_arr[] = $aRow[$this->session_data->language . '_perm_name'];
             $temp_arr[] = $aRow['controller'];
             $temp_arr[] = $aRow['method'];
-            $temp_arr[] = '<a href="' . base_url() . 'permission/edit/' . $aRow['id'] . '" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+
+            $str = NULL;
+            if (hasPermission('permissions', 'deletePermission')) {
+                $str .= '<a href="' . base_url() . 'permission/edit/' . $aRow['id'] . '" title="' . $this->lang->line('edit') . '" class="actions"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+
+            if (hasPermission('permissions', 'deletePermission')) {
+                $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }
@@ -101,12 +137,22 @@ class json extends CI_Controller {
         $this->datatable->eColumns = array('id');
         $this->datatable->sIndexColumn = "id";
         $this->datatable->sTable = " roles";
+        $this->datatable->myWhere = 'WHERE id != 1';
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
             $temp_arr[] = $aRow[$this->session_data->language . '_role_name'];
-            $temp_arr[] = '<a href="' . base_url() . 'role/edit/' . $aRow['id'] . '" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a> &nbsp;<a href="javascript:;" onclick="UpdateRow(this)" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+
+            $str = NULL;
+            if (hasPermission('roles', 'editRole')) {
+                $str .= '<a href="' . base_url() . 'role/edit/' . $aRow['id'] . '" class="actions" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+
+            if (hasPermission('roles', 'deleteRole')) {
+                $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }

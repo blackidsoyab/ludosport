@@ -6850,3 +6850,7 @@ FOR DEMO PURPOSE
 .bg-white {background: #F6F8F9;}
 
 label.error {color: #E9573F; }
+
+a.actions {
+    margin: 0 5px;
+}
