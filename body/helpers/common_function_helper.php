@@ -123,6 +123,30 @@ function loopPermissionArray($array, $given_permission = null, $parent_key = nul
 
 function createPermissionArray() {
     $permission = array(
+        'users' => array(
+            'name' => 'User',
+            'hasChild' => array(
+                'viewUser' => array('name' => 'List'),
+                'addUser' => array('name' => 'Add'),
+                'editUser' => array('name' => 'Edit'),
+                'deleteUser' => array('name' => 'Delete'),
+        )),
+        'academies' => array(
+            'name' => 'Academy',
+            'hasChild' => array(
+                'viewAcademy' => array('name' => 'List'),
+                'addAcademy' => array('name' => 'Add'),
+                'editAcademy' => array('name' => 'Edit'),
+                'deleteAcademy' => array('name' => 'Delete'),
+        )),
+        'schools' => array(
+            'name' => 'School',
+            'hasChild' => array(
+                'viewSchool' => array('name' => 'List'),
+                'addSchool' => array('name' => 'Add'),
+                'editSchool' => array('name' => 'Edit'),
+                'deleteSchool' => array('name' => 'Delete'),
+        )),
         'countries' => array(
             'name' => 'Country',
             'hasChild' => array(
@@ -146,15 +170,7 @@ function createPermissionArray() {
                 'addCity' => array('name' => 'Add'),
                 'editCity' => array('name' => 'Edit'),
                 'deleteCity' => array('name' => 'Delete'),
-        )),
-        'users' => array(
-            'name' => 'User',
-            'hasChild' => array(
-                'viewUser' => array('name' => 'List'),
-                'addUser' => array('name' => 'Add'),
-                'editUser' => array('name' => 'Edit'),
-                'deleteUser' => array('name' => 'Delete'),
-        )),
+        ))
     );
 
     return $permission;

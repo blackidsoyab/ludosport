@@ -27,8 +27,9 @@ class users extends CI_Controller {
             $user->date_of_birth = strtotime($this->input->post('date_of_birth'));
             $user->city_id = $this->input->post('city_id');
             $user->role_id = $this->input->post('role_id');
-            $user->username = $this->input->post('username');
+            $user->new_username = $this->input->post('new_username');
             $user->password = md5($this->input->post('new_password'));
+            $user->status = $this->input->post('status');
             $user->user_id = $this->session_data->id;
 
             $user->save();
@@ -41,7 +42,7 @@ class users extends CI_Controller {
             $data['cities'] = $city->get();
 
             $role = new Role();
-            $data['roles'] = $role->where_not_in('id', array(1))->get();
+            $data['roles'] = $role->where('id >', $this->session_data->id)->get();
 
             $this->layout->view('users/add', $data);
         }
@@ -60,13 +61,14 @@ class users extends CI_Controller {
                 $user->city_id = $this->input->post('city_id');
                 $user->role_id = $this->input->post('role_id');
 
-                if ($this->input->post('username') != '') {
-                    $user->username = $this->input->post('username');
+                if ($this->input->post('new_username') != '') {
+                    $user->username = $this->input->post('new_username');
                 }
 
                 if ($this->input->post('new_password') != '') {
                     $user->password = md5($this->input->post('new_password'));
                 }
+                $user->status = $this->input->post('status');
                 $user->user_id = $this->session_data->id;
 
                 $user->save();
@@ -78,13 +80,18 @@ class users extends CI_Controller {
                 $user = new User();
                 $data['user'] = $user->where('id', $id)->get();
 
-                $city = new City();
-                $data['cities'] = $city->get();
+                if ($user->role_id <= $this->session_data->role) {
+                    $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+                    redirect(base_url() . 'user', 'refresh');
+                } else {
+                    $city = new City();
+                    $data['cities'] = $city->get();
 
-                $role = new Role();
-                $data['roles'] = $role->where_not_in('id', array(1))->get();
+                    $role = new Role();
+                    $data['roles'] = $role->where_not_in('id', array(1))->get();
 
-                $this->layout->view('users/edit', $data);
+                    $this->layout->view('users/edit', $data);
+                }
             }
         } else {
             $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
@@ -108,7 +115,7 @@ class users extends CI_Controller {
     function extraPermissionUser($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
-               
+
                 $user = new User();
                 $user->where('id', $id)->update('permission', serialize($this->input->post('perm')));
                 $user->delete();

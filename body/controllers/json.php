@@ -134,7 +134,7 @@ class json extends CI_Controller {
     public function getRolesJsonData() {
         $this->load->library('datatable');
         $this->datatable->aColumns = array($this->session_data->language . '_role_name');
-        $this->datatable->eColumns = array('id');
+        $this->datatable->eColumns = array('id', 'is_delete');
         $this->datatable->sIndexColumn = "id";
         $this->datatable->sTable = " roles";
         $this->datatable->myWhere = 'WHERE id != 1';
@@ -150,7 +150,11 @@ class json extends CI_Controller {
             }
 
             if (hasPermission('roles', 'deleteRole')) {
-                $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+                if ($aRow['is_delete'] == '1') {
+                    $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+                } else {
+                    $str .= '&nbsp;';
+                }
             }
             $temp_arr[] = $str;
 
@@ -166,7 +170,7 @@ class json extends CI_Controller {
         $this->datatable->eColumns = array('users.id');
         $this->datatable->sIndexColumn = "users.id";
         $this->datatable->sTable = " users, roles";
-        $this->datatable->myWhere = 'WHERE users.id != 1 AND users.role_id=roles.id';
+        $this->datatable->myWhere = 'WHERE users.id !=  1 AND users.role_id=roles.id AND roles.id >' . $this->session_data->role;
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {

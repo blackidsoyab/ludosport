@@ -16,6 +16,7 @@ $lang['select'] = 'Select';
 $lang['name'] = 'Name';
 $lang['total'] = 'Total';
 $lang['information'] = 'Informations';
+$lang['activity'] = 'Activity';
 $lang['compulsory_note'] = 'Fields marked with <span class="text-danger">*</span> are mandatory.';
 
 //Messages

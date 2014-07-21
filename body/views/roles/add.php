@@ -40,6 +40,14 @@
         });
         
         $('#permission_tree div').tree();
+        
+        $('#permission_tree-checkAll').click(function(){
+            $('#permission_tree div').tree('checkAll');
+        });
+
+        $('#permission_tree-uncheckAll').click(function(){
+            $('#permission_tree div').tree('uncheckAll');
+        });
     });
     //]]>
 </script>
@@ -58,6 +66,14 @@
                 </div>
             </div>
         <?php } ?>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">&nbsp;</label>
+            <div class="col-md-8">
+                <button id="permission_tree-checkAll" type="button" class="btn btn-default">Check all</button>
+                <button id="permission_tree-uncheckAll" type="button" class="btn btn-default">Uncheck all</button>
+            </div>
+        </div>
 
         <div class="form-group">
             <label for="question" class="col-md-2 control-label">

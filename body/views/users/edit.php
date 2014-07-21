@@ -113,15 +113,15 @@
             <label class="col-md-2 control-label" for="radios"><?php echo $this->lang->line('change_status'); ?></label>
             <div class="col-md-8"> 
                 <label class="radio-inline" for="radios-0">
-                    <input type="radio" name="radios" id="radios-0" value="A" <?php echo ($user->status == 'A') ? 'checked' : ''; ?>>
+                    <input type="radio" name="status" id="radios-0" value="A" <?php echo ($user->status == 'A') ? 'checked' : ''; ?>>
                     <?php echo $this->lang->line('active'); ?>
                 </label> 
                <label class="radio-inline" for="radios-0">
-                    <input type="radio" name="radios" id="radios-0" value="D" <?php echo ($user->status == 'D') ? 'checked' : ''; ?>>
+                    <input type="radio" name="status" id="radios-0" value="D" <?php echo ($user->status == 'D') ? 'checked' : ''; ?>>
                     <?php echo $this->lang->line('deactive'); ?>
                 </label> 
                 <label class="radio-inline" for="radios-0">
-                    <input type="radio" name="radios" id="radios-0" value="P" <?php echo ($user->status == 'P') ? 'checked' : ''; ?>>
+                    <input type="radio" name="status" id="radios-0" value="P" <?php echo ($user->status == 'P') ? 'checked' : ''; ?>>
                     <?php echo $this->lang->line('pending'); ?>
                 </label> 
             </div>
