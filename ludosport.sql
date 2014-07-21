@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 18, 2014 at 01:44 PM
+-- Generation Time: Jul 21, 2014 at 06:36 PM
 -- Server version: 5.5.37
 -- PHP Version: 5.3.10-1ubuntu3.13
 
@@ -19,6 +19,42 @@ SET time_zone = "+00:00";
 --
 -- Database: `ludosport`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `academies`
+--
+
+CREATE TABLE IF NOT EXISTS `academies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `dean_id` int(11) NOT NULL,
+  `en_academy_name` varchar(100) NOT NULL,
+  `it_academy_name` varchar(100) DEFAULT NULL,
+  `type` varchar(65) NOT NULL,
+  `contact_firstname` varchar(65) NOT NULL,
+  `contact_lastname` varchar(65) NOT NULL,
+  `association_fullname` varchar(100) NOT NULL,
+  `address` text NOT NULL,
+  `postal_code` int(11) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `state_id` int(11) NOT NULL,
+  `country_id` int(11) NOT NULL,
+  `phone_1` varchar(20) DEFAULT NULL,
+  `phone_2` varchar(20) DEFAULT NULL,
+  `email` varchar(65) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `academies`
+--
+
+INSERT INTO `academies` (`id`, `dean_id`, `en_academy_name`, `it_academy_name`, `type`, `contact_firstname`, `contact_lastname`, `association_fullname`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `user_id`, `timestamp`) VALUES
+(1, 3, 'Black id Solutions', 'Black id Solutions', 'ac', 'Soyab', 'Rana', 'Black Id Solutions', 'Baroda', 390016, 1, 1, 1, '919601516399', '', 'soyab@blackidsolutions.com', 1, '2014-07-21 07:18:20'),
+(2, 3, 'Black id', 'Black id Solutions', 'ac', 'Soyab', 'Rana', 'Black Id Solutions', 'Baroda', 390016, 1, 1, 1, '919601516399', '', 'soyab@blackidsolutions.com', 1, '2014-07-21 07:18:20');
 
 -- --------------------------------------------------------
 
@@ -49,6 +85,31 @@ INSERT INTO `cities` (`id`, `state_id`, `en_name`, `it_name`, `user_id`, `timest
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `clans`
+--
+
+CREATE TABLE IF NOT EXISTS `clans` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `academy_id` int(11) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `instructor_id` int(11) NOT NULL,
+  `en_class_name` varchar(65) NOT NULL,
+  `it_class_name` varchar(65) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `clans`
+--
+
+INSERT INTO `clans` (`id`, `academy_id`, `school_id`, `instructor_id`, `en_class_name`, `it_class_name`, `user_id`, `timestamp`) VALUES
+(3, 1, 4, 5, 'SEO', 'SEO ', 3, '2014-07-21 13:02:58');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `countries`
 --
 
@@ -59,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `countries` (
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `countries`
@@ -67,7 +128,8 @@ CREATE TABLE IF NOT EXISTS `countries` (
 
 INSERT INTO `countries` (`id`, `en_name`, `it_name`, `user_id`, `timestamp`) VALUES
 (1, 'India', 'India', 1, '2014-07-17 07:11:46'),
-(2, 'Italy', 'Italy', 1, '2014-07-17 07:11:56');
+(2, 'Italy', 'Italy', 1, '2014-07-17 07:11:56'),
+(3, 'UAE', 'UAE', 1, '2014-07-21 06:15:37');
 
 -- --------------------------------------------------------
 
@@ -118,22 +180,56 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `en_role_name` varchar(65) NOT NULL,
   `it_role_name` varchar(65) DEFAULT NULL,
   `permission` longtext,
+  `is_delete` enum('1','0') NOT NULL DEFAULT '1',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `roles`
 --
 
-INSERT INTO `roles` (`id`, `en_role_name`, `it_role_name`, `permission`, `user_id`, `timestamp`) VALUES
-(1, 'Super Admin', 'Super Amministratore', NULL, 0, '2014-07-17 07:04:55'),
-(2, 'Administrator', 'Amministratore', 'a:3:{s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:10:"viewStates";i:1;s:9:"addStates";i:2;s:10:"editStates";i:3;s:12:"deleteStates";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}}', 1, '2014-07-17 07:27:03'),
-(3, 'Dean', 'Dean', 'a:3:{s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:2:{i:0;s:10:"viewStates";i:1;s:9:"addStates";}s:6:"cities";a:2:{i:0;s:8:"viewCity";i:1;s:7:"addCity";}}', 1, '2014-07-17 10:13:22'),
-(4, 'Principal', 'Principal', 'a:3:{s:9:"countries";a:1:{i:0;s:11:"viewCountry";}s:6:"states";a:1:{i:0;s:10:"viewStates";}s:6:"cities";a:1:{i:0;s:8:"viewCity";}}', 1, '2014-07-17 10:13:43'),
-(5, 'Instructor', 'Instructor', NULL, 1, '2014-07-17 10:16:50'),
-(6, 'Student', 'Student', NULL, 1, '2014-07-17 10:17:08');
+INSERT INTO `roles` (`id`, `en_role_name`, `it_role_name`, `permission`, `is_delete`, `user_id`, `timestamp`) VALUES
+(1, 'Super Admin', 'Super Amministratore', NULL, '0', 0, '2014-07-17 07:04:55'),
+(2, 'Administrator', 'Amministratore', 'a:8:{s:5:"roles";a:4:{i:0;s:8:"viewRole";i:1;s:7:"addRole";i:2;s:8:"editRole";i:3;s:10:"deleteRole";}s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:4:{i:0;s:11:"viewAcademy";i:1;s:10:"addAcademy";i:2;s:11:"editAcademy";i:3;s:13:"deleteAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:4:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";}s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:10:"viewStates";i:1;s:9:"addStates";i:2;s:10:"editStates";i:3;s:12:"deleteStates";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}}', '0', 1, '2014-07-17 07:27:03'),
+(3, 'Dean', 'Dean', 'a:4:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:4:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";}}', '0', 2, '2014-07-17 10:13:22'),
+(4, 'Principal', 'Principal', 'a:4:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:6:"states";a:1:{i:0;s:10:"viewStates";}}', '0', 1, '2014-07-17 10:13:43'),
+(5, 'Instructor', 'Instructor', 'a:3:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}}', '0', 1, '2014-07-17 10:16:50'),
+(6, 'Student', 'Student', NULL, '0', 1, '2014-07-17 10:17:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `schools`
+--
+
+CREATE TABLE IF NOT EXISTS `schools` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `academy_id` int(11) NOT NULL,
+  `principal_id` int(11) NOT NULL,
+  `en_school_name` varchar(65) NOT NULL,
+  `it_school_name` varchar(65) DEFAULT NULL,
+  `range` varchar(25) DEFAULT NULL,
+  `city_id` int(11) NOT NULL,
+  `postal_code` int(6) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `mobile` varchar(15) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `email` varchar(65) NOT NULL,
+  `information` text,
+  `user_id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `schools`
+--
+
+INSERT INTO `schools` (`id`, `academy_id`, `principal_id`, `en_school_name`, `it_school_name`, `range`, `city_id`, `postal_code`, `phone`, `mobile`, `address`, `email`, `information`, `user_id`, `timestamp`) VALUES
+(3, 1, 4, 'PHP', 'PHP', '', 1, 390016, '919601516399', '919601516399', 'Baroda', 'soyab@blackidsolutions.com', '<p>Hello</p><p>How are you ?</p>', 1, '2014-07-21 09:13:11'),
+(4, 1, 4, 'SEO', 'SEO', '', 1, 390016, '919601516399', '919601516399', 'Baroda', 'soyab@blackidsolutions.com', '<p>Hello</p><p>How are you ?</p>', 1, '2014-07-21 09:13:11');
 
 -- --------------------------------------------------------
 
@@ -162,6 +258,21 @@ INSERT INTO `states` (`id`, `country_id`, `en_name`, `it_name`, `user_id`, `time
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `userdetails`
+--
+
+CREATE TABLE IF NOT EXISTS `userdetails` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `student_master_id` int(11) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -173,23 +284,27 @@ CREATE TABLE IF NOT EXISTS `users` (
   `firstname` varchar(65) NOT NULL,
   `lastname` varchar(65) NOT NULL,
   `email` varchar(65) NOT NULL,
-  `date_of_birth` date NOT NULL,
+  `date_of_birth` bigint(100) NOT NULL,
   `city_id` int(11) NOT NULL,
   `permission` longtext,
   `status` enum('A','D','P') NOT NULL DEFAULT 'P',
+  `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `lastname`, `email`, `date_of_birth`, `city_id`, `permission`, `status`, `timestamp`) VALUES
-(1, 1, 'superadmin', '202cb962ac59075b964b07152d234b70', 'Soyab', 'Rana', 'soyab@blackidsolutions.com', '1990-09-19', 0, NULL, 'A', '2014-07-17 07:05:53'),
-(2, 2, 'admin', '202cb962ac59075b964b07152d234b70', 'Administrator', '.', 'admin@ludosport.com', '1990-09-19', 1, NULL, 'A', '2014-07-17 07:28:01'),
-(3, 3, 'dean', '202cb962ac59075b964b07152d234b70', 'Dean', '.', 'dean@ludosport.com', '1990-09-19', 1, NULL, 'A', '2014-07-17 07:28:01'),
-(4, 4, 'principal', '202cb962ac59075b964b07152d234b70', 'Principal', '.', 'principal@ludosport.com', '1990-09-19', 1, NULL, 'A', '2014-07-17 07:28:01');
+INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `lastname`, `email`, `date_of_birth`, `city_id`, `permission`, `status`, `user_id`, `timestamp`) VALUES
+(1, 1, 'superadmin', '202cb962ac59075b964b07152d234b70', 'Soyab', 'Rana', 'soyab@blackidsolutions.com', 1990, 0, NULL, 'A', 0, '2014-07-17 07:05:53'),
+(2, 2, 'admin', '202cb962ac59075b964b07152d234b70', 'Administrator', '.', 'admin@ludosport.com', 1990, 1, NULL, 'A', 0, '2014-07-17 07:28:01'),
+(3, 3, 'dean', '202cb962ac59075b964b07152d234b70', 'Dean', '.', 'dean@ludosport.com', -19800, 1, NULL, 'A', 1, '2014-07-17 07:28:01'),
+(4, 4, 'principal', '202cb962ac59075b964b07152d234b70', 'Principal', '.', 'principal@ludosport.com', 1990, 1, NULL, 'A', 0, '2014-07-17 07:28:01'),
+(5, 5, 'instructor', '202cb962ac59075b964b07152d234b70', 'Instructor', 'Instructor', 'dean1@dean.com', 653682600, 2, NULL, 'A', 1, '2014-07-21 10:11:41'),
+(6, 3, 'dean1', '202cb962ac59075b964b07152d234b70', 'Dean', '.', 'dean@ludosport.com', -19800, 1, NULL, 'A', 1, '2014-07-17 07:28:01'),
+(7, 5, 'instructor_1', '202cb962ac59075b964b07152d234b70', 'Instructor 1', 'Instructor 1', 'dean1@dean.com', 653682600, 2, NULL, 'A', 1, '2014-07-21 10:11:41');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
