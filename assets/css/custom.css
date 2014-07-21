@@ -11,3 +11,11 @@
     display: inline;
     padding: 0px;
 }
+
+.tiles-information p {
+    color: #000000;
+}
+
+.tiles-information a {
+    color: #37BC9B;
+}

@@ -123,6 +123,14 @@ function loopPermissionArray($array, $given_permission = null, $parent_key = nul
 
 function createPermissionArray() {
     $permission = array(
+        'roles' => array(
+            'name' => 'Role',
+            'hasChild' => array(
+                'viewRole' => array('name' => 'List'),
+                'addRole' => array('name' => 'Add'),
+                'editRole' => array('name' => 'Edit'),
+                'deleteRole' => array('name' => 'Delete'),
+        )),
         'users' => array(
             'name' => 'User',
             'hasChild' => array(

@@ -71,24 +71,26 @@
                             <i class="fa fa-long-arrow-right icon-dinamic"></i>
                         </div>
 
-                        <ul class="nav-user navbar-right">
-                            <?php $session = $this->session->userdata('user_session'); ?>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="<?php echo IMG_URL; ?>avatar/avatar-2.jpg" class="avatar img-circle" alt="<?php echo $session->name; ?>" title="<?php echo $session->name; ?>">
-                                    <?php echo $this->lang->line('hello'); ?>, <strong><?php echo $session->name; ?></strong>
-                                </a>
-                                <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
-                                    <li><a href="<?php echo base_url() . 'logout'; ?>" title="<?php echo $this->lang->line('logout'); ?>"><?php echo $this->lang->line('logout'); ?></a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                        <!-- <ul class="nav-user navbar-right">
+                             <li class="dropdown">
+                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                     <img src="<?php echo IMG_URL; ?>avatar/avatar-2.jpg" class="avatar img-circle" alt="<?php echo $session->name; ?>" title="<?php echo $session->name; ?>">
+                        <?php echo $this->lang->line('hello'); ?>, <strong><?php echo $session->name; ?></strong>
+                                 </a>
+                                 <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
+                                     <li><a href="<?php echo base_url() . 'logout'; ?>" title="<?php echo $this->lang->line('logout'); ?>"><?php echo $this->lang->line('logout'); ?></a></li>
+                                 </ul>
+                             </li>
+                         </ul> -->
 
                         <div class="collapse navbar-collapse" id="main-fixed-nav">
                             <ul class="nav navbar-nav navbar-left">
                                 <li class="dropdown">
                                     <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
-                                        <?php $languages = $this->config->item('custom_languages'); ?>
+                                        <?php
+                                        $session = $this->session->userdata('user_session');
+                                        $languages = $this->config->item('custom_languages');
+                                        ?>
                                         <span class="badge badge-danger icon-count" title="<?php echo ucwords($languages[$session->language]); ?>"><?php echo strtoupper($session->language); ?></span>
                                         <i class="fa fa-bell-o"></i>
                                     </a>

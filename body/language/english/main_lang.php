@@ -17,6 +17,7 @@ $lang['name'] = 'Name';
 $lang['total'] = 'Total';
 $lang['information'] = 'Informations';
 $lang['activity'] = 'Activity';
+$lang['users'] = 'Users';
 $lang['compulsory_note'] = 'Fields marked with <span class="text-danger">*</span> are mandatory.';
 
 //Messages
@@ -42,6 +43,13 @@ $lang['academy'] = 'Academy';
 $lang['school'] = 'School';
 $lang['student'] = 'Student';
 
+//Dashboard
+$lang['control_panel'] = 'Control Panel';
+$lang['numbers'] = 'Numbers';
+$lang['academies'] = 'Academies';
+$lang['schools'] = 'Schools';
+$lang['instructors'] = 'Instructors';
+$lang['students'] = 'Students';
 
 //Login
 $lang['welcome_to_login'] = 'Welcome to MyLudosport, enter your credentials to access.';
