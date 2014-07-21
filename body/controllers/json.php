@@ -197,7 +197,7 @@ class json extends CI_Controller {
                 $str .= '<a href="' . base_url() . 'user/edit/' . $aRow['id'] . '" class="actions" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
             }
 
-            if (hasPermission('users', 'changeUserStatus')) {
+            if (hasPermission('users', 'deleteUser')) {
                 $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" title="' . $this->lang->line('change_status') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
             }
             $temp_arr[] = $str;
