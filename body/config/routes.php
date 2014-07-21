@@ -120,5 +120,12 @@ $route['academy/getjson'] = "json/getAcademiesJsonData";
 $route['academy/getstate/(:num)'] = "ajax/getAllStatesOptionsFromCountry/$1";
 $route['academy/getcity/(:num)'] = "ajax/getAllCitiesOptionsFromState/$1";
 
+//School Managment
+$route['school'] = "schools/viewSchool";
+$route['school/list'] = "schools/viewSchool";
+$route['school/add'] = "schools/addSchool";
+$route['school/edit/(:num)'] = "schools/editSchool/$1";
+$route['school/delete/(:num)'] = "schools/deleteSchool/$1";
+$route['school/getjson'] = "json/getSchoolsJsonData";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

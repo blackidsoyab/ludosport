@@ -95,4 +95,9 @@ $lang['address'] = 'Address';
 $lang['postal_code'] = 'Postal Code';
 $lang['phone_number'] = 'Phone Number';
 $lang['dean'] = 'Dean';
+
+//School
+$lang['principal'] = 'Principal';
+$lang['mobile_number'] = 'Mobile Number';
+$lang['range'] = 'Range';
 ?>

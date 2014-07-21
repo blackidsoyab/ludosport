@@ -6,6 +6,7 @@
 
         <link href="<?php echo CSS_URL; ?>bootstrap.min.css" rel="stylesheet">
         <link href="<?php echo CSS_URL; ?>style.css" rel="stylesheet">
+        <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">
         <link href="<?php echo CSS_URL; ?>style-responsive.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>weather-icon/css/weather-icons.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>prettify/prettify.min.css" rel="stylesheet">
@@ -117,9 +118,25 @@
             <?php $page = ($this->uri->segment(1) ? $this->uri->segment(1) : 'dashboard'); ?>
             <div class="sidebar-left sidebar-nicescroller">
                 <ul class="sidebar-menu">
+                    <li class="static left-profile-summary">
+                        <div class="media">
+                            <p class="pull-left">
+                                <img src="<?php echo IMG_URL; ?>avatar/avatar-2.jpg" class="avatar img-circle" alt="<?php echo $session->name; ?>" title="<?php echo $session->name; ?>">
+
+                            </p>
+                            <div class="media-body">
+                                <h4>
+                                    <?php echo $this->lang->line('hello'); ?>
+                                    <br />
+                                    <strong><?php echo $session->name; ?></strong>
+                                </h4>
+                                <button class="btn btn-success btn-xs"><i class="fa fa-cog"></i></button><a href="<?php echo base_url() . 'logout'; ?>" title="<?php echo $this->lang->line('logout'); ?>" class="logout-action"> <button class="btn btn-danger btn-xs"><?php echo $this->lang->line('logout'); ?></button></a>
+                            </div>
+                        </div>
+                    </li>
                     <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(); ?>" title="<?php echo $this->lang->line('dashboard'); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a></li>
-                    <li class="<?php echo ($page == 'academy') ? 'active selected' : ''; ?>"><a href="<?php echo base_url().'academy'; ?>" title="<?php echo $this->lang->line('academy'); ?>"><i class="fa fa-font icon-sidebar"></i><?php echo $this->lang->line('academy'); ?></a></li>
-                    <li class="<?php echo ($page == 'school') ? 'active selected' : ''; ?>"><a href="<?php echo base_url().'gym'; ?>" title="<?php echo $this->lang->line('school'); ?>"><i class="fa fa-university icon-sidebar"></i><?php echo $this->lang->line('school'); ?></a></li>
+                    <li class="<?php echo ($page == 'academy') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'academy'; ?>" title="<?php echo $this->lang->line('academy'); ?>"><i class="fa fa-font icon-sidebar"></i><?php echo $this->lang->line('academy'); ?></a></li>
+                    <li class="<?php echo ($page == 'school') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'school'; ?>" title="<?php echo $this->lang->line('school'); ?>"><i class="fa fa-university icon-sidebar"></i><?php echo $this->lang->line('school'); ?></a></li>
                     <li class="<?php echo ($page == 'user') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'user'; ?>" title="<?php echo $this->lang->line('user'); ?>"><i class="fa fa-users icon-sidebar"></i><?php echo $this->lang->line('user'); ?></a></li>
                     <li class="<?php echo ($page == 'permission' || $page == 'role') ? 'active selected' : ''; ?>">
                         <a href="javascript:;" title="<?php echo $this->lang->line('access'); ?>">

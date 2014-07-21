@@ -1,0 +1,13 @@
+.error{
+    color: #E9573F;
+}
+
+.actions {
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.media .media-body .logout-action {
+    display: inline;
+    padding: 0px;
+}
