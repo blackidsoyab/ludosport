@@ -155,6 +155,14 @@ function createPermissionArray() {
                 'editSchool' => array('name' => 'Edit'),
                 'deleteSchool' => array('name' => 'Delete'),
         )),
+        'clans' => array(
+            'name' => 'Classes',
+            'hasChild' => array(
+                'viewClan' => array('name' => 'List'),
+                'addClan' => array('name' => 'Add'),
+                'editClan' => array('name' => 'Edit'),
+                'deleteClan' => array('name' => 'Delete'),
+        )),
         'countries' => array(
             'name' => 'Country',
             'hasChild' => array(

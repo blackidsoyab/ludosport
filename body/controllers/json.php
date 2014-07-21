@@ -210,7 +210,7 @@ class json extends CI_Controller {
 
     public function getAcademiesJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('academies.' . $this->session_data->language . '_academy_name AS academy_name', 'states.' . $this->session_data->language . '_name AS states', 'cities.' . $this->session_data->language . '_name AS city', '(SELECT count(*) from schools where schools.academy_id=academies.id) AS total_schools', '(SELECT count(*) from user_details, schools, academies where schools.academy_id=academies.id AND user_details.school_id=schools.id) AS total_students');
+        $this->datatable->aColumns = array('academies.' . $this->session_data->language . '_academy_name AS academy_name', 'states.' . $this->session_data->language . '_name AS states', 'cities.' . $this->session_data->language . '_name AS city', '(SELECT count(*) from schools where schools.academy_id=academies.id) AS total_schools', '(SELECT count(*) from userdetails, schools, academies where schools.academy_id=academies.id AND userdetails.school_id=schools.id) AS total_students');
         $this->datatable->eColumns = array('academies.id');
         $this->datatable->sIndexColumn = "academies.id";
         $this->datatable->sTable = " academies, cities, states";
@@ -242,7 +242,7 @@ class json extends CI_Controller {
 
     public function getSchoolsJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('schools.' . $this->session_data->language . '_school_name AS school_name', '(SELECT count(*) from user_details, schools where  user_details.school_id=schools.id) AS total_students');
+        $this->datatable->aColumns = array('schools.' . $this->session_data->language . '_school_name AS school_name', '(SELECT count(*) from userdetails, schools where  userdetails.school_id=schools.id) AS total_students');
         $this->datatable->eColumns = array('schools.id');
         $this->datatable->sIndexColumn = "schools.id";
         $this->datatable->sTable = " schools";
@@ -256,6 +256,38 @@ class json extends CI_Controller {
             $str = NULL;
             if (hasPermission('schools', 'editSchool')) {
                 $str .= '<a href="' . base_url() . 'school/edit/' . $aRow['id'] . '" class="actions" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+
+            if (hasPermission('schools', 'deleteSchool')) {
+                $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    function getClansJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', '(SELECT count(*) from userdetails, schools where  userdetails.school_id=schools.id) AS total_students', 'CONCAT(users.firstname," ", users.lastname) as instructor', 'schools.' . $this->session_data->language . '_school_name AS school_name');
+        $this->datatable->eColumns = array('clans.id');
+        $this->datatable->sIndexColumn = "clans.id";
+        $this->datatable->sTable = " clans, users, schools";
+        $this->datatable->myWhere = 'WHERE clans.school_id=schools.id AND clans.instructor_id=users.id';
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['class_name'];
+            $temp_arr[] = $aRow['instructor'];
+            $temp_arr[] = $aRow['school_name'];
+            $temp_arr[] = $aRow['total_students'];
+
+            $str = NULL;
+            if (hasPermission('schools', 'editSchool')) {
+                $str .= '<a href="' . base_url() . 'clan/edit/' . $aRow['id'] . '" class="actions" title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
             }
 
             if (hasPermission('schools', 'deleteSchool')) {

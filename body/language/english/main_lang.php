@@ -42,6 +42,7 @@ $lang['user'] = 'User';
 $lang['academy'] = 'Academy';
 $lang['school'] = 'School';
 $lang['student'] = 'Student';
+$lang['clan'] = 'Class';
 
 //Dashboard
 $lang['control_panel'] = 'Control Panel';
@@ -109,4 +110,7 @@ $lang['dean'] = 'Dean';
 $lang['principal'] = 'Principal';
 $lang['mobile_number'] = 'Mobile Number';
 $lang['range'] = 'Range';
+
+//Classes
+$lang['instructor'] = 'Instructor';
 ?>

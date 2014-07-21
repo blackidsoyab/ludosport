@@ -51,7 +51,7 @@ class schools extends CI_Controller {
             $data['academies'] = $academy->get();
 
             $users = New User();
-            $data['principals'] = $users->where('id', '4')->get();
+            $data['principals'] = $users->where('role_id', '4')->get();
 
             $city = New City();
             $data['cities'] = $city->get();
@@ -100,7 +100,7 @@ class schools extends CI_Controller {
                 $data['academies'] = $academy->get();
 
                 $users = New User();
-                $data['principals'] = $users->where('id', '4')->get();
+                $data['principals'] = $users->where('role_id', '4')->get();
 
                 $city = New City();
                 $data['cities'] = $city->get();

@@ -54,7 +54,7 @@ class academies extends CI_Controller {
             $data['countries'] = $countries->get();
 
             $users = New User();
-            $data['deans'] = $users->where('id', '3')->get();
+            $data['deans'] = $users->where('role_id', '3')->get();
 
             $this->layout->view('academies/add', $data);
         }
@@ -102,7 +102,7 @@ class academies extends CI_Controller {
                 $data['countries'] = $countries->get();
 
                 $users = New User();
-                $data['deans'] = $users->where('id', '3')->get();
+                $data['deans'] = $users->where('role_id', '3')->get();
 
                 $states = New State();
                 $data['states'] = $states->where('country_id', $obj->country_id)->get();

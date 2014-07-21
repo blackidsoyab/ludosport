@@ -127,5 +127,14 @@ $route['school/add'] = "schools/addSchool";
 $route['school/edit/(:num)'] = "schools/editSchool/$1";
 $route['school/delete/(:num)'] = "schools/deleteSchool/$1";
 $route['school/getjson'] = "json/getSchoolsJsonData";
+
+//Class / Clan Management
+$route['clan'] = "clans/viewClan";
+$route['clan/list'] = "clans/viewClan";
+$route['clan/add'] = "clans/addClan";
+$route['clan/edit/(:num)'] = "clans/editClan/$1";
+$route['clan/delete/(:num)'] = "clans/deleteClan/$1";
+$route['clan/getjson'] = "json/getClansJsonData";
+$route['clan/getschools/(:num)'] = "ajax/getSchoolsOptionFromAcademy/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

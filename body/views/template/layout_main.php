@@ -147,8 +147,12 @@
                         <li class="<?php echo ($page == 'school') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'school'; ?>" title="<?php echo $this->lang->line('school'); ?>"><i class="fa fa-university icon-sidebar"></i><?php echo $this->lang->line('school'); ?></a></li>
                     <?php } ?>
 
+                    <?php if (hasPermission('clans', 'viewClan')) { ?>
+                        <li class="<?php echo ($page == 'clan') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'clan'; ?>" title="<?php echo $this->lang->line('clan'); ?>"><i class="fa fa-users icon-sidebar"></i><?php echo $this->lang->line('clan'); ?></a></li>
+                    <?php } ?>
+
                     <?php if (hasPermission('users', 'viewUser')) { ?>
-                        <li class="<?php echo ($page == 'user') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'user'; ?>" title="<?php echo $this->lang->line('user'); ?>"><i class="fa fa-users icon-sidebar"></i><?php echo $this->lang->line('user'); ?></a></li>
+                        <li class="<?php echo ($page == 'user') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'user'; ?>" title="<?php echo $this->lang->line('user'); ?>"><i class="fa fa-user icon-sidebar"></i><?php echo $this->lang->line('user'); ?></a></li>
                     <?php } ?>
 
                     <?php if (hasPermission('roles', 'viewRole')) { ?>

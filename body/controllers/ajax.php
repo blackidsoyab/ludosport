@@ -159,4 +159,15 @@ class ajax extends CI_Controller {
         }
     }
 
+    function getSchoolsOptionFromAcademy($academy_id) {
+        $session = $this->session->userdata('user_session');
+        $schools = New School();
+        $schools->Where('academy_id', $academy_id);
+        $school_name = $session->language . '_school_name';
+        echo '<option value="">', $this->lang->line('select'), ' ', $this->lang->line('school'), '</option>';
+        foreach ($schools->get() as $school) {
+            echo '<option value="' . $school->id . '">' . $school->$school_name . '</option>';
+        }
+    }
+
 }

@@ -22,7 +22,7 @@ class dashboard extends CI_Controller {
                 $this->getAdminDashboard();
                 break;
             case 3:
-                $this->layout->view('dashboard/dean');
+                $this->getDeanDashboard();
                 break;
             case 4:
                 $this->layout->view('dashboard/principal');
@@ -52,9 +52,26 @@ class dashboard extends CI_Controller {
 
         $users = new User();
         $data['total_instructors'] = $users->where('role_id', '5')->count();
-
         $data['total_students'] = $users->where('role_id', '6')->count();
+        
         $this->layout->view('dashboard/admin', $data);
+    }
+
+    function getDeanDashboard() {
+        $role = new Role();
+        $role->where('id', $this->session_data->role)->get();
+        $filed = $this->session_data->language . '_role_name';
+        $data['role_name'] = $role->$filed;
+
+        $academy = new Academy();
+        $data['total_academies'] = $academy->where('dean_id', $this->session_data->id)->count();
+        $data['total_schools'] = $academy->include_related_count('school')->count();
+
+        $users = new User();
+        $data['total_instructors'] = $users->where('role_id', '5')->count();
+        $data['total_students'] = $users->where('role_id', '6')->count();
+        
+        $this->layout->view('dashboard/dean', $data);
     }
 
 }
