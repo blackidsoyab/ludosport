@@ -136,4 +136,27 @@ class ajax extends CI_Controller {
      * ------------------- END ------------------
      * ------------------------------------------
      */
+
+    function getAllStatesOptionsFromCountry($country_id) {
+        $session = $this->session->userdata('user_session');
+        $states = New State();
+        $states->Where('country_id', $country_id);
+        $state_name = $session->language . '_name';
+        echo '<option value="">', $this->lang->line('select'), ' ', $this->lang->line('state'), '</option>';
+        foreach ($states->get() as $state) {
+            echo '<option value="' . $state->id . '">' . $state->$state_name . '</option>';
+        }
+    }
+
+    function getAllCitiesOptionsFromState($state_id) {
+        $session = $this->session->userdata('user_session');
+        $cities = New City();
+        $cities->Where('state_id', $state_id);
+        $city_name = $session->language . '_name';
+        echo '<option value="">', $this->lang->line('select'), ' ', $this->lang->line('city'), '</option>';
+        foreach ($cities->get() as $city) {
+            echo '<option value="' . $city->id . '">' . $city->$city_name . '</option>';
+        }
+    }
+
 }

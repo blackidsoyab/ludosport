@@ -14,6 +14,7 @@ $lang['cancel'] = 'Cancel';
 $lang['actions'] = 'Actions';
 $lang['select'] = 'Select';
 $lang['name'] = 'Name';
+$lang['total'] = 'Total';
 $lang['information'] = 'Informations';
 $lang['compulsory_note'] = 'Fields marked with <span class="text-danger">*</span> are mandatory.';
 
@@ -36,6 +37,9 @@ $lang['country'] = 'Country';
 $lang['state'] = 'State';
 $lang['city'] = 'City';
 $lang['user'] = 'User';
+$lang['academy'] = 'Academy';
+$lang['school'] = 'School';
+$lang['student'] = 'Student';
 
 
 //Login
@@ -80,4 +84,15 @@ $lang['basic'] = 'Basic';
 $lang['access_control'] = 'Access Controls';
 $lang['change_status'] = 'Change Status';
 $lang['extra_permission'] = 'Extra Permission';
+
+//Academy
+$lang['main'] = 'Main';
+$lang['type'] = 'Type';
+$lang['contact'] = 'Contact';
+$lang['association_full_name'] = 'Association Full Name';
+$lang['role_assign_association'] = 'Role of the referent in the association';
+$lang['address'] = 'Address';
+$lang['postal_code'] = 'Postal Code';
+$lang['phone_number'] = 'Phone Number';
+$lang['dean'] = 'Dean';
 ?>

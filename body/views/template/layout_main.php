@@ -118,23 +118,25 @@
             <div class="sidebar-left sidebar-nicescroller">
                 <ul class="sidebar-menu">
                     <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(); ?>" title="<?php echo $this->lang->line('dashboard'); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a></li>
+                    <li class="<?php echo ($page == 'academy') ? 'active selected' : ''; ?>"><a href="<?php echo base_url().'academy'; ?>" title="<?php echo $this->lang->line('academy'); ?>"><i class="fa fa-font icon-sidebar"></i><?php echo $this->lang->line('academy'); ?></a></li>
+                    <li class="<?php echo ($page == 'school') ? 'active selected' : ''; ?>"><a href="<?php echo base_url().'gym'; ?>" title="<?php echo $this->lang->line('school'); ?>"><i class="fa fa-university icon-sidebar"></i><?php echo $this->lang->line('school'); ?></a></li>
+                    <li class="<?php echo ($page == 'user') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'user'; ?>" title="<?php echo $this->lang->line('user'); ?>"><i class="fa fa-users icon-sidebar"></i><?php echo $this->lang->line('user'); ?></a></li>
                     <li class="<?php echo ($page == 'permission' || $page == 'role') ? 'active selected' : ''; ?>">
-                        <a href="javascript:;" title="<?php echo $this->lang->line('access'), ' ' , $this->lang->line('managment'); ?>">
+                        <a href="javascript:;" title="<?php echo $this->lang->line('access'); ?>">
                             <i class="fa fa-table icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
-                            <?php echo $this->lang->line('access'), ' ' , $this->lang->line('managment'); ?>
+                            <?php echo $this->lang->line('access'); ?>
                         </a>
                         <ul class="submenu">
                             <li><a href="<?php echo base_url() . 'permission'; ?>" title="<?php echo $this->lang->line('permission'); ?>"><?php echo $this->lang->line('permission'); ?></a></li>
                             <li><a href="<?php echo base_url() . 'role'; ?>" title="<?php echo $this->lang->line('role'); ?>"><?php echo $this->lang->line('role'); ?></a></li>
                         </ul>
                     </li>
-                    <li class="<?php echo ($page == 'user') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(). 'user'; ?>" title="<?php echo $this->lang->line('user'), ' ' , $this->lang->line('managment'); ?>"><i class="fa fa-users icon-sidebar"></i><?php echo $this->lang->line('user'), ' ' , $this->lang->line('managment'); ?></a></li>
                     <li class="<?php echo ($page == 'country' || $page == 'states' || $page == 'city') ? 'active selected' : ''; ?>">
-                        <a href="javascript:;" title="<?php echo $this->lang->line('location'), ' ' , $this->lang->line('managment'); ?>">
+                        <a href="javascript:;" title="<?php echo $this->lang->line('location'); ?>">
                             <i class="fa fa-table icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
-                            <?php echo $this->lang->line('location'), ' ' , $this->lang->line('managment'); ?>
+                            <?php echo $this->lang->line('location'); ?>
                         </a>
                         <ul class="submenu">
                             <li><a href="<?php echo base_url() . 'country'; ?>" title="<?php echo $this->lang->line('country'); ?>"><?php echo $this->lang->line('country'); ?></a></li>

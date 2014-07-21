@@ -109,5 +109,16 @@ $route['user/edit/(:num)'] = "users/editUser/$1";
 $route['user/delete/(:num)'] = "users/deleteUser/$1";
 $route['user/getjson'] = "json/getUsersJsonData";
 $route['user/extrapermission/(:num)'] = "users/extraPermissionUser/$1";
+
+//Academy Managment
+$route['academy'] = "academies/viewAcademy";
+$route['academy/list'] = "academies/viewAcademy";
+$route['academy/add'] = "academies/addAcademy";
+$route['academy/edit/(:num)'] = "academies/editAcademy/$1";
+$route['academy/delete/(:num)'] = "academies/deleteAcademy/$1";
+$route['academy/getjson'] = "json/getAcademiesJsonData";
+$route['academy/getstate/(:num)'] = "ajax/getAllStatesOptionsFromCountry/$1";
+$route['academy/getcity/(:num)'] = "ajax/getAllCitiesOptionsFromState/$1";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
