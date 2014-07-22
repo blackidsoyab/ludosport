@@ -31,7 +31,13 @@ class dashboard extends CI_Controller {
                 $this->layout->view('dashboard/instructor');
                 break;
             case 6:
-                $this->layout->view('dashboard/student');
+                if ($this->session_data->status === 'P') {
+                    $this->layout->setLayout('template/layout_pending');
+                    $this->layout->setField('page_title', 'User');
+                    $this->layout->view('dashboard/pending_student');
+                } else {
+                    $this->layout->view('dashboard/student');
+                }
                 break;
             default :
                 $this->layout->view('dashboard/common');
@@ -53,7 +59,7 @@ class dashboard extends CI_Controller {
         $users = new User();
         $data['total_instructors'] = $users->where('role_id', '5')->count();
         $data['total_students'] = $users->where('role_id', '6')->count();
-        
+
         $this->layout->view('dashboard/admin', $data);
     }
 
@@ -67,10 +73,10 @@ class dashboard extends CI_Controller {
         $data['total_academies'] = $academy->where('dean_id', $this->session_data->id)->count();
         $data['total_schools'] = $academy->include_related_count('school')->count();
 
-        $users = new User();
-        $data['total_instructors'] = $users->where('role_id', '5')->count();
-        $data['total_students'] = $users->where('role_id', '6')->count();
-        
+        $class = new Clan();
+        $data['total_instructors'] = $class->getTotalInstructorOfDean($this->session_data->id);
+        $data['total_students'] = $class->getTotalUsersOfDean($this->session_data->id);
+
         $this->layout->view('dashboard/dean', $data);
     }
 

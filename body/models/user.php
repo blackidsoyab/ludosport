@@ -17,7 +17,11 @@ class User extends DataMapper {
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             $result = $res->result();
-            return array_diff((array) (!is_null(unserialize($result[0]->extra)) ? unserialize($result[0]->extra) : null) + (array) unserialize($result[0]->inherit), array('0', false));
+            if (!is_null($result[0]->extra)) {
+                return unserialize($result[0]->extra);
+            } else {
+                return unserialize($result[0]->inherit);
+            }
         } else {
             return false;
         }

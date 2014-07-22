@@ -44,7 +44,12 @@ class clans extends CI_Controller {
             $data['instructors'] = $users->where('role_id', '5')->get();
 
             $academy = New Academy();
-            $data['academies'] = $academy->where('dean_id', $this->session_data->id)->get();
+            if ($this->session_data->role == '2') {
+                $data['academies'] = $academy->get();
+            } else {
+                $data['academies'] = $academy->where('dean_id', $this->session_data->id)->get();
+            }
+
 
             $this->layout->view('clans/add', $data);
         }
