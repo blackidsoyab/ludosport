@@ -214,15 +214,23 @@ class json extends CI_Controller {
 
     public function getAcademiesJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('academies.' . $this->session_data->language . '_academy_name AS academy_name', 'states.' . $this->session_data->language . '_name AS states', 'cities.' . $this->session_data->language . '_name AS city', '(SELECT count(*) from schools where schools.academy_id=academies.id) AS total_schools', '(SELECT count(*) from userdetails, schools, academies where schools.academy_id=academies.id AND userdetails.school_id=schools.id) AS total_students');
+        $this->datatable->aColumns = array('distinct(academies.id)','academies.' . $this->session_data->language . '_academy_name AS academy_name', 'states.' . $this->session_data->language . '_name AS states', 'cities.' . $this->session_data->language . '_name AS city', '(SELECT count(*) from schools where schools.academy_id=academies.id) AS total_schools', '(SELECT count(*) from userdetails, schools, academies where schools.academy_id=academies.id AND userdetails.school_id=schools.id) AS total_students');
         $this->datatable->eColumns = array('academies.id');
         $this->datatable->sIndexColumn = "academies.id";
-        $this->datatable->sTable = " academies, cities, states";
         if ($this->session_data->role == '2') {
+            $this->datatable->sTable = " academies, cities, states";
             $this->datatable->myWhere = 'WHERE states.id=academies.state_id AND cities.id=academies.city_id';
-        } else {
+        } else if ($this->session_data->role == '3') {
+            $this->datatable->sTable = " academies, cities, states";
             $this->datatable->myWhere = 'WHERE states.id=academies.state_id AND cities.id=academies.city_id AND FIND_IN_SET(' . $this->session_data->id . ', rector_id) > 0';
+        } else if ($this->session_data->role == '4') {
+            $this->datatable->sTable = " academies, cities, states, schools";
+            $this->datatable->myWhere = 'WHERE states.id=academies.state_id AND cities.id=academies.city_id AND schools.academy_id=academies.id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0';
+        } else if ($this->session_data->role == '5') {
+            $this->datatable->sTable = " academies, cities, states, clans";
+            $this->datatable->myWhere = 'WHERE states.id=academies.state_id AND cities.id=academies.city_id AND clans.academy_id=academies.id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0';
         }
+
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {

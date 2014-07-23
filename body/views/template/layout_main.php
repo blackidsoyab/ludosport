@@ -46,9 +46,6 @@
                     url: http_host_js + 'change_language/' + $(ele).data('lang'),
                     success: function() {
                         window.location.reload();
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        alert('error');
                     }
                 });
             }
@@ -59,9 +56,6 @@
                     url: http_host_js + 'change_role/' + $(ele).data('role'),
                     success: function() {
                         window.location.reload();
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        alert('error');
                     }
                 });
             }

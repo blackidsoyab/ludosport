@@ -16,12 +16,12 @@ class Clan extends DataMapper {
         $this->db->join('academies', 'academies.id=schools.academy_id');
         $this->db->where("FIND_IN_SET('" . $rector_id . "', academies.rector_id) > 0");
         $res = $this->db->get()->result();
-        $count = 0;
+        $count = array();
         foreach ($res as $r) {
-            $count = $count + count(explode(',', $r->teacher_id));
+            $count = array_merge($count, explode(',', $r->teacher_id));
         }
 
-        return $count;
+        return count(array_unique($count));
     }
 
     function getTotalStudentsOfRector($rector_id) {
@@ -40,12 +40,12 @@ class Clan extends DataMapper {
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->where("FIND_IN_SET('" . $dean_id . "', schools.dean_id) > 0");
         $res = $this->db->get()->result();
-        $count = 0;
+        $count = array();
         foreach ($res as $r) {
-            $count = $count + count(explode(',', $r->teacher_id));
+            $count = array_merge($count, explode(',', $r->teacher_id));
         }
 
-        return $count;
+        return count(array_unique($count));
     }
 
     function getTotalStudentsOfDean($dean_id) {
