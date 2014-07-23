@@ -16,7 +16,7 @@ class dashboard extends CI_Controller {
     public function index() {
         switch ($this->session_data->role) {
             case 1:
-                $this->layout->view('dashboard/superadmin');
+                $this->getSuperAdminDashboard();
                 break;
             case 2:
                 $this->getAdminDashboard();
@@ -43,12 +43,11 @@ class dashboard extends CI_Controller {
         $this->layout->view('dashboard/common');
     }
 
-    function getAdminDashboard() {
-        $role = new Role();
-        $role->where('id', $this->session_data->role)->get();
-        $filed = $this->session_data->language . '_role_name';
-        $data['role_name'] = $role->$filed;
+    function getSuperAdminDashboard() {
+        $this->layout->view('dashboard/superadmin');
+    }
 
+    function getAdminDashboard() {
         $academy = new Academy();
         $data['total_academies'] = $academy->count();
 
@@ -63,11 +62,6 @@ class dashboard extends CI_Controller {
     }
 
     function getRectorDashboard() {
-        $role = new Role();
-        $role->where('id', $this->session_data->role)->get();
-        $filed = $this->session_data->language . '_role_name';
-        $data['role_name'] = $role->$filed;
-
         $academy = new Academy();
         $data['total_academies'] = $academy->where('dean_id', $this->session_data->id)->count();
         $data['total_schools'] = $academy->include_related_count('school')->count();

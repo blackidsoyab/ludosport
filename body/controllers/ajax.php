@@ -30,7 +30,7 @@ class ajax extends CI_Controller {
             $user_data = new stdClass();
             $user_data->id = $session->id;
             $user_data->name = $session->name;
-            $user_data->language = 'en';
+            $user_data->language = $session->language;
             $user_data->all_roles = $session->all_roles;
             $user_data->role = $role_id;
             $user = new User();

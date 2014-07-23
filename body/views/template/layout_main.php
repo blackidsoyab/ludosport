@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="it">
     <head>
+        <?php $session = $this->session->userdata('user_session'); ?>
         <meta charset="utf-8">
         <title><?php echo @$page_title . ' |MYLUDOSPORT'; ?></title>
 
         <link href="<?php echo CSS_URL; ?>bootstrap.min.css" rel="stylesheet">
         <link href="<?php echo CSS_URL; ?>style.css" rel="stylesheet">
         <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">
+        <?php if ($session->role >= 2 && $session->role <= 5) { ?>
+            <link href="<?php echo CSS_URL . $session->role . '.css'; ?>" rel="stylesheet">
+        <?php } ?>
         <link href="<?php echo CSS_URL; ?>style-responsive.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>weather-icon/css/weather-icons.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>prettify/prettify.min.css" rel="stylesheet">
@@ -70,7 +74,6 @@
     </head>
 
     <body class="tooltips">
-        <?php $session = $this->session->userdata('user_session'); ?>
         <!-- Wrapper -->
         <div class="wrapper">
             <!-- Top Nav -->
@@ -85,18 +88,20 @@
                             <i class="fa fa-long-arrow-right icon-dinamic"></i>
                         </div>
 
-                        <ul class="nav-user navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <?php echo $this->lang->line('role'); ?>, <strong><?php echo getRoleName($session->role); ?></strong>
-                                </a>
-                                <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
-                                    <?php foreach ($session->all_roles as $role) { ?>
-                                        <li><a href="javascript:;" onclick="UpdateRole(this)" class="role" data-role ="<?php echo $role; ?>" title="<?php echo ucwords(getRoleName($role)); ?>"><?php echo ucwords(getRoleName($role)); ?></a></li>
-                                    <?php } ?>
-                                </ul>
-                            </li>
-                        </ul>
+                        <?php if (count($session->all_roles) > 1) { ?>
+                            <ul class="nav-user navbar-right">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <?php echo $this->lang->line('role'); ?>, <strong><?php echo getRoleName($session->role); ?></strong>
+                                    </a>
+                                    <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
+                                        <?php foreach ($session->all_roles as $role) { ?>
+                                            <li><a href="javascript:;" onclick="UpdateRole(this)" class="role" data-role ="<?php echo $role; ?>" title="<?php echo ucwords(getRoleName($role)); ?>"><?php echo ucwords(getRoleName($role)); ?></a></li>
+                                        <?php } ?>
+                                    </ul>
+                                </li>
+                            </ul>
+                        <?php } ?>
 
                         <div class="collapse navbar-collapse" id="main-fixed-nav">
                             <ul class="nav navbar-nav navbar-left">
@@ -105,7 +110,7 @@
                                         <?php
                                         $languages = $this->config->item('custom_languages');
                                         ?>
-                                        <span class="badge badge-danger icon-count" title="<?php echo ucwords($languages[$session->language]); ?>"><?php echo strtoupper($session->language); ?></span>
+                                        <span class="badge badge-primary icon-count" title="<?php echo ucwords($languages[$session->language]); ?>"><?php echo strtoupper($session->language); ?></span>
                                         <i class="fa fa-bell-o"></i>
                                     </a>
                                     <ul class="dropdown-menu square with-triangle">

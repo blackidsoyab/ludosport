@@ -1,0 +1,139 @@
+body{
+    color: #000;
+}
+
+a {
+    color: #AEAEAE;
+}
+
+a:hover {
+    color: #CACAC7;
+}
+
+a:focus {
+    color: #CACAC7;
+}
+
+h1.text-primary,
+h2.text-primary,
+h3.text-primary,
+h4.text-primary,
+h5.text-primary,
+h6.text-primary,
+.text-primary {
+    color: #AEAEAE;
+}
+
+.tiles-information a {
+    color: #AEAEAE;
+}
+
+.tiles-information a:focus, .tiles-information a:hover {
+    color: #CACAC7;
+}
+
+.bg-primary a {
+    color: #AEAEAE;
+}
+
+.bg-primary a:focus, .bg-primary a:hover {
+    color: #CACAC7;
+}
+
+.top-navbar {
+    background: #fff;
+    border-bottom: 1px solid #AEAEAE;
+}
+
+.page-content {
+    background: #CACAC7;
+}
+
+footer {
+    background: #AEAEAE;
+    border-top: 1px solid #CACAC7;
+}
+
+/* Sidebar Menu */
+.sidebar-left {
+    background: #AEAEAE;
+    color: #FFF;
+
+}
+
+ul.sidebar-menu li.static {
+    color: #FFFFFF;
+}
+
+ul.sidebar-menu li {
+    color: #000;
+}
+
+ul.sidebar-menu li a {
+    color: #000;
+    border-bottom: 1px solid #CACAC7;
+}
+
+ul.sidebar-menu li ul.submenu {
+    background: #AEAEAE;
+}
+
+ul.sidebar-menu li ul.submenu li a {
+    color: #000;
+    border-left: 1px solid #CACAC7;
+}
+
+ul.sidebar-menu li ul.submenu li a:hover, ul.sidebar-menu li ul.submenu li a:focus {
+    color: #000;
+    background-color: #AEAEAE;
+    border-bottom: 1px solid #CACAC7;
+}
+
+ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
+    color: #000;
+    background-color: #CACAC7;
+    border-bottom: 1px solid #AEAEAE;
+}
+
+ul.sidebar-menu li.selected a, ul.sidebar-menu li.selected a:hover, 
+ul.sidebar-menu li.selected a:focus, ul.sidebar-menu li.active a, 
+ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
+    color: #000;
+    background-color: #CACAC7;
+    border-bottom: 1px solid #AEAEAE;
+}
+
+.btn-primary {
+    background-color: #AEAEAE;
+    border-color: #CACAC7;
+}
+
+.btn-primary:hover, .btn-primary:focus, 
+.btn-primary:active, .btn-primary.active, 
+.open .dropdown-toggle.btn-primary {
+    background-color: #888888;
+    border-color: #CACAC7;
+}
+
+.label-primary {
+    background-color: #AEAEAE;
+}
+
+.badge-primary {
+    background-color: #AEAEAE;
+}
+
+.icon-primary {
+    background: #AEAEAE;
+}
+
+.alert-primary.alert-block {
+    color: #000;
+    background-color: #AEAEAE;
+    border-color: #CACAC7;
+}
+
+.dropdown-menu.primary > li > a:hover, .dropdown-menu.primary > li > a:focus {
+    color: #fff;
+    background-color: #AEAEAE;
+}

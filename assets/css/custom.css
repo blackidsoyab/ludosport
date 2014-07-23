@@ -10,12 +10,14 @@
 .media .media-body .logout-action {
     display: inline;
     padding: 0px;
+    text-decoration: none;
+    border-bottom: 0px;
+}
+
+.media-body a.logout-action:hover {
+    background-color: inherit;
 }
 
 .tiles-information p {
     color: #000000;
-}
-
-.tiles-information a {
-    color: #37BC9B;
 }

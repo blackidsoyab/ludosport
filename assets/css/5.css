@@ -1,0 +1,131 @@
+body{
+    color: #000000;
+}
+
+a {
+    color: #C88127;
+}
+
+a:hover {
+    color: #F1C15C;
+}
+
+a:focus {
+    color: #F1C15C;
+}
+
+h1.text-primary,
+h2.text-primary,
+h3.text-primary,
+h4.text-primary,
+h5.text-primary,
+h6.text-primary,
+.text-primary {
+    color: #C88127;
+}
+
+.tiles-information a {
+    color: #C88127;
+}
+
+.tiles-information a:focus, .tiles-information a:hover {
+    color: #F1C15C;
+}
+
+.top-navbar {
+    background: #fff;
+    border-bottom: 1px solid #C88127;
+}
+
+.page-content {
+    background: #F1C15C;
+}
+
+footer {
+    background: #fff;
+    border-top: 1px solid #C88127;
+}
+
+/* Sidebar Menu */
+.sidebar-left {
+    background: #C88127;
+    color: #FFF;
+
+}
+
+ul.sidebar-menu li.static {
+    color: #FFFFFF;
+}
+
+ul.sidebar-menu li {
+    color: #000;
+}
+
+ul.sidebar-menu li a {
+    color: #000;
+    border-bottom: 1px solid #F1C15C;
+}
+
+ul.sidebar-menu li ul.submenu {
+    background: #C88127;
+}
+
+ul.sidebar-menu li ul.submenu li a {
+    color: #000;
+    border-left: 1px solid #F1C15C;
+}
+
+ul.sidebar-menu li ul.submenu li a:hover, ul.sidebar-menu li ul.submenu li a:focus {
+    color: #000;
+    background-color: #C88127;
+    border-bottom: 1px solid #F1C15C;
+}
+
+ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
+    color: #000;
+    background-color: #F1C15C;
+    border-bottom: 1px solid #C88127;
+}
+
+ul.sidebar-menu li.selected a, ul.sidebar-menu li.selected a:hover, 
+ul.sidebar-menu li.selected a:focus, ul.sidebar-menu li.active a, 
+ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
+    color: #000;
+    background-color: #F1C15C;
+    border-bottom: 1px solid #C88127;
+}
+
+.btn-primary {
+    background-color: #C88127;
+    border-color: #F1C15C;
+}
+
+.btn-primary:hover, .btn-primary:focus, 
+.btn-primary:active, .btn-primary.active, 
+.open .dropdown-toggle.btn-primary {
+    background-color: #88581b;
+    border-color: #F1C15C;
+}
+
+.label-primary {
+    background-color: #C88127;
+}
+
+.badge-primary {
+    background-color: #C88127;
+}
+
+.icon-primary {
+    background: #C88127;
+}
+
+.alert-primary.alert-block {
+    color: #000;
+    background-color: #C88127;
+    border-color: #F1C15C;
+}
+
+.dropdown-menu.primary > li > a:hover, .dropdown-menu.primary > li > a:focus {
+    color: #fff;
+    background-color: #C88127;
+}
