@@ -9,11 +9,13 @@ class User extends DataMapper {
         parent::__construct($id);
     }
 
-    function userRoleByID($userid) {
+    function userRoleByID($user_id, $role_id) {
+        $this->db->_protect_identifiers = false;
         $this->db->select('users.permission AS extra, roles.permission AS inherit');
         $this->db->from('users');
-        $this->db->join('roles', 'users.role_id=roles.id');
-        $this->db->where('users.id', $userid);
+        $this->db->join('roles', 'FIND_IN_SET(roles.id, users.role_id) > 0');
+        $this->db->where('users.id', $user_id);
+        $this->db->where('roles.id', $role_id);
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             $result = $res->result();

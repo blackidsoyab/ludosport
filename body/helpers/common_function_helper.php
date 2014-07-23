@@ -19,6 +19,19 @@ if (!function_exists('setLanguage')) {
 
 }
 
+if (!function_exists('getRoleName')) {
+
+    function getRoleName($id) {
+        $role = new Role();
+        $role->where('id', $id)->get();
+        $ci = & get_instance();
+        $session = $ci->session->userdata('user_session');
+        $field = $session->language . '_role_name';
+        return $role->$field;
+    }
+
+}
+
 if (!function_exists('getSystemConfiguration')) {
 
     function getSystemConfiguration($key) {

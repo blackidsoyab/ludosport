@@ -4,7 +4,7 @@
 <div class="row">
     <div class="alert alert-warning alert-bold-border fade in alert-dismissable col-md-10 text-center">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <p><strong><?php echo $this->lang->line('hello'); ?> Principal</strong></p>
+        <p><strong><?php echo $this->lang->line('hello'); ?> Teacher</strong></p>
         <p class="text-muted">
             <?php echo $this->lang->line('welcome'); ?> to Ludosport
             <br />

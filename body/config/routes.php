@@ -57,6 +57,7 @@ $route['denied'] = "authenticate/permissionDenied";
 //Dashboard
 $route['dashboard'] = "dashboard";
 $route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
+$route['change_role/(:any)'] = "ajax/setNewRole/$1";
 
 //Country Management
 $route['country'] = "countries/viewCountry";

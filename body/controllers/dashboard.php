@@ -22,26 +22,25 @@ class dashboard extends CI_Controller {
                 $this->getAdminDashboard();
                 break;
             case 3:
-                $this->getDeanDashboard();
+                $this->getRectorDashboard();
                 break;
             case 4:
-                $this->layout->view('dashboard/principal');
+                $this->getDeanDashboard();
                 break;
             case 5:
-                $this->layout->view('dashboard/instructor');
+                $this->getTeacherDashboard();
                 break;
             case 6:
-                if ($this->session_data->status === 'P') {
-                    $this->layout->setLayout('template/layout_pending');
-                    $this->layout->setField('page_title', 'User');
-                    $this->layout->view('dashboard/pending_student');
-                } else {
-                    $this->layout->view('dashboard/student');
-                }
+                $this->getStudentDashboard();
                 break;
             default :
-                $this->layout->view('dashboard/common');
+                $this->getDefaultDashboard();
+                break;
         }
+    }
+
+    function getDefaultDashboard() {
+        $this->layout->view('dashboard/common');
     }
 
     function getAdminDashboard() {
@@ -63,7 +62,7 @@ class dashboard extends CI_Controller {
         $this->layout->view('dashboard/admin', $data);
     }
 
-    function getDeanDashboard() {
+    function getRectorDashboard() {
         $role = new Role();
         $role->where('id', $this->session_data->role)->get();
         $filed = $this->session_data->language . '_role_name';
@@ -77,7 +76,25 @@ class dashboard extends CI_Controller {
         $data['total_instructors'] = $class->getTotalInstructorOfDean($this->session_data->id);
         $data['total_students'] = $class->getTotalUsersOfDean($this->session_data->id);
 
-        $this->layout->view('dashboard/dean', $data);
+        $this->layout->view('dashboard/rector', $data);
+    }
+
+    function getDeanDashboard() {
+        $this->layout->view('dashboard/dean');
+    }
+
+    function getTeacherDashboard() {
+        $this->layout->view('dashboard/teacher');
+    }
+
+    function getStudentDashboard() {
+        if ($this->session_data->status === 'P') {
+            $this->layout->setLayout('template/layout_pending');
+            $this->layout->setField('page_title', 'User');
+            $this->layout->view('dashboard/pending_student');
+        } else {
+            $this->layout->view('dashboard/student');
+        }
     }
 
 }

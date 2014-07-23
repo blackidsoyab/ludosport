@@ -5,6 +5,8 @@ $lang['hello'] = 'Hello';
 $lang['welcome'] = 'Welcome';
 $lang['logout'] = 'Log out';
 $lang['manage'] = 'Manage';
+$lang['list'] = 'List';
+$lang['view'] = 'View';
 $lang['add'] = 'Add';
 $lang['save'] = 'Save';
 $lang['edit'] = 'Edit';
@@ -18,6 +20,7 @@ $lang['total'] = 'Total';
 $lang['information'] = 'Informations';
 $lang['activity'] = 'Activity';
 $lang['users'] = 'Users';
+$lang['new'] = 'New';
 $lang['compulsory_note'] = 'Fields marked with <span class="text-danger">*</span> are mandatory.';
 
 //Messages
@@ -105,6 +108,7 @@ $lang['address'] = 'Address';
 $lang['postal_code'] = 'Postal Code';
 $lang['phone_number'] = 'Phone Number';
 $lang['dean'] = 'Dean';
+$lang['rector'] = 'Rector';
 
 //School
 $lang['principal'] = 'Principal';

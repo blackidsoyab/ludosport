@@ -42,8 +42,7 @@
                 $session = $this->session->userdata('user_session');
                 $field = $session->language . '_role_name';
                 ?>
-                <select id="state_id" name="role_id" class="form-control required">
-                    <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('role'); ?></option>
+                <select id="role_id" name="role_id[]" class="form-control required" multiple="multiple">
                     <?php foreach ($roles as $role) { ?>
                         <option value="<?php echo $role->id; ?>"><?php echo $role->$field ?></option>
                     <?php } ?>
@@ -115,12 +114,12 @@
                     <input type="radio" name="status" id="radios-0" value="A">
                     <?php echo $this->lang->line('active'); ?>
                 </label> 
-                <label class="radio-inline" for="radios-0">
-                    <input type="radio" name="status" id="radios-0" value="D">
+                <label class="radio-inline" for="radios-1">
+                    <input type="radio" name="status" id="radios-1" value="D">
                     <?php echo $this->lang->line('deactive'); ?>
                 </label> 
-                <label class="radio-inline" for="radios-0">
-                    <input type="radio" name="status" id="radios-0" value="P" checked>
+                <label class="radio-inline" for="radios-2">
+                    <input type="radio" name="status" id="radios-2" value="P" checked>
                     <?php echo $this->lang->line('pending'); ?>
                 </label> 
             </div>
