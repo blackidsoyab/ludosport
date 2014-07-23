@@ -6,7 +6,7 @@
             "bSort": false,
             "bServerSide" : true,
             "aoColumns": [
-                {"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center"}
+                {"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center"}
             ],
             "sAjaxSource": "<?php echo base_url() . "school/getjson"; ?>"
         });
@@ -65,12 +65,15 @@
             <thead class="the-box dark full">
                 <tr align="left">
                     <th><?php echo $this->lang->line('school'), ' ', $this->lang->line('name'); ?></th>
+                    <th><?php echo $this->lang->line('academy'), ' ', $this->lang->line('name'); ?></th>
                     <th width="110"><?php echo $this->lang->line('total'), ' ', $this->lang->line('student') . 's'; ?></th>
                     <th width="100"><?php echo $this->lang->line('actions'); ?></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
+                    <td>etc</td>
+                    <td>etc</td>
                     <td>etc</td>
                     <td>etc</td>
                 </tr>
