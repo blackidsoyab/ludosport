@@ -76,11 +76,20 @@ class dashboard extends CI_Controller {
     }
 
     function getDeanDashboard() {
-        $this->layout->view('dashboard/dean');
+        $school = new School();
+        $data['total_schools'] = $school->getTotalSchoolOfDean($this->session_data->id);
+
+        $class = new Clan();
+        $data['total_instructors'] = $class->getTotalTeacherOfDean($this->session_data->id);
+        $data['total_students'] = $class->getTotalStudentsOfDean($this->session_data->id);
+        $this->layout->view('dashboard/dean', $data);
     }
 
     function getTeacherDashboard() {
-        $this->layout->view('dashboard/teacher');
+        $class = new Clan();
+        $data['total_classes'] = $class->getTotalClassesOfTeacher($this->session_data->id);
+        $data['total_students'] = $class->getTotalStudentsOfTeacher($this->session_data->id);
+        $this->layout->view('dashboard/teacher', $data);
     }
 
     function getStudentDashboard() {

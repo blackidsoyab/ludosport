@@ -18,6 +18,14 @@ class School extends DataMapper {
         $res = $this->db->get()->result();
         return $res[0]->total;
     }
+    
+    function getTotalSchoolOfDean($dean_id) {
+        $this->db->select('count(*) as total');
+        $this->db->from('schools');
+        $this->db->where('FIND_IN_SET(' . $dean_id . ', schools.dean_id) > 0');
+        $res = $this->db->get()->result();
+        return $res[0]->total;
+    }
 
 }
 
