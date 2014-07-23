@@ -9,22 +9,27 @@ class Clan extends DataMapper {
         parent::__construct($id);
     }
 
-    function getTotalInstructorOfDean($dean_id) {
-        $this->db->select('count(*) as total');
+    function getTotalTeacherOfRector($rector_id) {
+        $this->db->select('teacher_id');
         $this->db->from('clans');
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
-        $this->db->where('academies.dean_id', $dean_id);
+        $this->db->where('academies.rector_id', $rector_id);
         $res = $this->db->get()->result();
-        return $res[0]->total;
+        $count = 0;
+        foreach ($res as $r) {
+            $count = $count + count(explode(',', $r->teacher_id));
+        }
+        
+        return $count;
     }
 
-    function getTotalUsersOfDean($dean_id) {
+    function getTotalStudentsOfRector($rector_id) {
         $this->db->select('count(*) as total');
         $this->db->from('userdetails');
         $this->db->join('schools', 'schools.id=userdetails.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
-        $this->db->where('academies.dean_id', $dean_id);
+        $this->db->where('academies.rector_id', $rector_id);
         $res = $this->db->get()->result();
         return $res[0]->total;
     }

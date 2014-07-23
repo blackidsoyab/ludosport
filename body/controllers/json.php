@@ -275,7 +275,7 @@ class json extends CI_Controller {
         $this->datatable->eColumns = array('clans.id');
         $this->datatable->sIndexColumn = "clans.id";
         $this->datatable->sTable = " clans, users, schools";
-        $this->datatable->myWhere = 'WHERE clans.school_id=schools.id AND clans.instructor_id=users.id';
+        $this->datatable->myWhere = 'WHERE clans.school_id=schools.id AND clans.teacher_id=users.id';
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {

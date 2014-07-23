@@ -22,8 +22,10 @@
         <fieldset>
             <legend><?php echo $this->lang->line('main'); ?></legend>
 
-            <?php foreach ($this->config->item('custom_languages') as $key => $value) {
-                $temp = $key . '_school_name'; ?>
+            <?php
+            foreach ($this->config->item('custom_languages') as $key => $value) {
+                $temp = $key . '_school_name';
+                ?>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">
     <?php echo ucwords($value), ' ', $this->lang->line('name'); ?>
@@ -40,7 +42,8 @@
                 <div class="col-lg-5">
                     <select class="form-control required" name="academy_id">
                         <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('academy'); ?></option>
-                        <?php $temp = $session->language . '_academy_name';
+                        <?php
+                        $temp = $session->language . '_academy_name';
                         foreach ($academies as $academy) {
                             ?>
                             <option value="<?php echo $academy->id; ?>" <?php echo ($academy->id == $school->academy_id) ? 'selected' : ''; ?>><?php echo $academy->$temp; ?></option>
@@ -52,15 +55,14 @@
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('role_assign_association'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
-                    <select class="form-control required" name="principal_id">
-                        <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('principal'); ?></option>
-                        <?php foreach ($principals as $principal) { ?>
-                            <option value="<?php echo $principal->id; ?>" <?php echo ($school->principal_id == $principal->id) ? 'selected' : ''; ?>><?php echo $principal->firstname, ' ', $principal->lastname; ?></option>
-<?php } ?>     
+                    <select class="form-control required" name="dean_id[]" multiple="multiple">
+                        <?php foreach ($users as $user) { ?>
+                            <option value="<?php echo $user->id; ?>" <?php echo (in_array($user->id, explode(',', $school->dean_id))) ? 'selected' : ''; ?>><?php echo $user->firstname, ' ', $user->lastname; ?></option>
+<?php } ?> 
                     </select>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('range'); ?> <span class="text-danger">&nbsp;</span></label>
                 <div class="col-lg-5">
@@ -92,7 +94,7 @@
                         foreach ($cities as $city) {
                             ?>
                             <option value="<?php echo $city->id; ?>" <?php echo ($school->city_id == $city->id) ? 'selected' : ''; ?>><?php echo $city->$city_name; ?></option>
-                        <?php } ?>     
+<?php } ?>     
                     </select>
                 </div>
             </div>
@@ -117,7 +119,7 @@
                     <input type="email" class="form-control required" name="email" value="<?php echo $school->email; ?>">
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('information'); ?> <span class="text-danger">&nbsp;</span></label>
                 <div class="col-lg-5">

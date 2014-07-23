@@ -31,7 +31,7 @@ class clans extends CI_Controller {
 
             $obj->academy_id = $this->input->post('academy_id');
             $obj->school_id = $this->input->post('school_id');
-            $obj->instructor_id = $this->input->post('instructor_id');
+            $obj->teacher_id = implode(',', $this->input->post('teacher_id'));
             $obj->user_id = $this->session_data->id;
             $obj->save();
 
@@ -41,13 +41,13 @@ class clans extends CI_Controller {
             $this->layout->setField('page_title', $this->lang->line('add') . ' ' . $this->lang->line('clan'));
 
             $users = New User();
-            $data['instructors'] = $users->where('role_id', '5')->get();
+            $data['users'] = $users->getUsersByRole(5);
 
             $academy = New Academy();
             if ($this->session_data->role == '2') {
                 $data['academies'] = $academy->get();
             } else {
-                $data['academies'] = $academy->where('dean_id', $this->session_data->id)->get();
+                $data['academies'] = $academy->where('rector_id', $this->session_data->id)->get();
             }
 
 
@@ -71,7 +71,7 @@ class clans extends CI_Controller {
 
                 $obj->academy_id = $this->input->post('academy_id');
                 $obj->school_id = $this->input->post('school_id');
-                $obj->instructor_id = $this->input->post('instructor_id');
+                $obj->teacher_id = implode(',', $this->input->post('teacher_id'));
                 $obj->user_id = $this->session_data->id;
                 $obj->save();
 
@@ -84,10 +84,14 @@ class clans extends CI_Controller {
                 $data['clan'] = $obj->where('id', $id)->get();
 
                 $users = New User();
-                $data['instructors'] = $users->where('role_id', '5')->get();
+                $data['users'] = $users->getUsersByRole(5);
 
                 $academy = New Academy();
-                $data['academies'] = $academy->where('dean_id', $this->session_data->id)->get();
+                if ($this->session_data->role == '2') {
+                    $data['academies'] = $academy->get();
+                } else {
+                    $data['academies'] = $academy->where('rector_id', $this->session_data->id)->get();
+                }
 
                 $school = new School();
                 $data['schools'] = $school->where('academy_id', $obj->academy_id)->get();

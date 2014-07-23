@@ -51,10 +51,10 @@
         <div class="the-box no-border bg-success tiles-information">
             <i class="fa fa-users icon-bg"></i>
             <div class="tiles-inner text-center">
-                <p><?php echo $this->lang->line('instructors'); ?></p>
+                <p><?php echo $this->lang->line('teachers'); ?></p>
                 <h1 class="bolded">
                     <?php if (hasPermission('users', 'viewUser')) { ?>
-                        <a href="<?php echo base_url() . 'user' ?>"  title="<?php echo $this->lang->line('list'), ' ', $this->lang->line('instructors'); ?>"><?php echo @$total_instructors; ?></a>
+                        <a href="<?php echo base_url() . 'user' ?>"  title="<?php echo $this->lang->line('list'), ' ', $this->lang->line('teachers'); ?>"><?php echo @$total_instructors; ?></a>
                         <?php
                     } else {
                         echo @$total_instructors;

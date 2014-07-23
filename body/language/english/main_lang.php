@@ -52,7 +52,7 @@ $lang['control_panel'] = 'Control Panel';
 $lang['numbers'] = 'Numbers';
 $lang['academies'] = 'Academies';
 $lang['schools'] = 'Schools';
-$lang['instructors'] = 'Instructors';
+$lang['teachers'] = 'Teachers';
 $lang['students'] = 'Students';
 
 //Login
@@ -116,5 +116,5 @@ $lang['mobile_number'] = 'Mobile Number';
 $lang['range'] = 'Range';
 
 //Classes
-$lang['instructor'] = 'Instructor';
+$lang['teacher'] = 'Teacher';
 ?>

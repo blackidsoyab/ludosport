@@ -5,3 +5,5 @@
 */cache/!index.html
 */cache/!.htaccess
 /nbproject/*
+upload_to_ftp.sh
+git-ftp.py

@@ -10,6 +10,29 @@ class Academy extends DataMapper {
         parent::__construct($id);
     }
 
+    function getTotalAcademyOfRector($dean_id) {
+        $where = NULL;
+        if (is_array($dean_id)) {
+            foreach ($dean_id as $id) {
+                $where .= " OR FIND_IN_SET('" . $id . "', rector_id) > 0";
+            }
+        } else {
+            $where .= " OR FIND_IN_SET('" . $dean_id . "', rector_id) > 0";
+        }
+
+        $this->db->_protect_identifiers = false;
+        $this->db->select('count(*) as total');
+        $this->db->from('academies');
+        $this->db->where(substr($where, 4));
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $resutl = $res->result();
+            return $resutl[0]->total;
+        } else {
+            return false;
+        }
+    }
+
 }
 
 ?>

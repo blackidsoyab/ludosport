@@ -60,7 +60,7 @@
                         foreach ($academies as $academy) {
                             ?>
                             <option value="<?php echo $academy->id; ?>"><?php echo $academy->$academy_name; ?></option>
-<?php } ?>     
+                        <?php } ?>     
                     </select>
                 </div>
             </div>
@@ -75,15 +75,12 @@
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('instructor'); ?> <span class="text-danger">*</span></label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('teacher'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
-                    <select class="form-control required" name="instructor_id" id="instructor_id">
-                        <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('instructor'); ?></option>
-                        <?php
-                        foreach ($instructors as $instructor) {
-                            ?>
-                            <option value="<?php echo $instructor->id; ?>"><?php echo $instructor->firstname, ' ', $instructor->lastname; ?></option>
-<?php } ?> 
+                    <select class="form-control required" name="teacher_id[]" multiple="multiple">
+                        <?php foreach ($users as $user) { ?>
+                            <option value="<?php echo $user->id; ?>"><?php echo $user->firstname, ' ', $user->lastname; ?></option>
+                        <?php } ?>    
                     </select>
                 </div>
             </div>
@@ -102,7 +99,7 @@
         <div class="form-group">
             <label class="col-lg-3 control-label">&nbsp;</label>
             <div class="col-lg-5">
-<?php echo $this->lang->line('compulsory_note'); ?>
+                <?php echo $this->lang->line('compulsory_note'); ?>
             </div>
         </div>
     </form>

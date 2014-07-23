@@ -52,11 +52,10 @@
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('role_assign_association'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
-                    <select class="form-control required" name="principal_id">
-                        <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('principal'); ?></option>
-                        <?php foreach ($principals as $principal) { ?>
-                            <option value="<?php echo $principal->id; ?>"><?php echo $principal->firstname, ' ', $principal->lastname; ?></option>
-                        <?php } ?>     
+                    <select class="form-control required" name="dean_id[]" multiple="multiple">
+                        <?php foreach ($users as $user) { ?>
+                            <option value="<?php echo $user->id; ?>"><?php echo $user->firstname, ' ', $user->lastname; ?></option>
+                        <?php } ?>    
                     </select>
                 </div>
             </div>
@@ -117,7 +116,7 @@
                     <input type="email" class="form-control required" name="email">
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('information'); ?> <span class="text-danger">&nbsp;</span></label>
                 <div class="col-lg-5">

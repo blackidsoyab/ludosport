@@ -79,10 +79,9 @@
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'),' ', $this->lang->line('rector'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
-                    <select class="form-control required" name="dean_id">
-                        <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('rector'); ?></option>
-                        <?php foreach ($deans as $dean) { ?>
-                            <option value="<?php echo $dean->id; ?>"><?php echo $dean->firstname, ' ', $dean->lastname; ?></option>
+                    <select class="form-control required" name="rector_id[]" multiple="multiple">
+                        <?php foreach ($users as $user) { ?>
+                            <option value="<?php echo $user->id; ?>"><?php echo $user->firstname, ' ', $user->lastname; ?></option>
                         <?php } ?>     
                     </select>
                     <?php if (hasPermission('users', 'addUser')) { ?>

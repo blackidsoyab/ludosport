@@ -29,7 +29,7 @@ class academies extends CI_Controller {
                 }
             }
 
-            $obj->dean_id = $this->input->post('dean_id');
+            $obj->rector_id = implode(',', $this->input->post('rector_id'));
             $obj->type = $this->input->post('type');
             $obj->contact_firstname = $this->input->post('contact_firstname');
             $obj->contact_lastname = $this->input->post('contact_lastname');
@@ -54,7 +54,7 @@ class academies extends CI_Controller {
             $data['countries'] = $countries->get();
 
             $users = New User();
-            $data['deans'] = $users->where('role_id', '3')->get();
+            $data['users'] = $users->getUsersByRole(3);
 
             $this->layout->view('academies/add', $data);
         }
@@ -74,7 +74,7 @@ class academies extends CI_Controller {
                     }
                 }
 
-                $obj->dean_id = $this->input->post('dean_id');
+                $obj->rector_id = implode(',', $this->input->post('rector_id'));
                 $obj->type = $this->input->post('type');
                 $obj->contact_firstname = $this->input->post('contact_firstname');
                 $obj->contact_lastname = $this->input->post('contact_lastname');
@@ -102,7 +102,7 @@ class academies extends CI_Controller {
                 $data['countries'] = $countries->get();
 
                 $users = New User();
-                $data['deans'] = $users->where('role_id', '3')->get();
+                $data['users'] = $users->getUsersByRole(3);
 
                 $states = New State();
                 $data['states'] = $states->where('country_id', $obj->country_id)->get();

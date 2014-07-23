@@ -83,15 +83,12 @@
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('instructor'); ?> <span class="text-danger">*</span></label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('teacher'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
-                    <select class="form-control required" name="instructor_id" id="instructor_id">
-                        <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('instructor'); ?></option>
-                        <?php
-                        foreach ($instructors as $instructor) {
-                            ?>
-                            <option value="<?php echo $instructor->id; ?>" <?php echo ($clan->instructor_id == $instructor->id) ? 'selected' : ''; ?>><?php echo $instructor->firstname, ' ', $instructor->lastname; ?></option>
-                        <?php } ?> 
+                    <select class="form-control required" name="teacher_id[]" multiple="multiple">
+                        <?php foreach ($users as $user) { ?>
+                            <option value="<?php echo $user->id; ?>" <?php echo (in_array($user->id, explode(',', $clan->teacher_id))) ? 'selected' : ''; ?>><?php echo $user->firstname, ' ', $user->lastname; ?></option>
+<?php } ?> 
                     </select>
                 </div>
             </div>

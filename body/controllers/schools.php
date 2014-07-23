@@ -30,7 +30,7 @@ class schools extends CI_Controller {
             }
 
             $obj->academy_id = $this->input->post('academy_id');
-            $obj->principal_id = $this->input->post('principal_id');
+            $obj->dean_id = implode(',', $this->input->post('dean_id'));
             $obj->range = @$this->input->post('range');
             $obj->postal_code = $this->input->post('postal_code');
             $obj->city_id = $this->input->post('city_id');
@@ -51,7 +51,7 @@ class schools extends CI_Controller {
             $data['academies'] = $academy->get();
 
             $users = New User();
-            $data['principals'] = $users->where('role_id', '4')->get();
+            $data['users'] = $users->getUsersByRole(4);
 
             $city = New City();
             $data['cities'] = $city->get();
@@ -76,7 +76,7 @@ class schools extends CI_Controller {
                 }
 
                 $obj->academy_id = $this->input->post('academy_id');
-                $obj->principal_id = $this->input->post('principal_id');
+                $obj->dean_id = implode(',', $this->input->post('dean_id'));
                 $obj->range = @$this->input->post('range');
                 $obj->postal_code = $this->input->post('postal_code');
                 $obj->city_id = $this->input->post('city_id');
@@ -100,7 +100,7 @@ class schools extends CI_Controller {
                 $data['academies'] = $academy->get();
 
                 $users = New User();
-                $data['principals'] = $users->where('role_id', '4')->get();
+                $data['users'] = $users->getUsersByRole(4);
 
                 $city = New City();
                 $data['cities'] = $city->get();

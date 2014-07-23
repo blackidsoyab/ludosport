@@ -55,20 +55,22 @@ class dashboard extends CI_Controller {
         $data['total_schools'] = $school->count();
 
         $users = new User();
-        $data['total_instructors'] = $users->where('role_id', '5')->count();
-        $data['total_students'] = $users->where('role_id', '6')->count();
+        $data['total_instructors'] = count($users->getUsersByRole(5));
+        $data['total_students'] = count($users->getUsersByRole(6));
 
         $this->layout->view('dashboard/admin', $data);
     }
 
     function getRectorDashboard() {
         $academy = new Academy();
-        $data['total_academies'] = $academy->where('dean_id', $this->session_data->id)->count();
-        $data['total_schools'] = $academy->include_related_count('school')->count();
+        $data['total_academies'] = $academy->getTotalAcademyOfRector($this->session_data->id);
+
+        $school = new School();
+        $data['total_schools'] = $school->getTotalSchoolOfRector($this->session_data->id);
 
         $class = new Clan();
-        $data['total_instructors'] = $class->getTotalInstructorOfDean($this->session_data->id);
-        $data['total_students'] = $class->getTotalUsersOfDean($this->session_data->id);
+        $data['total_instructors'] = $class->getTotalTeacherOfRector($this->session_data->id);
+        $data['total_students'] = $class->getTotalStudentsOfRector($this->session_data->id);
 
         $this->layout->view('dashboard/rector', $data);
     }

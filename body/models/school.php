@@ -10,6 +10,15 @@ class School extends DataMapper {
         parent::__construct($id);
     }
 
+    function getTotalSchoolOfRector($rector_id) {
+        $this->db->select('count(*) as total');
+        $this->db->from('schools');
+        $this->db->join('academies', 'academies.id=schools.academy_id');
+        $this->db->where('FIND_IN_SET(' . $rector_id . ', academies.rector_id) > 0');
+        $res = $this->db->get()->result();
+        return $res[0]->total;
+    }
+
 }
 
 ?>
