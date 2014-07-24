@@ -168,6 +168,14 @@ function createPermissionArray() {
                 'editSchool' => array('name' => 'Edit'),
                 'deleteSchool' => array('name' => 'Delete'),
         )),
+        'levels' => array(
+            'name' => 'Level',
+            'hasChild' => array(
+                'viewLevel' => array('name' => 'List'),
+                'addLevel' => array('name' => 'Add'),
+                'editLevel' => array('name' => 'Edit'),
+                'deleteLevel' => array('name' => 'Delete'),
+        )),
         'clans' => array(
             'name' => 'Classes',
             'hasChild' => array(

@@ -21,7 +21,12 @@ h4.text-primary,
 h5.text-primary,
 h6.text-primary,
 .text-primary {
-	color: #82BF8C;
+    color: #82BF8C;
+}
+
+.logo-brand {
+    background: #82BF8C;
+
 }
 
 .tiles-information a {
@@ -33,7 +38,7 @@ h6.text-primary,
 }
 
 .bg-primary a {
-	color: #82BF8C;
+    color: #82BF8C;
 }
 
 .bg-primary a:focus, .bg-primary a:hover {

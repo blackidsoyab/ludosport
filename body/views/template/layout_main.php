@@ -74,7 +74,7 @@
             <div class="top-navbar">
                 <div class="top-navbar-inner">
                     <div class="logo-brand">
-                        <a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="MYLUDOSPORT"><img src="<?php echo IMG_URL; ?>myludosport_logo.jpg" alt="My Ludosport logo"></a>
+                        <a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="MYLUDOSPORT"><img src="<?php echo IMG_URL; ?>myludosport_logo.png" alt="My Ludosport logo"></a>
                     </div>
 
                     <div class="top-nav-content">
