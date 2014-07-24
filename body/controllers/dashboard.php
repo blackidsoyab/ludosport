@@ -94,12 +94,30 @@ class dashboard extends CI_Controller {
 
     function getStudentDashboard() {
         if ($this->session_data->status === 'P') {
-            $this->layout->setLayout('template/layout_pending');
-            $this->layout->setField('page_title', 'User');
-            $this->layout->view('dashboard/pending_student');
+            $this->getPendingStudentDashboard();
+        } else if ($this->session_data->status === 'A') {
+            $this->getActiveStudentDashboard();
         } else {
-            $this->layout->view('dashboard/student');
+            $this->session->set_flashdata('error', 'Your Status is Neighter ACTIVE nor PENDING. Please Contact Admin.');
+            redirect(base_url() . 'denied', 'refresh');
         }
+    }
+
+    function getPendingStudentDashboard() {
+        $this->layout->setLayout('template/layout_pending');
+        $this->layout->setField('page_title', 'Test Lesson');
+
+        /* $user = New User();
+          $user->where('id', $this->session_data->id)->get();
+          $data['user'] = $user;
+          $academy = New Academy();
+          $data['academies'] = $academy->where('city_id', $user->city_id)->get(); */
+
+        $this->layout->view('dashboard/pending_student');
+    }
+
+    function getActiveStudentDashboard() {
+        $this->layout->view('dashboard/student');
     }
 
 }
