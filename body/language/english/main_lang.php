@@ -46,6 +46,8 @@ $lang['academy'] = 'Academy';
 $lang['school'] = 'School';
 $lang['student'] = 'Student';
 $lang['clan'] = 'Class';
+$lang['level'] = 'Level';
+
 
 //Dashboard
 $lang['control_panel'] = 'Control Panel';
@@ -118,4 +120,8 @@ $lang['range'] = 'Range';
 //Classes
 $lang['teacher'] = 'Teacher';
 $lang['same_as_school'] = 'Same as School';
+
+//Levels
+$lang['is_basic'] = 'is basic';
+$lang['under_sixteen'] = 'under 16';
 ?>

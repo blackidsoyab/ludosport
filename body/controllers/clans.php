@@ -32,6 +32,7 @@ class clans extends CI_Controller {
             $obj->academy_id = $this->input->post('academy_id');
             $obj->school_id = $this->input->post('school_id');
             $obj->teacher_id = implode(',', $this->input->post('teacher_id'));
+            $obj->level_id = $this->input->post('level_id');
 
             if ($this->input->post('same_addresss') != '1') {
                 $obj->same_address = 0;
@@ -71,8 +72,11 @@ class clans extends CI_Controller {
             $countries = New Country();
             $data['countries'] = $countries->get();
 
+            $level = New Level();
+            $data['levels'] = $level->get();
+
             $academy = New Academy();
-            if ($this->session_data->role == '2') {
+            if ($this->session_data->role == '1' || $this->session_data->role == '2') {
                 $data['academies'] = $academy->get();
             } else {
                 $data['academies'] = $academy->where('rector_id', $this->session_data->id)->get();
@@ -100,6 +104,7 @@ class clans extends CI_Controller {
                 $obj->academy_id = $this->input->post('academy_id');
                 $obj->school_id = $this->input->post('school_id');
                 $obj->teacher_id = implode(',', $this->input->post('teacher_id'));
+                $obj->level_id = $this->input->post('level_id');
 
                 if ($this->input->post('same_addresss') != '1') {
                     $obj->same_address = 0;
@@ -140,7 +145,7 @@ class clans extends CI_Controller {
                 $data['users'] = $users->getUsersByRole(5);
 
                 $academy = New Academy();
-                if ($this->session_data->role == '2') {
+                if ($this->session_data->role == '1' || $this->session_data->role == '2') {
                     $data['academies'] = $academy->get();
                 } else {
                     $data['academies'] = $academy->where('rector_id', $this->session_data->id)->get();
@@ -157,6 +162,9 @@ class clans extends CI_Controller {
 
                 $cities = New City();
                 $data['cities'] = $cities->where('state_id', $obj->state_id)->get();
+
+                $level = New Level();
+                $data['levels'] = $level->get();
 
                 $this->layout->view('clans/edit', $data);
             }

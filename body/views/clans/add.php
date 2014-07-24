@@ -127,6 +127,21 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('level'); ?> <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <select class="form-control required" name="level_id">
+                        <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('level'); ?></option>
+                        <?php
+                        $level_filed = $session->language . '_level_name';
+                        foreach ($levels as $level) {
+                            ?>
+                            <option value="<?php echo $level->id; ?>"><?php echo $level->$level_filed; ?></option>
+                        <?php } ?>    
+                    </select>
+                </div>
+            </div>
+
         </fieldset>
 
         <fieldset>

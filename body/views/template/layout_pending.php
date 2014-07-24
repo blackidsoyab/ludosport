@@ -63,7 +63,7 @@
             <div class="top-navbar">
                 <div class="top-navbar-inner">
                     <div class="logo-brand">
-                        <a href="<?php echo base_url(); ?>" title="MYLUDOSPORT"><img src="<?php echo IMG_URL; ?>sentir-logo-primary.png" alt="Sentir logo"></a>
+                        <a href="<?php echo base_url(); ?>" title="MYLUDOSPORT"><img src="<?php echo IMG_URL; ?>myludosport_logo.jpg" alt="My Ludosport logo"></a>
                     </div>
 
                     <div class="top-nav-content">

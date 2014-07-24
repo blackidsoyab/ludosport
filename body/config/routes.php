@@ -141,5 +141,13 @@ $route['clan/getjson'] = "json/getClansJsonData";
 $route['clan/getschools/(:num)'] = "ajax/getSchoolsOptionFromAcademy/$1";
 $route['clan/teacherlist'] = "clans/clanTeacherList";
 $route['clan/teacherjson'] = "json/getTeachersJsonData";
+
+//Manage Class Levels
+$route['level'] = "levels/viewLevel";
+$route['level/list'] = "levels/viewLevel";
+$route['level/add'] = "levels/addLevel";
+$route['level/edit/(:num)'] = "levels/editLevel/$1";
+$route['level/delete/(:num)'] = "levels/deleteLevel/$1";
+$route['level/getjson'] = "json/getLevelsJsonData";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

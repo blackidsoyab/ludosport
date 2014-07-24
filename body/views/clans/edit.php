@@ -134,6 +134,21 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('level'); ?> <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <select class="form-control required" name="level_id">
+                        <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('level'); ?></option>
+                        <?php
+                        $level_filed = $session->language . '_level_name';
+                        foreach ($levels as $level) {
+                            ?>
+                            <option value="<?php echo $level->id; ?>" <?php echo ($clan->level_id == $level->id) ? 'selected' : ''; ?>><?php echo $level->$level_filed; ?></option>
+                        <?php } ?>    
+                    </select>
+                </div>
+            </div>
+
         </fieldset>
 
         <fieldset>
@@ -163,49 +178,49 @@
                 </div>
 
                 <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'),' ',$this->lang->line('country'); ?> <span class="text-danger">*</span></label>
-                <div class="col-lg-5">
-                    <select class="form-control required" name="country_id" id="country_id">
-                        <option value="" disabled><?php echo $this->lang->line('select'), ' ', $this->lang->line('country'); ?></option>
-                        <?php
-                        $country_name = $session->language . '_name';
-                        foreach ($countries as $country) {
-                            ?>
-                            <option value="<?php echo $country->id; ?>" <?php echo ($clan->country_id == $country->id) ? 'selected' : ''; ?>><?php echo $country->$country_name; ?></option>
-                        <?php } ?>     
-                    </select>
+                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('country'); ?> <span class="text-danger">*</span></label>
+                    <div class="col-lg-5">
+                        <select class="form-control required" name="country_id" id="country_id">
+                            <option value="" disabled><?php echo $this->lang->line('select'), ' ', $this->lang->line('country'); ?></option>
+                            <?php
+                            $country_name = $session->language . '_name';
+                            foreach ($countries as $country) {
+                                ?>
+                                <option value="<?php echo $country->id; ?>" <?php echo ($clan->country_id == $country->id) ? 'selected' : ''; ?>><?php echo $country->$country_name; ?></option>
+                            <?php } ?>     
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'),' ',$this->lang->line('state'); ?> <span class="text-danger">*</span></label>
-                <div class="col-lg-5">
-                    <select class="form-control required" name="state_id" id="state_id">
-                        <option value="" disabled=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('state'); ?></option>
-                        <?php
-                        $state_name = $session->language . '_name';
-                        foreach ($states as $state) {
-                            ?>
-                            <option value="<?php echo $state->id; ?>" <?php echo ($clan->state_id == $state->id) ? 'selected' : ''; ?>><?php echo $state->$state_name; ?></option>
-                        <?php } ?>     
-                    </select>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('state'); ?> <span class="text-danger">*</span></label>
+                    <div class="col-lg-5">
+                        <select class="form-control required" name="state_id" id="state_id">
+                            <option value="" disabled=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('state'); ?></option>
+                            <?php
+                            $state_name = $session->language . '_name';
+                            foreach ($states as $state) {
+                                ?>
+                                <option value="<?php echo $state->id; ?>" <?php echo ($clan->state_id == $state->id) ? 'selected' : ''; ?>><?php echo $state->$state_name; ?></option>
+                            <?php } ?>     
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'),' ',$this->lang->line('city'); ?> <span class="text-danger">*</span></label>
-                <div class="col-lg-5">
-                    <select class="form-control required" name="city_id" id="city_id">
-                        <option value="" disabled><?php echo $this->lang->line('select'), ' ', $this->lang->line('city'); ?></option>
-                        <?php
-                        $city_name = $session->language . '_name';
-                        foreach ($cities as $city) {
-                            ?>
-                            <option value="<?php echo $city->id; ?>" <?php echo ($clan->city_id == $city->id) ? 'selected' : ''; ?>><?php echo $city->$city_name; ?></option>
-                        <?php } ?>     
-                    </select>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('city'); ?> <span class="text-danger">*</span></label>
+                    <div class="col-lg-5">
+                        <select class="form-control required" name="city_id" id="city_id">
+                            <option value="" disabled><?php echo $this->lang->line('select'), ' ', $this->lang->line('city'); ?></option>
+                            <?php
+                            $city_name = $session->language . '_name';
+                            foreach ($cities as $city) {
+                                ?>
+                                <option value="<?php echo $city->id; ?>" <?php echo ($clan->city_id == $city->id) ? 'selected' : ''; ?>><?php echo $city->$city_name; ?></option>
+                            <?php } ?>     
+                        </select>
+                    </div>
                 </div>
-            </div>
                 <div class="form-group">
                     <label class="col-lg-3 control-label"><?php echo $this->lang->line('phone_number'); ?> #1 <span class="text-danger">*</span></label>
                     <div class="col-lg-5">

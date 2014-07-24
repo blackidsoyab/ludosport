@@ -74,7 +74,7 @@
             <div class="top-navbar">
                 <div class="top-navbar-inner">
                     <div class="logo-brand">
-                        <a href="<?php echo base_url(); ?>" title="MYLUDOSPORT"><img src="<?php echo IMG_URL; ?>sentir-logo-primary.png" alt="Sentir logo"></a>
+                        <a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="MYLUDOSPORT"><img src="<?php echo IMG_URL; ?>myludosport_logo.jpg" alt="My Ludosport logo"></a>
                     </div>
 
                     <div class="top-nav-content">
@@ -90,18 +90,18 @@
                                     </a>
                                     <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
                                         <?php foreach ($session->all_roles as $role) { ?>
-                                            <li><a href="javascript:;" onclick="UpdateRole(this)" class="role" data-role ="<?php echo $role; ?>" title="<?php echo ucwords(getRoleName($role)); ?>"><?php echo ucwords(getRoleName($role)); ?></a></li>
+                                            <li><a href="javascript:;" onclick="UpdateRole(this)" class="role" data-role ="<?php echo $role; ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo ucwords(getRoleName($role)); ?>"><?php echo ucwords(getRoleName($role)); ?></a></li>
                                         <?php } ?>
                                     </ul>
                                 </li>
                             <?php } ?>
                             <li class="dropdown pull-left">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="<?php echo IMG_URL; ?>avatar/avatar-2.jpg" class="avatar img-circle" alt="<?php echo $session->name; ?>" title="<?php echo $session->name; ?>">
+                                    <img src="<?php echo IMG_URL; ?>avatar/avatar-2.jpg" class="avatar img-circle" alt="<?php echo $session->name; ?>" data-placement="bottom" data-toggle="tooltip" data-original-title="<?php echo $session->name; ?>">
                                     <?php echo $this->lang->line('hello'); ?>, <strong><?php echo $session->name; ?></strong>
                                 </a>
                                 <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
-                                    <li><a href="<?php echo base_url() . 'logout'; ?>" title="<?php echo $this->lang->line('logout'); ?>"><?php echo $this->lang->line('logout'); ?></a></li>
+                                    <li><a href="<?php echo base_url() . 'logout'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('logout'); ?>"><?php echo $this->lang->line('logout'); ?></a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -113,7 +113,7 @@
                                         <?php
                                         $languages = $this->config->item('custom_languages');
                                         ?>
-                                        <span class="badge badge-primary icon-count" title="<?php echo ucwords($languages[$session->language]); ?>"><?php echo strtoupper($session->language); ?></span>
+                                        <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo ucwords($languages[$session->language]); ?>"><?php echo strtoupper($session->language); ?></span>
                                         <i class="fa fa-bell-o"></i>
                                     </a>
                                     <ul class="dropdown-menu square with-triangle">
@@ -124,7 +124,7 @@
                                             <div class="nav-dropdown-content scroll-nav-dropdown">
                                                 <ul>
                                                     <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
-                                                        <li class="<?php echo ($session->language == $key) ? 'unread' : ''; ?>"><a href="javascript:;" onclick="UpdateLang(this)" class="language" data-lang ="<?php echo $key; ?>" title="<?php echo ucwords($value); ?>"><?php echo ucwords($value); ?></a></li>
+                                                        <li class="<?php echo ($session->language == $key) ? 'unread' : ''; ?>"><a href="javascript:;" onclick="UpdateLang(this)" class="language" data-lang ="<?php echo $key; ?>" data-toggle="tooltip" data-original-title="<?php echo ucwords($value); ?>"><?php echo ucwords($value); ?></a></li>
                                                     <? } ?>
                                                 </ul>
                                             </div>
@@ -145,7 +145,7 @@
                     <li class="static left-profile-summary">
                         <div class="media">
                             <p class="pull-left">
-                                <img src="<?php echo IMG_URL; ?>avatar/avatar-2.jpg" class="avatar img-circle" alt="<?php echo $session->name; ?>" title="<?php echo $session->name; ?>">
+                                <img src="<?php echo IMG_URL; ?>avatar/avatar-2.jpg" class="avatar img-circle" alt="<?php echo $session->name; ?>" data-toggle="tooltip" data-original-title="<?php echo $session->name; ?>">
 
                             </p>
                             <div class="media-body">
@@ -154,51 +154,55 @@
                                     <br />
                                     <strong><?php echo $session->name; ?></strong>
                                 </h4>
-                                <button class="btn btn-success btn-xs"><i class="fa fa-cog"></i></button><a href="<?php echo base_url() . 'logout'; ?>" title="<?php echo $this->lang->line('logout'); ?>" class="logout-action"> <button class="btn btn-danger btn-xs"><?php echo $this->lang->line('logout'); ?></button></a>
+                                <button class="btn btn-success btn-xs"><i class="fa fa-cog"></i></button><a href="<?php echo base_url() . 'logout'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('logout'); ?>" class="logout-action"> <button class="btn btn-danger btn-xs"><?php echo $this->lang->line('logout'); ?></button></a>
                             </div>
                         </div>
                     </li>
-                    <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(); ?>" title="<?php echo $this->lang->line('dashboard'); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a></li>
+                    <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('dashboard'); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a></li>
                     <li class="static"><?php echo $this->lang->line('activity'); ?></li>
 
                     <?php if (hasPermission('academies', 'viewAcademy')) { ?>
-                        <li class="<?php echo ($page == 'academy') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'academy'; ?>" title="<?php echo $this->lang->line('academy'); ?>"><i class="fa fa-font icon-sidebar"></i><?php echo $this->lang->line('academy'); ?></a></li>
+                        <li class="<?php echo ($page == 'academy') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'academy'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('academy'); ?>"><i class="fa fa-font icon-sidebar"></i><?php echo $this->lang->line('academy'); ?></a></li>
                     <?php } ?>
 
                     <?php if (hasPermission('schools', 'viewSchool')) { ?>   
-                        <li class="<?php echo ($page == 'school') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'school'; ?>" title="<?php echo $this->lang->line('school'); ?>"><i class="fa fa-university icon-sidebar"></i><?php echo $this->lang->line('school'); ?></a></li>
+                        <li class="<?php echo ($page == 'school') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'school'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('school'); ?>"><i class="fa fa-university icon-sidebar"></i><?php echo $this->lang->line('school'); ?></a></li>
+                    <?php } ?>
+
+                    <?php if (hasPermission('levels', 'viewLevel')) { ?>   
+                        <li class="<?php echo ($page == 'level') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'level'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('level'); ?>"><i class="fa fa-university icon-sidebar"></i><?php echo $this->lang->line('level'); ?></a></li>
                     <?php } ?>
 
                     <?php if (hasPermission('clans', 'viewClan')) { ?>
-                        <li class="<?php echo ($page == 'clan') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'clan'; ?>" title="<?php echo $this->lang->line('clan'); ?>"><i class="fa fa-users icon-sidebar"></i><?php echo $this->lang->line('clan'); ?></a></li>
+                        <li class="<?php echo ($page == 'clan') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'clan'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('clan'); ?>"><i class="fa fa-users icon-sidebar"></i><?php echo $this->lang->line('clan'); ?></a></li>
                     <?php } ?>
 
                     <?php if (hasPermission('users', 'viewUser')) { ?>
-                        <li class="<?php echo ($page == 'user') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'user'; ?>" title="<?php echo $this->lang->line('user'); ?>"><i class="fa fa-user icon-sidebar"></i><?php echo $this->lang->line('user'); ?></a></li>
+                        <li class="<?php echo ($page == 'user') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'user'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('user'); ?>"><i class="fa fa-user icon-sidebar"></i><?php echo $this->lang->line('user'); ?></a></li>
                     <?php } ?>
 
                     <?php if (hasPermission('roles', 'viewRole')) { ?>
-                        <li class="<?php echo ($page == 'role') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'role'; ?>" title="<?php echo $this->lang->line('role'); ?>"><i class="fa fa-cogs icon-sidebar"></i><?php echo $this->lang->line('role'); ?></a></li>
+                        <li class="<?php echo ($page == 'role') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'role'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('role'); ?>"><i class="fa fa-cogs icon-sidebar"></i><?php echo $this->lang->line('role'); ?></a></li>
                     <?php } ?>
 
                     <?php if (hasPermission('countries', 'viewCountry') || hasPermission('states', 'viewStates') || hasPermission('cities', 'viewCity')) { ?>
                         <li class="<?php echo ($page == 'country' || $page == 'states' || $page == 'city') ? 'active selected' : ''; ?>">
-                            <a href="javascript:;" title="<?php echo $this->lang->line('location'); ?>">
+                            <a href="javascript:;" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('location'); ?>">
                                 <i class="fa fa-table icon-sidebar"></i>
                                 <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                                 <?php echo $this->lang->line('location'); ?>
                             </a>
                             <ul class="submenu">
                                 <?php if (hasPermission('countries', 'viewCountry')) { ?>
-                                    <li><a href="<?php echo base_url() . 'country'; ?>" title="<?php echo $this->lang->line('country'); ?>"><?php echo $this->lang->line('country'); ?></a></li>
+                                    <li><a href="<?php echo base_url() . 'country'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('country'); ?>"><?php echo $this->lang->line('country'); ?></a></li>
                                 <?php } ?>
 
                                 <?php if (hasPermission('states', 'viewStates')) { ?>
-                                    <li><a href="<?php echo base_url() . 'state'; ?>" title="<?php echo $this->lang->line('state'); ?>"><?php echo $this->lang->line('state'); ?></a></li>
+                                    <li><a href="<?php echo base_url() . 'state'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('state'); ?>"><?php echo $this->lang->line('state'); ?></a></li>
                                 <?php } ?>
 
                                 <?php if (hasPermission('cities', 'viewCity')) { ?>
-                                    <li><a href="<?php echo base_url() . 'city'; ?>" title="<?php echo $this->lang->line('city'); ?>"><?php echo $this->lang->line('city'); ?></a></li>
+                                    <li><a href="<?php echo base_url() . 'city'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('city'); ?>"><?php echo $this->lang->line('city'); ?></a></li>
                                 <?php } ?>
                             </ul>
                         </li>

@@ -23,7 +23,7 @@
 
     <body class="login tooltips">
         <div class="login-header text-center">
-            <img src="<?php echo IMG_URL; ?>logo-login.png" class="logo" alt="Logo" title="MYLUDOSPORT">
+            <img src="<?php echo IMG_URL; ?>myludosport_logo.jpg" alt="My Ludosport logo" class="logo">
         </div>
         <div class="login-wrapper">
             <?php if ($this->session->flashdata('success') != '') { ?>

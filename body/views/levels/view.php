@@ -3,12 +3,12 @@
         $('#list_data').dataTable({
             "bProcessing": true,
             'iDisplayLength': 10,
+            "bSort": false,
             "bServerSide" : true,
-            "aaSorting": [[ 0, "asc" ]],
             "aoColumns": [
-                {"sClass": ""},{"sClass": "", "bSortable": false},{"sClass": "", "bSortable": false},{"sClass": "text-center", "bSortable": false},{"sClass": "text-center", "bSortable": false}
+                {"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center"},{"sClass": "text-center"}
             ],
-            "sAjaxSource": "<?php echo base_url() . "clan/getjson"; ?>"
+            "sAjaxSource": "<?php echo base_url() . "level/getjson"; ?>"
         });
     });
 
@@ -17,14 +17,14 @@
         var parent = $(ele).parent().parent();
 
         $.confirm({
-            'title': 'Manage Class',
-            'message': 'Do you Want to Delete the Class ?',
+            'title': 'Manage Level',
+            'message': 'Do you Want to Delete the Level ?',
             'buttons': {
                 'Yes': {'class': 'btn btn-danger',
                     'action': function() {
                         $.ajax({
                             type: 'POST',
-                            url: http_host_js + 'clan/delete/' + current_id,
+                            url: http_host_js + 'level/delete/' + current_id,
                             data: id = current_id,
                             success: function() {
                                 window.location.reload();
@@ -48,12 +48,12 @@
 
 <div class="row">
     <div class="col-md-6">
-        <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('clan'); ?></h1>    
+        <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('level'); ?></h1>    
     </div>
 
     <div class="col-md-6">
-        <?php if (hasPermission('clans', 'addClan')) { ?>
-            <a href="<?php echo base_url() . 'clan/add' ?>" class="btn btn-primary h1 pull-right" title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('clan'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('clan'); ?></a>
+        <?php if (hasPermission('levels', 'addLevel')) { ?>
+            <a href="<?php echo base_url() . 'level/add' ?>" class="btn btn-primary h1 pull-right" title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('level'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('level'); ?></a>
         <?php } ?>
     </div>
 </div>
@@ -64,11 +64,10 @@
         <table class="table table-striped table-hover" id="list_data">
             <thead class="the-box dark full">
                 <tr align="left">
-                    <th><?php echo $this->lang->line('clan'), ' ', $this->lang->line('name'); ?></th>
-                    <th><?php echo $this->lang->line('instructor'), ' ', $this->lang->line('name'); ?></th>
-                    <th><?php echo $this->lang->line('school'), ' ', $this->lang->line('name'); ?></th>
-                    <th><?php echo $this->lang->line('total'), ' ', $this->lang->line('student'); ?></th>
-                    <th width="100"><?php echo $this->lang->line('actions'); ?></th>
+                    <th><?php echo $this->lang->line('level'), ' ', $this->lang->line('name'); ?></th>
+                    <th width="125"><?php echo $this->lang->line('level'), ' ', $this->lang->line('is_basic'); ?></th>
+                    <th width="125"><?php echo $this->lang->line('level'), ' ', $this->lang->line('under_sixteen'); ?></th>
+                    <th width="125"><?php echo $this->lang->line('actions'); ?></th>
                 </tr>
             </thead>
             <tbody>
