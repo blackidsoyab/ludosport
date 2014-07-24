@@ -85,7 +85,7 @@
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('teacher'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
-                    <select class="form-control required" name="teacher_id[]" multiple="multiple">
+                    <select class="form-control required" name="teacher_id[]">
                         <?php foreach ($users as $user) { ?>
                             <option value="<?php echo $user->id; ?>" <?php echo (in_array($user->id, explode(',', $clan->teacher_id))) ? 'selected' : ''; ?>><?php echo $user->firstname, ' ', $user->lastname; ?></option>
 <?php } ?> 
