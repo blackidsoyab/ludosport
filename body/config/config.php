@@ -21,6 +21,8 @@ if ($_SERVER['SERVER_ADDR'] == '127.0.0.1') {
     $config['base_url'] = 'http://localhost/ludosport/';
 } else if ($_SERVER['SERVER_ADDR'] == '192.168.1.29') {
     $config['base_url'] = 'http://192.168.1.29/ludosport/';
+} else {
+    $config['base_url'] = 'http://demo.blackidlabs.com/ludosport/';
 }
 
 if (!defined('ADMIN_URL')) {

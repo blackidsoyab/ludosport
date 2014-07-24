@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 23, 2014 at 03:37 PM
+-- Generation Time: Jul 24, 2014 at 05:36 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.13
 
@@ -32,11 +32,12 @@ CREATE TABLE IF NOT EXISTS `academies` (
   `en_academy_name` varchar(100) NOT NULL,
   `it_academy_name` varchar(100) DEFAULT NULL,
   `type` varchar(65) NOT NULL,
-  `contact_firstname` varchar(65) NOT NULL,
-  `contact_lastname` varchar(65) NOT NULL,
+  `contact_firstname` varchar(100) NOT NULL,
+  `contact_lastname` varchar(100) NOT NULL,
   `association_fullname` varchar(100) NOT NULL,
+  `role_referent` varchar(255) DEFAULT NULL,
   `address` text NOT NULL,
-  `postal_code` int(11) NOT NULL,
+  `postal_code` varchar(11) NOT NULL,
   `city_id` int(11) NOT NULL,
   `state_id` int(11) NOT NULL,
   `country_id` int(11) NOT NULL,
@@ -45,14 +46,18 @@ CREATE TABLE IF NOT EXISTS `academies` (
   `email` varchar(65) NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `academies`
 --
 
-INSERT INTO `academies` (`id`, `rector_id`, `en_academy_name`, `it_academy_name`, `type`, `contact_firstname`, `contact_lastname`, `association_fullname`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `user_id`, `timestamp`) VALUES
-(1, '3', 'Black id Solutions', 'Black id Solutions', 'ac', 'Soyab', 'Rana', 'Black Id Solutions', 'Baroda', 390016, 1, 1, 1, '919601516399', '919601516399', 's@s.com', 2, '2014-07-23 09:04:17');
+INSERT INTO `academies` (`id`, `rector_id`, `en_academy_name`, `it_academy_name`, `type`, `contact_firstname`, `contact_lastname`, `association_fullname`, `role_referent`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `user_id`, `timestamp`) VALUES
+(1, '3', 'Poppey Sailor Man', 'Poppey Sailor Man', 'ac', 'Demo', 'James', 'PSM', 'Poppeyyyyyyyyyy Sailorrrrrrrrrrr Mannnnnnnnnnnnnnnnn', 'Baroda', '390016', 1, 1, 1, '919601516399', '919601516399', 's@s.com', 2, '2014-07-23 09:04:17'),
+(2, '6', 'Oggy&Cockroaches', 'Oggy&Cockroaches', 'ac', 'John', 'Demo', 'OC', 'Black Id', 'Baroda', '390016', 1, 1, 1, '919601516399', '919601516399', 's@s.com', 2, '2014-07-23 09:04:17'),
+(3, '5', 'MikyMouse', 'MikyMouse', 'ac', 'Jack', 'Sparrow', 'MM', 'Black Id Solutions', 'Baroda', '390016', 4, 2, 1, '919601516399', '919601516399', 'soyab@blackidsolutions.com', 2, '2014-07-23 12:32:51'),
+(4, '6', 'Tom&Jerry', 'Tom&Jerry', 'ac', 'Tom', 'Jerry', 'TJ', 'Black Id Solutions', 'Baroda', '390016', 3, 2, 1, '919601516399', '919601516399', 'soyab@blackidsolutions.com', 2, '2014-07-23 12:33:17'),
+(5, '3', 'Scooby Dooby Doo', 'Scooby Dooby Doo', 'ac', 'Scooby', 'Doo', 'SDD', 'Temparory', 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-07-24 06:59:30');
 
 -- --------------------------------------------------------
 
@@ -90,18 +95,37 @@ CREATE TABLE IF NOT EXISTS `clans` (
   `academy_id` int(11) NOT NULL,
   `school_id` int(11) NOT NULL,
   `teacher_id` varchar(11) NOT NULL,
+  `level_id` int(11) NOT NULL,
+  `lesson_day` varchar(25) NOT NULL,
+  `lesson_from` bigint(100) NOT NULL DEFAULT '0',
+  `lesson_to` bigint(100) NOT NULL DEFAULT '0',
   `en_class_name` varchar(65) NOT NULL,
   `it_class_name` varchar(65) NOT NULL,
+  `same_address` tinyint(1) NOT NULL DEFAULT '0',
+  `address` varchar(255) NOT NULL,
+  `postal_code` varchar(11) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `state_id` int(11) NOT NULL,
+  `country_id` int(11) NOT NULL,
+  `phone_1` varchar(15) DEFAULT NULL,
+  `phone_2` varchar(15) DEFAULT NULL,
+  `email` varchar(65) NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `clans`
 --
 
-INSERT INTO `clans` (`id`, `academy_id`, `school_id`, `teacher_id`, `en_class_name`, `it_class_name`, `user_id`, `timestamp`) VALUES
-(1, 1, 1, '3,5', 'Basic', 'Basic', 3, '2014-07-23 09:53:18');
+INSERT INTO `clans` (`id`, `academy_id`, `school_id`, `teacher_id`, `level_id`, `lesson_day`, `lesson_from`, `lesson_to`, `en_class_name`, `it_class_name`, `same_address`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `user_id`, `timestamp`) VALUES
+(1, 1, 1, '3', 1, '', 0, 0, 'Poppey Ep 1', 'Poppey Ep 1', 1, 'Baroda', '390016', 1, 1, 1, '919601516399', '919601516399', 't@t.com', 1, '2014-07-23 09:53:18'),
+(3, 2, 2, '8', 1, '', 0, 0, 'Oggy Ep 1', 'Oggy Ep 1', 0, 'baroda', '390016', 1, 1, 1, '91987654321', '', 't@youmail.com', 1, '2014-07-23 09:53:18'),
+(4, 1, 3, '7', 2, '', 0, 0, 'Poppey Ep 2', 'Poppey Ep 2', 1, 'Baroda', '390016', 1, 1, 1, '919601516399', '919601516399', 'soyab@blackidsolutions.com', 1, '2014-07-23 12:41:04'),
+(5, 1, 1, '5', 1, '', 0, 0, 'Poppey Ep 3', 'Poppey Ep 3', 0, 'baroda', '390016', 1, 1, 1, '91987654321', '', 't@youmail.com', 1, '2014-07-23 12:41:23'),
+(6, 3, 6, '3', 1, '', 0, 0, 'Micky Ep 1', 'Micky Ep 1', 0, 'baroda', '390016', 1, 1, 1, '91987654321', '', 't@youmail.com', 1, '2014-07-23 12:41:48'),
+(7, 4, 5, '3', 2, '', 0, 0, 'Jerry Ep 1', 'Jerry Ep 1', 0, 'baroda', '390016', 1, 1, 1, '91987654321', '', 't@youmail.com', 1, '2014-07-23 12:42:06'),
+(10, 1, 1, '3', 1, '2,4', 1406169000, 1406176200, 'Poppey Ep 2', 'Jerry Ep 1', 1, 'Baroda', '390016', 1, 1, 1, '919601516399', '919601516399', 't@t.com', 1, '2014-07-24 11:51:47');
 
 -- --------------------------------------------------------
 
@@ -125,6 +149,28 @@ INSERT INTO `countries` (`id`, `en_name`, `it_name`, `user_id`, `timestamp`) VAL
 (1, 'India', 'India', 1, '2014-07-17 07:11:46'),
 (2, 'Italy', 'Italy', 1, '2014-07-17 07:11:56'),
 (3, 'UAE', 'UAE', 1, '2014-07-21 06:15:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `levels`
+--
+
+CREATE TABLE IF NOT EXISTS `levels` (
+`id` int(11) NOT NULL,
+  `en_level_name` varchar(65) NOT NULL,
+  `it_level_name` varchar(65) NOT NULL,
+  `is_basic` enum('0','1') NOT NULL DEFAULT '0',
+  `under_sixteen` enum('0','1') NOT NULL DEFAULT '0'
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `levels`
+--
+
+INSERT INTO `levels` (`id`, `en_level_name`, `it_level_name`, `is_basic`, `under_sixteen`) VALUES
+(1, '1st Yedi', '1st Yedi', '1', '1'),
+(2, '2st Yedi', '2st Yedi', '1', '0');
 
 -- --------------------------------------------------------
 
@@ -185,9 +231,9 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 INSERT INTO `roles` (`id`, `en_role_name`, `it_role_name`, `permission`, `is_delete`, `user_id`, `timestamp`) VALUES
 (1, 'Super Admin', 'Super Amministratore', NULL, '0', 0, '2014-07-17 07:04:55'),
-(2, 'Admin', 'Admin', 'a:8:{s:5:"roles";a:4:{i:0;s:8:"viewRole";i:1;s:7:"addRole";i:2;s:8:"editRole";i:3;s:10:"deleteRole";}s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:4:{i:0;s:11:"viewAcademy";i:1;s:10:"addAcademy";i:2;s:11:"editAcademy";i:3;s:13:"deleteAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:4:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";}s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:10:"viewStates";i:1;s:9:"addStates";i:2;s:10:"editStates";i:3;s:12:"deleteStates";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}}', '0', 2, '2014-07-17 07:27:03'),
-(3, 'Rector', 'Rettore', 'a:4:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:4:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";}}', '0', 2, '2014-07-17 10:13:22'),
-(4, 'Dean', 'Decano', 'a:4:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:6:"states";a:1:{i:0;s:10:"viewStates";}}', '0', 2, '2014-07-17 10:13:43'),
+(2, 'Admin', 'Admin', 'a:8:{s:5:"roles";a:4:{i:0;s:8:"viewRole";i:1;s:7:"addRole";i:2;s:8:"editRole";i:3;s:10:"deleteRole";}s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:4:{i:0;s:11:"viewAcademy";i:1;s:10:"addAcademy";i:2;s:11:"editAcademy";i:3;s:13:"deleteAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:5:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";}s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:10:"viewStates";i:1;s:9:"addStates";i:2;s:10:"editStates";i:3;s:12:"deleteStates";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}}', '0', 2, '2014-07-17 07:27:03'),
+(3, 'Rector', 'Rettore', 'a:4:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:5:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";}}', '0', 2, '2014-07-17 10:13:22'),
+(4, 'Dean', 'Decano', 'a:4:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:2:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";}}', '0', 2, '2014-07-17 10:13:43'),
 (5, 'Teacher', 'Insegnante', 'a:3:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}}', '0', 2, '2014-07-17 10:16:50'),
 (6, 'Student', 'Studente', 'a:3:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}}', '0', 1, '2014-07-17 10:17:08');
 
@@ -203,24 +249,29 @@ CREATE TABLE IF NOT EXISTS `schools` (
   `dean_id` varchar(11) NOT NULL,
   `en_school_name` varchar(65) NOT NULL,
   `it_school_name` varchar(65) DEFAULT NULL,
-  `range` varchar(25) DEFAULT NULL,
-  `city_id` int(11) NOT NULL,
-  `postal_code` int(6) NOT NULL,
-  `phone` varchar(15) NOT NULL,
-  `mobile` varchar(15) NOT NULL,
   `address` varchar(255) NOT NULL,
+  `postal_code` int(6) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `state_id` int(11) NOT NULL,
+  `country_id` int(11) NOT NULL,
+  `phone_1` varchar(15) DEFAULT NULL,
+  `phone_2` varchar(15) DEFAULT NULL,
   `email` varchar(65) NOT NULL,
-  `information` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `schools`
 --
 
-INSERT INTO `schools` (`id`, `academy_id`, `dean_id`, `en_school_name`, `it_school_name`, `range`, `city_id`, `postal_code`, `phone`, `mobile`, `address`, `email`, `information`, `user_id`, `timestamp`) VALUES
-(1, 1, '3,4', 'PHP Traniee', 'PHP Traniee', '', 1, 390016, '919601516399', '919601516399', 'Baroda', 't@t.com', '', 3, '2014-07-23 09:40:03');
+INSERT INTO `schools` (`id`, `academy_id`, `dean_id`, `en_school_name`, `it_school_name`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `user_id`, `timestamp`) VALUES
+(1, 1, '3,4', 'Poppey', 'Poppey', 'Baroda', 390016, 1, 1, 1, '919601516399', '919601516399', 't@t.com', 2, '2014-07-23 09:40:03'),
+(2, 2, '4', 'Oggy', 'Oggy', 'Baroda', 390016, 1, 1, 1, '919601516399', '919601516399', 't@t.com', 2, '2014-07-23 09:40:03'),
+(3, 1, '4', 'Sailor', 'Sailor', 'Baroda', 390016, 1, 1, 1, '919601516399', '919601516399', 'soyab@blackidsolutions.com', 2, '2014-07-23 12:35:58'),
+(4, 2, '4', 'Cockroaches', 'Cockroaches', 'Baroda', 390016, 1, 1, 1, '919601516399', '919601516399', 'soyab@blackidsolutions.com', 2, '2014-07-23 12:36:34'),
+(5, 4, '4', 'Tom', 'Tom', 'Baroda', 390016, 1, 1, 1, '919601516399', '919601516399', 'soyab@blackidsolutions.com', 2, '2014-07-23 12:36:48'),
+(6, 3, '3', 'Mouse', 'Mouse', 'Baroda', 390016, 1, 1, 1, '919601516399', '919601516399', 'soyab@blackidsolutions.com', 2, '2014-07-23 12:37:07');
 
 -- --------------------------------------------------------
 
@@ -255,6 +306,7 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
 `id` int(11) NOT NULL,
   `student_master_id` int(11) NOT NULL,
   `school_id` int(11) NOT NULL,
+  `clan_id` varchar(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -325,6 +377,12 @@ ALTER TABLE `countries`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `levels`
+--
+ALTER TABLE `levels`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `permissions`
 --
 ALTER TABLE `permissions`
@@ -368,7 +426,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `academies`
 --
 ALTER TABLE `academies`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `cities`
 --
@@ -378,11 +436,16 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `clans`
 --
 ALTER TABLE `clans`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `countries`
 --
 ALTER TABLE `countries`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `levels`
+--
+ALTER TABLE `levels`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -398,7 +461,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT for table `schools`
 --
 ALTER TABLE `schools`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `states`
 --
