@@ -122,4 +122,9 @@ class clans extends CI_Controller {
         }
     }
 
+    function clanTeacherList() {
+        $this->layout->setField('page_title', $this->lang->line('list') . ' ' . $this->lang->line('teachers'));
+        $this->layout->view('clans/teacher_list');
+    }
+
 }

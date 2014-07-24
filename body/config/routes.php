@@ -137,5 +137,7 @@ $route['clan/edit/(:num)'] = "clans/editClan/$1";
 $route['clan/delete/(:num)'] = "clans/deleteClan/$1";
 $route['clan/getjson'] = "json/getClansJsonData";
 $route['clan/getschools/(:num)'] = "ajax/getSchoolsOptionFromAcademy/$1";
+$route['clan/teacherlist'] = "clans/clanTeacherList";
+$route['clan/teacherjson'] = "json/getTeachersJsonData";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

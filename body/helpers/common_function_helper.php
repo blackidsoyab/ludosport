@@ -175,6 +175,7 @@ function createPermissionArray() {
                 'addClan' => array('name' => 'Add'),
                 'editClan' => array('name' => 'Edit'),
                 'deleteClan' => array('name' => 'Delete'),
+                'clanTeacherList' => array('name' => 'Teacher List'),
         )),
         'countries' => array(
             'name' => 'Country',

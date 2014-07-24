@@ -54,9 +54,9 @@ class dashboard extends CI_Controller {
         $school = new School();
         $data['total_schools'] = $school->count();
 
-        $users = new User();
-        $data['total_instructors'] = count($users->getUsersByRole(5));
-        $data['total_students'] = count($users->getUsersByRole(6));
+        $class = new Clan();
+        $data['total_instructors'] = $class->getTotalTeachers();
+        $data['total_students'] = $class->getTotalStudents();
 
         $this->layout->view('dashboard/admin', $data);
     }
