@@ -53,7 +53,7 @@
 
     <div class="col-md-6">
         <?php if (hasPermission('levels', 'addLevel')) { ?>
-            <a href="<?php echo base_url() . 'level/add' ?>" class="btn btn-primary h1 pull-right" title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('level'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('level'); ?></a>
+            <a href="<?php echo base_url() . 'level/add' ?>" class="btn btn-primary h1 pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('level'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('level'); ?></a>
         <?php } ?>
     </div>
 </div>

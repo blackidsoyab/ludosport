@@ -62,21 +62,21 @@
     <form id="add" method="post" class="form-horizontal" action="<?php echo base_url() . 'permission/add'; ?>">
         <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
             <div class="form-group">
-                <label for="question" class="col-md-2 control-label">
+                <label for="question" class="col-lg-3 control-label">
                     <?php echo ucwords($value), ' ', $this->lang->line('name'); ?>
                     <span class="text-danger"><?php echo ($key == 'en') ? '*' : '&nbsp;'; ?></span>
                 </label>
-                <div class="col-md-4">
+                <div class="col-lg-5">
                     <input type="text" name="<?php echo $key . '_perm_name'; ?>"  class="<?php echo ($key == 'en') ? 'form-control required' : 'form-control'; ?>" placeholder="Permission Name in <?php echo ucwords($value); ?>"/>
                 </div>
             </div>
         <?php } ?>
         <div class="form-group">
-            <label for="question" class="col-md-2 control-label">
+            <label for="question" class="col-lg-3 control-label">
                 <?php echo $this->lang->line('select'), ' ', $this->lang->line('controller'); ?>
                 <span class="text-danger">*</span>
             </label>
-            <div class="col-md-4">
+            <div class="col-lg-5">
                 <select id="controller" name="controller" class="form-control required">
                     <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('controller'); ?></option>
                     <?php
@@ -95,11 +95,11 @@
         </div>
 
         <div class="form-group">
-            <label for="question" class="col-md-2 control-label">
+            <label for="question" class="col-lg-3 control-label">
                 <?php echo $this->lang->line('select'), ' ', $this->lang->line('method'); ?>
                 <span class="text-danger">*</span>
             </label>
-            <div class="col-md-4">
+            <div class="col-lg-5">
                 <select id="method" name="method" class="form-control required">
                     <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('method'); ?></option>
                 </select>
@@ -107,11 +107,11 @@
         </div>
 
         <div class="form-group">
-            <label for="question" class="col-md-2 control-label">
+            <label for="question" class="col-lg-3 control-label">
                 <?php echo $this->lang->line('select'), ' ', $this->lang->line('parent'); ?>
                 <span class="text-danger">&nbsp;</span>
             </label>
-            <div class="col-md-4">
+            <div class="col-lg-5">
                 <select name="parent_id" class="form-control">
                     <option value="0"><?php echo $this->lang->line('no'), ' ', $this->lang->line('parent'); ?></option>
                     <?php loopMenuArray($menu_tree, 0, 0); ?>
@@ -120,11 +120,11 @@
         </div>
 
         <div class="form-group">
-            <label for="question" class="col-md-2 control-label">
+            <label for="question" class="col-lg-3 control-label">
                 <?php echo $this->lang->line('is') . ' ' . $this->lang->line('menu'); ?>
                 <span class="text-danger">&nbsp;</span>
             </label>
-            <div class="col-md-4">
+            <div class="col-lg-5">
                 <label class="checkbox-inline" for="is_menu">
                     <input type="checkbox" name="is_menu" id="is_menu" value="1">
                 </label>
@@ -134,11 +134,11 @@
         <div id="menu_title" style="display:none">
             <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
                 <div class="form-group">
-                    <label for="question" class="col-md-2 control-label">
+                    <label for="question" class="col-lg-3 control-label">
                         <?php echo ucwords($value), ' ', $this->lang->line('menu'), ' ', $this->lang->line('name'); ?>
                         <span class="text-danger"><?php echo ($key == 'en') ? '*' : '&nbsp;'; ?></span>
                     </label>
-                    <div class="col-md-4">
+                    <div class="col-lg-5">
                         <input type="text" name="<?php echo $key . '_menu_title'; ?>"  class="<?php echo ($key == 'en') ? 'form-control required' : 'form-control'; ?>" placeholder="<?php echo $this->lang->line('menu'), ' ', $this->lang->line('name'), ' ', ucwords($value); ?>"/>
                     </div>
                 </div>
@@ -147,16 +147,16 @@
 
 
         <div class="form-group">
-            <label class="col-md-2 control-label">&nbsp;</label>
-            <div class="col-md-8">
-                <button type="submit" class="btn btn-primary" title="<?php echo $this->lang->line('save'); ?>"><?php echo $this->lang->line('save'); ?></button>
-                <a href="<?php echo base_url() . 'permission' ?>" class="btn btn-default" title="<?php echo $this->lang->line('cancel'); ?>"><?php echo $this->lang->line('cancel'); ?></a>
+            <label class="col-lg-3 control-label">&nbsp;</label>
+            <div class="col-lg-5">
+                <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('save'); ?>"><?php echo $this->lang->line('save'); ?></button>
+                <a href="<?php echo base_url() . 'permission' ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('cancel'); ?>"><?php echo $this->lang->line('cancel'); ?></a>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-md-2 control-label">&nbsp;</label>
-            <div class="col-md-8">
+            <label class="col-lg-3 control-label">&nbsp;</label>
+            <div class="col-lg-5">
                 <?php echo $this->lang->line('compulsory_note'); ?>
             </div>
         </div>

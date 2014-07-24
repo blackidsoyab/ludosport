@@ -53,7 +53,7 @@
 
     <div class="col-md-6">
         <?php if (hasPermission('clans', 'addClan')) { ?>
-            <a href="<?php echo base_url() . 'clan/add' ?>" class="btn btn-primary h1 pull-right" title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('clan'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('clan'); ?></a>
+            <a href="<?php echo base_url() . 'clan/add' ?>" class="btn btn-primary h1 pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('clan'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('clan'); ?></a>
         <?php } ?>
     </div>
 </div>

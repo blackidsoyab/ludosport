@@ -53,7 +53,7 @@
 
     <div class="col-md-6">
         <?php if (hasPermission('schools', 'addSchool')) { ?>
-            <a href="<?php echo base_url() . 'school/add' ?>" class="btn btn-primary h1 pull-right" title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('school'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('school'); ?></a>
+            <a href="<?php echo base_url() . 'school/add' ?>" class="btn btn-primary h1 pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('school'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('school'); ?></a>
         <?php } ?>
     </div>
 </div>

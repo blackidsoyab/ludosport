@@ -53,7 +53,7 @@
 
     <div class="col-md-6">
         <?php if (hasPermission('states', 'addStates')) { ?>
-            <a href="<?php echo base_url() . 'state/add' ?>" class="btn btn-primary h1 pull-right" title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('state'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('state'); ?></a>
+            <a href="<?php echo base_url() . 'state/add' ?>" class="btn btn-primary h1 pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('state'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('state'); ?></a>
         <?php } ?>
     </div>
 </div>
