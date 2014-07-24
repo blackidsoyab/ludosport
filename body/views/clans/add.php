@@ -65,10 +65,21 @@
         $('#same-as-school').click(function(){
             if($( '#same-as-school' ).prop( "checked" )){
                 $('#same_address').hide();
+                $("#same_address :input").attr("disabled", true);
             }else{
                 $('#same_address').show();
+                $("#same_address :input").attr("disabled", false);
             }
         });
+        
+        if ($('.timepicker').length > 0){
+            $('.timepicker').timepicker({
+                minuteStep: 5,
+                showInputs: false,
+                defaultTime :false,
+                showMeridian : false
+            });
+        }
     });
     //]]>
 </script>
@@ -142,6 +153,38 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('day'), ' ', $this->lang->line('lesson'); ?> <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <select class="form-control required" name="lesson_day[]" multiple="multiple">
+                        <?php
+                        foreach ($this->config->item('custom_days') as $key => $value) {
+                            ?>
+                            <option value="<?php echo $key; ?>"><?php echo $value[$session->language]; ?></option>
+                        <?php } ?>    
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('lesson'), ' ', $this->lang->line('time_from'); ?> <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <div class="input-group input-append bootstrap-timepicker">
+                        <input type="text" class="form-control timepicker" name="lesson_from">
+                        <span class="input-group-addon add-on"><i class="fa fa-clock-o"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('lesson'), ' ', $this->lang->line('time_to'); ?> <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <div class="input-group input-append bootstrap-timepicker">
+                        <input type="text" class="form-control timepicker" name="lesson_to">
+                        <span class="input-group-addon add-on"><i class="fa fa-clock-o"></i></span>
+                    </div>
+                </div>
+            </div>
         </fieldset>
 
         <fieldset>
@@ -150,8 +193,8 @@
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('same_as_school'); ?> <span class="text-danger">&nbsp;</span></label>
                 <div class="col-lg-5">
-                    <label class="inline-popups">
-                        <input type="checkbox" class="" name="same_addresss" id="same-as-school" value="1">
+                    <label class="checkbox-inline" for="same-as-school">
+                        <input type="checkbox" name="same_addresss" id="same-as-school" value="1">
                     </label>
                 </div>
             </div>

@@ -33,6 +33,9 @@ class clans extends CI_Controller {
             $obj->school_id = $this->input->post('school_id');
             $obj->teacher_id = implode(',', $this->input->post('teacher_id'));
             $obj->level_id = $this->input->post('level_id');
+            $obj->lesson_day = implode(',', $this->input->post('lesson_day'));
+            $obj->lesson_from = strtotime($this->input->post('lesson_from'));
+            $obj->lesson_to = strtotime($this->input->post('lesson_to'));
 
             if ($this->input->post('same_addresss') != '1') {
                 $obj->same_address = 0;
@@ -105,6 +108,9 @@ class clans extends CI_Controller {
                 $obj->school_id = $this->input->post('school_id');
                 $obj->teacher_id = implode(',', $this->input->post('teacher_id'));
                 $obj->level_id = $this->input->post('level_id');
+                $obj->lesson_day = implode(',', $this->input->post('lesson_day'));
+                $obj->lesson_from = strtotime($this->input->post('lesson_from'));
+                $obj->lesson_to = strtotime($this->input->post('lesson_to'));
 
                 if ($this->input->post('same_addresss') != '1') {
                     $obj->same_address = 0;

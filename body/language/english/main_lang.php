@@ -120,6 +120,11 @@ $lang['range'] = 'Range';
 //Classes
 $lang['teacher'] = 'Teacher';
 $lang['same_as_school'] = 'Same as School';
+$lang['day'] = 'Day';
+$lang['lesson'] = 'Lesson';
+$lang['time_from'] = 'time from';
+$lang['time_to'] = 'time to';
+
 
 //Levels
 $lang['is_basic'] = 'is basic';

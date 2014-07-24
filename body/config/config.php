@@ -45,6 +45,16 @@ if (!defined('PLUGIN_URL')) {
 
 $config['custom_languages'] = array('en' => 'english', 'it' => 'italian');
 
+$config['custom_days'] = array(
+    '1' => array('en' => 'Sunday', 'it' => 'Domenica'),
+    '2' => array('en' => 'Monday', 'it' => 'Lunedi'),
+    '3' => array('en' => 'Tuesday', 'it' => 'Martedì'),
+    '4' => array('en' => 'Wednesday', 'it' => 'Mercoledì'),
+    '5' => array('en' => 'Thursday', 'it' => 'Giovedi'),
+    '6' => array('en' => 'Friday', 'it' => 'Venerdì'),
+    '7' => array('en' => 'Saturday', 'it' => 'Sabato'),
+);
+
 /*
   |--------------------------------------------------------------------------
   | Index File

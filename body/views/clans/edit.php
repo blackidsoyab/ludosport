@@ -68,6 +68,15 @@
                 $('#same_address').show();
             }
         });
+        
+        if ($('.timepicker').length > 0){
+            $('.timepicker').timepicker({
+                minuteStep: 5,
+                showInputs: false,
+                defaultTime :false,
+                showMeridian : false
+            });
+        }
     });
     //]]>
 </script>
@@ -148,7 +157,37 @@
                     </select>
                 </div>
             </div>
+            
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('day'), ' ', $this->lang->line('lesson'); ?> <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <select class="form-control required" name="lesson_day[]" multiple="multiple">
+                        <?php
+                        foreach ($this->config->item('custom_days') as $key => $value) {
+                            ?>
+                            <option value="<?php echo $key; ?>" <?php echo (in_array($key, explode(',', $clan->lesson_day))) ? 'selected' : ''; ?>><?php echo $value[$session->language]; ?></option>
+                        <?php } ?>    
+                    </select>
+                </div>
+            </div>
 
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('lesson'), ' ', $this->lang->line('time_from'); ?> <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <div class="input-group input-append bootstrap-timepicker">
+                        <input type="text" class="form-control timepicker" name="lesson_from" value="<?php echo date('H:i', $clan->lesson_from);?>"> <span class="input-group-addon add-on"><i class="fa fa-clock-o"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('lesson'), ' ', $this->lang->line('time_to'); ?> <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <div class="input-group input-append bootstrap-timepicker">
+                        <input type="text" class="form-control timepicker" name="lesson_to" value="<?php echo date('H:i', $clan->lesson_to);?>"> <span class="input-group-addon add-on"><i class="fa fa-clock-o"></i></span>
+                    </div>
+                </div>
+            </div>
         </fieldset>
 
         <fieldset>
