@@ -34,6 +34,7 @@ class academies extends CI_Controller {
             $obj->contact_firstname = $this->input->post('contact_firstname');
             $obj->contact_lastname = $this->input->post('contact_lastname');
             $obj->association_fullname = $this->input->post('association_fullname');
+            $obj->role_referent = $this->input->post('role_referent');
             $obj->address = $this->input->post('address');
             $obj->postal_code = $this->input->post('postal_code');
             $obj->city_id = $this->input->post('city_id');
@@ -79,6 +80,7 @@ class academies extends CI_Controller {
                 $obj->contact_firstname = $this->input->post('contact_firstname');
                 $obj->contact_lastname = $this->input->post('contact_lastname');
                 $obj->association_fullname = $this->input->post('association_fullname');
+                $obj->role_referent = $this->input->post('role_referent');
                 $obj->address = $this->input->post('address');
                 $obj->postal_code = $this->input->post('postal_code');
                 $obj->city_id = $this->input->post('city_id');

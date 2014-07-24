@@ -31,14 +31,14 @@ class schools extends CI_Controller {
 
             $obj->academy_id = $this->input->post('academy_id');
             $obj->dean_id = implode(',', $this->input->post('dean_id'));
-            $obj->range = @$this->input->post('range');
+            $obj->address = $this->input->post('address');
             $obj->postal_code = $this->input->post('postal_code');
             $obj->city_id = $this->input->post('city_id');
-            $obj->address = $this->input->post('address');
-            $obj->mobile = $this->input->post('mobile');
-            $obj->phone = @$this->input->post('phone');
-            $obj->email = $this->input->post('email');
-            $obj->information = $this->input->post('information');
+            $obj->state_id = $this->input->post('state_id');
+            $obj->country_id = $this->input->post('country_id');
+            $obj->phone_1 = $this->input->post('phone_1');
+            $obj->phone_2 = @$this->input->post('phone_2');
+            $obj->email = @$this->input->post('email');
             $obj->user_id = $this->session_data->id;
             $obj->save();
 
@@ -53,8 +53,8 @@ class schools extends CI_Controller {
             $users = New User();
             $data['users'] = $users->getUsersByRole(4);
 
-            $city = New City();
-            $data['cities'] = $city->get();
+            $countries = New Country();
+            $data['countries'] = $countries->get();
 
 
             $this->layout->view('schools/add', $data);
@@ -77,14 +77,14 @@ class schools extends CI_Controller {
 
                 $obj->academy_id = $this->input->post('academy_id');
                 $obj->dean_id = implode(',', $this->input->post('dean_id'));
-                $obj->range = @$this->input->post('range');
+                $obj->address = $this->input->post('address');
                 $obj->postal_code = $this->input->post('postal_code');
                 $obj->city_id = $this->input->post('city_id');
-                $obj->address = $this->input->post('address');
-                $obj->mobile = $this->input->post('mobile');
-                $obj->phone = @$this->input->post('phone');
-                $obj->email = $this->input->post('email');
-                $obj->information = $this->input->post('information');
+                $obj->state_id = $this->input->post('state_id');
+                $obj->country_id = $this->input->post('country_id');
+                $obj->phone_1 = $this->input->post('phone_1');
+                $obj->phone_2 = @$this->input->post('phone_2');
+                $obj->email = @$this->input->post('email');
                 $obj->user_id = $this->session_data->id;
                 $obj->save();
 
@@ -102,8 +102,14 @@ class schools extends CI_Controller {
                 $users = New User();
                 $data['users'] = $users->getUsersByRole(4);
 
-                $city = New City();
-                $data['cities'] = $city->get();
+                $countries = New Country();
+                $data['countries'] = $countries->get();
+
+                $states = New State();
+                $data['states'] = $states->where('country_id', $obj->country_id)->get();
+
+                $cities = New City();
+                $data['cities'] = $cities->where('state_id', $obj->state_id)->get();
 
                 $this->layout->view('schools/edit', $data);
             }

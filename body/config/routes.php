@@ -54,6 +54,10 @@ $route['register/checkusername'] = "ajax/registerCheckUsername";
 $route['register/checkemail'] = "ajax/registerCheckEmail";
 $route['denied'] = "authenticate/permissionDenied";
 
+//Commom
+$route['getstate/(:num)'] = "ajax/getAllStatesOptionsFromCountry/$1";
+$route['getcity/(:num)'] = "ajax/getAllCitiesOptionsFromState/$1";
+
 //Dashboard
 $route['dashboard'] = "dashboard";
 $route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
@@ -118,8 +122,6 @@ $route['academy/add'] = "academies/addAcademy";
 $route['academy/edit/(:num)'] = "academies/editAcademy/$1";
 $route['academy/delete/(:num)'] = "academies/deleteAcademy/$1";
 $route['academy/getjson'] = "json/getAcademiesJsonData";
-$route['academy/getstate/(:num)'] = "ajax/getAllStatesOptionsFromCountry/$1";
-$route['academy/getcity/(:num)'] = "ajax/getAllCitiesOptionsFromState/$1";
 
 //School Managment
 $route['school'] = "schools/viewSchool";

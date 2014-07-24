@@ -12,6 +12,38 @@
                 }
             }
         });
+        
+        $('#country_id').change(function(){
+            $.ajax({
+                type: 'GET',
+                url: '<?php echo base_url(); ?>getstate/' + $('#country_id').val(),
+                success: function(data)
+                {
+                    $('#state_id').empty();
+                    $('#state_id').append(data);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown)
+                {
+                    alert('error');
+                }
+            });
+        });
+        
+        $('#state_id').change(function(){
+            $.ajax({
+                type: 'GET',
+                url: '<?php echo base_url(); ?>getcity/' + $('#state_id').val(),
+                success: function(data)
+                {
+                    $('#city_id').empty();
+                    $('#city_id').append(data);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown)
+                {
+                    alert('error');
+                }
+            });
+        });
     });
     //]]>
 </script>
@@ -50,7 +82,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('role_assign_association'); ?> <span class="text-danger">*</span></label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('dean'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
                     <select class="form-control required" name="dean_id[]" multiple="multiple">
                         <?php foreach ($users as $user) { ?>
@@ -60,17 +92,15 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('range'); ?> <span class="text-danger">&nbsp;</span></label>
-                <div class="col-lg-5">
-                    <input type="text" class="form-control" name="range">
-                </div>
-            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend><?php echo $this->lang->line('contact'); ?></legend>
 
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('address'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
-                    <input type="text" class="form-control required" name="address">
+                    <textarea class="form-control required" name="address"></textarea>
                 </div>
             </div>
 
@@ -82,48 +112,56 @@
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('city'); ?> <span class="text-danger">*</span></label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'),' ',$this->lang->line('country'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
-                    <select class="form-control required" name="city_id" id="city_id">
-                        <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('city'); ?></option>
+                    <select class="form-control required" name="country_id" id="country_id">
+                        <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('country'); ?></option>
                         <?php
-                        $city_name = $session->language . '_name';
-                        foreach ($cities as $city) {
+                        $country_name = $session->language . '_name';
+                        foreach ($countries as $country) {
                             ?>
-                            <option value="<?php echo $city->id; ?>"><?php echo $city->$city_name; ?></option>
+                            <option value="<?php echo $country->id; ?>"><?php echo $country->$country_name; ?></option>
                         <?php } ?>     
                     </select>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('mobile_number'); ?> <span class="text-danger">*</span></label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'),' ',$this->lang->line('state'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
-                    <input type="text" class="form-control required" name="mobile">
+                    <select class="form-control required" name="state_id" id="state_id">
+                        <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('state'); ?></option>
+                    </select>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('phone_number'); ?> <span class="text-danger">&nbsp;</span></label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'),' ',$this->lang->line('city'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
-                    <input type="text" class="form-control" name="phone">
+                    <select class="form-control required" name="city_id" id="city_id">
+                        <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('city'); ?></option>
+                    </select>
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('phone_number'); ?> #1 <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control required" name="phone_1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('phone_number'); ?> #2 <span class="text-danger">&nbsp;</span></label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control" name="phone_2">
+                </div>
+            </div>
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('email'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
                     <input type="email" class="form-control required" name="email">
                 </div>
             </div>
-
-            <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('information'); ?> <span class="text-danger">&nbsp;</span></label>
-                <div class="col-lg-5">
-                    <textarea class="summernote-sm" name="information"></textarea>
-                </div>
-            </div>
-
         </fieldset>
 
 

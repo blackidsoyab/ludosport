@@ -16,7 +16,7 @@
         $('#country_id').change(function(){
             $.ajax({
                 type: 'GET',
-                url: '<?php echo base_url(); ?>academy/getstate/' + $('#country_id').val(),
+                url: '<?php echo base_url(); ?>getstate/' + $('#country_id').val(),
                 success: function(data)
                 {
                     $('#state_id').empty();
@@ -32,7 +32,7 @@
         $('#state_id').change(function(){
             $.ajax({
                 type: 'GET',
-                url: '<?php echo base_url(); ?>academy/getcity/' + $('#state_id').val(),
+                url: '<?php echo base_url(); ?>getcity/' + $('#state_id').val(),
                 success: function(data)
                 {
                     $('#city_id').empty();
@@ -75,9 +75,9 @@
                     </select>
                 </div>
             </div>
-            
+
             <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'),' ', $this->lang->line('rector'); ?> <span class="text-danger">*</span></label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('rector'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
                     <select class="form-control required" name="rector_id[]" multiple="multiple">
                         <?php foreach ($users as $user) { ?>
@@ -85,8 +85,8 @@
                         <?php } ?>     
                     </select>
                     <?php if (hasPermission('users', 'addUser')) { ?>
-            <a href="<?php echo base_url() . 'user/add' ?>" class="link pull-right" title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('new'), ' ', $this->lang->line('user'); ?></a>
-        <?php } ?>
+                        <a href="<?php echo base_url() . 'user/add' ?>" class="link pull-right" title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('new'), ' ', $this->lang->line('user'); ?></a>
+                    <?php } ?>
                 </div>
             </div>
         </fieldset>
@@ -112,12 +112,19 @@
                     <input type="text" class="form-control required" name="association_fullname">
                 </div>
             </div>
-            
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('role_referent'); ?> <span class="text-danger">&nbsp;</span></label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control" name="role_referent">
+                </div>
+            </div>
+
 
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('address'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
-                    <input type="text" class="form-control required" name="address">
+                    <textarea class="form-control required" name="address"></textarea>
                 </div>
             </div>
 
@@ -129,7 +136,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('country'); ?> <span class="text-danger">*</span></label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'),' ',$this->lang->line('country'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
                     <select class="form-control required" name="country_id" id="country_id">
                         <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('country'); ?></option>
@@ -144,7 +151,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('state'); ?> <span class="text-danger">*</span></label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'),' ',$this->lang->line('state'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
                     <select class="form-control required" name="state_id" id="state_id">
                         <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('state'); ?></option>
@@ -153,7 +160,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('city'); ?> <span class="text-danger">*</span></label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'),' ',$this->lang->line('city'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
                     <select class="form-control required" name="city_id" id="city_id">
                         <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('city'); ?></option>
