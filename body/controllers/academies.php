@@ -13,8 +13,14 @@ class academies extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
     }
 
-    function viewAcademy() {
-        $this->layout->view('academies/view');
+    function viewAcademy($id = null) {
+        if (is_null($id)) {
+            $this->layout->view('academies/view');
+        } else {
+            $academy = new Academy();
+            $data['academy'] = $academy->where('id', $id)->get();
+            $this->layout->view('academies/view_single', $data);
+        }
     }
 
     function addAcademy() {

@@ -56,6 +56,8 @@ $lang['academies'] = 'Academies';
 $lang['schools'] = 'Schools';
 $lang['teachers'] = 'Teachers';
 $lang['students'] = 'Students';
+$lang['languages'] = 'Languages';
+$lang['notifications'] = 'Notifications';
 
 //Login
 $lang['welcome_to_login'] = 'Welcome to MyLudosport, enter your credentials to access.';

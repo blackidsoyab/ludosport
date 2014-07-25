@@ -88,3 +88,7 @@
         </div>							
     </div>
 </div>
+
+<div class="box">
+    
+</div>

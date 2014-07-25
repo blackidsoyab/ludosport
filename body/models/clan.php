@@ -97,6 +97,16 @@ class Clan extends DataMapper {
         return $res[0]->total;
     }
 
+    function afterSave($options = array()) {
+        $notify = new Notification();
+        $notify->notify_type = 'teacher_assign_class';
+        $notify->from_id = $options->user_id;
+        $notify->to_id = $options->teacher_id;
+        $notify->object_id = $options->id;
+        $notify->save();
+        return true;
+    }
+
 }
 
 ?>

@@ -57,6 +57,7 @@ $route['denied'] = "authenticate/permissionDenied";
 //Commom
 $route['getstate/(:num)'] = "ajax/getAllStatesOptionsFromCountry/$1";
 $route['getcity/(:num)'] = "ajax/getAllCitiesOptionsFromState/$1";
+$route['checkNotification/(:num)'] = "ajax/checkNotification/$1";
 
 //Dashboard
 $route['dashboard'] = "dashboard";
@@ -118,6 +119,7 @@ $route['user/extrapermission/(:num)'] = "users/extraPermissionUser/$1";
 //Academy Managment
 $route['academy'] = "academies/viewAcademy";
 $route['academy/list'] = "academies/viewAcademy";
+$route['academy/view/(:num)'] = "academies/viewAcademy/$1";
 $route['academy/add'] = "academies/addAcademy";
 $route['academy/edit/(:num)'] = "academies/editAcademy/$1";
 $route['academy/delete/(:num)'] = "academies/deleteAcademy/$1";
@@ -126,6 +128,7 @@ $route['academy/getjson'] = "json/getAcademiesJsonData";
 //School Managment
 $route['school'] = "schools/viewSchool";
 $route['school/list'] = "schools/viewSchool";
+$route['school/view/(:num)'] = "schools/viewSchool/$1";
 $route['school/add'] = "schools/addSchool";
 $route['school/edit/(:num)'] = "schools/editSchool/$1";
 $route['school/delete/(:num)'] = "schools/deleteSchool/$1";
@@ -134,6 +137,7 @@ $route['school/getjson'] = "json/getSchoolsJsonData";
 //Class / Clan Management
 $route['clan'] = "clans/viewClan";
 $route['clan/list'] = "clans/viewClan";
+$route['clan/view/(:num)'] = "clans/viewClan/$1";
 $route['clan/add'] = "clans/addClan";
 $route['clan/edit/(:num)'] = "clans/editClan/$1";
 $route['clan/delete/(:num)'] = "clans/deleteClan/$1";

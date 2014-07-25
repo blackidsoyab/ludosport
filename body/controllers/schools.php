@@ -13,8 +13,14 @@ class schools extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
     }
 
-    function viewSchool() {
-        $this->layout->view('schools/view');
+    function viewSchool($id = null) {
+        if (is_null($id)) {
+            $this->layout->view('schools/view');
+        } else {
+            $obj = new school();
+            $data['school'] = $obj->where('id', $id)->get();
+            $this->layout->view('schools/view_single', $data);
+        }
     }
 
     function addSchool() {
@@ -120,15 +126,11 @@ class schools extends CI_Controller {
     }
 
     function deleteSchool($id) {
+        echo 'dsad';
         if (!empty($id)) {
             $school = new School();
             $school->where('id', $id)->get();
-            /* foreach ($school->School as $user) {
-              $user->User_details->delete_all();
-              }
-             */
             $school->delete();
-
             $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
             redirect(base_url() . 'school', 'refresh');
         } else {

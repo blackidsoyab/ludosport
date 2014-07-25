@@ -33,6 +33,19 @@ class Academy extends DataMapper {
         }
     }
 
+    function afterSave($options = array()) {
+        foreach (explode(',', $options->rector_id) as $rector) {
+            $notify = new Notification();
+            $notify->notify_type = 'rector_assign_academy';
+            $notify->from_id = $options->user_id;
+            $notify->to_id = $rector;
+            $notify->object_id = $options->id;
+            $notify->save();
+        }
+
+        return true;
+    }
+
 }
 
 ?>

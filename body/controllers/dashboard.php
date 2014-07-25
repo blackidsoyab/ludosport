@@ -13,7 +13,7 @@ class dashboard extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
     }
 
-    public function index() {
+    public function index() {    
         switch ($this->session_data->role) {
             case 1:
                 $this->getSuperAdminDashboard();

@@ -27,6 +27,7 @@
         <link href="<?php echo PLUGIN_URL; ?>datatable/css/bootstrap.datatable.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>morris-chart/morris.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>c3-chart/c3.min.css" rel="stylesheet">
+        <link href="<?php echo PLUGIN_URL; ?>toastr/toastr.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>slider/slider.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href="<?php echo CSS_URL; ?>jquery.confirm.css" rel="stylesheet" />
@@ -59,6 +60,58 @@
                     }
                 });
             }
+            
+            $(document).ready(function(){
+                /*if($('#per-slide-template a').length >1){
+                    $('#per-slide-template a').removeClass('cycle-pager-active')
+                }*/
+                checkNotification(<?php echo $this->session->userdata('last_notification_id'); ?>);
+            });
+            
+            function toastrSetting(){
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "positionClass": "toast-top-right",
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+            }
+            
+            function checkNotification(last_id){
+                $.ajax({
+                    type : 'POST',
+                    url : http_host_js+'checkNotification/' + last_id,
+                    dataType : 'JSON',
+                    success: function(data) {
+                        if(data.notification == 'true'){
+                            toastrSetting();
+                            $.each(data, function(i, item) {
+                                if(item.type == 'success'){
+                                    toastr.success(item.message);
+                                }
+                        
+                                if(item.type == 'info'){
+                                    toastr.info(item.message);
+                                }   
+                            })
+                        }
+                        setTimeout(function() {
+                            checkNotification(data.lastid);
+                        }, 15000);
+                        
+                    }
+                });
+            }
+            
+            //window.setInterval(function(){ checkNotification();},5000);
         </script>
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -114,12 +167,12 @@
                                         $languages = $this->config->item('custom_languages');
                                         ?>
                                         <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo ucwords($languages[$session->language]); ?>"><?php echo strtoupper($session->language); ?></span>
-                                        <i class="fa fa-bell-o"></i>
+                                        <i class="fa fa-tasks"></i>
                                     </a>
                                     <ul class="dropdown-menu square with-triangle">
                                         <li>
                                             <div class="nav-dropdown-heading">
-                                                Languages
+                                                <?php echo $this->lang->line('languages'); ?>
                                             </div>
                                             <div class="nav-dropdown-content scroll-nav-dropdown">
                                                 <ul>
@@ -128,6 +181,26 @@
                                                     <? } ?>
                                                 </ul>
                                             </div>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications"><?php echo countNotifications($session->id); ?></span>
+                                        <i class="fa fa-bell-o"></i>
+                                    </a>
+                                    <ul class="dropdown-menu square with-triangle">
+                                        <li>
+                                            <div class="nav-dropdown-heading">
+                                                <?php echo $this->lang->line('notifications'); ?>
+                                            </div>
+                                            <div class="nav-dropdown-content scroll-nav-dropdown">
+                                                <ul>
+                                                    <?php echo getNotifications($session->id); ?>
+                                                </ul>
+                                            </div>
+                                            <button class="btn btn-primary btn-square btn-block">See all notifications</button>
                                         </li>
                                     </ul>
                                 </li>
@@ -294,6 +367,7 @@
         <script src="<?php echo PLUGIN_URL; ?>markdown/to-markdown.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>markdown/bootstrap-markdown.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>slider/bootstrap-slider.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>toastr/toastr.js"></script>
         <script src="<?php echo JS_URL; ?>apps.js"></script>
 
     </body>

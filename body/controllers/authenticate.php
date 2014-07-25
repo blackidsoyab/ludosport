@@ -41,10 +41,24 @@ class authenticate extends CI_Controller {
             $user_data->status = $user->status;
             $newdata = array('user_session' => $user_data);
             $this->session->set_userdata($newdata);
+            $this->setLastNotification($user->id);
             redirect(base_url() . 'dashboard', 'refresh');
         } else {
             $this->session->set_flashdata('error', 'Invalid Username or Password');
             redirect(base_url() . 'login', 'refresh');
+        }
+    }
+
+    function setLastNotification($user_id) {
+        $notification = new Notification();
+        $notification->where(array('to_id' => $user_id, 'status' => 0));
+        $notification->order_by('id', 'desc');
+        $notification->limit(1);
+        $notification->get();
+        if (!empty($notification->id)) {
+            $this->session->set_userdata('last_notification_id', $notification->id);
+        } else {
+            $this->session->set_userdata('last_notification_id', '0');
         }
     }
 

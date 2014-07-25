@@ -13,8 +13,14 @@ class clans extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
     }
 
-    function viewClan() {
-        $this->layout->view('clans/view');
+    function viewClan($id = null) {
+        if (is_null($id)) {
+            $this->layout->view('clans/view');
+        } else {
+            $obj = new Clan();
+            $data['clan'] = $obj->where('id', $id)->get();
+            $this->layout->view('clans/view_single', $data);
+        }
     }
 
     function addClan() {

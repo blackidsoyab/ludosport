@@ -21,3 +21,9 @@
 .tiles-information p {
     color: #000000;
 }
+
+.notification-icon{
+    margin: 4% 0 0 5%;
+    float: left;
+    display: block;
+}
