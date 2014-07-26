@@ -50,6 +50,7 @@ $route['validate'] = "authenticate/validateUser";
 $route['logout'] = "authenticate/logout";
 $route['forgot_password'] = "authenticate/userForgotPassword";
 $route['send_reset_password_link'] = "authenticate/userSendResetPasswordLink";
+$route['reset_password/(:any)'] = "authenticate/userResetPassword/$1";
 $route['register'] = "authenticate/register";
 $route['add_user'] = "authenticate/saveUser";
 $route['register/checkusername'] = "ajax/registerCheckUsername";

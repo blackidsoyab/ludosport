@@ -1,33 +1,21 @@
 <script>
     //<![CDATA[
     $(document).ready(function() {
-        $("#login").validate();
+        $("#form").validate();
     });
     //]]>
 </script>
-<div class="alert alert-warning alert-bold-border fade in alert-dismissable" >
-    <?php echo $this->lang->line('welcome_to_login'); ?>
+<div class="alert alert-warning alert-bold-border fade in alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-times"></i></button>
+    <?php echo $this->lang->line('forgot_password_message'); ?>
 </div>
-<form role="form" action="<?php echo base_url() . 'validate'; ?>" id="login" method="post">
+<form id="form" method="post" action="<?php echo base_url() . 'send_reset_password_link'; ?>">
     <div class="form-group has-feedback lg left-feedback no-label">
-        <input type="text" class="form-control no-border input-lg rounded required" placeholder="<?php echo $this->lang->line('username'); ?>" autofocus name="username">
-        <span class="fa fa-user form-control-feedback"></span>
-    </div>
-    <div class="form-group has-feedback lg left-feedback no-label">
-        <input type="password" class="form-control no-border input-lg rounded required" placeholder="<?php echo $this->lang->line('password'); ?>" name="password">
-        <span class="fa fa-unlock-alt form-control-feedback"></span>
+        <input type="email" class="form-control no-border input-lg rounded required" placeholder="<?php echo $this->lang->line('email'); ?>" autofocus="" name="user_email">
+        <span class="fa fa-envelope form-control-feedback"></span>
     </div>
     <div class="form-group">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" class="i-yellow-flat" title="<?php echo $this->lang->line('remember_me'); ?>"><?php echo $this->lang->line('remember_me'); ?>
-            </label>
-        </div>
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-warning btn-lg btn-perspective btn-block" title="<?php echo $this->lang->line('login'); ?>"><?php echo $this->lang->line('login'); ?></button>
+        <button type="submit" class="btn btn-warning btn-lg btn-perspective btn-block"><?php echo strtoupper($this->lang->line('send_mail')); ?></button>
     </div>
 </form>
-<p class="text-center"><strong><a href="<?php echo base_url() . 'forgot_password'; ?>" title="<?php echo $this->lang->line('forgot_password'); ?>"><?php echo $this->lang->line('forgot_password'); ?></a></strong></p>
-<p class="text-center"><?php echo $this->lang->line('or'); ?></p>
-<p class="text-center"><strong><a href="<?php echo base_url() . 'register'; ?>" title="<?php echo $this->lang->line('create_new_account'); ?>"><?php echo $this->lang->line('create_new_account'); ?></a></strong></p>
+<p class="text-center"><strong><a href="<?php echo base_url() . 'login'; ?>"><?php echo $this->lang->line('back_to_login'); ?></a></strong></p>

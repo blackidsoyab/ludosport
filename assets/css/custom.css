@@ -34,3 +34,8 @@
     left: 10px;
     top: 10px;
 }
+
+.input-group[class*=col-] {
+    padding-left: 15px; 
+    padding-right: 15px; 
+}

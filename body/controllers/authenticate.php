@@ -69,14 +69,6 @@ class authenticate extends CI_Controller {
         redirect(base_url() . 'login', 'refresh');
     }
 
-    function ChangeLanguage($lang_prefix) {
-        $session = $this->session->userdata('user_session');
-        $session->language = $lang_prefix;
-        $newdata = array('user_session' => $session, 'type' => 'User');
-        $this->session->set_userdata($newdata);
-        echo TRUE;
-    }
-
     function permission() {
         $this->layout->setLayout('template/layout_permission');
         $this->layout->setField('page_title', 'Permission Denied');
@@ -106,6 +98,57 @@ class authenticate extends CI_Controller {
         } else {
             $this->session->set_flashdata('error', 'Invalid Username or Password');
             redirect(base_url() . 'register', 'refresh');
+        }
+    }
+
+    function userForgotPassword() {
+        $this->layout->setField('page_title', $this->lang->line('forgot_password'));
+        $this->layout->view('authenticate/forgot_password');
+    }
+
+    function userSendResetPasswordLink() {
+        $user = new User();
+        $user->where('email', $this->input->post('user_email'))->get();
+
+        $email = new Email();
+        $email->where('type', 'forgot_password')->get();
+        if ($user->result_count() == 1 && $email->result_count() == 1) {
+            $random_string = random_string('alnum', 32);
+            $user->password = $random_string;
+            $user->save();
+            $message = $email->message;
+            $message = str_replace('#firstname', $user->firstname, $message);
+            $message = str_replace('#lastname', $user->lastname, $message);
+            $link = '<a href="' . base_url() . 'reset_password/' . $random_string . '">Click Here to reset password</a>';
+            $message = str_replace('#reset_link', $link, $message);
+            if (send_mail($user->email, $email->subject, $message)) {
+                $this->session->set_flashdata('success', 'Check your Mail Address.');
+            } else {
+                $this->session->set_flashdata('error', 'Unable to send mail. please try again');
+            }
+        } else {
+            $this->session->set_flashdata('error', 'Email Address does not exit');
+        }
+        redirect(base_url() . 'forgot_password', 'refresh');
+    }
+
+    function userResetPassword($random_string) {
+        if ($this->input->post() !== false) {
+            $user = new User();
+            $user->where('password', $random_string)->get();
+            if ($user->result_count() == 1) {
+                $user->password = md5($this->input->post('new_password'));
+                $user->save();
+                $this->session->set_flashdata('success', 'Login with new password');
+                redirect(base_url() . 'login', 'refresh');
+            } else {
+                $this->session->set_flashdata('error', 'unable to reset password');
+                redirect(base_url() . 'reset_password/' . $random_string, 'refresh');
+            }
+        } else {
+            $this->layout->setField('page_title', $this->lang->line('reset_password'));
+            $data['random_string'] = $random_string;
+            $this->layout->view('authenticate/reset_password', $data);
         }
     }
 

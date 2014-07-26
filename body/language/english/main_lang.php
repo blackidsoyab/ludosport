@@ -70,10 +70,12 @@ $lang['forgot_password'] = 'you lost password?';
 $lang['or'] = 'or';
 $lang['create_new_account'] = 'Create New account';
 
-//Forgot Password
+//Forgot / Reset Password
 $lang['forgot_password_message'] = 'Enter your email address to recover your password.';
+$lang['send_mail'] = 'Send Mail';
 $lang['reset_password'] = 'Reset Password';
 $lang['back_to_login'] = 'Back to Login';
+$lang['welcome_to_reset_password'] = 'Reset Password';
 
 //Register
 $lang['firstname'] = 'Firstname';

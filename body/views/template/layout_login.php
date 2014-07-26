@@ -7,6 +7,7 @@
         <link href="<?php echo PLUGIN_URL; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href="<?php echo CSS_URL; ?>style.css" rel="stylesheet">
         <link href="<?php echo CSS_URL; ?>style-responsive.css" rel="stylesheet">
+        <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>datepicker/datepicker.min.css" rel="stylesheet">
 
         <script src="<?php echo JS_URL; ?>jquery.min.js"></script>
