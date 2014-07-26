@@ -13,10 +13,14 @@ class schools extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
     }
 
-    function viewSchool($id = null) {
+    function viewSchool($id = null, $type = null) {
         if (is_null($id)) {
             $this->layout->view('schools/view');
         } else {
+            if ($type == 'notification') {
+                Notification::updateNotification('dean_assign_school', $this->session_data->id, $id);
+            }
+
             $obj = new school();
             $data['school'] = $obj->where('id', $id)->get();
             $this->layout->view('schools/view_single', $data);

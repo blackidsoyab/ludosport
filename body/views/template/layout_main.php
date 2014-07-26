@@ -61,10 +61,17 @@
                 });
             }
             
+            function allNotification() {
+                $.ajax({
+                    type: 'POST',
+                    url: http_host_js + 'mark_all_notification_read',
+                    success: function() {
+                        checkNotification(<?php echo $this->session->userdata('last_notification_id'); ?>);
+                    }
+                });
+            }
+            
             $(document).ready(function(){
-                /*if($('#per-slide-template a').length >1){
-                    $('#per-slide-template a').removeClass('cycle-pager-active')
-                }*/
                 checkNotification(<?php echo $this->session->userdata('last_notification_id'); ?>);
             });
             
@@ -198,20 +205,24 @@
 
                                 <li class="dropdown">
                                     <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
-                                        <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications" id="notification_count"></span>
+                                        <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('notifications'); ?>" id="notification_count"></span>
                                         <i class="fa fa-bell-o"></i>
                                     </a>
                                     <ul class="dropdown-menu square with-triangle">
                                         <li>
                                             <div class="nav-dropdown-heading">
                                                 <?php echo $this->lang->line('notifications'); ?>
+                                                <div class="pull-right">
+                                                    <a href="javascript:;" onclick="allNotification()" class="pull-right"  data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('read_all'), ' ', $this->lang->line('notifications'); ?>"><?php echo $this->lang->line('read_all'); ?></a>
+                                                </div>
+
                                             </div>
                                             <div class="nav-dropdown-content scroll-nav-dropdown">
                                                 <ul id="notifications">
                                                     <?php echo getNotifications($session->id); ?>
                                                 </ul>
                                             </div>
-                                            <button class="btn btn-primary btn-square btn-block">See all notifications</button>
+                                            <a href="<?php echo base_url() . 'notification' ?>" class="padding-killer"><button class="btn btn-primary btn-square btn-block"><?php echo $this->lang->line('see_all'), ' ', $this->lang->line('notifications'); ?></button></a>
                                         </li>
                                     </ul>
                                 </li>

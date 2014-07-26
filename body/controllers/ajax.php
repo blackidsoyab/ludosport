@@ -48,6 +48,39 @@ class ajax extends CI_Controller {
         }
     }
 
+    function checkNotification($notification_id) {
+        $notification = new Notification();
+        $notification->where(array('to_id' => $this->session_data->id, 'status' => 0, 'id >' => $notification_id));
+        $notification->order_by('id', 'desc');
+        $array = array();
+        $array['notification'] = 'false';
+        foreach ($notification->get() as $notify) {
+            $array['notification'] = 'true';
+            $temp = array();
+            $temp['type'] = 'success';
+            $temp['message'] = getMessageTemplate($notify->notify_type);
+            $temp['notification'] = getSingleNotification($notify->id);
+            $array[] = $temp;
+        }
+        if (!empty($notification->id)) {
+            $array['lastid'] = $notification->id;
+            $this->session->set_userdata('last_notification_id', $notification->id);
+        } else {
+            $array['lastid'] = $notification_id;
+            $this->session->set_userdata('last_notification_id', $notification_id);
+        }
+
+        $array['notification_count'] = countNotifications($this->session_data->id);
+        echo json_encode($array);
+    }
+
+    function markAllNotificationRead() {
+        $notification = new Notification();
+        $notification->where(array('to_id' => $this->session_data->id, 'status' => 0))->get();
+        $notification->update_all('status', 1);
+        return true;
+    }
+
     /*
      * ------------------------------------------
      * ------------------- END ------------------
@@ -192,32 +225,6 @@ class ajax extends CI_Controller {
         foreach ($schools->get() as $school) {
             echo '<option value="' . $school->id . '">' . $school->$school_name . '</option>';
         }
-    }
-
-    function checkNotification($notification_id) {
-        $notification = new Notification();
-        $notification->where(array('to_id' => $this->session_data->id, 'status' => 0, 'id >' => $notification_id));
-        $notification->order_by('id', 'desc');
-        $array = array();
-        $array['notification'] = 'false';
-        foreach ($notification->get() as $notify) {
-            $array['notification'] = 'true';
-            $temp = array();
-            $temp['type'] = 'success';
-            $temp['message'] = getMessageTemplate($notify->notify_type);
-            $temp['notification'] = getSingleNotification($notify->id);
-            $array[] = $temp;
-        }
-        if (!empty($notification->id)) {
-            $array['lastid'] = $notification->id;
-            $this->session->set_userdata('last_notification_id', $notification->id);
-        } else {
-            $array['lastid'] = $notification_id;
-            $this->session->set_userdata('last_notification_id', $notification_id);
-        }
-
-        $array['notification_count'] = countNotifications($this->session_data->id);
-        echo json_encode($array);
     }
 
 }

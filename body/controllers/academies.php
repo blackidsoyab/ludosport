@@ -13,10 +13,14 @@ class academies extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
     }
 
-    function viewAcademy($id = null) {
+    function viewAcademy($id = null, $type = null) {
         if (is_null($id)) {
             $this->layout->view('academies/view');
         } else {
+            if ($type == 'notification') {
+                Notification::updateNotification('rector_assign_academy', $this->session_data->id, $id);
+            }
+
             $academy = new Academy();
             $data['academy'] = $academy->where('id', $id)->get();
             $this->layout->view('academies/view_single', $data);

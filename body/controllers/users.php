@@ -13,8 +13,18 @@ class users extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
     }
 
-    function viewUser() {
-        $this->layout->view('users/view');
+    function viewUser($id = null, $type = null) {
+        if (is_null($id)) {
+            $this->layout->view('users/view');
+        } else {
+            if ($type == 'notification') {
+                Notification::updateNotification('user_register', $this->session_data->id, $id);
+            }
+
+            $obj = new User();
+            $data['user'] = $obj->where('id', $id)->get();
+            $this->layout->view('users/view_single', $data);
+        }
     }
 
     function addUser() {

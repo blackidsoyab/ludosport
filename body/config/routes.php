@@ -66,6 +66,7 @@ $route['checkNotification/(:num)'] = "ajax/checkNotification/$1";
 $route['dashboard'] = "dashboard";
 $route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
 $route['change_role/(:any)'] = "ajax/setNewRole/$1";
+$route['mark_all_notification_read'] = "ajax/markAllNotificationRead";
 
 //Country Management
 $route['country'] = "countries/viewCountry";
@@ -113,6 +114,8 @@ $route['role/check/(:num)'] = "ajax/checkValidRole/$1";
 //User Managmanet
 $route['user'] = "users/viewUser";
 $route['user/list'] = "users/viewUser";
+$route['user/view/(:num)'] = "users/viewUser/$1";
+$route['user/view/(:num)/(:any)'] = "users/viewUser/$1/$2";
 $route['user/add'] = "users/addUser";
 $route['user/edit/(:num)'] = "users/editUser/$1";
 $route['user/delete/(:num)'] = "users/deleteUser/$1";
@@ -123,6 +126,7 @@ $route['user/extrapermission/(:num)'] = "users/extraPermissionUser/$1";
 $route['academy'] = "academies/viewAcademy";
 $route['academy/list'] = "academies/viewAcademy";
 $route['academy/view/(:num)'] = "academies/viewAcademy/$1";
+$route['academy/view/(:num)/(:any)'] = "academies/viewAcademy/$1/$2";
 $route['academy/add'] = "academies/addAcademy";
 $route['academy/edit/(:num)'] = "academies/editAcademy/$1";
 $route['academy/delete/(:num)'] = "academies/deleteAcademy/$1";
@@ -132,6 +136,7 @@ $route['academy/getjson'] = "json/getAcademiesJsonData";
 $route['school'] = "schools/viewSchool";
 $route['school/list'] = "schools/viewSchool";
 $route['school/view/(:num)'] = "schools/viewSchool/$1";
+$route['school/view/(:num)/(:any)'] = "schools/viewSchool/$1/$2";
 $route['school/add'] = "schools/addSchool";
 $route['school/edit/(:num)'] = "schools/editSchool/$1";
 $route['school/delete/(:num)'] = "schools/deleteSchool/$1";
@@ -141,6 +146,7 @@ $route['school/getjson'] = "json/getSchoolsJsonData";
 $route['clan'] = "clans/viewClan";
 $route['clan/list'] = "clans/viewClan";
 $route['clan/view/(:num)'] = "clans/viewClan/$1";
+$route['clan/view/(:num)/(:any)'] = "clans/viewClan/$1/$2";
 $route['clan/add'] = "clans/addClan";
 $route['clan/edit/(:num)'] = "clans/editClan/$1";
 $route['clan/delete/(:num)'] = "clans/deleteClan/$1";
@@ -163,5 +169,9 @@ $route['email/list'] = "emails/viewEmail";
 $route['email/edit/(:num)'] = "emails/editEmail/$1";
 $route['email/getjson'] = "json/getEmailsJsonData";
 $route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";
+
+//Notifications
+$route['notification'] = "notifications/viewNotification";
+$route['notification/(:num)'] = "notifications/viewNotification/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

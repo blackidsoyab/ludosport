@@ -7,6 +7,13 @@ class Notification extends DataMapper {
         parent::__construct($id);
     }
 
+    public static function updateNotification($notify_type, $to_id, $object_id) {
+        $obj = new Notification();
+        $obj->where(array('notify_type' => $notify_type, 'to_id' => $to_id, 'object_id' => $object_id, 'status' => 0))->get();
+        $obj->status = 1;
+        $obj->save();
+    }
+
 }
 
 ?>

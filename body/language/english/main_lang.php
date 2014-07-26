@@ -21,6 +21,9 @@ $lang['information'] = 'Informations';
 $lang['activity'] = 'Activity';
 $lang['users'] = 'Users';
 $lang['new'] = 'New';
+$lang['read_all'] = 'Read all';
+$lang['see_all'] = 'See all';
+$lang['view_all'] = 'View all';
 $lang['compulsory_note'] = 'Fields marked with <span class="text-danger">*</span> are mandatory.';
 
 //Messages

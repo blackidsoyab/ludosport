@@ -39,3 +39,7 @@
     padding-left: 15px; 
     padding-right: 15px; 
 }
+
+.padding-killer{
+    padding: 0px !important;
+}

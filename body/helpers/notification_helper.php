@@ -70,15 +70,19 @@ function makeURL($type, $id) {
     $url = '#';
 
     if ($type == 'rector_assign_academy') {
-        $url = base_url() . 'academy/view/' . $id;
+        $url = base_url() . 'academy/view/' . $id . '/notification';
     }
 
     if ($type == 'dean_assign_school') {
-        $url = base_url() . 'school/view/' . $id;
+        $url = base_url() . 'school/view/' . $id . '/notification';
     }
 
     if ($type == 'teacher_assign_class') {
-        $url = base_url() . 'clan/view/' . $id;
+        $url = base_url() . 'clan/view/' . $id . '/notification';
+    }
+
+    if ($type == 'user_register') {
+        $url = base_url() . 'user/view/' . $id . '/notification';
     }
 
     return $url;
