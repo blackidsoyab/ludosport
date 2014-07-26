@@ -91,6 +91,8 @@
                     url : http_host_js+'checkNotification/' + last_id,
                     dataType : 'JSON',
                     success: function(data) {
+                        $('#notification_count').html(data.notification_count);
+                         
                         if(data.notification == 'true'){
                             toastrSetting();
                             $.each(data, function(i, item) {
@@ -100,12 +102,21 @@
                         
                                 if(item.type == 'info'){
                                     toastr.info(item.message);
-                                }   
+                                }
+                                
+                                if(data.notification_count >5){
+                                    $('ul#notifications li:last-child').animate({height: 0}, 1000,"swing",function() {
+                                        $(this).remove();
+                                    })
+                                }
+                        
+                                $(item.notification).hide().prependTo('ul#notifications').slideDown("slow");
                             })
                         }
+
                         setTimeout(function() {
                             checkNotification(data.lastid);
-                        }, 15000);
+                        }, 10000);
                         
                     }
                 });
@@ -187,7 +198,7 @@
 
                                 <li class="dropdown">
                                     <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
-                                        <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications"><?php echo countNotifications($session->id); ?></span>
+                                        <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications" id="notification_count"></span>
                                         <i class="fa fa-bell-o"></i>
                                     </a>
                                     <ul class="dropdown-menu square with-triangle">
@@ -196,7 +207,7 @@
                                                 <?php echo $this->lang->line('notifications'); ?>
                                             </div>
                                             <div class="nav-dropdown-content scroll-nav-dropdown">
-                                                <ul>
+                                                <ul id="notifications">
                                                     <?php echo getNotifications($session->id); ?>
                                                 </ul>
                                             </div>

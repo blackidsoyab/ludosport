@@ -2,7 +2,6 @@
 <h1 class="page-heading"><?php echo getRoleName($session->role); ?><small>&nbsp;<?php echo $this->lang->line('control_panel'); ?></small></h1>
 <!-- End page heading -->
 
-
 <!-- BEGIN GIRD -->
 <div class="alert alert-primary alert-block square"><?php echo $this->lang->line('numbers'); ?></div>
 
@@ -23,7 +22,11 @@
                 </h1> 
                 <?php if (hasPermission('academies', 'addAcademy')) { ?>
                     <a href="<?php echo base_url() . 'academy/add' ?>" class="link" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('academy'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('academy'); ?></a>
-                <?php } else { echo '&nbsp;'; } ?>
+                    <?php
+                } else {
+                    echo '&nbsp;';
+                }
+                ?>
             </div><!-- /.tiles-inner -->
         </div>							
     </div>
@@ -43,7 +46,11 @@
                 </h1> 
                 <?php if (hasPermission('schools', 'addSchool')) { ?>
                     <a href="<?php echo base_url() . 'school/add' ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('school'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('school'); ?></a>
-                 <?php } else { echo '&nbsp;'; } ?>
+                    <?php
+                } else {
+                    echo '&nbsp;';
+                }
+                ?>
             </div><!-- /.tiles-inner -->
         </div>							
     </div>
@@ -63,7 +70,11 @@
                 </h1> 
                 <?php if (hasPermission('users', 'addUser')) { ?>
                     <a href="<?php echo base_url() . 'user/add' ?>" class="link" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?></a>
-                 <?php } else { echo '&nbsp;'; } ?>
+                    <?php
+                } else {
+                    echo '&nbsp;';
+                }
+                ?>
             </div><!-- /.tiles-inner -->
         </div>							
     </div>
@@ -83,12 +94,12 @@
                 </h1>
                 <?php if (hasPermission('users', 'addUser')) { ?>
                     <a href="<?php echo base_url() . 'user/add' ?>" class="link" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?></a>
-                <?php } else { echo '&nbsp;'; } ?>
+                    <?php
+                } else {
+                    echo '&nbsp;';
+                }
+                ?>
             </div><!-- /.tiles-inner -->
         </div>							
     </div>
-</div>
-
-<div class="box">
-    
 </div>

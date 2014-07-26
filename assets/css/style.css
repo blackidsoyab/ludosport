@@ -251,7 +251,7 @@ ul.nav-user li.dropdown a.dropdown-toggle{
 }
 .nav-dropdown-content.static-list ul li,
 .nav-dropdown-content ul li a{
-    padding: 10px 20px 10px 10px;
+    padding: 10px 20px 10px 60px;
     display: block;
     position: relative;
     height: 60px;

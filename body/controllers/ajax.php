@@ -205,13 +205,18 @@ class ajax extends CI_Controller {
             $temp = array();
             $temp['type'] = 'success';
             $temp['message'] = getMessageTemplate($notify->notify_type);
+            $temp['notification'] = getSingleNotification($notify->id);
             $array[] = $temp;
         }
         if (!empty($notification->id)) {
             $array['lastid'] = $notification->id;
+            $this->session->set_userdata('last_notification_id', $notification->id);
         } else {
             $array['lastid'] = $notification_id;
+            $this->session->set_userdata('last_notification_id', $notification_id);
         }
+
+        $array['notification_count'] = countNotifications($this->session_data->id);
         echo json_encode($array);
     }
 

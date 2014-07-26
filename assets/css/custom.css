@@ -23,7 +23,14 @@
 }
 
 .notification-icon{
-    margin: 4% 0 0 5%;
+    margin: 3px 0 0 -45px;
     float: left;
-    display: block;
+}
+
+.nav-dropdown-content.static-list ul li .absolute-left-content, .nav-dropdown-content ul li a .absolute-left-content {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
 }
