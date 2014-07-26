@@ -47,6 +47,7 @@ $lang['school'] = 'School';
 $lang['student'] = 'Student';
 $lang['clan'] = 'Class';
 $lang['level'] = 'Level';
+$lang['email_template'] = 'Email Template';
 
 
 //Dashboard
@@ -68,6 +69,11 @@ $lang['login'] = 'Login';
 $lang['forgot_password'] = 'you lost password?';
 $lang['or'] = 'or';
 $lang['create_new_account'] = 'Create New account';
+
+//Forgot Password
+$lang['forgot_password_message'] = 'Enter your email address to recover your password.';
+$lang['reset_password'] = 'Reset Password';
+$lang['back_to_login'] = 'Back to Login';
 
 //Register
 $lang['firstname'] = 'Firstname';
@@ -131,4 +137,13 @@ $lang['time_to'] = 'time to';
 //Levels
 $lang['is_basic'] = 'is basic';
 $lang['under_sixteen'] = 'under 16';
+
+//Email Templates
+$lang['subject'] = 'Subject';
+$lang['message'] = 'Message';
+$lang['attachment'] = 'Attachment';
+$lang['show'] = 'Show';
+$lang['remove'] = 'Remove';
+$lang['pre_format'] = 'Pre Format';
+$lang['attachment_removed'] = 'Attachment removed successfully'
 ?>

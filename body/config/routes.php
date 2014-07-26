@@ -48,6 +48,8 @@ $route['404_override'] = '';
 $route['login'] = "authenticate/index";
 $route['validate'] = "authenticate/validateUser";
 $route['logout'] = "authenticate/logout";
+$route['forgot_password'] = "authenticate/userForgotPassword";
+$route['send_reset_password_link'] = "authenticate/userSendResetPasswordLink";
 $route['register'] = "authenticate/register";
 $route['add_user'] = "authenticate/saveUser";
 $route['register/checkusername'] = "ajax/registerCheckUsername";
@@ -153,5 +155,12 @@ $route['level/add'] = "levels/addLevel";
 $route['level/edit/(:num)'] = "levels/editLevel/$1";
 $route['level/delete/(:num)'] = "levels/deleteLevel/$1";
 $route['level/getjson'] = "json/getLevelsJsonData";
+
+//Manage Email Templates
+$route['email'] = "emails/viewEmail";
+$route['email/list'] = "emails/viewEmail";
+$route['email/edit/(:num)'] = "emails/editEmail/$1";
+$route['email/getjson'] = "json/getEmailsJsonData";
+$route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

@@ -15,7 +15,7 @@ if (!function_exists('send_mail')) {
         );
         $ci->load->library('email', $config);
         $ci->email->set_newline("\r\n");
-        $ci->email->from('soyab@blackidsolutions.com');
+        $ci->email->from('soyab@blackidsolutions.com', 'MyLudosport');
         $ci->email->to($tomailid);
         $ci->email->subject($subject);
         $ci->email->message($message);

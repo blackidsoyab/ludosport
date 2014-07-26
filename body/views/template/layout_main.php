@@ -269,6 +269,10 @@
                         <li class="<?php echo ($page == 'role') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'role'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('role'); ?>"><i class="fa fa-cogs icon-sidebar"></i><?php echo $this->lang->line('role'); ?></a></li>
                     <?php } ?>
 
+                    <?php if (hasPermission('emails', 'viewEmail')) { ?>
+                        <li class="<?php echo ($page == 'email') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'email'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('email_template'); ?>"><i class="fa fa-cogs icon-sidebar"></i><?php echo $this->lang->line('email_template'); ?></a></li>
+                    <?php } ?>
+
                     <?php if (hasPermission('countries', 'viewCountry') || hasPermission('states', 'viewStates') || hasPermission('cities', 'viewCity')) { ?>
                         <li class="<?php echo ($page == 'country' || $page == 'states' || $page == 'city') ? 'active selected' : ''; ?>">
                             <a href="javascript:;" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('location'); ?>">

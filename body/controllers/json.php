@@ -374,13 +374,13 @@ class json extends CI_Controller {
 
             if ($aRow['is_basic'] == '1') {
                 $temp_arr[] = '<i class="fa fa-check"></i>';
-            }else{
+            } else {
                 $temp_arr[] = '&nbsp;';
             }
-            
+
             if ($aRow['under_sixteen'] == '1') {
                 $temp_arr[] = '<i class="fa fa-check"></i>';
-            }else{
+            } else {
                 $temp_arr[] = '&nbsp;';
             }
 
@@ -392,7 +392,32 @@ class json extends CI_Controller {
             if (hasPermission('levels', 'deleteLevel')) {
                 $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
             }
-            
+
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getEmailsJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('subject');
+        $this->datatable->eColumns = array('id');
+        $this->datatable->sIndexColumn = "id";
+        $this->datatable->sTable = " emails";
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['subject'];
+
+            $str = NULL;
+            if (hasPermission('emails', 'editEmail')) {
+                $str .= '<a href="' . base_url() . 'email/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+
             $temp_arr[] = $str;
 
             $this->datatable->output['aaData'][] = $temp_arr;
