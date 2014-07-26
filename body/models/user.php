@@ -51,6 +51,17 @@ class User extends DataMapper {
         }
     }
 
+    public static function getAdminIds() {
+        $obj = new User();
+        $obj->where('role_id', 2);
+        $array = array();
+        foreach ($obj->get() as $value) {
+            $array[] = $value->id;
+        }
+
+        return array_unique($array);
+    }
+
 }
 
 ?>

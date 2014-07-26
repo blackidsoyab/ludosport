@@ -107,6 +107,16 @@ class Clan extends DataMapper {
         return true;
     }
 
+    public static function getAssignTeacherIds() {
+        $obj = new Clan();
+        $array = array();
+        foreach ($obj->get() as $value) {
+            $array[] = explode(',', $value->teacher_id);
+        }
+
+        return array_unique(MultiArrayToSinlgeArray($array));
+    }
+
 }
 
 ?>

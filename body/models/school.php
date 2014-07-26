@@ -40,6 +40,16 @@ class School extends DataMapper {
         return true;
     }
 
+    public static function getAssignDeanIds() {
+        $obj = new School();
+        $array = array();
+        foreach ($obj->get() as $value) {
+            $array[] = explode(',', $value->dean_id);
+        }
+
+        return array_unique(MultiArrayToSinlgeArray($array));
+    }
+
 }
 
 ?>

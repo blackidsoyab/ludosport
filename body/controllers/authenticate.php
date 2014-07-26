@@ -83,16 +83,74 @@ class authenticate extends CI_Controller {
     }
 
     function saveUser() {
-        $user = new User();
-        $user->role_id = 6;
-        $user->firstname = $this->input->post('firstname');
-        $user->lastname = $this->input->post('lastname');
-        $user->username = $this->input->post('username');
-        $user->city_id = $this->input->post('city_id');
-        $user->date_of_birth = strtotime($this->input->post('date_of_birth'));
-        $user->email = $this->input->post('email');
-        $user->password = md5($this->input->post('password'));
-        if ($user->save()) {
+        $new_user = new User();
+        $new_user->role_id = 6;
+        $new_user->firstname = $this->input->post('firstname');
+        $new_user->lastname = $this->input->post('lastname');
+        $new_user->username = $this->input->post('username');
+        $new_user->city_id = $this->input->post('city_id');
+        $new_user->date_of_birth = strtotime($this->input->post('date_of_birth'));
+        $new_user->email = $this->input->post('email');
+        $new_user->password = md5($this->input->post('password'));
+        if ($new_user->save()) {
+            //Mail Template for registration thanks
+            $email = new Email();
+            $email->where('type', 'user_registration')->get();
+            $message = $email->message;
+            $message = str_replace('#firstname', $new_user->firstname, $message);
+            $message = str_replace('#lastname', $new_user->lastname, $message);
+
+            //Save mail in our mail box
+            $mailbox = new Mailbox();
+            $mailbox->type = 'L';
+            $mailbox->to_email = $new_user->email;
+            $mailbox->subject = $email->subject;
+            $mailbox->message = $message;
+            $mailbox->attachment = $email->attachment;
+            $mailbox->save();
+
+            //Get all the Admins, Rectors, Deans, Teachers
+            $ids = array();
+            $ids[] = User::getAdminIds();
+            $ids[] = Academy::getAssignRecotrIds();
+            $ids[] = School::getAssignDeanIds();
+            $ids[] = Clan::getAssignTeacherIds();
+
+            //Make single array form all ids
+            $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
+
+            //Fecth all the User details
+            $user = new User();
+            $user->where_in('id', $final_ids);
+
+            // Mail Template for new user register notification to all above ids
+            $email = new Email();
+            $email->where('type', 'user_registration_notification')->get();
+            $message = $email->message;
+            $message = str_replace('#firstname', $new_user->firstname, $message);
+            $message = str_replace('#lastname', $new_user->lastname, $message);
+            $message = str_replace('#date', get_current_date_time()->get_date_time_for_db(), $message);
+
+            foreach ($user->get() as $value) {
+                //Add notification
+                $notification = new Notification();
+                $notification->type = 'I';
+                $notification->notify_type = 'user_register';
+                $notification->from_id = 0;
+                $notification->to_id = $value->id;
+                $notification->object_id = $new_user->id;
+                $notification->save();
+
+                //Add details in our mail box
+                $mailbox = new Mailbox();
+                $mailbox->type = 'L';
+                $mailbox->to_email = $value->email;
+                $mailbox->subject = $email->subject;
+                $mailbox->message = $message;
+                $mailbox->attachment = $email->attachment;
+                $mailbox->save();
+            }
+
             $this->session->set_flashdata('success', 'Login with Username or Password');
             redirect(base_url() . 'login', 'refresh');
         } else {
@@ -121,7 +179,12 @@ class authenticate extends CI_Controller {
             $message = str_replace('#lastname', $user->lastname, $message);
             $link = '<a href="' . base_url() . 'reset_password/' . $random_string . '">Click Here to reset password</a>';
             $message = str_replace('#reset_link', $link, $message);
-            if (send_mail($user->email, $email->subject, $message)) {
+
+            $option['tomailid'] = $user->email;
+            $option['subject'] = $email->subject;
+            $option['message'] = $message;
+
+            if (send_mail($option)) {
                 $this->session->set_flashdata('success', 'Check your Mail Address.');
             } else {
                 $this->session->set_flashdata('error', 'Unable to send mail. please try again');

@@ -46,6 +46,16 @@ class Academy extends DataMapper {
         return true;
     }
 
+    public static function getAssignRecotrIds() {
+        $obj = new Academy();
+        $array = array();
+        foreach ($obj->get() as $value) {
+            $array[] = explode(',', $value->rector_id);
+        }
+
+        return array_unique(MultiArrayToSinlgeArray($array));
+    }
+
 }
 
 ?>

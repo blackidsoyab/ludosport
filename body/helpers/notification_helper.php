@@ -107,6 +107,11 @@ function setMessageTemplate($user_name = null) {
             'en' => $user_name . ' added you as teacher in class',
             'it' => $user_name . ' hai aggiunto come teacher in clan'
         ),
+        'user_register' =>
+        array(
+            'en' => 'New User is register',
+            'it' => 'New User is register'
+        )
     );
 
     return $template;

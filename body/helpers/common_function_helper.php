@@ -46,6 +46,16 @@ if (!function_exists('getSystemConfiguration')) {
 
 }
 
+function MultiArrayToSinlgeArray($multi_dimensional_array) {
+    $single_dimensional_array = array();
+    foreach ($multi_dimensional_array as $val) {
+        foreach ($val as $val2) {
+            $single_dimensional_array[] = $val2;
+        }
+    }
+    return $single_dimensional_array;
+}
+
 function getAllLanguages() {
     $obj = new language_master_model();
     $data = $obj->getAll(null, 'lang_name', 'ASC');

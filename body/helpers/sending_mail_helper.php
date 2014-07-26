@@ -2,7 +2,7 @@
 
 if (!function_exists('send_mail')) {
 
-    function send_mail($tomailid, $subject, $message, $cc = '', $attachement = '') {
+    function send_mail($options) {
 
         $ci = get_instance();
         $config = Array(
@@ -16,15 +16,15 @@ if (!function_exists('send_mail')) {
         $ci->load->library('email', $config);
         $ci->email->set_newline("\r\n");
         $ci->email->from('soyab@blackidsolutions.com', 'MyLudosport');
-        $ci->email->to($tomailid);
-        $ci->email->subject($subject);
-        $ci->email->message($message);
+        $ci->email->to($options['tomailid']);
+        $ci->email->subject($options['subject']);
+        $ci->email->message($options['message']);
 
-        if ($cc != '')
-            $ci->email->bcc($cc);
+        if (isset($options['cc']))
+            $ci->email->bcc($options['cc']);
 
-        if ($attachement != '')
-            $ci->email->attach($attachement);
+        if (isset($options['attachement']))
+            $ci->email->attach($options['attachement']);
 
         if (!$ci->email->send()) {
             return FALSE;
