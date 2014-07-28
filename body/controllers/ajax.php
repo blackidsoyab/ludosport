@@ -81,6 +81,43 @@ class ajax extends CI_Controller {
         return true;
     }
 
+    function notificationPanigate($group_number) {
+        $items_per_group = 5;
+        //$group_number = filter_var($this->input->post("group_no"), FILTER_SANITIZE_NUMBER_INT, FILTER_FLAG_STRIP_HIGH);
+        $position = ($group_number * $items_per_group);
+
+        $obj = new Notification();
+        $obj->where('to_id', $this->session_data->id);
+        $obj->limit($items_per_group, $position);
+        $obj->order_by('id', 'desc');
+        $notifications = $obj->get();
+        $str = Null;
+        if ($obj->result_count() > 0) {
+            foreach ($notifications as $notify) {
+                if ($notify->type == 'N') {
+                    $user_info = userNameAvtar($notify->from_id);
+                    $message = getMessageTemplate($notify->notify_type, $user_info['name']);
+                    $img = '<img src="' . $user_info['avtar'] . '" class="media-object img-circle" alt="Avatar">';
+                } else {
+                    $message = getMessageTemplate($notify->notify_type);
+                    $img = '<i class="fa fa-3x fa-info-circle"></i>';
+                }
+
+                $str .= '<div class="col-sm-12"><div class="the-box no-border"><div class="media user-card-sm">';
+                $str .= '<a class="pull-left">' . $img . '</a>';
+                $str .= '<div class="media-body"><h4 class="media-heading">' . $message . '</h4>';
+                $str .= '<p class="text-primary">' . time_elapsed_string($notify->timestamp) . '</p></div>';
+
+                $str .= '<div class="right-button">';
+                $str .= '<a href="' . makeURL($notify->notify_type, $notify->object_id) . '" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $message . '" class="btn btn-primary"><i class="fa fa-share"></i></a>';
+                $str .='</div></div></div></div>';
+            }
+            echo $str;
+        } else {
+            echo FALSE;
+        }
+    }
+
     /*
      * ------------------------------------------
      * ------------------- END ------------------

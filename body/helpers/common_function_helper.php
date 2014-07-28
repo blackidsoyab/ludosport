@@ -92,32 +92,6 @@ function hasPermission($controller, $method) {
     }
 }
 
-function time_elapsed_string($time) {
-    $now = get_current_date_time()->get_date_time_for_db();
-
-    $etime = strtotime($now) - strtotime($time);
-
-    if ($etime < 1) {
-        return '0 seconds';
-    }
-
-    $a = array(12 * 30 * 24 * 60 * 60 => 'year',
-        30 * 24 * 60 * 60 => 'month',
-        24 * 60 * 60 => 'day',
-        60 * 60 => 'hour',
-        60 => 'minute',
-        1 => 'second'
-    );
-
-    foreach ($a as $secs => $str) {
-        $d = $etime / $secs;
-        if ($d >= 1) {
-            $r = round($d);
-            return $r . ' ' . $str . ($r > 1 ? 's' : '') . ' ago';
-        }
-    }
-}
-
 function printMenu($k, $array, $round, $parrent_id) {
     foreach ($array as $key => $value) {
         if ($key != 'child') {

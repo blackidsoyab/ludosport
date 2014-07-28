@@ -61,6 +61,7 @@ $route['denied'] = "authenticate/permissionDenied";
 $route['getstate/(:num)'] = "ajax/getAllStatesOptionsFromCountry/$1";
 $route['getcity/(:num)'] = "ajax/getAllCitiesOptionsFromState/$1";
 $route['checkNotification/(:num)'] = "ajax/checkNotification/$1";
+$route['load_more_notification/(:num)'] = "ajax/notificationPanigate/$1";
 
 //Dashboard
 $route['dashboard'] = "dashboard";
