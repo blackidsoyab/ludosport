@@ -13,11 +13,11 @@ class states extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
     }
 
-    function viewStates() {
+    function viewState() {
         $this->layout->view('states/view');
     }
 
-    function addStates() {
+    function addState() {
         if ($this->input->post() !== false) {
             $c = new State();
             $c->country_id = $this->input->post('country_id');
@@ -41,7 +41,7 @@ class states extends CI_Controller {
         }
     }
 
-    function editStates($id) {
+    function editState($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
                 $c = new State();
@@ -75,7 +75,7 @@ class states extends CI_Controller {
         }
     }
 
-    function deleteStates($id) {
+    function deleteState($id) {
         if (!empty($id)) {
             $c = new State();
             $c->where('id', $id)->get();

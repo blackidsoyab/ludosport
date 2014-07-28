@@ -12,7 +12,7 @@ class json extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
     }
 
-    public function getCountryJsonData() {
+    public function getCountriesJsonData() {
         $this->load->library('datatable');
         $this->datatable->aColumns = array($this->session_data->language . '_name');
         $this->datatable->eColumns = array('id');

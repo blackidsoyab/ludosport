@@ -41,6 +41,28 @@ if (!defined('BASEPATH'))
   |
  */
 
+include_once (APPPATH . 'helpers/inflector_helper.php');
+
+$path = explode('/', $_SERVER['REQUEST_URI']);
+
+$route[$path[2]] = plural($path[2]) . "/view" . ucwords($path[2]);
+$route[$path[2] . '/list'] = plural($path[2]) . "/view" . ucwords($path[2]);
+$route[$path[2] . '/view/(:num)'] = plural($path[2]) . "/view" . ucwords($path[2]) . "/$1";
+$route[$path[2] . '/view/(:num)/(:any)'] = plural($path[2]) . "/view" . ucwords($path[2]) . "/$1/$2";
+$route[$path[2] . '/add'] = plural($path[2]) . "/add" . ucwords($path[2]);
+$route[$path[2] . '/edit/(:num)'] = plural($path[2]) . "/edit" . ucwords($path[2]) . "/$1";
+$route[$path[2] . '/delete/(:num)'] = plural($path[2]) . "/delete" . ucwords($path[2]) . "/$1";
+$route[$path[2] . '/getjson'] = "json/get" . plural($path[2]) . "JsonData";
+
+$route['permission/getmethod/(:any)/(:any)'] = "ajax/getMethodsFromControllers/$1/$2";
+$route['permission/check/(:num)'] = "ajax/checkValidPermision/$1";
+$route['role/check/(:num)'] = "ajax/checkValidRole/$1";
+$route['country/getjson'] = "json/getCountryJsonData";
+$route['clan/getschools/(:num)'] = "ajax/getSchoolsOptionFromAcademy/$1";
+$route['clan/teacherlist'] = "clans/clanTeacherList";
+$route['clan/teacherjson'] = "json/getTeachersJsonData";
+$route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";
+
 $route['default_controller'] = "dashboard";
 $route['404_override'] = '';
 
@@ -69,110 +91,5 @@ $route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
 $route['change_role/(:any)'] = "ajax/setNewRole/$1";
 $route['mark_all_notification_read'] = "ajax/markAllNotificationRead";
 
-//Country Management
-$route['country'] = "countries/viewCountry";
-$route['country/list'] = "countries/viewCountry";
-$route['country/add'] = "countries/addCountry";
-$route['country/edit/(:num)'] = "countries/editCountry/$1";
-$route['country/delete/(:num)'] = "countries/deleteCountry/$1";
-$route['country/getjson'] = "json/getCountryJsonData";
-
-//State Management
-$route['state'] = "states/viewStates";
-$route['state/list'] = "states/viewStates";
-$route['state/add'] = "states/addStates";
-$route['state/edit/(:num)'] = "states/editStates/$1";
-$route['state/delete/(:num)'] = "states/deleteStates/$1";
-$route['state/getjson'] = "json/getStatesJsonData";
-
-//State Management
-$route['city'] = "cities/viewCity";
-$route['city/list'] = "cities/viewCity";
-$route['city/add'] = "cities/addCity";
-$route['city/edit/(:num)'] = "cities/editCity/$1";
-$route['city/delete/(:num)'] = "cities/deleteCity/$1";
-$route['city/getjson'] = "json/getCitiesJsonData";
-
-//Permission Management
-$route['permission'] = "permissions/viewPermission";
-$route['permission/list'] = "permissions/viewPermission";
-$route['permission/add'] = "permissions/addPermission";
-$route['permission/edit/(:num)'] = "permissions/editPermission/$1";
-$route['permission/delete/(:num)'] = "permissions/deletePermission/$1";
-$route['permission/getjson'] = "json/getPermissionsJsonData";
-$route['permission/getmethod/(:any)/(:any)'] = "ajax/getMethodsFromControllers/$1/$2";
-$route['permission/check/(:num)'] = "ajax/checkValidPermision/$1";
-
-//Role Management
-$route['role'] = "roles/viewRole";
-$route['role/list'] = "roles/viewRole";
-$route['role/add'] = "roles/addRole";
-$route['role/edit/(:num)'] = "roles/editRole/$1";
-$route['role/delete/(:num)'] = "roles/deleteRole/$1";
-$route['role/getjson'] = "json/getRolesJsonData";
-$route['role/check/(:num)'] = "ajax/checkValidRole/$1";
-
-//User Managmanet
-$route['user'] = "users/viewUser";
-$route['user/list'] = "users/viewUser";
-$route['user/view/(:num)'] = "users/viewUser/$1";
-$route['user/view/(:num)/(:any)'] = "users/viewUser/$1/$2";
-$route['user/add'] = "users/addUser";
-$route['user/edit/(:num)'] = "users/editUser/$1";
-$route['user/delete/(:num)'] = "users/deleteUser/$1";
-$route['user/getjson'] = "json/getUsersJsonData";
-$route['user/extrapermission/(:num)'] = "users/extraPermissionUser/$1";
-
-//Academy Managment
-$route['academy'] = "academies/viewAcademy";
-$route['academy/list'] = "academies/viewAcademy";
-$route['academy/view/(:num)'] = "academies/viewAcademy/$1";
-$route['academy/view/(:num)/(:any)'] = "academies/viewAcademy/$1/$2";
-$route['academy/add'] = "academies/addAcademy";
-$route['academy/edit/(:num)'] = "academies/editAcademy/$1";
-$route['academy/delete/(:num)'] = "academies/deleteAcademy/$1";
-$route['academy/getjson'] = "json/getAcademiesJsonData";
-
-//School Managment
-$route['school'] = "schools/viewSchool";
-$route['school/list'] = "schools/viewSchool";
-$route['school/view/(:num)'] = "schools/viewSchool/$1";
-$route['school/view/(:num)/(:any)'] = "schools/viewSchool/$1/$2";
-$route['school/add'] = "schools/addSchool";
-$route['school/edit/(:num)'] = "schools/editSchool/$1";
-$route['school/delete/(:num)'] = "schools/deleteSchool/$1";
-$route['school/getjson'] = "json/getSchoolsJsonData";
-
-//Class / Clan Management
-$route['clan'] = "clans/viewClan";
-$route['clan/list'] = "clans/viewClan";
-$route['clan/view/(:num)'] = "clans/viewClan/$1";
-$route['clan/view/(:num)/(:any)'] = "clans/viewClan/$1/$2";
-$route['clan/add'] = "clans/addClan";
-$route['clan/edit/(:num)'] = "clans/editClan/$1";
-$route['clan/delete/(:num)'] = "clans/deleteClan/$1";
-$route['clan/getjson'] = "json/getClansJsonData";
-$route['clan/getschools/(:num)'] = "ajax/getSchoolsOptionFromAcademy/$1";
-$route['clan/teacherlist'] = "clans/clanTeacherList";
-$route['clan/teacherjson'] = "json/getTeachersJsonData";
-
-//Manage Class Levels
-$route['level'] = "levels/viewLevel";
-$route['level/list'] = "levels/viewLevel";
-$route['level/add'] = "levels/addLevel";
-$route['level/edit/(:num)'] = "levels/editLevel/$1";
-$route['level/delete/(:num)'] = "levels/deleteLevel/$1";
-$route['level/getjson'] = "json/getLevelsJsonData";
-
-//Manage Email Templates
-$route['email'] = "emails/viewEmail";
-$route['email/list'] = "emails/viewEmail";
-$route['email/edit/(:num)'] = "emails/editEmail/$1";
-$route['email/getjson'] = "json/getEmailsJsonData";
-$route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";
-
-//Notifications
-$route['notification'] = "notifications/viewNotification";
-$route['notification/(:num)'] = "notifications/viewNotification/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

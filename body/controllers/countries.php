@@ -13,8 +13,15 @@ class countries extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
     }
 
-    function viewCountry() {
-        $this->layout->view('countries/view');
+    function viewCountry($id = null, $type= null) {
+         if (is_null($id)) {
+            $this->layout->view('countries/view');
+        } else {
+            $country = new Country();
+            $data['country'] = $country->where('id', $id)->get();
+            $this->layout->view('countries/view_single', $data);
+        }
+        
     }
 
     function addCountry() {
