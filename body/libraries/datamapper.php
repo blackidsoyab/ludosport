@@ -2347,8 +2347,9 @@ class DataMapper implements IteratorAggregate {
         }
         if ($return_as_string === FALSE) {
             echo $q;
+        } else {
+            return $q;
         }
-        return $q;
     }
 
     // --------------------------------------------------------------------

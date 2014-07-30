@@ -124,6 +124,41 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
     background: #6EB1DE;
 }
 
+.panel-primary {
+    border-color: #6EB1DE;
+}
+
+.tiles.dribbble-tile {
+    color: #fff;
+    background-color: #6EB1DE;
+}
+
+.panel-primary > .panel-heading {
+    color: #fff;
+    background-color: #6EB1DE;
+    border-color: #C0E1ED;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > .open > a, .with-nav-tabs.panel-primary .nav-tabs > .open > a:hover, .with-nav-tabs.panel-primary .nav-tabs > .open > a:focus, .with-nav-tabs.panel-primary .nav-tabs > li > a:hover, .with-nav-tabs.panel-primary .nav-tabs > li > a:focus {
+    color: #fff;
+    background-color: #C0E1ED;
+    border-color: #6EB1DE;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > li.active > a, .with-nav-tabs.panel-primary .nav-tabs > li.active > a:hover, .with-nav-tabs.panel-primary .nav-tabs > li.active > a:focus {
+    color: #434A54;
+    background-color: #fff;
+    border-color: #C0E1ED;
+    border-bottom-color: transparent;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > li.active > a, .with-nav-tabs.panel-primary .nav-tabs > li.active > a:hover, .with-nav-tabs.panel-primary .nav-tabs > li.active > a:focus {
+    color: #434A54;
+    background-color: #fff;
+    border-color: #C0E1ED;
+    border-bottom-color: transparent;
+}
+
 .alert-primary.alert-block {
     color: #000;
     background-color: #6EB1DE;

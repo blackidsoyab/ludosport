@@ -33,6 +33,7 @@ class ajax extends CI_Controller {
             $user_data = new stdClass();
             $user_data->id = $session->id;
             $user_data->name = $session->name;
+            $user_data->avtar = $session->avtar;
             $user_data->language = $session->language;
             $user_data->all_roles = $session->all_roles;
             $user_data->role = $role_id;
@@ -115,41 +116,6 @@ class ajax extends CI_Controller {
             echo $str;
         } else {
             echo FALSE;
-        }
-    }
-
-    /*
-     * ------------------------------------------
-     * ------------------- END ------------------
-     * ------------------------------------------
-     */
-
-    /*
-     * ------------------------------------------
-     *           Methos for the Register
-     *                   START
-     * ------------------------------------------
-     */
-
-    function registerCheckUsername() {
-        $user = new User();
-        $user->where('username', $this->input->get('username'));
-        $user->get();
-        if ($user->result_count() == 1) {
-            echo 'false';
-        } else {
-            echo 'true';
-        }
-    }
-
-    function registerCheckEmail() {
-        $user = new User();
-        $user->where('email', $this->input->get('email'));
-        $user->get();
-        if ($user->result_count() == 1) {
-            echo 'false';
-        } else {
-            echo 'true';
         }
     }
 
@@ -264,4 +230,63 @@ class ajax extends CI_Controller {
         }
     }
 
+    /*
+     * ------------------------------------------
+     *           Methos for the Edit User
+     *                   START
+     * ------------------------------------------
+     */
+
+    function checkUsernameExit($id = null) {
+        $user = new User();
+        $user->where('username', $this->input->get('username'))->get();
+        if ($id != '0') {
+            if ($user->result_count() == 1 && $user->id != $id) {
+                echo 'false';
+            } else {
+                echo 'true';
+            }
+        } else {
+            if ($user->result_count() == 1) {
+                echo 'false';
+            } else {
+                echo 'true';
+            }
+        }
+    }
+
+    function checkEmailExit($id = null) {
+        $user = new User();
+        $user->where('email', $this->input->get('email'))->get();
+        if ($id != '0') {
+            if ($user->result_count() == 1 && $user->id != $id) {
+                echo 'false';
+            } else {
+                echo 'true';
+            }
+        } else {
+            if ($user->result_count() == 1) {
+                echo 'false';
+            } else {
+                echo 'true';
+            }
+        }
+    }
+
+    function checkCurrentPassword() {
+        $user = new User();
+        $user->where(array('id' => $this->session_data->id, 'password' => md5($this->input->get('current_pwd'))));
+        $user->get();
+        if ($user->result_count() == 1) {
+            echo 'true';
+        } else {
+            echo 'false';
+        }
+    }
+
+    /*
+     * ------------------------------------------
+     * ------------------- END ------------------
+     * ------------------------------------------
+     */
 }

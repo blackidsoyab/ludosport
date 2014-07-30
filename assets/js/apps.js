@@ -138,18 +138,7 @@ $(document).ready(function(){
 		});
 	});
 	/** END PANEL HEADER BUTTON COLLAPSE **/
-	
-	
-	
-	
-	/** BEGIN DATATABLE EXAMPLE **/
-	if ($('#datatable-example').length > 0){
-		$('#datatable-example').dataTable();
-	}
-	
-	
-	
-	
+
 	/** BEGIN SUMMERNOTE **/
 	if ($('.summernote-lg').length > 0){
 		$('.summernote-lg').summernote({
@@ -208,13 +197,6 @@ $(document).ready(function(){
 	}
 	if ($('#property-search-wrap').length > 0){
 		$("#property-search-wrap").backstretch("assets/img/photo/medium/img-19.jpg");
-	}
-	/** END BACK STRETCH **/
-	
-	
-	/** BEGIN BACK STRETCH **/
-	if ($('#example-datatable').length > 0){
-		$('#example-datatable').dataTable();
 	}
 	/** END BACK STRETCH **/
    

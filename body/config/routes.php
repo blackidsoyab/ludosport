@@ -54,15 +54,22 @@ $route[$path[2] . '/edit/(:num)'] = plural($path[2]) . "/edit" . ucwords($path[2
 $route[$path[2] . '/delete/(:num)'] = plural($path[2]) . "/delete" . ucwords($path[2]) . "/$1";
 $route[$path[2] . '/getjson'] = "json/get" . plural($path[2]) . "JsonData";
 
+//Permission
 $route['permission/getmethod/(:any)/(:any)'] = "ajax/getMethodsFromControllers/$1/$2";
 $route['permission/check/(:num)'] = "ajax/checkValidPermision/$1";
+
+//Role
 $route['role/check/(:num)'] = "ajax/checkValidRole/$1";
-$route['country/getjson'] = "json/getCountryJsonData";
+
+//Classes
 $route['clan/getschools/(:num)'] = "ajax/getSchoolsOptionFromAcademy/$1";
 $route['clan/teacherlist'] = "clans/clanTeacherList";
 $route['clan/teacherjson'] = "json/getTeachersJsonData";
+
+//Email Templates
 $route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";
 
+//Default
 $route['default_controller'] = "dashboard";
 $route['404_override'] = '';
 
@@ -75,8 +82,8 @@ $route['send_reset_password_link'] = "authenticate/userSendResetPasswordLink";
 $route['reset_password/(:any)'] = "authenticate/userResetPassword/$1";
 $route['register'] = "authenticate/register";
 $route['add_user'] = "authenticate/saveUser";
-$route['register/checkusername'] = "ajax/registerCheckUsername";
-$route['register/checkemail'] = "ajax/registerCheckEmail";
+$route['checkusername/(:num)'] = "ajax/checkUsernameExit/$1";
+$route['checkemail/(:num)'] = "ajax/checkEmailExit/$1";
 $route['denied'] = "authenticate/permissionDenied";
 
 //Commom
@@ -91,5 +98,8 @@ $route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
 $route['change_role/(:any)'] = "ajax/setNewRole/$1";
 $route['mark_all_notification_read'] = "ajax/markAllNotificationRead";
 
+//Profile
+$route['change_password'] = "profiles/changePassword";
+$route['check_current_password'] = "ajax/checkCurrentPassword";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

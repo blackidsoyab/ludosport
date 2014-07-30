@@ -168,10 +168,18 @@
                             <?php } ?>
                             <li class="dropdown pull-left">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="<?php echo IMG_URL; ?>avatar/avatar-2.jpg" class="avatar img-circle" alt="<?php echo $session->name; ?>" data-placement="bottom" data-toggle="tooltip" data-original-title="<?php echo $session->name; ?>">
+                                    <img src="<?php echo IMG_URL . 'user_avtar/40X40/' . $session->avtar; ?>" class="avatar img-circle" alt="<?php echo $session->name; ?>" data-placement="bottom" data-toggle="tooltip" data-original-title="<?php echo $session->name; ?>">
                                     <?php echo $this->lang->line('hello'); ?>, <strong><?php echo $session->name; ?></strong>
                                 </a>
                                 <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
+                                    <?php if (hasPermission('profiles', 'viewProfile')) { ?>
+                                        <li><a href="<?php echo base_url() . 'profile'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('profile'); ?>"><?php echo $this->lang->line('profile'); ?></a></li>
+                                    <?php } ?>
+
+                                    <?php if (hasPermission('profiles', 'changePassword')) { ?>
+                                        <li><a href="<?php echo base_url() . 'change_password'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('change_password'); ?>"><?php echo $this->lang->line('change_password'); ?></a></li>
+                                    <?php } ?> 
+                                    <div class="divider"></div>
                                     <li><a href="<?php echo base_url() . 'logout'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('logout'); ?>"><?php echo $this->lang->line('logout'); ?></a></li>
                                 </ul>
                             </li>
@@ -240,7 +248,7 @@
                     <li class="static left-profile-summary">
                         <div class="media">
                             <p class="pull-left">
-                                <img src="<?php echo IMG_URL; ?>avatar/avatar-2.jpg" class="avatar img-circle" alt="<?php echo $session->name; ?>" data-toggle="tooltip" data-original-title="<?php echo $session->name; ?>">
+                                <img src="<?php echo IMG_URL . 'user_avtar/70X70/' . $session->avtar; ?>" class="avatar img-circle" alt="<?php echo $session->name; ?>" data-toggle="tooltip" data-original-title="<?php echo $session->name; ?>">
 
                             </p>
                             <div class="media-body">
@@ -351,13 +359,13 @@
                         </div>
                     <?php } ?>
 
-                    <?php if ($this->session->flashdata('danger') != '') { ?>
+                    <?php if ($this->session->flashdata('error') != '') { ?>
                         <div>&nbsp;</div>
                         <div class="row">
                             <div class="alert alert-danger fade in alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                 <p class="text-center">
-                                    <?php echo parse_smileys($this->session->flashdata('danger'), IMG_URL . "smileys/"); ?>
+                                    <?php echo parse_smileys($this->session->flashdata('error'), IMG_URL . "smileys/"); ?>
                                 </p>
                             </div>
                         </div>

@@ -29,16 +29,12 @@ class users extends CI_Controller {
 
     function addUser() {
         if ($this->input->post() !== false) {
-            echo'<pre>';
-            print_r($this->input->post());
-
-            exit;
             $user = new User();
 
             $user->firstname = $this->input->post('firstname');
             $user->lastname = $this->input->post('lastname');
             $user->email = $this->input->post('email');
-            $user->date_of_birth = strtotime($this->input->post('date_of_birth'));
+            $user->date_of_birth = strtotime(date('Y-m-d', strtotime($this->input->post('date_of_birth'))));
             $user->city_id = $this->input->post('city_id');
             $user->role_id = implode(',', $this->input->post('role_id'));
             $user->new_username = $this->input->post('new_username');
@@ -71,7 +67,7 @@ class users extends CI_Controller {
                 $user->firstname = $this->input->post('firstname');
                 $user->lastname = $this->input->post('lastname');
                 $user->email = $this->input->post('email');
-                $user->date_of_birth = strtotime($this->input->post('date_of_birth'));
+                $user->date_of_birth = strtotime(date('Y-m-d', strtotime($this->input->post('date_of_birth'))));
                 $user->city_id = $this->input->post('city_id');
                 $user->role_id = implode(',', $this->input->post('role_id'));
 

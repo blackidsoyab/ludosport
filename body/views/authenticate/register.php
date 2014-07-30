@@ -5,8 +5,8 @@
         $("#form").validate({
             rules: {
                 cpassword: {equalTo: '#password'},
-                username: {remote: '<?php echo base_url() . 'register/checkusername'; ?>'},
-                email: {remote: '<?php echo base_url() . 'register/checkemail'; ?>'},
+                username: {remote: '<?php echo base_url() . 'checkusername/0'; ?>'},
+                email: {remote: '<?php echo base_url() . 'checkemail/0'; ?>'},
                 terms_conditions : {required: true}
             },
             messages: {

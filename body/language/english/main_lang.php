@@ -33,6 +33,7 @@ $lang['edit_data_success'] = 'Data updated successfully';
 $lang['edit_data_error'] = 'Not able to edit data';
 $lang['delete_data_success'] = 'Data delete successfully';
 $lang['delete_data_error'] = 'Not able to delete data';
+$lang['password_change_success'] = 'Password Updated successfully';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';
@@ -51,7 +52,6 @@ $lang['student'] = 'Student';
 $lang['clan'] = 'Class';
 $lang['level'] = 'Level';
 $lang['email_template'] = 'Email Template';
-
 
 //Dashboard
 $lang['control_panel'] = 'Control Panel';
@@ -79,6 +79,23 @@ $lang['send_mail'] = 'Send Mail';
 $lang['reset_password'] = 'Reset Password';
 $lang['back_to_login'] = 'Back to Login';
 $lang['welcome_to_reset_password'] = 'Reset Password';
+
+// Profile
+$lang['profile'] = 'Profile';
+$lang['my_profile'] = 'My Profile';
+$lang['change_password'] = 'Change Password';
+$lang['wins'] = 'Wins';
+$lang['defeat'] = 'Defeat';
+$lang['attendance'] = 'Presence';
+$lang['absence'] = 'Absence';
+$lang['challenges_of'] = 'Challenges of';
+$lang['challenges_recevied'] = 'Challenges recived';
+$lang['tournaments'] = 'Tournaments';
+$lang['year_course'] = 'Year Course';
+$lang['current'] = 'Current';
+$lang['re_enter'] = 'Re-enter';
+$lang['full_name'] = 'Full Name';
+$lang['avtar'] = 'Avtar';
 
 //Register
 $lang['firstname'] = 'Firstname';

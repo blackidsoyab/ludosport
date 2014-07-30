@@ -4,12 +4,12 @@
         $("#edit").validate({
             rules: {
                 new_cpassword: {equalTo: '#password'},
-                new_username: {remote: '<?php echo base_url() . 'register/checkusername'; ?>'},
-                email: {remote: '<?php echo base_url() . 'register/checkemail'; ?>'}
+                username: {remote: '<?php echo base_url() . 'checkusername/' . $user->id; ?>'},
+                email: {remote: '<?php echo base_url() . 'checkemail/' . $user->id; ?>'}
             },
             messages: {
                 new_cpassword: {equalTo: '* Password does Not Match'},
-                new_username: {remote: '* Username already exit'},
+                username: {remote: '* Username already exit'},
                 email: {remote: '* Email already exit'}
             },
             errorPlacement: function(error, element){
@@ -133,7 +133,7 @@
                 <span class="text-danger">*</span>
             </label>
             <div class="col-lg-5">
-                <input type="text" name="new_username"  class=" form-control required" placeholder="<?php echo $this->lang->line('nickname'); ?>" value="<?php echo $user->username; ?>"/>
+                <input type="text" name="username"  class=" form-control required" placeholder="<?php echo $this->lang->line('nickname'); ?>" value="<?php echo $user->username; ?>"/>
             </div>
         </div>
 

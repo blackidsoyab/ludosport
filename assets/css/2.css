@@ -132,6 +132,34 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
     background: #AEAEAE;
 }
 
+.tiles.dribbble-tile {
+    color: #fff;
+    background-color: #AEAEAE;
+}
+
+.panel-primary {
+    border-color: #AEAEAE;
+}
+
+.panel-primary > .panel-heading {
+    color: #fff;
+    background-color: #AEAEAE;
+    border-color: #CACAC7;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > .open > a, .with-nav-tabs.panel-primary .nav-tabs > .open > a:hover, .with-nav-tabs.panel-primary .nav-tabs > .open > a:focus, .with-nav-tabs.panel-primary .nav-tabs > li > a:hover, .with-nav-tabs.panel-primary .nav-tabs > li > a:focus {
+    color: #fff;
+    background-color: #CACAC7;
+    border-color: #AEAEAE;
+}
+
+.with-nav-tabs.panel-primary .nav-tabs > li.active > a, .with-nav-tabs.panel-primary .nav-tabs > li.active > a:hover, .with-nav-tabs.panel-primary .nav-tabs > li.active > a:focus {
+    color: #434A54;
+    background-color: #fff;
+    border-color: #CACAC7;
+    border-bottom-color: transparent;
+}
+
 .alert-primary.alert-block {
     color: #000;
     background-color: #AEAEAE;

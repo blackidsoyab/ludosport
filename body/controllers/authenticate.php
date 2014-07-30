@@ -34,6 +34,7 @@ class authenticate extends CI_Controller {
             $user_data = new stdClass();
             $user_data->id = $user->id;
             $user_data->name = $user->firstname . ' ' . $user->lastname;
+            $user_data->avtar = $user->avtar;
             $user_data->language = 'en';
             $user_data->all_roles = $roles;
             $user_data->role = $roles[0];
@@ -89,7 +90,7 @@ class authenticate extends CI_Controller {
         $new_user->lastname = $this->input->post('lastname');
         $new_user->username = $this->input->post('username');
         $new_user->city_id = $this->input->post('city_id');
-        $new_user->date_of_birth = strtotime($this->input->post('date_of_birth'));
+        $new_user->date_of_birth = strtotime(date('Y-m-d', strtotime($this->input->post('date_of_birth'))));
         $new_user->email = $this->input->post('email');
         $new_user->password = md5($this->input->post('password'));
         if ($new_user->save()) {
