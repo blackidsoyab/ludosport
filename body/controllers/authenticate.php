@@ -90,6 +90,10 @@ class authenticate extends CI_Controller {
         $new_user->lastname = $this->input->post('lastname');
         $new_user->username = $this->input->post('username');
         $new_user->city_id = $this->input->post('city_id');
+        $city = new City();
+        $city->where('id', $this->input->post('city_id'))->get();
+        $new_user->state_id = $city->state->id;
+        $new_user->country_id = $city->state->country->id;
         $new_user->date_of_birth = strtotime(date('Y-m-d', strtotime($this->input->post('date_of_birth'))));
         $new_user->email = $this->input->post('email');
         $new_user->password = md5($this->input->post('password'));
