@@ -32,8 +32,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>etc</td>
-                    <td>etc</td>
+                     <td colspan="2"><i>Loading...</i></td>
                 </tr>
             </tbody>
         </table>

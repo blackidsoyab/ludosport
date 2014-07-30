@@ -73,10 +73,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>etc</td>
-                    <td>etc</td>
-                    <td>etc</td>
-                    <td>etc</td>
+                     <td colspan="5"><i>Loading...</i></td>
                 </tr>
             </tbody>
         </table>

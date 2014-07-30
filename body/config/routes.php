@@ -73,6 +73,9 @@ $route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";
 $route['default_controller'] = "dashboard";
 $route['404_override'] = '';
 
+//Cron Jobs
+$route['send_regular_mail'] = "cronjobs/sendRegularMail";
+
 //Authenticate
 $route['login'] = "authenticate/index";
 $route['validate'] = "authenticate/validateUser";

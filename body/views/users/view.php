@@ -72,12 +72,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>etc</td>
-                    <td>etc</td>
-                    <td>etc</td>
-                    <td>etc</td>
-                </tr>
+                 <td colspan="4"><i>Loading...</i></td>
             </tbody>
         </table>
     </div>

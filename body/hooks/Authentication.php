@@ -37,7 +37,8 @@ class Authentication extends CI_Controller {
             'json',
             'ajax',
             'dashboard',
-            'notifications'
+            'notifications',
+            'cronjobs'
         );
     }
 
