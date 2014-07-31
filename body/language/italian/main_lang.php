@@ -36,7 +36,7 @@ $lang['delete_data_error'] = 'Not able to delete data';
 $lang['password_change_success'] = 'Password Updated successfully';
 
 //Menus
-$lang['dashboard'] = 'Cruscotto';
+$lang['dashboard'] = 'Dashboard';
 $lang['management'] = 'Gestione';
 $lang['access'] = 'Accesso';
 $lang['permission'] = 'Autorizzazione';
@@ -52,7 +52,7 @@ $lang['student'] = 'Student';
 $lang['clan'] = 'Clan';
 $lang['level'] = 'Level';
 $lang['email_template'] = 'Email Template';
-$lang['avtar'] = 'Avtar';
+$lang['Setting'] = 'Setting';
 
 //Dashboard
 $lang['control_panel'] = 'Pannello di controllo';
@@ -96,6 +96,7 @@ $lang['year_course']  = 'Anni di corso';
 $lang['current'] = 'Current';
 $lang['re_enter'] = 'Re-enter';
 $lang['full_name'] = 'Full Name';
+$lang['avtar'] = 'Avtar';
 
 //Register
 $lang['firstname'] = 'Nome';

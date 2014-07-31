@@ -49,9 +49,10 @@ $lang['user'] = 'User';
 $lang['academy'] = 'Academy';
 $lang['school'] = 'School';
 $lang['student'] = 'Student';
-$lang['clan'] = 'Class';
+$lang['clan'] = 'Clan';
 $lang['level'] = 'Level';
 $lang['email_template'] = 'Email Template';
+$lang['setting'] = 'Setting';
 
 //Dashboard
 $lang['control_panel'] = 'Control Panel';

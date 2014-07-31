@@ -262,6 +262,7 @@
                         </div>
                     </li>
                     <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('dashboard'); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a></li>
+
                     <li class="static"><?php echo $this->lang->line('activity'); ?></li>
 
                     <?php if (hasPermission('academies', 'viewAcademy')) { ?>
@@ -272,16 +273,18 @@
                         <li class="<?php echo ($page == 'school') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'school'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('school'); ?>"><i class="fa fa-university icon-sidebar"></i><?php echo $this->lang->line('school'); ?></a></li>
                     <?php } ?>
 
-                    <?php if (hasPermission('levels', 'viewLevel')) { ?>   
-                        <li class="<?php echo ($page == 'level') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'level'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('level'); ?>"><i class="fa fa-university icon-sidebar"></i><?php echo $this->lang->line('level'); ?></a></li>
-                    <?php } ?>
-
                     <?php if (hasPermission('clans', 'viewClan')) { ?>
                         <li class="<?php echo ($page == 'clan') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'clan'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('clan'); ?>"><i class="fa fa-users icon-sidebar"></i><?php echo $this->lang->line('clan'); ?></a></li>
                     <?php } ?>
 
                     <?php if (hasPermission('users', 'viewUser')) { ?>
                         <li class="<?php echo ($page == 'user') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'user'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('user'); ?>"><i class="fa fa-user icon-sidebar"></i><?php echo $this->lang->line('user'); ?></a></li>
+                    <?php } ?>
+
+                    <li class="static"><?php echo $this->lang->line('setting'); ?></li>
+
+                    <?php if (hasPermission('levels', 'viewLevel')) { ?>   
+                        <li class="<?php echo ($page == 'level') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'level'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('level'); ?>"><i class="fa fa-university icon-sidebar"></i><?php echo $this->lang->line('level'); ?></a></li>
                     <?php } ?>
 
                     <?php if (hasPermission('roles', 'viewRole')) { ?>
