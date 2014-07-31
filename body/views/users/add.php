@@ -1,6 +1,11 @@
 <script>
     //<![CDATA[
     $(document).ready(function() {
+        
+        $('#academy_list').hide();
+        $('#school_list').hide();
+        $('#class_list').hide();
+                
         $("#add").validate({
             rules: {
                 new_cpassword: {equalTo: '#new_password'},
@@ -24,6 +29,58 @@
         
         $('.datepicker').datepicker().on('changeDate', function (ev) {
             $(this).datepicker('hide');
+        });
+        
+        $('#role_id').change(function(){
+            var check = false;
+            $("#role_id option:selected").each(function() {
+                if($(this).val() == '6'){
+                    check = true;
+                }
+            });
+            if(check == true){
+                $('#academy_list').show();
+                $('#school_list').show();
+                $('#class_list').show();
+            }else{
+                $('#school_list').empty();
+                $('#class_list').empty();
+                $('#academy_list').hide()
+                $('#school_list').hide();
+                $('#class_list').hide();
+            }
+        });
+        
+        $('#academy_id').change(function(){
+            $.ajax({
+                type: 'GET',
+                url: '<?php echo base_url(); ?>clan/getschools/' + $('#academy_id').val(),
+                success: function(data)
+                {
+                    $('#school_id').empty();
+                    $('#school_id').append(data);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown)
+                {
+                    alert('error');
+                }
+            });
+        });
+        
+        $('#school_id').change(function(){
+            $.ajax({
+                type: 'GET',
+                url: '<?php echo base_url(); ?>clan/getclasses/' + $('#school_id').val(),
+                success: function(data)
+                {
+                    $('#class_id').empty();
+                    $('#class_id').append(data);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown)
+                {
+                    alert('error');
+                }
+            });
         });
     });
     //]]>
@@ -107,6 +164,40 @@
                 </select>
             </div>
         </div>
+
+        <div class="form-group" id="academy_list">
+            <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('academy'); ?> <span class="text-danger">*</span></label>
+            <div class="col-lg-5">
+                <select class="form-control required" name="academy_id" id="academy_id">
+                    <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('academy'); ?></option> 
+                    <?php
+                    $academy_name = $session->language . '_academy_name';
+                    foreach ($academies as $academy) {
+                        ?>
+                        <option value="<?php echo $academy->id; ?>"><?php echo $academy->$academy_name; ?></option>
+                    <?php } ?>     
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" id="school_list">
+            <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('school'); ?> <span class="text-danger">*</span></label>
+            <div class="col-lg-5">
+                <select class="form-control required" name="school_id" id="school_id">
+                    <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('school'); ?></option> 
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-group" id="class_list">
+            <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('clan'); ?> <span class="text-danger">*</span></label>
+            <div class="col-lg-5">
+                <select class="form-control required" name="class_id" id="class_id">
+                    <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('clan'); ?></option> 
+                </select>
+            </div>
+        </div>
+
         <div class="form-group">
             <label class="col-lg-3 control-label" for="radios"><?php echo $this->lang->line('change_status'); ?></label>
             <div class="col-lg-5"> 

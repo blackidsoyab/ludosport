@@ -110,7 +110,7 @@ class clans extends CI_Controller {
             if ($this->session_data->role == '1' || $this->session_data->role == '2') {
                 $data['academies'] = $academy->get();
             } else {
-                $data['academies'] = $academy->where('rector_id', $this->session_data->id)->get();
+                $data['academies'] = $academy->getAcademyOfRector($this->session_data->id);
             }
 
 

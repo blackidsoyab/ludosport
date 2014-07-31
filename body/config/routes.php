@@ -64,6 +64,7 @@ $route['role/check/(:num)'] = "ajax/checkValidRole/$1";
 
 //Classes
 $route['clan/getschools/(:num)'] = "ajax/getSchoolsOptionFromAcademy/$1";
+$route['clan/getclasses/(:num)'] = "ajax/getClassesOptionFromSchool/$1";
 $route['clan/teacherlist'] = "clans/clanTeacherList";
 $route['clan/teacherjson'] = "json/getTeachersJsonData";
 

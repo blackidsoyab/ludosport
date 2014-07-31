@@ -230,6 +230,16 @@ class ajax extends CI_Controller {
         }
     }
 
+    function getClassesOptionFromSchool($school_id) {
+        $session = $this->session->userdata('user_session');
+        $obj = New Clan();
+        $obj->Where('school_id', $school_id);
+        echo '<option value="">', $this->lang->line('select'), ' ', $this->lang->line('school'), '</option>';
+        foreach ($obj->get() as $class) {
+            echo '<option value="' . $class->id . '">' . $class->{$session->language . '_class_name'} . '</option>';
+        }
+    }
+
     /*
      * ------------------------------------------
      *           Methos for the Edit User

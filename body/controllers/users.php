@@ -37,12 +37,21 @@ class users extends CI_Controller {
             $user->date_of_birth = strtotime(date('Y-m-d', strtotime($this->input->post('date_of_birth'))));
             $user->city_id = $this->input->post('city_id');
             $user->role_id = implode(',', $this->input->post('role_id'));
-            $user->new_username = $this->input->post('new_username');
+            $user->new_username = $this->input->post('username');
             $user->password = md5($this->input->post('new_password'));
             $user->status = $this->input->post('status');
             $user->user_id = $this->session_data->id;
-
             $user->save();
+
+            if (in_array('6', $this->input->post('role_id'))) {
+                $user_details = new Userdetail();
+                $user_details->student_master_id = $user->id;
+                $user_details->school_id = $this->input->post('school_id');
+                $user_details->clan_id = $this->input->post('class_id');
+                $user_details->user_id = $this->session_data->id;
+                $user_details->save();
+            }
+
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
             redirect(base_url() . 'user', 'refresh');
         } else {
@@ -53,6 +62,13 @@ class users extends CI_Controller {
 
             $role = new Role();
             $data['roles'] = $role->where('id >', $this->session_data->id)->get();
+
+            $academy = New Academy();
+            if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+                $data['academies'] = $academy->get();
+            } else {
+                $data['academies'] = $academy->getAcademyOfRector($this->session_data->id);
+            }
 
             $this->layout->view('users/add', $data);
         }
