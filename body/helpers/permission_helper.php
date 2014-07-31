@@ -133,10 +133,10 @@ function createPermissionArray() {
         'states' => array(
             'name' => 'State',
             'hasChild' => array(
-                'viewStates' => array('name' => 'List'),
-                'addStates' => array('name' => 'Add'),
-                'editStates' => array('name' => 'Edit'),
-                'deleteStates' => array('name' => 'Delete'),
+                'viewState' => array('name' => 'List'),
+                'addState' => array('name' => 'Add'),
+                'editState' => array('name' => 'Edit'),
+                'deleteState' => array('name' => 'Delete'),
         )),
         'cities' => array(
             'name' => 'City',

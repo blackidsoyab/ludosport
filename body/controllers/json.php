@@ -55,11 +55,11 @@ class json extends CI_Controller {
             $temp_arr[] = $aRow['country'];
 
             $str = NULL;
-            if (hasPermission('states', 'editStates')) {
+            if (hasPermission('states', 'editState')) {
                 $str .= '<a href="' . base_url() . 'state/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
             }
 
-            if (hasPermission('states', 'deleteStates')) {
+            if (hasPermission('states', 'deleteState')) {
                 $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
             }
             $temp_arr[] = $str;

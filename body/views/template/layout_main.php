@@ -293,7 +293,7 @@
                     <?php } ?>
 
                     <?php if (hasPermission('countries', 'viewCountry') || hasPermission('states', 'viewStates') || hasPermission('cities', 'viewCity')) { ?>
-                        <li class="<?php echo ($page == 'country' || $page == 'states' || $page == 'city') ? 'active selected' : ''; ?>">
+                        <li class="<?php echo ($page == 'country' || $page == 'state' || $page == 'city') ? 'active selected' : ''; ?>">
                             <a href="javascript:;" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('location'); ?>">
                                 <i class="fa fa-table icon-sidebar"></i>
                                 <i class="fa fa-angle-right chevron-icon-sidebar"></i>
@@ -304,7 +304,7 @@
                                     <li><a href="<?php echo base_url() . 'country'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('country'); ?>"><?php echo $this->lang->line('country'); ?></a></li>
                                 <?php } ?>
 
-                                <?php if (hasPermission('states', 'viewStates')) { ?>
+                                <?php if (hasPermission('states', 'viewState')) { ?>
                                     <li><a href="<?php echo base_url() . 'state'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('state'); ?>"><?php echo $this->lang->line('state'); ?></a></li>
                                 <?php } ?>
 
