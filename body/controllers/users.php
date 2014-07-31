@@ -94,7 +94,7 @@ class users extends CI_Controller {
                 $user->role_id = implode(',', $this->input->post('role_id'));
 
                 if ($this->input->post('username') != '') {
-                    $user->username = $this->input->post('new_username');
+                    $user->username = $this->input->post('username');
                 }
 
                 if ($this->input->post('new_password') != '') {
@@ -104,23 +104,55 @@ class users extends CI_Controller {
                 $user->user_id = $this->session_data->id;
 
                 $user->save();
+                if (in_array('6', $this->input->post('role_id'))) {
+                    $user_details = new Userdetail();
+                    $user_details->where('student_master_id', $id)->get();
+                    $user_details->student_master_id = $user->id;
+                    $user_details->school_id = $this->input->post('school_id');
+                    $user_details->clan_id = $this->input->post('class_id');
+                    $user_details->user_id = $this->session_data->id;
+                    $user_details->save();
+                } else {
+                    $user_details = new Userdetail();
+                    $user_details->where('student_master_id', $id)->get();
+                    $user_details->delete();
+                }
+
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
                 redirect(base_url() . 'user', 'refresh');
             } else {
-                $this->layout->setField('page_title', 'Edit User');
-
                 $user = new User();
                 $data['user'] = $user->where('id', $id)->get();
-
                 if ($user->role_id <= $this->session_data->role) {
                     $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
                     redirect(base_url() . 'user', 'refresh');
                 } else {
+                    $this->layout->setField('page_title', 'Edit User');
+
+                    $userdetail = new Userdetail();
+                    $data['userdetail'] = $userdetail->where('student_master_id', $id)->get();
+
+                    $school = new School();
+                    $school->where('id', $userdetail->school_id)->get();
+                    $data['schools'] = $school->where('academy_id', $school->academy_id)->get();
+                    $data['academy_id'] = $school->academy_id;
+
+                    $class = new Clan();
+                    $class->where('id', $userdetail->clan_id)->get();
+                    $data['classes'] = $class->where('school_id', $class->school_id)->get();
+
                     $city = new City();
                     $data['cities'] = $city->get();
 
                     $role = new Role();
                     $data['roles'] = $role->where_not_in('id', array(1))->get();
+
+                    $academy = New Academy();
+                    if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+                        $data['academies'] = $academy->get();
+                    } else {
+                        $data['academies'] = $academy->getAcademyOfRector($this->session_data->id);
+                    }
 
                     $this->layout->view('users/edit', $data);
                 }
