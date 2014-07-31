@@ -1,6 +1,17 @@
 <script type="text/javascript" >
+    
     $(document).ready(function() {
-        $('#list_data').dataTable({
+        loadDatable();
+       
+        $('#school_id').change(function(){
+            loadDatable();
+        });
+    });
+    
+    function loadDatable(){
+        if(typeof dTable!='undefined'){dTable.fnDestroy();}
+        
+        dTable=$('#list_data').dataTable({
             "bProcessing": true,
             'iDisplayLength': 10,
             "bServerSide" : true,
@@ -8,9 +19,9 @@
             "aoColumns": [
                 {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center", "bSortable": false}
             ],
-            "sAjaxSource": "<?php echo base_url() . "clan/getjson"; ?>"
+            "sAjaxSource": "<?php echo base_url() . "clan/getjson/"; ?>" +  $('#school_id').val()
         });
-    });
+    }
 
     function UpdateRow(ele) {
         var current_id = $(ele).attr('id');
@@ -45,19 +56,29 @@
         return false;
     }
 </script>
-
+<?php $session = $this->session->userdata('user_session'); ?>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-lg-6 col-xs-6">
         <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('clan'); ?></h1>    
     </div>
 
-    <div class="col-md-6">
+    <div class="col-lg-6 col-xs-6">
         <?php if (hasPermission('clans', 'addClan')) { ?>
             <a href="<?php echo base_url() . 'clan/add' ?>" class="btn btn-primary h1 pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('clan'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('clan'); ?></a>
         <?php } ?>
     </div>
 </div>
 
+<div class="row">
+    <div class="col-lg-4">
+        <select class="form-control required" id="school_id">
+            <option value="0">Filter by School</option>
+            <?php foreach ($schools as $school) { ?>
+                <option value="<?php echo $school->id; ?>" <?php echo (@$school_id == $school->id) ? 'selected' : ''; ?>><?php echo $school->{$session->language . '_school_name'}; ?></option>
+            <?php } ?>    
+        </select>
+    </div>
+</div>
 
 <div class="the-box">
     <div class="table-responsive">
@@ -73,7 +94,7 @@
             </thead>
             <tbody>
                 <tr>
-                     <td colspan="5"><i>Loading...</i></td>
+                    <td colspan="5"><i>Loading...</i></td>
                 </tr>
             </tbody>
         </table>

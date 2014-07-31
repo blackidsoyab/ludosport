@@ -14,8 +14,26 @@ class clans extends CI_Controller {
     }
 
     function viewClan($id = null, $type = null) {
+        $academy = New Academy();
+        if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+            $academy->get();
+            $temp = array();
+            foreach ($academy as $ac) {
+                foreach ($ac->school->get() as $school) {
+                    $temp[] = $school;
+                }
+            }
+            $data['schools'] = $temp;
+        } else {
+            $school = new School();
+            $data['schools'] = $school->getSchoolOfRector($this->session_data->id);
+        }
+
         if (is_null($id)) {
-            $this->layout->view('clans/view');
+            $this->layout->view('clans/view', $data);
+        } else if (!is_null($id) && $type = "list_class_school_wise") {
+            $data['school_id'] = $id;
+            $this->layout->view('clans/view', $data);
         } else {
             if ($type == 'notification') {
                 Notification::updateNotification('teacher_assign_class', $this->session_data->id, $id);

@@ -15,8 +15,15 @@ class schools extends CI_Controller {
 
     function viewSchool($id = null, $type = null) {
         $academy = new Academy();
-        $data['academies'] = $academy->get();
+        if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+            $data['academies'] = $academy->get();
+        } else {
+            $data['academies'] = $academy->getAcademyOfRector($this->session_data->id);
+        }
         if (is_null($id)) {
+            $this->layout->view('schools/view', $data);
+        } else if (!is_null($id) && $type = "list_school_academy_wise") {
+            $data['academy_id'] = $id;
             $this->layout->view('schools/view', $data);
         } else {
             if ($type == 'notification') {

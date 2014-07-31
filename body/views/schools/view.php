@@ -72,7 +72,7 @@
         <select class="form-control required" id="academy_id">
             <option value="0">Filter by Academy</option>
             <?php foreach ($academies as $academy) { ?>
-                <option value="<?php echo $academy->id; ?>"><?php echo $academy->{$session->language . '_academy_name'}; ?></option>
+                <option value="<?php echo $academy->id; ?>" <?php echo (@$academy_id == $academy->id) ? 'selected' : ''; ?>><?php echo $academy->{$session->language . '_academy_name'}; ?></option>
             <?php } ?>    
         </select>
     </div>
