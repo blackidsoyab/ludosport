@@ -52,7 +52,7 @@ $lang['student'] = 'Student';
 $lang['clan'] = 'Clan';
 $lang['level'] = 'Level';
 $lang['email_template'] = 'Email Template';
-$lang['Setting'] = 'Setting';
+$lang['setting'] = 'Setting';
 
 //Dashboard
 $lang['control_panel'] = 'Pannello di controllo';
@@ -142,6 +142,7 @@ $lang['postal_code'] = 'Postal Code';
 $lang['phone_number'] = 'Phone Number';
 $lang['dean'] = 'Dean';
 $lang['rector'] = 'Rector';
+$lang['paid'] = 'Paid';
 
 //School
 $lang['principal'] = 'Principal';

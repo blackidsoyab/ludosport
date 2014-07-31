@@ -142,6 +142,7 @@ $lang['postal_code'] = 'Postal Code';
 $lang['phone_number'] = 'Phone Number';
 $lang['dean'] = 'Dean';
 $lang['rector'] = 'Rector';
+$lang['paid'] = 'Paid';
 
 //School
 $lang['principal'] = 'Principal';

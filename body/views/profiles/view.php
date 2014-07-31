@@ -1,23 +1,38 @@
 <?php $session = $this->session->userdata('user_session'); ?>
 <!-- Begin page heading -->
-<h1 class="page-heading"><?php echo $this->lang->line('my_profile'); ?></h1>
+<h1 class="page-heading">
+    <?php
+    if ($profile->id != $session->id) {
+        echo $profile->firstname, ' ', $profile->lastname, ' ', $this->lang->line('profile');
+    } else {
+        echo $this->lang->line('my_profile');
+    }
+    ?>
+
+</h1>
 <!-- End page heading -->
 <div class="row">
     <div class="col-md-8">
         <!-- BEGIN PROFILE HEADING -->
         <div class="the-box transparent full no-margin profile-heading">
-            <div class="right-action">
-                <button class="btn btn-primary btn-square btn-xs">Change cover</button>
-            </div><!-- /.right-action -->
+            <?php if ($profile->id == $session->id) { ?>
+                <div class="right-action">
+                    <button class="btn btn-primary btn-square btn-xs">Change cover</button>
+                </div><!-- /.right-action -->
+            <?php } ?>
+
             <img src="<?php echo IMG_URL; ?>user_cover/no-cover.jpg" class="bg-cover" alt="Image">
             <img src="<?php echo IMG_URL . 'user_avtar/100X100/' . $profile->avtar; ?>" class="avatar" alt="Avatar">
             <div class="profile-info">
                 <p class="user-name"><?php echo $profile->firstname . ' ' . $profile->lastname; ?></p>
                 <p class="text-muted">Hometown : <a href="#fakelink"><?php echo getLocationName($profile->city_id, 'City') . ', ' . getLocationName($profile->state_id, 'State'); ?></a></p>
                 <p class="right-button">
-                    <?php if (hasPermission('profiles', 'editProfile')) { ?>
-                        <a href="<?php echo base_url() . 'profile/edit/' . $session->id; ?>" class="btn btn-primary btn-sm"><?php echo $this->lang->line('edit'), ' ', $this->lang->line('profile'); ?></a>
+                    <?php if ($profile->id == $session->id) { ?>
+                        <?php if (hasPermission('profiles', 'editProfile')) { ?>
+                            <a href="<?php echo base_url() . 'profile/edit/' . $session->id; ?>" class="btn btn-primary btn-sm"><?php echo $this->lang->line('edit'), ' ', $this->lang->line('profile'); ?></a>
+                        <?php } ?>
                     <?php } ?>
+
 
                     <?php if ($profile->id != $session->id) { ?>
                         <button class="btn btn-danger btn-sm"><i class="fa fa-envelope"></i></button>

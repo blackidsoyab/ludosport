@@ -5,7 +5,7 @@
         $("#form").validate({
             rules: {
                 cpassword: {equalTo: '#password'},
-                username: {remote: '<?php echo base_url() . 'checkusername/0'; ?>'},
+                username: {nowhitespace: true, remote: '<?php echo base_url() . 'checkusername/0'; ?>'},
                 email: {remote: '<?php echo base_url() . 'checkemail/0'; ?>'},
                 terms_conditions : {required: true}
             },
@@ -24,6 +24,10 @@
                 }
             }
         });
+        
+        $.validator.addMethod("nowhitespace", function(value, element) {
+            return this.optional(element) || /^\S+$/i.test(value);
+        }, "* Space is not allowed");
         
         $('.datepicker').datepicker().on('changeDate', function (ev) {
             $(this).datepicker('hide');

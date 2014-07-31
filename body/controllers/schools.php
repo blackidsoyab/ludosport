@@ -14,8 +14,10 @@ class schools extends CI_Controller {
     }
 
     function viewSchool($id = null, $type = null) {
+        $academy = new Academy();
+        $data['academies'] = $academy->get();
         if (is_null($id)) {
-            $this->layout->view('schools/view');
+            $this->layout->view('schools/view', $data);
         } else {
             if ($type == 'notification') {
                 Notification::updateNotification('dean_assign_school', $this->session_data->id, $id);

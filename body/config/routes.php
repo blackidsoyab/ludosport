@@ -53,6 +53,7 @@ $route[$path[2] . '/add'] = plural($path[2]) . "/add" . ucwords($path[2]);
 $route[$path[2] . '/edit/(:num)'] = plural($path[2]) . "/edit" . ucwords($path[2]) . "/$1";
 $route[$path[2] . '/delete/(:num)'] = plural($path[2]) . "/delete" . ucwords($path[2]) . "/$1";
 $route[$path[2] . '/getjson'] = "json/get" . plural($path[2]) . "JsonData";
+$route[$path[2] . '/getjson/(:num)'] = "json/get" . plural($path[2]) . "JsonData/$1";
 
 //Permission
 $route['permission/getmethod/(:any)/(:any)'] = "ajax/getMethodsFromControllers/$1/$2";

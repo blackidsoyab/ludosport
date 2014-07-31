@@ -239,6 +239,7 @@ class json extends CI_Controller {
             $temp_arr[] = $aRow['city'] . ',' . $aRow['states'];
             $temp_arr[] = $aRow['total_schools'];
             $temp_arr[] = $aRow['total_students'];
+            $temp_arr[] = '&nbsp;';
 
             $str = NULL;
             if (hasPermission('academies', 'editAcademy')) {
@@ -256,16 +257,22 @@ class json extends CI_Controller {
         exit();
     }
 
-    public function getSchoolsJsonData() {
+    public function getSchoolsJsonData($academy_id) {
+        $where = Null;
+
+        if ($academy_id != 0) {
+            $where = ' AND academy_id = ' . $academy_id;
+        }
+
         $this->load->library('datatable');
         $this->datatable->aColumns = array('schools.' . $this->session_data->language . '_school_name AS school_name', '(SELECT count(*) from userdetails, schools where  userdetails.school_id=schools.id) AS total_students', 'academies.' . $this->session_data->language . '_academy_name AS academy_name');
         $this->datatable->eColumns = array('schools.id');
         $this->datatable->sIndexColumn = "schools.id";
         $this->datatable->sTable = " schools, academies";
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id';
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id' . $where;
         } else {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0';
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0' . $where;
         }
 
         $this->datatable->datatable_process();
@@ -284,7 +291,7 @@ class json extends CI_Controller {
             if (hasPermission('schools', 'deleteSchool')) {
                 $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
             }
-            
+
             $temp_arr[] = $str;
 
             $this->datatable->output['aaData'][] = $temp_arr;
@@ -333,7 +340,7 @@ class json extends CI_Controller {
     function getTeachersJsonData() {
         $this->load->library('datatable');
         $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'CONCAT(firstname," ", lastname) AS teacher_name');
-        $this->datatable->eColumns = array('academies.id');
+        $this->datatable->eColumns = array('academies.id', 'clans.teacher_id');
         $this->datatable->sIndexColumn = "academies.id";
         $this->datatable->sTable = " clans, users, schools, academies";
 
@@ -350,7 +357,7 @@ class json extends CI_Controller {
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
-            $temp_arr[] = $aRow['teacher_name'];
+            $temp_arr[] = '<a href="' . base_url() . 'profile/view/' . $aRow['teacher_id'] . '" class="text-black">' . $aRow['teacher_name'] . '</a>';
             $temp_arr[] = $aRow['class_name'];
             $temp_arr[] = $aRow['school_name'];
             $temp_arr[] = $aRow['academy_name'];
