@@ -3,7 +3,6 @@
         $('#list_data').dataTable({
             "bProcessing": true,
             'iDisplayLength': 10,
-            "bSort": false,
             "bServerSide" : true,
             "aoColumns": [
                 {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": ""}

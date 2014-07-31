@@ -3,10 +3,9 @@
         $('#list_data').dataTable({
             "bProcessing": true,
             'iDisplayLength': 10,
-            "bSort": false,
             "bServerSide" : true,
             "aoColumns": [
-                {"sClass": ""},{"sClass": "text-center"}
+                {"sClass": ""},{"bSortable": false, "sClass": "text-center"}
             ],
             "sAjaxSource": "<?php echo base_url() . "email/getjson"; ?>"
         });

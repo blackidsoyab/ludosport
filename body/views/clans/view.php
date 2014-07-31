@@ -6,7 +6,7 @@
             "bServerSide" : true,
             "aaSorting": [[ 0, "asc" ]],
             "aoColumns": [
-                {"sClass": ""},{"sClass": "", "bSortable": false},{"sClass": "", "bSortable": false},{"sClass": "text-center", "bSortable": false},{"sClass": "text-center", "bSortable": false}
+                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center", "bSortable": false}
             ],
             "sAjaxSource": "<?php echo base_url() . "clan/getjson"; ?>"
         });

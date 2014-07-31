@@ -3,10 +3,9 @@
         $('#list_data').dataTable({
             "bProcessing": true,
             'iDisplayLength': 10,
-            "bSort": false,
             "bServerSide" : true,
             "aoColumns": [
-                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center"}
+                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center","bSortable": false}
             ],
             "sAjaxSource": "<?php echo base_url() . "user/getjson"; ?>"
         });
@@ -72,7 +71,7 @@
                 </tr>
             </thead>
             <tbody>
-                 <td colspan="4"><i>Loading...</i></td>
+            <td colspan="4"><i>Loading...</i></td>
             </tbody>
         </table>
     </div>

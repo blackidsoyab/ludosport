@@ -214,9 +214,9 @@ class json extends CI_Controller {
 
     public function getAcademiesJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('distinct(academies.id)', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'states.' . $this->session_data->language . '_name AS states', 'cities.' . $this->session_data->language . '_name AS city', '(SELECT count(*) from schools where schools.academy_id=academies.id) AS total_schools', '(SELECT count(*) from userdetails, schools, academies where schools.academy_id=academies.id AND userdetails.school_id=schools.id) AS total_students');
+        $this->datatable->aColumns = array('academies.' . $this->session_data->language . '_academy_name AS academy_name', 'states.' . $this->session_data->language . '_name AS states', 'cities.' . $this->session_data->language . '_name AS city', '(SELECT count(*) from schools where schools.academy_id=academies.id) AS total_schools', '(SELECT count(*) from userdetails, schools, academies where schools.academy_id=academies.id AND userdetails.school_id=schools.id) AS total_students');
         $this->datatable->eColumns = array('academies.id');
-        $this->datatable->sIndexColumn = "academies.id";
+        $this->datatable->sIndexColumn = "distinct(academies.id)";
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
             $this->datatable->sTable = " academies, cities, states";
             $this->datatable->myWhere = 'WHERE states.id=academies.state_id AND cities.id=academies.city_id';
@@ -284,6 +284,7 @@ class json extends CI_Controller {
             if (hasPermission('schools', 'deleteSchool')) {
                 $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
             }
+            
             $temp_arr[] = $str;
 
             $this->datatable->output['aaData'][] = $temp_arr;
@@ -294,7 +295,7 @@ class json extends CI_Controller {
 
     function getClansJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', '(SELECT count(*) from userdetails, schools where  userdetails.school_id=schools.id) AS total_students', 'CONCAT(users.firstname," ", users.lastname) as instructor', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name');
+        $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', '(SELECT count(*) from userdetails, schools where  userdetails.school_id=schools.id) AS total_students', 'CONCAT(users.firstname," ", users.lastname) AS instructor', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name');
         $this->datatable->eColumns = array('clans.id');
         $this->datatable->sIndexColumn = "clans.id";
         $this->datatable->sTable = " clans, users, schools, academies";
@@ -331,7 +332,7 @@ class json extends CI_Controller {
 
     function getTeachersJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'CONCAT(firstname," ", lastname) as teacher_name');
+        $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'CONCAT(firstname," ", lastname) AS teacher_name');
         $this->datatable->eColumns = array('academies.id');
         $this->datatable->sIndexColumn = "academies.id";
         $this->datatable->sTable = " clans, users, schools, academies";

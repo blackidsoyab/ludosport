@@ -3,10 +3,9 @@
         $('#list_data').dataTable({
             "bProcessing": true,
             'iDisplayLength': 10,
-            "bSort": false,
             "bServerSide" : true,
             "aoColumns": [
-                {"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center"},{"sClass": "text-center"}
+                {"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center"},{"bSortable": false, "sClass": "text-center"}
             ],
             "sAjaxSource": "<?php echo base_url() . "academy/getjson"; ?>"
         });
