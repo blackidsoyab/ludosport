@@ -89,6 +89,9 @@
                             <option value="<?php echo $user->id; ?>"><?php echo $user->firstname, ' ', $user->lastname; ?></option>
                         <?php } ?>    
                     </select>
+                    <?php if (hasPermission('users', 'addUser')) { ?>
+                        <a href="<?php echo base_url() . 'user/add' ?>" class="link pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('new'), ' ', $this->lang->line('dean'); ?></a>
+                    <?php } ?>
                 </div>
             </div>
 

@@ -85,7 +85,7 @@
                         <?php } ?>     
                     </select>
                     <?php if (hasPermission('users', 'addUser')) { ?>
-                        <a href="<?php echo base_url() . 'user/add' ?>" class="link pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('new'), ' ', $this->lang->line('user'); ?></a>
+                        <a href="<?php echo base_url() . 'user/add' ?>" class="link pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('new'), ' ', $this->lang->line('rector'); ?></a>
                     <?php } ?>
                 </div>
             </div>
