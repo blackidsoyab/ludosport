@@ -108,6 +108,7 @@ function createPermissionArray() {
                 'editClan' => array('name' => 'Edit'),
                 'deleteClan' => array('name' => 'Delete'),
                 'clanTeacherList' => array('name' => 'Teacher List'),
+                'clanStudentList' => array('name' => 'Student List'),
         )),
         'profiles' => array(
             'name' => 'Profile',

@@ -84,8 +84,8 @@
             <div class="tiles-inner text-center">
                 <p><?php echo $this->lang->line('students'); ?></p>
                 <h1 class="bolded">
-                    <?php if (hasPermission('users', 'viewUser')) { ?>
-                        <a href="<?php echo base_url() . 'user' ?>"  data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('list'), ' ', $this->lang->line('students'); ?>"><?php echo @$total_students; ?></a>
+                    <?php if (hasPermission('clans', 'clanStudentList')) { ?>
+                        <a href="<?php echo base_url() . 'clan/studentlist' ?>"  data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('list'), ' ', $this->lang->line('students'); ?>"><?php echo @$total_students; ?></a>
                         <?php
                     } else {
                         echo @$total_students;

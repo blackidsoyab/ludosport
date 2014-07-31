@@ -14,8 +14,14 @@ class users extends CI_Controller {
     }
 
     function viewUser($id = null, $type = null) {
+        $role = new Role();
+        $data['roles'] = $role->where('id >', $this->session_data->role)->get();
+
         if (is_null($id)) {
-            $this->layout->view('users/view');
+            $this->layout->view('users/view', $data);
+        } else if (!is_null($id) && $type = "list_user_role_wise") {
+            $data['role_id'] = $id;
+            $this->layout->view('users/view', $data);
         } else {
             if ($type == 'notification') {
                 Notification::updateNotification('user_register', $this->session_data->id, $id);
@@ -37,7 +43,7 @@ class users extends CI_Controller {
             $user->date_of_birth = strtotime(date('Y-m-d', strtotime($this->input->post('date_of_birth'))));
             $user->city_id = $this->input->post('city_id');
             $user->role_id = implode(',', $this->input->post('role_id'));
-            $user->new_username = $this->input->post('username');
+            $user->username = $this->input->post('username');
             $user->password = md5($this->input->post('new_password'));
             $user->status = $this->input->post('status');
             $user->user_id = $this->session_data->id;
@@ -87,7 +93,7 @@ class users extends CI_Controller {
                 $user->city_id = $this->input->post('city_id');
                 $user->role_id = implode(',', $this->input->post('role_id'));
 
-                if ($this->input->post('new_username') != '') {
+                if ($this->input->post('username') != '') {
                     $user->username = $this->input->post('new_username');
                 }
 

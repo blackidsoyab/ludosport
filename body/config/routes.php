@@ -44,16 +44,22 @@ if (!defined('BASEPATH'))
 include_once (APPPATH . 'helpers/inflector_helper.php');
 
 $path = explode('/', $_SERVER['REQUEST_URI']);
+if ($_SERVER['HTTP_HOST'] == 'www.myludosport.net') {
+    $controller = $path[1];
+} else {
+    $controller = $path[2];
+}
 
-$route[$path[2]] = plural($path[2]) . "/view" . ucwords($path[2]);
-$route[$path[2] . '/list'] = plural($path[2]) . "/view" . ucwords($path[2]);
-$route[$path[2] . '/view/(:num)'] = plural($path[2]) . "/view" . ucwords($path[2]) . "/$1";
-$route[$path[2] . '/view/(:num)/(:any)'] = plural($path[2]) . "/view" . ucwords($path[2]) . "/$1/$2";
-$route[$path[2] . '/add'] = plural($path[2]) . "/add" . ucwords($path[2]);
-$route[$path[2] . '/edit/(:num)'] = plural($path[2]) . "/edit" . ucwords($path[2]) . "/$1";
-$route[$path[2] . '/delete/(:num)'] = plural($path[2]) . "/delete" . ucwords($path[2]) . "/$1";
-$route[$path[2] . '/getjson'] = "json/get" . plural($path[2]) . "JsonData";
-$route[$path[2] . '/getjson/(:num)'] = "json/get" . plural($path[2]) . "JsonData/$1";
+
+$route[$controller] = plural($controller) . "/view" . ucwords($controller);
+$route[$controller . '/list'] = plural($controller) . "/view" . ucwords($controller);
+$route[$controller . '/view/(:num)'] = plural($controller) . "/view" . ucwords($controller) . "/$1";
+$route[$controller . '/view/(:num)/(:any)'] = plural($controller) . "/view" . ucwords($controller) . "/$1/$2";
+$route[$controller . '/add'] = plural($controller) . "/add" . ucwords($controller);
+$route[$controller . '/edit/(:num)'] = plural($controller) . "/edit" . ucwords($controller) . "/$1";
+$route[$controller . '/delete/(:num)'] = plural($controller) . "/delete" . ucwords($controller) . "/$1";
+$route[$controller . '/getjson'] = "json/get" . plural($controller) . "JsonData";
+$route[$controller . '/getjson/(:num)'] = "json/get" . plural($controller) . "JsonData/$1";
 
 //Permission
 $route['permission/getmethod/(:any)/(:any)'] = "ajax/getMethodsFromControllers/$1/$2";
@@ -67,6 +73,8 @@ $route['clan/getschools/(:num)'] = "ajax/getSchoolsOptionFromAcademy/$1";
 $route['clan/getclasses/(:num)'] = "ajax/getClassesOptionFromSchool/$1";
 $route['clan/teacherlist'] = "clans/clanTeacherList";
 $route['clan/teacherjson'] = "json/getTeachersJsonData";
+$route['clan/studentlist'] = "clans/clanStudentList";
+$route['clan/studentjson'] = "json/getStudentsJsonData";
 
 //Email Templates
 $route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";

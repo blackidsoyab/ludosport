@@ -164,13 +164,18 @@ class json extends CI_Controller {
         exit();
     }
 
-    function getUsersJsonData() {
+    function getUsersJsonData($role_id) {
+        $where = null;
+
+        if ($role_id != 0) {
+            $where = ' AND FIND_IN_SET(' . $role_id . ', role_id) > 0';
+        }
         $this->load->library('datatable');
         $this->datatable->aColumns = array('firstname', 'lastname', 'status');
         $this->datatable->eColumns = array('users.id', 'role_id');
         $this->datatable->sIndexColumn = "users.id";
         $this->datatable->sTable = " users, roles";
-        $this->datatable->myWhere = 'WHERE users.id !=  1 AND users.role_id=roles.id AND roles.id >' . $this->session_data->role;
+        $this->datatable->myWhere = 'WHERE users.id !=  1 AND users.role_id=roles.id AND roles.id >' . $this->session_data->role . $where;
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -364,6 +369,37 @@ class json extends CI_Controller {
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
             $temp_arr[] = '<a href="' . base_url() . 'profile/view/' . $aRow['teacher_id'] . '" class="text-black">' . $aRow['teacher_name'] . '</a>';
+            $temp_arr[] = $aRow['class_name'];
+            $temp_arr[] = $aRow['school_name'];
+            $temp_arr[] = $aRow['academy_name'];
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    function getStudentsJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS student_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'clans.' . $this->session_data->language . '_class_name AS class_name');
+        $this->datatable->eColumns = array('users.user_id');
+        $this->datatable->sIndexColumn = "users.user_id";
+        $this->datatable->sTable = " clans, users, schools, academies, userdetails";
+
+        if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id';
+        } else if ($this->session_data->role == '3') {
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id';
+        } else if ($this->session_data->role == '4') {
+           $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id';
+        } else if ($this->session_data->role == '5') {
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id ND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id';
+        }
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = '<a href="' . base_url() . 'profile/view/' . $aRow['user_id'] . '" class="text-black">' . $aRow['student_name'] . '</a>';
             $temp_arr[] = $aRow['class_name'];
             $temp_arr[] = $aRow['school_name'];
             $temp_arr[] = $aRow['academy_name'];
