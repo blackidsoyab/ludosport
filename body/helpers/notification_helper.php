@@ -55,8 +55,8 @@ function getSingleNotification($notification_id) {
 
 function countNotifications($user_id) {
     $notification = new Notification();
-    $notification->where(array('to_id' => $user_id, 'status' => 0));
-    $count = $notification->count();
+    $notification->where(array('to_id' => $user_id, 'status' => 0))->get();
+    $count = $notification->result_count();
     if ($count <= 0) {
         return FALSE;
     } else if ($count > 0 && $count < 1000) {

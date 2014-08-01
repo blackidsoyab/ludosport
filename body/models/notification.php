@@ -9,9 +9,8 @@ class Notification extends DataMapper {
 
     public static function updateNotification($notify_type, $to_id, $object_id) {
         $obj = new Notification();
-        $obj->where(array('notify_type' => $notify_type, 'to_id' => $to_id, 'object_id' => $object_id, 'status' => 0))->get();
-        $obj->status = 1;
-        $obj->save();
+        $obj->where(array('notify_type' => $notify_type, 'to_id' => $to_id, 'object_id' => $object_id, 'status' => 0))->update('status', 1);
+        return true;;
     }
 
 }

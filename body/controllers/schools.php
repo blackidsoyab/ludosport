@@ -22,7 +22,7 @@ class schools extends CI_Controller {
         }
         if (is_null($id)) {
             $this->layout->view('schools/view', $data);
-        } else if (!is_null($id) && $type = "list_school_academy_wise") {
+        } else if (!is_null($id) && $type == "list_school_academy_wise") {
             $data['academy_id'] = $id;
             $this->layout->view('schools/view', $data);
         } else {

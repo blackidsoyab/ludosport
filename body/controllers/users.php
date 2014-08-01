@@ -19,7 +19,7 @@ class users extends CI_Controller {
 
         if (is_null($id)) {
             $this->layout->view('users/view', $data);
-        } else if (!is_null($id) && $type = "list_user_role_wise") {
+        } else if (!is_null($id) && $type == "list_user_role_wise") {
             $data['role_id'] = $id;
             $this->layout->view('users/view', $data);
         } else {
@@ -42,6 +42,10 @@ class users extends CI_Controller {
             $user->email = $this->input->post('email');
             $user->date_of_birth = strtotime(date('Y-m-d', strtotime($this->input->post('date_of_birth'))));
             $user->city_id = $this->input->post('city_id');
+            $city = new City();
+            $city->where('id', $this->input->post('city_id'))->get();
+            $user->state_id = $city->state->id;
+            $user->country_id = $city->state->country->id;
             $user->role_id = implode(',', $this->input->post('role_id'));
             $user->username = $this->input->post('username');
             $user->password = md5($this->input->post('new_password'));
@@ -91,6 +95,10 @@ class users extends CI_Controller {
                 $user->email = $this->input->post('email');
                 $user->date_of_birth = strtotime(date('Y-m-d', strtotime($this->input->post('date_of_birth'))));
                 $user->city_id = $this->input->post('city_id');
+                $city = new City();
+                $city->where('id', $this->input->post('city_id'))->get();
+                $user->state_id = $city->state->id;
+                $user->country_id = $city->state->country->id;
                 $user->role_id = implode(',', $this->input->post('role_id'));
 
                 if ($this->input->post('username') != '') {

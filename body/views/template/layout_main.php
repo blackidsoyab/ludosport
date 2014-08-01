@@ -3,6 +3,7 @@
     <head>
         <?php $session = $this->session->userdata('user_session'); ?>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title><?php echo @$page_title . ' |MYLUDOSPORT'; ?></title>
 
         <link href="<?php echo CSS_URL; ?>bootstrap.min.css" rel="stylesheet">

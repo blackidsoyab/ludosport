@@ -29,7 +29,13 @@
             return this.optional(element) || /^\S+$/i.test(value);
         }, "* Space is not allowed");
         
-        $('.datepicker').datepicker().on('changeDate', function (ev) {
+        $('.datepicker').datepicker({
+            format: "dd-mm-yyyy",
+            endDate: "01-08-2014",
+            startView: 2,
+            autoclose: true,
+            todayHighlight: true
+        }).on('changeDate', function (ev) {
             $(this).datepicker('hide');
         });
     });

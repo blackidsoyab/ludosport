@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title><?php echo @$page_title . ' |MYLUDOSPORT'; ?></title>
 
         <link href="<?php echo CSS_URL; ?>bootstrap.min.css" rel="stylesheet">
@@ -24,7 +26,7 @@
 
     <body class="login tooltips">
         <div class="login-header text-center">
-            <img src="<?php echo IMG_URL; ?>myludosport_logo.jpg" alt="My Ludosport logo" class="logo">
+            <img src="<?php echo IMG_URL; ?>myludosport_logo.png" alt="My Ludosport logo" class="logo">
         </div>
         <div class="login-wrapper">
             <?php if ($this->session->flashdata('success') != '') { ?>
