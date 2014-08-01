@@ -104,14 +104,13 @@ class dashboard extends CI_Controller {
     }
 
     function getPendingStudentDashboard() {
-        $this->layout->setLayout('template/layout_pending');
         $this->layout->setField('page_title', 'Test Lesson');
 
-        /* $user = New User();
-          $user->where('id', $this->session_data->id)->get();
-          $data['user'] = $user;
-          $academy = New Academy();
-          $data['academies'] = $academy->where('city_id', $user->city_id)->get(); */
+        $user = New User();
+        $user->where('id', $this->session_data->id)->get();
+        $data['user'] = $user;
+        $academy = New Academy();
+        $data['academies'] = $academy->where('city_id', $user->city_id)->get();
 
         $this->layout->view('dashboard/pending_student');
     }

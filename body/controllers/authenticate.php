@@ -30,20 +30,25 @@ class authenticate extends CI_Controller {
         $user->get();
 
         if ($user->result_count() === 1) {
-            $roles = explode(',', $user->role_id);
-            $user_data = new stdClass();
-            $user_data->id = $user->id;
-            $user_data->name = $user->firstname . ' ' . $user->lastname;
-            $user_data->avtar = $user->avtar;
-            $user_data->language = 'en';
-            $user_data->all_roles = $roles;
-            $user_data->role = $roles[0];
-            $user_data->permissions = $user->userRoleByID($user->id, $roles[0]);
-            $user_data->status = $user->status;
-            $newdata = array('user_session' => $user_data);
-            $this->session->set_userdata($newdata);
-            $this->setLastNotification($user->id);
-            redirect(base_url() . 'dashboard', 'refresh');
+            if ($user->status == 'D') {
+                $this->session->set_flashdata('info', 'You are not an active member. <br /> Contact Admin.');
+                redirect(base_url() . 'login', 'refresh');
+            } else {
+                $roles = explode(',', $user->role_id);
+                $user_data = new stdClass();
+                $user_data->id = $user->id;
+                $user_data->name = $user->firstname . ' ' . $user->lastname;
+                $user_data->avtar = $user->avtar;
+                $user_data->language = 'en';
+                $user_data->all_roles = $roles;
+                $user_data->role = $roles[0];
+                $user_data->permissions = $user->userRoleByID($user->id, $roles[0]);
+                $user_data->status = $user->status;
+                $newdata = array('user_session' => $user_data);
+                $this->session->set_userdata($newdata);
+                $this->setLastNotification($user->id);
+                redirect(base_url() . 'dashboard', 'refresh');
+            }
         } else {
             $this->session->set_flashdata('error', 'Invalid Username or Password');
             redirect(base_url() . 'login', 'refresh');
