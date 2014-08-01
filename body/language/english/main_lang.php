@@ -169,5 +169,8 @@ $lang['attachment'] = 'Attachment';
 $lang['show'] = 'Show';
 $lang['remove'] = 'Remove';
 $lang['pre_format'] = 'Pre Format';
-$lang['attachment_removed'] = 'Attachment removed successfully'
+$lang['attachment_removed'] = 'Attachment removed successfully';
+
+//Pending Student Dashboard
+$lang['your_location'] = 'Your location';
 ?>

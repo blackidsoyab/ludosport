@@ -47,3 +47,8 @@ label.error{
 .padding-killer{
     padding: 0px !important;
 }
+
+.alert-primary{
+    background-color: rgb(55, 188, 155);
+    color: rgb(255, 255, 255);
+}

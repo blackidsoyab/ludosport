@@ -109,10 +109,28 @@ class dashboard extends CI_Controller {
         $user = New User();
         $user->where('id', $this->session_data->id)->get();
         $data['user'] = $user;
-        $academy = New Academy();
-        $data['academies'] = $academy->where('city_id', $user->city_id)->get();
+        $age = explode(' ', time_elapsed_string(date('Y-m-d H:i:s', $user->date_of_birth)));
+        if ($age[1] == 'year' && $age[0] < 16) {
+            $under_sixteen = 1;
+        } else {
+            $under_sixteen = 0;
+        }
 
-        $this->layout->view('dashboard/pending_student');
+        $clan = New Clan();
+        $clans_data = $clan->getAviableTrialClan($user->city_id, $under_sixteen);
+
+        if ($clans_data !== FALSE) {
+            $data['clans'] = $clan->where_in('id', MultiArrayToSinlgeArray($clans_data))->get();
+        } else {
+            $data['clans'] = 'Sorry';
+        }
+
+        $city = new City();
+        $data['city_name'] = $city->where('id', $user->city_id)->get()->{$this->session_data->language . '_name'};
+        $data['state_name'] = $city->state->{$this->session_data->language . '_name'};
+        $data['country_name'] = $city->state->country->{$this->session_data->language . '_name'};
+
+        $this->layout->view('dashboard/pending_student', $data);
     }
 
     function getActiveStudentDashboard() {
