@@ -46,11 +46,11 @@
 </script>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-lg-6 col-xs-6">
         <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('academy'); ?></h1>    
     </div>
 
-    <div class="col-md-6">
+    <div class="col-lg-6 col-xs-6">
         <?php if (hasPermission('academies', 'addAcademy')) { ?>
             <a href="<?php echo base_url() . 'academy/add' ?>" class="btn btn-primary h1 pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('academy'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('academy'); ?></a>
         <?php } ?>
