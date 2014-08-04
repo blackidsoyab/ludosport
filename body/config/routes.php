@@ -111,6 +111,11 @@ $route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
 $route['change_role/(:any)'] = "ajax/setNewRole/$1";
 $route['mark_all_notification_read'] = "ajax/markAllNotificationRead";
 
+//Pending Student
+$route['getclandates/(:num)'] = "ajax/getDateForClan/$1";
+$route['pending_student/save_trial_lesson'] = "dashboard/pendingStudnetSaveTrailLesson";
+
+
 //Profile
 $route['change_password'] = "profiles/changePassword";
 $route['check_current_password'] = "ajax/checkCurrentPassword";

@@ -205,3 +205,12 @@ function time_elapsed_string($older_date) {
     }
     return $output;
 }
+
+function getDateByDay($day, $start_date, $end_date) {
+    $end_date = strtotime($end_date);
+    $dates = array();
+    for ($i = strtotime($day, strtotime($start_date)); $i <= $end_date; $i = strtotime('+1 week', $i)) {
+        $dates[] = date('Y-m-d', $i);
+    }
+    return $dates;
+}

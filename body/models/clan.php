@@ -26,7 +26,8 @@ class Clan extends DataMapper {
     function getTotalStudents() {
         $this->db->select('count(*) as total');
         $this->db->from('userdetails');
-        $this->db->join('schools', 'schools.id=userdetails.school_id');
+        $this->db->join('clans', 'clans.id=userdetails.clan_id');
+        $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
         $res = $this->db->get()->result();
         return $res[0]->total;
@@ -50,7 +51,8 @@ class Clan extends DataMapper {
     function getTotalStudentsOfRector($rector_id) {
         $this->db->select('count(*) as total');
         $this->db->from('userdetails');
-        $this->db->join('schools', 'schools.id=userdetails.school_id');
+        $this->db->join('clans', 'clans.id=userdetails.clan_id');
+        $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
         $this->db->where("FIND_IN_SET('" . $rector_id . "', academies.rector_id) > 0");
         $res = $this->db->get()->result();
@@ -74,7 +76,8 @@ class Clan extends DataMapper {
     function getTotalStudentsOfDean($dean_id) {
         $this->db->select('count(*) as total');
         $this->db->from('userdetails');
-        $this->db->join('schools', 'schools.id=userdetails.school_id');
+        $this->db->join('clans', 'clans.id=userdetails.clan_id');
+        $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->where("FIND_IN_SET('" . $dean_id . "', schools.dean_id) > 0");
         $res = $this->db->get()->result();
         return $res[0]->total;
@@ -92,6 +95,7 @@ class Clan extends DataMapper {
         $this->db->select('count(*) as total');
         $this->db->from('userdetails');
         $this->db->join('clans', 'clans.id=userdetails.clan_id');
+        $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->where("FIND_IN_SET('" . $teacher_id . "', clans.teacher_id) > 0");
         $res = $this->db->get()->result();
         return $res[0]->total;
@@ -117,7 +121,7 @@ class Clan extends DataMapper {
         return array_unique(MultiArrayToSinlgeArray($array));
     }
 
-    function getAviableTrialClan($city_id, $under_sixteen, $student_limit = 20, $class_limit = 3) {
+    function getAviableTrialClan($city_id, $under_sixteen, $class_limit = 3) {
 
         $this->db->_protect_identifiers = false;
         $this->db->select('clans.id');
@@ -126,7 +130,7 @@ class Clan extends DataMapper {
         $this->db->join('levels', 'levels.id=clans.level_id');
         $this->db->where('is_basic', "'1'", null);
         $this->db->where('under_sixteen', "$under_sixteen");
-        $this->db->where('(select count(*) from userdetails where clans.id=userdetails.clan_id) <', $student_limit, NULL);
+        //$this->db->where('(select count(*) from userdetails where clans.id=userdetails.clan_id) <', $student_limit, NULL);
         $this->db->limit($class_limit);
         $this->db->order_by('id', 'desc');
         $query = $this->db->get();
@@ -140,6 +144,51 @@ class Clan extends DataMapper {
             } else {
                 return FALSE;
             }
+        }
+    }
+
+    function getAviableDateFromClan($clan_id, $total_dates = 5, $student_limit = 20) {
+        $this->db->select('id, lesson_day');
+        $this->db->from('clans');
+        $this->db->where_in('id', $clan_id, null);
+        $query = $this->db->get();
+        if ($query->num_rows > 0) {
+            $results = $query->result();
+            $current_date = get_current_date_time()->get_date_for_db();
+            $start_date = date('Y-m-d', strtotime("+1 day", strtotime($current_date)));
+            $end_date = date('Y-m-d', strtotime("+1 month", strtotime($start_date)));
+            $dates = array();
+            foreach ($results as $result) {
+                $days = explode(',', $result->lesson_day);
+                $days_array = $this->config->item('custom_days');
+                foreach ($days as $day) {
+                    $day = $days_array[$day]['en'];
+                    $temp_dates = getDateByDay($day, $start_date, $end_date);
+                    foreach ($temp_dates as $value) {
+                        if (count($dates) != $total_dates) {
+                            if (!in_array($value, $dates)) {
+                                $attendance = new Attendance();
+                                $total_stud = $attendance->getTotalStudentsForDate($value, $result->id);
+                                if ($total_stud < $student_limit) {
+                                    $dates[] = $value;
+                                }
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+                    if (count($dates) == $total_dates) {
+                        break;
+                    }
+                }
+                if (count($dates) == $total_dates) {
+                    break;
+                }
+            }
+            sort($dates);
+            return array_unique($dates);
+        } else {
+            return FALSE;
         }
     }
 
