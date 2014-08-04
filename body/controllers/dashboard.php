@@ -137,4 +137,42 @@ class dashboard extends CI_Controller {
         $this->layout->view('dashboard/student');
     }
 
+    function pendingStudnetSaveTrailLesson() {
+        $user_details = new Userdetail();
+        $user_details->where('student_master_id', $this->session_data->id)->get();
+
+        $user_details->student_master_id = $this->session_data->id;
+        $user_details->clan_id = $this->input->post('clan_id');
+        $user_details->first_lesson_date = $this->input->post('date');
+        $user_details->user_id = $this->session_data->id;
+        $user_details->save();
+
+        $ids = array();
+        $ids[] = User::getAdminIds();
+
+        $clan = new Clan();
+        $clan->where('id', $this->input->post('clan_id'))->get();
+        $ids[] = array_unique(explode(',', $clan->school->academy->rector_id . ',' . $clan->school->dean_id . ',' . $clan->teacher_id));
+
+        //Make single array form all ids
+        $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
+
+        //Fecth all the User details
+        $user = new User();
+        $user->where_in('id', $final_ids);
+
+        foreach ($user->get() as $value) {
+            $notification = new Notification();
+            $notification->type = 'I';
+            $notification->notify_type = 'apply_trial_lesson';
+            $notification->from_id = 0;
+            $notification->to_id = $value->id;
+            $notification->object_id = $user_details->student_master_id;
+            $notification->data = serialize($this->input->post());
+            $notification->save();
+        }
+
+        redirect(base_url(), 'refresh');
+    }
+
 }

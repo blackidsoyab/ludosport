@@ -119,6 +119,25 @@ class ajax extends CI_Controller {
         }
     }
 
+    function getDateForClan($clan_id) {
+        $clan = new Clan();
+        $dates = $clan->getAviableDateFromClan($clan_id);
+
+        $clan->where('id', $clan_id)->get();
+        $str = NULL;
+
+        $str .= '<h4 class="text-center text-black"> Class Timing : ' . date('H.i a', $clan->lesson_from) . '  - ' . date('H.i a', $clan->lesson_to) . '</h4>';
+        foreach ($dates as $date) {
+            $str .= '<div class="col-lg-4 col-xs-4 clan-date">';
+            $str .= '<div class="the-box rounded text-center" data-clan-date="' . $date . '">';
+            $str .= '<input type="radio" value="' . $date . '" name="date" />';
+            $str .= '<h4 class="light">' . date('d-m-Y', strtotime($date)) . '</h4>';
+            $str .= '</div></div>';
+            $str .= "\n";
+        }
+        echo $str;
+    }
+
     /*
      * ------------------------------------------
      * ------------------- END ------------------

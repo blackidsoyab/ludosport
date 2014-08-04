@@ -122,7 +122,6 @@ class Clan extends DataMapper {
     }
 
     function getAviableTrialClan($city_id, $under_sixteen, $class_limit = 3) {
-
         $this->db->_protect_identifiers = false;
         $this->db->select('clans.id');
         $this->db->from('clans');
@@ -130,7 +129,6 @@ class Clan extends DataMapper {
         $this->db->join('levels', 'levels.id=clans.level_id');
         $this->db->where('is_basic', "'1'", null);
         $this->db->where('under_sixteen', "$under_sixteen");
-        //$this->db->where('(select count(*) from userdetails where clans.id=userdetails.clan_id) <', $student_limit, NULL);
         $this->db->limit($class_limit);
         $this->db->order_by('id', 'desc');
         $query = $this->db->get();
@@ -138,12 +136,8 @@ class Clan extends DataMapper {
             return $query->result_array();
         } else {
             $city = new City();
-            $id = $city->getUniqueRandomCityId();
-            if ($id !== FALSE) {
-                return $this->getAviableTrialClan($id, $under_sixteen);
-            } else {
-                return FALSE;
-            }
+            $id = $city->getRandomCityId();
+            return $this->getAviableTrialClan($id, $under_sixteen);
         }
     }
 

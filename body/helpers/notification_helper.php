@@ -85,6 +85,12 @@ function makeURL($type, $id) {
         $url = base_url() . 'user/view/' . $id . '/notification';
     }
 
+    if ($type == 'apply_trial_lesson') {
+        $url = base_url() . 'user/trail_lesson/' . $id . '/notification';
+    }
+
+
+
     return $url;
 }
 
@@ -115,6 +121,11 @@ function setMessageTemplate($user_name = null) {
         array(
             'en' => 'New User is register',
             'it' => 'New User is register'
+        ),
+        'apply_trial_lesson' =>
+        array(
+            'en' => 'User applied for trial lesson',
+            'it' => 'User applied for trial lesson'
         )
     );
 
