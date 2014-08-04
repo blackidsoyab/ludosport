@@ -31,7 +31,7 @@ class clans extends CI_Controller {
 
         if (is_null($id)) {
             $this->layout->view('clans/view', $data);
-        } else if (!is_null($id) && $type == "list_class_school_wise") {
+        } else if (!is_null($id) && $type == "list_clan_school_wise") {
             $data['school_id'] = $id;
             $this->layout->view('clans/view', $data);
         } else {

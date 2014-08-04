@@ -219,7 +219,7 @@ class json extends CI_Controller {
 
     public function getAcademiesJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('academies.' . $this->session_data->language . '_academy_name AS academy_name', 'states.' . $this->session_data->language . '_name AS states', 'cities.' . $this->session_data->language . '_name AS city', '(SELECT count(*) from schools where schools.academy_id=academies.id) AS total_schools', '(SELECT count(*) from userdetails, schools, academies where schools.academy_id=academies.id AND userdetails.school_id=schools.id) AS total_students');
+        $this->datatable->aColumns = array('academies.' . $this->session_data->language . '_academy_name AS academy_name', 'states.' . $this->session_data->language . '_name AS states', 'cities.' . $this->session_data->language . '_name AS city', '(SELECT count(*) from schools where schools.academy_id=academies.id) AS total_schools', '(SELECT count(*) from userdetails, schools, academies temp_ac, users where schools.academy_id=academies.id AND userdetails.school_id=schools.id AND users.id=userdetails.student_master_id AND temp_ac.id=academies.id) AS total_students');
         $this->datatable->eColumns = array('academies.id');
         $this->datatable->sIndexColumn = "distinct(academies.id)";
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
@@ -270,7 +270,7 @@ class json extends CI_Controller {
         }
 
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('schools.' . $this->session_data->language . '_school_name AS school_name', '(SELECT count(*) from userdetails, schools where  userdetails.school_id=schools.id) AS total_students', 'academies.' . $this->session_data->language . '_academy_name AS academy_name');
+        $this->datatable->aColumns = array('schools.' . $this->session_data->language . '_school_name AS school_name', '(SELECT count(*) from userdetails, schools temp_sc where  userdetails.school_id=temp_sc.id AND temp_sc.id=schools.id) AS total_students', 'academies.' . $this->session_data->language . '_academy_name AS academy_name');
         $this->datatable->eColumns = array('schools.id');
         $this->datatable->sIndexColumn = "schools.id";
         $this->datatable->sTable = " schools, academies";
@@ -313,7 +313,7 @@ class json extends CI_Controller {
         }
 
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', '(SELECT count(*) from userdetails, schools where  userdetails.school_id=schools.id) AS total_students', 'CONCAT(users.firstname," ", users.lastname) AS instructor', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name');
+        $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', '(SELECT count(*) from userdetails, schools temp_sc where  userdetails.school_id=temp_sc.id AND temp_sc.id=schools.id) AS total_students', 'CONCAT(users.firstname," ", users.lastname) AS instructor', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name');
         $this->datatable->eColumns = array('clans.id');
         $this->datatable->sIndexColumn = "clans.id";
         $this->datatable->sTable = " clans, users, schools, academies";
