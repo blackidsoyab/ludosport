@@ -75,6 +75,9 @@ $route['clan/teacherlist'] = "clans/clanTeacherList";
 $route['clan/teacherjson'] = "json/getTeachersJsonData";
 $route['clan/studentlist'] = "clans/clanStudentList";
 $route['clan/studentjson'] = "json/getStudentsJsonData";
+$route['clan/trial_lesson_request/(:num)'] = "clans/listTrialLessonRequest/$1";
+$route['clan/listTrialLessonRequestJson/(:num)'] = "json/listTrialLessonRequestJson/$1";
+$route['clan/change_status_trial_student/(:num)'] = "clans/changeStatusTrialStudent/$1";
 
 //Email Templates
 $route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";

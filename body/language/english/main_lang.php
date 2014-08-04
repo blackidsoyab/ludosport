@@ -156,7 +156,8 @@ $lang['day'] = 'Day';
 $lang['lesson'] = 'Lesson';
 $lang['time_from'] = 'time from';
 $lang['time_to'] = 'time to';
-
+$lang['trial_lesson'] = 'Trial Lesson';
+$lang['date'] = 'Date';
 
 //Levels
 $lang['is_basic'] = 'is basic';

@@ -17,7 +17,7 @@
             "bServerSide" : true,
             "aaSorting": [[ 0, "asc" ]],
             "aoColumns": [
-                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center", "bSortable": false}
+                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center", "bSortable": false},{"sClass": "text-center", "bSortable": false}
             ],
             "sAjaxSource": "<?php echo base_url() . "clan/getjson/"; ?>" +  $('#school_id').val()
         });
@@ -89,12 +89,13 @@
                     <th><?php echo $this->lang->line('instructor'), ' ', $this->lang->line('name'); ?></th>
                     <th><?php echo $this->lang->line('school'), ' ', $this->lang->line('name'); ?></th>
                     <th><?php echo $this->lang->line('total'), ' ', $this->lang->line('student'); ?></th>
+                    <th><?php echo $this->lang->line('trial_lesson'); ?></th>
                     <th width="100"><?php echo $this->lang->line('actions'); ?></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="5"><i>Loading...</i></td>
+                    <td colspan="6"><i>Loading...</i></td>
                 </tr>
             </tbody>
         </table>

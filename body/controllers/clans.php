@@ -230,10 +230,19 @@ class clans extends CI_Controller {
         $this->layout->setField('page_title', $this->lang->line('list') . ' ' . $this->lang->line('teachers'));
         $this->layout->view('clans/teacher_list');
     }
-    
-        
-    function clanStudentList(){
+
+    function clanStudentList() {
         $this->layout->view('clans/student_list');
+    }
+
+    function listTrialLessonRequest($clan_id) {
+        $clan = new Clan();
+        $data['clan_details'] = $clan->where('id', $clan_id)->get();
+        $this->layout->view('clans/trial_lesson_request', $data);
+    }
+    
+    function changeStatusTrialStudent($id){
+        
     }
 
 }

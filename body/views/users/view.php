@@ -16,7 +16,7 @@
             'iDisplayLength': 10,
             "bServerSide" : true,
             "aoColumns": [
-                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center","bSortable": false}
+                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center","bSortable": false}
             ],
             "sAjaxSource": "<?php echo base_url() . "user/getjson/"; ?>" + $('#role_id').val()
         });
@@ -84,9 +84,10 @@
         <table class="table table-striped table-hover" id="list_data">
             <thead class="the-box dark full">
                 <tr align="left">
-                    <th><?php echo $this->lang->line('user'), ' ', $this->lang->line('name'); ?></th>
-                    <th><?php echo $this->lang->line('role'); ?></th>
-                    <th width="50"><?php echo $this->lang->line('status'); ?></th>
+                    <th><?php echo $this->lang->line('name'); ?></th>
+                    <th width="200"><?php echo $this->lang->line('nickname'); ?></th>
+                    <th width="125"><?php echo $this->lang->line('role'); ?></th>
+                    <th width="100"><?php echo $this->lang->line('status'); ?></th>
                     <th width="100"><?php echo $this->lang->line('actions'); ?></th>
                 </tr>
             </thead>
