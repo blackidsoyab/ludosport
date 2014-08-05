@@ -178,6 +178,13 @@ $lang['attachment_removed'] = 'Attachment removed successfully';
 //Pending Student Dashboard
 $lang['your_location'] = 'Your location';
 
-//
+//Event Category
 $lang['eventcategory'] = 'Event Category';
+
+//Events
+$lang['event'] = 'Event';
+$lang['date_from'] = 'Date from';
+$lang['date_to'] = 'Date to';
+$lang['manager'] = 'Mangaer';
+$lang['description'] = 'Description';
 ?>

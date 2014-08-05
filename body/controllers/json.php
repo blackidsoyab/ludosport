@@ -516,7 +516,7 @@ class json extends CI_Controller {
         echo json_encode($this->datatable->output);
         exit();
     }
-    
+
     public function getEventcategoriesJsonData() {
         $this->load->library('datatable');
         $this->datatable->aColumns = array($this->session_data->language . '_name');
@@ -532,6 +532,36 @@ class json extends CI_Controller {
             $str = NULL;
             if (hasPermission('eventcategories', 'editEventcategory')) {
                 $str .= '<a href="' . base_url() . 'eventcategory/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+
+            if (hasPermission('eventcategories', 'editEventcategory')) {
+                $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getEventsJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('eventcategories.' . $this->session_data->language . '_name AS category', 'events.' . $this->session_data->language . '_name AS event');
+        $this->datatable->eColumns = array('events.id');
+        $this->datatable->sIndexColumn = "events.id";
+        $this->datatable->sTable = " eventcategories, events";
+        $this->datatable->myWhere = 'WHERE eventcategories.id=events.eventcategory_id';
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['event'];
+            $temp_arr[] = $aRow['category'];
+
+            $str = NULL;
+            if (hasPermission('eventcategories', 'editEventcategory')) {
+                $str .= '<a href="' . base_url() . 'event/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
             }
 
             if (hasPermission('eventcategories', 'editEventcategory')) {

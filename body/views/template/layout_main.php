@@ -284,28 +284,32 @@
                             <li class="<?php echo ($page == 'user') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'user'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('user'); ?>"><i class="fa fa-user icon-sidebar"></i><?php echo $this->lang->line('user'); ?></a></li>
                         <?php } ?>
 
-                        <?php if (hasPermission('eventcategories', 'viewEventcategory')) { ?>
-                            <li class="<?php echo ($page == 'user') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'eventcategory'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('eventcategory'); ?>"><i class="fa fa-user icon-sidebar"></i><?php echo $this->lang->line('eventcategory'); ?></a></li>
+                        <?php if (hasPermission('events', 'viewEvents')) { ?>
+                            <li class="<?php echo ($page == 'event') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'event'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('event'); ?>"><i class="glyphicon glyphicon-star-empty icon-sidebar"></i><?php echo $this->lang->line('event'); ?></a></li>
                         <?php } ?>
 
-                        <li class="static"><?php echo $this->lang->line('setting'); ?></li>
+                        <li class="static"><i class="fa fa-cogs icon-sidebar"></i>&nbsp;<?php echo $this->lang->line('setting'); ?></li>
 
                         <?php if (hasPermission('levels', 'viewLevel')) { ?>   
-                            <li class="<?php echo ($page == 'level') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'level'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('level'); ?>"><i class="fa fa-university icon-sidebar"></i><?php echo $this->lang->line('level'); ?></a></li>
+                            <li class="<?php echo ($page == 'level') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'level'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('level'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('level'); ?></a></li>
+                        <?php } ?>                     
+
+                        <?php if (hasPermission('eventcategories', 'viewEventcategory')) { ?>
+                            <li class="<?php echo ($page == 'eventcategory') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'eventcategory'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('eventcategory'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('eventcategory'); ?></a></li>
                         <?php } ?>
 
                         <?php if (hasPermission('roles', 'viewRole')) { ?>
-                            <li class="<?php echo ($page == 'role') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'role'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('role'); ?>"><i class="fa fa-cogs icon-sidebar"></i><?php echo $this->lang->line('role'); ?></a></li>
+                            <li class="<?php echo ($page == 'role') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'role'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('role'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('role'); ?></a></li>
                         <?php } ?>
 
                         <?php if (hasPermission('emails', 'viewEmail')) { ?>
-                            <li class="<?php echo ($page == 'email') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'email'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('email_template'); ?>"><i class="fa fa-cogs icon-sidebar"></i><?php echo $this->lang->line('email_template'); ?></a></li>
+                            <li class="<?php echo ($page == 'email') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'email'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('email_template'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('email_template'); ?></a></li>
                         <?php } ?>
 
                         <?php if (hasPermission('countries', 'viewCountry') || hasPermission('states', 'viewStates') || hasPermission('cities', 'viewCity')) { ?>
                             <li class="<?php echo ($page == 'country' || $page == 'state' || $page == 'city') ? 'active selected' : ''; ?>">
                                 <a href="javascript:;" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('location'); ?>">
-                                    <i class="fa fa-table icon-sidebar"></i>
+                                    <i class="fa fa-wrench icon-sidebar"></i>
                                     <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                                     <?php echo $this->lang->line('location'); ?>
                                 </a>

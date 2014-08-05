@@ -158,6 +158,9 @@ $lang['time_from'] = 'time from';
 $lang['time_to'] = 'time to';
 $lang['trial_lesson'] = 'Trial Lesson';
 $lang['date'] = 'Date';
+$lang['approval'] = 'Approval';
+$lang['approved'] = 'Approved';
+$lang['unapproved'] = 'Unapproved';
 
 //Levels
 $lang['is_basic'] = 'is basic';
@@ -174,4 +177,14 @@ $lang['attachment_removed'] = 'Attachment removed successfully';
 
 //Pending Student Dashboard
 $lang['your_location'] = 'Your location';
+
+//Event Category
+$lang['eventcategory'] = 'Event Category';
+
+//Events
+$lang['event'] = 'Event';
+$lang['date_from'] = 'Date from';
+$lang['date_to'] = 'Date to';
+$lang['manager'] = 'Mangaer';
+$lang['description'] = 'Description';
 ?>
