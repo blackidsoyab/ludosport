@@ -284,7 +284,7 @@
                             <li class="<?php echo ($page == 'user') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'user'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('user'); ?>"><i class="fa fa-user icon-sidebar"></i><?php echo $this->lang->line('user'); ?></a></li>
                         <?php } ?>
 
-                        <?php if (hasPermission('events', 'viewEvents')) { ?>
+                        <?php if (hasPermission('events', 'viewEvent')) { ?>
                             <li class="<?php echo ($page == 'event') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'event'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('event'); ?>"><i class="glyphicon glyphicon-star-empty icon-sidebar"></i><?php echo $this->lang->line('event'); ?></a></li>
                         <?php } ?>
 

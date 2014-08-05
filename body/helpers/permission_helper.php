@@ -112,6 +112,22 @@ function createPermissionArray() {
                 'listTrialLessonRequest' => array('name' => 'List Trial Lesson Request'),
                 'changeStatusTrialStudent' => array('name' => 'Approve / Unapprove Request'),
         )),
+        'eventcategories' => array(
+            'name' => 'Event Categories',
+            'hasChild' => array(
+                'viewEventcategory' => array('name' => 'List'),
+                'addEventcategory' => array('name' => 'Add'),
+                'editEventcategory' => array('name' => 'Edit'),
+                'deleteEventcategory' => array('name' => 'Delete'),
+        )),
+        'events' => array(
+            'name' => 'Events',
+            'hasChild' => array(
+                'viewEvent' => array('name' => 'List'),
+                'addEvent' => array('name' => 'Add'),
+                'editEvent' => array('name' => 'Edit'),
+                'deleteEvent' => array('name' => 'Delete'),
+        )),
         'profiles' => array(
             'name' => 'Profile',
             'hasChild' => array(
