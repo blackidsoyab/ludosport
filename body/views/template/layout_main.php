@@ -264,7 +264,7 @@
                     </li>
 
                     <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('dashboard'); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a></li>
-                    
+
                     <?php if ($session->status == 'A') { ?>
                         <li class="static"><?php echo $this->lang->line('activity'); ?></li>
 
@@ -282,6 +282,10 @@
 
                         <?php if (hasPermission('users', 'viewUser')) { ?>
                             <li class="<?php echo ($page == 'user') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'user'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('user'); ?>"><i class="fa fa-user icon-sidebar"></i><?php echo $this->lang->line('user'); ?></a></li>
+                        <?php } ?>
+
+                        <?php if (hasPermission('eventcategories', 'viewEventcategory')) { ?>
+                            <li class="<?php echo ($page == 'user') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'eventcategory'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('eventcategory'); ?>"><i class="fa fa-user icon-sidebar"></i><?php echo $this->lang->line('eventcategory'); ?></a></li>
                         <?php } ?>
 
                         <li class="static"><?php echo $this->lang->line('setting'); ?></li>

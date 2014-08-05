@@ -516,5 +516,33 @@ class json extends CI_Controller {
         echo json_encode($this->datatable->output);
         exit();
     }
+    
+    public function getEventcategoriesJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array($this->session_data->language . '_name');
+        $this->datatable->eColumns = array('id');
+        $this->datatable->sIndexColumn = "id";
+        $this->datatable->sTable = " eventcategories";
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow[$this->session_data->language . '_name'];
+
+            $str = NULL;
+            if (hasPermission('eventcategories', 'editEventcategory')) {
+                $str .= '<a href="' . base_url() . 'eventcategory/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+
+            if (hasPermission('eventcategories', 'editEventcategory')) {
+                $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
 
 }

@@ -177,4 +177,7 @@ $lang['attachment_removed'] = 'Attachment removed successfully';
 
 //Pending Student Dashboard
 $lang['your_location'] = 'Your location';
+
+//
+$lang['eventcategory'] = 'Event Category';
 ?>
