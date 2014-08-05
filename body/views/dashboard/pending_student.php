@@ -50,7 +50,8 @@
 </script>
 <h1 class="page-heading"><?php echo getRoleName($session->role); ?></h1>
 <?php if (is_object($clans)) { ?>
-<form id="trial_clan_selection" action="<?php echo base_url().'pending_student/save_trial_lesson';?>" method="post">
+    <form id="trial_clan_selection" action="<?php echo base_url() . 'pending_student/save_trial_lesson'; ?>" method="post">
+        <input type="hidden" value="<?php echo $session->id ?>" name="student_id" />
         <div class="panel panel-primary" id="step_1">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-university"></i> Select Clan</h3>

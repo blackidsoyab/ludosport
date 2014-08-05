@@ -52,3 +52,7 @@ label.error{
     background-color: rgb(55, 188, 155);
     color: rgb(255, 255, 255);
 }
+
+.inline {
+    display: inline;
+}

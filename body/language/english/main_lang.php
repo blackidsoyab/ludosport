@@ -158,6 +158,9 @@ $lang['time_from'] = 'time from';
 $lang['time_to'] = 'time to';
 $lang['trial_lesson'] = 'Trial Lesson';
 $lang['date'] = 'Date';
+$lang['approval'] = 'Approval';
+$lang['approved'] = 'Approved';
+$lang['unapproved'] = 'Unapproved';
 
 //Levels
 $lang['is_basic'] = 'is basic';

@@ -2,7 +2,11 @@
 
 class User extends DataMapper {
 
-    public $has_one = array('role');
+    public $has_one = array(
+        'userdetail' => array(
+            'class' => 'userdetail',
+            'join_other_as' => 'student_master_id')
+    );
 
     // Optionally, don't include a constructor if you don't need one.
     function __construct($id = NULL) {
@@ -64,14 +68,14 @@ class User extends DataMapper {
 
     function afterSave($options = array()) {
         if ($options->user_id != 1 || $options->user_id != 2) {
-            /*foreach (explode(',', $options->rector_id) as $rector) {
-                $notify = new Notification();
-                $notify->notify_type = 'rector_assign_academy';
-                $notify->from_id = $options->user_id;
-                $notify->to_id = $rector;
-                $notify->object_id = $options->id;
-                $notify->save();
-            }*/
+            /* foreach (explode(',', $options->rector_id) as $rector) {
+              $notify = new Notification();
+              $notify->notify_type = 'rector_assign_academy';
+              $notify->from_id = $options->user_id;
+              $notify->to_id = $rector;
+              $notify->object_id = $options->id;
+              $notify->save();
+              } */
         }
 
         return true;

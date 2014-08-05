@@ -3,6 +3,7 @@
 class Clan extends DataMapper {
 
     public $has_one = array('school');
+    public $has_many = array('userdetail');
 
     // Optionally, don't include a constructor if you don't need one.
     function __construct($id = NULL) {

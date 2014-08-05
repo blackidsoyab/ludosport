@@ -240,9 +240,90 @@ class clans extends CI_Controller {
         $data['clan_details'] = $clan->where('id', $clan_id)->get();
         $this->layout->view('clans/trial_lesson_request', $data);
     }
-    
-    function changeStatusTrialStudent($id){
-        
+
+    function changeStatusTrialStudent($clan_id, $student_master_id, $type = null) {
+        if ($type == 'notification') {
+            Notification::updateNotification('apply_trial_lesson', $this->session_data->id, $student_master_id);
+            Notification::updateNotification('trial_lesson_approved', $this->session_data->id, $student_master_id);
+            Notification::updateNotification('trial_lesson_unapproved', $this->session_data->id, $student_master_id);
+        }
+
+        if (!empty($student_master_id)) {
+            $userdetail = new Userdetail();
+            $userdetail->where(array('student_master_id' => $student_master_id, 'clan_id' => $clan_id))->get();
+            if ($userdetail->result_count() == 1) {
+                if ($this->input->post() !== false) {
+
+                    $userdetail->where(array('student_master_id' => $student_master_id, 'clan_id' => $clan_id))->update('status', $this->input->post('status'));
+                    $userdetail->where(array('student_master_id' => $student_master_id, 'clan_id' => $clan_id))->update('approved_by', $this->session_data->id);
+
+                    $notification_type = 'trial_lesson_unapproved';
+                    if ($this->input->post('status') == 'A') {
+                        $attadence = new Attendance();
+                        $attadence->clan_date = $userdetail->first_lesson_date;
+                        $attadence->student_id = $userdetail->student_master_id;
+                        $attadence->user_id = $this->session_data->id;
+                        $attadence->save();
+                        $notification_type = 'trial_lesson_approved';
+                    } else if ($this->input->post('status') == 'U') {
+                        $attadence = new Attendance();
+                        $attadence->where(array('student_id' => $student_master_id, 'clan_date' => $userdetail->first_lesson_date))->get();
+                        $attadence->delete();
+                    }
+
+                    $notification = new Notification();
+                    $notification->type = 'N';
+                    $notification->notify_type = $notification_type;
+                    $notification->from_id = $this->session_data->id;
+                    $notification->to_id = $userdetail->student_master_id;
+                    $notification->object_id = 0;
+                    $notification->data = serialize($this->input->post());
+                    $notification->save();
+
+                    $ids = array();
+                    $ids[] = User::getAdminIds();
+
+                    $clan = new Clan();
+                    $clan->where('id', $this->input->post('clan_id'))->get();
+                    $ids[] = array_unique(explode(',', $clan->school->academy->rector_id . ',' . $clan->school->dean_id . ',' . $clan->teacher_id));
+
+                    $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
+                    $user = new User();
+                    $user->where_in('id', $final_ids);
+
+                    foreach ($user->get() as $value) {
+                        if ($value->id == $this->session_data->id) {
+                            continue;
+                        } else {
+                            $notification = new Notification();
+                            $notification->type = 'N';
+                            $notification->notify_type = $notification_type;
+                            $notification->from_id = $this->session_data->id;
+                            $notification->to_id = $value->id;
+                            $notification->object_id = 0;
+                            $notification->data = serialize($this->input->post());
+                            $notification->save();
+                        }
+                    }
+
+                    $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
+                    redirect(base_url() . 'clan/trial_lesson_request/' . $clan_id, 'refresh');
+                } else {
+                    $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('trial_lesson'));
+                    $data['userdetail'] = $userdetail;
+                    $data['profile'] = $userdetail->User->get();
+                    $data['clan'] = $userdetail->Clan->get();
+
+                    $this->layout->view('clans/approve_trial_request', $data);
+                }
+            } else {
+                $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+                redirect(base_url() . 'clan/trial_lesson_request/' . $clan_id, 'refresh');
+            }
+        } else {
+            $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+            redirect(base_url() . 'clan/trial_lesson_request/' . $clan_id, 'refresh');
+        }
     }
 
 }

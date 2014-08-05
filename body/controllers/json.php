@@ -237,7 +237,7 @@ class json extends CI_Controller {
             $this->datatable->sTable = " academies, cities, states, clans";
             $this->datatable->myWhere = 'WHERE states.id=academies.state_id AND cities.id=academies.city_id AND clans.academy_id=academies.id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0';
         }
-        
+
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -488,8 +488,8 @@ class json extends CI_Controller {
     public function listTrialLessonRequestJson($clan_id) {
         $this->load->library('datatable');
         $this->datatable->aColumns = array('CONCAT(users.firstname," ", users.lastname) AS student_name', 'userdetails.first_lesson_date', 'userdetails.status');
-        $this->datatable->eColumns = array('clans.id');
-        $this->datatable->sIndexColumn = "clans.id";
+        $this->datatable->eColumns = array('userdetails.id', 'student_master_id', 'clan_id');
+        $this->datatable->sIndexColumn = "userdetails.id";
         $this->datatable->sTable = " clans, users, userdetails";
         $this->datatable->myWhere = 'WHERE userdetails.student_master_id=users.id AND users.status= "P" AND clans.id=' . $clan_id;
         $this->datatable->datatable_process();
@@ -499,14 +499,14 @@ class json extends CI_Controller {
             $temp_arr[] = $aRow['student_name'];
             $temp_arr[] = date('d-m-Y', strtotime($aRow['first_lesson_date']));
             if ($aRow['status'] == 'A') {
-                $temp_arr[] = '<lable class="label label-success">' . $this->lang->line('active') . '</label>';
+                $temp_arr[] = '<label class="label label-success">' . $this->lang->line('approved') . '</label>';
             } else if ($aRow['status'] == 'U') {
-                $temp_arr[] = '<lable class="label label-danger">' . $this->lang->line('deactive') . '</label>';
+                $temp_arr[] = '<label class="label label-danger">' . $this->lang->line('unapproved') . '</label>';
             } else if ($aRow['status'] == 'P') {
-                $temp_arr[] = '<lable class="label label-warning">' . $this->lang->line('pending') . '</label>';
+                $temp_arr[] = '<label class="label label-warning">' . $this->lang->line('pending') . '</label>';
             }
             if (hasPermission('clans', 'changeStatusTrialStudent')) {
-                $temp_arr[] = '<a href="javascript:;" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('change_status') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+                $temp_arr[] = '<a href="' . base_url() . 'clan/change_status_trial_student/' . $aRow['clan_id'] . '/' . $aRow['student_master_id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('change_status') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
             } else {
                 $temp_arr[] = '&nbsp;';
             }

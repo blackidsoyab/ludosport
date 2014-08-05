@@ -56,10 +56,14 @@ class ajax extends CI_Controller {
         $array = array();
         $array['notification'] = 'false';
         foreach ($notification->get() as $notify) {
+            $options['notify_type'] = $notify->notify_type;
+            $options['object_id'] = $notify->object_id;
+            $options['from_id'] = $notify->from_id;
+            $options['data'] = unserialize($notify->data);
             $array['notification'] = 'true';
             $temp = array();
             $temp['type'] = 'success';
-            $temp['message'] = getMessageTemplate($notify->notify_type);
+            $temp['message'] = getMessageTemplate($options);
             $temp['notification'] = getSingleNotification($notify->id);
             $array[] = $temp;
         }

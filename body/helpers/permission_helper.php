@@ -110,6 +110,7 @@ function createPermissionArray() {
                 'clanTeacherList' => array('name' => 'Teacher List'),
                 'clanStudentList' => array('name' => 'Student List'),
                 'listTrialLessonRequest' => array('name' => 'List Trial Lesson Request'),
+                'changeStatusTrialStudent' => array('name' => 'Approve / Unapprove Request'),
         )),
         'profiles' => array(
             'name' => 'Profile',

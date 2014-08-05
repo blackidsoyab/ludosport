@@ -163,9 +163,9 @@ class dashboard extends CI_Controller {
 
         foreach ($user->get() as $value) {
             $notification = new Notification();
-            $notification->type = 'I';
+            $notification->type = 'N';
             $notification->notify_type = 'apply_trial_lesson';
-            $notification->from_id = 0;
+            $notification->from_id = $user_details->student_master_id;
             $notification->to_id = $value->id;
             $notification->object_id = $user_details->student_master_id;
             $notification->data = serialize($this->input->post());
