@@ -2,6 +2,14 @@
 <script>
     //<![CDATA[
     $(document).ready(function() {
+<?php if ($event->event_for == 'ALL') { ?>
+            $('#academies_list').hide();
+            $('#schools_list').hide();
+<?php } else if ($event->event_for == 'AC') { ?>
+            $('#schools_list').hide();
+<?php } else if ($event->event_for == 'SC') { ?>
+            $('#academies_list').hide();
+<?php } ?>
         $("#add").validate({
             rules: {
                 date_to: { greaterThan: "#date_from" }
@@ -33,6 +41,23 @@
         }).on('changeDate', function (ev) {
             $(this).datepicker('hide');
         });
+        
+        $("#event_for input[name='event_for']").click(function(){
+            if($('input:radio[name=event_for]:checked').val() == "A"){
+                $('#schools_list').hide();
+                $('#academies_list').show();
+            }
+            
+            if($('input:radio[name=event_for]:checked').val() == "S"){
+                $('#schools_list').show();
+                $('#academies_list').hide();
+            }
+            
+            if($('input:radio[name=event_for]:checked').val() == "All"){
+                $('#schools_list').hide();
+                $('#academies_list').hide();
+            }
+        });
     });
     //]]>
 </script>
@@ -51,6 +76,52 @@
                 </div>
             </div>
         <?php } ?>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label" for="radios"><?php echo $this->lang->line('event'), ' for '; ?></label>
+            <div class="col-lg-5" id="event_for"> 
+                <label class="radio-inline" for="radios-1">
+                    <input type="radio" name="event_for" id="radios-1" value="All" <?php echo ($event->event_for == 'ALL') ? 'checked="checked"' : ''; ?>>
+                    <?php echo $this->lang->line('all'); ?>
+                </label>
+                <label class="radio-inline" for="radios-0">
+                    <input type="radio" name="event_for" id="radios-0" value="A" <?php echo ($event->event_for == 'AC') ? 'checked="checked"' : ''; ?>>
+                    <?php echo $this->lang->line('academy'); ?>
+                </label> 
+                <label class="radio-inline" for="radios-1">
+                    <input type="radio" name="event_for" id="radios-1" value="S" <?php echo ($event->event_for == 'SC') ? 'checked="checked"' : ''; ?>>
+                    <?php echo $this->lang->line('school'); ?>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group" id="academies_list">
+            <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('academy'); ?> <span class="text-danger">*</span></label>
+            <div class="col-lg-5">
+                <select class="form-control required" name="academy_id">
+                    <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('academy'); ?></option>
+                    <?php
+                    foreach ($academies as $academy) {
+                        ?>
+                        <option value="<?php echo $academy->id; ?>" <?php echo ($academy->id == @$academy_id) ? 'selected' : ''; ?>><?php echo ucwords($academy->{$session->language . '_academy_name'}); ?></option>
+                    <?php } ?>     
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" id="schools_list">
+            <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('school'); ?> <span class="text-danger">*</span></label>
+            <div class="col-lg-5">
+                <select class="form-control required" name="school_id[]" multiple="multiple">
+                    <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('school'); ?></option>
+                    <?php
+                    foreach ($schools as $school) {
+                        ?>
+                        <option value="<?php echo $school->id; ?>" <?php echo (in_array($school->id, explode(',', $event->school_id))) ? 'selected' : ''; ?>><?php echo ucwords($school->{$session->language . '_school_name'}); ?></option>
+                    <?php } ?>     
+                </select>
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('eventcategory'); ?> <span class="text-danger">*</span></label>

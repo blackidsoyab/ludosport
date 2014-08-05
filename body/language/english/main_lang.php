@@ -187,4 +187,5 @@ $lang['date_from'] = 'Date from';
 $lang['date_to'] = 'Date to';
 $lang['manager'] = 'Mangaer';
 $lang['description'] = 'Description';
+$lang['all'] = 'All';
 ?>

@@ -29,6 +29,19 @@ class events extends CI_Controller {
                 }
             }
             $event->eventcategory_id = $this->input->post('eventcategory_id');
+
+            if ($this->input->post('event_for') == 'A') {
+                $event->event_for = 'AC';
+                $school = new School();
+                $event->school_id = implode(',', $school->getAllSchoolIdFromAcademy($this->input->post('academy_id')));
+            } else if ($this->input->post('event_for') == 'S') {
+                $event->event_for = 'SC';
+                $event->school_id = implode(',', $this->input->post('school_id'));
+            } else {
+                $event->event_for = 'ALL';
+                $event->school_id = '0';
+            }
+
             $event->city_id = $this->input->post('city_id');
             $event->date_from = date('Y-m-d', strtotime($this->input->post('date_from')));
             $event->date_to = date('Y-m-d', strtotime($this->input->post('date_to')));
@@ -51,6 +64,16 @@ class events extends CI_Controller {
             $city->get();
             $data['cities'] = $city;
 
+            $academy = new Academy();
+            $academy->order_by($this->session_data->language . '_academy_name', 'ASC');
+            $academy->get();
+            $data['academies'] = $academy;
+
+            $school = new School();
+            $school->order_by($this->session_data->language . '_school_name', 'ASC');
+            $school->get();
+            $data['schools'] = $school;
+
             $user = new User();
             $data['users'] = $user->getUserBelowRole($this->session_data->role);
 
@@ -72,6 +95,19 @@ class events extends CI_Controller {
                     }
                 }
                 $event->eventcategory_id = $this->input->post('eventcategory_id');
+
+                if ($this->input->post('event_for') == 'A') {
+                    $event->event_for = 'AC';
+                    $school = new School();
+                    $event->school_id = implode(',', $school->getAllSchoolIdFromAcademy($this->input->post('academy_id')));
+                } else if ($this->input->post('event_for') == 'S') {
+                    $event->event_for = 'SC';
+                    $event->school_id = implode(',', $this->input->post('school_id'));
+                } else {
+                    $event->event_for = 'ALL';
+                    $event->school_id = '0';
+                }
+
                 $event->city_id = $this->input->post('city_id');
                 $event->date_from = date('Y-m-d', strtotime($this->input->post('date_from')));
                 $event->date_to = date('Y-m-d', strtotime($this->input->post('date_to')));
@@ -95,6 +131,22 @@ class events extends CI_Controller {
                 $city->order_by($this->session_data->language . '_name', 'ASC');
                 $city->get();
                 $data['cities'] = $city;
+
+                $academy = new Academy();
+                $academy->order_by($this->session_data->language . '_academy_name', 'ASC');
+                $academy->get();
+                $data['academies'] = $academy;
+
+                $school = new School();
+                $school->order_by($this->session_data->language . '_school_name', 'ASC');
+                $school->get();
+                $data['schools'] = $school;
+
+
+                if ($events->event_for == 'AC') {
+                    $school->where_in('id', $events->school_id)->get();
+                    $data['academy_id'] = $school->academy_id;
+                }
 
                 $user = new User();
                 $data['users'] = $user->getUserBelowRole($this->session_data->role);

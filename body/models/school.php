@@ -18,7 +18,7 @@ class School extends DataMapper {
         $res = $this->db->get()->result();
         return $res[0]->total;
     }
-    
+
     function getSchoolOfRector($rector_id) {
         $this->db->select('schools.*');
         $this->db->from('schools');
@@ -47,6 +47,14 @@ class School extends DataMapper {
         }
 
         return true;
+    }
+
+    function getAllSchoolIdFromAcademy($academy_id) {
+        $this->db->select('id');
+        $this->db->from('schools');
+        $this->db->where('academy_id', $academy_id);
+        $res = $this->db->get();
+        return MultiArrayToSinlgeArray($res->result());
     }
 
     public static function getAssignDeanIds() {
