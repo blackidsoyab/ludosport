@@ -36,6 +36,32 @@ class School extends DataMapper {
         return $res[0]->total;
     }
 
+    function getSchoolOfDean($dean_id) {
+        $this->db->select('*');
+        $this->db->from('schools');
+        $this->db->where('FIND_IN_SET(' . $dean_id . ', schools.dean_id) > 0');
+        $res = $this->db->get()->result();
+        return $res;
+    }
+
+    function getTotalSchoolOfTeacher($teacher_id) {
+        $this->db->select('count(schools.*) as total');
+        $this->db->from('schools');
+        $this->db->join('clans', 'schools.id=clans.school_id');
+        $this->db->where('FIND_IN_SET(' . $teacher_id . ', clans.teacher_id) > 0');
+        $res = $this->db->get()->result();
+        return $res[0]->total;
+    }
+
+    function getSchoolOfTeacher($teacher_id) {
+        $this->db->select('schools.*');
+        $this->db->from('schools');
+        $this->db->join('clans', 'schools.id=clans.school_id');
+        $this->db->where('FIND_IN_SET(' . $teacher_id . ', clans.teacher_id) > 0');
+        $res = $this->db->get()->result();
+        return $res;
+    }
+
     function afterSave($options = array()) {
         foreach (explode(',', $options->dean_id) as $dean) {
             $notify = new Notification();

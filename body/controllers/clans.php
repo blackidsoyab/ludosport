@@ -231,8 +231,55 @@ class clans extends CI_Controller {
         $this->layout->view('clans/teacher_list');
     }
 
-    function clanStudentList() {
-        $this->layout->view('clans/student_list');
+    function clanStudentList($id = 0, $type = 'all') {
+        $academy = new Academy();
+        $school = new School();
+        $clan = new Clan();
+
+        if ($id != 0 && $type == 'academy') {
+            $data['all_academies'] = $academy->where('id', $id)->get();
+            $data['all_schools'] = $academy->school->get();
+            $data['all_clans'] = $academy->school->clan->get();
+
+            $data['academy_id'] = $id;
+        } else if ($id != 0 && $type == 'school') {
+            $temp = $school->where('id', $id)->get();
+            $data['all_schools'] = $school->where('academy_id', $temp->academy_id)->get();
+            $data['all_academies'] = $school->academy->get();
+            $data['all_clans'] = $school->clan->get();
+
+            $data['academy_id'] = $temp->academy_id;
+            $data['school_id'] = $id;
+        } else if ($id != 0 && $type == 'clan') {
+            $temp = $clan->where('id', $id)->get();
+            $data['all_clans'] = $clan->where('school_id', $temp->school_id)->get();
+            $data['all_schools'] = $clan->school->get();
+            $data['all_academies'] = $clan->school->academy->get();
+
+            $data['academy_id'] = $temp->academy_id;
+            $data['school_id'] = $temp->school_id;
+            $data['clan_id'] = $id;
+        } else {
+            if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+                $data['all_academies'] = $academy->get();
+                $data['all_schools'] = $school->get();
+                $data['all_clans'] = $clan->get();
+            } else if ($this->session_data->role == '3') {
+                $data['all_academies'] = $academy->getAcademyOfRector($this->session_data->id);
+                $data['all_schools'] = $school->getSchoolOfRector($this->session_data->id);
+                $data['all_clans'] = $clan->getClanOfRector($this->session_data->id);
+            } else if ($this->session_data->role == '4') {
+                $data['all_academies'] = $academy->getAcademyOfDean($this->session_data->id);
+                $data['all_schools'] = $school->getSchoolOfDean($this->session_data->id);
+                $data['all_clans'] = $clan->getClanOfDean($this->session_data->id);
+            } else if ($this->session_data->role == '5') {
+                $data['all_academies'] = $academy->getAcademyOfTeacher($this->session_data->id);
+                $data['all_schools'] = $school->getSchoolOfTeacher($this->session_data->id);
+                $data['all_clans'] = $clan->getClanOfTeacher($this->session_data->id);
+            }
+        }
+
+        $this->layout->view('clans/student_list', $data);
     }
 
     function listTrialLessonRequest($clan_id) {

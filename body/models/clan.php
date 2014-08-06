@@ -10,6 +10,16 @@ class Clan extends DataMapper {
         parent::__construct($id);
     }
 
+    public static function getAssignTeacherIds() {
+        $obj = new Clan();
+        $array = array();
+        foreach ($obj->get() as $value) {
+            $array[] = explode(',', $value->teacher_id);
+        }
+
+        return array_unique(MultiArrayToSinlgeArray($array));
+    }
+
     function getTotalTeachers() {
         $this->db->select('teacher_id');
         $this->db->from('clans');
@@ -102,6 +112,75 @@ class Clan extends DataMapper {
         return $res[0]->total;
     }
 
+    function getClanOfRector($rector_id) {
+        $where = NULL;
+        if (is_array($rector_id)) {
+            foreach ($rector_id as $id) {
+                $where .= " OR FIND_IN_SET('" . $id . "', rector_id) > 0";
+            }
+        } else {
+            $where .= " OR FIND_IN_SET('" . $rector_id . "', rector_id) > 0";
+        }
+
+        $this->db->_protect_identifiers = false;
+        $this->db->select('clans.*');
+        $this->db->from('clans');
+        $this->db->join('schools', 'schools.id=clans.school_id');
+        $this->db->join('academies', 'academies.id=schools.academy_id');
+        $this->db->where(substr($where, 4));
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+
+    function getClanOfDean($dean_id) {
+        $where = NULL;
+        if (is_array($dean_id)) {
+            foreach ($dean_id as $id) {
+                $where .= " OR FIND_IN_SET('" . $id . "', dean_id) > 0";
+            }
+        } else {
+            $where .= " OR FIND_IN_SET('" . $dean_id . "', dean_id) > 0";
+        }
+
+        $this->db->_protect_identifiers = false;
+        $this->db->select('clans.*');
+        $this->db->from('clans');
+        $this->db->join('schools', 'schools.id=clans.school_id');
+        $this->db->where(substr($where, 4));
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+
+    function getClanOfTeacher($teacher_id) {
+        $where = NULL;
+        if (is_array($teacher_id)) {
+            foreach ($teacher_id as $id) {
+                $where .= " OR FIND_IN_SET('" . $teacher_id . "', teacher_id) > 0";
+            }
+        } else {
+            $where .= " OR FIND_IN_SET('" . $teacher_id . "', teacher_id) > 0";
+        }
+
+        $this->db->_protect_identifiers = false;
+        $this->db->select('*');
+        $this->db->from('clans');
+        $this->db->where(substr($where, 4));
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+
     function afterSave($options = array()) {
         $notify = new Notification();
         $notify->notify_type = 'teacher_assign_class';
@@ -110,16 +189,6 @@ class Clan extends DataMapper {
         $notify->object_id = $options->id;
         $notify->save();
         return true;
-    }
-
-    public static function getAssignTeacherIds() {
-        $obj = new Clan();
-        $array = array();
-        foreach ($obj->get() as $value) {
-            $array[] = explode(',', $value->teacher_id);
-        }
-
-        return array_unique(MultiArrayToSinlgeArray($array));
     }
 
     function getAviableTrialClan($city_id, $under_sixteen, $class_limit = 3) {

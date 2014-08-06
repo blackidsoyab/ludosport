@@ -161,6 +161,8 @@ $lang['date'] = 'Date';
 $lang['approval'] = 'Approval';
 $lang['approved'] = 'Approved';
 $lang['unapproved'] = 'Unapproved';
+$lang['reset'] = 'Reset';
+$lang['filter'] = 'Filter';
 
 //Levels
 $lang['is_basic'] = 'is basic';

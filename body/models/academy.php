@@ -33,19 +33,66 @@ class Academy extends DataMapper {
         }
     }
 
-    function getAcademyOfRector($dean_id) {
+    function getAcademyOfRector($rector_id) {
         $where = NULL;
-        if (is_array($dean_id)) {
-            foreach ($dean_id as $id) {
+        if (is_array($rector_id)) {
+            foreach ($rector_id as $id) {
                 $where .= " OR FIND_IN_SET('" . $id . "', rector_id) > 0";
             }
         } else {
-            $where .= " OR FIND_IN_SET('" . $dean_id . "', rector_id) > 0";
+            $where .= " OR FIND_IN_SET('" . $rector_id . "', rector_id) > 0";
         }
 
         $this->db->_protect_identifiers = false;
         $this->db->select('*');
         $this->db->from('academies');
+        $this->db->where(substr($where, 4));
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+
+    function getAcademyOfDean($dean_id) {
+        $where = NULL;
+        if (is_array($dean_id)) {
+            foreach ($dean_id as $id) {
+                $where .= " OR FIND_IN_SET('" . $id . "', dean_id) > 0";
+            }
+        } else {
+            $where .= " OR FIND_IN_SET('" . $dean_id . "', dean_id) > 0";
+        }
+
+        $this->db->_protect_identifiers = false;
+        $this->db->select('*');
+        $this->db->from('academies');
+        $this->db->join('schools', 'academies.id=schools.academy_id');
+        $this->db->where(substr($where, 4));
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+
+    function getAcademyOfTeacher($teacher_id) {
+        $where = NULL;
+        if (is_array($teacher_id)) {
+            foreach ($teacher_id as $id) {
+                $where .= " OR FIND_IN_SET('" . $teacher_id . "', teacher_id) > 0";
+            }
+        } else {
+            $where .= " OR FIND_IN_SET('" . $teacher_id . "', teacher_id) > 0";
+        }
+
+        $this->db->_protect_identifiers = false;
+        $this->db->select('*');
+        $this->db->from('academies');
+        $this->db->join('schools', 'academies.id=schools.academy_id');
+        $this->db->join('clans', 'schools.id=clans.school_id');
         $this->db->where(substr($where, 4));
         $res = $this->db->get();
         if ($res->num_rows > 0) {
