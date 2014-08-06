@@ -68,18 +68,23 @@
 
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-4">
-        <select class="form-control" id="role_id">
+
+<div class="the-box">
+    <div class="form-horizontal">
+        <div class="form-group margin-killer">
+            <div class=" col-lg-4">
+               <select class="form-control" id="role_id">
             <option value="0">Filter by Role</option>
             <?php foreach ($roles as $role) { ?>
                 <option value="<?php echo $role->id; ?>" <?php echo (@$role_id == $role->id) ? 'selected' : ''; ?>><?php echo $role->{$session->language . '_role_name'}; ?></option>
             <?php } ?>    
         </select>
+            </div>
+        </div>
     </div>
-</div>
-
-<div class="the-box">
+    <div class="col-lg-12">
+        &nbsp;
+    </div>
     <div class="table-responsive">
         <table class="table table-striped table-hover" id="list_data">
             <thead class="the-box dark full">

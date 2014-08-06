@@ -67,19 +67,22 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-4">
-        <select class="form-control required" id="academy_id">
+<div class="the-box">
+    <div class="form-horizontal">
+        <div class="form-group margin-killer">
+            <div class=" col-lg-4">
+                 <select class="form-control" id="academy_id">
             <option value="0">Filter by Academy</option>
             <?php foreach ($academies as $academy) { ?>
                 <option value="<?php echo $academy->id; ?>" <?php echo (@$academy_id == $academy->id) ? 'selected' : ''; ?>><?php echo $academy->{$session->language . '_academy_name'}; ?></option>
             <?php } ?>    
         </select>
+            </div>
+        </div>
     </div>
-</div>
-
-
-<div class="the-box">
+    <div class="col-lg-12">
+        &nbsp;
+    </div>
     <div class="table-responsive">
         <table class="table table-striped table-hover" id="list_data">
             <thead class="the-box dark full">

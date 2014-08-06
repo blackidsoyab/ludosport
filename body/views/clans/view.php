@@ -69,18 +69,22 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-4">
-        <select class="form-control required" id="school_id">
+<div class="the-box">
+    <div class="form-horizontal">
+        <div class="form-group margin-killer">
+            <div class=" col-lg-4">
+                <select class="form-control required" id="school_id">
             <option value="0">Filter by School</option>
             <?php foreach ($schools as $school) { ?>
                 <option value="<?php echo $school->id; ?>" <?php echo (@$school_id == $school->id) ? 'selected' : ''; ?>><?php echo $school->{$session->language . '_school_name'}; ?></option>
             <?php } ?>    
         </select>
+            </div>
+        </div>
     </div>
-</div>
-
-<div class="the-box">
+    <div class="col-lg-12">
+        &nbsp;
+    </div>
     <div class="table-responsive">
         <table class="table table-striped table-hover" id="list_data">
             <thead class="the-box dark full">

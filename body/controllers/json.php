@@ -371,7 +371,21 @@ class json extends CI_Controller {
         exit();
     }
 
-    public function getTeachersJsonData() {
+    public function getTeachersJsonData($academy_id = 0, $school_id = 0, $clan_id = 0) {
+        $where = NULL;
+
+        if ($academy_id != 0) {
+            $where .= ' AND academies.id=' . $academy_id;
+        }
+
+        if ($school_id != 0) {
+            $where .= ' AND schools.id=' . $school_id;
+        }
+
+        if ($clan_id != 0) {
+            $where .= ' AND clans.id=' . $clan_id;
+        }
+
         $this->load->library('datatable');
         $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'CONCAT(firstname," ", lastname) AS teacher_name');
         $this->datatable->eColumns = array('academies.id', 'clans.teacher_id');
@@ -379,14 +393,15 @@ class json extends CI_Controller {
         $this->datatable->sTable = " clans, users, schools, academies";
 
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(users.id,clans.teacher_id) > 0';
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(users.id,clans.teacher_id) > 0' . $where;
         } else if ($this->session_data->role == '3') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0';
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0' . $where;
         } else if ($this->session_data->role == '4') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0';
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0' . $where;
         } else if ($this->session_data->role == '5') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0';
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0' . $where;
         }
+        
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -416,6 +431,7 @@ class json extends CI_Controller {
         if ($clan_id != 0) {
             $where .= ' AND clans.id=' . $clan_id;
         }
+
         $this->load->library('datatable');
         $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS student_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'clans.' . $this->session_data->language . '_class_name AS class_name');
         $this->datatable->eColumns = array('users.user_id');
@@ -609,7 +625,7 @@ class json extends CI_Controller {
         $this->datatable->sIndexColumn = "id";
         $this->datatable->sTable = " batches";
         if ($type != 'all') {
-            $this->datatable->myWhere = ' WHERE type=\'' . strtoupper($type).'\'';
+            $this->datatable->myWhere = ' WHERE type=\'' . strtoupper($type) . '\'';
         }
         $this->datatable->datatable_process();
 

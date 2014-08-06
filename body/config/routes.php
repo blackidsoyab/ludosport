@@ -72,13 +72,23 @@ $route['role/check/(:num)'] = "ajax/checkValidRole/$1";
 //Classes
 $route['clan/getschools/(:num)'] = "ajax/getSchoolsOptionFromAcademy/$1";
 $route['clan/getclasses/(:num)'] = "ajax/getClassesOptionFromSchool/$1";
+
+//Teacher List
 $route['clan/teacherlist'] = "clans/clanTeacherList";
+$route['clan/teacherlist/(:num)/(:any)'] = "clans/clanTeacherList/$1/$2";
 $route['clan/teacherjson'] = "json/getTeachersJsonData";
+$route['clan/teacherjson/(:any)'] = "json/getTeachersJsonData/$1";
+$route['clan/teacherjson/(:any)/(:any)'] = "json/getTeachersJsonData/$1/$2";
+$route['clan/teacherjson/(:any)/(:any)/(:any)'] = "json/getTeachersJsonData/$1/$2/$3";
+
+//Student List
 $route['clan/studentlist'] = "clans/clanStudentList";
 $route['clan/studentlist/(:num)/(:any)'] = "clans/clanStudentList/$1/$2";
+$route['clan/studentjson'] = "json/getStudentsJsonData";
 $route['clan/studentjson/(:any)'] = "json/getStudentsJsonData/$1";
 $route['clan/studentjson/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2";
 $route['clan/studentjson/(:any)/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2/$3";
+
 $route['clan/trial_lesson_request/(:num)'] = "clans/getTrialLessonRequestJsonData/$1";
 $route['clan/listTrialLessonRequestJson/(:num)'] = "json/listTrialLessonRequestJson/$1";
 $route['clan/change_status_trial_student/(:num)/(:num)'] = "clans/changeStatusTrialStudent/$1/$2";
