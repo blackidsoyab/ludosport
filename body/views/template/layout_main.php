@@ -298,6 +298,10 @@
                             <li class="<?php echo ($page == 'eventcategory') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'eventcategory'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('eventcategory'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('eventcategory'); ?></a></li>
                         <?php } ?>
 
+                        <?php if (hasPermission('batches', 'viewBatch')) { ?>   
+                            <li class="<?php echo ($page == 'batch') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'batch'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('batch'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('batch'); ?></a></li>
+                        <?php } ?> 
+
                         <?php if (hasPermission('roles', 'viewRole')) { ?>
                             <li class="<?php echo ($page == 'role') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'role'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('role'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('role'); ?></a></li>
                         <?php } ?>

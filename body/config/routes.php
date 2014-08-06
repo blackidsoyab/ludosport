@@ -59,7 +59,8 @@ $route[$controller . '/add'] = plural($controller) . "/add" . ucwords($controlle
 $route[$controller . '/edit/(:num)'] = plural($controller) . "/edit" . ucwords($controller) . "/$1";
 $route[$controller . '/delete/(:num)'] = plural($controller) . "/delete" . ucwords($controller) . "/$1";
 $route[$controller . '/getjson'] = "json/get" . plural($controller) . "JsonData";
-$route[$controller . '/getjson/(:num)'] = "json/get" . plural($controller) . "JsonData/$1";
+$route[$controller . '/getjson/(:any)'] = "json/get" . plural($controller) . "JsonData/$1";
+$route[$controller . '/getjson/(:any)/(:any)'] = "json/get" . plural($controller) . "JsonData/$1/$2";
 
 //Permission
 $route['permission/getmethod/(:any)/(:any)'] = "ajax/getMethodsFromControllers/$1/$2";

@@ -82,17 +82,17 @@ $lang['back_to_login'] = 'Back to Login';
 $lang['welcome_to_reset_password'] = 'Reset Password';
 
 //Profile
-$lang['profile']  = 'Profilo';
+$lang['profile'] = 'Profilo';
 $lang['my_profile'] = 'il mio Profilo';
-$lang['change_password']  = 'cambiare la password';
-$lang['wins']  = 'Vittorie';
-$lang['defeat']  = 'Sconfitte';
-$lang['attendance']  = 'Presenze';
-$lang['absence']  = 'Assenze';
-$lang['challenges_of']  = 'Sfide lanciate';
-$lang['challenges_recevied']  = 'Sfide ricevute';
-$lang['tournaments']  = 'Tornei';
-$lang['year_course']  = 'Anni di corso';
+$lang['change_password'] = 'cambiare la password';
+$lang['wins'] = 'Vittorie';
+$lang['defeat'] = 'Sconfitte';
+$lang['attendance'] = 'Presenze';
+$lang['absence'] = 'Assenze';
+$lang['challenges_of'] = 'Sfide lanciate';
+$lang['challenges_recevied'] = 'Sfide ricevute';
+$lang['tournaments'] = 'Tornei';
+$lang['year_course'] = 'Anni di corso';
 $lang['current'] = 'Current';
 $lang['re_enter'] = 'Re-enter';
 $lang['full_name'] = 'Full Name';
@@ -190,4 +190,12 @@ $lang['date_to'] = 'Date to';
 $lang['manager'] = 'Mangaer';
 $lang['description'] = 'Description';
 $lang['all'] = 'All';
+
+//Batches
+$lang['batch'] = 'Batch';
+$lang['image'] = 'Image';
+$lang['degrees'] = 'Gradi';
+$lang['honors'] = 'Onoreficenze';
+$lang['qualifications'] = 'Qualifiche';
+$lang['securities'] = 'Titoli';
 ?>

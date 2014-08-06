@@ -252,7 +252,7 @@ class json extends CI_Controller {
             } else {
                 $temp_arr[] = $aRow['total_students'];
             }
-            
+
             $temp_arr[] = '&nbsp;';
 
             $str = NULL;
@@ -343,7 +343,7 @@ class json extends CI_Controller {
             $temp_arr[] = $aRow['class_name'];
             $temp_arr[] = $aRow['instructor'];
             $temp_arr[] = $aRow['school_name'] . ', ' . $aRow['academy_name'];
-           if ($aRow['total_students'] > 0) {
+            if ($aRow['total_students'] > 0) {
                 $temp_arr[] = '<a href="' . base_url() . 'clan/studentlist/' . $aRow['id'] . '/clan" class="text-black" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $this->lang->line('view_all') . ' ' . $this->lang->line('student') . '">' . $aRow['total_students'] . '</a>';
             } else {
                 $temp_arr[] = $aRow['total_students'];
@@ -592,6 +592,55 @@ class json extends CI_Controller {
             }
 
             if (hasPermission('eventcategories', 'editEventcategory')) {
+                $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getBatchesJsonData($type = 'all') {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array($this->session_data->language . '_name', 'type', 'image');
+        $this->datatable->eColumns = array('id');
+        $this->datatable->sIndexColumn = "id";
+        $this->datatable->sTable = " batches";
+        if ($type != 'all') {
+            $this->datatable->myWhere = ' WHERE type=\'' . strtoupper($type).'\'';
+        }
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = ucwords($aRow[$this->session_data->language . '_name']);
+
+            if ($aRow['type'] == 'D') {
+                $temp_arr[] = '<span class="label label-info">' . $this->lang->line('degrees') . '</span>';
+            }
+
+            if ($aRow['type'] == 'H') {
+                $temp_arr[] = '<span class="label label-success">' . $this->lang->line('honors') . '</span>';
+            }
+
+            if ($aRow['type'] == 'Q') {
+                $temp_arr[] = '<span class="label label-warning">' . $this->lang->line('qualifications') . '</span>';
+            }
+
+            if ($aRow['type'] == 'S') {
+                $temp_arr[] = '<span class="label label-danger">' . $this->lang->line('securities') . '</span>';
+            }
+
+            $temp_arr[] = '<img src="' . IMG_URL . 'batches/' . $aRow['image'] . '" class="avatar" alt="Batch">';
+
+            $str = NULL;
+            if (hasPermission('batches', 'editBatch')) {
+                $str .= '<a href="' . base_url() . 'batch/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+
+            if (hasPermission('batches', 'deleteBatch')) {
                 $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
             }
             $temp_arr[] = $str;

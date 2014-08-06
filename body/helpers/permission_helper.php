@@ -128,6 +128,14 @@ function createPermissionArray() {
                 'editEvent' => array('name' => 'Edit'),
                 'deleteEvent' => array('name' => 'Delete'),
         )),
+        'batches' => array(
+            'name' => 'Batches',
+            'hasChild' => array(
+                'viewBatch' => array('name' => 'List'),
+                'addBatch' => array('name' => 'Add'),
+                'editBatch' => array('name' => 'Edit'),
+                'deleteBatch' => array('name' => 'Delete'),
+        )),
         'profiles' => array(
             'name' => 'Profile',
             'hasChild' => array(

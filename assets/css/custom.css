@@ -69,3 +69,15 @@ label.error{
 .clear{
     clear: both;
 }
+
+.input-group-addon, .input-group-btn {
+    vertical-align: top;
+}
+
+.vetrical-middle{
+    vertical-align: middle !important;
+}
+
+.img-batch {
+    width: 20%;
+}

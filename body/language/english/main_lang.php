@@ -190,4 +190,12 @@ $lang['date_to'] = 'Date to';
 $lang['manager'] = 'Mangaer';
 $lang['description'] = 'Description';
 $lang['all'] = 'All';
+
+//Batches
+$lang['batch'] = 'Batch';
+$lang['image'] = 'Image';
+$lang['degrees'] = 'Degrees';
+$lang['honors'] = 'Honors';
+$lang['qualifications'] = 'Qualifications';
+$lang['securities'] = 'Securities';
 ?>
