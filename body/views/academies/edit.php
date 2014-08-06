@@ -92,6 +92,19 @@
                     <?php } ?>
                 </div>
             </div>
+            
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('fee'); ?>1 <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control required academy_fee_masking" name="fee1" maxlength="9" placeholder="<?php echo $academy->fee1; ?>">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('fee'); ?>2 <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control required  academy_fee_masking" name="fee2" maxlength="9" placeholder="<?php echo $academy->fee2; ?>">
+                </div>
+            </div>
         </fieldset>
 
         <fieldset>

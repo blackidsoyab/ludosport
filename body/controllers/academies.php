@@ -53,6 +53,8 @@ class academies extends CI_Controller {
             $obj->phone_1 = $this->input->post('phone_1');
             $obj->phone_2 = @$this->input->post('phone_2');
             $obj->email = @$this->input->post('email');
+            $obj->fee1 = @$this->input->post('fee1');
+            $obj->fee2 = @$this->input->post('fee2');
             $obj->user_id = $this->session_data->id;
             $obj->save();
 
@@ -98,6 +100,8 @@ class academies extends CI_Controller {
                 $obj->country_id = $this->input->post('country_id');
                 $obj->phone_1 = $this->input->post('phone_1');
                 $obj->phone_2 = @$this->input->post('phone_2');
+                $obj->fee1 = @$this->input->post('fee1');
+                $obj->fee2 = @$this->input->post('fee2');
                 $obj->email = @$this->input->post('email');
                 $obj->user_id = $this->session_data->id;
                 $obj->save();

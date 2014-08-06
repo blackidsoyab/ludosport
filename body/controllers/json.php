@@ -220,7 +220,7 @@ class json extends CI_Controller {
 
     public function getAcademiesJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('academies.' . $this->session_data->language . '_academy_name AS academy_name', 'states.' . $this->session_data->language . '_name AS states', 'cities.' . $this->session_data->language . '_name AS city', '(SELECT count(*) from schools where schools.academy_id=academies.id) AS total_schools', '(SELECT count(*) from userdetails, clans, schools, academies temp_ac, users where schools.academy_id=academies.id AND userdetails.clan_id=clans.id AND schools.id=clans.school_id AND users.id=userdetails.student_master_id AND temp_ac.id=academies.id) AS total_students', 'GROUP_CONCAT(CONCAT(users.firstname," ", users.lastname)) AS rector_name');
+        $this->datatable->aColumns = array('academies.' . $this->session_data->language . '_academy_name AS academy_name', 'states.' . $this->session_data->language . '_name AS states', 'cities.' . $this->session_data->language . '_name AS city', '(SELECT count(*) from schools where schools.academy_id=academies.id) AS total_schools', '(SELECT count(*) from userdetails, clans, schools, academies temp_ac, users where schools.academy_id=academies.id AND userdetails.clan_id=clans.id AND schools.id=clans.school_id AND users.id=userdetails.student_master_id AND temp_ac.id=academies.id) AS total_students', 'GROUP_CONCAT(CONCAT(users.firstname," ", users.lastname)) AS rector_name', 'fee1', 'fee2');
         $this->datatable->eColumns = array('academies.id');
         $this->datatable->sIndexColumn = "distinct(academies.id)";
         $this->datatable->groupBy = ' GROUP BY academies.id';
@@ -253,7 +253,7 @@ class json extends CI_Controller {
                 $temp_arr[] = $aRow['total_students'];
             }
 
-            $temp_arr[] = '&nbsp;';
+            $temp_arr[] = (float)$aRow['fee1'] + ((int)$aRow['total_students'] * (float)$aRow['fee2']);
 
             $str = NULL;
             if (hasPermission('academies', 'editAcademy')) {

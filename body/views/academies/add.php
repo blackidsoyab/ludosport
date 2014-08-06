@@ -89,6 +89,19 @@
                     <?php } ?>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('fee'); ?>1 <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control required academy_fee_masking" name="fee1" maxlength="9" placeholder="000000.00">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('fee'); ?>2 <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control required  academy_fee_masking" name="fee2" maxlength="9" placeholder="000000.00">
+                </div>
+            </div>
         </fieldset>
 
         <fieldset>
@@ -136,7 +149,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'),' ',$this->lang->line('country'); ?> <span class="text-danger">*</span></label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('country'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
                     <select class="form-control required" name="country_id" id="country_id">
                         <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('country'); ?></option>
@@ -151,7 +164,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'),' ',$this->lang->line('state'); ?> <span class="text-danger">*</span></label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('state'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
                     <select class="form-control required" name="state_id" id="state_id">
                         <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('state'); ?></option>
@@ -160,7 +173,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'),' ',$this->lang->line('city'); ?> <span class="text-danger">*</span></label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('city'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
                     <select class="form-control required" name="city_id" id="city_id">
                         <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('city'); ?></option>

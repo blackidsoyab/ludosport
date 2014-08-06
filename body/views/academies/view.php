@@ -64,7 +64,7 @@
             <thead class="the-box dark full">
                 <tr align="left">
                     <th><?php echo $this->lang->line('academy'), ' ', $this->lang->line('name'); ?></th>
-                     <th><?php echo $this->lang->line('rector'), ' ', $this->lang->line('name'); ?></th>
+                    <th><?php echo $this->lang->line('rector'), ' ', $this->lang->line('name'); ?></th>
                     <th width="125"><?php echo $this->lang->line('city'); ?></th>
                     <th width="100"><?php echo $this->lang->line('total'), ' ', $this->lang->line('school') . 's'; ?></th>
                     <th width="110"><?php echo $this->lang->line('total'), ' ', $this->lang->line('student') . 's'; ?></th>
@@ -74,7 +74,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="6"><i>Loading...</i></td>
+                    <td colspan="7"><i>Loading...</i></td>
                 </tr>
             </tbody>
         </table>

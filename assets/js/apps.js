@@ -507,6 +507,7 @@ $(document).ready(function(){
 		$('.ip_address_masking').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: {'Z': {pattern: /[0-9]/, optional: true}}});
 		$('.ip_address_masking').mask('099.099.099.099');
 		$('.percent_masking').mask('##0,00%', {reverse: true});
+                $('.academy_fee_masking').mask('000000.00');
 	});
 	/** END INPUT MASK **/
 	

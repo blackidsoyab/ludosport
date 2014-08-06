@@ -143,6 +143,7 @@ $lang['phone_number'] = 'Phone Number';
 $lang['dean'] = 'Dean';
 $lang['rector'] = 'Rector';
 $lang['paid'] = 'Paid';
+$lang['fee'] = 'Fee';
 
 //School
 $lang['principal'] = 'Principal';
