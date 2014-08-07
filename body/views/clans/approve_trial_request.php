@@ -26,18 +26,18 @@
                                             ?>
                                         </label>
                                         <?php
-                                        if ($userdetail->status == 'P' || $userdetail->approved_by == $session->id) {
+                                        if ($userdetail->status == 'A') {
+                                            echo '&nbsp;&nbsp;<label class="label label-success">&nbsp;' . $this->lang->line('approved') . '&nbsp;</label>&nbsp;&nbsp;';
+                                        } if ($userdetail->status == 'U') {
+                                            echo '&nbsp;&nbsp;<label class="label label-danger">&nbsp;' . $this->lang->line('unapproved') . '&nbsp;</label>&nbsp;&nbsp;';
+                                        }
+                                        $username = userNameAvtar($userdetail->approved_by);
+                                        echo 'by&nbsp;&nbsp;', $username['name'];
 
-                                            if ($userdetail->status == 'A') {
-                                                echo '&nbsp;&nbsp;<label class="label label-success">&nbsp;' . $this->lang->line('approved') . '&nbsp;</label>&nbsp;&nbsp;';
-                                            } if ($userdetail->status == 'U') {
-                                                echo '&nbsp;&nbsp;<label class="label label-danger">&nbsp;' . $this->lang->line('unapproved') . '&nbsp;</label>&nbsp;&nbsp;';
-                                            }
-                                            $username = userNameAvtar($userdetail->approved_by);
-                                            echo 'by&nbsp;&nbsp;', $username['name'];
+                                        if ($userdetail->status == 'P' || $userdetail->approved_by == $session->id) {
                                             ?>
                                             <span>&nbsp;&nbsp;</span>
-    <?php if ($userdetail->status == 'U') { ?>
+                                            <?php if ($userdetail->status == 'U') { ?>
                                                 <form action="<?php base_url() . 'clan/change_status_trial_student/' . $userdetail->clan_id . '/' . $userdetail->id ?>" method="post" class="inline form-horizontal">
                                                     <input type="hidden" value="A" name="status" />
                                                     <input type="hidden" value="<?php echo $userdetail->clan_id ?>" name="clan_id" />
@@ -45,7 +45,7 @@
                                                     <input type="hidden" value="<?php echo $userdetail->student_master_id ?>" name="student_id" />
                                                     <button type="submit" class="btn btn-success"><?php echo $this->lang->line('approved'); ?></button>
                                                 </form>
-    <?php } else if ($userdetail->status == 'A') { ?>
+                                            <?php } else if ($userdetail->status == 'A') { ?>
                                                 <span>&nbsp;&nbsp;</span>
                                                 <form action="<?php base_url() . 'clan/change_status_trial_student/' . $userdetail->clan_id . '/' . $userdetail->id ?>" method="post" class="inline form-horizontal">
                                                     <input type="hidden" value="U" name="status" />
@@ -54,19 +54,21 @@
                                                     <input type="hidden" value="<?php echo $userdetail->student_master_id ?>" name="student_id" />
                                                     <button type="submit" class="btn btn-danger"><?php echo $this->lang->line('unapproved'); ?></button>
                                                 </form>
-
                                                 <?php
                                             }
-                                        } else {
-                                            if ($userdetail->status == 'A') {
-                                                echo '&nbsp;&nbsp;<label class="label label-success">&nbsp;' . $this->lang->line('approved') . '&nbsp;</label>&nbsp;&nbsp;';
-                                            } if ($userdetail->status == 'U') {
-                                                echo '&nbsp;&nbsp;<label class="label label-danger">&nbsp;' . $this->lang->line('unapproved') . '&nbsp;</label>&nbsp;&nbsp;';
-                                            }
-                                            $username = userNameAvtar($userdetail->approved_by);
-                                            echo 'by&nbsp;&nbsp;', $username['name'];
                                         }
-                                        ?>
+
+                                        if ($userdetail->status != 'P') {
+                                            ?>
+                                            <span>&nbsp;&nbsp;</span>
+                                            <form action="<?php base_url() . 'clan/change_status_trial_student/' . $userdetail->clan_id . '/' . $userdetail->id ?>" method="post" class="inline form-horizontal">
+                                                <input type="hidden" value="AS" name="status" />
+                                                <input type="hidden" value="<?php echo $userdetail->clan_id ?>" name="clan_id" />
+                                                <input type="hidden" value="<?php echo $userdetail->first_lesson_date; ?>" name="date" />
+                                                <input type="hidden" value="<?php echo $userdetail->student_master_id ?>" name="student_id" />
+                                                <button type="submit" class="btn btn-primary"><?php echo $this->lang->line('accept_as_student'); ?></button>
+                                            </form>
+                                        <?php } ?>
                                     </div>
                                 </div>
                                 <hr class="bg-success"/>

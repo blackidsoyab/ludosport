@@ -105,6 +105,12 @@ function makeURL($options) {
         $url = base_url() . 'clan/change_status_trial_student/' . $options['data']['clan_id'] . '/' . $options['data']['student_id'] . '/notification';
     }
 
+    if ($options['notify_type'] == 'accept_as_student') {
+        $url = base_url() . 'clan/change_status_trial_student/' . $options['data']['clan_id'] . '/' . $options['data']['student_id'] . '/notification';
+    }
+
+
+
     return $url;
 }
 
@@ -113,7 +119,11 @@ function getMessageTemplate($options) {
     $session = & get_instance()->session->userdata('user_session');
     $template_edit = false;
 
-    if ($options['notify_type'] == 'trial_lesson_approved' || $options['notify_type'] == 'trial_lesson_unapproved') {
+    if (
+            $options['notify_type'] == 'trial_lesson_approved' ||
+            $options['notify_type'] == 'trial_lesson_unapproved' ||
+            $options['notify_type'] == 'accept_as_student'
+    ) {
         $template_edit = true;
         $user_request = userNameAvtar($options['data']['student_id']);
         $from = userNameAvtar($options['from_id']);
@@ -170,6 +180,11 @@ function setMessageTemplate($options) {
         array(
             'en' => '%s requestd for trial lesson unapporved by %s',
             'it' => '%s requestd for trial lesson unapporved by %s',
+        ),
+        'accept_as_student' =>
+        array(
+            'en' => '%s requestd for trial lesson Accept as student by %s',
+            'it' => '%s requestd for trial lesson Accept as student by %s',
         )
     );
 

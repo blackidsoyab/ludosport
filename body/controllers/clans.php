@@ -228,7 +228,7 @@ class clans extends CI_Controller {
 
     function clanTeacherList($id = 0, $type = 'all') {
         $this->layout->setField('page_title', $this->lang->line('list') . ' ' . $this->lang->line('teachers'));
-        
+
         $academy = new Academy();
         $school = new School();
         $clan = new Clan();
@@ -275,13 +275,13 @@ class clans extends CI_Controller {
                 $data['all_clans'] = $clan->getClanOfTeacher($this->session_data->id);
             }
         }
-        
+
         $this->layout->view('clans/teacher_list', $data);
     }
 
     function clanStudentList($id = 0, $type = 'all') {
         $this->layout->setField('page_title', $this->lang->line('list') . ' ' . $this->lang->line('student'));
-        
+
         $academy = new Academy();
         $school = new School();
         $clan = new Clan();
@@ -355,6 +355,7 @@ class clans extends CI_Controller {
                     $userdetail->where(array('student_master_id' => $student_master_id, 'clan_id' => $clan_id))->update('approved_by', $this->session_data->id);
 
                     $notification_type = 'trial_lesson_unapproved';
+
                     if ($this->input->post('status') == 'A') {
                         $attadence = new Attendance();
                         $attadence->clan_date = $userdetail->first_lesson_date;
@@ -366,6 +367,10 @@ class clans extends CI_Controller {
                         $attadence = new Attendance();
                         $attadence->where(array('student_id' => $student_master_id, 'clan_date' => $userdetail->first_lesson_date))->get();
                         $attadence->delete();
+                    } else if ($this->input->post('status') == 'AS') {
+                        $user = new User();
+                        $user->where(array('id' => $student_master_id))->update('status', 'A');
+                        $notification_type = 'accept_as_student';
                     }
 
                     $notification = new Notification();
@@ -373,9 +378,10 @@ class clans extends CI_Controller {
                     $notification->notify_type = $notification_type;
                     $notification->from_id = $this->session_data->id;
                     $notification->to_id = $userdetail->student_master_id;
-                    $notification->object_id = 0;
+                    $notification->object_id = $userdetail->student_master_id;
                     $notification->data = serialize($this->input->post());
                     $notification->save();
+
 
                     $ids = array();
                     $ids[] = User::getAdminIds();

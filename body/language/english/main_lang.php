@@ -164,6 +164,7 @@ $lang['approved'] = 'Approved';
 $lang['unapproved'] = 'Unapproved';
 $lang['reset'] = 'Reset';
 $lang['filter'] = 'Filter';
+$lang['accept_as_student'] = 'Accept as Student';
 
 //Levels
 $lang['is_basic'] = 'is basic';
