@@ -30,7 +30,7 @@ class cronjobs extends CI_Controller {
                 foreach ($mails as $value) {
                     $option = array();
                     $option['tomailid'] = $value->to_email;
-                    $option['subject'] = $this->mail_priority[$priority] . '-' . $value->subject;
+                    $option['subject'] = $value->subject;
                     $option['message'] = $value->message;
                     if (!is_null($value->attachment)) {
                         $option['attachement'] = base_url() . 'assets/email_attachments/' . $value->attachment;

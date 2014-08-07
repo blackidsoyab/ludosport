@@ -6,6 +6,14 @@ class Systemsetting extends DataMapper {
         parent::__construct($id);
     }
 
+    public static function getSystemSetting() {
+        $ci = &get_instance();
+        $ci->db->select('sys_key, sys_value');
+        $ci->db->from('systemsettings');
+        $res = $ci->db->get();
+        return $res->result_array();
+    }
+
 }
 
 ?>

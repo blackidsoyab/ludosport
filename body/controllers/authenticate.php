@@ -9,7 +9,7 @@ class authenticate extends CI_Controller {
         parent::__construct();
         $this->layout->setLayout('template/layout_login');
         $this->layout->setField('page_title', 'User Login');
-
+        
         setLanguage();
     }
 

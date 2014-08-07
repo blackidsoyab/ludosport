@@ -10,6 +10,7 @@ class Authentication extends CI_Controller {
         $this->__clear_cache();
         $this->setAllowedMethod();
         $this->setAllowedController();
+        $this->setSystemSetting();
         setLanguage();
     }
 
@@ -58,6 +59,12 @@ class Authentication extends CI_Controller {
                     redirect(base_url() . 'denied', 'refresh');
                 }
             }
+        }
+    }
+
+    function setSystemSetting() {
+        foreach (Systemsetting::getSystemSetting() as $value) {
+            $this->config->set_item($value['sys_key'], $value['sys_value']);
         }
     }
 

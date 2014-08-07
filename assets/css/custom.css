@@ -81,3 +81,7 @@ label.error{
 .img-batch {
     width: 20%;
 }
+
+.dataTables_processing{
+    text-align: center;
+}

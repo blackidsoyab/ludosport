@@ -26,7 +26,7 @@
 
     <body class="login tooltips">
         <div class="login-header text-center">
-            <img src="<?php echo IMG_URL; ?>logo-login.png" alt="My Ludosport logo" class="logo">
+            <img src="<?php echo IMG_URL . $this->config->item('login_logo'); ?>" alt="<?php echo $this->config->item('app_name'); ?>" class="logo">
         </div>
         <div class="login-wrapper">
             <?php if ($this->session->flashdata('success') != '') { ?>

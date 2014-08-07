@@ -14,6 +14,14 @@ class dashboard extends CI_Controller {
     }
 
     public function index() {
+        $option = array();
+        $option['tomailid'] = 'soyab@blackidsolutions.com';
+        $option['subject'] = 'Hello';
+        $option['message'] = 'Hi Testing mail';
+        echo '<pre>';
+        print_r(send_mail($option));
+        echo '</pre>';
+        exit();
         switch ($this->session_data->role) {
             case 1:
                 $this->getSuperAdminDashboard();

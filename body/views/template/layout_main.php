@@ -124,7 +124,7 @@
 
                         setTimeout(function() {
                             checkNotification(data.lastid);
-                        }, 10000);
+                        }, <?php echo $this->config->item('notification_timer'); ?>);
                         
                     }
                 });
@@ -146,7 +146,7 @@
             <div class="top-navbar">
                 <div class="top-navbar-inner">
                     <div class="logo-brand">
-                        <a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="MYLUDOSPORT"><img src="<?php echo IMG_URL; ?>myludosport_logo.png" alt="My Ludosport logo"></a>
+                        <a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="MYLUDOSPORT"><img src="<?php echo IMG_URL . $this->config->item('main_logo'); ?>" alt="<?php echo $this->config->item('app_name'); ?>" class="logo"></a>
                     </div>
 
                     <div class="top-nav-content">

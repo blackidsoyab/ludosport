@@ -12,7 +12,9 @@
         
         dTable=$('#list_data').dataTable({
             "bProcessing": true,
-            'iDisplayLength': 10,
+            "aLengthMenu": [ [<?php echo $this->config->item('data_table_length'); ?>], [<?php echo $this->config->item('data_table_length'); ?>] ],
+            'iDisplayLength': <?php $lengths = explode(',', $this->config->item('data_table_length'));
+echo $lengths[0]; ?>,
             "bServerSide" : true,
             "aoColumns": [
                 {"sClass": "vetrical-middle"},{"sClass": "vetrical-middle text-center"},{"bSortable": false, "sClass": "text-center"},{"bSortable": false, "sClass": "vetrical-middle text-center"}

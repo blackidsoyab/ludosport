@@ -2,7 +2,9 @@
     $(document).ready(function() {
         $('#list_data').dataTable({
             "bProcessing": true,
-            'iDisplayLength': 10,
+            "aLengthMenu": [ [<?php echo $this->config->item('data_table_length'); ?>], [<?php echo $this->config->item('data_table_length'); ?>] ],
+            'iDisplayLength': <?php $lengths = explode(',', $this->config->item('data_table_length'));
+echo $lengths[0]; ?>,
             "bServerSide" : true,
             "aoColumns": [
                 {"sClass": ""},{"bSortable": false, "sClass": "text-center"}
