@@ -137,5 +137,8 @@ $route['pending_student/save_trial_lesson'] = "dashboard/pendingStudnetSaveTrail
 //Profile
 $route['change_password'] = "profiles/changePassword";
 $route['check_current_password'] = "ajax/checkCurrentPassword";
+
+//System Setting
+$route['system_setting/(:any)'] = "systemsettings/viewSystemSetting/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

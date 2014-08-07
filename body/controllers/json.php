@@ -253,7 +253,7 @@ class json extends CI_Controller {
                 $temp_arr[] = $aRow['total_students'];
             }
 
-            $temp_arr[] = (float)$aRow['fee1'] + ((int)$aRow['total_students'] * (float)$aRow['fee2']);
+            $temp_arr[] = (float) $aRow['fee1'] + ((int) $aRow['total_students'] * (float) $aRow['fee2']);
 
             $str = NULL;
             if (hasPermission('academies', 'editAcademy')) {
@@ -401,7 +401,7 @@ class json extends CI_Controller {
         } else if ($this->session_data->role == '5') {
             $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0' . $where;
         }
-        
+
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {

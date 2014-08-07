@@ -81,6 +81,13 @@ $lang['reset_password'] = 'Reset Password';
 $lang['back_to_login'] = 'Back to Login';
 $lang['welcome_to_reset_password'] = 'Reset Password';
 
+//System Setting
+$lang['system_setting'] = 'System Setting';
+$lang['setting'] = 'Setting';
+$lang['value'] = 'Value';
+$lang['general'] = 'General';
+$lang['mail'] = 'Mail';
+
 //Profile
 $lang['profile'] = 'Profilo';
 $lang['my_profile'] = 'il mio Profilo';

@@ -172,6 +172,11 @@ function createPermissionArray() {
                 'addCity' => array('name' => 'Add'),
                 'editCity' => array('name' => 'Edit'),
                 'deleteCity' => array('name' => 'Delete'),
+        )),
+        'systemsettings' => array(
+            'name' => 'System Setting',
+            'hasChild' => array(
+                'viewSystemSetting' => array('name' => 'Edit')
         ))
     );
 

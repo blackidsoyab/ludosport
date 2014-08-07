@@ -332,6 +332,20 @@
                                 </ul>
                             </li>
                         <?php } ?>
+
+                        <?php if (hasPermission('systemsettings', 'viewSystemSetting')) { ?>
+                            <li class="<?php echo ($page == 'system_setting') ? 'active selected' : ''; ?>">
+                                <a href="javascript:;" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('system_setting'); ?>">
+                                    <i class="fa fa-wrench icon-sidebar"></i>
+                                    <i class="fa fa-angle-right chevron-icon-sidebar"></i>
+                                    <?php echo $this->lang->line('system_setting'); ?>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="<?php echo base_url() . 'system_setting/general'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('general'); ?>"><?php echo $this->lang->line('general'), ' ', $this->lang->line('setting'); ?></a></li>
+                                    <li><a href="<?php echo base_url() . 'system_setting/mail'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('mail'); ?>"><?php echo $this->lang->line('mail'), ' ', $this->lang->line('setting'); ?></a></li>
+                                </ul>
+                            </li>
+                        <?php } ?>
                     <?php } ?>
                 </ul>
             </div>
