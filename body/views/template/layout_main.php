@@ -32,9 +32,12 @@
         <link href="<?php echo PLUGIN_URL; ?>slider/slider.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href="<?php echo CSS_URL; ?>jquery.confirm.css" rel="stylesheet" />
+        <link href="<?php echo PLUGIN_URL; ?>validator/bootstrapValidator.css" />
+
 
         <script src="<?php echo JS_URL; ?>jquery.min.js"></script>
         <script src="<?php echo JS_URL; ?>jquery.validate.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>validator//bootstrapValidator.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>datatable/js/jquery.dataTables.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>datatable/js/bootstrap.datatable.js"></script>
         <script src="<?php echo JS_URL; ?>jquery.confirm.js" type="text/javascript"></script>
@@ -266,6 +269,11 @@
                     <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('dashboard'); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a></li>
 
                     <?php if ($session->status == 'A') { ?>
+
+                        <?php if (hasPermission('messages', 'viewMessage')) { ?>
+                            <li class="<?php echo ($page == 'message') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'message'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('message'); ?>"><i class="fa fa-envelope icon-sidebar"></i><?php echo $this->lang->line('message'); ?></a></li>
+                        <?php } ?>
+
                         <li class="static"><?php echo $this->lang->line('activity'); ?></li>
 
                         <?php if (hasPermission('academies', 'viewAcademy')) { ?>

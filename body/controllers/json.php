@@ -667,4 +667,43 @@ class json extends CI_Controller {
         exit();
     }
 
+    public function getMessagesJsonData($type = 'inbox') {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('CONCAT (subject,"&", message) AS mess');
+        $this->datatable->eColumns = array('messages.id', 'reply_of', 'from_id', 'to_id', 'messages.status', 'CONCAT(firstname," ",lastname) as sender', 'messages.timestamp', 'avtar');
+        $this->datatable->sIndexColumn = "messages.id";
+        $this->datatable->sTable = " messages, users";
+        if ($type == 'inbox') {
+            $this->datatable->myWhere = ' WHERE to_id = ' . $this->session_data->id . ' AND messages.status IN ("U", "R") AND users.id=messages.from_id';
+        } else if ($type == 'sent') {
+            $this->datatable->myWhere = ' WHERE from_id = ' . $this->session_data->id . ' AND messages.status IN ("U", "R") AND users.id=messages.to_id ORDER BY messages.timestamp DESC';
+        } else if ($type == 'draft') {
+            $this->datatable->myWhere = ' WHERE  messages.status="D" AND from_id = ' . $this->session_data->id . ' AND users.id=messages.from_id';
+        } else if ($type == 'trash') {
+            $this->datatable->myWhere = ' WHERE messages.status="T" AND (from_id = ' . $this->session_data->id . '  OR to_id=' . $this->session_data->id . ')AND users.id=messages.from_id ORDER BY messages.timestamp DESC';
+        }
+
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $str = '';
+            $mess = explode('&', $aRow['mess']);
+            if ($type == 'inbox' && $aRow['status'] == 'U') {
+                $str = 'read';
+            }
+            $temp_arr[] = '<a href="' . base_url() . 'message/read/' . $aRow['id'] . '" class="list-group-item mail-list ' . $str . '">
+        <input type="checkbox" class="i-grey-flat" value="' . $aRow['id'] . '">
+        <img src="' . IMG_URL . 'user_avtar/no_avatar.jpg" class="avatar img-circle" alt="Avatar">
+        <span class="name">' . ucwords($aRow['sender']) . '</span>
+        <span class="subject">' . character_limiter($mess[0], 50) . '</span>
+        <span class="time">' . date('d-m-Y', strtotime($aRow['timestamp'])) . '</span>
+    </a>';
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
 }

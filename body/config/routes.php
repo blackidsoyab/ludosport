@@ -140,5 +140,15 @@ $route['check_current_password'] = "ajax/checkCurrentPassword";
 
 //System Setting
 $route['system_setting/(:any)'] = "systemsettings/viewSystemSetting/$1";
+
+//Message System
+$route['message/compose'] = "messages/composeMessage";
+$route['message/compose/(:any)'] = "messages/composeMessage/$1";
+$route['message/draft'] = "messages/draftMessage";
+$route['message/sent'] = "messages/sentMessage";
+$route['message/trash'] = "messages/trashMessage";
+$route['message/read/(:num)'] = "messages/readMessage/$1";
+$route['message/reply/(:num)'] = "messages/replyMessage/$1";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
