@@ -270,9 +270,7 @@
 
                     <?php if ($session->status == 'A') { ?>
 
-                        <?php if (hasPermission('messages', 'viewMessage')) { ?>
-                            <li class="<?php echo ($page == 'message') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'message'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('message'); ?>"><i class="fa fa-envelope icon-sidebar"></i><?php echo $this->lang->line('message'); ?></a></li>
-                        <?php } ?>
+                        <li class="<?php echo ($page == 'message') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'message'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('message'); ?>"><i class="fa fa-envelope icon-sidebar"></i><?php echo $this->lang->line('message'); ?></a></li>
 
                         <li class="static"><?php echo $this->lang->line('activity'); ?></li>
 

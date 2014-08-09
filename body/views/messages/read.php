@@ -14,7 +14,7 @@
         </div>
         <div id="<?php echo 'read-mail-' . $message->id; ?>" class="border-bottom collapse <?php echo ($id == $message->id) ? 'in' : ''; ?>">
             <div class="panel-body">
-                <?php echo ($message->message); ?>
+                <?php echo $message->message; ?>
             </div>
         </div>
     </div>

@@ -11,9 +11,14 @@ class messages extends CI_Controller {
         parent::__construct();
         $this->layout->setField('page_title', $this->lang->line('message'));
         $this->session_data = $this->session->userdata('user_session');
+
+        if ($this->session_data->status == 'P') {
+            $this->session->set_flashdata('error', 'You dont have permission to see it :-/ Please contact Admin');
+            redirect(base_url() . 'denied', 'refresh');
+        }
     }
 
-    function _sidebarData() {
+    private function _sidebarData() {
         $message = new Message();
 
         $data['count_inbox'] = $message->where(array('to_id' => $this->session_data->id, 'status' => 'U'))->get()->result_count();
@@ -30,7 +35,7 @@ class messages extends CI_Controller {
         return $data;
     }
 
-    function viewMessage() {
+    public function viewMessage() {
         $data = $this->_sidebarData();
         $data['view_title'] = 'Message Inbox';
         $data['message_box'] = 'inbox';
@@ -38,7 +43,7 @@ class messages extends CI_Controller {
         $this->layout->view('messages/sidebar', $data);
     }
 
-    function composeMessage($type = 'single') {
+    public function composeMessage($type = 'single') {
         if ($this->input->post() !== false) {
             foreach ($this->input->post('to_id') as $to) {
                 $message = new Message();
@@ -63,12 +68,12 @@ class messages extends CI_Controller {
             $data = $this->_sidebarData();
             $data['view_title'] = 'Compose Message';
             $data['type'] = $type;
-            $data['message_all_types'] = $this->getMessageType();
+            $data['message_all_types'] = $this->_getMessageType();
 
             if ($type == 'single') {
-                $data['users'] = $this->getUsersForMessage();
+                $data['users'] = $this->_getUsersForMessage();
             } else if ($type == 'group') {
-                $data['groups'] = $this->getGroupsForMessage();
+                $data['groups'] = $this->_getGroupsForMessage();
             }
 
             $data['message_page_layout'] = $this->load->view('messages/compose', $data, true);
@@ -76,13 +81,13 @@ class messages extends CI_Controller {
         }
     }
 
-    function getMessageType() {
+    private function _getMessageType() {
         if ($this->session_data->id == 1 || $this->session_data->id == 2) {
             return array('single', 'group');
         }
     }
 
-    function getUsersForMessage() {
+    private function _getUsersForMessage() {
         if ($this->session_data->id == 1 || $this->session_data->id == 2) {
             $users = new User();
             $users->where(array('status' => 'A', 'id >' => '1'))->get();
@@ -90,7 +95,7 @@ class messages extends CI_Controller {
         }
     }
 
-    function getGroupsForMessage() {
+    private function _getGroupsForMessage() {
         if ($this->session_data->id == 1 || $this->session_data->id == 2) {
             $roles = new Role();
             $array = array();
@@ -100,7 +105,7 @@ class messages extends CI_Controller {
         }
     }
 
-    function draftMessage() {
+    public function draftMessage() {
         $data = $this->_sidebarData();
         $data['view_title'] = 'Draft';
         $data['message_box'] = 'draft';
@@ -108,7 +113,7 @@ class messages extends CI_Controller {
         $this->layout->view('messages/sidebar', $data);
     }
 
-    function sentMessage() {
+    public function sentMessage() {
         $data = $this->_sidebarData();
         $data['view_title'] = 'Sent Items';
         $data['message_box'] = 'sent';
@@ -116,7 +121,7 @@ class messages extends CI_Controller {
         $this->layout->view('messages/sidebar', $data);
     }
 
-    function trashMessage() {
+    public function trashMessage() {
         $data = $this->_sidebarData();
         $data['view_title'] = 'Trash';
         $data['message_box'] = 'trash';
@@ -124,11 +129,12 @@ class messages extends CI_Controller {
         $this->layout->view('messages/sidebar', $data);
     }
 
-    function readMessage($id) {
-        $data = $this->_sidebarData();
+    public function readMessage($id) {
         $message = new Message();
         $result = $message->getMessageForReading($id);
         if ($result !== FALSE) {
+            $message->where('id', $id)->update('status', 'R');
+            $data = $this->_sidebarData();
             $data['id'] = $id;
             $data['view_title'] = 'Read Message';
             $data['messages_data'] = $result;
@@ -140,7 +146,7 @@ class messages extends CI_Controller {
         }
     }
 
-    function replyMessage($id) {
+    public function replyMessage($id) {
         $data = $this->_sidebarData();
         $message = new Message();
         $result_1 = $message->getMessageForReading($id);

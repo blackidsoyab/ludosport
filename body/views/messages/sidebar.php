@@ -14,25 +14,19 @@
         <div class="row">
             <div class="col-sm-4 col-md-3">
                 <div class="list-group primary square no-border">
-                    <?php if (hasPermission('messages', 'composeMessage')) { ?>
-                        <a href="<?php echo base_url() . 'message/compose'; ?>" class="list-group-item btn btn-primary <?php echo ($page == 'compose') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('compose'), ' ', $this->lang->line('message'); ?>"><?php echo $this->lang->line('compose'), ' ', $this->lang->line('message'); ?></a>
-                    <?php } ?>
+
+                    <a href="<?php echo base_url() . 'message/compose'; ?>" class="list-group-item btn btn-primary <?php echo ($page == 'compose') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('compose'), ' ', $this->lang->line('message'); ?>"><?php echo $this->lang->line('compose'), ' ', $this->lang->line('message'); ?></a>
+
                     <hr class="mail-tab-hr"/>
-                    <?php if (hasPermission('messages', 'viewMessage')) { ?>
-                        <a href="<?php echo base_url() . 'message'; ?>" class="list-group-item <?php echo ($page == 'inbox') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('inbox'); ?>"><?php echo $this->lang->line('inbox'); ?> <span class="badge badge-primary"><?php echo $count_inbox; ?></span></a>
-                    <?php } ?>
 
-                    <?php if (hasPermission('messages', 'sentMessage')) { ?>
-                        <a href="<?php echo base_url() . 'message/sent'; ?>" class="list-group-item <?php echo ($page == 'sent') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('sent'); ?>"><?php echo $this->lang->line('sent'); ?> <span class="badge badge-success"><?php echo $count_sent; ?></span></a>
-                    <?php } ?>
+                    <a href="<?php echo base_url() . 'message'; ?>" class="list-group-item <?php echo ($page == 'inbox') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('inbox'); ?>"><?php echo $this->lang->line('inbox'); ?> <span class="badge badge-primary"><?php echo $count_inbox; ?></span></a>
 
-                    <?php if (hasPermission('messages', 'draftMessage')) { ?>
-                        <a href="<?php echo base_url() . 'message/draft'; ?>" class="list-group-item <?php echo ($page == 'draft') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('draft'); ?>"><?php echo $this->lang->line('draft'); ?> <span class="badge badge-warning"><?php echo $count_draft; ?></span></a>
-                    <?php } ?>
+                    <a href="<?php echo base_url() . 'message/sent'; ?>" class="list-group-item <?php echo ($page == 'sent') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('sent'); ?>"><?php echo $this->lang->line('sent'); ?> <span class="badge badge-success"><?php echo $count_sent; ?></span></a>
 
-                    <?php if (hasPermission('messages', 'trashMessage')) { ?>
-                        <a href="<?php echo base_url() . 'message/trash'; ?>" class="list-group-item <?php echo ($page == 'trash') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('trash'); ?>"><?php echo $this->lang->line('trash'); ?> <span class="badge badge-danger"><?php echo $count_trash; ?></span></a>
-                    <?php } ?>
+                    <a href="<?php echo base_url() . 'message/draft'; ?>" class="list-group-item <?php echo ($page == 'draft') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('draft'); ?>"><?php echo $this->lang->line('draft'); ?> <span class="badge badge-warning"><?php echo $count_draft; ?></span></a>
+
+                    <a href="<?php echo base_url() . 'message/trash'; ?>" class="list-group-item <?php echo ($page == 'trash') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('trash'); ?>"><?php echo $this->lang->line('trash'); ?> <span class="badge badge-danger"><?php echo $count_trash; ?></span></a>
+
                 </div>
             </div>
             <div class="col-sm-8 col-md-9">

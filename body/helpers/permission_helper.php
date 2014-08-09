@@ -177,15 +177,6 @@ function createPermissionArray() {
             'name' => 'System Setting',
             'hasChild' => array(
                 'viewSystemSetting' => array('name' => 'Edit')
-        )),
-        'messages' => array(
-            'name' => 'Messages',
-            'hasChild' => array(
-                'composeMessage' => array('name' => 'Compose'),
-                'viewMessage' => array('name' => 'Inbox'),
-                'sentMessage' => array('name' => 'Sent'),
-                'draftMessage' => array('name' => 'Draft'),
-                'trashMessage' => array('name' => 'Trash'),
         ))
     );
 
