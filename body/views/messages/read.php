@@ -19,6 +19,8 @@
         </div>
     </div>
 <?php } ?>
-<div class="box-reply">
-    <a href="<?php echo base_url() . 'message/reply/' . $messages_data[0]->id; ?>">Reply</a>
-</div>
+<?php if ($messages_data[0]->type == 'single') { ?>
+    <div class="box-reply">
+        <a href="<?php echo base_url() . 'message/reply/' . $messages_data[0]->id; ?>">Reply</a>
+    </div>
+<?php } ?>

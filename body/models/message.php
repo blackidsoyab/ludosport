@@ -16,7 +16,7 @@ class Message extends DataMapper {
 
     function getMessageForReading($id) {
         global $arr;
-        $sql = $this->db->query("select messages.id, reply_of, from_id, to_id, subject, message, messages.status, CONCAT(firstname,' ',lastname) as sender, messages.timestamp, avtar from messages, users WHERE users.id=messages.from_id AND messages.id ='" . $id . "' AND (from_id ='" . $this->session_data->id . "' OR to_id='" . $this->session_data->id . "')");
+        $sql = $this->db->query("select messages.id, type, reply_of, from_id, to_id, subject, message, messages.status, CONCAT(firstname,' ',lastname) as sender, messages.timestamp, avtar from messages, users WHERE users.id=messages.from_id AND messages.id ='" . $id . "' AND (from_id ='" . $this->session_data->id . "' OR FIND_IN_SET(" . $this->session_data->id . ", to_id) >0)");
         if ($sql->num_rows() > 0) {
             $result = $sql->result();
             $arr[] = $result[0];
@@ -28,7 +28,7 @@ class Message extends DataMapper {
     }
 
     function getMessageForReplying($id) {
-        $sql = $this->db->query("select messages.id, reply_of, from_id, to_id, subject, message, messages.status, CONCAT(firstname,' ',lastname) as sender, messages.timestamp, avtar from messages, users WHERE users.id=messages.from_id AND messages.id ='" . $id . "' AND to_id='" . $this->session_data->id . "'");
+        $sql = $this->db->query("select messages.id, type, reply_of, from_id, to_id, subject, message, messages.status, CONCAT(firstname,' ',lastname) as sender, messages.timestamp, avtar from messages, users WHERE users.id=messages.from_id AND messages.id ='" . $id . "' AND FIND_IN_SET(" . $this->session_data->id . ", to_id) >0");
         if ($sql->num_rows() > 0) {
             $result = $sql->result();
             return $result[0];

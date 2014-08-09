@@ -97,6 +97,28 @@ class User extends DataMapper {
         }
     }
 
+    function getUsersByIdsRole($role_id) {
+        $where = NULL;
+        if (is_array($role_id)) {
+            foreach ($role_id as $id) {
+                $where .= " OR FIND_IN_SET('" . $id . "', role_id) > 0";
+            }
+        } else {
+            $where .= " OR FIND_IN_SET('" . $role_id . "', role_id) > 0";
+        }
+
+        $this->db->_protect_identifiers = false;
+        $this->db->select('id');
+        $this->db->from('users');
+        $this->db->where(substr($where, 4));
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return MultiArrayToSinlgeArray($res->result_array());
+        } else {
+            return false;
+        }
+    }
+
 }
 
 ?>

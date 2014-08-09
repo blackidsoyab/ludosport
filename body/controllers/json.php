@@ -674,7 +674,7 @@ class json extends CI_Controller {
         $this->datatable->sIndexColumn = "messages.id";
         $this->datatable->sTable = " messages, users";
         if ($type == 'inbox') {
-            $this->datatable->myWhere = ' WHERE to_id = ' . $this->session_data->id . ' AND messages.status IN ("U", "R") AND users.id=messages.from_id';
+            $this->datatable->myWhere = ' WHERE FIND_IN_SET(' . $this->session_data->id . ', to_id) >0 AND messages.status IN ("U", "R") AND users.id=messages.from_id';
         } else if ($type == 'sent') {
             $this->datatable->myWhere = ' WHERE from_id = ' . $this->session_data->id . ' AND messages.status IN ("U", "R") AND users.id=messages.to_id ORDER BY messages.timestamp DESC';
         } else if ($type == 'draft') {

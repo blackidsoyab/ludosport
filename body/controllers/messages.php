@@ -50,7 +50,11 @@ class messages extends CI_Controller {
                 $message->type = $this->input->post('message_type');
                 $message->reply_of = $this->input->post('reply_of');
                 $message->from_id = $this->session_data->id;
-                $message->to_id = $to;
+                if ($this->input->post('message_type') == 'single') {
+                    $message->to_id = $to;
+                } else {
+                    $message->to_id = implode(',', $this->_getIdsForGroup($to));
+                }
                 $message->subject = $this->input->post('subject');
                 $message->message = $this->input->post('message');
                 if ($this->input->post('action') == 'send') {
@@ -102,6 +106,13 @@ class messages extends CI_Controller {
             $array['data'] = $roles->where(array('id >' => '1'))->get();
             $array['filed'] = $this->session_data->language . '_role_name';
             return $array;
+        }
+    }
+
+    private function _getIdsForGroup($id) {
+        if ($this->session_data->id == 1 || $this->session_data->id == 2) {
+            $user = new User();
+            return $user->getUsersByIdsRole($id);
         }
     }
 
