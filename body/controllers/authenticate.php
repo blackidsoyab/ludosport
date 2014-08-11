@@ -42,7 +42,6 @@ class authenticate extends CI_Controller {
                 $user_data->language = 'en';
                 $user_data->all_roles = $roles;
                 $user_data->role = $roles[0];
-                $user_data->permissions = $user->userRoleByID($user->id, $roles[0]);
                 $user_data->status = $user->status;
                 $newdata = array('user_session' => $user_data);
                 $this->session->set_userdata($newdata);

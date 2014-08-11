@@ -15,10 +15,12 @@ function getPermmissionID($action) {
 
 function hasPermission($controller, $method) {
     $data = get_instance()->session->userdata('user_session');
+    $user = new User();
+    $permissions = $user->userRoleByID($data->id, $data->role);
     if ($data->id == 1) {
         return TRUE;
     } else {
-        if (is_array($data->permissions) && array_key_exists($controller, $data->permissions) && in_array($method, $data->permissions[$controller])) {
+        if (is_array($permissions) && array_key_exists($controller, $permissions) && in_array($method, $permissions[$controller])) {
             return TRUE;
         } else {
             return FALSE;
@@ -28,8 +30,9 @@ function hasPermission($controller, $method) {
 
 function printPermission($key, $array, $parent_key, $given_permission) {
     $str = '';
+    $name = NULL;
     if (!is_null($parent_key)) {
-        $str .= 'name="perm[' . $parent_key . '][]"';
+        $name = 'name="perm[' . $parent_key . '][]"';
         if (is_array($given_permission) && array_key_exists($parent_key, $given_permission) && in_array($key, $given_permission[$parent_key])) {
             $str .= ' checked="checked"';
         }
@@ -41,7 +44,11 @@ function printPermission($key, $array, $parent_key, $given_permission) {
 
     foreach ($array as $k => $v) {
         if ($k != 'hasChild') {
-            return '<li><input type="checkbox" value="' . $key . '"' . $str . '/><span>' . $v . '</span>';
+            $type = array_key_exists('type', $array) ? $array['type'] : 'checkbox';
+            $name = array_key_exists('key', $array) ? 'name = "' . $array['key'] . '" ' : $name;
+            return '<li><input type="' . $type . '" value="' . $key . '"' . $name . $str . '/><span>' . $v . '</span>';
+        } else {
+            break;
         }
     }
 }
@@ -181,37 +188,40 @@ function createPermissionArray() {
         'messages' => array(
             'name' => 'Message',
             'hasChild' => array(
-                'single' => array('name' => 'Single',
-                    'hasChild' => array(
-                        'admin' => array('name' => 'Admin'),
-                        'rector' => array('name' => 'Rector'),
-                        'dean' => array('name' => 'Dean'),
-                        'teacher' => array('name' => 'Teacher'),
-                        'sinlge_clan' => array('name' => 'Clan',
-                            'hasChild' => array(
-                                'all' => array('name' => 'All'),
-                                'belong_to' => array('name' => 'Belongs'))
-                        ),
-                        'student' => array('name' => 'Student'),
-                )),
-                'group' => array('name' => 'Group',
-                    'hasChild' => array(
-                        'admin' => array('name' => 'Admin'),
-                        'rector' => array('name' => 'Rector'),
-                        'dean' => array('name' => 'Dean'),
-                        'teacher' => array('name' => 'Teacher'),
-                        'group_clan' => array('name' => 'Clan',
-                            'hasChild' => array(
-                                'all' => array('name' => 'All'),
-                                'belong_to' => array('name' => 'Belongs'))
-                        ),
-                        'student' => array('name' => 'Student'),
-                ))
+                'single' => array(
+                    'name' => 'Single',
+                    'key' => "perm[messages][single_message]",
+                    'hasChild' => getRolesForMessage('single_message')
+                ),
+                'group' => array(
+                    'name' => 'Group',
+                    'key' => "perm[messages][group_message]",
+                    'hasChild' => getRolesForMessage('group_message')
+                )
             )
         )
     );
 
     return $permission;
+}
+
+function getRolesForMessage($type) {
+    $data = get_instance()->session->userdata('user_session');
+    $roles = new Role();
+    $roles->where('id >', 1)->get();
+    foreach ($roles as $value) {
+        $temp[$value->id] = array(
+            'name' => $value->{$data->language . '_role_name'},
+            'key' => "perm[messages][$type][$value->id][]",
+            'hasChild' => array(
+                '0' => array('name' => 'None', 'type' => 'radio', 'key' => "perm[messages][$type][$value->id]"),
+                '1' => array('name' => 'All', 'type' => 'radio', 'key' => "perm[messages][$type][$value->id]"),
+                '2' => array('name' => 'Releated', 'type' => 'radio', 'key' => "perm[messages][$type][$value->id]")
+            )
+        );
+    }
+
+    return $temp;
 }
 
 ?>

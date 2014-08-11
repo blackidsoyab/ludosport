@@ -90,30 +90,39 @@ class messages extends CI_Controller {
     }
 
     private function _getMessageType() {
-        return $this->session_data->permissions;
+        $user = new User();
+        $permissions = $user->userRoleByID($this->session_data->id, $this->session_data->role);
+        if (!is_null($permissions)) {
+            return $permissions['messages'];
+        } else {
+            return array('single');
+        }
     }
 
     private function _getUsersForMessage() {
-        echo '<pre>';
-        print_r($this->session_data->permissions['single']);
-        echo '</pre>';
-        exit();
-        if ($this->session_data->id == 1 || $this->session_data->id == 2) {
+        if ($this->session_data->id == 1) {
             $users = new User();
             return $users->getUserBelowRole($this->session_data->role);
-        } else if ($this->session_data->id == 3) {
-            $users = new User();
-            return $users->getUserBelowRole($this->session_data->role);
+        } else {
+            $user = new User();
+            $permissions = $user->userRoleByID($this->session_data->id, $this->session_data->role);
+            $user_roles = array_filter($permissions['messages']['single_message']);
+            echo '<pre>';
+            print_r($user_roles);
+            echo '</pre>';
+            exit();
         }
     }
 
     private function _getGroupsForMessage() {
-        if ($this->session_data->id == 1 || $this->session_data->id == 2) {
+        if ($this->session_data->id == 1) {
             $roles = new Role();
             $array = array();
             $array['data'] = $roles->where(array('id >' => '1'))->get();
             $array['filed'] = $this->session_data->language . '_role_name';
             return $array;
+        } else {
+            
         }
     }
 

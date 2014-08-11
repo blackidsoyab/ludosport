@@ -22,7 +22,7 @@ class ajax extends CI_Controller {
     function setNewLanguage($lang_prefix) {
         $session = $this->session->userdata('user_session');
         $session->language = $lang_prefix;
-        $newdata = array('user_session' => $session,);
+        $newdata = array('user_session' => $session);
         $this->session->set_userdata($newdata);
         echo TRUE;
     }
@@ -30,18 +30,9 @@ class ajax extends CI_Controller {
     function setNewRole($role_id) {
         $session = $this->session->userdata('user_session');
         if (in_array($role_id, $session->all_roles)) {
-            $user_data = new stdClass();
-            $user_data->id = $session->id;
-            $user_data->name = $session->name;
-            $user_data->avtar = $session->avtar;
-            $user_data->language = $session->language;
-            $user_data->all_roles = $session->all_roles;
-            $user_data->role = $role_id;
-            $user = new User();
-            $user_data->permissions = $user->userRoleByID($session->id, $role_id);
-            $user_data->status = $session->status;
-            $newdata = array('user_session' => $user_data);
-            $this->session->unset_userdata('user_session');
+            $session = $this->session->userdata('user_session');
+            $session->role = $role_id;
+            $newdata = array('user_session' => $session);
             $this->session->set_userdata($newdata);
             echo TRUE;
         } else {

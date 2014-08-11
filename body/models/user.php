@@ -15,7 +15,7 @@ class User extends DataMapper {
 
     function userRoleByID($user_id, $role_id) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('users.permission AS extra, roles.permission AS inherit');
+        $this->db->select('roles.permission AS inherit');
         $this->db->from('users');
         $this->db->join('roles', 'FIND_IN_SET(roles.id, users.role_id) > 0');
         $this->db->where('users.id', $user_id);
@@ -23,11 +23,7 @@ class User extends DataMapper {
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             $result = $res->result();
-            if (!is_null($result[0]->extra)) {
-                return unserialize($result[0]->extra);
-            } else {
-                return unserialize($result[0]->inherit);
-            }
+            return unserialize($result[0]->inherit);
         } else {
             return false;
         }
@@ -90,7 +86,22 @@ class User extends DataMapper {
         $this->db->where('roles.id >', $user_role_id);
         $this->db->where('users.status', 'A');
         $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
 
+    function getUsersForMessage($role_id) {
+        $this->db->_protect_identifiers = false;
+        $session = get_instance()->session->userdata('user_session');
+        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, ' . $session->language . '_role_name');
+        $this->db->from('users');
+        $this->db->join('roles', 'FIND_IN_SET(users.role_id, roles.id) >0');
+        $this->db->where_in('users.role_id', $role_id);
+        $this->db->where('users.status', 'A');
+        $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();
         } else {

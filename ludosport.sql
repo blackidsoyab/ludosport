@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 09, 2014 at 06:13 PM
+-- Generation Time: Aug 11, 2014 at 06:43 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.13
 
@@ -350,27 +350,21 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `type` enum('single','group') NOT NULL DEFAULT 'single',
   `reply_of` int(11) NOT NULL DEFAULT '0',
   `from_id` int(11) NOT NULL,
-  `to_id` int(11) NOT NULL,
+  `to_id` varchar(255) DEFAULT NULL,
   `subject` varchar(255) NOT NULL,
-  `message` text NOT NULL,
-  `status` enum('R','U','D','S','T') NOT NULL DEFAULT 'D',
+  `message` longtext NOT NULL,
+  `from_status` enum('S','D','T','E') NOT NULL DEFAULT 'D',
+  `to_status` enum('R','U','T','E') NOT NULL DEFAULT 'U',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `messages`
 --
 
-INSERT INTO `messages` (`id`, `type`, `reply_of`, `from_id`, `to_id`, `subject`, `message`, `status`, `timestamp`) VALUES
-(1, 'single', 0, 1, 4, 'Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing Testing ', '<p>Hello .......</p>', 'U', '2014-08-09 06:19:09'),
-(2, 'single', 0, 1, 7, 'Setting', '<p>setting dear .......</p>', 'U', '2014-08-09 06:19:09'),
-(3, 'single', 0, 1, 8, 'Hello', '<p>Hello dear are you .......</p>', 'U', '2014-08-09 06:19:09'),
-(4, 'single', 0, 1, 3, 'User Registration', '<p>fadfadfasdfadfasdf</p>', 'D', '2014-08-09 09:15:40'),
-(5, 'single', 0, 1, 2, 'Hi', '<p><span></span>How are you .......</p>', 'U', '2014-08-09 09:23:27'),
-(7, 'single', 5, 2, 1, 'Reply of : Hi', '<p>I am Fine .....</p>', 'R', '2014-08-09 10:41:14'),
-(8, 'single', 7, 1, 2, 'Reply of : Reply of : Hi', '<p>Shu bhai dehka to nathi .....</p>', 'U', '2014-08-09 11:33:22'),
-(10, 'single', 5, 2, 1, 'Reply of : Hi', '<p>Hello</p>', 'R', '2014-08-09 12:14:57'),
-(11, 'group', 0, 2, 3, 'Attention', '<p>You all have to pay 10,000 $ fine .</p><p>No arguments.</p>', 'U', '2014-08-09 12:27:36');
+INSERT INTO `messages` (`id`, `type`, `reply_of`, `from_id`, `to_id`, `subject`, `message`, `from_status`, `to_status`, `timestamp`) VALUES
+(1, 'group', 0, 1, '3,5,6', 'Attention', '<p>Hello .....</p>', 'S', 'R', '2014-08-11 06:43:11'),
+(2, 'single', 0, 1, '13', 'Hello', '<p>HI</p>', 'S', 'U', '2014-08-11 06:48:30');
 
 -- --------------------------------------------------------
 
@@ -493,8 +487,8 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 INSERT INTO `roles` (`id`, `en_role_name`, `it_role_name`, `permission`, `is_delete`, `user_id`, `timestamp`) VALUES
 (1, 'Super Admin', 'Super Amministratore', NULL, '0', 0, '2014-07-17 07:04:55'),
-(2, 'Admin', 'Admin', 'a:16:{s:5:"roles";a:4:{i:0;s:8:"viewRole";i:1;s:7:"addRole";i:2;s:8:"editRole";i:3;s:10:"deleteRole";}s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:4:{i:0;s:11:"viewAcademy";i:1;s:10:"addAcademy";i:2;s:11:"editAcademy";i:3;s:13:"deleteAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:6:"levels";a:4:{i:0;s:9:"viewLevel";i:1;s:8:"addLevel";i:2;s:9:"editLevel";i:3;s:11:"deleteLevel";}s:5:"clans";a:8:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:22:"listTrialLessonRequest";i:7;s:24:"changeStatusTrialStudent";}s:15:"eventcategories";a:4:{i:0;s:17:"viewEventcategory";i:1;s:16:"addEventcategory";i:2;s:17:"editEventcategory";i:3;s:19:"deleteEventcategory";}s:6:"events";a:4:{i:0;s:9:"viewEvent";i:1;s:8:"addEvent";i:2;s:9:"editEvent";i:3;s:11:"deleteEvent";}s:7:"batches";a:4:{i:0;s:9:"viewBatch";i:1;s:8:"addBatch";i:2;s:9:"editBatch";i:3;s:11:"deleteBatch";}s:8:"profiles";a:3:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";}s:6:"emails";a:2:{i:0;s:9:"viewEmail";i:1;s:9:"editEmail";}s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:9:"viewState";i:1;s:8:"addState";i:2;s:9:"editState";i:3;s:11:"deleteState";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}s:14:"systemsettings";a:1:{i:0;s:17:"viewSystemSetting";}s:8:"messages";a:5:{i:0;s:14:"composeMessage";i:1;s:11:"viewMessage";i:2;s:11:"sentMessage";i:3;s:12:"draftMessage";i:4;s:12:"trashMessage";}}', '0', 2, '2014-07-17 07:27:03'),
-(3, 'Rector', 'Rettore', 'a:6:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:6:"levels";a:4:{i:0;s:9:"viewLevel";i:1;s:8:"addLevel";i:2;s:9:"editLevel";i:3;s:11:"deleteLevel";}s:5:"clans";a:8:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:22:"listTrialLessonRequest";i:7;s:24:"changeStatusTrialStudent";}s:8:"profiles";a:3:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";}}', '0', 2, '2014-07-17 10:13:22'),
+(2, 'Admin', 'Admin', 'a:16:{s:5:"roles";a:4:{i:0;s:8:"viewRole";i:1;s:7:"addRole";i:2;s:8:"editRole";i:3;s:10:"deleteRole";}s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:4:{i:0;s:11:"viewAcademy";i:1;s:10:"addAcademy";i:2;s:11:"editAcademy";i:3;s:13:"deleteAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:6:"levels";a:4:{i:0;s:9:"viewLevel";i:1;s:8:"addLevel";i:2;s:9:"editLevel";i:3;s:11:"deleteLevel";}s:5:"clans";a:8:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:22:"listTrialLessonRequest";i:7;s:24:"changeStatusTrialStudent";}s:15:"eventcategories";a:4:{i:0;s:17:"viewEventcategory";i:1;s:16:"addEventcategory";i:2;s:17:"editEventcategory";i:3;s:19:"deleteEventcategory";}s:6:"events";a:4:{i:0;s:9:"viewEvent";i:1;s:8:"addEvent";i:2;s:9:"editEvent";i:3;s:11:"deleteEvent";}s:7:"batches";a:4:{i:0;s:9:"viewBatch";i:1;s:8:"addBatch";i:2;s:9:"editBatch";i:3;s:11:"deleteBatch";}s:8:"profiles";a:3:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";}s:6:"emails";a:2:{i:0;s:9:"viewEmail";i:1;s:9:"editEmail";}s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:9:"viewState";i:1;s:8:"addState";i:2;s:9:"editState";i:3;s:11:"deleteState";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}s:14:"systemsettings";a:1:{i:0;s:17:"viewSystemSetting";}s:8:"messages";a:1:{s:14:"single_message";a:3:{i:2;s:1:"0";i:3;s:1:"1";i:4;s:1:"2";}}}', '0', 1, '2014-07-17 07:27:03'),
+(3, 'Rector', 'Rettore', 'a:11:{s:5:"users";a:2:{i:0;s:8:"viewUser";i:1;s:7:"addUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:6:"levels";a:1:{i:0;s:9:"viewLevel";}s:5:"clans";a:5:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:22:"listTrialLessonRequest";i:4;s:24:"changeStatusTrialStudent";}s:15:"eventcategories";a:4:{i:0;s:17:"viewEventcategory";i:1;s:16:"addEventcategory";i:2;s:17:"editEventcategory";i:3;s:19:"deleteEventcategory";}s:6:"events";a:4:{i:0;s:9:"viewEvent";i:1;s:8:"addEvent";i:2;s:9:"editEvent";i:3;s:11:"deleteEvent";}s:8:"profiles";a:3:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";}s:8:"messages";a:2:{i:0;s:6:"single";i:1;s:5:"group";}s:6:"single";a:2:{i:0;s:5:"admin";i:1;s:6:"rector";}s:5:"group";a:1:{i:0;s:4:"dean";}}', '0', 1, '2014-07-17 10:13:22'),
 (4, 'Dean', 'Decano', 'a:6:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:3:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";}s:8:"profiles";a:3:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";}s:8:"messages";a:5:{i:0;s:14:"composeMessage";i:1;s:11:"viewMessage";i:2;s:11:"sendMessage";i:3;s:12:"draftMessage";i:4;s:12:"trashMessage";}}', '0', 1, '2014-07-17 10:13:43'),
 (5, 'Teacher', 'Insegnante', 'a:4:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:8:"profiles";a:3:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";}}', '0', 2, '2014-07-17 10:16:50'),
 (6, 'Pupil', 'Pupil', 'a:4:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:8:"profiles";a:3:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";}}', '0', 2, '2014-07-17 10:17:08');
@@ -855,7 +849,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `notifications`
 --
