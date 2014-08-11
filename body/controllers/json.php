@@ -670,17 +670,17 @@ class json extends CI_Controller {
     public function getMessagesJsonData($type = 'inbox') {
         $this->load->library('datatable');
         $this->datatable->aColumns = array('CONCAT (subject,"&", message) AS mess');
-        $this->datatable->eColumns = array('messages.id', 'reply_of', 'from_id', 'to_id', 'messages.status', 'CONCAT(firstname," ",lastname) as sender', 'messages.timestamp', 'avtar');
+        $this->datatable->eColumns = array('messages.id', 'reply_of', 'from_id', 'to_id', 'messages.from_status', 'messages.to_status', 'CONCAT(firstname," ",lastname) as sender', 'messages.timestamp', 'avtar', 'type');
         $this->datatable->sIndexColumn = "messages.id";
         $this->datatable->sTable = " messages, users";
         if ($type == 'inbox') {
-            $this->datatable->myWhere = ' WHERE FIND_IN_SET(' . $this->session_data->id . ', to_id) >0 AND messages.status IN ("U", "R") AND users.id=messages.from_id';
+            $this->datatable->myWhere = ' WHERE FIND_IN_SET(' . $this->session_data->id . ', to_id) >0 AND messages.to_status IN ("U", "R") AND users.id=messages.from_id';
         } else if ($type == 'sent') {
-            $this->datatable->myWhere = ' WHERE from_id = ' . $this->session_data->id . ' AND messages.status IN ("U", "R") AND users.id=messages.to_id ORDER BY messages.timestamp DESC';
+            $this->datatable->myWhere = ' WHERE from_id = ' . $this->session_data->id . ' AND messages.from_status IN ("S") AND users.id=messages.to_id ORDER BY messages.timestamp DESC';
         } else if ($type == 'draft') {
-            $this->datatable->myWhere = ' WHERE  messages.status="D" AND from_id = ' . $this->session_data->id . ' AND users.id=messages.from_id';
+            $this->datatable->myWhere = ' WHERE  messages.from_status="D" AND from_id = ' . $this->session_data->id . ' AND users.id=messages.from_id';
         } else if ($type == 'trash') {
-            $this->datatable->myWhere = ' WHERE messages.status="T" AND (from_id = ' . $this->session_data->id . '  OR to_id=' . $this->session_data->id . ')AND users.id=messages.from_id ORDER BY messages.timestamp DESC';
+            $this->datatable->myWhere = ' WHERE (from_id = ' . $this->session_data->id . ' AND messages.from_status="T") OR (to_id=' . $this->session_data->id . ' AND messages.to_status="T")AND users.id=messages.from_id ORDER BY messages.timestamp DESC';
         }
 
         $this->datatable->datatable_process();
@@ -689,14 +689,19 @@ class json extends CI_Controller {
             $temp_arr = array();
             $str = '';
             $mess = explode('&', $aRow['mess']);
-            if ($type == 'inbox' && $aRow['status'] == 'U') {
+            if ($type == 'inbox' && $aRow['to_status'] == 'U') {
                 $str = 'read';
             }
-            $temp_arr[] = '<a href="' . base_url() . 'message/read/' . $aRow['id'] . '" class="list-group-item mail-list ' . $str . '">
-        <input type="checkbox" class="i-grey-flat" value="' . $aRow['id'] . '">
+
+            if ($aRow['type'] == 'single') {
+                $type_label = '<span class="label label-info">Single</span>';
+            } else {
+                $type_label = '<span class="label label-warning">Group</span>';
+            }
+            $temp_arr[] = '<a class="list-group-item message-delete-checkbox pull-left"><input type="checkbox" value="' . $type . '_' . $aRow['id'] . '" name="message_id[]"></a><a href="' . base_url() . 'message/read/' . $aRow['id'] . '" class="list-group-item mail-list ' . $str . '">
         <img src="' . IMG_URL . 'user_avtar/no_avatar.jpg" class="avatar img-circle" alt="Avatar">
         <span class="name">' . ucwords($aRow['sender']) . '</span>
-        <span class="subject">' . character_limiter($mess[0], 50) . '</span>
+        <span class="subject">' . $type_label . character_limiter($mess[0], 50) . '</span>
         <span class="time">' . date('d-m-Y', strtotime($aRow['timestamp'])) . '</span>
     </a>';
 

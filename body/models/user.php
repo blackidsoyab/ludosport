@@ -88,6 +88,7 @@ class User extends DataMapper {
         $this->db->from('users');
         $this->db->join('roles', 'FIND_IN_SET(users.role_id, roles.id) >0');
         $this->db->where('roles.id >', $user_role_id);
+        $this->db->where('users.status', 'A');
         $res = $this->db->get();
 
         if ($res->num_rows > 0) {

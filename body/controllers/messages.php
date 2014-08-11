@@ -21,13 +21,13 @@ class messages extends CI_Controller {
     private function _sidebarData() {
         $message = new Message();
 
-        $data['count_inbox'] = $message->where(array('to_id' => $this->session_data->id, 'status' => 'U'))->get()->result_count();
+        $data['count_inbox'] = $message->where(array('to_id' => $this->session_data->id, 'to_status' => 'U'))->get()->result_count();
         unset($message);
         $message = new Message();
-        $data['count_sent'] = $message->where('from_id', $this->session_data->id)->where_in('status', array('U', 'R'))->get()->result_count();
+        $data['count_sent'] = $message->where('from_id', $this->session_data->id)->where('from_status', 'S')->get()->result_count();
         unset($message);
         $message = new Message();
-        $data['count_draft'] = $message->where(array('from_id' => $this->session_data->id, 'status' => 'D'))->get()->result_count();
+        $data['count_draft'] = $message->where(array('from_id' => $this->session_data->id, 'from_status' => 'D'))->get()->result_count();
         unset($message);
         $message = new Message();
         $data['count_trash'] = $message->coutTrashCount();
@@ -58,11 +58,15 @@ class messages extends CI_Controller {
                 $message->subject = $this->input->post('subject');
                 $message->message = $this->input->post('message');
                 if ($this->input->post('action') == 'send') {
-                    $status = 'U';
+                    $from_status = 'S';
+                    $to_status = 'U';
                 } else if ($this->input->post('action') == 'draft') {
-                    $status = 'D';
+                    $from_status = 'D';
+                    $to_status = 'D';
                 }
-                $message->status = $status;
+
+                $message->from_status = $from_status;
+                $message->to_status = $to_status;
                 $message->save();
             }
 
@@ -88,14 +92,18 @@ class messages extends CI_Controller {
     private function _getMessageType() {
         if ($this->session_data->id == 1 || $this->session_data->id == 2) {
             return array('single', 'group');
+        } else if ($this->session_data->id == 3) {
+            return array('single', 'group');
         }
     }
 
     private function _getUsersForMessage() {
         if ($this->session_data->id == 1 || $this->session_data->id == 2) {
             $users = new User();
-            $users->where(array('status' => 'A', 'id >' => '1'))->get();
-            return $users;
+            return $users->getUserBelowRole($this->session_data->role);
+        } else if ($this->session_data->id == 3) {
+            $users = new User();
+            return $users->getUserBelowRole($this->session_data->role);
         }
     }
 
@@ -144,7 +152,7 @@ class messages extends CI_Controller {
         $message = new Message();
         $result = $message->getMessageForReading($id);
         if ($result !== FALSE) {
-            $message->where('id', $id)->update('status', 'R');
+            $message->where('id', $id)->update('to_status', 'R');
             $data = $this->_sidebarData();
             $data['id'] = $id;
             $data['view_title'] = 'Read Message';
@@ -173,11 +181,15 @@ class messages extends CI_Controller {
                 $message->subject = 'Reply of : ' . $result_2->subject;
                 $message->message = $this->input->post('message');
                 if ($this->input->post('action') == 'send') {
-                    $status = 'U';
+                    $from_status = 'S';
+                    $to_status = 'U';
                 } else if ($this->input->post('action') == 'draft') {
-                    $status = 'D';
+                    $from_status = 'D';
+                    $to_status = 'D';
                 }
-                $message->status = $status;
+
+                $message->from_status = $from_status;
+                $message->to_status = $to_status;
                 $message->save();
 
                 $this->session->set_flashdata('success', $this->lang->line('message_sent_success'));
@@ -194,6 +206,36 @@ class messages extends CI_Controller {
             $this->session->set_flashdata('error', $this->lang->line('message_reply_error'));
             redirect(base_url() . 'message', 'refresh');
         }
+    }
+
+    public function deleteMessage() {
+        if (count($this->input->post('message_id') > 0)) {
+            foreach ($this->input->post('message_id') as $message_id) {
+                $message_part = explode('_', $message_id);
+                $message = new Message();
+                if ($message_part[0] == 'inbox') {
+                    $message->where(array('type' => 'single', 'to_id' => $this->session_data->id, 'id' => $message_part[1]))->update('to_status', 'T');
+                } else if ($message_part[0] == 'sent') {
+                    $message->where(array('type' => 'single', 'from_id' => $this->session_data->id, 'id' => $message_part[1]))->update('from_status', 'T');
+                } else if ($message_part[0] == 'draft') {
+                    $message->where(array('type' => 'single', 'from_id' => $this->session_data->id, 'id' => $message_part[1]))->update('from_status', 'T');
+                } else if ($message_part[0] == 'trash') {
+                    $message->where(array('type' => 'single', 'id' => $message_part[1]))->get();
+
+                    if ($message->from_id == $this->session_data->id && $message->to_status == 'E') {
+                        $message->where(array('type' => 'single', 'id' => $message_part[1]))->delete();
+                    } else if ($message->to_id == $this->session_data->id && $message->from_status == 'E') {
+                        $message->where(array('type' => 'single', 'id' => $message_part[1]))->delete();
+                    } else if ($message->to_id == $this->session_data->id) {
+                        $message->where(array('type' => 'single', 'id' => $message_part[1]))->update('to_status', 'E');
+                    } else if ($message->from_id == $this->session_data->id) {
+                        $message->where(array('type' => 'single', 'id' => $message_part[1]))->update('from_status', 'E');
+                    }
+                }
+            }
+        }
+
+        echo TRUE;
     }
 
 }

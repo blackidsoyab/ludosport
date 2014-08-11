@@ -149,6 +149,7 @@ $route['message/sent'] = "messages/sentMessage";
 $route['message/trash'] = "messages/trashMessage";
 $route['message/read/(:num)'] = "messages/readMessage/$1";
 $route['message/reply/(:num)'] = "messages/replyMessage/$1";
+$route['message/delete'] = "messages/deleteMessage";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

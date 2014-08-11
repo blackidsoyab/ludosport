@@ -128,3 +128,23 @@ a.list-group-item:hover, a.list-group-item:focus {
 .list-group-item.mail-list.read {
     background: #F5F7FA;
 }
+
+.list-group-item.mail-list{
+    padding-left: 0px;
+    padding-right: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: relative;
+}
+
+.list-group-item {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+.message-delete-checkbox{
+    width: 1px;
+    padding: 19px;
+}

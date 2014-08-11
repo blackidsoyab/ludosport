@@ -65,9 +65,11 @@
         <div class="form-group">
             <select data-placeholder="<?php echo $this->lang->line('to'); ?> ..." class="form-control chosen-select required" multiple id="to_message_list" name="to_id[]" data-bv-excluded="false">
                 <?php if ($type == 'single') { ?>
-                    <?php foreach ($users as $user) { ?>
-                        <option value=<?php echo $user->id; ?>><?php echo $user->firstname . ' ' . $user->lastname; ?></option>
-                    <?php } ?>
+                    <?php
+                    foreach ($users as $user) {
+                        ?>
+                        <option value="<?php echo $user->id; ?>"><?php echo $user->name . ' [' . ucwords($user->{$session->language . '_role_name'}) . ']'; ?></option>
+                    <?php } ?>  
                 <?php } ?>
                 <?php if ($type == 'group') { ?>
                     <?php foreach ($groups['data'] as $value) { ?>

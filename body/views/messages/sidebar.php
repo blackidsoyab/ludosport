@@ -5,7 +5,7 @@
                 <p class="h1"><?php echo @$view_title; ?></p>
             </div>
             <div class="btn-group pull-right">
-                <button data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                <button data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" type="button" class="btn btn-danger" id="delete_messages_button"><i class="fa fa-trash-o"></i></button>
             </div>
         </div>
     </div>
