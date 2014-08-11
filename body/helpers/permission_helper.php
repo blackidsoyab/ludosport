@@ -177,7 +177,38 @@ function createPermissionArray() {
             'name' => 'System Setting',
             'hasChild' => array(
                 'viewSystemSetting' => array('name' => 'Edit')
-        ))
+        )),
+        'messages' => array(
+            'name' => 'Message',
+            'hasChild' => array(
+                'single' => array('name' => 'Single',
+                    'hasChild' => array(
+                        'admin' => array('name' => 'Admin'),
+                        'rector' => array('name' => 'Rector'),
+                        'dean' => array('name' => 'Dean'),
+                        'teacher' => array('name' => 'Teacher'),
+                        'clan' => array('name' => 'Clan',
+                            'hasChild' => array(
+                                'all' => array('name' => 'All'),
+                                'belong_to' => array('name' => 'Belongs'))
+                        ),
+                        'student' => array('name' => 'Student'),
+                )),
+                'group' => array('name' => 'Group',
+                    'hasChild' => array(
+                        'admin' => array('name' => 'Admin'),
+                        'rector' => array('name' => 'Rector'),
+                        'dean' => array('name' => 'Dean'),
+                        'teacher' => array('name' => 'Teacher'),
+                        'clan' => array('name' => 'Clan',
+                            'hasChild' => array(
+                                'all' => array('name' => 'All'),
+                                'belong_to' => array('name' => 'Belongs'))
+                        ),
+                        'student' => array('name' => 'Student'),
+                ))
+            )
+        )
     );
 
     return $permission;

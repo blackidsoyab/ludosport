@@ -90,14 +90,14 @@ class messages extends CI_Controller {
     }
 
     private function _getMessageType() {
-        if ($this->session_data->id == 1 || $this->session_data->id == 2) {
-            return array('single', 'group');
-        } else if ($this->session_data->id == 3) {
-            return array('single', 'group');
-        }
+        return $this->session_data->permissions;
     }
 
     private function _getUsersForMessage() {
+        echo '<pre>';
+        print_r($this->session_data->permissions['single']);
+        echo '</pre>';
+        exit();
         if ($this->session_data->id == 1 || $this->session_data->id == 2) {
             $users = new User();
             return $users->getUserBelowRole($this->session_data->role);

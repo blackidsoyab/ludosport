@@ -148,3 +148,11 @@ a.list-group-item:hover, a.list-group-item:focus {
     width: 1px;
     padding: 19px;
 }
+
+li.role-selection.open .chevron-icon-sidebar{
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}

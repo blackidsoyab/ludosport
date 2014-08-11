@@ -15,6 +15,7 @@ $lang['delete'] = 'Cancellare';
 $lang['cancel'] = 'Disdire';
 $lang['actions'] = 'Azioni';
 $lang['select'] = 'Selezionare';
+$lang['selected'] = 'Selected';
 $lang['name'] = 'Nome';
 $lang['total'] = 'Total';
 $lang['information'] = 'Informazioni';
@@ -26,7 +27,7 @@ $lang['see_all'] = 'See all';
 $lang['view_all'] = 'View all';
 $lang['compulsory_note'] = 'Campi contrassegnati con <span class="text-danger">*</span> sono obbligatori.';
 
-//Messages
+//Operation's Messages
 $lang['add_data_success'] = 'Data added successfully';
 $lang['add_data_error'] = 'Not able to add data';
 $lang['edit_data_success'] = 'Data updated successfully';
@@ -34,6 +35,9 @@ $lang['edit_data_error'] = 'Not able to edit data';
 $lang['delete_data_success'] = 'Data delete successfully';
 $lang['delete_data_error'] = 'Not able to delete data';
 $lang['password_change_success'] = 'Password Updated successfully';
+$lang['message_sent_success'] = 'Message Sent Successfully';
+$lang['message_read_error'] = 'Error in reading Mail';
+$lang['message_reply_error'] = 'Error in replying Mail';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';
@@ -207,4 +211,18 @@ $lang['degrees'] = 'Gradi';
 $lang['honors'] = 'Onoreficenze';
 $lang['qualifications'] = 'Qualifiche';
 $lang['securities'] = 'Titoli';
+
+//Message System
+$lang['message'] = 'Message';
+$lang['compose'] = 'Compose';
+$lang['inbox'] = 'Inbox';
+$lang['sent'] = 'Sent';
+$lang['draft'] = 'Draft';
+$lang['trash'] = 'Trash';
+$lang['search'] = 'Search';
+$lang['browse_file'] = 'Browse File';
+$lang['to'] = 'To';
+$lang['send'] = 'Send';
+$lang['subject'] = 'Subject';
+$lang['discard'] = 'Discard';
 ?>

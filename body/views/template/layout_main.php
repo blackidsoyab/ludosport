@@ -159,9 +159,9 @@
 
                         <ul class="nav-user navbar-right">
                             <?php if (count($session->all_roles) > 1) { ?>
-                                <li class="dropdown pull-left">
+                                <li class="dropdown pull-left role-selection">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <?php echo $this->lang->line('role'); ?>,&nbsp;<strong><?php echo getRoleName($session->role); ?></strong>
+                                        <?php echo $this->lang->line('selected'), ' ', $this->lang->line('role'), ' : '; ?>&nbsp;<strong><?php echo getRoleName($session->role); ?>&nbsp;&nbsp;<i class="fa fa-angle-right chevron-icon-sidebar"></i></strong>
                                     </a>
                                     <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
                                         <?php foreach ($session->all_roles as $role) { ?>

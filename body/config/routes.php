@@ -124,7 +124,7 @@ $route['checkNotification/(:num)'] = "ajax/checkNotification/$1";
 $route['load_more_notification/(:num)'] = "ajax/notificationPanigate/$1";
 
 //Dashboard
-$route['dashboard'] = "dashboard";
+$route['dashboard'] = "dashboard/index";
 $route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
 $route['change_role/(:any)'] = "ajax/setNewRole/$1";
 $route['mark_all_notification_read'] = "ajax/markAllNotificationRead";

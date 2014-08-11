@@ -15,6 +15,7 @@ $lang['delete'] = 'Delete';
 $lang['cancel'] = 'Cancel';
 $lang['actions'] = 'Actions';
 $lang['select'] = 'Select';
+$lang['selected'] = 'Selected';
 $lang['name'] = 'Name';
 $lang['total'] = 'Total';
 $lang['information'] = 'Informations';
@@ -219,7 +220,6 @@ $lang['sent'] = 'Sent';
 $lang['draft'] = 'Draft';
 $lang['trash'] = 'Trash';
 $lang['search'] = 'Search';
-
 $lang['browse_file'] = 'Browse File';
 $lang['to'] = 'To';
 $lang['send'] = 'Send';
