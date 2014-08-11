@@ -9,7 +9,7 @@
         <link href="<?php echo CSS_URL; ?>bootstrap.min.css" rel="stylesheet">
         <link href="<?php echo CSS_URL; ?>style.css" rel="stylesheet">
         <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">
-        <?php if ($session->role >= 2 && $session->role <= 5) { ?>
+        <?php if ($session->role >= 1 && $session->role <= 5) { ?>
             <link href="<?php echo CSS_URL . $session->role . '.css'; ?>" rel="stylesheet">
         <?php } ?>
         <link href="<?php echo CSS_URL; ?>style-responsive.css" rel="stylesheet">

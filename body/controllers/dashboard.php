@@ -44,7 +44,17 @@ class dashboard extends CI_Controller {
     }
 
     function getSuperAdminDashboard() {
-        $this->layout->view('dashboard/superadmin');
+        $academy = new Academy();
+        $data['total_academies'] = $academy->count();
+
+        $school = new School();
+        $data['total_schools'] = $school->count();
+
+        $class = new Clan();
+        $data['total_instructors'] = $class->getTotalTeachers();
+        $data['total_students'] = $class->getTotalStudents();
+
+        $this->layout->view('dashboard/superadmin', $data);
     }
 
     function getAdminDashboard() {

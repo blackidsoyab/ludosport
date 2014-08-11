@@ -187,7 +187,7 @@ function createPermissionArray() {
                         'rector' => array('name' => 'Rector'),
                         'dean' => array('name' => 'Dean'),
                         'teacher' => array('name' => 'Teacher'),
-                        'clan' => array('name' => 'Clan',
+                        'sinlge_clan' => array('name' => 'Clan',
                             'hasChild' => array(
                                 'all' => array('name' => 'All'),
                                 'belong_to' => array('name' => 'Belongs'))
@@ -200,7 +200,7 @@ function createPermissionArray() {
                         'rector' => array('name' => 'Rector'),
                         'dean' => array('name' => 'Dean'),
                         'teacher' => array('name' => 'Teacher'),
-                        'clan' => array('name' => 'Clan',
+                        'group_clan' => array('name' => 'Clan',
                             'hasChild' => array(
                                 'all' => array('name' => 'All'),
                                 'belong_to' => array('name' => 'Belongs'))

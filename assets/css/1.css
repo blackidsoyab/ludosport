@@ -1,0 +1,8 @@
+.tiles-information a {
+    color: rgb(55, 188, 155);
+}
+
+.tiles-information a:focus, .tiles-information a:hover {
+    color: rgb(55, 188, 155);
+}
+
