@@ -93,124 +93,124 @@ function loopPermissionArray($array, $given_permission = null, $parent_key = nul
 
 function createPermissionArray() {
     $permission = array(
-        /*  'roles' => array(
-          'name' => 'Role',
-          'hasChild' => array(
-          'viewRole' => array('name' => 'List'),
-          'addRole' => array('name' => 'Add'),
-          'editRole' => array('name' => 'Edit'),
-          'deleteRole' => array('name' => 'Delete'),
-          )),
-          'users' => array(
-          'name' => 'User',
-          'hasChild' => array(
-          'viewUser' => array('name' => 'List'),
-          'addUser' => array('name' => 'Add'),
-          'editUser' => array('name' => 'Edit'),
-          'deleteUser' => array('name' => 'Delete'),
-          )),
-          'academies' => array(
-          'name' => 'Academy',
-          'hasChild' => array(
-          'viewAcademy' => array('name' => 'List'),
-          'addAcademy' => array('name' => 'Add'),
-          'editAcademy' => array('name' => 'Edit'),
-          'deleteAcademy' => array('name' => 'Delete'),
-          )),
-          'schools' => array(
-          'name' => 'School',
-          'hasChild' => array(
-          'viewSchool' => array('name' => 'List'),
-          'addSchool' => array('name' => 'Add'),
-          'editSchool' => array('name' => 'Edit'),
-          'deleteSchool' => array('name' => 'Delete'),
-          )),
-          'levels' => array(
-          'name' => 'Level',
-          'hasChild' => array(
-          'viewLevel' => array('name' => 'List'),
-          'addLevel' => array('name' => 'Add'),
-          'editLevel' => array('name' => 'Edit'),
-          'deleteLevel' => array('name' => 'Delete'),
-          )),
-          'clans' => array(
-          'name' => 'Classes',
-          'hasChild' => array(
-          'viewClan' => array('name' => 'List'),
-          'addClan' => array('name' => 'Add'),
-          'editClan' => array('name' => 'Edit'),
-          'deleteClan' => array('name' => 'Delete'),
-          'clanTeacherList' => array('name' => 'Teacher List'),
-          'clanStudentList' => array('name' => 'Student List'),
-          'listTrialLessonRequest' => array('name' => 'List Trial Lesson Request'),
-          'changeStatusTrialStudent' => array('name' => 'Approve / Unapprove Request'),
-          )),
-          'eventcategories' => array(
-          'name' => 'Event Categories',
-          'hasChild' => array(
-          'viewEventcategory' => array('name' => 'List'),
-          'addEventcategory' => array('name' => 'Add'),
-          'editEventcategory' => array('name' => 'Edit'),
-          'deleteEventcategory' => array('name' => 'Delete'),
-          )),
-          'events' => array(
-          'name' => 'Events',
-          'hasChild' => array(
-          'viewEvent' => array('name' => 'List'),
-          'addEvent' => array('name' => 'Add'),
-          'editEvent' => array('name' => 'Edit'),
-          'deleteEvent' => array('name' => 'Delete'),
-          )),
-          'batches' => array(
-          'name' => 'Batches',
-          'hasChild' => array(
-          'viewBatch' => array('name' => 'List'),
-          'addBatch' => array('name' => 'Add'),
-          'editBatch' => array('name' => 'Edit'),
-          'deleteBatch' => array('name' => 'Delete'),
-          )),
-          'profiles' => array(
-          'name' => 'Profile',
-          'hasChild' => array(
-          'viewProfile' => array('name' => 'View'),
-          'editProfile' => array('name' => 'Edit'),
-          'changePassword' => array('name' => 'Change Password'),
-          )),
-          'emails' => array(
-          'name' => 'Email Templates',
-          'hasChild' => array(
-          'viewEmail' => array('name' => 'List'),
-          'editEmail' => array('name' => 'Edit'),
-          )),
-          'countries' => array(
-          'name' => 'Country',
-          'hasChild' => array(
-          'viewCountry' => array('name' => 'List'),
-          'addCountry' => array('name' => 'Add'),
-          'editCountry' => array('name' => 'Edit'),
-          'deleteCountry' => array('name' => 'Delete'),
-          )),
-          'states' => array(
-          'name' => 'State',
-          'hasChild' => array(
-          'viewState' => array('name' => 'List'),
-          'addState' => array('name' => 'Add'),
-          'editState' => array('name' => 'Edit'),
-          'deleteState' => array('name' => 'Delete'),
-          )),
-          'cities' => array(
-          'name' => 'City',
-          'hasChild' => array(
-          'viewCity' => array('name' => 'List'),
-          'addCity' => array('name' => 'Add'),
-          'editCity' => array('name' => 'Edit'),
-          'deleteCity' => array('name' => 'Delete'),
-          )),
-          'systemsettings' => array(
-          'name' => 'System Setting',
-          'hasChild' => array(
-          'viewSystemSetting' => array('name' => 'Edit')
-          )), */
+        'roles' => array(
+            'name' => 'Role',
+            'hasChild' => array(
+                'viewRole' => array('name' => 'List'),
+                'addRole' => array('name' => 'Add'),
+                'editRole' => array('name' => 'Edit'),
+                'deleteRole' => array('name' => 'Delete'),
+        )),
+        'users' => array(
+            'name' => 'User',
+            'hasChild' => array(
+                'viewUser' => array('name' => 'List'),
+                'addUser' => array('name' => 'Add'),
+                'editUser' => array('name' => 'Edit'),
+                'deleteUser' => array('name' => 'Delete'),
+        )),
+        'academies' => array(
+            'name' => 'Academy',
+            'hasChild' => array(
+                'viewAcademy' => array('name' => 'List'),
+                'addAcademy' => array('name' => 'Add'),
+                'editAcademy' => array('name' => 'Edit'),
+                'deleteAcademy' => array('name' => 'Delete'),
+        )),
+        'schools' => array(
+            'name' => 'School',
+            'hasChild' => array(
+                'viewSchool' => array('name' => 'List'),
+                'addSchool' => array('name' => 'Add'),
+                'editSchool' => array('name' => 'Edit'),
+                'deleteSchool' => array('name' => 'Delete'),
+        )),
+        'levels' => array(
+            'name' => 'Level',
+            'hasChild' => array(
+                'viewLevel' => array('name' => 'List'),
+                'addLevel' => array('name' => 'Add'),
+                'editLevel' => array('name' => 'Edit'),
+                'deleteLevel' => array('name' => 'Delete'),
+        )),
+        'clans' => array(
+            'name' => 'Classes',
+            'hasChild' => array(
+                'viewClan' => array('name' => 'List'),
+                'addClan' => array('name' => 'Add'),
+                'editClan' => array('name' => 'Edit'),
+                'deleteClan' => array('name' => 'Delete'),
+                'clanTeacherList' => array('name' => 'Teacher List'),
+                'clanStudentList' => array('name' => 'Student List'),
+                'listTrialLessonRequest' => array('name' => 'List Trial Lesson Request'),
+                'changeStatusTrialStudent' => array('name' => 'Approve / Unapprove Request'),
+        )),
+        'eventcategories' => array(
+            'name' => 'Event Categories',
+            'hasChild' => array(
+                'viewEventcategory' => array('name' => 'List'),
+                'addEventcategory' => array('name' => 'Add'),
+                'editEventcategory' => array('name' => 'Edit'),
+                'deleteEventcategory' => array('name' => 'Delete'),
+        )),
+        'events' => array(
+            'name' => 'Events',
+            'hasChild' => array(
+                'viewEvent' => array('name' => 'List'),
+                'addEvent' => array('name' => 'Add'),
+                'editEvent' => array('name' => 'Edit'),
+                'deleteEvent' => array('name' => 'Delete'),
+        )),
+        'batches' => array(
+            'name' => 'Batches',
+            'hasChild' => array(
+                'viewBatch' => array('name' => 'List'),
+                'addBatch' => array('name' => 'Add'),
+                'editBatch' => array('name' => 'Edit'),
+                'deleteBatch' => array('name' => 'Delete'),
+        )),
+        'profiles' => array(
+            'name' => 'Profile',
+            'hasChild' => array(
+                'viewProfile' => array('name' => 'View'),
+                'editProfile' => array('name' => 'Edit'),
+                'changePassword' => array('name' => 'Change Password'),
+        )),
+        'emails' => array(
+            'name' => 'Email Templates',
+            'hasChild' => array(
+                'viewEmail' => array('name' => 'List'),
+                'editEmail' => array('name' => 'Edit'),
+        )),
+        'countries' => array(
+            'name' => 'Country',
+            'hasChild' => array(
+                'viewCountry' => array('name' => 'List'),
+                'addCountry' => array('name' => 'Add'),
+                'editCountry' => array('name' => 'Edit'),
+                'deleteCountry' => array('name' => 'Delete'),
+        )),
+        'states' => array(
+            'name' => 'State',
+            'hasChild' => array(
+                'viewState' => array('name' => 'List'),
+                'addState' => array('name' => 'Add'),
+                'editState' => array('name' => 'Edit'),
+                'deleteState' => array('name' => 'Delete'),
+        )),
+        'cities' => array(
+            'name' => 'City',
+            'hasChild' => array(
+                'viewCity' => array('name' => 'List'),
+                'addCity' => array('name' => 'Add'),
+                'editCity' => array('name' => 'Edit'),
+                'deleteCity' => array('name' => 'Delete'),
+        )),
+        'systemsettings' => array(
+            'name' => 'System Setting',
+            'hasChild' => array(
+                'viewSystemSetting' => array('name' => 'Edit')
+        )),
         'messages' => array(
             'name' => 'Message',
             'hasChild' => array(
