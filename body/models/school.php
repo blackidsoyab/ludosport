@@ -93,7 +93,7 @@ class School extends DataMapper {
         return array_unique(MultiArrayToSinlgeArray($array));
     }
 
-    function getRelatedDeansByRecotr($rector_id) {
+    function getRelatedDeansByRector($rector_id) {
         $this->db->_protect_identifiers = false;
         $this->db->select('dean_id');
         $this->db->from('schools');

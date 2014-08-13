@@ -256,7 +256,7 @@ class Clan extends DataMapper {
         }
     }
 
-    function getRelatedTeachersByRecotr($rector_id) {
+    function getRelatedTeachersByRector($rector_id) {
         $this->db->_protect_identifiers = false;
         $this->db->select('teacher_id');
         $this->db->from('clans');
@@ -293,7 +293,7 @@ class Clan extends DataMapper {
             return false;
         }
     }
-    
+
     function getRelatedTeachersByTeacher($teacher_id) {
         $this->db->_protect_identifiers = false;
         $this->db->select('c1.teacher_id');
@@ -313,7 +313,7 @@ class Clan extends DataMapper {
             return false;
         }
     }
-    
+
     function getRelatedTeachersByStudent($student_id) {
         $this->db->_protect_identifiers = false;
         $this->db->select('teacher_id');

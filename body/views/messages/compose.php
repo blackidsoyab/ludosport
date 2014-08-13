@@ -57,6 +57,7 @@
     <input type="hidden" value="<?php echo $type; ?>" name="message_type"/>
     <input type="hidden" value="0" name="reply_of"/>
     <div class="col-sm-12">
+
         <?php if (count($message_all_types) > 1) { ?>
             <div class="form-group">
                 <?php foreach ($message_all_types as $all_type) { ?>
@@ -64,8 +65,10 @@
                 <?php } ?>
             </div>
         <?php } ?>
+
         <div class="form-group">
             <select data-placeholder="<?php echo $this->lang->line('to'); ?> ..." class="form-control chosen-select required" multiple id="to_message_list" name="to_id[]" data-bv-excluded="false">
+
                 <?php if ($type == 'single') { ?>
                     <?php
                     foreach ($users as $user) {
@@ -73,9 +76,10 @@
                         <option value="<?php echo $user->id; ?>"><?php echo $user->firstname, ' ', $user->lastname; ?></option>
                     <?php } ?>  
                 <?php } ?>
+
                 <?php if ($type == 'group') { ?>
-                    <?php foreach ($groups['data'] as $value) { ?>
-                        <option value=<?php echo $value->id; ?>><?php echo $value->$groups['filed']; ?></option>
+                    <?php foreach ($groups as $group) { ?>
+                        <option value=<?php echo $group->id; ?>><?php echo $group->name; ?></option>
                     <?php } ?>
                 <?php } ?>
             </select>

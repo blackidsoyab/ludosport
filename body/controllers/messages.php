@@ -13,7 +13,7 @@ class messages extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
 
         if ($this->session_data->status == 'P') {
-            $this->session->set_flashdata('error', 'You dont have permission to see it :-/ Please contact Admin');
+            $this->session->set_flashdata('error', 'You dont have permission!! :-/ Please contact Admin');
             redirect(base_url() . 'denied', 'refresh');
         }
     }
@@ -45,29 +45,11 @@ class messages extends CI_Controller {
 
     public function composeMessage($type = 'single') {
         if ($this->input->post() !== false) {
-            foreach ($this->input->post('to_id') as $to) {
-                $message = new Message();
-                $message->type = $this->input->post('message_type');
-                $message->reply_of = $this->input->post('reply_of');
-                $message->from_id = $this->session_data->id;
-                if ($this->input->post('message_type') == 'single') {
-                    $message->to_id = $to;
-                } else {
-                    $message->to_id = implode(',', $this->_getIdsForGroup($to));
-                }
-                $message->subject = $this->input->post('subject');
-                $message->message = $this->input->post('message');
-                if ($this->input->post('action') == 'send') {
-                    $from_status = 'S';
-                    $to_status = 'U';
-                } else if ($this->input->post('action') == 'draft') {
-                    $from_status = 'D';
-                    $to_status = 'D';
-                }
 
-                $message->from_status = $from_status;
-                $message->to_status = $to_status;
-                $message->save();
+            if ($this->input->post('message_type') == 'single') {
+                $this->_saveSingleMessage();
+            } else if ($this->input->post('message_type') == 'group') {
+                $this->_saveGroupMessage();
             }
 
             $this->session->set_flashdata('success', $this->lang->line('message_sent_success'));
@@ -89,21 +71,94 @@ class messages extends CI_Controller {
         }
     }
 
-    private function _getMessageType() {
+    private function _saveGroupMessage() {
         $user = new User();
         $permissions = $user->userRoleByID($this->session_data->id, $this->session_data->role);
-        if (!empty($permissions) && isset($permissions['messages'])) {
-            $types = array_keys($permissions['messages']);
-
-            if (!is_null($permissions)) {
-                $return = array();
-                foreach ($types as $type) {
-                    $temp = explode('_', $type);
-                    $return[] = $temp[0];
+        foreach ($this->input->post('to_id') as $to) {
+            $message = new Message();
+            $message->type = $this->input->post('message_type');
+            $message->reply_of = $this->input->post('reply_of');
+            $message->from_id = $this->session_data->id;
+            if ($this->input->post('message_type') == 'group') {
+                $to_id = explode('_', $to);
+                if (isset($permissions['messages']['group_message'][$to_id[1]])) {
+                    $what_to_fetch = $permissions['messages']['group_message'][$to_id[1]];
+                } else if (isset($permissions['messages']['group_message']['clans'])) {
+                    $what_to_fetch = $permissions['messages']['group_message']['clans'];
                 }
-                return $return;
-            } else {
-                return array('single');
+                $message->group_id = $to . '_' . $what_to_fetch;
+                $user_ids = $this->_getIdsForGroup($to_id[1], $to_id[0], $what_to_fetch);
+                if (($key = array_search($this->session_data->id, $user_ids)) !== false) {
+                    unset($user_ids[$key]);
+                }
+                $message->to_id = implode(',', $user_ids);
+            }
+            $message->subject = $this->input->post('subject');
+            $message->message = $this->input->post('message');
+            if ($this->input->post('action') == 'send') {
+                $from_status = 'S';
+                $to_status = 'U';
+            } else if ($this->input->post('action') == 'draft') {
+                $from_status = 'D';
+                $to_status = 'D';
+            }
+
+            $message->from_status = $from_status;
+            $message->to_status = $to_status;
+            if (!is_null($message->to_id)) {
+                $message->save();
+            }
+        }
+        return TRUE;
+    }
+
+    private function _saveSingleMessage() {
+        foreach ($this->input->post('to_id') as $to) {
+            $message = new Message();
+            $message->type = $this->input->post('message_type');
+            $message->reply_of = $this->input->post('reply_of');
+            $message->from_id = $this->session_data->id;
+            $message->group_id = 0;
+            if ($this->input->post('message_type') == 'single') {
+                $message->to_id = $to;
+            }
+            $message->subject = $this->input->post('subject');
+            $message->message = $this->input->post('message');
+            if ($this->input->post('action') == 'send') {
+                $from_status = 'S';
+                $to_status = 'U';
+            } else if ($this->input->post('action') == 'draft') {
+                $from_status = 'D';
+                $to_status = 'D';
+            }
+
+            $message->from_status = $from_status;
+            $message->to_status = $to_status;
+            $message->save();
+        }
+
+        return TRUE;
+    }
+
+    private function _getMessageType() {
+        if ($this->session_data->id == 1) {
+            return array('single', 'group');
+        } else {
+            $user = new User();
+            $permissions = $user->userRoleByID($this->session_data->id, $this->session_data->role);
+            if (!empty($permissions) && isset($permissions['messages'])) {
+                $types = array_keys($permissions['messages']);
+
+                if (!is_null($permissions)) {
+                    $return = array();
+                    foreach ($types as $type) {
+                        $temp = explode('_', $type);
+                        $return[] = $temp[0];
+                    }
+                    return $return;
+                } else {
+                    return array('single');
+                }
             }
         }
     }
@@ -159,7 +214,7 @@ class messages extends CI_Controller {
 
         if ($this->session_data->role == 3 && $role_id == 4) {
             $school = new School();
-            $dean_ids = $school->getRelatedDeansByRecotr($this->session_data->id);
+            $dean_ids = $school->getRelatedDeansByRector($this->session_data->id);
 
             $user = new User();
             return $user->getUsersDetails($dean_ids);
@@ -167,7 +222,7 @@ class messages extends CI_Controller {
 
         if ($this->session_data->role == 3 && $role_id == 5) {
             $class = new Clan();
-            $teachers_id = $class->getRelatedTeachersByRecotr($this->session_data->id);
+            $teachers_id = $class->getRelatedTeachersByRector($this->session_data->id);
 
             $user = new User();
             return $user->getUsersDetails($teachers_id);
@@ -175,7 +230,7 @@ class messages extends CI_Controller {
 
         if ($this->session_data->role == 3 && $role_id == 6) {
             $user_detail = new Userdetail();
-            $students_id = $user_detail->getRelatedStudentsByRecotr($this->session_data->id);
+            $students_id = $user_detail->getRelatedStudentsByRector($this->session_data->id);
 
             $user = new User();
             return $user->getUsersDetails($students_id);
@@ -253,7 +308,7 @@ class messages extends CI_Controller {
             return $user->getUsersDetails($students_id);
         }
 
-        /* End Related Users For Deans */
+        /* End Related Users For Teacher */
 
         /* Start Related Users For Student */
 
@@ -296,16 +351,241 @@ class messages extends CI_Controller {
         if ($this->session_data->id == 1) {
             $roles = new Role();
             $array = array();
-            $array['data'] = $roles->where(array('id >' => '1'))->get();
-            $array['filed'] = $this->session_data->language . '_role_name';
+            $roles->where(array('id >' => '1'))->get();
+            foreach ($roles as $value) {
+                $temp = new stdClass();
+                $temp->name = $value->{$this->session_data->language . '_role_name'};
+                $temp->id = strtolower($temp->name) . '_' . $value->id;
+                $array[] = $temp;
+            }
             return $array;
+        } else {
+            $user = new User();
+            $permissions = $user->userRoleByID($this->session_data->id, $this->session_data->role);
+            if (!empty($permissions) && isset($permissions['messages']) && isset($permissions['messages']['group_message'])) {
+                $groups = array_filter($permissions['messages']['group_message']);
+                $roles = new Role();
+                $array = array();
+                foreach ($groups as $role_id => $value) {
+                    if ($role_id != 'clans') {
+                        $roles->where(array('id' => $role_id))->get();
+                        $temp = new stdClass();
+                        $temp->name = $roles->{$this->session_data->language . '_role_name'};
+                        $temp->id = strtolower($temp->name) . '_' . $roles->id;
+                        $array[] = $temp;
+                    } else if ($role_id == 'clans') {
+                        if ($value == 1) {
+                            $clan = new Clan();
+                            foreach ($clan->get() as $value) {
+                                $temp = new stdClass();
+                                $temp->name = $value->{$this->session_data->language . '_class_name'};
+                                $temp->id = 'clans_' . $value->id;
+                                $array[] = $temp;
+                            }
+                        } else {
+
+                            if ($this->session_data->role == 6) {
+                                $user_details = new Userdetail();
+                                $user_details->where('student_master_id', $this->session_data->id)->get();
+                                $clan = new Clan();
+                                $clan->where('id', $user_details->clan_id)->get();
+                                foreach ($clan as $value) {
+                                    $temp = new stdClass();
+                                    $temp->id = 'clans_' . $value->id;
+                                    $temp->name = $value->{$this->session_data->language . '_class_name'};
+                                    $array[] = $temp;
+                                }
+                            }
+
+                            if ($this->session_data->role == 5) {
+                                $clan = new Clan();
+                                $clans = $clan->getClanOfTeacher($this->session_data->id);
+                                foreach ($clans as $value) {
+                                    $temp = new stdClass();
+                                    $temp->id = 'clans_' . $value->id;
+                                    $temp->name = $value->{$this->session_data->language . '_class_name'};
+                                    $array[] = $temp;
+                                }
+                            }
+
+                            if ($this->session_data->role == 4) {
+                                $clan = new Clan();
+                                $clans = $clan->getClanOfDean($this->session_data->id);
+                                foreach ($clans as $value) {
+                                    $temp = new stdClass();
+                                    $temp->id = 'clans_' . $value->id;
+                                    $temp->name = $value->{$this->session_data->language . '_class_name'};
+                                    $array[] = $temp;
+                                }
+                            }
+
+                            if ($this->session_data->role == 3) {
+                                $clan = new Clan();
+                                $clans = $clan->getClanOfRector($this->session_data->id);
+                                foreach ($clans as $value) {
+                                    $temp = new stdClass();
+                                    $temp->id = 'clans_' . $value->id;
+                                    $temp->name = $value->{$this->session_data->language . '_class_name'};
+                                    $array[] = $temp;
+                                }
+                            }
+
+                            if ($this->session_data->role == 2) {
+                                $clan = new Clan();
+                                foreach ($clan->get() as $value) {
+                                    $temp = new stdClass();
+                                    $temp->id = 'clans_' . $value->id;
+                                    $temp->name = $value->{$this->session_data->language . '_class_name'};
+                                    $array[] = $temp;
+                                }
+                            }
+                        }
+                    }
+                }
+                return $array;
+            }
         }
     }
 
-    private function _getIdsForGroup($id) {
-        if ($this->session_data->id == 1 || $this->session_data->id == 2) {
+    private function _getIdsForGroup($group_id, $role, $relation) {
+        if ($this->session_data->id == 1) {
             $user = new User();
-            return $user->getUsersByIdsRole($id);
+            return $user->getUsersByIdsRole($group_id);
+        } else if ($relation == 1) {
+            if ($role == 'admin') {
+                return User::getAdminIds();
+            }
+
+            if ($role == 'rector') {
+                return Academy::getAssignRectorIds();
+            }
+
+            if ($role == 'dean') {
+                return School::getAssignDeanIds();
+            }
+
+            if ($role == 'teacher') {
+                return Clan::getAssignTeacherIds();
+            }
+
+            if ($role == 'pupil') {
+                return Userdetail::getAssingStudentIds();
+            }
+
+            if ($role == 'clans') {
+                return Userdetail::getAssignStudentIdsByCaln($group_id);
+            }
+        } else if ($relation == 2) {
+            /* Start Related Users For Student */
+
+            if ($this->session_data->role == 6 && $role == 'rector') {
+                $academy = new Academy();
+                return $academy->getRelatedRectorsByStudent($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 6 && $role == 'dean') {
+                $school = new School();
+                return $school->getRelatedDeansByStudent($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 6 && $role == 'teacher') {
+                $class = new Clan();
+                return $class->getRelatedTeachersByStudent($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 6 && $role == 'pupil') {
+                $user_detail = new Userdetail();
+                return $user_detail->getRelatedStudentsByStudent($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 6 && $role == 'clans') {
+                return Userdetail::getAssignStudentIdsByCaln($group_id);
+            }
+
+            /* End Related Users For Student */
+
+            /* Start Related Users For Teacher */
+            if ($this->session_data->role == 5 && $role == 'rector') {
+                $academy = new Academy();
+                return $academy->getRelatedRectorsByTeacher($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 5 && $role == 'dean') {
+                $school = new School();
+                return $school->getRelatedDeansByTeacher($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 5 && $role == 'teacher') {
+                $class = new Clan();
+                return $class->getRelatedTeachersByTeacher($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 5 && $role == 'pupil') {
+                $user_detail = new Userdetail();
+                return $user_detail->getRelatedStudentsByTeacher($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 5 && $role == 'clans') {
+                return Userdetail::getAssignStudentIdsByCaln($group_id);
+            }
+
+            /* End Related Users For Teacher */
+
+            /* Start Related Users For Dean */
+            if ($this->session_data->role == 4 && $role == 'rector') {
+                $academy = new Academy();
+                return $academy->getRelatedRectorsByDean($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 4 && $role == 'dean') {
+                $school = new School();
+                return $school->getRelatedDeansByDean($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 4 && $role == 'teacher') {
+                $class = new Clan();
+                return $class->getRelatedTeachersByDean($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 4 && $role == 'pupil') {
+                $user_detail = new Userdetail();
+                return $user_detail->getRelatedStudentsByDean($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 4 && $role == 'clans') {
+                return Userdetail::getAssignStudentIdsByCaln($group_id);
+            }
+
+            /* End Related Users For Dean */
+
+            /* Start Related Users For Dean */
+            if ($this->session_data->role == 3 && $role == 'rector') {
+                $academy = new Academy();
+                return $academy->getRelatedRectorsByRector($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 3 && $role == 'dean') {
+                $school = new School();
+                return $school->getRelatedDeansByRector($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 3 && $role == 'teacher') {
+                $class = new Clan();
+                return $class->getRelatedTeachersByRector($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 3 && $role == 'pupil') {
+                $user_detail = new Userdetail();
+                return $user_detail->getRelatedStudentsByRector($this->session_data->id);
+            }
+
+            if ($this->session_data->role == 3 && $role == 'clans') {
+                return Userdetail::getAssignStudentIdsByCaln($group_id);
+            }
+
+            /* End Related Users For Dean */
+        } else {
+            return FALSE;
         }
     }
 

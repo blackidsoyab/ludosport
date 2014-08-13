@@ -121,7 +121,7 @@ class authenticate extends CI_Controller {
             //Get all the Admins, Rectors, Deans, Teachers
             $ids = array();
             $ids[] = User::getAdminIds();
-            $ids[] = Academy::getAssignRecotrIds();
+            $ids[] = Academy::getAssignRectorIds();
             $ids[] = School::getAssignDeanIds();
             $ids[] = Clan::getAssignTeacherIds();
 

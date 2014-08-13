@@ -247,6 +247,18 @@ function getRolesForMessage($type) {
         );
     }
 
+    if ($type == 'group_message') {
+        $temp['clans'] = array(
+            'name' => 'Clans',
+            'key' => "['messages']['$type']['clans']",
+            'hasChild' => array(
+                '0' => array('name' => 'None', 'type' => 'radio', 'key' => "['messages']['$type']['clans']"),
+                '1' => array('name' => 'All', 'type' => 'radio', 'key' => "['messages']['$type']['clans']"),
+                '2' => array('name' => 'Releated', 'type' => 'radio', 'key' => "['messages']['$type']['clans']")
+            )
+        );
+    }
+
     return $temp;
 }
 

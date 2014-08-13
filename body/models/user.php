@@ -98,8 +98,7 @@ class User extends DataMapper {
 
     function getUserBelowRole($user_role_id) {
         $this->db->_protect_identifiers = false;
-        $session = get_instance()->session->userdata('user_session');
-        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, ' . $session->language . '_role_name');
+        $this->db->select('users.id, firstname, lastname');
         $this->db->from('users');
         $this->db->join('roles', 'FIND_IN_SET(users.role_id, roles.id) >0');
         $this->db->where('roles.id >', $user_role_id);

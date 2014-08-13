@@ -10,7 +10,28 @@ class Userdetail extends DataMapper {
             'join_other_as' => 'id')
     );
 
-    function getRelatedStudentsByRecotr($rector_id) {
+    public static function getAssingStudentIds() {
+        $obj = new Userdetail();
+        $array = array();
+        foreach ($obj->get() as $value) {
+            $array[] = $value->student_master_id;
+        }
+
+        return array_unique($array);
+    }
+
+    public static function getAssignStudentIdsByCaln($clan_id) {
+        $obj = new Userdetail();
+        $obj->where('clan_id', $clan_id)->get();
+        $array = array();
+        foreach ($obj as $value) {
+            $array[] = $value->student_master_id;
+        }
+
+        return array_unique($array);
+    }
+
+    function getRelatedStudentsByRector($rector_id) {
         $this->db->_protect_identifiers = false;
         $this->db->select('student_master_id');
         $this->db->from('userdetails');

@@ -115,7 +115,7 @@ class Academy extends DataMapper {
         return true;
     }
 
-    public static function getAssignRecotrIds() {
+    public static function getAssignRectorIds() {
         $obj = new Academy();
         $array = array();
         foreach ($obj->get() as $value) {
