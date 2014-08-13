@@ -34,18 +34,43 @@ function printPermission($key, $array, $parent_key, $given_permission) {
     if (!is_null($parent_key)) {
         $name = 'name="perm[' . $parent_key . '][]"';
         if (is_array($given_permission) && array_key_exists($parent_key, $given_permission) && in_array($key, $given_permission[$parent_key])) {
-            $str .= ' checked="checked"';
+            $str = ' checked="checked"';
         }
     } else {
         if (is_array($given_permission) && array_key_exists($key, $given_permission)) {
-            $str .= ' checked="checked"';
+            $str = ' checked="checked"';
         }
     }
 
+
     foreach ($array as $k => $v) {
         if ($k != 'hasChild') {
-            $type = array_key_exists('type', $array) ? $array['type'] : 'checkbox';
-            $name = array_key_exists('key', $array) ? 'name = "' . $array['key'] . '" ' : $name;
+            if (array_key_exists('type', $array)) {
+                $type = $array['type'];
+            } else {
+                $type = 'checkbox';
+            }
+
+
+
+            if (array_key_exists('key', $array)) {
+                $name = 'name = "perm' . strip_quotes($array['key']) . '" ';
+
+                $v3 = 'given_permission' . $array['key'];
+                $check = eval('return isset($' . $v3 . ');');
+
+                if ($check) {
+                    if ($type == 'checkbox') {
+                        $str = ' checked="checked"';
+                    } else {
+                        if (eval('return $' . $v3 . ';') == $key) {
+                            $str = ' checked="checked"';
+                        }
+                    }
+                }
+            }
+
+
             return '<li><input type="' . $type . '" value="' . $key . '"' . $name . $str . '/><span>' . $v . '</span>';
         } else {
             break;
@@ -57,6 +82,7 @@ function loopPermissionArray($array, $given_permission = null, $parent_key = nul
     foreach ($array as $key => $value) {
         if (isset($value['hasChild'])) {
             echo printPermission($key, $value, $parent_key, $given_permission), '<ul>';
+            $key = array_key_exists('key', $value['hasChild']) ? $value['hasChild']['key'] : $key;
             loopPermissionArray($value['hasChild'], $given_permission, $key);
             echo '</ul>';
         } else {
@@ -67,135 +93,135 @@ function loopPermissionArray($array, $given_permission = null, $parent_key = nul
 
 function createPermissionArray() {
     $permission = array(
-        'roles' => array(
-            'name' => 'Role',
-            'hasChild' => array(
-                'viewRole' => array('name' => 'List'),
-                'addRole' => array('name' => 'Add'),
-                'editRole' => array('name' => 'Edit'),
-                'deleteRole' => array('name' => 'Delete'),
-        )),
-        'users' => array(
-            'name' => 'User',
-            'hasChild' => array(
-                'viewUser' => array('name' => 'List'),
-                'addUser' => array('name' => 'Add'),
-                'editUser' => array('name' => 'Edit'),
-                'deleteUser' => array('name' => 'Delete'),
-        )),
-        'academies' => array(
-            'name' => 'Academy',
-            'hasChild' => array(
-                'viewAcademy' => array('name' => 'List'),
-                'addAcademy' => array('name' => 'Add'),
-                'editAcademy' => array('name' => 'Edit'),
-                'deleteAcademy' => array('name' => 'Delete'),
-        )),
-        'schools' => array(
-            'name' => 'School',
-            'hasChild' => array(
-                'viewSchool' => array('name' => 'List'),
-                'addSchool' => array('name' => 'Add'),
-                'editSchool' => array('name' => 'Edit'),
-                'deleteSchool' => array('name' => 'Delete'),
-        )),
-        'levels' => array(
-            'name' => 'Level',
-            'hasChild' => array(
-                'viewLevel' => array('name' => 'List'),
-                'addLevel' => array('name' => 'Add'),
-                'editLevel' => array('name' => 'Edit'),
-                'deleteLevel' => array('name' => 'Delete'),
-        )),
-        'clans' => array(
-            'name' => 'Classes',
-            'hasChild' => array(
-                'viewClan' => array('name' => 'List'),
-                'addClan' => array('name' => 'Add'),
-                'editClan' => array('name' => 'Edit'),
-                'deleteClan' => array('name' => 'Delete'),
-                'clanTeacherList' => array('name' => 'Teacher List'),
-                'clanStudentList' => array('name' => 'Student List'),
-                'listTrialLessonRequest' => array('name' => 'List Trial Lesson Request'),
-                'changeStatusTrialStudent' => array('name' => 'Approve / Unapprove Request'),
-        )),
-        'eventcategories' => array(
-            'name' => 'Event Categories',
-            'hasChild' => array(
-                'viewEventcategory' => array('name' => 'List'),
-                'addEventcategory' => array('name' => 'Add'),
-                'editEventcategory' => array('name' => 'Edit'),
-                'deleteEventcategory' => array('name' => 'Delete'),
-        )),
-        'events' => array(
-            'name' => 'Events',
-            'hasChild' => array(
-                'viewEvent' => array('name' => 'List'),
-                'addEvent' => array('name' => 'Add'),
-                'editEvent' => array('name' => 'Edit'),
-                'deleteEvent' => array('name' => 'Delete'),
-        )),
-        'batches' => array(
-            'name' => 'Batches',
-            'hasChild' => array(
-                'viewBatch' => array('name' => 'List'),
-                'addBatch' => array('name' => 'Add'),
-                'editBatch' => array('name' => 'Edit'),
-                'deleteBatch' => array('name' => 'Delete'),
-        )),
-        'profiles' => array(
-            'name' => 'Profile',
-            'hasChild' => array(
-                'viewProfile' => array('name' => 'View'),
-                'editProfile' => array('name' => 'Edit'),
-                'changePassword' => array('name' => 'Change Password'),
-        )),
-        'emails' => array(
-            'name' => 'Email Templates',
-            'hasChild' => array(
-                'viewEmail' => array('name' => 'List'),
-                'editEmail' => array('name' => 'Edit'),
-        )),
-        'countries' => array(
-            'name' => 'Country',
-            'hasChild' => array(
-                'viewCountry' => array('name' => 'List'),
-                'addCountry' => array('name' => 'Add'),
-                'editCountry' => array('name' => 'Edit'),
-                'deleteCountry' => array('name' => 'Delete'),
-        )),
-        'states' => array(
-            'name' => 'State',
-            'hasChild' => array(
-                'viewState' => array('name' => 'List'),
-                'addState' => array('name' => 'Add'),
-                'editState' => array('name' => 'Edit'),
-                'deleteState' => array('name' => 'Delete'),
-        )),
-        'cities' => array(
-            'name' => 'City',
-            'hasChild' => array(
-                'viewCity' => array('name' => 'List'),
-                'addCity' => array('name' => 'Add'),
-                'editCity' => array('name' => 'Edit'),
-                'deleteCity' => array('name' => 'Delete'),
-        )),
-        'systemsettings' => array(
-            'name' => 'System Setting',
-            'hasChild' => array(
-                'viewSystemSetting' => array('name' => 'Edit')
-        )),
+        /*  'roles' => array(
+          'name' => 'Role',
+          'hasChild' => array(
+          'viewRole' => array('name' => 'List'),
+          'addRole' => array('name' => 'Add'),
+          'editRole' => array('name' => 'Edit'),
+          'deleteRole' => array('name' => 'Delete'),
+          )),
+          'users' => array(
+          'name' => 'User',
+          'hasChild' => array(
+          'viewUser' => array('name' => 'List'),
+          'addUser' => array('name' => 'Add'),
+          'editUser' => array('name' => 'Edit'),
+          'deleteUser' => array('name' => 'Delete'),
+          )),
+          'academies' => array(
+          'name' => 'Academy',
+          'hasChild' => array(
+          'viewAcademy' => array('name' => 'List'),
+          'addAcademy' => array('name' => 'Add'),
+          'editAcademy' => array('name' => 'Edit'),
+          'deleteAcademy' => array('name' => 'Delete'),
+          )),
+          'schools' => array(
+          'name' => 'School',
+          'hasChild' => array(
+          'viewSchool' => array('name' => 'List'),
+          'addSchool' => array('name' => 'Add'),
+          'editSchool' => array('name' => 'Edit'),
+          'deleteSchool' => array('name' => 'Delete'),
+          )),
+          'levels' => array(
+          'name' => 'Level',
+          'hasChild' => array(
+          'viewLevel' => array('name' => 'List'),
+          'addLevel' => array('name' => 'Add'),
+          'editLevel' => array('name' => 'Edit'),
+          'deleteLevel' => array('name' => 'Delete'),
+          )),
+          'clans' => array(
+          'name' => 'Classes',
+          'hasChild' => array(
+          'viewClan' => array('name' => 'List'),
+          'addClan' => array('name' => 'Add'),
+          'editClan' => array('name' => 'Edit'),
+          'deleteClan' => array('name' => 'Delete'),
+          'clanTeacherList' => array('name' => 'Teacher List'),
+          'clanStudentList' => array('name' => 'Student List'),
+          'listTrialLessonRequest' => array('name' => 'List Trial Lesson Request'),
+          'changeStatusTrialStudent' => array('name' => 'Approve / Unapprove Request'),
+          )),
+          'eventcategories' => array(
+          'name' => 'Event Categories',
+          'hasChild' => array(
+          'viewEventcategory' => array('name' => 'List'),
+          'addEventcategory' => array('name' => 'Add'),
+          'editEventcategory' => array('name' => 'Edit'),
+          'deleteEventcategory' => array('name' => 'Delete'),
+          )),
+          'events' => array(
+          'name' => 'Events',
+          'hasChild' => array(
+          'viewEvent' => array('name' => 'List'),
+          'addEvent' => array('name' => 'Add'),
+          'editEvent' => array('name' => 'Edit'),
+          'deleteEvent' => array('name' => 'Delete'),
+          )),
+          'batches' => array(
+          'name' => 'Batches',
+          'hasChild' => array(
+          'viewBatch' => array('name' => 'List'),
+          'addBatch' => array('name' => 'Add'),
+          'editBatch' => array('name' => 'Edit'),
+          'deleteBatch' => array('name' => 'Delete'),
+          )),
+          'profiles' => array(
+          'name' => 'Profile',
+          'hasChild' => array(
+          'viewProfile' => array('name' => 'View'),
+          'editProfile' => array('name' => 'Edit'),
+          'changePassword' => array('name' => 'Change Password'),
+          )),
+          'emails' => array(
+          'name' => 'Email Templates',
+          'hasChild' => array(
+          'viewEmail' => array('name' => 'List'),
+          'editEmail' => array('name' => 'Edit'),
+          )),
+          'countries' => array(
+          'name' => 'Country',
+          'hasChild' => array(
+          'viewCountry' => array('name' => 'List'),
+          'addCountry' => array('name' => 'Add'),
+          'editCountry' => array('name' => 'Edit'),
+          'deleteCountry' => array('name' => 'Delete'),
+          )),
+          'states' => array(
+          'name' => 'State',
+          'hasChild' => array(
+          'viewState' => array('name' => 'List'),
+          'addState' => array('name' => 'Add'),
+          'editState' => array('name' => 'Edit'),
+          'deleteState' => array('name' => 'Delete'),
+          )),
+          'cities' => array(
+          'name' => 'City',
+          'hasChild' => array(
+          'viewCity' => array('name' => 'List'),
+          'addCity' => array('name' => 'Add'),
+          'editCity' => array('name' => 'Edit'),
+          'deleteCity' => array('name' => 'Delete'),
+          )),
+          'systemsettings' => array(
+          'name' => 'System Setting',
+          'hasChild' => array(
+          'viewSystemSetting' => array('name' => 'Edit')
+          )), */
         'messages' => array(
             'name' => 'Message',
             'hasChild' => array(
                 'single' => array(
                     'name' => 'Single',
-                    'key' => "perm[messages][single_message]",
+                    'key' => "['messages']['single_message']",
                     'hasChild' => getRolesForMessage('single_message')
                 ),
                 'group' => array(
                     'name' => 'Group',
-                    'key' => "perm[messages][group_message]",
+                    'key' => "['messages']['group_message']",
                     'hasChild' => getRolesForMessage('group_message')
                 )
             )
@@ -212,11 +238,11 @@ function getRolesForMessage($type) {
     foreach ($roles as $value) {
         $temp[$value->id] = array(
             'name' => $value->{$data->language . '_role_name'},
-            'key' => "perm[messages][$type][$value->id][]",
+            'key' => "['messages']['$type']['$value->id']",
             'hasChild' => array(
-                '0' => array('name' => 'None', 'type' => 'radio', 'key' => "perm[messages][$type][$value->id]"),
-                '1' => array('name' => 'All', 'type' => 'radio', 'key' => "perm[messages][$type][$value->id]"),
-                '2' => array('name' => 'Releated', 'type' => 'radio', 'key' => "perm[messages][$type][$value->id]")
+                '0' => array('name' => 'None', 'type' => 'radio', 'key' => "['messages']['$type']['$value->id']"),
+                '1' => array('name' => 'All', 'type' => 'radio', 'key' => "['messages']['$type']['$value->id']"),
+                '2' => array('name' => 'Releated', 'type' => 'radio', 'key' => "['messages']['$type']['$value->id']")
             )
         );
     }
