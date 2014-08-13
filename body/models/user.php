@@ -7,10 +7,11 @@ class User extends DataMapper {
             'class' => 'userdetail',
             'join_other_as' => 'student_master_id')
     );
+    var $session_data;
 
-    // Optionally, don't include a constructor if you don't need one.
     function __construct($id = NULL) {
         parent::__construct($id);
+        $this->session_data = &get_instance()->session->userdata('user_session');
     }
 
     function userRoleByID($user_id, $role_id) {
@@ -43,6 +44,24 @@ class User extends DataMapper {
         $this->db->select('id, firstname, lastname');
         $this->db->from('users');
         $this->db->where(substr($where, 4));
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+
+    function getUsersDetails($user_id) {
+        $this->db->_protect_identifiers = false;
+        $this->db->select('id, firstname, lastname');
+        $this->db->from('users');
+        if (is_array($user_id)) {
+            $this->db->where_in('id', $user_id);
+        } else {
+            $this->db->where('id', $user_id);
+        }
+
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();
@@ -84,22 +103,6 @@ class User extends DataMapper {
         $this->db->from('users');
         $this->db->join('roles', 'FIND_IN_SET(users.role_id, roles.id) >0');
         $this->db->where('roles.id >', $user_role_id);
-        $this->db->where('users.status', 'A');
-        $res = $this->db->get();
-        if ($res->num_rows > 0) {
-            return $res->result();
-        } else {
-            return false;
-        }
-    }
-
-    function getUsersForMessage($role_id) {
-        $this->db->_protect_identifiers = false;
-        $session = get_instance()->session->userdata('user_session');
-        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, ' . $session->language . '_role_name');
-        $this->db->from('users');
-        $this->db->join('roles', 'FIND_IN_SET(users.role_id, roles.id) >0');
-        $this->db->where_in('users.role_id', $role_id);
         $this->db->where('users.status', 'A');
         $res = $this->db->get();
         if ($res->num_rows > 0) {

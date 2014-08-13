@@ -256,6 +256,83 @@ class Clan extends DataMapper {
         }
     }
 
+    function getRelatedTeachersByRecotr($rector_id) {
+        $this->db->_protect_identifiers = false;
+        $this->db->select('teacher_id');
+        $this->db->from('clans');
+        $this->db->join('schools', 'schools.id=clans.school_id');
+        $this->db->join('academies', 'academies.id=schools.academy_id');
+        $this->db->where("FIND_IN_SET(" . $rector_id . ", academies.rector_id) > 0");
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->teacher_id);
+            }
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+
+    function getRelatedTeachersByDean($dean_id) {
+        $this->db->_protect_identifiers = false;
+        $this->db->select('teacher_id');
+        $this->db->from('clans');
+        $this->db->join('schools', 'schools.id=clans.school_id');
+        $this->db->where("FIND_IN_SET(" . $dean_id . ", dean_id) > 0");
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->teacher_id);
+            }
+
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+    
+    function getRelatedTeachersByTeacher($teacher_id) {
+        $this->db->_protect_identifiers = false;
+        $this->db->select('c1.teacher_id');
+        $this->db->from('clans c1');
+        $this->db->join('schools', 'schools.id=c1.school_id');
+        $this->db->join('clans c2', 'schools.id=c2.school_id');
+        $this->db->where("FIND_IN_SET(" . $teacher_id . ", c2.teacher_id) > 0");
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->teacher_id);
+            }
+
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+    
+    function getRelatedTeachersByStudent($student_id) {
+        $this->db->_protect_identifiers = false;
+        $this->db->select('teacher_id');
+        $this->db->from('clans');
+        $this->db->join('userdetails', 'clans.id=userdetails.clan_id');
+        $this->db->where('student_master_id', $student_id);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->teacher_id);
+            }
+
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+
 }
 
 ?>

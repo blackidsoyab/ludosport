@@ -125,6 +125,80 @@ class Academy extends DataMapper {
         return array_unique(MultiArrayToSinlgeArray($array));
     }
 
+    function getRelatedRectorsByRector($rector_id) {
+        $this->db->_protect_identifiers = false;
+        $this->db->select('rector_id');
+        $this->db->from('academies');
+        $this->db->where("FIND_IN_SET(" . $rector_id . ", rector_id) > 0");
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $temp = $res->result();
+            return $temp[0]->rector_id;
+        } else {
+            return false;
+        }
+    }
+
+    function getRelatedRectorsByDean($dean_id) {
+        $this->db->_protect_identifiers = false;
+        $this->db->select('rector_id');
+        $this->db->from('academies');
+        $this->db->join('schools', 'academies.id=schools.academy_id');
+        $this->db->where("FIND_IN_SET(" . $dean_id . ", dean_id) > 0");
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->rector_id);
+            }
+
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+
+    function getRelatedRectorsByTeacher($teacher_id) {
+        $this->db->_protect_identifiers = false;
+        $this->db->select('rector_id');
+        $this->db->from('academies');
+        $this->db->join('schools', 'academies.id=schools.academy_id');
+        $this->db->join('clans', 'schools.id=clans.school_id');
+        $this->db->where("FIND_IN_SET(" . $teacher_id . ", teacher_id) > 0");
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->rector_id);
+            }
+
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+
+    function getRelatedRectorsByStudent($student_id) {
+        $this->db->_protect_identifiers = false;
+        $this->db->select('rector_id');
+        $this->db->from('academies');
+        $this->db->join('schools', 'academies.id=schools.academy_id');
+        $this->db->join('clans', 'schools.id=clans.school_id');
+        $this->db->join('userdetails', 'clans.id=userdetails.clan_id');
+        $this->db->where('student_master_id', $student_id);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->rector_id);
+            }
+
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+
 }
 
 ?>

@@ -65,14 +65,36 @@ if (!function_exists('MultiArrayToSinlgeArray')) {
     function MultiArrayToSinlgeArray($multi_dimensional_array) {
         $single_dimensional_array = array();
         foreach ($multi_dimensional_array as $val) {
-            foreach ($val as $val2) {
-                $single_dimensional_array[] = $val2;
+            if (is_array($val)) {
+                foreach ($val as $val2) {
+                    $single_dimensional_array[] = $val2;
+                }
             }
         }
         return $single_dimensional_array;
     }
 
 }
+
+if (!function_exists('subvalue_sort')) {
+
+    function subvalue_sort($a, $subkey) {
+        $c = NULL;
+        foreach ($a as $k => $v) {
+            $b[$k] = strtolower($v->$subkey);
+        }
+        if (isset($b) && is_array($b)) {
+            asort($b);
+            foreach ($b as $key => $val) {
+                $c[] = $a[$key];
+            }
+        }
+        return $c;
+    }
+
+}
+
+
 
 if (!function_exists('userNameAvtar')) {
 
@@ -93,7 +115,7 @@ if (!function_exists('getLocationName')) {
         $session = $ci->session->userdata('user_session');
         $obj = new $type();
         $obj->where('id', $id)->limit(1)->get();
-        $field = $session->language.'_name';
+        $field = $session->language . '_name';
         return $obj->$field;
     }
 
