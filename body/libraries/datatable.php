@@ -17,7 +17,6 @@ class Datatable extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        //$this->myWhere = "";
     }
 
     public function datatable_process() {
@@ -46,8 +45,8 @@ class Datatable extends CI_Controller {
             }
         }
 
-        if(empty($sOrder)){
-          $sOrder =$this->sOrder;
+        if (empty($sOrder) && !empty($this->sOrder)) {
+            $sOrder = $this->sOrder;
         }
 
         $sWhere = $this->myWhere;
@@ -120,10 +119,10 @@ class Datatable extends CI_Controller {
                     if ($pos > 0) {
                         $column_name = explode(" ", $this->aColumns[intval($_GET['iSortCol_' . $i])]);
                         $sOrder .= $column_name[0] . "
-					" . mysql_real_escape_string($_GET['sSortDir_' . $i]) . ", ";
+                " . mysql_real_escape_string($_GET['sSortDir_' . $i]) . ", ";
                     } else {
                         $sOrder .= $this->aColumns[intval($_GET['iSortCol_' . $i])] . "
-					" . mysql_real_escape_string($_GET['sSortDir_' . $i]) . ", ";
+                " . mysql_real_escape_string($_GET['sSortDir_' . $i]) . ", ";
                     }
                 }
             }
@@ -151,28 +150,14 @@ class Datatable extends CI_Controller {
          */
         $sGroupBy = $this->groupBy;
 
-        /*
-         * Individual column filtering
-         * /
-          /*for($i = 0;$i < count($this->aColumns);$i++)
-          {
-          if($_GET['bSearchable_' . $i] == "true" && $_GET['sSearch_' . $i] != ''){
-          if($sWhere == ""){
-          $sWhere = "WHERE ";
-          }else{
-          $sWhere .= " AND ";
-          }
-          $sWhere .= $this->aColumns[$i] . " LIKE '%" . mysql_real_escape_string($_GET['sSearch_' . $i]) . "%' ";
-          }
-          } */
         $data = str_replace(" , ", " ", implode(", ", $this->aColumns)) . "," . str_replace(" , ", " ", implode(", ", $this->eColumns));
         $sQuery = "
-		SELECT SQL_CALC_FOUND_ROWS " . substr($data, 0, strlen($data) - 1) . " FROM   $this->sTable
-		$sWhere
-		$sGroupBy
-		$sOrder
-		$sLimit
-		";
+        SELECT SQL_CALC_FOUND_ROWS " . substr($data, 0, strlen($data) - 1) . " FROM   $this->sTable
+        $sWhere
+        $sGroupBy
+        $sOrder
+        $sLimit
+        ";
         $this->rResult = $this->db->query($sQuery);
         //echo $this->db->last_query();
         /*
@@ -184,11 +169,11 @@ class Datatable extends CI_Controller {
          * Total data set length
          */
         $sQuery = "
-		SELECT COUNT(" . $this->sIndexColumn . ") AS count
-		FROM   $this->sTable
-		$sWhere
-		$sGroupBy
-		";
+        SELECT COUNT(" . $this->sIndexColumn . ") AS count
+        FROM   $this->sTable
+        $sWhere
+        $sGroupBy
+        ";
         if ($sGroupBy != null) {
             $rResultTotal = $this->db->query($sQuery);
             $iTotal = $rResultTotal->num_rows();
