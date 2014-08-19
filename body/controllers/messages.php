@@ -107,6 +107,7 @@ class messages extends CI_Controller {
             $message->to_status = $to_status;
             if (!is_null($message->to_id)) {
                 $message->save();
+                $message->where('id', $message->id)->update('initial_id', $message->id);
 
                 if(isset($user_ids)) {
                     foreach ($user_ids as $value) {
@@ -145,6 +146,7 @@ class messages extends CI_Controller {
             $message->from_status = $from_status;
             $message->to_status = $to_status;
             $message->save();
+            $message->where('id', $message->id)->update('initial_id', $message->id);
         }
 
         return TRUE;
@@ -654,6 +656,7 @@ class messages extends CI_Controller {
             if ($this->input->post() !== false) {
                 $message = new Message();
                 $message->type = $result_2->type;
+                $message->initial_id = $result_2->initial_id;
                 $message->reply_of = $result_2->id;
                 $message->group_id = $result_2->group_id;
                 $message->from_id = $this->session_data->id;
@@ -665,7 +668,13 @@ class messages extends CI_Controller {
                     if (($key = array_search($this->session_data->id, $to_ids)) !== false) {
                         unset($to_ids[$key]);
                     }
-                    $to_ids = $result_2->from_id .',' . implode(',', $to_ids);
+
+                    if($this->session_data->id != $result_2->from_id){
+                        $to_ids = $result_2->from_id .',' . implode(',', $to_ids);
+                    }else {
+                        $to_ids = implode(',', $to_ids);
+                    }
+
                     $message->to_id = $to_ids;    
                     $to_status = 'R';
                 }

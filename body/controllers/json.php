@@ -673,19 +673,22 @@ public function getBatchesJsonData($type = 'all') {
 
 public function getMessagesJsonData($type = 'inbox') {
     $this->load->library('datatable');
-    $this->datatable->aColumns = array('CONCAT (subject,"&", message) AS mess');
-    $this->datatable->eColumns = array('messages.id', 'messages.reply_of', 'messages.from_id', 'messages.to_id', 'messages.from_status', 'messages.to_status', 'CONCAT(u1.firstname," ",u1.lastname) as sender', 'CONCAT(u2.firstname," ",u2.lastname) as receiver', 'messages.timestamp', 'u1.avtar as sender_avtar', 'u2.avtar as receiver_avtar', 'messages.type');
+    $this->datatable->aColumns = array('CONCAT (messages.subject,"&", messages.message) AS mess');
+    $this->datatable->eColumns = array('messages.id', 'messages.reply_of', 'messages.from_id', 'messages.to_id', 'messages.from_status', 'messages.to_status', 'messages.timestamp', 'messages.type');
     $this->datatable->sIndexColumn = "messages.id";
-    $this->datatable->sTable = " messages, users u1, users u2";
+    $this->datatable->sTable = " messages";
     if ($type == 'inbox') {
-        $this->datatable->myWhere = ' WHERE FIND_IN_SET(' . $this->session_data->id . ', messages.to_id) >0 AND messages.to_status IN ("U", "R") AND u1.id=messages.from_id AND u2.id=messages.to_id ORDER BY messages.timestamp DESC';
+        $this->datatable->myWhere = ' WHERE  messages.id IN (select MAX(m1.id) from messages m1 where FIND_IN_SET(' . $this->session_data->id . ', m1.to_id) >0 AND m1.to_status IN ("U", "R") GROUP BY m1.initial_id)';
     } else if ($type == 'sent') {
-        $this->datatable->myWhere = ' WHERE messages.from_id = ' . $this->session_data->id . ' AND messages.from_status IN ("S") AND u1.id=messages.from_id AND u2.id=messages.to_id ORDER BY messages.timestamp DESC';
+        $this->datatable->myWhere = ' WHERE messages.from_id = ' . $this->session_data->id . ' AND messages.from_status IN ("S")';
     } else if ($type == 'draft') {
-        $this->datatable->myWhere = ' WHERE  messages.from_status="D" AND messages.from_id = ' . $this->session_data->id . ' AND u1.id=messages.from_id AND u2.id=messages.to_id ';
+        $this->datatable->myWhere = ' WHERE  messages.from_status="D" AND messages.from_id = ' . $this->session_data->id;
     } else if ($type == 'trash') {
-        $this->datatable->myWhere = ' WHERE u1.id=messages.from_id AND u2.id=messages.to_id AND ((messages.from_id = ' . $this->session_data->id . ' AND messages.from_status="T") OR (messages.to_id=' . $this->session_data->id . ' AND messages.to_status="T")) ORDER BY messages.timestamp DESC';
+        $this->datatable->myWhere = ' WHERE u1.id=messages.from_id AND u2.id=messages.to_id AND ((messages.from_id = ' . $this->session_data->id . ' AND messages.from_status="T") OR (messages.to_id=' . $this->session_data->id . ' AND messages.to_status="T"))';
     }
+
+      $this->datatable->groupBy = " ";
+      $this->datatable->sOrder = " ORDER BY messages.timestamp DESC";  
 
     $this->datatable->datatable_process();
 
@@ -705,34 +708,20 @@ public function getMessagesJsonData($type = 'inbox') {
 
     if ($aRow['type'] == 'single') {
         $type_label = '<span class="label label-info">Single</span>';
+        $delete_msg = $this->lang->line('delete');
     } else {
         $type_label = '<span class="label label-warning">Group</span>';
+        $delete_msg = $this->lang->line('leave_group');
     }
 
-    if($aRow['type'] == 'single' && $aRow['to_id'] == $this->session_data->id){
-        $img = $aRow['sender_avtar'];
-        $name =  ucwords($aRow['sender']);
-    }
+    $user_info = userNameAvtar($aRow['from_id']);
+    $img = $user_info['avtar'];
+    $name =  ucwords($user_info['name']);
 
-    if($aRow['type'] == 'single' && $aRow['from_id'] == $this->session_data->id){
-        $img = $aRow['receiver_avtar'];
-        $name =  ucwords($aRow['receiver']); 
-    }
-
-    if($aRow['type'] == 'group' && in_array($this->session_data->id, explode(',', $aRow['to_id']))) {
-        $img = $aRow['sender_avtar'];
-        $name =  ucwords($aRow['sender']);
-    }
-
-    if($aRow['type'] == 'group' && $aRow['from_id'] == $this->session_data->id){
-        $img = $aRow['receiver_avtar'];
-        $name =  ucwords($aRow['receiver']); 
-    }
-
-    $message_id = getLastReplyOfMessage($aRow['id']);
+    $message_id = $aRow['id']; //getLastReplyOfMessage($aRow['id']);
     $message = NULL;
 
-    $message .= '<a class="list-group-item message-delete-checkbox pull-left ' . $status . '" data-toggle="tooltip" data-placement="right" data-original-title="' . $this->lang->line('delete') . '"><input type="checkbox" value="' . $type . '_' . $message_id.'_'. $aRow['type'] . '" name="message_id[]"></a><a href="' . base_url() . 'message/read/' . $message_id . '" class="list-group-item mail-list ' . $status . '"><img src="' . IMG_URL . 'user_avtar/40X40/'.$img.'" class="avatar img-circle" alt="Avatar"><span class="name">' .$name. '</span><span class="subject">' . $type_label . character_limiter($mess[0], 50) . '</span><span class="time">' . date('d-m-Y', strtotime($aRow['timestamp'])) . '</span></a>';
+    $message .= '<a class="list-group-item message-delete-checkbox pull-left ' . $status . '" data-toggle="tooltip" data-placement="right" data-original-title="' . $delete_msg . '"><input type="checkbox" value="' . $type . '_' . $message_id.'_'. $aRow['type'] . '" name="message_id[]"></a><a href="' . base_url() . 'message/read/' . $message_id . '" class="list-group-item mail-list ' . $status . '"><img src="' .$img.'" class="avatar img-circle" alt="Avatar"><span class="name">' .$name. '</span><span class="subject">' . $type_label . character_limiter($mess[0], 50) . '</span><span class="time">' . date('d-m-Y', strtotime($aRow['timestamp'])) . '</span></a>';
 
     $temp_arr[] = $message;
     $this->datatable->output['aaData'][] = $temp_arr;

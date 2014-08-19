@@ -127,7 +127,7 @@ if (!function_exists('getLastReplyOfMessage')) {
         $message = new Message();
         $message->where('reply_of', $msg_id)->get();
         if ($message->result_count() == 1) {
-            return $message->id;
+            return getLastReplyOfMessage($message->id);
         } else {
             return $msg_id;
         }
