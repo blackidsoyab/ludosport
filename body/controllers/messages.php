@@ -97,7 +97,7 @@ class messages extends CI_Controller {
             $message->message = $this->input->post('message');
             if ($this->input->post('action') == 'send') {
                 $from_status = 'S';
-                $to_status = 'U';
+                $to_status = 'R';
             } else if ($this->input->post('action') == 'draft') {
                 $from_status = 'D';
                 $to_status = 'D';
@@ -107,6 +107,16 @@ class messages extends CI_Controller {
             $message->to_status = $to_status;
             if (!is_null($message->to_id)) {
                 $message->save();
+
+                if(isset($user_ids)) {
+                    foreach ($user_ids as $value) {
+                        $status = new Messagestatus();
+                        $status->message_id = $message->id;
+                        $status->status = 'U';
+                        $status->to_id = $value;
+                        $status->save();
+                    }
+                }
             }
         }
         return TRUE;
@@ -617,7 +627,11 @@ class messages extends CI_Controller {
         $message = new Message();
         $result = $message->getMessageForReading($id);
         if ($result !== FALSE) {
-            $message->where('id', $id)->update('to_status', 'R');
+            $message->where(array('id'=>$id, 'to_id' => $this->session_data->id, 'to_status'  => 'U', 'type' => 'single'))->update('to_status', 'R');
+
+            $messagestatus = new Messagestatus();
+            $messagestatus->where(array('message_id'=>$id, 'to_id' => $this->session_data->id, 'status' => 'U'))->update('status', 'R');
+
             $data = $this->_sidebarData();
             $data['id'] = $id;
             $data['view_title'] = 'Read Message';
@@ -639,15 +653,27 @@ class messages extends CI_Controller {
         if ($result_1 !== FALSE && $result_2 !== FALSE) {
             if ($this->input->post() !== false) {
                 $message = new Message();
-                $message->type = 'single';
+                $message->type = $result_2->type;
                 $message->reply_of = $result_2->id;
+                $message->group_id = $result_2->group_id;
                 $message->from_id = $this->session_data->id;
-                $message->to_id = $result_2->from_id;
-                $message->subject = 'Reply of : ' . $result_2->subject;
+                if($result_2->type == 'single'){
+                    $message->to_id = $result_2->from_id;
+                    $to_status = 'U';
+                } else if($result_2->type == 'group'){
+                    $to_ids = explode(',', $result_2->to_id);
+                    if (($key = array_search($this->session_data->id, $to_ids)) !== false) {
+                        unset($to_ids[$key]);
+                    }
+                    $to_ids = $result_2->from_id .',' . implode(',', $to_ids);
+                    $message->to_id = $to_ids;    
+                    $to_status = 'R';
+                }
+                
+                $message->subject = $result_2->subject;
                 $message->message = $this->input->post('message');
                 if ($this->input->post('action') == 'send') {
                     $from_status = 'S';
-                    $to_status = 'U';
                 } else if ($this->input->post('action') == 'draft') {
                     $from_status = 'D';
                     $to_status = 'D';
@@ -655,7 +681,19 @@ class messages extends CI_Controller {
 
                 $message->from_status = $from_status;
                 $message->to_status = $to_status;
-                $message->save();
+                if (!is_null($message->to_id)) {
+                    $message->save();
+
+                    if($result_2->type = 'group' && isset($to_ids)) {
+                        foreach (explode(',', $to_ids) as $value) {
+                            $status = new Messagestatus();
+                            $status->message_id = $message->id;
+                            $status->status = 'U';
+                            $status->to_id = $value;
+                            $status->save();
+                        }
+                    }
+                }
 
                 $this->session->set_flashdata('success', $this->lang->line('message_sent_success'));
                 redirect(base_url() . 'message', 'refresh');
@@ -679,9 +717,14 @@ class messages extends CI_Controller {
                 $message_part = explode('_', $message_id);
                 $message = new Message();
                 if ($message_part[0] == 'inbox') {
-                    $message->where(array('type' => 'single', 'to_id' => $this->session_data->id, 'id' => $message_part[1]))->update('to_status', 'T');
+                    if($message_part[2] == 'sinlge'){
+                        $message->where(array('type' => 'single', 'to_id' => $this->session_data->id, 'id' => $message_part[1]))->update('to_status', 'T');
+                    }else if($message_part[2] == 'group'){
+                        $message->leaveGroupMessage($message_part[1], $this->session_data->id);
+                    }
                 } else if ($message_part[0] == 'sent') {
                     $message->where(array('type' => 'single', 'from_id' => $this->session_data->id, 'id' => $message_part[1]))->update('from_status', 'T');
+
                 } else if ($message_part[0] == 'draft') {
                     $message->where(array('type' => 'single', 'from_id' => $this->session_data->id, 'id' => $message_part[1]))->update('from_status', 'T');
                 } else if ($message_part[0] == 'trash') {

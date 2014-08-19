@@ -136,21 +136,19 @@ class profiles extends CI_Controller {
                 }
 
                 $image = str_replace(' ', '_', $data['upload_data']['file_name']);
-                if ($data['upload_data']['image_width'] > 400) {
-                    $this->load->helper('image_manipulation/image_manipulation');
-                    include_lib_image_manipulation();
+                $this->load->helper('image_manipulation/image_manipulation');
+                include_lib_image_manipulation();
 
-                    $magicianObj = new imageLib('./assets/img/user_avtar/original/' . $image);
+                $magicianObj = new imageLib('./assets/img/user_avtar/original/' . $image);
 
-                    $magicianObj->resizeImage(40, 40, 'exact');
-                    $magicianObj->saveImage('./assets/img/user_avtar/40X40/' . $image, 100);
+                $magicianObj->resizeImage(40, 40, 'exact');
+                $magicianObj->saveImage('./assets/img/user_avtar/40X40/' . $image, 100);
 
-                    $magicianObj->resizeImage(70, 70, 'exact');
-                    $magicianObj->saveImage('./assets/img/user_avtar/70X70/' . $image, 100);
+                $magicianObj->resizeImage(70, 70, 'exact');
+                $magicianObj->saveImage('./assets/img/user_avtar/70X70/' . $image, 100);
 
-                    $magicianObj->resizeImage(100, 100, 'exact');
-                    $magicianObj->saveImage('./assets/img/user_avtar/100X100/' . $image, 100);
-                }
+                $magicianObj->resizeImage(100, 100, 'exact');
+                $magicianObj->saveImage('./assets/img/user_avtar/100X100/' . $image, 100);
 
                 return $data['upload_data'];
             }

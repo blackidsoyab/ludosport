@@ -225,4 +225,5 @@ $lang['to'] = 'To';
 $lang['send'] = 'Send';
 $lang['subject'] = 'Subject';
 $lang['discard'] = 'Discard';
+$lang['leave_group'] = 'Leave Group';
 ?>

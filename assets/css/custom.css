@@ -149,6 +149,10 @@ a.list-group-item:hover, a.list-group-item:focus {
     padding: 19px;
 }
 
+.message-delete-checkbox.read{
+     background: none repeat scroll 0 0 #f5f7fa;
+}
+
 li.role-selection.open .chevron-icon-sidebar{
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
