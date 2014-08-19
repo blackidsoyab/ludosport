@@ -39,8 +39,40 @@
                             }
                         }
                     }
+                },
+                'attachments[]': {
+                validators: {
+                    file: {
+                        extension: 'jpg,png,jpeg',
+                        message: 'The selected file is not valid'
+                    }
                 }
             }
+            }
+        }).on('click', '.addButton', function() {
+            $(this).parent().find('.removeButton').show();
+            $(this).parent().find('.addButton').hide();
+            var $template = $('#optiontemplate'),
+                $clone    = $template
+                                .clone()
+                                .removeClass('hide')
+                                .removeAttr('id')
+                                .insertBefore($template),
+                $option   = $clone.find('[name="attachments[]"]');
+            $('#compose_message').bootstrapValidator('addField', $option);
+        }).on('click', '.removeButton', function() {
+            $(this).parent().parent().prev().find('.removeButton').hide();
+            $(this).parent().parent().prev().find('.addButton').show();
+            var $row    = $(this).parents('.form-group'),
+                $option = $row.find('[name="attachments[]"]');
+            $row.remove();
+            $('#compose_message').bootstrapValidator('removeField', $option);
+        }) .on('success.validator.bv', function(e, data) {
+            $(data.element[0]).parent().parent().find('.addButton').show();
+            $(data.element[0]).parent().parent().find('.removeButton').hide();   
+        }).on('error.validator.bv', function(e, data) {
+            $(data.element[0]).parent().parent().find('.removeButton').show(); 
+            $(data.element[0]).parent().parent().find('.addButton').hide();   
         }).find('[name="message"]').summernote({
             height: 200,
             onkeyup: function() {
@@ -49,11 +81,11 @@
             onpaste: function() {
                 validateEditor();
             }
-        });;
-    });
+        });
+     });
     //]]>
 </script>
-<form role="form" action="<?php echo base_url() . 'message/compose/' . $type; ?>" method="post" enctype="multipart/form-data" id="compose_message">
+<form role="form" action="<?php echo base_url() . 'message/compose/' . $type; ?>" method="post" enctype="multipart/form-data" id="compose_message" class="form-horizontal">
     <input type="hidden" value="<?php echo $type; ?>" name="message_type"/>
     <input type="hidden" value="0" name="reply_of"/>
     <div class="col-sm-12">
@@ -103,15 +135,35 @@
         </div>
 
         <div class="form-group">
-            <div class="input-group">
-                <input type="text" class="form-control" readonly>
-                <span class="input-group-btn">
-                    <span class="btn btn-primary btn-file">
-                        <?php echo $this->lang->line('browse_file'); ?><input type="file" multiple name="attachments">
-                    </span>
-                </span>
+            <div class="col-lg-10 padding-killer">
+                <input type="file" name="attachments[]" class="form-control">
+            </div>
+            <div class="col-lg-2 pull-right">
+                <button type="button" class="btn btn-primary addButton" style="display:none">
+                    <i class="fa fa-plus"></i>
+                </button>
+
+                <button type="button" class="btn btn-primary removeButton" style="display:none">
+                    <i class="fa fa-minus"></i>
+                </button>
             </div>
         </div>
+
+        <div class="form-group hide" id="optiontemplate">
+            <div class="col-lg-10 padding-killer">
+                <input type="file" name="attachments[]" class="form-control">
+            </div>
+            <div class="col-lg-2 pull-right">
+                <button type="button" class="btn btn-primary addButton" style="display:none">
+                    <i class="fa fa-plus"></i>
+                </button>
+
+                <button type="button" class="btn btn-primary removeButton" style="display:none">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        
         <div class="form-group">
             <button type="submit" name="action" value="send" class="btn btn-success" data-toggle="tooltip" title="<?php echo $this->lang->line('send'), ' ', $this->lang->line('message'); ?>"><i class="fa fa-rocket"></i> <?php echo $this->lang->line('send'), ' ', $this->lang->line('message'); ?></button>
             <button type="submit" name="action" value="draft" class="btn btn-info" data-toggle="tooltip" title="<?php echo $this->lang->line('save'), ' ', $this->lang->line('draft'); ?>"><?php echo $this->lang->line('save'), ' ', $this->lang->line('draft'); ?></button>

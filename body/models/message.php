@@ -3,7 +3,7 @@
 class Message extends DataMapper {
 
     var $session_data;
-    public $has_many = array('messagestatus');
+    public $has_many = array('messagestatus', 'messageattachment');
 
     function __construct($id = NULL) {
         parent::__construct($id);

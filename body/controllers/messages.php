@@ -109,6 +109,18 @@ class messages extends CI_Controller {
                 $message->save();
                 $message->where('id', $message->id)->update('initial_id', $message->id);
 
+                $attachments = $this->uploadMultiple('attachments');
+                foreach ($attachments as $key => $value) {
+                     $obj_attach = new Messageattachment();
+                     $obj_attach->message_id = $message->id;
+                     $obj_attach->file_name = $value['file_name'];
+                     $obj_attach->original_name = $value['orig_name'];
+                     $obj_attach->file_type = $value['file_type'];
+                     $obj_attach->file_size = $value['file_size'];
+                     $obj_attach->user_id = $this->session_data->id;
+                     $obj_attach->save();
+                 } 
+
                 if(isset($user_ids)) {
                     foreach ($user_ids as $value) {
                         $status = new Messagestatus();
@@ -147,9 +159,36 @@ class messages extends CI_Controller {
             $message->to_status = $to_status;
             $message->save();
             $message->where('id', $message->id)->update('initial_id', $message->id);
+
+            $attachments = $this->uploadMultiple('attachments');
+            foreach ($attachments as $key => $value) {
+                 $obj_attach = new Messageattachment();
+                 $obj_attach->message_id = $message->id;
+                 $obj_attach->file_name = $value['file_name'];
+                 $obj_attach->original_name = $value['orig_name'];
+                 $obj_attach->file_type = $value['file_type'];
+                 $obj_attach->file_size = $value['file_size'];
+                 $obj_attach->user_id = $this->session_data->id;
+                 $obj_attach->save();
+             } 
+        
         }
 
         return TRUE;
+    }
+
+    function uploadMultiple($filed){
+        //Configure upload.
+        $this->upload->initialize(array(
+            'upload_path'   => "./assets/message_attachments/",
+            'allowed_types' => 'jpg|jpeg|gif|png|bmp',
+            'overwrite' => FALSE,
+            'remove_spaces' => TRUE,
+            'encrypt_name' => TRUE
+        ));
+
+        $this->upload->do_multi_upload($filed);
+        return $this->upload->get_multi_upload_data();
     }
 
     private function _getMessageType() {
@@ -637,6 +676,11 @@ class messages extends CI_Controller {
             $data = $this->_sidebarData();
             $data['id'] = $id;
             $data['view_title'] = 'Read Message';
+            $message->where('id', $id)->get();
+            $data['has_attachments'] = $message->Messageattachments->result_count();
+            if($data['has_attachments'] != 0){
+                $data['all_attachments'] = $message->Messageattachments;
+            }
             $data['messages_data'] = $result;
             $data['message_page_layout'] = $this->load->view('messages/read', $data, true);
             $this->layout->view('messages/sidebar', $data);

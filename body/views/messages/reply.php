@@ -5,32 +5,32 @@
     <div class="panel-heading">
         <h3 class="panel-title">
             <a class="block-collapse" data-toggle="collapse" href="<?php echo '#read-mail-' . $message->id; ?>">
-               <img src="<?php echo IMG_URL . 'user_avtar/40X40/' . $message->from_avtar; ?>" class="avatar img-circle" alt="Avatar"> 
-                <?php if ($session->id != $message->from_id) { ?>
-                <strong><?php echo $message->from_person; ?></strong>
-                <?php
-                    } else {
-                            echo 'Me';
-                    }
-                ?>
-            <span>&nbsp;to&nbsp;</span> 
-            <?php if ($message->type == 'single' && $session->id != $message->to_id) { ?>
-
-            <img src="<?php echo IMG_URL . 'user_avtar/40X40/' . $message->to_avtar; ?>" class="avatar img-circle" alt="Avatar"> 
-            <strong><?php echo $message->to_person; ?></strong>
-            <?php
-        } else {
-         if ($message->type == 'single'){
+             <img src="<?php echo IMG_URL . 'user_avtar/40X40/' . $message->from_avtar; ?>" class="avatar img-circle" alt="Avatar"> 
+             <?php if ($session->id != $message->from_id) { ?>
+             <strong><?php echo $message->from_person; ?></strong>
+             <?php
+         } else {
             echo 'Me';
-        }else if ($message->type == 'group'){
-            $group = explode('_', $message->group_id);
-            echo '<span class="label label-warning">' ,ucwords($group[0]) , ' group</span>';
         }
+        ?>
+        <span>&nbsp;to&nbsp;</span> 
+        <?php if ($message->type == 'single' && $session->id != $message->to_id) { ?>
+
+        <img src="<?php echo IMG_URL . 'user_avtar/40X40/' . $message->to_avtar; ?>" class="avatar img-circle" alt="Avatar"> 
+        <strong><?php echo $message->to_person; ?></strong>
+        <?php
+    } else {
+       if ($message->type == 'single'){
+        echo 'Me';
+    }else if ($message->type == 'group'){
+        $group = explode('_', $message->group_id);
+        echo '<span class="label label-warning">' ,ucwords($group[0]) , ' group</span>';
     }
-    ?>
-    <span class="right-content">
-        <span class="time"><?php echo time_elapsed_string($message->timestamp); ?></span>
-    </span>
+}
+?>
+<span class="right-content">
+    <span class="time"><?php echo time_elapsed_string($message->timestamp); ?></span>
+</span>
 </a>
 </h3>
 </div>
