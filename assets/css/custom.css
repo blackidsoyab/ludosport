@@ -172,3 +172,7 @@ li.role-selection.open .chevron-icon-sidebar{
 .group-avtar-icon-notification{
     padding: 12px 0;
 }
+
+.store-item img.item-image {
+height: 180px;
+}

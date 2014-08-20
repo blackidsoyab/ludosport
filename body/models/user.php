@@ -44,6 +44,7 @@ class User extends DataMapper {
         $this->db->select('id, firstname, lastname');
         $this->db->from('users');
         $this->db->where(substr($where, 4));
+        $this->db->where('status', 'A');
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();

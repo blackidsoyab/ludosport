@@ -123,12 +123,13 @@ class batches extends CI_Controller {
     }
 
     function uploadImage() {
-        $config['upload_path'] = './assets/img/batches/';
-        $config['allowed_types'] = 'jpg|jpeg|gif|png|bmp';
-        $config['overwrite'] = FALSE;
-        $config['remove_spaces'] = TRUE;
-        $config['encrypt_name'] = TRUE;
-        $this->load->library('upload', $config);
+        $this->upload->initialize(array(
+            'upload_path'   => "./assets/img/batches/",
+            'allowed_types' => 'jpg|jpeg|gif|png|bmp',
+            'overwrite' => FALSE,
+            'remove_spaces' => TRUE,
+            'encrypt_name' => TRUE
+        ));
 
         if (!$this->upload->do_upload('batch_image')) {
             $data = array('error' => $this->upload->display_errors());

@@ -356,4 +356,26 @@ class ajax extends CI_Controller {
      * ------------------- END ------------------
      * ------------------------------------------
      */
+
+    /*
+     * ------------------------------------------
+     *           Methos for the Edit User
+     *                   START
+     * ------------------------------------------
+     */
+        function gerUserByRoleID($role_id){
+            $users = new User();
+            $data = $users->getUsersByRole($role_id);
+
+            echo '<option value="">'. $this->lang->line('select'), ' ', $this->lang->line('manager') .'</option>'; 
+            
+            foreach ($data as $value) {
+                echo '<option value="'.$value->id.'">'. $value->firstname .' ' . $value->lastname .'</option>'; 
+            }
+        }
+     /*
+     * ------------------------------------------
+     * ------------------- END ------------------
+     * ------------------------------------------
+     */
 }

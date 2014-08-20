@@ -581,7 +581,7 @@ public function getEventcategoriesJsonData() {
             $str .= '<a href="' . base_url() . 'eventcategory/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
         }
 
-        if (hasPermission('eventcategories', 'editEventcategory')) {
+        if (hasPermission('eventcategories', 'deleteEventcategory')) {
             $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
         }
         $temp_arr[] = $str;
@@ -606,12 +606,18 @@ public function getEventsJsonData() {
         $temp_arr[] = $aRow['event'];
         $temp_arr[] = $aRow['category'];
 
+        if (hasPermission('eventcategories', 'viewEvent')) {
+            $temp_arr[] = '<a href="' . base_url() . 'event/view/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('view') . '">' . $this->lang->line('view') . '</a>';
+        }else{
+            $temp_arr[] = NULL;
+        }
+
         $str = NULL;
-        if (hasPermission('eventcategories', 'editEventcategory')) {
+        if (hasPermission('eventcategories', 'editEvent')) {
             $str .= '<a href="' . base_url() . 'event/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
         }
 
-        if (hasPermission('eventcategories', 'editEventcategory')) {
+        if (hasPermission('eventcategories', 'deleteEvent')) {
             $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
         }
         $temp_arr[] = $str;

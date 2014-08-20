@@ -47,12 +47,13 @@ class emails extends CI_Controller {
     }
 
     function uploadAttachment($id) {
-        $config['upload_path'] = './assets/email_attachments/';
-        $config['allowed_types'] = '*';
-        $config['overwrite'] = FALSE;
-        $config['remove_spaces'] = TRUE;
-        $config['encrypt_name'] = FALSE;
-        $this->load->library('upload', $config);
+        $this->upload->initialize(array(
+            'upload_path'   => "./assets/email_attachments/",
+            'allowed_types' => '*',
+            'overwrite' => FALSE,
+            'remove_spaces' => TRUE,
+            'encrypt_name' => TRUE
+        ));
 
         if (!$this->upload->do_upload('attachment')) {
             $data = array('error' => $this->upload->display_errors());

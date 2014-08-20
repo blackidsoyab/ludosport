@@ -13,13 +13,43 @@ class events extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
     }
 
-    function viewEvent() {
-        $this->layout->view('events/view');
+    function viewEvent($id = null, $type = null) {
+        if (is_null($id)) {
+            $event = new Event();
+            $data['events'] = $event->get();
+            $this->layout->view('events/view', $data);
+        } else {
+            if ($type == 'notification') {
+                //update notification status
+            }
+
+            $event = new Event();
+            $event->where('id', $id)->get();
+            if($event->result_count() == 1){
+                $data['event_detail'] = $event;
+                $this->layout->view('events/view_single', $data);    
+            } else {
+                redirect(base_url() .'event' ,'refresh');
+            }
+        }
+        
     }
 
     function addEvent() {
         if ($this->input->post() !== false) {
+            exit();
             $event = new Event();
+
+            if ($_FILES['event_image']['name'] != '') {
+                $image = $this->uploadImage();
+                if (isset($image['error'])) {
+                    $this->session->set_flashdata('file_errors', $image['error']);
+                    redirect(base_url() . 'event/add', 'refresh');
+                } else if (isset($image['upload_data'])) {
+                    $event->image = $image['upload_data']['file_name'];
+                }
+            }
+
             foreach ($this->config->item('custom_languages') as $key => $value) {
                 $temp = $key . '_name';
                 if ($this->input->post($temp) != '') {
@@ -45,7 +75,7 @@ class events extends CI_Controller {
             $event->city_id = $this->input->post('city_id');
             $event->date_from = date('Y-m-d', strtotime($this->input->post('date_from')));
             $event->date_to = date('Y-m-d', strtotime($this->input->post('date_to')));
-            $event->manager = implode(',', $this->input->post('manager'));
+            $event->manager = implode(',', array_unique($this->input->post('manager')));
             $event->description = $this->input->post('description');
             $event->user_id = $this->session_data->id;
             $event->save();
@@ -74,8 +104,8 @@ class events extends CI_Controller {
             $school->get();
             $data['schools'] = $school;
 
-            $user = new User();
-            $data['users'] = $user->getUserBelowRole($this->session_data->role);
+            $role = new Role();
+            $data['roles'] = $role->where('is_manager', 1)->get();
 
             $this->layout->view('events/add', $data);
         }
@@ -86,6 +116,22 @@ class events extends CI_Controller {
             if ($this->input->post() !== false) {
                 $event = new Event();
                 $event->where('id', $id)->get();
+
+                if ($_FILES['event_image']['name'] != '') {
+                    $image = $this->uploadImage();
+                    if (isset($image['error'])) {
+                        $this->session->set_flashdata('file_errors', $image['error']);
+                        redirect(base_url() . 'event/edit/' . $id, 'refresh');
+                    } else if (isset($image['upload_data'])) {
+                        if($event->image != 'no-cover.jpg') {
+                            if (file_exists('assets/img/event_images/' . $event->image)) {
+                                unlink('assets/img/event_images/' . $event->image);
+                            }
+                        }
+                        $event->image = $image['upload_data']['file_name'];
+                    }
+                }
+
                 foreach ($this->config->item('custom_languages') as $key => $value) {
                     $temp = $key . '_name';
                     if ($this->input->post($temp) != '') {
@@ -111,7 +157,7 @@ class events extends CI_Controller {
                 $event->city_id = $this->input->post('city_id');
                 $event->date_from = date('Y-m-d', strtotime($this->input->post('date_from')));
                 $event->date_to = date('Y-m-d', strtotime($this->input->post('date_to')));
-                $event->manager = implode(',', $this->input->post('manager'));
+                $event->manager = implode(',', array_unique($this->input->post('manager')));
                 $event->description = $this->input->post('description');
                 $event->user_id = $this->session_data->id;
                 $event->save();
@@ -148,8 +194,11 @@ class events extends CI_Controller {
                     $data['academy_id'] = $school->academy_id;
                 }
 
-                $user = new User();
-                $data['users'] = $user->getUserBelowRole($this->session_data->role);
+                $role = new Role();
+                $data['roles'] = $role->where('is_manager', 1)->get();
+
+                $selected_manager = new User();
+                $data['selected_manager'] = $selected_manager->where_in('id', explode(',', $events->manager))->get();
 
                 $this->layout->view('events/edit', $data);
             }
@@ -161,15 +210,46 @@ class events extends CI_Controller {
 
     function deleteEvent($id) {
         if (!empty($id)) {
-            $c = new Event();
-            $c->where('id', $id)->get();
-            $c->delete();
+            $event = new Event();
+            $event->where('id', $id)->get();
+                if($event->image != 'no-cover.jpg') {
+                    if (file_exists('assets/img/event_images/' . $event->image)) {
+                        unlink('assets/img/event_images/' . $event->image);
+                    }
+                }
+            $event->delete();
             $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
-            redirect(base_url() . 'event', 'refresh');
         } else {
             $this->session->set_flashdata('error', $this->lang->line('delete_data_error'));
-            redirect(base_url() . 'event', 'refresh');
         }
+        redirect(base_url() . 'event', 'refresh');
+    }
+
+    function uploadImage() {
+        $this->upload->initialize(array(
+            'upload_path'   => "./assets/img/event_images/",
+            'allowed_types' => 'jpg|jpeg|gif|png|bmp',
+            'overwrite' => FALSE,
+            'remove_spaces' => TRUE,
+            'encrypt_name' => TRUE
+        ));
+
+        if (!$this->upload->do_upload('event_image')) {
+            $data = array('error' => $this->upload->display_errors());
+        } else {
+            $data = array('upload_data' => $this->upload->data('event_image'));
+
+            $image = str_replace(' ', '_', $data['upload_data']['file_name']);
+            $this->load->helper('image_manipulation/image_manipulation');
+            include_lib_image_manipulation();
+
+            $magicianObj = new imageLib('./assets/img/event_images/' . $image);
+
+            $magicianObj->resizeImage(780, 450, 'landscape');
+            $magicianObj->saveImage('./assets/img/event_images/' . $image, 100);
+        }
+
+        return $data;
     }
 
 }

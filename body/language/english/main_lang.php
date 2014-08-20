@@ -201,9 +201,11 @@ $lang['eventcategory'] = 'Event Category';
 $lang['event'] = 'Event';
 $lang['date_from'] = 'Date from';
 $lang['date_to'] = 'Date to';
-$lang['manager'] = 'Mangaer';
+$lang['manager'] = 'Manager';
 $lang['description'] = 'Description';
 $lang['all'] = 'All';
+$lang['date'] = 'date';
+$lang['from'] = 'from';
 
 //Batches
 $lang['batch'] = 'Batch';

@@ -100,12 +100,13 @@ class profiles extends CI_Controller {
     }
 
     function uploadAvtar($id) {
-        $config['upload_path'] = './assets/img/user_avtar/original';
-        $config['allowed_types'] = 'jpg|jpeg|gif|png|bmp';
-        $config['overwrite'] = FALSE;
-        $config['remove_spaces'] = TRUE;
-        $config['encrypt_name'] = TRUE;
-        $this->load->library('upload', $config);
+        $this->upload->initialize(array(
+            'upload_path'   => "./assets/img/user_avtar/original",
+            'allowed_types' => 'jpg|jpeg|gif|png|bmp',
+            'overwrite' => FALSE,
+            'remove_spaces' => TRUE,
+            'encrypt_name' => TRUE
+        ));
 
         if (!$this->upload->do_upload('avtar')) {
             $data = array('error' => $this->upload->display_errors());

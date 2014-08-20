@@ -69,12 +69,13 @@ class systemsettings extends CI_Controller {
     }
 
     function uploadAvtar($sys_key) {
-        $config['upload_path'] = './assets/img';
-        $config['allowed_types'] = 'jpg|jpeg|gif|png|bmp';
-        $config['overwrite'] = FALSE;
-        $config['remove_spaces'] = TRUE;
-        $config['encrypt_name'] = TRUE;
-        $this->load->library('upload', $config);
+        $this->upload->initialize(array(
+            'upload_path'   => "./assets/img",
+            'allowed_types' => 'jpg|jpeg|gif|png|bmp',
+            'overwrite' => FALSE,
+            'remove_spaces' => TRUE,
+            'encrypt_name' => TRUE
+        ));
 
         $setting = new Systemsetting();
         $setting->where('sys_key', $sys_key)->get();

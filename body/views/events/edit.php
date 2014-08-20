@@ -58,13 +58,38 @@
                 $('#academies_list').hide();
             }
         });
+
+        $('#getRoleUsers').change(function(){
+             $.ajax({
+                type: 'GET',
+                url: '<?php echo base_url(); ?>ajax/gerUserByRoleID/' + $('#getRoleUsers').val(),
+                success: function(data)
+                {
+                    $('#managers').empty();
+                    $('#managers').append(data);
+                }
+            });
+        });
+
+        $( "#managers" ).change(function() {
+             $('#manager-selected-list-div').show();
+                $( "#selected-manager-list" ).append('<li class="search-choice"><span>'+ $( "#managers :selected" ).text() +'</span><a class="search-choice-close" data-option-array-index="'+ $( "#managers" ).val() +'"></a><input type="hidden" name="manager[]" value="'+ $( "#managers" ).val() +'"></a></li>');
+        });
+
+        $('.chosen-choices').on('click', 'a.search-choice-close', function (event) {
+            $(this).closest( "li" ).remove();
+
+            if($('.chosen-choices').find('li').length == 0){
+                $('#manager-selected-list-div').hide();
+            }
+        });
     });
     //]]>
 </script>
 <h1 class="page-heading"><?php echo $this->lang->line('add'), ' ', $this->lang->line('event'); ?></h1>
 <div class="the-box">
 
-    <form id="add" method="post" class="form-horizontal" action="<?php echo base_url() . 'event/edit/' . $event->id; ?>">
+    <form id="add" method="post" class="form-horizontal" action="<?php echo base_url() . 'event/edit/' . $event->id; ?>" enctype="multipart/form-data">
         <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
             <div class="form-group">
                 <label for="question" class="col-lg-3 control-label">
@@ -76,6 +101,34 @@
                 </div>
             </div>
         <?php } ?>
+
+        <?php if (!is_null($event->image)) { ?>
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('current'), ' ', $this->lang->line('image'); ?>&nbsp;<span class="text-danger">&nbsp;</span></label>
+                <div class="col-lg-5">
+                    <img src="<?php echo IMG_URL . 'event_images/' . $event->image; ?>" class="img-batch" alt="Batch">
+                </div>
+            </div>
+        <?php } ?>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label"><?php echo $this->lang->line('image'); ?>&nbsp;<span class="text-danger">*</span></label>
+            <div class="col-lg-5">
+                <div class=" input-group">
+                    <input type="text" class="form-control required" readonly="">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                            Browse… <input type="file" name="event_image">
+                        </span>
+                    </span>
+                </div>
+                <?php
+                if ($this->session->flashdata('file_errors')) {
+                    echo '<label class="error">' . $this->session->flashdata('file_errors') . '</label>';
+                }
+                ?>
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="col-lg-3 control-label" for="radios"><?php echo $this->lang->line('event'), ' for '; ?></label>
@@ -152,15 +205,36 @@
         </div>
 
         <div class="form-group">
-            <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('manager'); ?> <span class="text-danger">*</span></label>
+            <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('role'); ?> <span class="text-danger">*</span></label>
             <div class="col-lg-5">
-                <select class="form-control required" name="manager[]" multiple="multiple">
-                    <?php
-                    foreach ($users as $user) {
-                        ?>
-                        <option value="<?php echo $user->id; ?>" <?php echo (in_array($user->id, explode(',', $event->manager))) ? 'selected' : ''; ?>><?php echo $user->name . ' [' . ucwords($user->{$session->language . '_role_name'}) . ']'; ?></option>
+                <select class="form-control" name="role" id="getRoleUsers">
+                <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('role'); ?></option>
+                    <?php foreach ($roles as $role) { ?>
+                        <option value="<?php echo $role->id; ?>"><?php echo  ucwords($role->{$session->language . '_role_name'}); ?></option>
                     <?php } ?>     
                 </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('manager'); ?> <span class="text-danger">*</span></label>
+            <div class="col-lg-5">
+                <select class="form-control" id="managers"></select>
+            </div>
+        </div>
+
+        <div class="form-group" id="manager-selected-list-div">
+            <label class="col-lg-3 control-label">&nbsp;</label>
+            <div class="col-lg-5 chosen-container chosen-container-multi" >
+                <ul class="chosen-choices" id="selected-manager-list">
+                <?php foreach ($selected_manager as $manager) { ?>
+                    <li class="search-choice">
+                        <span><?php echo $manager->firstname,' ',$manager->lastname; ?></span>
+                        <a class="search-choice-close" data-option-array-index="<?php echo $manager->id; ?>"></a>
+                        <input type="hidden" name="manager[]" value="<?php echo $manager->id; ?>"></a>
+                    </li>
+                <?php } ?>
+                </ul>
             </div>
         </div>
 
