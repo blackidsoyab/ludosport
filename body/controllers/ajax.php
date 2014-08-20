@@ -56,11 +56,12 @@ class ajax extends CI_Controller {
             $temp['type'] = 'success';
             $temp['message'] = getMessageTemplate($options);
             $temp['notification'] = getSingleNotification($notify->id);
+            $last_id = $notify->id;
             $array[] = $temp;
         }
-        if (!empty($notification->id)) {
-            $array['lastid'] = $notification->id;
-            $this->session->set_userdata('last_notification_id', $notification->id);
+        if (isset($last_id)) {
+            $array['lastid'] = $last_id;
+            $this->session->set_userdata('last_notification_id', $last_id);
         } else {
             $array['lastid'] = $notification_id;
             $this->session->set_userdata('last_notification_id', $notification_id);
@@ -75,6 +76,48 @@ class ajax extends CI_Controller {
         $notification->where(array('to_id' => $this->session_data->id, 'status' => 0))->get();
         $notification->update_all('status', 1);
         return true;
+    }
+
+    function checkMessage($message_id) {
+        $obj_message = new Message();
+        $getmessage =  $obj_message->getMessages($this->session_data->id, $message_id);
+        $array = array();
+        $array['message'] = 'false';
+        if($getmessage){
+            foreach ($getmessage as $message) {
+                $array['message'] = 'true';
+                $temp = array();
+                $temp['type'] = 'success';
+                $temp['message_title'] = $message->subject;
+                $temp['message'] = getSingleMessage($message->id);
+                $last_id = $message->id;
+                $array[] = $temp;
+            }
+        }
+        if (isset($last_id)) {
+            $array['lastid'] = $last_id;
+            $this->session->set_userdata('last_message_id', $last_id);
+        } else {
+            $array['lastid'] = $message_id;
+            $this->session->set_userdata('last_message_id', $message_id);
+        }
+
+        $array['message_count'] = countMessage($this->session_data->id);
+        echo json_encode($array);
+    }
+
+    
+
+    function markAllMessageRead(){
+        $obj_message = new Message();
+        $obj_message->where(array('to_id' => $this->session_data->id, 'to_status' => 'U'))->get();
+        $obj_message->update_all('to_status', 'R');
+
+        $obj_messagestatus = new Messagestatus();
+        $obj_messagestatus->where(array('to_id' => $this->session_data->id, 'status' => 'U'))->get();
+        $obj_messagestatus->update_all('status', 'R');
+
+        return true;   
     }
 
     function notificationPanigate($group_number) {

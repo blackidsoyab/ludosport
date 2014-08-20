@@ -10,9 +10,49 @@ class Message extends DataMapper {
         $this->session_data = &get_instance()->session->userdata('user_session');
     }
 
-    function coutTrashCount() {
+    function countInboxUnRead($user_id){
+        $this->db->_protect_identifiers = false;
+        $query = $this->db->query('SELECT messages.subject, messages.id, messages.reply_of, messages.from_id, messages.to_id, messages.from_status, messages.to_status, messages.timestamp, messages.type, messages.group_id FROM messages WHERE messages.id IN (select MAX(m1.id) from messages m1 where CASE WHEN m1.type = "group" THEN (select messagestatus.status from messagestatus where m1.id=messagestatus.message_id AND messagestatus.to_id='.$user_id.') ELSE m1.to_status END = "U" AND FIND_IN_SET('.$user_id.', m1.to_id) >0 GROUP BY m1.initial_id) ORDER BY messages.id DESC');
+
+        return $query->num_rows();
+    }
+
+    function coutTrashCount($user_id) {
         $message = new Message();
-        return $message->query("select * from messages WHERE (from_id = " . $this->session_data->id . " AND messages.from_status='T') OR (to_id=" . $this->session_data->id . "  AND messages.to_status='T')")->result_count();
+        return $message->query("select * from messages WHERE (from_id = " . $user_id . " AND messages.from_status='T') OR (to_id=" . $user_id . "  AND messages.to_status='T')")->result_count();
+    }
+
+    function getLastMessageID($user_id){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('id');
+        $this->db->from('messages');
+        $this->db->where("FIND_IN_SET($user_id, to_id)");
+        $this->db->order_by('id', 'desc');
+        $this->db->limit(1);
+        $query = $this->db->get();
+        if($query->num_rows() ==1 ){
+            $res = $query->result();
+            return $res[0]->id;
+        } else {
+            return 0;
+        }
+    }
+
+    function getMessages($user_id, $message_id, $limit = NULL){
+        if(!is_null($limit)){
+            $str = ' LIMIT ' .$limit;
+        } else {
+            $str = NULL;
+        }
+
+        $this->db->_protect_identifiers = false;
+        $query = $this->db->query('SELECT messages.subject, messages.id, messages.reply_of, messages.from_id, messages.to_id, messages.from_status, messages.to_status, messages.timestamp, messages.type, messages.group_id FROM messages WHERE messages.id > '.$message_id.' AND messages.id IN (select MAX(m1.id) from messages m1 where CASE WHEN m1.type = "group" THEN (select messagestatus.status from messagestatus where m1.id=messagestatus.message_id AND messagestatus.to_id='.$user_id.') ELSE m1.to_status END = "U" AND FIND_IN_SET('.$user_id.', m1.to_id) >0 GROUP BY m1.initial_id) ORDER BY messages.id DESC' . $str);
+
+        if($query->num_rows() > 0 ){
+            return $query->result();
+        } else {
+            return FALSE;
+        }
     }
 
     function getMessageForReading($id) {

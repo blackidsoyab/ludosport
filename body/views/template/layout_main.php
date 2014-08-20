@@ -74,9 +74,20 @@
                     }
                 });
             }
+
+            function allMessage() {
+                $.ajax({
+                    type: 'POST',
+                    url: http_host_js + 'mark_all_message_read',
+                    success: function() {
+                        checkMessage(<?php echo $this->session->userdata('last_message_id'); ?>);
+                    }
+                });
+            }
             
             $(document).ready(function(){
                 checkNotification(<?php echo $this->session->userdata('last_notification_id'); ?>);
+                checkMessage(<?php echo $this->session->userdata('last_message_id'); ?>);
             });
             
             function toastrSetting(){
@@ -103,7 +114,7 @@
                     dataType : 'JSON',
                     success: function(data) {
                         $('#notification_count').html(data.notification_count);
-                         
+
                         if(data.notification == 'true'){
                             toastrSetting();
                             $.each(data, function(i, item) {
@@ -132,8 +143,39 @@
                     }
                 });
             }
-            
-            //window.setInterval(function(){ checkNotification();},5000);
+
+            function checkMessage(last_id){
+                $.ajax({
+                    type : 'POST',
+                    url : http_host_js+'checkMessage/' + last_id,
+                    dataType : 'JSON',
+                    success: function(data) {
+                        $('#message_count').html(data.message_count);
+
+                        if(data.message == 'true'){
+                            toastrSetting();
+                            $.each(data, function(i, item) {
+                                if(item.type == 'success'){
+                                    toastr.success(item.message_title);
+                                }
+                                
+                                if(data.message_count >5){
+                                    $('ul#messages li:last-child').animate({height: 0}, 1000,"swing",function() {
+                                        $(this).remove();
+                                    })
+                                }
+                        
+                                $(item.message).hide().prependTo('ul#messages').slideDown("slow");
+                            })
+                        }
+
+                        setTimeout(function() {
+                            checkMessage(data.lastid);
+                        }, <?php echo $this->config->item('notification_timer'); ?>);
+                        
+                    }
+                });
+            }
         </script>
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -235,6 +277,30 @@
                                                 </ul>
                                             </div>
                                             <a href="<?php echo base_url() . 'notification' ?>" class="padding-killer"><button class="btn btn-primary btn-square btn-block"><?php echo $this->lang->line('see_all'), ' ', $this->lang->line('notifications'); ?></button></a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('message'); ?>" id="message_count"></span>
+                                        <i class="fa fa-envelope"></i>
+                                    </a>
+                                    <ul class="dropdown-menu square with-triangle">
+                                        <li>
+                                            <div class="nav-dropdown-heading">
+                                                <?php echo $this->lang->line('message'); ?>
+                                                <div class="pull-right">
+                                                    <a href="javascript:;" onclick="allMessage()" class="pull-right"  data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('read_all'), ' ', $this->lang->line('message'); ?>"><?php echo $this->lang->line('read_all'); ?></a>
+                                                </div>
+
+                                            </div>
+                                            <div class="nav-dropdown-content scroll-nav-dropdown">
+                                                <ul id="messages">
+                                                    <?php echo getMessages($session->id); ?>
+                                                </ul>
+                                            </div>
+                                            <a href="<?php echo base_url() . 'message' ?>" class="padding-killer"><button class="btn btn-primary btn-square btn-block"><?php echo $this->lang->line('see_all'), ' ', $this->lang->line('message'); ?></button></a>
                                         </li>
                                     </ul>
                                 </li>

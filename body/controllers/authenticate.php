@@ -46,6 +46,7 @@ class authenticate extends CI_Controller {
                 $newdata = array('user_session' => $user_data);
                 $this->session->set_userdata($newdata);
                 $this->setLastNotification($user->id);
+                $this->setLastmessage($user->id);
                 redirect(base_url() . 'dashboard', 'refresh');
             }
         } else {
@@ -64,6 +65,16 @@ class authenticate extends CI_Controller {
             $this->session->set_userdata('last_notification_id', $notification->id);
         } else {
             $this->session->set_userdata('last_notification_id', '0');
+        }
+    }
+
+    function setLastMessage($user_id) {
+        $obj_message = new Message();
+        $id = $obj_message->getLastMessageID($user_id);
+        if (!empty($id)) {
+            $this->session->set_userdata('last_message_id', $id);
+        } else {
+            $this->session->set_userdata('last_message_id', '0');
         }
     }
 

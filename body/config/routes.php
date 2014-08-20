@@ -121,6 +121,7 @@ $route['denied'] = "authenticate/permissionDenied";
 $route['getstate/(:num)'] = "ajax/getAllStatesOptionsFromCountry/$1";
 $route['getcity/(:num)'] = "ajax/getAllCitiesOptionsFromState/$1";
 $route['checkNotification/(:num)'] = "ajax/checkNotification/$1";
+$route['checkMessage/(:num)'] = "ajax/checkMessage/$1";
 $route['load_more_notification/(:num)'] = "ajax/notificationPanigate/$1";
 
 //Dashboard
@@ -128,6 +129,7 @@ $route['dashboard'] = "dashboard/index";
 $route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
 $route['change_role/(:any)'] = "ajax/setNewRole/$1";
 $route['mark_all_notification_read'] = "ajax/markAllNotificationRead";
+$route['mark_all_message_read'] = "ajax/markAllMessageRead";
 
 //Pending Student
 $route['getclandates/(:num)'] = "ajax/getDateForClan/$1";

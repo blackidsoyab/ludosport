@@ -21,13 +21,13 @@ class messages extends CI_Controller {
     private function _sidebarData() {
         $message = new Message();
 
-        $data['count_inbox'] = $message->where(array('to_id' => $this->session_data->id, 'to_status' => 'U'))->get()->result_count();
+        $data['count_inbox'] = $message->countInboxUnRead($this->session_data->id);
         unset($message);
         $message = new Message();
         $data['count_sent'] = $message->where('from_id', $this->session_data->id)->where('from_status', 'S')->get()->result_count();
         unset($message);
         $message = new Message();
-        $data['count_trash'] = $message->coutTrashCount();
+        $data['count_trash'] = $message->coutTrashCount($this->session_data->id);
         unset($message);
         return $data;
     }

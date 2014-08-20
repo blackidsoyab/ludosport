@@ -685,7 +685,7 @@ public function getMessagesJsonData($type = 'inbox') {
         $this->datatable->myWhere = ' WHERE ((messages.from_id = ' . $this->session_data->id . ' AND messages.from_status="T") OR (messages.to_id=' . $this->session_data->id . ' AND messages.to_status="T"))';
     }
 
-      $this->datatable->sOrder = " ORDER BY messages.timestamp DESC";  
+    $this->datatable->sOrder = " ORDER BY messages.timestamp DESC";  
 
     $this->datatable->datatable_process();
 
