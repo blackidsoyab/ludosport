@@ -131,6 +131,7 @@ $lang['menu'] = 'Menu';
 //Role
 $lang['allow'] = 'Allow';
 $lang['deny'] = 'Deny';
+$lang['is_manager'] = 'Is Manager';
 
 //User
 $lang['active'] = 'Active';

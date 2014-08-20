@@ -71,6 +71,15 @@
         <?php } ?>
 
         <div class="form-group">
+            <label class="col-lg-3 control-label"><?php echo $this->lang->line('is_manager'); ?> <span class="text-danger">&nbsp;</span></label>
+            <div class="col-lg-5">
+                <label class="checkbox-inline" for="is-manager">
+                    <input type="checkbox" name="is_manager" id="is-manager" value="1" <?php echo ($role->is_manager == 1) ? 'checked' : ''; ?>>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-lg-3 control-label">&nbsp;</label>
             <div class="col-lg-5">
                 <button id="permission_tree-checkAll" type="button" class="btn btn-default">Check all</button>

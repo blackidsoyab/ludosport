@@ -30,6 +30,12 @@ class roles extends CI_Controller {
                 }
             }
 
+            if ($this->input->post('is_manager') == '1') {
+                $role->is_manager = 1;
+            }else{
+                $role->is_manager = 0;
+            }
+
             $role->permission = serialize($this->input->post('perm'));
             $role->user_id = $this->session_data->id;
             $role->save();
@@ -56,6 +62,12 @@ class roles extends CI_Controller {
                     } else {
                         $role->$temp = $this->input->post('en_role_name');
                     }
+                }
+
+                if ($this->input->post('is_manager') == '1') {
+                    $role->is_manager = 1;
+                }else{
+                    $role->is_manager = 0;
                 }
 
                 $role->permission = serialize($this->input->post('perm'));
