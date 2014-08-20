@@ -27,9 +27,6 @@ class messages extends CI_Controller {
         $data['count_sent'] = $message->where('from_id', $this->session_data->id)->where('from_status', 'S')->get()->result_count();
         unset($message);
         $message = new Message();
-        $data['count_draft'] = $message->where(array('from_id' => $this->session_data->id, 'from_status' => 'D'))->get()->result_count();
-        unset($message);
-        $message = new Message();
         $data['count_trash'] = $message->coutTrashCount();
         unset($message);
         return $data;
@@ -108,18 +105,9 @@ class messages extends CI_Controller {
             if (!is_null($message->to_id)) {
                 $message->save();
                 $message->where('id', $message->id)->update('initial_id', $message->id);
-
-                $attachments = $this->uploadMultiple('attachments');
-                foreach ($attachments as $key => $value) {
-                     $obj_attach = new Messageattachment();
-                     $obj_attach->message_id = $message->id;
-                     $obj_attach->file_name = $value['file_name'];
-                     $obj_attach->original_name = $value['orig_name'];
-                     $obj_attach->file_type = $value['file_type'];
-                     $obj_attach->file_size = $value['file_size'];
-                     $obj_attach->user_id = $this->session_data->id;
-                     $obj_attach->save();
-                 } 
+                if (!empty($_FILES['attachments'])) {
+                    $this->uploadAttachments($message->id);
+                } 
 
                 if(isset($user_ids)) {
                     foreach ($user_ids as $value) {
@@ -160,21 +148,27 @@ class messages extends CI_Controller {
             $message->save();
             $message->where('id', $message->id)->update('initial_id', $message->id);
 
-            $attachments = $this->uploadMultiple('attachments');
-            foreach ($attachments as $key => $value) {
-                 $obj_attach = new Messageattachment();
-                 $obj_attach->message_id = $message->id;
-                 $obj_attach->file_name = $value['file_name'];
-                 $obj_attach->original_name = $value['orig_name'];
-                 $obj_attach->file_type = $value['file_type'];
-                 $obj_attach->file_size = $value['file_size'];
-                 $obj_attach->user_id = $this->session_data->id;
-                 $obj_attach->save();
-             } 
-        
+            if (!empty($_FILES['attachments'])) {
+                $this->uploadAttachments($message->id);
+            }
+            
         }
 
         return TRUE;
+    }
+
+    function uploadAttachments($id){
+        $attachments = $this->uploadMultiple('attachments');
+        foreach ($attachments as $key => $value) {
+            $obj_attach = new Messageattachment();
+            $obj_attach->message_id = $id;
+            $obj_attach->file_name = $value['file_name'];
+            $obj_attach->original_name = $value['orig_name'];
+            $obj_attach->file_type = $value['file_type'];
+            $obj_attach->file_size = $value['file_size'];
+            $obj_attach->user_id = $this->session_data->id;
+            $obj_attach->save();
+        } 
     }
 
     function uploadMultiple($filed){
@@ -640,30 +634,6 @@ class messages extends CI_Controller {
         }
     }
 
-    public function draftMessage() {
-        $data = $this->_sidebarData();
-        $data['view_title'] = 'Draft';
-        $data['message_box'] = 'draft';
-        $data['message_page_layout'] = $this->load->view('messages/list', $data, true);
-        $this->layout->view('messages/sidebar', $data);
-    }
-
-    public function sentMessage() {
-        $data = $this->_sidebarData();
-        $data['view_title'] = 'Sent Items';
-        $data['message_box'] = 'sent';
-        $data['message_page_layout'] = $this->load->view('messages/list', $data, true);
-        $this->layout->view('messages/sidebar', $data);
-    }
-
-    public function trashMessage() {
-        $data = $this->_sidebarData();
-        $data['view_title'] = 'Trash';
-        $data['message_box'] = 'trash';
-        $data['message_page_layout'] = $this->load->view('messages/list', $data, true);
-        $this->layout->view('messages/sidebar', $data);
-    }
-
     public function readMessage($id) {
         $message = new Message();
         $result = $message->getMessageForReading($id);
@@ -676,11 +646,6 @@ class messages extends CI_Controller {
             $data = $this->_sidebarData();
             $data['id'] = $id;
             $data['view_title'] = 'Read Message';
-            $message->where('id', $id)->get();
-            $data['has_attachments'] = $message->Messageattachments->result_count();
-            if($data['has_attachments'] != 0){
-                $data['all_attachments'] = $message->Messageattachments;
-            }
             $data['messages_data'] = $result;
             $data['message_page_layout'] = $this->load->view('messages/read', $data, true);
             $this->layout->view('messages/sidebar', $data);
@@ -736,7 +701,9 @@ class messages extends CI_Controller {
                 $message->to_status = $to_status;
                 if (!is_null($message->to_id)) {
                     $message->save();
-
+                    if (!empty($_FILES['attachments'])) {
+                        $this->uploadAttachments($message->id);
+                    }
                     if($result_2->type = 'group' && isset($to_ids)) {
                         foreach (explode(',', $to_ids) as $value) {
                             $status = new Messagestatus();
@@ -797,6 +764,22 @@ class messages extends CI_Controller {
         }
 
         echo TRUE;
+    }
+
+    public function sentMessage() {
+        $data = $this->_sidebarData();
+        $data['view_title'] = 'Sent Items';
+        $data['message_box'] = 'sent';
+        $data['message_page_layout'] = $this->load->view('messages/list', $data, true);
+        $this->layout->view('messages/sidebar', $data);
+    }
+
+    public function trashMessage() {
+        $data = $this->_sidebarData();
+        $data['view_title'] = 'Trash';
+        $data['message_box'] = 'trash';
+        $data['message_page_layout'] = $this->load->view('messages/list', $data, true);
+        $this->layout->view('messages/sidebar', $data);
     }
 
 }

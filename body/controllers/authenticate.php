@@ -228,4 +228,9 @@ class authenticate extends CI_Controller {
         $this->layout->view('authenticate/permission');
     }
 
+
+    function error_404(){
+        $this->layout->view('authenticate/error_404');
+    }
+
 }

@@ -681,8 +681,6 @@ public function getMessagesJsonData($type = 'inbox') {
         $this->datatable->myWhere = ' WHERE  messages.id IN (select MAX(m1.id) from messages m1 where FIND_IN_SET(' . $this->session_data->id . ', m1.to_id) >0 AND m1.to_status IN ("U", "R") GROUP BY m1.initial_id)';
     } else if ($type == 'sent') {
         $this->datatable->myWhere = ' WHERE from_id=' . $this->session_data->id . ' AND from_status IN ("S")';
-    } else if ($type == 'draft') {
-        $this->datatable->myWhere = ' WHERE  messages.id IN (select MAX(m1.id) from messages m1 where m1.from_id=' . $this->session_data->id . ' AND m1.from_status IN ("D") GROUP BY m1.initial_id)';
     } else if ($type == 'trash') {
         $this->datatable->myWhere = ' WHERE ((messages.from_id = ' . $this->session_data->id . ' AND messages.from_status="T") OR (messages.to_id=' . $this->session_data->id . ' AND messages.to_status="T"))';
     }
@@ -724,11 +722,17 @@ public function getMessagesJsonData($type = 'inbox') {
         $name =  ucwords($group[0]);
     }
 
+    if(messageHasAttachments($aRow['id'])){
+        $attachments = '<span class="attachment"><i class="fa fa-paperclip"></i></span>';
+    }else {
+        $attachments = NULL;
+    }
+
 
     $message_id = $aRow['id']; //getLastReplyOfMessage($aRow['id']);
     $message = NULL;
 
-    $message .= '<a class="list-group-item message-delete-checkbox pull-left ' . $status . '" data-toggle="tooltip" data-placement="right" data-original-title="' . $delete_msg . '"><input type="checkbox" value="' . $type . '_' . $message_id.'_'. $aRow['type'] . '" name="message_id[]"></a><a href="' . base_url() . 'message/read/' . $message_id . '" class="list-group-item mail-list ' . $status . '">'.$img.'<span class="name">' .$name. '</span><span class="subject">' . $type_label . character_limiter($mess[0], 50) . '</span><span class="time">' . date('d-m-Y', strtotime($aRow['timestamp'])) . '</span></a>';
+    $message .= '<a class="list-group-item message-delete-checkbox pull-left ' . $status . '" data-toggle="tooltip" data-placement="right" data-original-title="' . $delete_msg . '"><input type="checkbox" value="' . $type . '_' . $message_id.'_'. $aRow['type'] . '" name="message_id[]"></a><a href="' . base_url() . 'message/read/' . $message_id . '" class="list-group-item mail-list ' . $status . '">'.$img.'<span class="name">' .$name. '</span><span class="subject">' . $type_label . character_limiter($mess[0], 50) . '</span>'. $attachments .'<span class="time">' . date('d-m-Y', strtotime($aRow['timestamp'])) . '</span></a>';
 
     $temp_arr[] = $message;
     $this->datatable->output['aaData'][] = $temp_arr;

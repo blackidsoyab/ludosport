@@ -39,12 +39,12 @@
         <?php echo $message->message; ?>
     </div>
 
-    <?php if($has_attachments != 0){ ?>
+    <?php if(messageHasAttachments($message->id)){ ?>
     <div class="panel-footer">
         <p><strong>Attachment :</strong></p>
         <ul class="attachment-list">
         <?php
-            foreach ($all_attachments as $key => $value) {
+            foreach (getMessageAttachments($message->id) as $value) {
                echo '<li><a href="'.base_url() .'assets/message_attachments/'. $value->file_name .'" target="_blank">'.$value->original_name.'</a> - <small>'.$value->file_size.' Kb</small></li>';
             }
         ?>

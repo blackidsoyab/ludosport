@@ -134,4 +134,26 @@ if (!function_exists('getLastReplyOfMessage')) {
     }
 
 }
+
+if (!function_exists('messageHasAttachments')) {
+    function messageHasAttachments($msg_id) {
+        $message = new Messageattachment();
+        $message->where('message_id', $msg_id)->get();
+        if ($message->result_count() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+}
+
+if (!function_exists('getMessageAttachments')) {
+    function getMessageAttachments($msg_id) {
+        $message = new Messageattachment();
+        $message->where('message_id', $msg_id)->get();
+        if ($message->result_count() > 0) {
+            return $message;
+        }
+    }
+}
 ?>

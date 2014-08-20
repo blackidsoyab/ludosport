@@ -99,7 +99,7 @@ $route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";
 
 //Default
 $route['default_controller'] = "dashboard";
-$route['404_override'] = '';
+$route['404_override'] = 'authenticate/error_404';
 
 //Cron Jobs
 $route['send_regular_mail'] = "cronjobs/sendRegularMail";
@@ -144,7 +144,6 @@ $route['system_setting/(:any)'] = "systemsettings/viewSystemSetting/$1";
 //Message System
 $route['message/compose'] = "messages/composeMessage";
 $route['message/compose/(:any)'] = "messages/composeMessage/$1";
-$route['message/draft'] = "messages/draftMessage";
 $route['message/sent'] = "messages/sentMessage";
 $route['message/trash'] = "messages/trashMessage";
 $route['message/read/(:num)'] = "messages/readMessage/$1";

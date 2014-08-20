@@ -23,8 +23,6 @@
 
                     <a href="<?php echo base_url() . 'message/sent'; ?>" class="list-group-item <?php echo ($page == 'sent') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('sent'); ?>"><?php echo $this->lang->line('sent'); ?> <span class="badge badge-success"><?php echo $count_sent; ?></span></a>
 
-                    <a href="<?php echo base_url() . 'message/draft'; ?>" class="list-group-item <?php echo ($page == 'draft') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('draft'); ?>"><?php echo $this->lang->line('draft'); ?> <span class="badge badge-warning"><?php echo $count_draft; ?></span></a>
-
                     <a href="<?php echo base_url() . 'message/trash'; ?>" class="list-group-item <?php echo ($page == 'trash') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('trash'); ?>"><?php echo $this->lang->line('trash'); ?> <span class="badge badge-danger"><?php echo $count_trash; ?></span></a>
 
                 </div>

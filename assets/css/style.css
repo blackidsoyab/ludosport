@@ -5583,7 +5583,7 @@ MAIL APPS
 .list-group-item.mail-list span.attachment{
     float: right;
     position: absolute;
-    right: 80px;
+    right: 90px;
     top: 20px;
     text-align: right;
 }

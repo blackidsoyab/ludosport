@@ -166,7 +166,6 @@
         
         <div class="form-group">
             <button type="submit" name="action" value="send" class="btn btn-success" data-toggle="tooltip" title="<?php echo $this->lang->line('send'), ' ', $this->lang->line('message'); ?>"><i class="fa fa-rocket"></i> <?php echo $this->lang->line('send'), ' ', $this->lang->line('message'); ?></button>
-            <button type="submit" name="action" value="draft" class="btn btn-info" data-toggle="tooltip" title="<?php echo $this->lang->line('save'), ' ', $this->lang->line('draft'); ?>"><?php echo $this->lang->line('save'), ' ', $this->lang->line('draft'); ?></button>
             <a href="<?php echo base_url() . 'message'; ?>" class="btn btn-danger" data-toggle="tooltip" title="<?php echo $this->lang->line('discard'); ?>"><?php echo $this->lang->line('discard'); ?></a>
         </div>
     </div>

@@ -6,5 +6,6 @@
 */cache/!.htaccess
 /nbproject/*
 /assets/img/user_avtar/*
+/assets/message_attachments/*
 upload_to_ftp.sh
 git-ftp.py
