@@ -37,9 +37,8 @@ class events extends CI_Controller {
 
     function addEvent() {
         if ($this->input->post() !== false) {
-            exit();
             $event = new Event();
-
+            
             if ($_FILES['event_image']['name'] != '') {
                 $image = $this->uploadImage();
                 if (isset($image['error'])) {

@@ -250,7 +250,7 @@
                                                 <ul>
                                                     <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
                                                         <li class="<?php echo ($session->language == $key) ? 'unread' : ''; ?>"><a href="javascript:;" onclick="UpdateLang(this)" class="language" data-lang ="<?php echo $key; ?>" data-toggle="tooltip" data-original-title="<?php echo ucwords($value); ?>"><?php echo ucwords($value); ?></a></li>
-                                                    <? } ?>
+                                                    <?php } ?>
                                                 </ul>
                                             </div>
                                         </li>

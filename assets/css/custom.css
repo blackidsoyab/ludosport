@@ -4,6 +4,9 @@
 
 label.error{
     color: #E9573F;
+    padding-left: 5px;
+    font-size: 12px;
+    font-weight: normal;;
 }
 
 .actions {

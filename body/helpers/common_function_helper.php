@@ -102,7 +102,7 @@ if (!function_exists('userNameAvtar')) {
         $user = new User();
         $user->where('id', $user_id)->limit(1)->get();
         $return['name'] = $user->firstname . ' ' . $user->lastname;
-        $return['avtar'] = IMG_URL . 'user_avtar/40X40/' . $user->avtar;
+        $return['avtar'] = IMG_URL . 'user_avtar/100X100/' . $user->avtar;
         return $return;
     }
 

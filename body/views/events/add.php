@@ -2,34 +2,19 @@
 <script>
     //<![CDATA[
 
-function readImage(file, check, dimension) {
-    var reader = new FileReader();
-    var image  = new Image();
-    reader.readAsDataURL(file);  
-    reader.onload = function(_file) {
-        image.src    = _file.target.result;
-        image.onload = function() {
-            if(check == 'height'){
-                if(this.height >= dimension){
-                    return true;
-                }else{
-                    return false;
-                }
-            }else if(check == 'width'){
-                if(this.width >= dimension){
-                    return true;
-                }else{
-                    return false;
-                }
-            }else{
-                return true;
-            }
+    function readImage(file) {
+        var reader = new FileReader();
+        var image  = new Image();
+        reader.readAsDataURL(file);  
+        reader.onload = function(_file) {
+            image.src    = _file.target.result;
+            image.onload = function() {
+                //$('#temp-img').attr('src', image.src);
+                $('#event-img-height').val(this.height);
+                $('#event-img-width').val(this.width);
+            };     
         };
-        image.onerror= function() {
-            return false;
-        };      
-    };
-}
+    }
 
     $(document).ready(function() {
         $('#academies_list').hide();
@@ -40,7 +25,7 @@ function readImage(file, check, dimension) {
             var F = this.files;
             if(F && F[0]) {
                 for(var i=0; i<F.length; i++){
-                    //readImage( F[i], 'width', '700' );
+                  readImage(F[0]);  
                 }
             }
         });
@@ -48,26 +33,28 @@ function readImage(file, check, dimension) {
         $("#add").validate({
             rules: {
                 date_to: { greaterThan: "#date_from" },
-                event_image : {ImageDimension: ['width','700'] }
+                event_image : {
+                    ImageDimension: ['width','750']
+                }
             },
             errorPlacement: function(error, element) {
                 if (element.attr('type') === 'radio' || element.attr('type') === 'checkbox') {
                     error.appendTo(element.parent());
-                }
-                else {
+                } else if(element.attr('type') == 'file'){
+                    error.appendTo(element.parent().parent().parent().parent());
+                } else {
                     error.insertAfter(element);
                 }
             }
         });
 
         jQuery.validator.addMethod("ImageDimension", function(value, element, params) {
-            var F = element.files;
-            /*if(readImage(F[0], params[0], params[1])){
-                return value;
-            }
-             return false;*/
-             console.log(readImage(F[0], params[0], params[1]));
-        },'Must be greater than {0} {1}px');
+                 if(params[0] == 'width'){
+                    return (Number($('#event-img-width').val()) > Number(params[1]));
+                 } else {
+                    return (Number($('#event-img-height').val()) > Number(params[1]));
+                 }    
+        },'Image {0} must greater than {1}px');
         
         jQuery.validator.addMethod("greaterThan", function(value, element, params) {
 
@@ -166,6 +153,8 @@ function readImage(file, check, dimension) {
                 }
                 ?>
             </div>
+            <input type="hidden" value="0" id="event-img-height">
+            <input type="hidden" value="0" id="event-img-width">
         </div>
 
         <div class="form-group">

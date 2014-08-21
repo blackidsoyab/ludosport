@@ -1,6 +1,23 @@
 <?php $session = $this->session->userdata('user_session'); ?>
 <script>
     //<![CDATA[
+    function readImage(file) {
+        var reader = new FileReader();
+        var image  = new Image();
+        reader.readAsDataURL(file);  
+        reader.onload = function(_file) {
+            image.src    = _file.target.result;
+            image.onload = function() {
+                //$('#temp-img').attr('src', image.src);
+                $('#event-img-height').val(this.height);
+                $('#event-img-width').val(this.width);
+            };
+            image.onerror= function() {
+                return false;
+            };      
+        };
+    }
+
     $(document).ready(function() {
 <?php if ($event->event_for == 'ALL') { ?>
             $('#academies_list').hide();
@@ -10,19 +27,40 @@
 <?php } else if ($event->event_for == 'SC') { ?>
             $('#academies_list').hide();
 <?php } ?>
+
+        $("#event_image").change(function (e) {
+            if(this.disabled) return alert('File upload not supported!');
+            var F = this.files;
+            if(F && F[0]) {
+                for(var i=0; i<F.length; i++){
+                  readImage(F[0]);  
+                }
+            }
+        });
+
         $("#add").validate({
             rules: {
-                date_to: { greaterThan: "#date_from" }
+                date_to: { greaterThan: "#date_from" },
+                event_image : {ImageDimension: ['width','750'] }
             },
             errorPlacement: function(error, element) {
                 if (element.attr('type') === 'radio' || element.attr('type') === 'checkbox') {
                     error.appendTo(element.parent());
-                }
-                else {
+                } else if(element.attr('type') == 'file'){
+                    error.appendTo(element.parent().parent().parent().parent());
+                } else {
                     error.insertAfter(element);
                 }
             }
         });
+
+        jQuery.validator.addMethod("ImageDimension", function(value, element, params) {
+                 if(params[0] == 'width'){
+                    return (Number($('#event-img-width').val()) > Number(params[1]));
+                 } else {
+                    return (Number($('#event-img-height').val()) > Number(params[1]));
+                 }    
+        },' Image {0} must greater than {1}px');
         
         jQuery.validator.addMethod("greaterThan", function(value, element, params) {
 
@@ -128,6 +166,8 @@
                 }
                 ?>
             </div>
+            <input type="hidden" value="0" id="event-img-height">
+            <input type="hidden" value="0" id="event-img-width">
         </div>
 
         <div class="form-group">

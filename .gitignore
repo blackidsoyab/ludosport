@@ -7,5 +7,6 @@
 /nbproject/*
 /assets/img/user_avtar/*
 /assets/message_attachments/*
+/assets/img/event_images/*
 upload_to_ftp.sh
 git-ftp.py
