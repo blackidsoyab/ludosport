@@ -20,7 +20,6 @@
                                 <div class="form-group">
                                     <div class="col-sm-12 text-center">
                                         <label class="text-muted">
-
                                             <?php
                                             echo $this->lang->line('date'), ' : ', date('l d, F Y ', strtotime($userdetail->first_lesson_date));
                                             ?>
@@ -31,13 +30,16 @@
                                         } if ($userdetail->status == 'U') {
                                             echo '&nbsp;&nbsp;<label class="label label-danger">&nbsp;' . $this->lang->line('unapproved') . '&nbsp;</label>&nbsp;&nbsp;';
                                         }
-                                        $username = userNameAvtar($userdetail->approved_by);
-                                        echo 'by&nbsp;&nbsp;', $username['name'];
+
+                                        if($userdetail->approved_by != 0){
+                                            $username = userNameAvtar($userdetail->approved_by);
+                                            echo 'by&nbsp;&nbsp;', $username['name'];
+                                        }
 
                                         if ($userdetail->status == 'P' || $userdetail->approved_by == $session->id) {
                                             ?>
-                                            <span>&nbsp;&nbsp;</span>
                                             <?php if ($userdetail->status == 'U') { ?>
+                                                <span>&nbsp;&nbsp;</span>
                                                 <form action="<?php base_url() . 'clan/change_status_trial_student/' . $userdetail->clan_id . '/' . $userdetail->id ?>" method="post" class="inline form-horizontal">
                                                     <input type="hidden" value="A" name="status" />
                                                     <input type="hidden" value="<?php echo $userdetail->clan_id ?>" name="clan_id" />
@@ -58,7 +60,7 @@
                                             }
                                         }
 
-                                        if ($userdetail->status != 'P') {
+                                        if ($userdetail->status == 'P') {
                                             ?>
                                             <span>&nbsp;&nbsp;</span>
                                             <form action="<?php base_url() . 'clan/change_status_trial_student/' . $userdetail->clan_id . '/' . $userdetail->id ?>" method="post" class="inline form-horizontal">

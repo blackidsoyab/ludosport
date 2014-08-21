@@ -49,7 +49,20 @@
     //]]>
 </script>
 <h1 class="page-heading"><?php echo getRoleName($session->role); ?></h1>
-<?php if (is_object($clans)) { ?>
+<?php if(isset($already_applied)) { ?>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-<?php echo $type;?> fade in alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <p class="text-center">
+                        <?php echo $already_applied; ?>
+                    </p>
+            </div>
+        </div>
+    </div>   
+<?php } ?>
+
+<?php if (isset($clans) && is_object($clans)) { ?>
     <form id="trial_clan_selection" action="<?php echo base_url() . 'pending_student/save_trial_lesson'; ?>" method="post">
         <input type="hidden" value="<?php echo $session->id ?>" name="student_id" />
         <div class="panel panel-primary" id="step_1">
@@ -90,10 +103,15 @@
             </div>
         </div>
     </form>
-    <?php
-} else {
-    echo $clans;
-}
-?>
+<?php } else if(isset($clans)) { ?>
+    <div class="col-lg-12">
+        <div class="alert alert-<?php echo $type;?> fade in alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <p class="text-center">
+                <?php echo $clans; ?>
+            </p>
+        </div>
+    </div>    
+<?php } ?>
 
 

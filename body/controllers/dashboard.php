@@ -113,9 +113,60 @@ class dashboard extends CI_Controller {
         }
     }
 
+    function getActiveStudentDashboard() {
+        $this->layout->view('dashboard/student');
+    }
+
     function getPendingStudentDashboard() {
         $this->layout->setField('page_title', 'Test Lesson');
+        
+        $userdetail = new Userdetail();
+        $userdetail->where('student_master_id', $this->session_data->id)->get();
 
+        $user = New User();
+        $user->where('id', $this->session_data->id)->get();
+        if($userdetail->result_count() == 1){
+             $applied_on = explode(' ',time_elapsed_string(date('Y-m-d H:i:s', strtotime($userdetail->timestamp))));
+
+            if($userdetail->status == 'P' || $userdetail->status == 'U'){
+                if($applied_on[1] == 'hour'){
+                   $check = $this->getClanDetails($this->session_data->id);
+                    if ($check !== FALSE) {
+                        $data['clans'] = $check;
+                    } else {
+                        $data['clans'] = 'No Clans are Avaialbe. Please try after Sometime';
+                        $data['type'] = 'danger'; 
+                    } 
+                } 
+                $clan = New Clan();
+                $clan->where('id',$userdetail->clan_id)->get();
+                $data['already_applied'] = 'You have already applied for the clan ' . $clan->{$this->session_data->language . '_class_name'}. '<br /> on '. date("d-m-Y", strtotime($userdetail->first_lesson_date)) . ' : ' . date('h.i a', $clan->lesson_from) . '  - ' . date('h.i a', $clan->lesson_to);
+                $data['type'] = 'info';
+            } else {
+                $clan = New Clan();
+                $clan->where('id',$userdetail->clan_id)->get();
+                $data['clans'] = 'You are approvred for the clan ' . $clan->{$this->session_data->language . '_class_name'}. '<br /> on '. date("d-m-Y", strtotime($userdetail->first_lesson_date)) . ' : ' . date('h.i a', $clan->lesson_from) . '  - ' . date('h.i a', $clan->lesson_to);
+                $data['type'] = 'success';
+            }
+        }else{
+            $check = $this->getClanDetails($this->session_data->id);
+            if ($check !== FALSE) {
+                $data['clans'] = $check;
+            } else {
+                $data['clans'] = 'No Clans are Avaialbe. Please try after Sometime'; 
+                $data['type'] = 'danger';
+            }
+        }
+
+        $city = new City();
+        $data['city_name'] = $city->where('id', $user->city_id)->get()->{$this->session_data->language . '_name'};
+        $data['state_name'] = $city->state->{$this->session_data->language . '_name'};
+        $data['country_name'] = $city->state->country->{$this->session_data->language . '_name'};
+
+        $this->layout->view('dashboard/pending_student', $data);
+    }
+
+    private function getClanDetails($user_id){
         $user = New User();
         $user->where('id', $this->session_data->id)->get();
         $data['user'] = $user;
@@ -130,21 +181,10 @@ class dashboard extends CI_Controller {
         $clans_data = $clan->getAviableTrialClan($user->city_id, $under_sixteen);
 
         if ($clans_data !== FALSE) {
-            $data['clans'] = $clan->where_in('id', MultiArrayToSinlgeArray($clans_data))->get();
+            return $clan->where_in('id', MultiArrayToSinlgeArray($clans_data))->get();
         } else {
-            $data['clans'] = 'Sorry';
+            return FALSE;
         }
-
-        $city = new City();
-        $data['city_name'] = $city->where('id', $user->city_id)->get()->{$this->session_data->language . '_name'};
-        $data['state_name'] = $city->state->{$this->session_data->language . '_name'};
-        $data['country_name'] = $city->state->country->{$this->session_data->language . '_name'};
-
-        $this->layout->view('dashboard/pending_student', $data);
-    }
-
-    function getActiveStudentDashboard() {
-        $this->layout->view('dashboard/student');
     }
 
     function pendingStudnetSaveTrailLesson() {

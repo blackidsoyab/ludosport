@@ -429,13 +429,11 @@
                     <?php if ($this->session->flashdata('success') != '') { ?>
                         <div>&nbsp;</div>
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="alert alert-success fade in alert-dismissable">
-                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                    <p class="text-center">
-                                        <?php echo parse_smileys($this->session->flashdata('success'), IMG_URL . "smileys/"); ?>
-                                    </p>
-                                </div>
+                            <div class="alert alert-success fade in alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <p class="text-center">
+                                    <?php echo parse_smileys($this->session->flashdata('success'), IMG_URL . "smileys/"); ?>
+                                </p>
                             </div>
                         </div>
                     <?php } ?>
