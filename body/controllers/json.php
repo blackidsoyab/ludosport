@@ -339,7 +339,10 @@ public function getClansJsonData($school_id) {
         $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0' . $where;
     } else if ($this->session_data->role == '4') {
         $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', dean_id) > 0' . $where;
+    } else if ($this->session_data->role == '5') {
+        $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', teacher_id) > 0' . $where;
     }
+
     $this->datatable->datatable_process();
 
     foreach ($this->datatable->rResult->result_array() as $aRow) {

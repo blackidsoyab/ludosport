@@ -36,7 +36,7 @@
                                             echo 'by&nbsp;&nbsp;', $username['name'];
                                         }
 
-                                        if ($userdetail->status == 'P' || $userdetail->approved_by == $session->id) {
+                                        if ($session->role == 5 && ($userdetail->status == 'P' || $userdetail->approved_by == $session->id)) {
                                             ?>
                                             <?php if ($userdetail->status == 'U') { ?>
                                                 <span>&nbsp;&nbsp;</span>
@@ -60,7 +60,7 @@
                                             }
                                         }
 
-                                        if ($userdetail->status == 'P') {
+                                        if ($session->role == 5 && $userdetail->status == 'P') {
                                             ?>
                                             <span>&nbsp;&nbsp;</span>
                                             <form action="<?php base_url() . 'clan/change_status_trial_student/' . $userdetail->clan_id . '/' . $userdetail->id ?>" method="post" class="inline form-horizontal">
