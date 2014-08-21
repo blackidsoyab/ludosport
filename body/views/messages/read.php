@@ -45,7 +45,7 @@
         <ul class="attachment-list">
         <?php
             foreach (getMessageAttachments($message->id) as $value) {
-               echo '<li><a href="'.base_url() .'assets/message_attachments/'. $value->file_name .'" target="_blank">'.$value->original_name.'</a> - <small>'.$value->file_size.' Kb</small></li>';
+               echo '<li><a href="'.base_url() .'message/attachmment/download/'. $value->id .'">'.$value->original_name.'</a> - <small>'.$value->file_size.' Kb</small></li>';
             }
         ?>
         </ul>

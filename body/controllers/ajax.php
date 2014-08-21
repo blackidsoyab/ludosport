@@ -359,7 +359,7 @@ class ajax extends CI_Controller {
 
     /*
      * ------------------------------------------
-     *           Methos for the Edit User
+     *           Methos for the Events
      *                   START
      * ------------------------------------------
      */
@@ -373,6 +373,30 @@ class ajax extends CI_Controller {
                 echo '<option value="'.$value->id.'">'. $value->firstname .' ' . $value->lastname .'</option>'; 
             }
         }
+     /*
+     * ------------------------------------------
+     * ------------------- END ------------------
+     * ------------------------------------------
+     */
+
+     /*
+     * ------------------------------------------
+     *           Methos for the Message
+     *                   START
+     * ------------------------------------------
+     */
+
+     function downloadAttachment($attachment_id) {
+        $obj = new Messageattachment();
+        $obj->where('id', $attachment_id)->get();
+        if($obj->result_count() == 1){
+            if (file_exists('assets/message_attachments/' . $obj->file_name)) {
+                $path = './assets/message_attachments/' . $obj->file_name;
+                downloadFile($path, $obj->original_name);
+            }    
+        }
+    }
+
      /*
      * ------------------------------------------
      * ------------------- END ------------------

@@ -151,6 +151,7 @@ $route['message/trash'] = "messages/trashMessage";
 $route['message/read/(:num)'] = "messages/readMessage/$1";
 $route['message/reply/(:num)'] = "messages/replyMessage/$1";
 $route['message/delete'] = "messages/deleteMessage";
+$route['message/attachmment/download/(:num)'] = "ajax/downloadAttachment/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
