@@ -60,7 +60,7 @@
                  } else {
                     return (Number($('#event-img-height').val()) > Number(params[1]));
                  }    
-        },' Image {0} must greater than {1}px');
+        },'Image {0} must greater than {1}px');
         
         jQuery.validator.addMethod("greaterThan", function(value, element, params) {
 
