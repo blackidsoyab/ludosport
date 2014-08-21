@@ -131,6 +131,9 @@ $route['change_role/(:any)'] = "ajax/setNewRole/$1";
 $route['mark_all_notification_read'] = "ajax/markAllNotificationRead";
 $route['mark_all_message_read'] = "ajax/markAllMessageRead";
 
+//Teacher Dashborad
+$route['teacher/class_details/(:any)/(:any)'] = "dashboard/teacherClassDetails/$1/$2";
+
 //Pending Student
 $route['getclandates/(:num)'] = "ajax/getDateForClan/$1";
 $route['pending_student/save_trial_lesson'] = "dashboard/pendingStudnetSaveTrailLesson";

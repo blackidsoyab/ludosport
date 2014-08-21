@@ -138,14 +138,14 @@ class users extends CI_Controller {
                     $userdetail = new Userdetail();
                     $data['userdetail'] = $userdetail->where('student_master_id', $id)->get();
 
-                    $school = new School();
-                    $school->where('id', $userdetail->school_id)->get();
-                    $data['schools'] = $school->where('academy_id', $school->academy_id)->get();
-                    $data['academy_id'] = $school->academy_id;
-
                     $class = new Clan();
                     $class->where('id', $userdetail->clan_id)->get();
                     $data['classes'] = $class->where('school_id', $class->school_id)->get();
+                    $data['school_id'] = $class->school_id;
+                    $school = new School();
+                    $school->where('id', $class->school_id)->get();
+                    $data['schools'] = $school->where('academy_id', $school->academy_id)->get();
+                    $data['academy_id'] = $school->academy_id;
 
                     $city = new City();
                     $data['cities'] = $city->get();

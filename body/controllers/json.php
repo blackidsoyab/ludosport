@@ -264,7 +264,7 @@ public function getAcademiesJsonData() {
             $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
         }
         $temp_arr[] = $str;
-
+        
         $this->datatable->output['aaData'][] = $temp_arr;
     }
     echo json_encode($this->datatable->output);
@@ -705,9 +705,9 @@ public function getMessagesJsonData($type = 'inbox') {
         if ($type == 'inbox' && $aRow['type'] == 'single' && $aRow['to_status'] == 'U') {
             $status = 'read';
         } else if ($type == 'inbox' && $aRow['type'] == 'group'){
-           $messagestatus = new Messagestatus();
-           $messagestatus->where(array('message_id'=>$aRow['id'], 'to_id' => $this->session_data->id))->get();
-           if($messagestatus->status == 'U'){
+         $messagestatus = new Messagestatus();
+         $messagestatus->where(array('message_id'=>$aRow['id'], 'to_id' => $this->session_data->id))->get();
+         if($messagestatus->status == 'U'){
             $status = 'read';
         }
     }

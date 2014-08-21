@@ -190,7 +190,7 @@
                     <?php
                     foreach ($schools as $school) {
                         ?>
-                        <option value="<?php echo $school->id; ?>" <?php echo ($userdetail->school_id == $school->id) ? 'selected' : ''; ?>><?php echo $school->{$session->language . '_school_name'}; ?></option>
+                        <option value="<?php echo $school->id; ?>" <?php echo (@$school_id == $school->id) ? 'selected' : ''; ?>><?php echo $school->{$session->language . '_school_name'}; ?></option>
                     <?php } ?>
                 </select>
             </div>

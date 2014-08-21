@@ -6,13 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title><?php echo @$page_title . ' |MYLUDOSPORT'; ?></title>
 
+        <!-- Main CSS -->
         <link href="<?php echo CSS_URL; ?>bootstrap.min.css" rel="stylesheet">
         <link href="<?php echo CSS_URL; ?>style.css" rel="stylesheet">
-        <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">
-        <?php if ($session->role >= 1 && $session->role <= 5) { ?>
-            <link href="<?php echo CSS_URL . $session->role . '.css'; ?>" rel="stylesheet">
-        <?php } ?>
         <link href="<?php echo CSS_URL; ?>style-responsive.css" rel="stylesheet">
+
+        <!-- Plugins CSS -->
         <link href="<?php echo PLUGIN_URL; ?>weather-icon/css/weather-icons.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>prettify/prettify.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>magnific-popup/magnific-popup.min.css" rel="stylesheet">
@@ -31,8 +30,17 @@
         <link href="<?php echo PLUGIN_URL; ?>toastr/toastr.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>slider/slider.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet">
-        <link href="<?php echo CSS_URL; ?>jquery.confirm.css" rel="stylesheet" />
         <link href="<?php echo PLUGIN_URL; ?>validator/bootstrapValidator.css" />
+        <link href="<?php echo PLUGIN_URL; ?>fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet">
+        <link href="<?php echo PLUGIN_URL; ?>confirmbox/jquery.confirm.css" rel="stylesheet" />
+
+        <!-- Custom CSS -->
+        <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">
+
+        <!-- Role CSS -->
+        <?php if ($session->role >= 1 && $session->role <= 5) { ?>
+            <link href="<?php echo CSS_URL . $session->role . '.css'; ?>" rel="stylesheet">
+        <?php } ?>
 
 
         <script src="<?php echo JS_URL; ?>jquery.min.js"></script>
@@ -40,7 +48,8 @@
         <script src="<?php echo PLUGIN_URL; ?>validator//bootstrapValidator.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>datatable/js/jquery.dataTables.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>datatable/js/bootstrap.datatable.js"></script>
-        <script src="<?php echo JS_URL; ?>jquery.confirm.js" type="text/javascript"></script>
+        <script src="<?php echo PLUGIN_URL; ?>confirmbox/jquery.confirm.js"></script>
+
         <?php echo smiley_js(); ?>
         <script>
             var http_host_js = '<?php echo base_url(); ?>';
@@ -505,6 +514,8 @@
         <script src="<?php echo PLUGIN_URL; ?>markdown/bootstrap-markdown.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>slider/bootstrap-slider.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>toastr/toastr.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>fullcalendar/lib/jquery-ui.custom.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>fullcalendar/fullcalendar/fullcalendar.js"></script>
         <script src="<?php echo JS_URL; ?>apps.js"></script>
 
     </body>

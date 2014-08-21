@@ -99,7 +99,16 @@ class dashboard extends CI_Controller {
         $class = new Clan();
         $data['total_classes'] = $class->getTotalClassesOfTeacher($this->session_data->id);
         $data['total_students'] = $class->getTotalStudentsOfTeacher($this->session_data->id);
+        $data['events'] = '[{title:"E1", start: "new Date(2014,07,02)"}]';
         $this->layout->view('dashboard/teacher', $data);
+    }
+
+    function teacherClassDetails(){
+        echo '<pre>';
+        print_r($_POST);
+        echo '<pre>';
+        exit();
+        echo json_encode(array(array('title'=>'E1', 'start'=>'2014-08-01')));
     }
 
     function getStudentDashboard() {
