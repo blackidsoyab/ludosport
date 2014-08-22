@@ -1,22 +1,80 @@
-<?php $session = $this->session->userdata('user_session'); ?>
+<?php
+$session = $this->session->userdata('user_session');
+$monthNames = array_map(function ($ar) {
+    $session = get_instance()->session->userdata('user_session');
+    return $ar["$session->language"];
+}, $this->config->item('custom_months'));
+?>
 <script type="text/javascript">
+    var monthNames = <?php echo json_encode($monthNames);?>;
+
     $(document).ready(function() {
-        loadCalander($('#calendar-year').val(),$('#calendar-month').val());      
+        //Load current Month Calendar
+        $('#calendar').fullCalendar('today');
+        loadCalander($('#calendar-year').val(),$('#calendar-month').val());
+        var year = $('#calendar').fullCalendar('getDate').getFullYear();
+        $('#calendar-year').val(year);
+        var month = $('#calendar').fullCalendar('getDate').getMonth();
+        $('#calendar-month').val(month);
+        $('#current-month-year').html(monthNames[month]+ ' ' + year);
+
+        //Onclick Prev Month        
+        $('#prev-button').click(function(e){
+            $('#calendar').fullCalendar('prev');
+            beforeCalenderLoad();
+        });
+
+        //Onclick Today Month
+        $('#today-button').click(function(){
+            $('#calendar').fullCalendar('today');
+            beforeCalenderLoad();
+        });
+
+        //Onclick Next Month
+        $('#next-button').click(function(){
+            $('#calendar').fullCalendar('next');
+            beforeCalenderLoad();
+        });
     });
+
+    function beforeCalenderLoad(){
+        var year = $('#calendar').fullCalendar('getDate').getFullYear();
+        $('#calendar-year').val(year);
+        var month = $('#calendar').fullCalendar('getDate').getMonth();
+        $('#calendar-month').val(month);
+        $('#calendar').fullCalendar( 'destroy' );
+        loadCalander($('#calendar-year').val(),$('#calendar-month').val());
+        $('#current-month-year').html(monthNames[month]+ ' ' + year);
+    }
 
     function loadCalander(year, month){
         $('#calendar').fullCalendar({
+            year : Number(year),
+            month : Number(month),
             aspectRatio: 3,
             header: {
                 left: '',
-                center: 'title',
-                right: 'today prev,next'
+                center: '',
+                right: ''
             },
             editable: false,
             droppable: false,
-            events: function(start, end, timezone, callback) {
-                console.log(start);
-                console.log(end);
+            events: '<?php echo base_url() ."teacher/class_details/"; ?>' + year +'/'+ month,
+            eventRender: function(event, element) {
+                element.removeClass('fc-event');
+                if(event.type == 'past'){
+                    element.addClass('badge badge-inverse');
+                } else if(event.type == 'present'){
+                    element.addClass('badge badge-success');
+                } else if(event.type == 'future'){
+                    element.addClass('badge badge-info');
+                }
+            },
+            viewRender: function(event, element) {
+                $('.progress-icon').show();
+            },
+            eventAfterRender: function(event, element) {
+                $('.progress-icon').hide();
             }
         });
     }
@@ -79,11 +137,23 @@
     </div>
 </div>
 
+<div class="alert alert-primary alert-block square">
+        <span id="current-month-year"></span>
+        <div class="btn-group pull-right">
+            <a href="javascript://" class="btn btn-primary" id="prev-button"><i class="fa fa-chevron-left"></i></a>
+            <a href="javascript:;" class="btn btn-primary" id="today-button">Today</a>
+            <a href="javascript:;" class="btn btn-primary" id="next-button"><i class="fa fa-chevron-right"></i></a>
+        </div>
+</div>
+
 <div class="row">
     <div class="col-sm-12">
+        <div class="progress-icon" style="display:none" align="center">
+            <i class="fa fa-cog fa-spin fa-2x text-primary"></i>
+        </div>
         <div class="the-box">
-        <input type="hidden" value="<?php echo get_current_date_time()->year; ?>" id="calendar-year">
-        <input type="hidden" value="<?php echo get_current_date_time()->month; ?>" id="calendar-month">
+            <input type="hidden" value="<?php echo get_current_date_time()->year; ?>" id="calendar-year">
+            <input type="hidden" value="<?php echo get_current_date_time()->month - 1; ?>" id="calendar-month">
             <div id="calendar"></div>
             <div style="clear:both"></div>
         </div>

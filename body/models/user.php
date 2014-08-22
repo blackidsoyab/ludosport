@@ -4,8 +4,9 @@ class User extends DataMapper {
 
     public $has_one = array(
         'userdetail' => array(
-            'class' => 'userdetail',
-            'join_other_as' => 'student_master_id')
+            'join_other_as' => 'userdetail',
+            'join_self_as' => 'student_master'
+        )
     );
     var $session_data;
 

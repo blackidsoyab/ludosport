@@ -429,4 +429,51 @@ class clans extends CI_Controller {
         }
     }
 
+    function clanAttadences($clan_id, $date){
+        $clan = New Clan();
+        $clan->where(array('id'=>$clan_id, 'teacher_id'=>$this->session_data->id))->get();
+
+        //$current_date = get_current_date_time()->get_date_for_db(); 
+        //if($clan->result_count() == 1 && strtotime($date) <= strtotime($current_date)){
+        
+        if($clan->result_count() == 1){
+            $data['clan_details'] = $clan;
+            $data['date'] = $date;
+            $userdetails = $clan->Userdetail->where('status', 'A')->get();
+            if($userdetails->result_count() > 0){
+                foreach ($userdetails as $value) {
+                    $temp = $value->User->get();
+                    if(!is_null($temp->id)){
+                        $attadence = new Attendance();
+                        $attadence->where(array('clan_date'=>$date, 'student_id'=>$temp->id))->get();
+                        $data['userdetails'][] = array(
+                            'id'=>$temp->id, 
+                            'firstname'=>$temp->firstname, 
+                            'lastname'=>$temp->lastname,
+                            'attadence' => $attadence->attendance); 
+                    }
+                }
+            } else {
+                $data['userdetails'] = null;
+            }
+
+            $this->layout->view('clans/attadence_view', $data);
+        }else{
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'dashboard', 'refresh'); 
+        }
+    }
+
+    function saveClanAttadences($clan_id){
+        if (!empty($clan_id)) {
+            if ($this->input->post() !== false) {
+                foreach ($this->input->post('user_id') as $key => $value) {
+                    $attadence = new Attendance();
+                    $attadence->where(array('clan_date'=>$this->input->post('date'), 'student_id'=>$key))->update('attendance', $value);
+                }
+            }
+        }
+        redirect(base_url() .'dashboard', 'refresh');
+    }
+
 }

@@ -339,6 +339,20 @@ class Clan extends DataMapper {
         }
     }
 
+    function getClansByTeacherAndDay($teacher_id, $day = 'monday'){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('*');
+        $this->db->from('clans');
+        $this->db->where('teacher_id', $teacher_id);
+        $this->db->where("FIND_IN_SET('" . strtolower($day) . "', lesson_day) > 0");
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+
 }
 
 ?>

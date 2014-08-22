@@ -38,6 +38,7 @@ $lang['password_change_success'] = 'Password Updated successfully';
 $lang['message_sent_success'] = 'Message Sent Successfully';
 $lang['message_read_error'] = 'Error in reading Mail';
 $lang['message_reply_error'] = 'Error in replying Mail';
+$lang['unauthorize_access'] = 'Unauthorize Access';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';
@@ -177,6 +178,11 @@ $lang['unapproved'] = 'Unapproved';
 $lang['reset'] = 'Reset';
 $lang['filter'] = 'Filter';
 $lang['accept_as_student'] = 'Accept as Student';
+
+//Clan Attadence
+$lang['present'] = 'Present';
+$lang['absent'] = 'Absent';
+$lang['attendance_sheet'] = 'Attendance Sheet';
 
 //Levels
 $lang['is_basic'] = 'is basic';

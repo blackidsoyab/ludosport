@@ -163,12 +163,6 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
     background-color: #C88127;
 }
 
-.fc-state-highlight { /* <td> today cell */ /* TODO: add .fc-today to <th> */
-    background: #F1C15C;
-    opacity: 0.5;
-}
-
-.fc-event {
-    border: 1px solid #F1C15C;
-    background-color: #C88127;
+.table-primary th{
+    background: #C88127;
 }

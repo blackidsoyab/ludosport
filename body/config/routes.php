@@ -89,10 +89,15 @@ $route['clan/studentjson/(:any)'] = "json/getStudentsJsonData/$1";
 $route['clan/studentjson/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2";
 $route['clan/studentjson/(:any)/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2/$3";
 
+//Clan Trail Lession Request
 $route['clan/trial_lesson_request/(:num)'] = "clans/listTrialLessonRequest/$1";
 $route['clan/listTrialLessonRequestJson/(:num)'] = "json/getTrialLessonRequestJsonData/$1";
 $route['clan/change_status_trial_student/(:num)/(:num)'] = "clans/changeStatusTrialStudent/$1/$2";
 $route['clan/change_status_trial_student/(:num)/(:num)/(:any)'] = "clans/changeStatusTrialStudent/$1/$2/$3";
+
+//Clan Attadence
+$route['clan/clan_attadence/(:num)/(:any)'] = "clans/clanAttadences/$1/$2";
+$route['clan/save_attadence/(:num)'] = "clans/saveClanAttadences/$1";
 
 //Email Templates
 $route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";
@@ -132,7 +137,7 @@ $route['mark_all_notification_read'] = "ajax/markAllNotificationRead";
 $route['mark_all_message_read'] = "ajax/markAllMessageRead";
 
 //Teacher Dashborad
-$route['teacher/class_details/(:any)/(:any)'] = "dashboard/teacherClassDetails/$1/$2";
+$route['teacher/class_details/(:num)/(:num)'] = "dashboard/teacherClassDetails/$1/$2";
 
 //Pending Student
 $route['getclandates/(:num)'] = "ajax/getDateForClan/$1";

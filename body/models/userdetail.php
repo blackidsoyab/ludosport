@@ -6,8 +6,9 @@ class Userdetail extends DataMapper {
     public $has_one = array(
         'clan' => array(),
         'user' => array(
-            'class' => 'user',
-            'join_other_as' => 'id')
+            'join_other_as' => 'user',
+            'join_self_as' => 'id'
+        )
     );
 
     public static function getAssingStudentIds() {

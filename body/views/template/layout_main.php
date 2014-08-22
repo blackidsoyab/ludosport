@@ -438,11 +438,13 @@
                     <?php if ($this->session->flashdata('success') != '') { ?>
                         <div>&nbsp;</div>
                         <div class="row">
-                            <div class="alert alert-success fade in alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <p class="text-center">
-                                    <?php echo parse_smileys($this->session->flashdata('success'), IMG_URL . "smileys/"); ?>
-                                </p>
+                            <div class="col-lg-12">
+                                <div class="alert alert-success fade in alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <p class="text-center">
+                                        <?php echo parse_smileys($this->session->flashdata('success'), IMG_URL . "smileys/"); ?>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     <?php } ?>
@@ -450,11 +452,13 @@
                     <?php if ($this->session->flashdata('warning') != '') { ?>
                         <div>&nbsp;</div>
                         <div class="row">
-                            <div class="alert alert-warning fade in alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <p class="text-center">
-                                    <?php echo parse_smileys($this->session->flashdata('warning'), IMG_URL . "smileys/"); ?>
-                                </p>
+                            <div class="col-lg-12">
+                                <div class="alert alert-warning fade in alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <p class="text-center">
+                                        <?php echo parse_smileys($this->session->flashdata('warning'), IMG_URL . "smileys/"); ?>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     <?php } ?>
@@ -462,11 +466,13 @@
                     <?php if ($this->session->flashdata('info') != '') { ?>
                         <div>&nbsp;</div>
                         <div class="row">
-                            <div class="alert alert-info fade in alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <p class="text-center">
-                                    <?php echo parse_smileys($this->session->flashdata('info'), IMG_URL . "smileys/"); ?>
-                                </p>
+                            <div class="col-lg-12">
+                                <div class="alert alert-info fade in alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <p class="text-center">
+                                        <?php echo parse_smileys($this->session->flashdata('info'), IMG_URL . "smileys/"); ?>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     <?php } ?>
@@ -474,11 +480,13 @@
                     <?php if ($this->session->flashdata('error') != '') { ?>
                         <div>&nbsp;</div>
                         <div class="row">
-                            <div class="alert alert-danger fade in alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <p class="text-center">
-                                    <?php echo parse_smileys($this->session->flashdata('error'), IMG_URL . "smileys/"); ?>
-                                </p>
+                            <div class="col-lg-12">
+                                <div class="alert alert-danger fade in alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <p class="text-center">
+                                        <?php echo parse_smileys($this->session->flashdata('error'), IMG_URL . "smileys/"); ?>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     <?php } ?>

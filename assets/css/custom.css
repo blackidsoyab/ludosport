@@ -179,3 +179,20 @@ li.role-selection.open .chevron-icon-sidebar{
 .store-item img.item-image {
 height: 180px;
 }
+
+.alert-block .btn-group {
+    margin-top: -5px;
+}
+
+.radio+.radio, .checkbox+.checkbox{
+    margin-top: 0px;
+}
+
+h1.page-heading {
+    text-transform: capitalize;
+}
+
+h1.page-heading small {
+text-transform: none;
+color: #656D78;
+}

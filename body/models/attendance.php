@@ -11,6 +11,7 @@ class Attendance extends DataMapper {
         $this->db->from('attendances');
         $this->db->join('userdetails', 'userdetails.student_master_id=attendances.student_id');
         $this->db->where('clan_date', $date, null);
+        $this->db->where('attendances.attendance', 1, null);
         $this->db->where('userdetails.clan_id', $clan_id, null);
         $query = $this->db->get()->result();
         return $query[0]->total;

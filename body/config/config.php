@@ -50,13 +50,28 @@ if (!defined('PLUGIN_URL')) {
 $config['custom_languages'] = array('en' => 'english', 'it' => 'italian');
 
 $config['custom_days'] = array(
-    '1' => array('en' => 'Sunday', 'it' => 'Domenica'),
-    '2' => array('en' => 'Monday', 'it' => 'Lunedi'),
-    '3' => array('en' => 'Tuesday', 'it' => 'Martedì'),
-    '4' => array('en' => 'Wednesday', 'it' => 'Mercoledì'),
-    '5' => array('en' => 'Thursday', 'it' => 'Giovedi'),
-    '6' => array('en' => 'Friday', 'it' => 'Venerdì'),
-    '7' => array('en' => 'Saturday', 'it' => 'Sabato'),
+    '1' => array('en' => 'Monday', 'it' => 'Lunedi'),
+    '2' => array('en' => 'Tuesday', 'it' => 'Martedì'),
+    '3' => array('en' => 'Wednesday', 'it' => 'Mercoledì'),
+    '4' => array('en' => 'Thursday', 'it' => 'Giovedi'),
+    '5' => array('en' => 'Friday', 'it' => 'Venerdì'),
+    '6' => array('en' => 'Saturday', 'it' => 'Sabato'),
+    '7' => array('en' => 'Sunday', 'it' => 'Domenica'),
+);
+
+$config['custom_months'] = array(
+    array('en' => 'January', 'it' => 'Gennaio'),
+    array('en' => 'February', 'it' => 'Febbraio'),
+    array('en' => 'March', 'it' => 'marzo'),
+    array('en' => 'April', 'it' => 'Aprile'),
+    array('en' => 'May', 'it' => 'maggio'),
+    array('en' => 'June', 'it' => 'Giugno'),
+    array('en' => 'July', 'it' => 'Luglio'),
+    array('en' => 'August', 'it' => 'Agosto'),
+    array('en' => 'September', 'it' => 'Settembre'),
+    array('en' => 'October', 'it' => 'Ottobre'),
+    array('en' => 'November', 'it' => 'Novembre'),
+    array('en' => 'December', 'it' => 'Dicembre'),
 );
 
 /*

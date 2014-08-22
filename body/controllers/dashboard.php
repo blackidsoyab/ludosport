@@ -103,12 +103,35 @@ class dashboard extends CI_Controller {
         $this->layout->view('dashboard/teacher', $data);
     }
 
-    function teacherClassDetails(){
-        echo '<pre>';
-        print_r($_POST);
-        echo '<pre>';
-        exit();
-        echo json_encode(array(array('title'=>'E1', 'start'=>'2014-08-01')));
+    function teacherClassDetails($year, $month){
+        $month = $month + 1;
+        $current_date = get_current_date_time()->get_date_for_db();        
+        $return = array();
+        $total_days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        for($i=1;$i<=$total_days;$i++){
+            $date = $year .'-'. $month .'-'. $i;
+            $day_numeric = date('N', strtotime($date));
+            $clans = New Clan();
+            $details = $clans->getClansByTeacherAndDay($this->session_data->id, $day_numeric);
+            if($details){
+                foreach ($details as $value) {
+                    $temp = array();
+                    $temp['title'] = $value->{$this->session_data->language.'_class_name'};
+                    $temp['start'] = $date;
+                    if(strtotime($date) < strtotime($current_date)){
+                        $temp['url'] = base_url() .'clan/clan_attadence/' . $value->id .'/'. $date;
+                        $temp['type'] = 'past';
+                    }else if(strtotime($date) == strtotime($current_date)){
+                        $temp['url'] = base_url() .'clan/clan_attadence/' . $value->id .'/'. $date;
+                        $temp['type'] = 'present';
+                    } else {
+                        $temp['type'] = 'future';
+                    }
+                    $return[] = $temp;
+                }
+            }
+        }
+        echo json_encode($return);
     }
 
     function getStudentDashboard() {
