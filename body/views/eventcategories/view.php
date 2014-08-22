@@ -53,7 +53,7 @@ echo $lengths[0]; ?>,
     </div>
 
     <div class="col-lg-6 col-xs-6">
-        <?php if (hasPermission('levels', 'addLevel')) { ?>
+        <?php if (hasPermission('eventcategories', 'addEventcategory')) { ?>
             <a href="<?php echo base_url() . 'eventcategory/add' ?>" class="btn btn-primary h1 pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('eventcategory'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('eventcategory'); ?></a>
         <?php } ?>
     </div>
