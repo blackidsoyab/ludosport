@@ -1,10 +1,21 @@
 <?php $session = $this->session->userdata('user_session'); ?>
-<h1 class="page-heading"><?php echo $this->lang->line('attendance_sheet'), ' : ', $clan_details->{$session->language.'_class_name'}; ?></h1>
+
+<div class="row">
+    <div class="col-lg-6 col-xs-6">
+        <h1 class="page-heading"><?php echo $this->lang->line('attendance_sheet'), ' : ', $clan_details->{$session->language.'_class_name'}; ?></h1>
+    </div>
+
+    <?php if(strtotime($date) == strtotime($current_date)) { ?>
+    <div class="col-lg-6 col-xs-6">
+            <a href="<?php echo base_url() . 'clan/next_week_attendance/'.$clan_details->id; ?>" class="btn btn-primary h1 pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('next_week'), ' ', $this->lang->line('attendance'); ?>"><?php echo $this->lang->line('next_week'), ' ', $this->lang->line('attendance'); ?></a>
+    </div>
+    <?php } ?>
+</div>
 
 <?php if(!empty($userdetails)){ ?>
 <div class="the-box full no-border">
 	<div class="table-responsive">
-		<form class="form-horizontal" method="post" action="<?php echo base_url().'clan/save_attadence/'.$clan_details->id; ?>">
+		<form class="form-horizontal" method="post" action="<?php echo base_url().'clan/save_attendance/'.$clan_details->id; ?>">
 		<input type="hidden" name="date" value="<?php echo $date; ?>">
 			<table class="table table-th-block table-primary">
 				<thead>

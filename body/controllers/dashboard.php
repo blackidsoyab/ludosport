@@ -119,10 +119,10 @@ class dashboard extends CI_Controller {
                     $temp['title'] = $value->{$this->session_data->language.'_class_name'};
                     $temp['start'] = $date;
                     if(strtotime($date) < strtotime($current_date)){
-                        $temp['url'] = base_url() .'clan/clan_attadence/' . $value->id .'/'. $date;
+                        $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
                         $temp['type'] = 'past';
                     }else if(strtotime($date) == strtotime($current_date)){
-                        $temp['url'] = base_url() .'clan/clan_attadence/' . $value->id .'/'. $date;
+                        $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
                         $temp['type'] = 'present';
                     } else {
                         $temp['type'] = 'future';

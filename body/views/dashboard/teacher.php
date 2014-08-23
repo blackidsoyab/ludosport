@@ -22,18 +22,21 @@ $monthNames = array_map(function ($ar) {
         $('#prev-button').click(function(e){
             $('#calendar').fullCalendar('prev');
             beforeCalenderLoad();
+            $("html, body").scrollTop($('#prev-button').offset().top); 
         });
 
         //Onclick Today Month
         $('#today-button').click(function(){
             $('#calendar').fullCalendar('today');
             beforeCalenderLoad();
+            $("html, body").scrollTop($('#today-button').offset().top); 
         });
 
         //Onclick Next Month
         $('#next-button').click(function(){
             $('#calendar').fullCalendar('next');
             beforeCalenderLoad();
+            $("html, body").scrollTop($('#next-button').offset().top); 
         });
     });
 
@@ -63,11 +66,11 @@ $monthNames = array_map(function ($ar) {
             eventRender: function(event, element) {
                 element.removeClass('fc-event');
                 if(event.type == 'past'){
-                    element.addClass('badge badge-inverse');
+                    element.addClass('badge badge-info');
                 } else if(event.type == 'present'){
                     element.addClass('badge badge-success');
                 } else if(event.type == 'future'){
-                    element.addClass('badge badge-info');
+                    element.addClass('badge badge-inverse');
                 }
             },
             viewRender: function(event, element) {
@@ -140,7 +143,7 @@ $monthNames = array_map(function ($ar) {
 <div class="alert alert-primary alert-block square">
         <span id="current-month-year"></span>
         <div class="btn-group pull-right">
-            <a href="javascript://" class="btn btn-primary" id="prev-button"><i class="fa fa-chevron-left"></i></a>
+            <a href="javascript:;" class="btn btn-primary" id="prev-button"><i class="fa fa-chevron-left"></i></a>
             <a href="javascript:;" class="btn btn-primary" id="today-button">Today</a>
             <a href="javascript:;" class="btn btn-primary" id="next-button"><i class="fa fa-chevron-right"></i></a>
         </div>

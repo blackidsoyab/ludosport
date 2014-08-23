@@ -183,6 +183,10 @@ $lang['accept_as_student'] = 'Accept as Student';
 $lang['present'] = 'Present';
 $lang['absent'] = 'Absent';
 $lang['attendance_sheet'] = 'Attendance Sheet';
+$lang['next_week'] = 'Next Week';
+$lang['attendance'] = 'Attendance';
+$lang['attendance_next_week_done'] = 'Attendance for next week done';
+
 
 //Levels
 $lang['is_basic'] = 'is basic';

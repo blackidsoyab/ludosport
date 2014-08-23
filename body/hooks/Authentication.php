@@ -45,7 +45,11 @@ class Authentication extends CI_Controller {
     }
 
     private function setAllowedMethod() {
-        $this->allowed_for_all = array('clanAttadences','saveClanAttadences');
+        $this->allowed_for_all = array(
+            'clanAttendances',
+            'saveClanAttendances',
+            'nextWeekAttendances'
+            );
     }
 
     function checkPermission() {

@@ -96,8 +96,9 @@ $route['clan/change_status_trial_student/(:num)/(:num)'] = "clans/changeStatusTr
 $route['clan/change_status_trial_student/(:num)/(:num)/(:any)'] = "clans/changeStatusTrialStudent/$1/$2/$3";
 
 //Clan Attadence
-$route['clan/clan_attadence/(:num)/(:any)'] = "clans/clanAttadences/$1/$2";
-$route['clan/save_attadence/(:num)'] = "clans/saveClanAttadences/$1";
+$route['clan/clan_attendance/(:num)/(:any)'] = "clans/clanAttendances/$1/$2";
+$route['clan/save_attendance/(:num)'] = "clans/saveClanAttendances/$1";
+$route['clan/next_week_attendance/(:num)'] = "clans/nextWeekAttendances/$1";
 
 //Email Templates
 $route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";

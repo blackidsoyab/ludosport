@@ -429,14 +429,15 @@ class clans extends CI_Controller {
         }
     }
 
-    function clanAttadences($clan_id, $date){
+    function clanAttendances($clan_id, $date){
         $clan = New Clan();
+        $day_numeric = date('N', strtotime($date));
+        $details = $clan->getClansByTeacherAndDay($this->session_data->id, $day_numeric);
         $clan->where(array('id'=>$clan_id, 'teacher_id'=>$this->session_data->id))->get();
-
-        //$current_date = get_current_date_time()->get_date_for_db(); 
-        //if($clan->result_count() == 1 && strtotime($date) <= strtotime($current_date)){
+        $current_date = get_current_date_time()->get_date_for_db();
+        $data['current_date'] = $current_date;
         
-        if($clan->result_count() == 1){
+        if($details && $clan->result_count() == 1 && strtotime($date) <= strtotime($current_date)){
             $data['clan_details'] = $clan;
             $data['date'] = $date;
             $userdetails = $clan->Userdetail->where('status', 'A')->get();
@@ -464,7 +465,7 @@ class clans extends CI_Controller {
         }
     }
 
-    function saveClanAttadences($clan_id){
+    function saveClanAttendances($clan_id){
         if (!empty($clan_id)) {
             if ($this->input->post() !== false) {
                 foreach ($this->input->post('user_id') as $key => $value) {
@@ -474,6 +475,47 @@ class clans extends CI_Controller {
             }
         }
         redirect(base_url() .'dashboard', 'refresh');
+    }
+
+    function nextWeekAttendances($clan_id){
+        $clan = New Clan();
+        $clan->where(array('id'=>$clan_id, 'teacher_id'=>$this->session_data->id))->get();
+
+        $current_date = get_current_date_time()->get_date_for_db();
+        $start_date = date('Y-m-d', strtotime('+1 day', strtotime($current_date)));
+        $end_date = date('Y-m-d', strtotime('+1 week', strtotime($current_date)));
+        
+        $days = explode(',', $clan->lesson_day);
+        $curr = date('N', strtotime($current_date));
+        $days_name = $this->config->item('custom_days');
+        
+        if(getArrayNexyValue($days, $curr)){
+            $next_day = $days_name[getArrayNexyValue($days, $curr)]['en'];    
+        }else{
+            $next_day = $days_name[getArrayPreviousValue($days, $curr)]['en'];
+        }
+        
+        $next_date = getDateByDay($next_day, $start_date, $end_date);
+        $next_date = $next_date[0];
+
+        if($clan->result_count() == 1){
+            $userdetails = $clan->Userdetail->where('status', 'A')->get();
+            if($userdetails->result_count() > 0){
+                foreach ($userdetails as $value) {
+                    $temp = $value->User->get();
+                    if(!is_null($temp->id)){
+                        $attadence = new Attendance();
+                        $attadence->where(array('clan_date'=>$next_date, 'student_id'=>$temp->id))->get();
+                        $attadence->clan_date = $next_date;
+                        $attadence->student_id = $temp->id;
+                        $attadence->user_id = $this->session_data->id;
+                        $attadence->save();
+                    }
+                }
+            }
+        }
+        $this->session->set_flashdata('success', $this->lang->line('attendance_next_week_done'));
+        redirect(base_url() . 'dashboard', 'refresh'); 
     }
 
 }
