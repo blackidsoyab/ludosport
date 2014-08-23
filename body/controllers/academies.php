@@ -42,10 +42,15 @@ class academies extends CI_Controller {
                             $data['students'] = null;
                         }
                     }
-                }else{
-                    $data['clans'][] = null;
-                    $data['students'][] = null;
                 }
+            }
+
+            if(!isset($data['clans'])){
+                $data['clans'] = null;
+            }
+
+             if(!isset($data['students'])){
+                $data['students'] = null;
             }
 
             $this->layout->view('academies/view_single', $data);

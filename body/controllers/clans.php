@@ -41,6 +41,24 @@ class clans extends CI_Controller {
 
             $obj = new Clan();
             $data['clan'] = $obj->where('id', $id)->get();
+            $data['school'] = $obj->School->get();
+            $data['academy'] = $obj->School->Academy->get();
+            $userdetails = $obj->Userdetail->get();
+            if($userdetails->result_count() > 0){
+                foreach ($userdetails as $value) {
+                    $user = $value->User->get();
+                    if(!is_null($user->id)){
+                        $data['students'][] = $user->stored;
+                    }
+                }
+            } else {
+                $data['students'] = null;
+            } 
+
+             if(!isset($data['students'])){
+                $data['students'] = null;
+            }
+
             $this->layout->view('clans/view_single', $data);
         }
     }

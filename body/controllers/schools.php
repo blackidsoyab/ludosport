@@ -32,6 +32,31 @@ class schools extends CI_Controller {
 
             $obj = new school();
             $data['school'] = $obj->where('id', $id)->get();
+            $data['academy'] = $obj->Academy->get();
+            $clans =  $obj->Clan->get();
+            $data['clans'] = $clans;
+            foreach ($clans as $clan) {
+                $userdetails = $clan->Userdetail->get();
+                if($userdetails->result_count() > 0){
+                    foreach ($userdetails as $value) {
+                        $user = $value->User->get();
+                        if(!is_null($user->id)){
+                            $data['students'][] = $user->stored;
+                        }
+                    }
+                } else {
+                    $data['students'] = null;
+                } 
+            }
+
+            if(!isset($data['clans'])){
+                $data['clans'] = null;
+            }
+
+             if(!isset($data['students'])){
+                $data['students'] = null;
+            }
+            
             $this->layout->view('schools/view_single', $data);
         }
     }

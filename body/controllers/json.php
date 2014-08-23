@@ -295,7 +295,7 @@ public function getSchoolsJsonData($academy_id) {
 
     foreach ($this->datatable->rResult->result_array() as $aRow) {
         $temp_arr = array();
-        $temp_arr[] = '<a href="' . base_url() . 'clan/view/' . $aRow['id'] . '/list_clan_school_wise" class="text-black" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $this->lang->line('view_all') . ' ' . $this->lang->line('class') . '">' . $aRow['school_name'] . '</a>';
+        $temp_arr[] = '<a href="' . base_url() . 'school/view/' . $aRow['id'] . '" class="text-black" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $this->lang->line('view_all') . ' ' . $this->lang->line('class') . '">' . $aRow['school_name'] . '</a>';
         $temp_arr[] = $aRow['academy_name'];
         if ($aRow['total_students'] > 0) {
             $temp_arr[] = '<a href="' . base_url() . 'clan/studentlist/' . $aRow['id'] . '/school" class="text-black" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $this->lang->line('view_all') . ' ' . $this->lang->line('student') . '">' . $aRow['total_students'] . '</a>';
@@ -347,7 +347,8 @@ public function getClansJsonData($school_id) {
 
     foreach ($this->datatable->rResult->result_array() as $aRow) {
         $temp_arr = array();
-        $temp_arr[] = $aRow['class_name'];
+        $temp_arr[] = '<a href="' . base_url() . 'clan/view/' . $aRow['id'] . '" class="text-black" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $this->lang->line('view_all') . ' ' . $this->lang->line('class') . '">' . $aRow['class_name'] . '</a>';
+
         $temp_arr[] = $aRow['instructor'];
         $temp_arr[] = $aRow['school_name'] . ', ' . $aRow['academy_name'];
         if ($aRow['total_students'] > 0) {

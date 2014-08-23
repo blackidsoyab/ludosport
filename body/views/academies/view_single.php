@@ -115,73 +115,78 @@
 					</div>
 
 					<div class="tab-pane fade" id="school-detail">
-						<div class="panel-group" id="school-list">
-							<?php foreach ($schools as $school) { ?>
-							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h3 class="panel-title">
-									<a class="block-collapse collapsed" data-parent="#school-list" data-toggle="collapse" href="<?php echo '#school-view-'.$school->id; ?>">
-											<?php echo $school->{$session->language.'_school_name'}; ?>
-											<span class="right-content">
-												<span class="right-icon"><i class="glyphicon glyphicon-plus icon-collapse"></i></span>
-											</span>
-										</a>
-									</h3>
-								</div>
-								<div id="<?php echo 'school-view-'.$school->id; ?>" class="collapse" style="height: 0px;">
-									<div class="panel-body">
-										<div class="table-responsive">
-											<table class="table table-th-block">
-												<tbody>
-													<tr>
-														<td><?php echo $this->lang->line('dean'); ?>(s) :</td>
-														<td>
-															<?php 
-															$str = NULL;
-															foreach (explode(',', $school->dean_id) as $value) {
-																$user = userNameAvtar($value);
-																$str .= ', <a href="'.base_url().'profile/view/'.$value.'">' .$user['name']. '</a>';
-															}; 
-															echo substr($str, 2);
-															?>
-														</td>
-													</tr>
-													<tr>
-														<td><?php echo $this->lang->line('address'); ?> :</td>
-														<td><?php echo $school->address; ?></td>
-													</tr>
-													<tr>
-														<td><?php echo $this->lang->line('postal_code'); ?> :</td>
-														<td><?php echo $school->postal_code; ?></td>
-													</tr>
-													<tr>
-														<td><?php echo $this->lang->line('location'); ?> :</td>
-														<td><?php echo getLocationName($school->city_id, 'City'),', ', getLocationName($school->state_id, 'State'),', ',getLocationName($school->country_id, 'Country'); ?></td>
-													</tr>
-													<tr>
-														<td><?php echo $this->lang->line('phone_number'); ?>#1 :</td>
-														<td><?php echo $school->phone_1; ?></td>
-													</tr>
-													<tr>
-														<td><?php echo $this->lang->line('phone_number'); ?>#2 :</td>
-														<td><?php echo $school->phone_2; ?></td>
-													</tr>
-													<tr>
-														<td><?php echo $this->lang->line('email'); ?> :</td>
-														<td><?php echo $school->email; ?></td>
-													</tr>
-												</tbody>
-											</table>
+						<?php  if(count($schools->all) > 0) { ?>
+							<div class="panel-group" id="school-list">
+								<?php foreach ($schools as $school) { ?>
+								<div class="panel panel-primary">
+									<div class="panel-heading">
+										<h3 class="panel-title">
+										<a class="block-collapse collapsed" data-parent="#school-list" data-toggle="collapse" href="<?php echo '#school-view-'.$school->id; ?>">
+												<?php echo $school->{$session->language.'_school_name'}; ?>
+												<span class="right-content">
+													<span class="right-icon"><i class="glyphicon glyphicon-plus icon-collapse"></i></span>
+												</span>
+											</a>
+										</h3>
+									</div>
+									<div id="<?php echo 'school-view-'.$school->id; ?>" class="collapse" style="height: 0px;">
+										<div class="panel-body">
+											<div class="table-responsive">
+												<table class="table table-th-block">
+													<tbody>
+														<tr>
+															<td><?php echo $this->lang->line('dean'); ?>(s) :</td>
+															<td>
+																<?php 
+																$str = NULL;
+																foreach (explode(',', $school->dean_id) as $value) {
+																	$user = userNameAvtar($value);
+																	$str .= ', <a href="'.base_url().'profile/view/'.$value.'">' .$user['name']. '</a>';
+																}; 
+																echo substr($str, 2);
+																?>
+															</td>
+														</tr>
+														<tr>
+															<td><?php echo $this->lang->line('address'); ?> :</td>
+															<td><?php echo $school->address; ?></td>
+														</tr>
+														<tr>
+															<td><?php echo $this->lang->line('postal_code'); ?> :</td>
+															<td><?php echo $school->postal_code; ?></td>
+														</tr>
+														<tr>
+															<td><?php echo $this->lang->line('location'); ?> :</td>
+															<td><?php echo getLocationName($school->city_id, 'City'),', ', getLocationName($school->state_id, 'State'),', ',getLocationName($school->country_id, 'Country'); ?></td>
+														</tr>
+														<tr>
+															<td><?php echo $this->lang->line('phone_number'); ?>#1 :</td>
+															<td><?php echo $school->phone_1; ?></td>
+														</tr>
+														<tr>
+															<td><?php echo $this->lang->line('phone_number'); ?>#2 :</td>
+															<td><?php echo $school->phone_2; ?></td>
+														</tr>
+														<tr>
+															<td><?php echo $this->lang->line('email'); ?> :</td>
+															<td><?php echo $school->email; ?></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
 										</div>
 									</div>
-								</div>
-							</div>	
-							<?php } ?>
-						</div>
+								</div>	
+								<?php } ?>
+							</div>
+						<?php } else { ?>
+							<h3 class="text-danger">No Schools</h3>
+						<?php } ?>
 					</div>
 
 					<div class="tab-pane fade" id="clan-detail">
-						<div class="panel-group" id="clan-list">
+						<?php if(!is_null($clans)) { ?>
+							<div class="panel-group" id="clan-list">
 							<?php foreach ($clans as $clan) { ?>
 							<div class="panel panel-primary">
 								<div class="panel-heading">
@@ -243,7 +248,10 @@
 								</div>
 							</div>	
 							<?php } ?>
-						</div>
+							</div>
+						<?php } else { ?>
+							<h3 class="text-danger">No Clans</h3>
+						<?php } ?>
 					</div>
 
 					<div class="tab-pane fade" id="student-detail">
