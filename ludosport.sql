@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 22, 2014 at 06:27 PM
+-- Generation Time: Aug 23, 2014 at 06:43 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.13
 
@@ -56,8 +56,8 @@ CREATE TABLE IF NOT EXISTS `academies` (
 
 INSERT INTO `academies` (`id`, `rector_id`, `en_academy_name`, `it_academy_name`, `type`, `contact_firstname`, `contact_lastname`, `association_fullname`, `role_referent`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `fee1`, `fee2`, `user_id`, `timestamp`) VALUES
 (1, '3,5', 'Poppey Sailor Man', 'Poppey Sailor Man', 'ac', 'Soyab', 'Rana', 'PSM', 'Poppeyyyyyyyyyy Sailorrrrrrrrrrr Mannnnnnnnnnnnnnnnn', 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 500.00, 20.00, 2, '2014-07-25 08:45:52'),
-(2, '3,6', 'Dexter Laboratory', 'Dexter Laboratory', 'ac', 'Soyab', 'Rana', 'PSM', 'Temparory', 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 100.00, 30.00, 2, '2014-07-25 11:22:54'),
-(3, '5', 'ZZZ', 'ZZZ', 'ac', 'ZZ', 'AA', 'AA', 'QQ', 'QQ', '123456', 4, 2, 1, '1234567890', '91987654321', 'soyab@yopmail.com', 0.00, 0.00, 2, '2014-07-31 04:29:26');
+(2, '3,6', 'Dexter Laboratory', 'Dexter Laboratory', 'ac', 'Soyab', 'Rana', 'DL', 'Temparory', 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 100.00, 30.00, 2, '2014-07-25 11:22:54'),
+(3, '5', 'Power Puff Girls', 'Power Puff Girls', 'ac', 'John', 'Candy', 'Power Puff Girls', 'Maecenas nec leo nec lacus posuere ultricies. Mauris fermentum porta nulla. Vestibulum dictum, nulla vitae gravida sollicitudin, mauris justo bibendum velit, in varius tortor ipsum et nulla. Phasellus a convallis magna. Suspendisse potenti. In hac habitas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\r\nEtiam finibus purus vel augue consectetur, vitae viverra mauris egestas.\r\nInteger blandit elit vitae risus fringilla scelerisque.\r\nCurabitur sollicitudin sem non nibh mattis, eu blandit risus ultricies.', '123456', 4, 2, 1, '1234567890', '91987654321', 'ppg@yopmail.com', 100.00, 50.00, 2, '2014-07-31 04:29:26');
 
 -- --------------------------------------------------------
 
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `attendances` (
   `attendance` tinyint(1) NOT NULL DEFAULT '1',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `attendances`
@@ -88,7 +88,9 @@ INSERT INTO `attendances` (`id`, `clan_date`, `student_id`, `attendance`, `user_
 (10, '2014-08-20', 14, 1, 2, '2014-08-22 11:37:00'),
 (11, '2014-08-20', 15, 1, 2, '2014-08-22 11:37:00'),
 (12, '2014-08-20', 16, 0, 2, '2014-08-22 11:37:00'),
-(13, '2014-08-22', 17, 1, 2, '2014-08-22 11:37:00');
+(13, '2014-08-22', 17, 1, 2, '2014-08-22 11:37:00'),
+(14, '2014-08-23', 17, 1, 2, '2014-08-22 11:37:00'),
+(17, '2014-08-29', 17, 1, 7, '2014-08-23 07:04:40');
 
 -- --------------------------------------------------------
 
@@ -618,7 +620,7 @@ INSERT INTO `schools` (`id`, `academy_id`, `dean_id`, `en_school_name`, `it_scho
 (2, 2, '3', 'Dexter', 'Dexter', 'Baroda', 390016, 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-07-25 11:23:56'),
 (3, 1, '4', 'Salior', 'Salior', 'Baroda', 390016, 1, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:43:41'),
 (4, 2, '4', 'Laboratory', 'Laboratory', 'Baroda', 390016, 1, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:44:24'),
-(5, 3, '4', 'ZZZ 1', 'ZZZ 1', 'Baroda', 390016, 2, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-31 08:50:42');
+(5, 3, '4', 'Power Girls', 'Power Girls', 'Baroda', 390016, 2, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-31 08:50:42');
 
 -- --------------------------------------------------------
 
@@ -700,14 +702,13 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
 --
 
 INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `first_lesson_date`, `approved_by`, `status`, `user_id`, `timestamp`) VALUES
-(5, 14, '1', '0000-00-00', 0, 'A', 2, '2014-08-04 05:39:02'),
-(6, 15, '1', '0000-00-00', 0, 'A', 2, '2014-08-04 05:39:27'),
-(7, 16, '1', '0000-00-00', 0, 'A', 2, '2014-08-04 05:39:27'),
-(8, 17, '5', '2014-08-11', 0, 'A', 2, '2014-08-05 05:39:27'),
-(9, 18, '2', '0000-00-00', 0, 'A', 2, '2014-08-04 05:39:27'),
+(5, 14, '1', '2014-08-04', 2, 'A', 2, '2014-08-04 05:39:02'),
+(6, 15, '1', '2014-08-04', 2, 'A', 2, '2014-08-04 05:39:27'),
+(7, 16, '1', '2014-08-04', 2, 'A', 2, '2014-08-04 05:39:27'),
+(8, 17, '5', '2014-08-11', 2, 'A', 2, '2014-08-05 05:39:27'),
 (12, 12, '1', '2014-08-11', 2, 'U', 12, '2014-08-05 06:44:27'),
 (17, 13, '3', '2014-08-11', 2, 'A', 13, '2014-08-05 07:19:17'),
-(18, 20, '5', '2014-08-28', 0, 'P', 20, '2014-08-21 07:07:12');
+(18, 20, '5', '2014-08-28', 2, 'P', 20, '2014-08-21 07:07:12');
 
 -- --------------------------------------------------------
 
@@ -729,7 +730,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `country_id` int(11) NOT NULL,
   `permission` longtext,
   `avtar` varchar(255) NOT NULL DEFAULT 'no_avatar.jpg',
-  `status` enum('A','D','P') NOT NULL DEFAULT 'P',
+  `status` enum('A','D','P','U') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
@@ -747,7 +748,7 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `last
 (6, '3', 'rector_2', '202cb962ac59075b964b07152d234b70', 'Rector', '2', 'soyab@yopmail.com', 1277922600, 1, 1, 1, NULL, 'no_avatar.jpg', 'A', 2, '2014-07-17 07:28:01'),
 (7, '5', 'teacher_2', '202cb962ac59075b964b07152d234b70', 'Teacher', '2', 'soyab@yopmail.com', 653682600, 2, 1, 1, NULL, 'no_avatar.jpg', 'A', 1, '2014-07-21 10:11:41'),
 (8, '5', 'teacher_3', '202cb962ac59075b964b07152d234b70', 'Teacher', '3', 'soyab@yopmail.com', 653682600, 2, 1, 1, NULL, 'no_avatar.jpg', 'A', 1, '2014-07-21 10:11:41'),
-(12, '6', 'killer', '202cb962ac59075b964b07152d234b70', 'Killer', 'Jeans', 'killer@yopmail.com', 653682600, 1, 1, 1, NULL, '85557d26f7611514c2e515f78f783e28.jpg', 'P', 3, '2014-07-31 10:45:54'),
+(12, '6', 'killer', '202cb962ac59075b964b07152d234b70', 'Killer', 'Jeans', 'killer@yopmail.com', 653682600, 1, 1, 1, NULL, '85557d26f7611514c2e515f78f783e28.jpg', 'U', 3, '2014-07-31 10:45:54'),
 (13, '6', 'martin', '202cb962ac59075b964b07152d234b70', 'Martin', 'Lusi', 'martin@yopmail.com', 653682600, 3, 2, 1, NULL, '56ec325f19dd410da2a7a7fdb66bf856.jpg', 'A', 13, '2014-08-01 05:20:27'),
 (14, '6', 'student_1', '202cb962ac59075b964b07152d234b70', 'A Student', 'First', 's1@yopmail.com', 653682600, 1, 1, 1, NULL, 'no_avatar.jpg', 'A', 3, '2014-08-04 05:37:32'),
 (15, '6', 'student_2', '202cb962ac59075b964b07152d234b70', 'C Student', 'Second', 's2@yopmail.com', 653682600, 1, 1, 1, NULL, 'no_avatar.jpg', 'A', 3, '2014-08-04 05:37:19'),
@@ -905,7 +906,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `batches`
 --
