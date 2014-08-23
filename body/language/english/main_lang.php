@@ -26,6 +26,7 @@ $lang['read_all'] = 'Read all';
 $lang['see_all'] = 'See all';
 $lang['view_all'] = 'View all';
 $lang['compulsory_note'] = 'Fields marked with <span class="text-danger">*</span> are mandatory.';
+$lang['details'] = 'details';
 
 //Operation's Messages
 $lang['add_data_success'] = 'Data added successfully';

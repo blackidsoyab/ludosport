@@ -32,11 +32,6 @@
                             <a href="<?php echo base_url() . 'profile/edit/' . $session->id; ?>" class="btn btn-primary btn-sm"><?php echo $this->lang->line('edit'), ' ', $this->lang->line('profile'); ?></a>
                         <?php } ?>
                     <?php } ?>
-
-
-                    <?php if ($profile->id != $session->id) { ?>
-                        <button class="btn btn-danger btn-sm"><i class="fa fa-envelope"></i></button>
-                    <?php } ?>
                 </p>
             </div><!-- /.profile-info -->
         </div><!-- /.the-box .transparent .profile-heading -->

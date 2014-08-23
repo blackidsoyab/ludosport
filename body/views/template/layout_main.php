@@ -502,6 +502,10 @@
         </div>
         <!-- /.wrapper -->
 
+        <div id="back-top" style="display: block;">
+            <a href="#top"><i class="fa fa-chevron-up"></i></a>
+        </div>
+
         <script src="<?php echo JS_URL; ?>bootstrap.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>retina/retina.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>nicescroll/jquery.nicescroll.js"></script>

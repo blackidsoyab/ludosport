@@ -22,7 +22,7 @@ $monthNames = array_map(function ($ar) {
         $('#prev-button').click(function(e){
             $('#calendar').fullCalendar('prev');
             beforeCalenderLoad();
-            $("html, body").scrollTop($('#prev-button').offset().top); 
+            $("html, body").scrollTop($('#prev-button').offset().top);
         });
 
         //Onclick Today Month
@@ -74,10 +74,10 @@ $monthNames = array_map(function ($ar) {
                 }
             },
             viewRender: function(event, element) {
-                $('.progress-icon').show();
+                $('.progress-icon').fadeIn();
             },
             eventAfterRender: function(event, element) {
-                $('.progress-icon').hide();
+                $('.progress-icon').fadeOut();
             }
         });
     }
@@ -151,10 +151,10 @@ $monthNames = array_map(function ($ar) {
 
 <div class="row">
     <div class="col-sm-12">
-        <div class="progress-icon" style="display:none" align="center">
-            <i class="fa fa-cog fa-spin fa-2x text-primary"></i>
-        </div>
         <div class="the-box">
+            <div class="progress-icon" style="display:none" align="center">
+                <i class="fa fa-cog fa-spin fa-2x text-primary"></i>
+            </div>
             <input type="hidden" value="<?php echo get_current_date_time()->year; ?>" id="calendar-year">
             <input type="hidden" value="<?php echo get_current_date_time()->month - 1; ?>" id="calendar-month">
             <div id="calendar"></div>

@@ -242,7 +242,7 @@ public function getAcademiesJsonData() {
 
     foreach ($this->datatable->rResult->result_array() as $aRow) {
         $temp_arr = array();
-        $temp_arr[] = '<a href="' . base_url() . 'school/view/' . $aRow['id'] . '/list_school_academy_wise" class="text-black" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $this->lang->line('view_all') . ' ' . $this->lang->line('school') . '">' . $aRow['academy_name'] . '</a>';
+        $temp_arr[] = '<a href="' . base_url() . 'academy/view/' . $aRow['id'] . '" class="text-black" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $this->lang->line('view_all') . ' ' . $this->lang->line('school') . '">' . $aRow['academy_name'] . '</a>';
         $temp_arr[] = $aRow['rector_name'];
         $temp_arr[] = $aRow['city'] . ',' . $aRow['states'];
         $temp_arr[] = $aRow['total_schools'];

@@ -68,6 +68,28 @@ $(document).ready(function(){
 	  container: "body"
 	})
 	/** END TOOLTIP FUNCTION **/
+
+	/** BEGIN BACK TO TOP **/
+	$(function () {
+		$("#back-top").hide();
+	});
+	$(function () {
+		$(window).scroll(function () {
+			if ($(this).scrollTop() > 100) {
+				$('#back-top').fadeIn();
+			} else {
+				$('#back-top').fadeOut();
+			}
+		});
+		
+		$('#back-top a').click(function () {
+			$('body,html').animate({
+				scrollTop: 0
+			}, 800);
+			return false;
+		});
+	});
+	/** END BACK TO TOP **/
 	
 	
 	/** NICESCROLL AND SLIMSCROLL FUNCTION **/

@@ -177,3 +177,11 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
     color: #fff;
     background-color: #82BF8C;
 }
+
+.panel .badge-primary {
+    background-color: #BEDAC5;
+}
+
+.panel .active .badge-primary {
+    background-color: #82BF8C;
+}

@@ -196,3 +196,25 @@ h1.page-heading small {
 text-transform: none;
 color: #656D78;
 }
+
+.panel-group .panel .panel-heading{
+    padding: 10px 15px;
+}
+
+#back-top {
+    color: #434A54;
+    background: #fff;
+    font-size: 18px;
+    line-height: 100%;
+    display: inline-block;
+    position: fixed;
+    right: 5px;
+    bottom: 0;
+    z-index: 10001;
+}
+
+#back-top a, #back-top a:hover, #back-top a:focus {
+    color: #434A54;
+    padding: 10px;
+    display: block;
+}

@@ -23,6 +23,31 @@ class academies extends CI_Controller {
 
             $academy = new Academy();
             $data['academy'] = $academy->where('id', $id)->get();
+            $schools =  $academy->School->get();
+            $data['schools'] = $schools;
+            foreach ($schools as $school) {
+                $temp = $school->Clan->get();
+                if(!empty($temp->all)) {
+                    foreach ($temp->all as $value) {
+                        $data['clans'][] = $value->stored;
+                        $userdetails = $value->Userdetail->get();
+                        if($userdetails->result_count() > 0){
+                            foreach ($userdetails as $value) {
+                                $user = $value->User->get();
+                                if(!is_null($user->id)){
+                                    $data['students'][] = $user->stored;
+                                }
+                            }
+                        } else {
+                            $data['students'] = null;
+                        }
+                    }
+                }else{
+                    $data['clans'][] = null;
+                    $data['students'][] = null;
+                }
+            }
+
             $this->layout->view('academies/view_single', $data);
         }
     }

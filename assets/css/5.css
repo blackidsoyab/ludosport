@@ -166,3 +166,11 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
 .table-primary th{
     background: #C88127;
 }
+
+.panel .badge-primary {
+    background-color: #F1C15C;
+}
+
+.panel .active .badge-primary {
+    background-color: #C88127;
+}

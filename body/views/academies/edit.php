@@ -74,7 +74,7 @@
                 <div class="col-lg-5">
                     <select class="form-control required" name="type">
                         <option value="ac" <?php echo ($academy->type == 'ac') ? 'selected' : ''; ?>>Academy</option>
-                        <option value="as" <?php echo ($academy->type == 'as') ? 'selected' : ''; ?>> Affiliated School</option>
+                        <option value="as" <?php echo ($academy->type == 'as') ? 'selected' : ''; ?>>Affiliated School</option>
                     </select>
                 </div>
             </div>
