@@ -11,6 +11,10 @@
                 }
             }
         });
+
+        $('.summernote-sm').summernote({
+            height: 200,
+        });
     });
     //]]>
 </script>
@@ -20,28 +24,28 @@
     <form id="edit" method="post" class="form-horizontal" action="<?php echo base_url() . 'email/edit/' . @$email->id; ?>" enctype="multipart/form-data">
         <div class="form-group">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('type'); ?></label>
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <input type="text" class="form-control" value="<?php echo $email->type ?>" disabled="disabled"/>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('subject'); ?> <span class="text-danger">*</span></label>
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <input type="text" class="form-control required" name="subject" value="<?php echo $email->subject ?>"/>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('message'); ?> <span class="text-danger">*</span></label>
-            <div class="col-lg-8">
-                <textarea  class="form-control required summernote-sm" name="message"><?php echo $email->message; ?></textarea>
+            <div class="col-lg-9">
+                <textarea  class="required summernote-sm" name="message"><?php echo $email->message; ?></textarea>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('attachment'); ?></label>
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <div class=" input-group">
                     <input type="text" class="form-control" readonly="">
                     <span class="input-group-btn">
@@ -65,14 +69,14 @@
 
         <div class="form-group">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('pre_format'); ?></label>
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <pre class="prettyprint linenums"><?php echo $email->format_info; ?></pre>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-lg-3 control-label">&nbsp;</label>
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('update'); ?>"><?php echo $this->lang->line('update'); ?></button>
                 <a href="<?php echo base_url() . 'email' ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('cancel'); ?>"><?php echo $this->lang->line('cancel'); ?></a>
             </div>
@@ -80,7 +84,7 @@
 
         <div class="form-group">
             <label class="col-lg-3 control-label">&nbsp;</label>
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <?php echo $this->lang->line('compulsory_note'); ?>
             </div>
         </div>

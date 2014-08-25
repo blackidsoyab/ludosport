@@ -9,12 +9,14 @@ $(document).ready(function() {
 	$('#recover-absence-btn').click(function(){
 		$('#step_2').show();
 		$('#confirm-absence-btn').hide();
+		$('#recover-absence-btn').hide();
 	});
 
 	$('#cancel-recover-btn').click(function(){
 		$('#step_2').hide();
 		$('#step_3').hide();
 		$('#step_4').hide();
+		$('#recover-absence-btn').show();
 		$('#confirm-absence-btn').show();
 	});
 
