@@ -366,6 +366,9 @@ class clans extends CI_Controller {
         if (!empty($student_master_id)) {
             $userdetail = new Userdetail();
             $userdetail->where(array('student_master_id' => $student_master_id, 'clan_id' => $clan_id))->get();
+
+            $obj_user = new User();
+            $obj_user->where('id', $student_master_id)->get();
             if ($userdetail->result_count() == 1) {
                 if ($this->input->post() !== false) {
 
@@ -373,6 +376,7 @@ class clans extends CI_Controller {
                     $userdetail->where(array('student_master_id' => $student_master_id, 'clan_id' => $clan_id))->update('approved_by', $this->session_data->id);
 
                     $notification_type = 'trial_lesson_unapproved';
+                    $email_type = 'trial_lesson_rejected';
 
                     if ($this->input->post('status') == 'A') {
                         $attadence = new Attendance();
@@ -381,6 +385,7 @@ class clans extends CI_Controller {
                         $attadence->user_id = $this->session_data->id;
                         $attadence->save();
                         $notification_type = 'trial_lesson_approved';
+                        $email_type = 'trial_lesson_accepted';
                     } else if ($this->input->post('status') == 'U') {
                         $attadence = new Attendance();
                         $attadence->where(array('student_id' => $student_master_id, 'clan_date' => $userdetail->first_lesson_date))->get();
@@ -389,6 +394,7 @@ class clans extends CI_Controller {
                         $user = new User();
                         $user->where(array('id' => $student_master_id))->update('status', 'A');
                         $notification_type = 'accept_as_student';
+                        $email_type = 'accepted_as_student';
                     }
 
                     $notification = new Notification();
@@ -412,6 +418,26 @@ class clans extends CI_Controller {
                     $user = new User();
                     $user->where_in('id', $final_ids);
 
+                    $email = new Email();
+                    $email->where('type', $email_type)->get();
+                    $message = $email->message;
+                    $message = str_replace('#firstname', $obj_user->firstname, $message);
+                    $message = str_replace('#lastname', $obj_user->lastname, $message);
+                    $message = str_replace('#clan_name', $clan->en_class_name, $message);
+                    $message = str_replace('#teacher_name', $this->session_data->name, $message);
+
+                    if($email_type == 'trial_lesson_accepted'){
+                        $message = str_replace('#lesson_date', date('d-m-Y', strtotime($userdetail->first_lesson_date)), $message);
+                        $message = str_replace('#apply_date', date('d-m-Y', strtotime($userdetail->timestamp)), $message);
+                        $message = str_replace('#accept_date', date('d-m-Y', strtotime(get_current_date_time()->get_date_time_for_db())), $message);
+                    }else if($email_type == 'trial_lesson_rejected'){
+                        $message = str_replace('#lesson_date', date('d-m-Y', strtotime($userdetail->first_lesson_date)), $message);
+                        $message = str_replace('#apply_date', date('d-m-Y', strtotime($userdetail->timestamp)), $message);
+                        $message = str_replace('#reject_date', date('d-m-Y', strtotime(get_current_date_time()->get_date_time_for_db())), $message);
+                    } if($email_type == 'accepted_as_student'){
+                        $message = str_replace('#accept_date', date('d-m-Y', strtotime(get_current_date_time()->get_date_time_for_db())), $message);
+                    }
+
                     foreach ($user->get() as $value) {
                         if ($value->id == $this->session_data->id) {
                             continue;
@@ -424,6 +450,18 @@ class clans extends CI_Controller {
                             $notification->object_id = 0;
                             $notification->data = serialize($this->input->post());
                             $notification->save();
+
+                            $option = array();
+                            $option['tomailid'] = $value->email;
+                            $option['subject'] = $email->subject;
+                            $option['message'] = $message;
+                            if (!is_null($email->attachment)) {
+                                $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
+                            }
+
+                            if (send_mail($option)) {
+                                //$mail->where('id', $value->id)->update('status', 1);
+                            }
                         }
                     }
 
@@ -434,6 +472,19 @@ class clans extends CI_Controller {
                     $data['userdetail'] = $userdetail;
                     $data['profile'] = $userdetail->User->get();
                     $data['clan'] = $userdetail->Clan->get();
+                    $data['show_approved_button'] = false;
+                    $data['show_unapproved_button'] = false;
+                    $data['show_accept_button'] = false;
+
+                    if($this->session_data->role == 5){
+                        if($userdetail->status == 'P' && $userdetail->approved_by == 0){
+                            $data['show_approved_button'] = true;
+                            $data['show_accept_button'] = true;                            
+                        }else if(($userdetail->status == 'A' || $userdetail->status == 'U') && $userdetail->approved_by == $this->session_data->id){
+                            $data['show_unapproved_button'] = true;
+                            $data['show_accept_button'] = true;                            
+                        }
+                    }
 
                     $this->layout->view('clans/approve_trial_request', $data);
                 }

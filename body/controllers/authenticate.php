@@ -120,14 +120,27 @@ class authenticate extends CI_Controller {
             $message = str_replace('#firstname', $new_user->firstname, $message);
             $message = str_replace('#lastname', $new_user->lastname, $message);
 
-            //Save mail in our mail box
+           /* //Save mail in our mail box
             $mailbox = new Mailbox();
             $mailbox->type = 'L';
             $mailbox->to_email = $new_user->email;
             $mailbox->subject = $email->subject;
             $mailbox->message = $message;
             $mailbox->attachment = $email->attachment;
-            $mailbox->save();
+            $mailbox->save();*/
+
+            $option = null;
+            $option = array();
+            $option['tomailid'] = $new_user->email;
+            $option['subject'] = $email->subject;
+            $option['message'] = $message;
+            if (!is_null($email->attachment)) {
+                $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
+            }
+
+            if (send_mail($option)) {
+                //$mail->where('id', $value->id)->update('status', 1);
+            }
 
             //Get all the Admins, Rectors, Deans, Teachers
             $ids = array();
@@ -162,13 +175,26 @@ class authenticate extends CI_Controller {
                 $notification->save();
 
                 //Add details in our mail box
-                $mailbox = new Mailbox();
+               /* $mailbox = new Mailbox();
                 $mailbox->type = 'L';
                 $mailbox->to_email = $value->email;
                 $mailbox->subject = $email->subject;
                 $mailbox->message = $message;
                 $mailbox->attachment = $email->attachment;
-                $mailbox->save();
+                $mailbox->save();*/
+
+                $option = null;
+                $option = array();
+                $option['tomailid'] = $value->email;
+                $option['subject'] = $email->subject;
+                $option['message'] = $message;
+                if (!is_null($email->attachment)) {
+                    $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
+                }
+
+                if (send_mail($option)) {
+                    //$mail->where('id', $value->id)->update('status', 1);
+                }
             }
 
             $this->session->set_flashdata('success', 'Login with Username or Password');

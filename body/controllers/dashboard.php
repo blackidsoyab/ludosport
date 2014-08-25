@@ -220,7 +220,7 @@ class dashboard extends CI_Controller {
             $applied_on = explode(' ',time_elapsed_string(date('Y-m-d H:i:s', strtotime($userdetail->timestamp))));
 
             if($userdetail->status == 'P' || $userdetail->status == 'U'){
-                if($applied_on[1] == 'hour'){
+                if($applied_on[1] == 'hour' || $applied_on[1] == 'minute'){
                     $check = $this->getClanDetails($this->session_data->id);
                     if ($check !== FALSE) {
                         $data['clans'] = $check;
@@ -288,6 +288,9 @@ class dashboard extends CI_Controller {
         $user_details->user_id = $this->session_data->id;
         $user_details->save();
 
+        $obj_user = new User();
+        $obj_user->where('id', $this->session_data->id)->get();
+
         $ids = array();
         $ids[] = User::getAdminIds();
 
@@ -295,12 +298,22 @@ class dashboard extends CI_Controller {
         $clan->where('id', $this->input->post('clan_id'))->get();
         $ids[] = array_unique(explode(',', $clan->school->academy->rector_id . ',' . $clan->school->dean_id . ',' . $clan->teacher_id));
 
-            //Make single array form all ids
+        //Make single array form all ids
         $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
 
-            //Fecth all the User details
+        //Fecth all the User details
         $user = new User();
         $user->where_in('id', $final_ids);
+
+        $email = new Email();
+        $email->where('type', 'trial_lesson_request')->get();
+        $message = $email->message;
+        $message = str_replace('#firstname', $obj_user->firstname, $message);
+        $message = str_replace('#lastname', $obj_user->lastname, $message);
+        $message = str_replace('#clan_name', $clan->en_class_name, $message);
+        $message = str_replace('#lesson_date', date('d-m-Y', strtotime($this->input->post('date'))), $message);
+        $message = str_replace('#apply_date', date('d-m-Y', strtotime(get_current_date_time()->get_date_time_for_db())), $message);
+        
 
         foreach ($user->get() as $value) {
             $notification = new Notification();
@@ -311,6 +324,27 @@ class dashboard extends CI_Controller {
             $notification->object_id = $user_details->student_master_id;
             $notification->data = serialize($this->input->post());
             $notification->save();
+
+            /*//Add details in our mail box
+            $mailbox = new Mailbox();
+            $mailbox->type = 'U';
+            $mailbox->to_email = $value->email;
+            $mailbox->subject = $email->subject;
+            $mailbox->message = $message;
+            $mailbox->attachment = $email->attachment;
+            $mailbox->save();   */
+
+            $option = array();
+            $option['tomailid'] = $value->email;
+            $option['subject'] = $email->subject;
+            $option['message'] = $message;
+            if (!is_null($email->attachment)) {
+                $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
+            }
+
+            if (send_mail($option)) {
+                //$mail->where('id', $value->id)->update('status', 1);
+            }
         }
 
         redirect(base_url(), 'refresh');
