@@ -38,7 +38,7 @@
         <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">
 
         <!-- Role CSS -->
-        <?php if ($session->role >= 1 && $session->role <= 5) { ?>
+        <?php if ($session->role > 0 && $session->role < 7) { ?>
             <link href="<?php echo CSS_URL . $session->role . '.css'; ?>" rel="stylesheet">
         <?php } ?>
 
@@ -347,7 +347,7 @@
 
                         <li class="<?php echo ($page == 'message') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'message'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('message'); ?>"><i class="fa fa-envelope icon-sidebar"></i><?php echo $this->lang->line('message'); ?></a></li>
 
-                        <li class="static"><?php echo $this->lang->line('activity'); ?></li>
+                        <li class="static"><i class="fa fa-asterisk icon-sidebar"></i>&nbsp;<?php echo $this->lang->line('activity'); ?></li>
 
                         <?php if (hasPermission('academies', 'viewAcademy')) { ?>
                             <li class="<?php echo ($page == 'academy') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'academy'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('academy'); ?>"><i class="fa fa-font icon-sidebar"></i><?php echo $this->lang->line('academy'); ?></a></li>
@@ -366,10 +366,10 @@
                         <?php } ?>
 
                         <?php if (hasPermission('events', 'viewEvent')) { ?>
-                            <li class="<?php echo ($page == 'event') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'event'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('event'); ?>"><i class="glyphicon glyphicon-star-empty icon-sidebar"></i><?php echo $this->lang->line('event'); ?></a></li>
+                            <li class="<?php echo ($page == 'event') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'event'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('event'); ?>"><i class="fa fa-calendar icon-sidebar"></i><?php echo $this->lang->line('event'); ?></a></li>
                         <?php } ?>
 
-                        <li class="static"><i class="fa fa-cogs icon-sidebar"></i>&nbsp;<?php echo $this->lang->line('setting'); ?></li>
+                        <li class="static"><i class="fa fa-table icon-sidebar"></i>&nbsp;<?php echo $this->lang->line('setting'); ?></li>
 
                         <?php if (hasPermission('levels', 'viewLevel')) { ?>   
                             <li class="<?php echo ($page == 'level') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'level'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('level'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('level'); ?></a></li>
@@ -442,6 +442,7 @@
                                 <div class="alert alert-success fade in alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <p class="text-center">
+                                        <i class="fa fa-thumbs-o-up icon-sm"></i>
                                         <?php echo parse_smileys($this->session->flashdata('success'), IMG_URL . "smileys/"); ?>
                                     </p>
                                 </div>
@@ -456,6 +457,7 @@
                                 <div class="alert alert-warning fade in alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <p class="text-center">
+                                        <i class="fa fa-warning icon-sm"></i>
                                         <?php echo parse_smileys($this->session->flashdata('warning'), IMG_URL . "smileys/"); ?>
                                     </p>
                                 </div>
@@ -470,6 +472,7 @@
                                 <div class="alert alert-info fade in alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <p class="text-center">
+                                        <i class="fa fa-info icon-sm"></i>
                                         <?php echo parse_smileys($this->session->flashdata('info'), IMG_URL . "smileys/"); ?>
                                     </p>
                                 </div>
@@ -484,6 +487,7 @@
                                 <div class="alert alert-danger fade in alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <p class="text-center">
+                                        <i class="fa fa-thumbs-o-down icon-sm"></i>
                                         <?php echo parse_smileys($this->session->flashdata('error'), IMG_URL . "smileys/"); ?>
                                     </p>
                                 </div>

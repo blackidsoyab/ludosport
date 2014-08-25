@@ -92,9 +92,6 @@
 
             <div class="panel-body ludosport-class-date" id="clan_dates">
             </div>
-
-
-
         </div>
 
         <div id="step_3">

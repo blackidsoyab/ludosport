@@ -159,7 +159,7 @@ class ajax extends CI_Controller {
 
     function getDateForClan($clan_id) {
         $clan = new Clan();
-        $dates = $clan->getAviableDateFromClan($clan_id);
+        $dates = $clan->getAviableDateFromClan($clan_id, 5, 20);
 
         $clan->where('id', $clan_id)->get();
         $str = NULL;

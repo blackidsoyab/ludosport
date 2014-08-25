@@ -514,7 +514,7 @@ class clans extends CI_Controller {
         }
         
         $next_date = getDateByDay($next_day, $start_date, $end_date);
-        $next_date = $next_date[0];
+        $next_date = end($next_date);
 
         if($clan->result_count() == 1){
             $userdetails = $clan->Userdetail->where('status', 'A')->get();

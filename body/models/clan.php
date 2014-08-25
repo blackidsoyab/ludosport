@@ -217,40 +217,65 @@ class Clan extends DataMapper {
         }
     }
 
-    function getAviableDateFromClan($clan_id, $total_dates = 5, $student_limit = 20) {
+    function getSameLevelClan($city_id, $level_id, $class_limit = 3) {
+        static $counter = 0;
+        $counter++;
+        $this->db->_protect_identifiers = false;
+        $this->db->select('clans.id');
+        $this->db->from('clans');
+        $this->db->where('city_id', $city_id, null);
+        $this->db->where('level_id', $level_id, null);
+        $this->db->limit($class_limit);
+        $this->db->order_by('id', 'desc');
+        $query = $this->db->get();
+        if ($query->num_rows > 0) {
+            return $query->result_array();
+        } else {
+            $city = new City();
+            $id = $city->getRandomCityId();
+            if($counter > 10){
+                return false;
+            }else{
+                return $this->getSameLevelClan($id, $level_id);
+            }
+        }
+    }
+
+    function getAviableDateFromClan($clan_id, $total_dates = 5, $student_limit = null) {
         $this->db->select('id, lesson_day');
         $this->db->from('clans');
         $this->db->where_in('id', $clan_id, null);
         $query = $this->db->get();
         if ($query->num_rows > 0) {
-            $results = $query->result();
+            $result = $query->result();
             $current_date = get_current_date_time()->get_date_for_db();
             $start_date = date('Y-m-d', strtotime("+1 day", strtotime($current_date)));
             $end_date = date('Y-m-d', strtotime("+1 month", strtotime($start_date)));
             $dates = array();
-            foreach ($results as $result) {
-                $days = explode(',', $result->lesson_day);
-                $days_array = $this->config->item('custom_days');
-                foreach ($days as $day) {
-                    $day = $days_array[$day]['en'];
-                    $temp_dates = getDateByDay($day, $start_date, $end_date);
-                    foreach ($temp_dates as $value) {
-                        if (count($dates) != $total_dates) {
-                            if (!in_array($value, $dates)) {
-                                $attendance = new Attendance();
-                                $total_stud = $attendance->getTotalStudentsForDate($value, $result->id);
-                                if ($total_stud < $student_limit) {
-                                    $dates[] = $value;
-                                }
-                            }
-                        } else {
-                            break;
+            
+            $days = explode(',', $result[0]->lesson_day);
+            $days_array = $this->config->item('custom_days');
+            foreach ($days as $day) {
+                $day = $days_array[$day]['en'];
+                $temp_dates[] = getDateByDay($day, $start_date, $end_date);
+            }
+
+            $finals_dates = array_unique(MultiArrayToSinlgeArray($temp_dates));
+            sort($finals_dates);
+
+            foreach ($finals_dates as $value) {
+                if (!in_array($value, $dates)) {
+                    $attendance = new Attendance();
+                    if(!is_null($student_limit)){
+                        $total_stud = $attendance->getTotalStudentsForDate($value, $result[0]->id);
+                        if ($total_stud < $student_limit) {
+                           $dates[] = $value;
                         }
-                    }
-                    if (count($dates) == $total_dates) {
-                        break;
+                    }else {
+                        $dates[] = $value;
                     }
                 }
+
                 if (count($dates) == $total_dates) {
                     break;
                 }
@@ -344,6 +369,21 @@ class Clan extends DataMapper {
         $this->db->select('*');
         $this->db->from('clans');
         $this->db->where('teacher_id', $teacher_id);
+        $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0");
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+
+    function getClansByStudentAndDay($student_id, $day = '1'){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('*');
+        $this->db->from('clans');
+        $this->db->join('userdetails', 'clans.id=userdetails.clan_id');
+        $this->db->where('student_master_id', $student_id);
         $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0");
         $res = $this->db->get();
         if ($res->num_rows > 0) {

@@ -50,7 +50,6 @@ if ($_SERVER['HTTP_HOST'] == 'www.myludosport.net') {
     $controller = $path[2];
 }
 
-
 $route[$controller] = plural($controller) . "/view" . ucwords($controller);
 $route[$controller . '/list'] = plural($controller) . "/view" . ucwords($controller);
 $route[$controller . '/view/(:num)'] = plural($controller) . "/view" . ucwords($controller) . "/$1";
@@ -73,22 +72,6 @@ $route['role/check/(:num)'] = "ajax/checkValidRole/$1";
 $route['clan/getschools/(:num)'] = "ajax/getSchoolsOptionFromAcademy/$1";
 $route['clan/getclasses/(:num)'] = "ajax/getClassesOptionFromSchool/$1";
 
-//Teacher List
-$route['clan/teacherlist'] = "clans/clanTeacherList";
-$route['clan/teacherlist/(:num)/(:any)'] = "clans/clanTeacherList/$1/$2";
-$route['clan/teacherjson'] = "json/getTeachersJsonData";
-$route['clan/teacherjson/(:any)'] = "json/getTeachersJsonData/$1";
-$route['clan/teacherjson/(:any)/(:any)'] = "json/getTeachersJsonData/$1/$2";
-$route['clan/teacherjson/(:any)/(:any)/(:any)'] = "json/getTeachersJsonData/$1/$2/$3";
-
-//Student List
-$route['clan/studentlist'] = "clans/clanStudentList";
-$route['clan/studentlist/(:num)/(:any)'] = "clans/clanStudentList/$1/$2";
-$route['clan/studentjson'] = "json/getStudentsJsonData";
-$route['clan/studentjson/(:any)'] = "json/getStudentsJsonData/$1";
-$route['clan/studentjson/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2";
-$route['clan/studentjson/(:any)/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2/$3";
-
 //Clan Trail Lession Request
 $route['clan/trial_lesson_request/(:num)'] = "clans/listTrialLessonRequest/$1";
 $route['clan/listTrialLessonRequestJson/(:num)'] = "json/getTrialLessonRequestJsonData/$1";
@@ -99,6 +82,34 @@ $route['clan/change_status_trial_student/(:num)/(:num)/(:any)'] = "clans/changeS
 $route['clan/clan_attendance/(:num)/(:any)'] = "clans/clanAttendances/$1/$2";
 $route['clan/save_attendance/(:num)'] = "clans/saveClanAttendances/$1";
 $route['clan/next_week_attendance/(:num)'] = "clans/nextWeekAttendances/$1";
+
+//Teacher List
+$route['clan/teacherlist'] = "clans/clanTeacherList";
+$route['clan/teacherlist/(:num)/(:any)'] = "clans/clanTeacherList/$1/$2";
+$route['clan/teacherjson'] = "json/getTeachersJsonData";
+$route['clan/teacherjson/(:any)'] = "json/getTeachersJsonData/$1";
+$route['clan/teacherjson/(:any)/(:any)'] = "json/getTeachersJsonData/$1/$2";
+$route['clan/teacherjson/(:any)/(:any)/(:any)'] = "json/getTeachersJsonData/$1/$2/$3";
+
+//Teacher Dashborad
+$route['teacher/class_details/(:num)/(:num)'] = "dashboard/teacherClassDetails/$1/$2";
+$route['student/class_details/(:num)/(:num)'] = "dashboard/studentClassDetails/$1/$2";
+
+//Student List
+$route['clan/studentlist'] = "clans/clanStudentList";
+$route['clan/studentlist/(:num)/(:any)'] = "clans/clanStudentList/$1/$2";
+$route['clan/studentjson'] = "json/getStudentsJsonData";
+$route['clan/studentjson/(:any)'] = "json/getStudentsJsonData/$1";
+$route['clan/studentjson/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2";
+$route['clan/studentjson/(:any)/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2/$3";
+
+//Student Dashboard
+$route['student_mark_absence'] = "students/markAbsence";
+$route['student/clan/(:num)/(:any)'] = "dashboard/studentClan/$1/$2";
+
+//Pending Student
+$route['getclandates/(:num)'] = "ajax/getDateForClan/$1";
+$route['pending_student/save_trial_lesson'] = "dashboard/pendingStudnetSaveTrailLesson";
 
 //Email Templates
 $route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";
@@ -136,14 +147,6 @@ $route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
 $route['change_role/(:any)'] = "ajax/setNewRole/$1";
 $route['mark_all_notification_read'] = "ajax/markAllNotificationRead";
 $route['mark_all_message_read'] = "ajax/markAllMessageRead";
-
-//Teacher Dashborad
-$route['teacher/class_details/(:num)/(:num)'] = "dashboard/teacherClassDetails/$1/$2";
-
-//Pending Student
-$route['getclandates/(:num)'] = "ajax/getDateForClan/$1";
-$route['pending_student/save_trial_lesson'] = "dashboard/pendingStudnetSaveTrailLesson";
-
 
 //Profile
 $route['change_password'] = "profiles/changePassword";

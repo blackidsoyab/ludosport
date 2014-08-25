@@ -218,3 +218,7 @@ color: #656D78;
     padding: 10px;
     display: block;
 }
+
+.no-margin {
+    margin: 0;
+}

@@ -16,26 +16,26 @@ class dashboard extends CI_Controller {
     public function index() {
         switch ($this->session_data->role) {
             case 1:
-                $this->getSuperAdminDashboard();
-                break;
+            $this->getSuperAdminDashboard();
+            break;
             case 2:
-                $this->getAdminDashboard();
-                break;
+            $this->getAdminDashboard();
+            break;
             case 3:
-                $this->getRectorDashboard();
-                break;
+            $this->getRectorDashboard();
+            break;
             case 4:
-                $this->getDeanDashboard();
-                break;
+            $this->getDeanDashboard();
+            break;
             case 5:
-                $this->getTeacherDashboard();
-                break;
+            $this->getTeacherDashboard();
+            break;
             case 6:
-                $this->getStudentDashboard();
-                break;
+            $this->getStudentDashboard();
+            break;
             default :
-                $this->getDefaultDashboard();
-                break;
+            $this->getDefaultDashboard();
+            break;
         }
     }
 
@@ -99,7 +99,6 @@ class dashboard extends CI_Controller {
         $class = new Clan();
         $data['total_classes'] = $class->getTotalClassesOfTeacher($this->session_data->id);
         $data['total_students'] = $class->getTotalStudentsOfTeacher($this->session_data->id);
-        $data['events'] = '[{title:"E1", start: "new Date(2014,07,02)"}]';
         $this->layout->view('dashboard/teacher', $data);
     }
 
@@ -149,20 +148,80 @@ class dashboard extends CI_Controller {
         $this->layout->view('dashboard/student');
     }
 
+    function studentClassDetails($year, $month){
+        $month = $month + 1;
+        $current_date = get_current_date_time()->get_date_for_db(); 
+        $start_date = date('Y-m-d', strtotime('+1 day', strtotime($current_date)));
+        $end_date = date('Y-m-d', strtotime('+2 week', strtotime($current_date)));
+        $days_name = $this->config->item('custom_days');
+        $curr = date('N', strtotime($current_date));
+        $next_day = $days_name[$curr]['en'];    
+        $next_date = getDateByDay($next_day, $start_date, $end_date);
+        $next_date = end($next_date);
+
+        $return = array();
+        $total_days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        for($i=1;$i<=$total_days;$i++){
+            $date = $year .'-'. $month .'-'. $i;
+            $day_numeric = date('N', strtotime($date));
+            $clans = New Clan();
+            $details = $clans->getClansByStudentAndDay($this->session_data->id, $day_numeric);
+
+            if($details){
+                foreach ($details as $value) {
+                    $temp = array();
+                    $temp['title'] =  date('h.i a', $value->lesson_from) . ' : ' . date('h.i a', $value->lesson_to);
+                    $temp['start'] = $date;
+                    if(strtotime($date) < strtotime($current_date)){
+                        //$temp['url'] = base_url() .'student/clan/' . $value->id .'/'. $date;
+                        $temp['type'] = 'past';
+                    }else if(strtotime($date) == strtotime($current_date)){
+                        //$temp['url'] = base_url() .'student/clan/' . $value->id .'/'. $date;
+                        $temp['type'] = 'present';
+                    } else {
+                        $temp['type'] = 'future';
+                    }
+                    $return[] = $temp;
+                }
+            }
+        }
+        echo json_encode($return);
+    }
+
+    function studentClan($clan_id, $date){
+        $current_date = get_current_date_time()->get_date_for_db();
+        $start_date = date('Y-m-d', strtotime('+1 day', strtotime($current_date)));
+        $end_date = date('Y-m-d', strtotime('+2 week', strtotime($current_date)));
+        $days_name = $this->config->item('custom_days');
+        $curr = date('N', strtotime($current_date));
+        $next_day = $days_name[$curr]['en'];    
+        $next_date = getDateByDay($next_day, $start_date, $end_date);
+        $next_date = end($next_date);
+        if(strtotime($date) <= strtotime($next_date)){
+            $data['date'] = $date;
+            $data['current_date'] = $current_date;
+            $data['next_date'] = $next_date;
+            $this->layout->view('students/student_atte', $data); 
+        }else{
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'dashboard', 'refresh'); 
+        }
+    }
+
     function getPendingStudentDashboard() {
         $this->layout->setField('page_title', 'Test Lesson');
-        
+
         $userdetail = new Userdetail();
         $userdetail->where('student_master_id', $this->session_data->id)->get();
 
         $user = New User();
         $user->where('id', $this->session_data->id)->get();
         if($userdetail->result_count() == 1){
-             $applied_on = explode(' ',time_elapsed_string(date('Y-m-d H:i:s', strtotime($userdetail->timestamp))));
+            $applied_on = explode(' ',time_elapsed_string(date('Y-m-d H:i:s', strtotime($userdetail->timestamp))));
 
             if($userdetail->status == 'P' || $userdetail->status == 'U'){
                 if($applied_on[1] == 'hour'){
-                   $check = $this->getClanDetails($this->session_data->id);
+                    $check = $this->getClanDetails($this->session_data->id);
                     if ($check !== FALSE) {
                         $data['clans'] = $check;
                     } else {
@@ -236,10 +295,10 @@ class dashboard extends CI_Controller {
         $clan->where('id', $this->input->post('clan_id'))->get();
         $ids[] = array_unique(explode(',', $clan->school->academy->rector_id . ',' . $clan->school->dean_id . ',' . $clan->teacher_id));
 
-        //Make single array form all ids
+            //Make single array form all ids
         $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
 
-        //Fecth all the User details
+            //Fecth all the User details
         $user = new User();
         $user->where_in('id', $final_ids);
 
