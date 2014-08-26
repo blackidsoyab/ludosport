@@ -1,5 +1,6 @@
 body{
     color: #000;
+    background: #C0E1ED;
 }
 
 a {
@@ -176,4 +177,8 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
 
 .panel .active .badge-primary {
     background-color: #6EB1DE;
+}
+
+.mail-apps-wrap .toolbar {
+    background: #C0E1ED;
 }

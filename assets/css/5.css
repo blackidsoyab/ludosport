@@ -1,5 +1,6 @@
 body{
     color: #000000;
+    background: #F1C15C;
 }
 
 a {
@@ -47,7 +48,7 @@ h6.text-primary,
 }
 
 footer {
-    background: #fff;
+    background: #C88127;
     border-top: 1px solid #C88127;
 }
 
@@ -173,4 +174,8 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
 
 .panel .active .badge-primary {
     background-color: #C88127;
+}
+
+.mail-apps-wrap .toolbar {
+    background: #F1C15C;
 }

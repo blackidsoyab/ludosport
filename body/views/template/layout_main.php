@@ -434,7 +434,7 @@
 
             <!-- BEGIN PAGE CONTENT -->
             <div class="page-content">
-                <div class="container-fluid">
+                <div class="container-fluid" id="middle-section">
                     <?php if ($this->session->flashdata('success') != '') { ?>
                         <div>&nbsp;</div>
                         <div class="row">
@@ -497,7 +497,7 @@
                     <?php echo @$content_for_layout; ?>
                 </div>
                 <!-- BEGIN FOOTER -->
-                <footer>
+                <footer id="footer" style="position:fixed">
                     &copy; 2014Ludosport<a href="#fakelink"></a><br />
                 </footer>
                 <!-- END FOOTER -->
@@ -534,5 +534,24 @@
         <script src="<?php echo PLUGIN_URL; ?>fullcalendar/fullcalendar/fullcalendar.js"></script>
         <script src="<?php echo JS_URL; ?>apps.js"></script>
 
+        <script type="text/javascript">
+            $(document).ready(function () {
+                PositionFooter();
+                $(window).resize(function(){
+                    PositionFooter();
+                });
+            });
+            function PositionFooter() {
+                if (window.innerHeight) {
+                    var height = window.innerHeight;
+                    var parentsHeight = $('#middle-section').height();
+                    var current_height=height-133;
+                    if(parentsHeight>current_height)
+                    {
+                        $('#footer').css('position', 'relative');
+                    }
+                }
+            }
+        </script>
     </body>
 </html>

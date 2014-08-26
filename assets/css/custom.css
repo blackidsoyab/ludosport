@@ -222,3 +222,8 @@ color: #656D78;
 .no-margin {
     margin: 0;
 }
+
+footer{
+    bottom:0px;
+    width:100%;
+}
