@@ -35,6 +35,7 @@ class authenticate extends CI_Controller {
                 redirect(base_url() . 'login', 'refresh');
             } else {
                 $roles = explode(',', $user->role_id);
+                sort($roles);
                 $user_data = new stdClass();
                 $user_data->id = $user->id;
                 $user_data->name = $user->firstname . ' ' . $user->lastname;

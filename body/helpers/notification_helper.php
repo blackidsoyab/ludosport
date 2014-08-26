@@ -7,6 +7,7 @@ function getNotifications($user_id) {
     $notification->limit(5);
     $str = NULL;
     foreach ($notification->get() as $notify) {
+        $options['id'] = $notify->id;
         $options['notify_type'] = $notify->notify_type;
         $options['object_id'] = $notify->object_id;
         $options['from_id'] = $notify->from_id;
@@ -35,7 +36,7 @@ function getNotifications($user_id) {
 function getSingleNotification($notification_id) {
     $notify = new Notification();
     $notify->where(array('id' => $notification_id))->get();
-
+    $options['id'] = $notify->id;
     $options['notify_type'] = $notify->notify_type;
     $options['object_id'] = $notify->object_id;
     $options['from_id'] = $notify->from_id;
@@ -75,7 +76,7 @@ function countNotifications($user_id) {
 }
 
 function makeURL($options) {
-    $url = '#';
+    $url = base_url() . 'notification/view/' . $options['id'];
 
     if ($options['notify_type'] == 'rector_assign_academy') {
         $url = base_url() . 'academy/view/' . $options['object_id'] . '/notification';
@@ -108,16 +109,6 @@ function makeURL($options) {
     if ($options['notify_type'] == 'accept_as_student') {
         $url = base_url() . 'clan/change_status_trial_student/' . $options['data']['clan_id'] . '/' . $options['data']['student_id'] . '/notification';
     }
-
-    if ($options['notify_type'] == 'student_absent') {
-        $url = '#';
-    }
-
-    if ($options['notify_type'] == 'recovery_student') {
-        $url = '#';
-    }
-
-
 
     return $url;
 }

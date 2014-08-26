@@ -282,13 +282,18 @@ public function getSchoolsJsonData($academy_id) {
     $this->datatable->aColumns = array('schools.' . $this->session_data->language . '_school_name AS school_name', '(SELECT count(*) from userdetails, clans, schools temp_sc where temp_sc.id=schools.id AND userdetails.clan_id=clans.id AND temp_sc.id=clans.school_id) AS total_students', 'academies.' . $this->session_data->language . '_academy_name AS academy_name');
     $this->datatable->eColumns = array('schools.id');
     $this->datatable->sIndexColumn = "schools.id";
-    $this->datatable->sTable = " schools, academies";
     if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+        $this->datatable->sTable = " schools, academies";
         $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id' . $where;
     } else if ($this->session_data->role == '3') {
+        $this->datatable->sTable = " schools, academies";
         $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0' . $where;
     } else if ($this->session_data->role == '4') {
+        $this->datatable->sTable = " schools, academies";
         $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND FIND_IN_SET(' . $this->session_data->id . ', dean_id) > 0' . $where;
+    } else if ($this->session_data->role == '5') {
+        $this->datatable->sTable = " schools, academies, clans";
+        $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', teacher_id) > 0' . $where;
     }
 
     $this->datatable->datatable_process();

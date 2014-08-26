@@ -133,6 +133,7 @@ class ajax extends CI_Controller {
         $str = Null;
         if ($obj->result_count() > 0) {
             foreach ($notifications as $notify) {
+                $options['id'] = $notify->id;
                 $options['notify_type'] = $notify->notify_type;
                 $options['object_id'] = $notify->object_id;
                 $options['from_id'] = $notify->from_id;
