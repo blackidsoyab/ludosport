@@ -215,8 +215,10 @@
                                         <?php echo $this->lang->line('selected'), ' ', $this->lang->line('role'), ' : '; ?>&nbsp;<strong><?php echo getRoleName($session->role); ?>&nbsp;&nbsp;<i class="fa fa-angle-right chevron-icon-sidebar"></i></strong>
                                     </a>
                                     <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
-                                        <?php foreach ($session->all_roles as $role) { ?>
-                                            <li><a href="javascript:;" onclick="UpdateRole(this)" class="role" data-role ="<?php echo $role; ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo ucwords(getRoleName($role)); ?>"><?php echo ucwords(getRoleName($role)); ?></a></li>
+                                        <?php foreach ($session->all_roles as $role) { 
+                                                $role_name = ucwords(getRoleName($role));
+                                            ?>
+                                            <li><a href="javascript:;" onclick="UpdateRole(this)" class="role" data-role ="<?php echo $role; ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $role_name; ?>"><?php echo $role_name; ?></a></li>
                                         <?php } ?>
                                     </ul>
                                 </li>

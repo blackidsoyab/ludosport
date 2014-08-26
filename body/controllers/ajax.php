@@ -31,6 +31,13 @@ class ajax extends CI_Controller {
         $session = $this->session->userdata('user_session');
         if (in_array($role_id, $session->all_roles)) {
             $session = $this->session->userdata('user_session');
+            $roles = $session->all_roles;
+            $roles[] = $session->role;
+            if (($key = array_search($role_id, $roles)) !== false) {
+                unset($roles[$key]);
+            }
+            sort($roles);
+            $session->all_roles = $roles;
             $session->role = $role_id;
             $newdata = array('user_session' => $session);
             $this->session->set_userdata($newdata);

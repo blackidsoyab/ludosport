@@ -16,26 +16,26 @@ class dashboard extends CI_Controller {
     public function index() {
         switch ($this->session_data->role) {
             case 1:
-            $this->getSuperAdminDashboard();
-            break;
+                $this->getSuperAdminDashboard();
+                break;
             case 2:
-            $this->getAdminDashboard();
-            break;
+                $this->getAdminDashboard();
+                break;
             case 3:
-            $this->getRectorDashboard();
-            break;
+                $this->getRectorDashboard();
+                break;
             case 4:
-            $this->getDeanDashboard();
-            break;
+                $this->getDeanDashboard();
+                break;
             case 5:
-            $this->getTeacherDashboard();
+                $this->getTeacherDashboard();
             break;
             case 6:
-            $this->getStudentDashboard();
-            break;
+                $this->getStudentDashboard();
+                break;
             default :
-            $this->getDefaultDashboard();
-            break;
+                $this->getDefaultDashboard();
+                break;
         }
     }
 

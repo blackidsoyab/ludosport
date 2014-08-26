@@ -1,19 +1,5 @@
 <?php
 
-if (!function_exists('getAllLanguages')) {
-
-    function getAllLanguages() {
-        $obj = new language_master_model();
-        $data = $obj->getAll(null, 'lang_name', 'ASC');
-        if (!empty($data)) {
-            return $data;
-        } else {
-            return false;
-        }
-    }
-
-}
-
 if (!function_exists('setLanguage')) {
 
     function setLanguage() {
@@ -40,22 +26,7 @@ if (!function_exists('getRoleName')) {
         $role->where('id', $id)->get();
         $ci = & get_instance();
         $session = $ci->session->userdata('user_session');
-        $field = $session->language . '_role_name';
-        return $role->$field;
-    }
-
-}
-
-if (!function_exists('getSystemConfiguration')) {
-
-    function getSystemConfiguration($key) {
-        $obj = new system_configuration_model();
-        $data = $obj->getWhere(array('system_key' => $key));
-        if (!empty($data)) {
-            return $data[0]->system_value;
-        } else {
-            return false;
-        }
+        return $role->{$session->language . '_role_name'};
     }
 
 }

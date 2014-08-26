@@ -15,11 +15,11 @@ function getPermmissionID($action) {
 
 function hasPermission($controller, $method) {
     $data = get_instance()->session->userdata('user_session');
-    $user = new User();
-    $permissions = $user->userRoleByID($data->id, $data->role);
     if ($data->id == 1) {
         return TRUE;
     } else {
+        $user = new User();
+        $permissions = $user->userRoleByID($data->id, $data->role);
         if (is_array($permissions) && array_key_exists($controller, $permissions) && in_array($method, $permissions[$controller])) {
             return TRUE;
         } else {
