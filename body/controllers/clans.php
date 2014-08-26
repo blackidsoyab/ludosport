@@ -55,7 +55,7 @@ class clans extends CI_Controller {
                 $data['students'] = null;
             } 
 
-             if(!isset($data['students'])){
+            if(!isset($data['students'])){
                 $data['students'] = null;
             }
 
@@ -234,11 +234,11 @@ class clans extends CI_Controller {
               $user->User_details->delete_all();
               }
               $clan->School->delete_all(); */
-            $clan->delete();
+              $clan->delete();
 
-            $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
-            redirect(base_url() . 'clan', 'refresh');
-        } else {
+              $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
+              redirect(base_url() . 'clan', 'refresh');
+          } else {
             $this->session->set_flashdata('error', $this->lang->line('delete_data_error'));
             redirect(base_url() . 'clan', 'refresh');
         }
@@ -506,7 +506,7 @@ class clans extends CI_Controller {
         $current_date = get_current_date_time()->get_date_for_db();
         $data['current_date'] = $current_date;
         
-        if($details && $clan->result_count() == 1 && strtotime($date) <= strtotime($current_date)){
+        if($details && $clan->result_count() == 1){ 
             $data['clan_details'] = $clan;
             $data['date'] = $date;
             $userdetails = $clan->Userdetail->where('status', 'A')->get();
@@ -520,11 +520,27 @@ class clans extends CI_Controller {
                             'id'=>$temp->id, 
                             'firstname'=>$temp->firstname, 
                             'lastname'=>$temp->lastname,
-                            'attadence' => $attadence->attendance); 
+                            'attadence' => $attadence->attendance,
+                            'type' => 'regular'); 
                     }
                 }
             } else {
                 $data['userdetails'] = null;
+            }
+
+            $recover = new Attendancerecover();
+            $recover->where(array('clan_date'=>$date, 'clan_id'=>$clan_id))->get();
+            foreach ($recover as $student) {
+                $user = new User();
+                $user->where('id', $recover->student_id)->get();
+                if($user->result_count() == 1) {
+                   $data['userdetails'][] = array(
+                    'id'=>$user->id, 
+                    'firstname'=>$user->firstname, 
+                    'lastname'=>$user->lastname,
+                    'attadence' => $recover->attendance,
+                    'type' => 'recover'); 
+               }
             }
 
             $this->layout->view('clans/attadence_view', $data);
@@ -537,13 +553,18 @@ class clans extends CI_Controller {
     function saveClanAttendances($clan_id){
         if (!empty($clan_id)) {
             if ($this->input->post() !== false) {
-                foreach ($this->input->post('user_id') as $key => $value) {
+                foreach ($this->input->post('regular_user_id') as $regular_key => $regular_value) {
                     $attadence = new Attendance();
-                    $attadence->where(array('clan_date'=>$this->input->post('date'), 'student_id'=>$key))->update('attendance', $value);
+                    $attadence->where(array('clan_date'=>$this->input->post('date'), 'student_id'=>$regular_key))->update('attendance', $regular_value);
                 }
-            }
-        }
-        redirect(base_url() .'dashboard', 'refresh');
+
+                foreach ($this->input->post('recover_user_id') as $recover_key => $recover_value) {
+                   $recover = new Attendancerecover();
+                   $recover->where(array('clan_id'=>$clan_id,'clan_date'=>$this->input->post('date'), 'student_id'=>$recover_key))->update('attendance', $recover_value);
+               }
+           }
+       }
+       redirect(base_url() .'dashboard', 'refresh');
     }
 
     function nextWeekAttendances($clan_id){
@@ -553,17 +574,17 @@ class clans extends CI_Controller {
         $current_date = get_current_date_time()->get_date_for_db();
         $start_date = date('Y-m-d', strtotime('+1 day', strtotime($current_date)));
         $end_date = date('Y-m-d', strtotime('+1 week', strtotime($current_date)));
-        
+
         $days = explode(',', $clan->lesson_day);
         $curr = date('N', strtotime($current_date));
         $days_name = $this->config->item('custom_days');
-        
+
         if(getArrayNexyValue($days, $curr)){
             $next_day = $days_name[getArrayNexyValue($days, $curr)]['en'];    
         }else{
             $next_day = $days_name[getArrayPreviousValue($days, $curr)]['en'];
         }
-        
+
         $next_date = getDateByDay($next_day, $start_date, $end_date);
         $next_date = end($next_date);
 

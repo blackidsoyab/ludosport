@@ -184,7 +184,7 @@ $lang['accept_as_student'] = 'Accept as Student';
 $lang['present'] = 'Present';
 $lang['absent'] = 'Absent';
 $lang['attendance_sheet'] = 'Attendance Sheet';
-$lang['next_week'] = 'Next Week';
+$lang['next_class'] = 'Next Clan';
 $lang['attendance'] = 'Attendance';
 $lang['attendance_next_week_done'] = 'Attendance for next week done';
 

@@ -266,8 +266,11 @@ class Clan extends DataMapper {
             foreach ($finals_dates as $value) {
                 if (!in_array($value, $dates)) {
                     $attendance = new Attendance();
+                    $recover = new Attendancerecover();
                     if(!is_null($student_limit)){
-                        $total_stud = $attendance->getTotalStudentsForDate($value, $result[0]->id);
+                        $total_1 = $attendance->getTotalStudentsForDate($value, $result[0]->id);
+                        $total_2 = $recover->getTotalStudentsForDate($value, $result[0]->id);
+                        $total_stud = (int)$total_1 + (int)$total_2;
                         if ($total_stud < $student_limit) {
                            $dates[] = $value;
                         }

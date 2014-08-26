@@ -109,6 +109,14 @@ function makeURL($options) {
         $url = base_url() . 'clan/change_status_trial_student/' . $options['data']['clan_id'] . '/' . $options['data']['student_id'] . '/notification';
     }
 
+    if ($options['notify_type'] == 'student_absent') {
+        $url = '#';
+    }
+
+    if ($options['notify_type'] == 'recovery_student') {
+        $url = '#';
+    }
+
 
 
     return $url;
@@ -136,6 +144,31 @@ function getMessageTemplate($options) {
         $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_request['name']);
     }
 
+    if ($options['notify_type'] == 'student_absent') {
+        $template_edit = true;
+        $user_name = userNameAvtar($options['from_id']);
+        
+        $userdetail = new Userdetail();
+        $userdetail->where('student_master_id', $options['from_id'])->get();
+        $clan = $userdetail->Clan->get();
+
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_name['name'], $clan->{$session->language.'_class_name'}, date('d-m-Y', strtotime($options['data']['absence_date'])));
+    }
+
+
+    if ($options['notify_type'] == 'recovery_student') {
+        $template_edit = true;
+        $user_name = userNameAvtar($options['from_id']);
+        
+        $userdetail = new Userdetail();
+        $userdetail->where('student_master_id', $options['from_id'])->get();
+        $stud_clan = $userdetail->Clan->get();
+
+        $recover_clan  = new Clan();
+        $recover_clan->where('id',$options['data']['clan_id'])->get();
+
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_name['name'], $stud_clan->{$session->language.'_class_name'},$recover_clan->{$session->language.'_class_name'}, date('d-m-Y', strtotime($options['data']['date'])));
+    }   
 
     if ($template_edit) {
         return $new_template;
@@ -185,6 +218,16 @@ function setMessageTemplate($options) {
         array(
             'en' => '%s requestd for trial lesson Accept as student by %s',
             'it' => '%s requestd for trial lesson Accept as student by %s',
+        ),
+        'student_absent' =>
+        array(
+            'en' => '%s will remain absent for %s on %s',
+            'it' => '%s will remain absent for %s on %s',
+        ),
+        'recovery_student' =>
+        array(
+            'en' => '%s student of %s will attend recovery Clan of %s on %s',
+            'it' => '%s student of %s will attend recovery Clan of %s on %s',
         )
     );
 

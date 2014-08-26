@@ -5,6 +5,12 @@ $(document).ready(function() {
 	$('#step_2').hide();
 	$('#step_3').hide();
 	$('#step_4').hide();
+	$('#date-error').hide();
+	
+	 $(".absence-radio-btn label").click(function(){
+	 	$('#date-error').hide();
+	});
+
 
 	$('#recover-absence-btn').click(function(){
 		$('#step_2').show();
@@ -48,25 +54,29 @@ $(document).ready(function() {
 					$(this).find("div.the-box").addClass("bg-primary").find(":radio").click();
 					$("#step_4").show();
 				});
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown)
-			{
-				alert('error');
 			}
 		});
 	});
 
 	$('#recover-clan-btn').click(function(e) {
-            e.preventDefault(); // prevent the link's default behaviour
-            $('#student_mark_absence').submit(); // trigget the submit handler
-        });
+		e.preventDefault(); // prevent the link's default behaviour
+		if($("#step_1 .panel-body").find('.checked').length == 0){
+			$('#date-error').show();
+		}else{
+			$('#student_mark_absence').submit(); // trigget the submit handler
+		}
+    });
 
 
 	$('#confirm-absence-btn').click(function(e) {
-        e.preventDefault(); // prevent the link's default behaviour
-        $("input[name='clan_id']").prop('disabled', true);
-        $("input[name='date']").prop('disabled', true);
-        $('#student_mark_absence').submit(); // trigget the submit handler
+		e.preventDefault(); // prevent the link's default behaviour
+		if($("#step_1 .panel-body").find('.checked').length == 0){
+			$('#date-error').show();
+		}else{
+			$("input[name='clan_id']").prop('disabled', true);
+			$("input[name='date']").prop('disabled', true);
+			$('#student_mark_absence').submit(); // trigget the submit handler
+		}
     });
 });
 //]]>
@@ -86,14 +96,21 @@ $(document).ready(function() {
 		</div>
 
 		<div class="panel-body">
-			<?php foreach ($next_clans_dates as $date) { ?>
-			<div class="radio pull-left no-margin">
-				<label>
-					<input type="radio" value="<?php echo $date;?>" class="i-grey-square" name="absence_date">
-					<?php echo $date; ?>
-				</label>
-			</div> 
-			<?php } ?>
+			<div class="row">
+				<?php foreach ($next_clans_dates as $date) { ?>
+				<div class="radio pull-left no-margin absence-radio-btn">
+					<label>
+						<input type="radio" value="<?php echo $date;?>" class="i-grey-square" name="absence_date">
+						<?php echo date('l, j<\s\u\p>S</\s\u\p> F Y', strtotime($date));?>
+					</label>
+				</div> 
+				<?php } ?>
+			</div>
+			<div class="row" id="date-error">
+				<div class="col-lg-12">
+					<small class="help-block text-danger">Please Select date </small>
+				</div>
+			</div>
 		</div>
 
 		<div class="panel-footer">

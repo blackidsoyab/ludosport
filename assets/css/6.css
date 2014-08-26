@@ -125,6 +125,15 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
     background-color: #313940;
 }
 
+.bg-primary {
+    background-color: #313940;
+    border-color: #313940;
+}
+
+.bg-primary h1, .bg-primary h2, .bg-primary h3, .bg-primary h4, .bg-primary h5, .bg-primary h6 {
+    color: #fff;
+}
+
 .panel-primary {
     border-color: #313940;
 }

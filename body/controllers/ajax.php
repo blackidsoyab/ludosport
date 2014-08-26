@@ -133,28 +133,35 @@ class ajax extends CI_Controller {
         $str = Null;
         if ($obj->result_count() > 0) {
             foreach ($notifications as $notify) {
+                $options['notify_type'] = $notify->notify_type;
+                $options['object_id'] = $notify->object_id;
+                $options['from_id'] = $notify->from_id;
+                $options['data'] = unserialize($notify->data);
+
                 if ($notify->type == 'N') {
                     $user_info = userNameAvtar($notify->from_id);
-                    $message = getMessageTemplate($notify->notify_type, $user_info['name']);
+                    $message = getMessageTemplate($options);
                     $img = '<img src="' . $user_info['avtar'] . '" class="media-object img-circle" alt="Avatar">';
                 } else {
-                    $message = getMessageTemplate($notify->notify_type);
+                    $message = getMessageTemplate($options);
                     $img = '<i class="fa fa-3x fa-info-circle"></i>';
                 }
 
                 $str .= '<div class="col-sm-12"><div class="the-box no-border"><div class="media user-card-sm">';
                 $str .= '<a class="pull-left">' . $img . '</a>';
-                $str .= '<div class="media-body"><h4 class="media-heading">' . $message . '</h4>';
+                $str .= '<div class="media-body"><h4 class="media-heading">' . @$message . '</h4>';
                 $str .= '<p class="text-primary">' . time_elapsed_string($notify->timestamp) . '</p></div>';
 
                 $str .= '<div class="right-button">';
-                $str .= '<a href="' . makeURL($notify->notify_type, $notify->object_id) . '" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $message . '" class="btn btn-primary"><i class="fa fa-share"></i></a>';
+                $str .= '<a href="' . makeURL($options) . '" data-toggle="tooltip" data-placement="bottom" data-original-title="' . @$message . '" class="btn btn-primary"><i class="fa fa-share"></i></a>';
                 $str .='</div></div></div></div>';
             }
             echo $str;
         } else {
             echo FALSE;
         }
+
+        exit;
     }
 
     function getDateForClan($clan_id) {
@@ -169,7 +176,7 @@ class ajax extends CI_Controller {
             $str .= '<div class="col-lg-4 col-xs-4 clan-date">';
             $str .= '<div class="the-box rounded text-center" data-clan-date="' . $date . '">';
             $str .= '<input type="radio" value="' . $date . '" name="date" />';
-            $str .= '<h4 class="light">' . date('d-m-Y', strtotime($date)) . '</h4>';
+            $str .= '<h4 class="light">' . date('l', strtotime($date)). '<br />' . date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date)) . '</h4>';
             $str .= '</div></div>';
             $str .= "\n";
         }

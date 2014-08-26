@@ -108,7 +108,7 @@ class dashboard extends CI_Controller {
         $return = array();
         $total_days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
         for($i=1;$i<=$total_days;$i++){
-            $date = $year .'-'. $month .'-'. $i;
+            $date = date('Y-m-d', strtotime($year .'-'. $month .'-'. $i));
             $day_numeric = date('N', strtotime($date));
             $clans = New Clan();
             $details = $clans->getClansByTeacherAndDay($this->session_data->id, $day_numeric);
@@ -124,6 +124,7 @@ class dashboard extends CI_Controller {
                         $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
                         $temp['type'] = 'present';
                     } else {
+                        $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
                         $temp['type'] = 'future';
                     }
                     $return[] = $temp;
