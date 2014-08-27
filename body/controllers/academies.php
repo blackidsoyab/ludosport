@@ -11,7 +11,6 @@ class academies extends CI_Controller {
         parent::__construct();
         $this->layout->setField('page_title', $this->lang->line('academy'));
         $this->session_data = $this->session->userdata('user_session');
-        $this->output->enable_profiler(TRUE);
     }
 
     function viewAcademy($id = null, $type = null) {

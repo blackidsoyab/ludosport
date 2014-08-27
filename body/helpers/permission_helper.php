@@ -18,8 +18,7 @@ function hasPermission($controller, $method) {
     if ($data->id == 1) {
         return TRUE;
     } else {
-        $user = new User();
-        $permissions = $user->userRoleByID($data->id, $data->role);
+        $permissions= get_instance()->config->item('user_premission');
         if (is_array($permissions) && array_key_exists($controller, $permissions) && in_array($method, $permissions[$controller])) {
             return TRUE;
         } else {

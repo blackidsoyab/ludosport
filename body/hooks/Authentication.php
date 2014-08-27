@@ -4,6 +4,7 @@ class Authentication extends CI_Controller {
 
     var $allowed_for_all;
     var $allowed_controller;
+    
 
     public function __construct() {
         parent::__construct();
@@ -12,6 +13,7 @@ class Authentication extends CI_Controller {
         $this->setAllowedController();
         $this->setSystemSetting();
         setLanguage();
+
     }
 
     private function __clear_cache() {
@@ -71,6 +73,13 @@ class Authentication extends CI_Controller {
     function setSystemSetting() {
         foreach (Systemsetting::getSystemSetting() as $value) {
             $this->config->set_item($value['sys_key'], $value['sys_value']);
+        }
+
+        $session = $this->session->userdata('user_session');
+        if (isset($session) && !empty($session)) {
+            $user = new User();
+            $permissions = $user->userRoleByID($session->id, $session->role);
+            $this->config->set_item('user_premission', $permissions);
         }
     }
 
