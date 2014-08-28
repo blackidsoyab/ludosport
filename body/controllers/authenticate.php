@@ -13,6 +13,10 @@ class authenticate extends CI_Controller {
         setLanguage();
     }
 
+    function phpinfo(){
+        phpinfo();
+    }
+
     public function index() {
         $session = $this->session->userdata('user_session');
         if (!empty($session)) {

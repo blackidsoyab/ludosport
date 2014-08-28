@@ -7,13 +7,14 @@ if (!function_exists('send_mail')) {
         $ci = get_instance();
 
         $config['protocol'] = $ci->config->item('protocol');
-        if ($ci->config->item('smtp_port') != 0) {
-            $config['smtp_port'] = $ci->config->item('smtp_port');
+        if ((int)$ci->config->item('smtp_port') !== 0) {
+            $config['smtp_port'] =  (int)$ci->config->item('smtp_port');
         }
         $config['smtp_host'] = $ci->config->item('smtp_host');
         $config['smtp_user'] = $ci->config->item('smtp_user');
         $config['smtp_pass'] = $ci->config->item('smtp_pass');
         $config['mailtype'] = 'html';
+        $config['charset']='utf-8';
 
 
         /*  $config = Array(
@@ -38,9 +39,14 @@ if (!function_exists('send_mail')) {
         if (isset($options['attachement']))
             $ci->email->attach($options['attachement']);
 
-        if (!$ci->email->send()) {
-            //return FALSE;
-            return $ci->email->print_debugger();
+        $check = $ci->email->send();
+
+        if (!$check) {
+            $header = "From: MyLudosport <". $ci->config->item('smtp_user')."> \r\n";
+            $header .= "MIME-Version: 1.0\r\n";
+            $header .= "Content-type: text/html\r\n";
+            $return  = mail($options['tomailid'],$options['subject'],$options['message'],$header);
+            return $return;
         } else {
             return TRUE;
         }
