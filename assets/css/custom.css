@@ -227,3 +227,11 @@ footer{
     bottom:0px;
     width:100%;
 }
+
+.overflow-hidden{
+    overflow: hidden;
+}
+
+.overflow-text-dot{
+    text-overflow : ellipsis;
+}

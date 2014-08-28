@@ -25,6 +25,7 @@ class users extends CI_Controller {
         } else {
             if ($type == 'notification') {
                 Notification::updateNotification('user_register', $this->session_data->id, $id);
+                redirect(base_url() .'profile/view/' . $id, 'refresh');
             }
 
             $obj = new User();
