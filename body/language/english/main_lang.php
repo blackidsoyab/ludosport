@@ -121,6 +121,14 @@ $lang['re_enter_password'] = 'Re-enter password';
 $lang['enter'] = 'Enter';
 $lang['i_accept'] = 'I accept';
 $lang['terms_conditions'] = 'Terms and conditions';
+$lang['register'] = 'Register';
+$lang['step'] = 'Step';
+$lang['palce_of_birth'] = 'Place of Birth';
+$lang['city_of_residence'] = 'City of Residence';
+$lang['by'] = 'by';
+$lang['zip_code'] = 'Zip Code';
+$lang['tax_code'] = 'Tax Code';
+$lang['blood_group'] = 'Blood Group';
 
 //Manage Permission
 $lang['controller'] = 'Controller';

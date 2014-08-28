@@ -128,11 +128,14 @@ $route['logout'] = "authenticate/logout";
 $route['forgot_password'] = "authenticate/userForgotPassword";
 $route['send_reset_password_link'] = "authenticate/userSendResetPasswordLink";
 $route['reset_password/(:any)'] = "authenticate/userResetPassword/$1";
-$route['register'] = "authenticate/register";
-$route['add_user'] = "authenticate/saveUser";
 $route['checkusername/(:num)'] = "ajax/checkUsernameExit/$1";
 $route['checkemail/(:num)'] = "ajax/checkEmailExit/$1";
 $route['denied'] = "authenticate/permissionDenied";
+
+//Registration
+$route['register/step_1'] = "authenticate/register";
+$route['add_user'] = "authenticate/saveUser";
+$route['register/step_2'] = "dashboard/studentRegistrationSecondPhase";
 
 //Commom
 $route['getstate/(:num)'] = "ajax/getAllStatesOptionsFromCountry/$1";

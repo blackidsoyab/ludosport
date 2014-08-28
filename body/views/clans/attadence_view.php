@@ -14,7 +14,6 @@
 
 <?php if(!empty($userdetails)){ ?>
 <div class="the-box full no-border">
-	<?php echo date('W', strtotime(get_current_date_time()->get_date_for_db()));?>
 	<div class="table-responsive">
 		<form class="form-horizontal" method="post" action="<?php echo base_url().'clan/save_attendance/'.$clan_details->id; ?>">
 			<input type="hidden" name="date" value="<?php echo $date; ?>">

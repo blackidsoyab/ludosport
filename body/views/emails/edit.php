@@ -12,9 +12,6 @@
             }
         });
 
-        $('.summernote-sm').summernote({
-            height: 200,
-        });
     });
     //]]>
 </script>

@@ -5,8 +5,12 @@
         $(".ludosport-class :radio").hide().click(function(e){
             e.stopPropagation();
         });
+
+        $("#step_2").hide();
+        $("#step_3").hide();
         
         $(".ludosport-class div.clan").click(function(e){
+            PositionFooter();
             $(this).closest(".ludosport-class").find("div.the-box").removeClass("bg-primary");
             $(this).find("div.the-box").addClass("bg-primary").find(":radio").click();
             
@@ -17,9 +21,11 @@
                 success: function(data)
                 {
                     $("#step_2").show();
+                    PositionFooter();
                     $('#clan_dates').empty();
                     $('#clan_dates').html(data);
-                    
+                    PositionFooter();
+
                     $(".ludosport-class-date :radio").hide().click(function(e){
                         e.stopPropagation();
                     });
@@ -28,22 +34,20 @@
                         $(this).closest(".ludosport-class-date").find("div.the-box").removeClass("bg-primary");
                         $(this).find("div.the-box").addClass("bg-primary").find(":radio").click();
                         $("#step_3").show();
+                        PositionFooter();
                     });
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown)
-                {
-                    alert('error');
                 }
             });
         });
-        
-        $("#step_2").hide();
-        $("#step_3").hide();
         
         $('#step_3').click(function(e) {
             e.preventDefault(); // prevent the link's default behaviour
             $('#trial_clan_selection').submit(); // trigget the submit handler
         });
+
+        <?php if($change_only_date) { ?>
+            $('.ludosport-class div.clan').trigger('click');
+        <?php } ?>
         
     });
     //]]>
@@ -53,7 +57,6 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="alert alert-<?php echo $type;?> fade in alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <p class="text-center">
                         <?php echo $already_applied; ?>
                     </p>
@@ -74,7 +77,7 @@
             </div>
 
             <div class="panel-body ludosport-class">
-                <?php foreach ($clans as $clan) { ?>
+            <?php foreach ($clans as $clan) {  ?>
                     <div class="col-lg-4 col-xs-4 clan">
                         <div class="the-box rounded text-center" data-clan="<?php echo $clan->id; ?>">
                             <input type="radio" value="<?php echo $clan->id; ?>" name="clan_id" />
@@ -101,14 +104,11 @@
         </div>
     </form>
 <?php } else if(isset($clans)) { ?>
-    <div class="col-lg-12">
-        <div class="alert alert-<?php echo $type;?> fade in alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <p class="text-center">
-                <?php echo $clans; ?>
-            </p>
-        </div>
-    </div>    
+<div class="alert alert-<?php echo $clan_error_type; ?> fade in alert-dismissable">
+    <p class="text-center">
+        <?php echo $clans; ?>
+    </p>
+</div>   
 <?php } ?>
 
 

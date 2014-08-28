@@ -210,59 +210,142 @@ class dashboard extends CI_Controller {
     }
 
     function getPendingStudentDashboard() {
+        //Set the Page Title
         $this->layout->setField('page_title', 'Test Lesson');
 
+        //user for changing only dates no clan.
+        $data['change_only_date'] = false;
+
         $userdetail = new Userdetail();
+        //Get the User extra details exit.
         $userdetail->where('student_master_id', $this->session_data->id)->get();
+        //Get User details
+        $user  = $userdetail->User->get();
+        // Get user Clan details if exits.
+        $clan = $userdetail->Clan->get();
 
-        $user = New User();
-        $user->where('id', $this->session_data->id)->get();
+        //get Clan time
+        $time_0 = strtotime(date('H:i', strtotime($userdetail->first_lesson_date . date('H:i',$clan->lesson_from))));
+        //get time before 2 hours of clan start
+        $time_1 = strtotime('-2 hour', $time_0);
+        //get Current time
+        $time_2 = strtotime(get_current_date_time()->get_time_for_db());
+
+        //check user Extra Detail exist
         if($userdetail->result_count() == 1){
-            $applied_on = explode(' ',time_elapsed_string(date('Y-m-d H:i:s', strtotime($userdetail->timestamp))));
+            //set user extra detail to access in view part
+            $data['userdetail'] = $userdetail;
 
-            if($userdetail->status == 'P' || $userdetail->status == 'U'){
-                if($applied_on[1] == 'hour' || $applied_on[1] == 'minute'){
-                    $check = $this->getClanDetails($this->session_data->id);
-                    if ($check !== FALSE) {
-                        $data['clans'] = $check;
-                    } else {
-                        $data['clans'] = 'No Clans are Avaialbe. Please try after Sometime';
-                        $data['type'] = 'danger'; 
-                    } 
-                } 
-                $clan = New Clan();
-                $clan->where('id',$userdetail->clan_id)->get();
-                $data['already_applied'] = 'You have already applied for the clan ' . $clan->{$this->session_data->language . '_class_name'}. '<br /> on '. date("d-m-Y", strtotime($userdetail->first_lesson_date)) . ' : ' . date('h.i a', $clan->lesson_from) . '  - ' . date('h.i a', $clan->lesson_to);
-                $data['type'] = 'info';
-            } else {
-                $clan = New Clan();
-                $clan->where('id',$userdetail->clan_id)->get();
-                $data['clans'] = 'You are approvred for the clan ' . $clan->{$this->session_data->language . '_class_name'}. '<br /> on '. date("d-m-Y", strtotime($userdetail->first_lesson_date)) . ' : ' . date('h.i a', $clan->lesson_from) . '  - ' . date('h.i a', $clan->lesson_to);
+            // if status is Accepted
+            if ($userdetail->status == 'A'){
+                //get already applied clan name, date, time
+                $data['already_applied'] = 'Your request for the clan ' . $clan->{$this->session_data->language . '_class_name'}. '<br /> on '. date("d-m-Y", strtotime($userdetail->first_lesson_date)) . ' : ' . date('h.i a', $clan->lesson_from) . '  - ' . date('h.i a', $clan->lesson_to). ' is accepted';
+
+                //for div color
                 $data['type'] = 'success';
+
+                //check that is time left to change dates.
+                if($time_2 <= $time_1) {
+                        $data['clans'] = $clan;
+                        $data['change_only_date'] = true;
+                }else{
+                    //if time less than 2 hours from stating clan
+                    if($time_2 <= $time_0) {
+                        $data['clans'] = 'Get ready for the Class';
+                        $data['clan_error_type'] = 'info'; 
+                    }else{
+                        //Now if clan started check attadence
+                        $attadence = new Attendance();
+                        $attadence->where(array('clan_date' =>$userdetail->first_lesson_date, 'student_id'=>$this->session_data->id))->get();
+
+                        //Check Data extis in attandence table
+                        if($attadence->result_count() == 1){
+                            //check he is present or not
+                            if($attadence->attendance == 1){
+                                redirect(base_url() .'register/step_2', 'refresh');
+                            } else {
+                                //get already applied clan name, date, time
+                                $data['already_applied'] = 'Your missed the clan ' . $clan->{$this->session_data->language . '_class_name'}. '<br /> on '. date("d-m-Y", strtotime($userdetail->first_lesson_date)) . ' : ' . date('h.i a', $clan->lesson_from) . '  - ' . date('h.i a', $clan->lesson_to);
+
+                                //for div color
+                                $data['type'] = 'danger';
+                                
+                                //Get the Clans details in his location
+                                $check = $this->getClanDetails($this->session_data->id);
+                                if ($check !== FALSE) {
+                                    $data['clans'] = $check;
+                                } else {
+                                    $data['clans'] = 'No Clans are Avaialbe. Please try after Sometime'; 
+                                    $data['clan_error_type'] = 'danger';
+                                } 
+                            }
+                        }else{
+                            //get already applied clan name, date, time
+                            $data['already_applied'] = 'Your missed the clan ' . $clan->{$this->session_data->language . '_class_name'}. '<br /> on '. date("d-m-Y", strtotime($userdetail->first_lesson_date)) . ' : ' . date('h.i a', $clan->lesson_from) . '  - ' . date('h.i a', $clan->lesson_to);
+
+                            //for div color
+                            $data['type'] = 'danger';
+                                
+                            //Get the Clans details in his location
+                            $check = $this->getClanDetails($this->session_data->id);
+                            if ($check !== FALSE) {
+                                $data['clans'] = $check;
+                            } else {
+                                $data['clans'] = 'No Clans are Avaialbe. Please try after Sometime'; 
+                                $data['clan_error_type'] = 'danger';
+                            } 
+                        }
+                    }
+                }
+            } else if ($userdetail->status == 'P' || $userdetail->status == 'U'){
+                 //get already applied clan name, date, time
+                $data['already_applied'] = 'You have already applied for the clan ' . $clan->{$this->session_data->language . '_class_name'}. '<br /> on '. date("d-m-Y", strtotime($userdetail->first_lesson_date)) . ' : ' . date('h.i a', $clan->lesson_from) . '  - ' . date('h.i a', $clan->lesson_to);
+                
+                //for div color
+                $data['type'] = 'info';
+
+                //Get the Clans details in his location
+                $check = $this->getClanDetails($this->session_data->id);
+                if ($check !== FALSE) {
+                    $data['clans'] = $check;
+                } else {
+                    $data['clans'] = 'No Clans are Avaialbe. Please try after Sometime';
+                    $data['clan_error_type'] = 'danger'; 
+                }  
             }
         }else{
+            //Get the Clans details in his location
             $check = $this->getClanDetails($this->session_data->id);
             if ($check !== FALSE) {
                 $data['clans'] = $check;
             } else {
                 $data['clans'] = 'No Clans are Avaialbe. Please try after Sometime'; 
-                $data['type'] = 'danger';
+                $data['clan_error_type'] = 'danger';
             }
         }
 
+        //Set User Location Details
         $city = new City();
+        //City name
         $data['city_name'] = $city->where('id', $user->city_id)->get()->{$this->session_data->language . '_name'};
+        //State name
         $data['state_name'] = $city->state->{$this->session_data->language . '_name'};
+        //Country name
         $data['country_name'] = $city->state->country->{$this->session_data->language . '_name'};
 
+        //Set Layout view
         $this->layout->view('dashboard/pending_student', $data);
     }
 
     private function getClanDetails($user_id){
         $user = New User();
+        //Get Current Login User details
         $user->where('id', $this->session_data->id)->get();
-        $data['user'] = $user;
+
+        //Calculate Age
         $age = explode(' ', time_elapsed_string(date('Y-m-d H:i:s', $user->date_of_birth)));
+
+        //Under 16 or not
         if ($age[1] == 'year' && $age[0] < 16) {
             $under_sixteen = 1;
         } else {
@@ -270,9 +353,12 @@ class dashboard extends CI_Controller {
         }
 
         $clan = New Clan();
+        //get all the Clan in the User city and also check level(based on age).
         $clans_data = $clan->getAviableTrialClan($user->city_id, $under_sixteen);
 
+        //check result
         if ($clans_data !== FALSE) {
+            //now the result is in multidimensional data make it single dimensional and the get clans details
             return $clan->where_in('id', MultiArrayToSinlgeArray($clans_data))->get();
         } else {
             return FALSE;
@@ -281,31 +367,39 @@ class dashboard extends CI_Controller {
 
     function pendingStudnetSaveTrailLesson() {
         $user_details = new Userdetail();
+        //Get Current login Student Extra Detail
         $user_details->where('student_master_id', $this->session_data->id)->get();
 
+        //save the data
         $user_details->student_master_id = $this->session_data->id;
         $user_details->clan_id = $this->input->post('clan_id');
         $user_details->first_lesson_date = $this->input->post('date');
         $user_details->user_id = $this->session_data->id;
+        $user_details->timestamp = get_current_date_time()->get_date_time_for_db();
         $user_details->save();
 
         $obj_user = new User();
+        //Get Current login Student All Detail
         $obj_user->where('id', $this->session_data->id)->get();
 
         $ids = array();
+        //For Email and Notification get All Admins
         $ids[] = User::getAdminIds();
 
         $clan = new Clan();
+        //For Email and Notification get Clan related Rectors, Deans, Teacher
         $clan->where('id', $this->input->post('clan_id'))->get();
         $ids[] = array_unique(explode(',', $clan->school->academy->rector_id . ',' . $clan->school->dean_id . ',' . $clan->teacher_id));
 
         //Make single array form all ids
         $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
 
-        //Fecth all the User details
+
         $user = new User();
+        //Fecth all the Admin, Rector, Dean, Teacher details
         $user->where_in('id', $final_ids);
 
+        //Compose message for Trial Lesson Request and replace  necessary things
         $email = new Email();
         $email->where('type', 'trial_lesson_request')->get();
         $message = $email->message;
@@ -316,7 +410,10 @@ class dashboard extends CI_Controller {
         $message = str_replace('#apply_date', date('d-m-Y', strtotime(get_current_date_time()->get_date_time_for_db())), $message);
         
 
+        //loop through for notification and mail
         foreach ($user->get() as $value) {
+
+            //Send Notification
             $notification = new Notification();
             $notification->type = 'N';
             $notification->notify_type = 'apply_trial_lesson';
@@ -326,15 +423,7 @@ class dashboard extends CI_Controller {
             $notification->data = serialize($this->input->post());
             $notification->save();
 
-            /*//Add details in our mail box
-            $mailbox = new Mailbox();
-            $mailbox->type = 'U';
-            $mailbox->to_email = $value->email;
-            $mailbox->subject = $email->subject;
-            $mailbox->message = $message;
-            $mailbox->attachment = $email->attachment;
-            $mailbox->save();   */
-
+            //Send Email
             $option = array();
             $option['tomailid'] = $value->email;
             $option['subject'] = $email->subject;
@@ -342,13 +431,42 @@ class dashboard extends CI_Controller {
             if (!is_null($email->attachment)) {
                 $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
             }
-
-            if (send_mail($option)) {
-                //$mail->where('id', $value->id)->update('status', 1);
-            }
+            send_mail($option);
         }
 
         redirect(base_url(), 'refresh');
+    }
+
+    function studentRegistrationSecondPhase(){
+        if($this->input->post() !== false){
+            $user_details = new Userdetail();
+            //Get Current login Student Extra Detail
+            $user_details->where('student_master_id', $this->session_data->id)->get();
+
+            //save the data
+            $user_details->palce_of_birth = $this->input->post('palce_of_birth');
+            $user_details->zip_code = $this->input->post('zip_code');
+            $user_details->tax_code = $this->input->post('tax_code');
+            $user_details->blood_group = $this->input->post('blood_group');
+            $user_details->user_id = $this->session_data->id;
+            $user_details->save();
+            
+            //Make student Active
+            $user = new User();
+            $user->where(array('id' => $this->session_data->id))->update('status', 'A');
+
+            $session = $this->session->userdata('user_session');
+            $session->status = 'A';
+            $newdata = array('user_session' => $session);
+            $this->session->set_userdata($newdata);
+
+            redirect(base_url() .'dashboard', 'refresh');
+        }else {
+            $this->layout->setField('page_title', 'Registration Step 2');
+            $city = new City();
+            $data['cities'] = $city->get();
+            $this->layout->view('authenticate/register_step_2', $data);
+        }
     }
 
     function mailtesting() {

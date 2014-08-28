@@ -127,15 +127,11 @@ class authenticate extends CI_Controller {
             $message = $email->message;
             $message = str_replace('#firstname', $new_user->firstname, $message);
             $message = str_replace('#lastname', $new_user->lastname, $message);
-
-           /* //Save mail in our mail box
-            $mailbox = new Mailbox();
-            $mailbox->type = 'L';
-            $mailbox->to_email = $new_user->email;
-            $mailbox->subject = $email->subject;
-            $mailbox->message = $message;
-            $mailbox->attachment = $email->attachment;
-            $mailbox->save();*/
+            $location = $city->en_name. ', ' . $city->state->en_name. ', ' . $city->state->country->en_name;
+            $message = str_replace('#location', $location, $message);
+            $message = str_replace('#dob', $this->input->post('date_of_birth'), $message);
+            $message = str_replace('#nickname', $this->input->post('username'), $message);
+            $message = str_replace('#password', $this->input->post('password'), $message);
 
             $option = null;
             $option = array();
@@ -146,9 +142,7 @@ class authenticate extends CI_Controller {
                 $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
             }
 
-            if (send_mail($option)) {
-                //$mail->where('id', $value->id)->update('status', 1);
-            }
+            send_mail($option);
 
             //Get all the Admins, Rectors, Deans, Teachers
             $ids = array();
@@ -162,7 +156,7 @@ class authenticate extends CI_Controller {
 
             //Fecth all the User details
             $user = new User();
-            $user->where_in('id', $final_ids);
+            $users = $user->where_in('id', $final_ids)->get();
 
             // Mail Template for new user register notification to all above ids
             $email = new Email();
@@ -170,26 +164,21 @@ class authenticate extends CI_Controller {
             $message = $email->message;
             $message = str_replace('#firstname', $new_user->firstname, $message);
             $message = str_replace('#lastname', $new_user->lastname, $message);
+            $location = $city->en_name. ', ' . $city->state->en_name. ', ' . $city->state->country->en_name;
+            $message = str_replace('#dob', $this->input->post('date_of_birth'), $message);
+            $message = str_replace('#nickname', $this->input->post('username'), $message);
+            $message = str_replace('#location', $location, $message);
             $message = str_replace('#date', get_current_date_time()->get_date_time_for_db(), $message);
 
-            foreach ($user->get() as $value) {
-                //Add notification
+            foreach ($users as $value) {
                 $notification = new Notification();
                 $notification->type = 'I';
                 $notification->notify_type = 'user_register';
                 $notification->from_id = 0;
                 $notification->to_id = $value->id;
                 $notification->object_id = $new_user->id;
+                $notification->data = serialize($this->input->post());
                 $notification->save();
-
-                //Add details in our mail box
-               /* $mailbox = new Mailbox();
-                $mailbox->type = 'L';
-                $mailbox->to_email = $value->email;
-                $mailbox->subject = $email->subject;
-                $mailbox->message = $message;
-                $mailbox->attachment = $email->attachment;
-                $mailbox->save();*/
 
                 $option = null;
                 $option = array();
@@ -200,15 +189,13 @@ class authenticate extends CI_Controller {
                     $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
                 }
 
-                if (send_mail($option)) {
-                    //$mail->where('id', $value->id)->update('status', 1);
-                }
+                send_mail($option);
             }
 
             $this->session->set_flashdata('success', 'Login with Username or Password');
             redirect(base_url() . 'login', 'refresh');
         } else {
-            $this->session->set_flashdata('error', 'Invalid Username or Password');
+            $this->session->set_flashdata('error', 'Please try after Sometime');
             redirect(base_url() . 'register', 'refresh');
         }
     }

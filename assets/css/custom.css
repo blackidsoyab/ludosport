@@ -235,3 +235,9 @@ footer{
 .overflow-text-dot{
     text-overflow : ellipsis;
 }
+
+/* Summer Note Editor */
+.note-editor hr {
+    margin: 10px 0;
+}
+/*********************/

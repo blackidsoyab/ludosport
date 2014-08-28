@@ -30,4 +30,4 @@
 </form>
 <p class="text-center"><strong><a href="<?php echo base_url() . 'forgot_password'; ?>" title="<?php echo $this->lang->line('forgot_password'); ?>"><?php echo $this->lang->line('forgot_password'); ?></a></strong></p>
 <p class="text-center"><?php echo $this->lang->line('or'); ?></p>
-<p class="text-center"><strong><a href="<?php echo base_url() . 'register'; ?>" title="<?php echo $this->lang->line('create_new_account'); ?>"><?php echo $this->lang->line('create_new_account'); ?></a></strong></p>
+<p class="text-center"><strong><a href="<?php echo base_url() . 'register/step_1'; ?>" title="<?php echo $this->lang->line('create_new_account'); ?>"><?php echo $this->lang->line('create_new_account'); ?></a></strong></p>

@@ -30,9 +30,11 @@ class profiles extends CI_Controller {
                 $user = new User();
                 $user->where('id', $id)->get();
 
+                $user_data = new stdClass();
                 if ($_FILES['avtar']['name'] != '') {
                     $avtar = $this->uploadAvtar($id);
                     $user->avtar = $avtar['file_name'];
+                    $user_data->avtar = $user->avtar;
                 }
 
                 $user->firstname = $this->input->post('firstname');
@@ -47,14 +49,11 @@ class profiles extends CI_Controller {
                 $user->user_id = $this->session_data->id;
                 $user->save();
 
-                $user_data = new stdClass();
                 $user_data->id = $this->session_data->id;
-                $user_data->name = $this->session_data->name;
-                $user_data->avtar = $user->avtar;
+                $user_data->name = $this->input->post('firstname') .' '. $this->input->post('lastname');
                 $user_data->language = $this->session_data->language;
-                $user_data->all_roles = $user->role_id;
+                $user_data->all_roles =$this->session_data->all_roles;
                 $user_data->role = $this->session_data->role;
-                $user_data->permissions = $this->session_data->permissions;
                 $user_data->status = $this->session_data->status;
                 $newdata = array('user_session' => $user_data);
                 $this->session->set_userdata($newdata);
