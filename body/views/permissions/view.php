@@ -10,7 +10,10 @@ echo $lengths[0]; ?>,
             "aoColumns": [
                 {"sClass": ""},{"sClass": ""},{"sClass": ""}, {"sClass": "text-center"}
             ],
-            "sAjaxSource": "<?php echo base_url() . "permission/getjson"; ?>"
+            "sAjaxSource": "<?php echo base_url() . "permission/getjson"; ?>",
+            "fnInitComplete": function (oSettings, json) {
+                PositionFooter();     
+            }
         });
     });
 

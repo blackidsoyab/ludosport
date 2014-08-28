@@ -535,25 +535,5 @@
         <script src="<?php echo PLUGIN_URL; ?>fullcalendar/lib/jquery-ui.custom.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>fullcalendar/fullcalendar/fullcalendar.js"></script>
         <script src="<?php echo JS_URL; ?>apps.js"></script>
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-                PositionFooter();
-                $(window).resize(function(){
-                    PositionFooter();
-                });
-            });
-            function PositionFooter() {
-                if (window.innerHeight) {
-                    var height = window.innerHeight;
-                    var parentsHeight = $('#middle-section').height();
-                    var current_height=height-133;
-                    if(parentsHeight>current_height)
-                    {
-                        $('#footer').css('position', 'relative');
-                    }
-                }
-            }
-        </script>
     </body>
 </html>

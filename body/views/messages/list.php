@@ -42,6 +42,9 @@
             "sAjaxSource": "<?php echo base_url() . "message/getjson/" . $message_box; ?>",
             "fnDrawCallback": function ( oSettings ) {
                 $(oSettings.nTHead).hide();
+            },
+            "fnInitComplete": function (oSettings, json) {
+                PositionFooter();     
             }
         });
     }

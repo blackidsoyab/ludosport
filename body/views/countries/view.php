@@ -9,7 +9,10 @@ echo $lengths[0]; ?>,
             "aoColumns": [
                 {"sClass": ""},{"bSortable": false, "sClass": "text-center"}
             ],
-            "sAjaxSource": "<?php echo base_url() . "country/getjson"; ?>"
+            "sAjaxSource": "<?php echo base_url() . "country/getjson"; ?>",
+            "fnInitComplete": function (oSettings, json) {
+                PositionFooter();     
+            }
         });
     });
 

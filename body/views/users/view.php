@@ -19,7 +19,10 @@ echo $lengths[0]; ?>,
             "aoColumns": [
                 {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center","bSortable": false}
             ],
-            "sAjaxSource": "<?php echo base_url() . "user/getjson/"; ?>" + $('#role_id').val()
+            "sAjaxSource": "<?php echo base_url() . "user/getjson/"; ?>" + $('#role_id').val(),
+            "fnInitComplete": function (oSettings, json) {
+                PositionFooter();     
+            }
         });
     }
 

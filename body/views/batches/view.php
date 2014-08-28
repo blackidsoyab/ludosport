@@ -19,8 +19,11 @@ echo $lengths[0]; ?>,
             "aoColumns": [
                 {"sClass": "vetrical-middle"},{"sClass": "vetrical-middle text-center"},{"bSortable": false, "sClass": "text-center"},{"bSortable": false, "sClass": "vetrical-middle text-center"}
             ],
-            "sAjaxSource": "<?php echo base_url() . "batch/getjson/"; ?>" + $('#batch_type').val() 
-        });  
+            "sAjaxSource": "<?php echo base_url() . "batch/getjson/"; ?>" + $('#batch_type').val(),
+            "fnInitComplete": function (oSettings, json) {
+                PositionFooter();     
+            }  
+        });
     }
 
     function UpdateRow(ele) {
