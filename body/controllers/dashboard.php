@@ -463,9 +463,7 @@ class dashboard extends CI_Controller {
             redirect(base_url() .'dashboard', 'refresh');
         }else {
             $this->layout->setField('page_title', 'Registration Step 2');
-            $city = new City();
-            $data['cities'] = $city->get();
-            $this->layout->view('authenticate/register_step_2', $data);
+            $this->layout->view('authenticate/register_step_2');
         }
     }
 

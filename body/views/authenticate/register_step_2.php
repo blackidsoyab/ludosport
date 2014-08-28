@@ -26,12 +26,7 @@
     <div class="col-lg-6">
         <form id="register-form" method="post" action="<?php echo base_url() . 'register/step_2'; ?>">
             <div class="form-group has-feedback lg left-feedback no-label">
-                <select class="form-control no-border input-lg rounded required" name="palce_of_birth">
-                    <option value=""><?php echo $this->lang->line('palce_of_birth'); ?></option>
-                    <?php foreach ($cities as $city) { ?>
-                        <option value="<?php echo $city->id; ?>"><?php echo $city->en_name; ?></option>
-                    <?php } ?>
-                </select>
+                <input type="text" name="palce_of_birth" class="form-control no-border input-lg rounded required" placeholder="<?php echo $this->lang->line('palce_of_birth'); ?>">
                 <span class="fa fa-male form-control-feedback"></span>
             </div>
 

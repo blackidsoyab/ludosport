@@ -333,7 +333,7 @@
 
                             </p>
                             <div class="media-body">
-                                <h4>
+                                <h4 class="overflow-hidden overflow-text-dot">
                                     <?php echo $this->lang->line('hello'); ?>
                                     <br />
                                     <strong><?php echo $session->name; ?></strong>
