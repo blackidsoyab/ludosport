@@ -159,7 +159,32 @@ function getMessageTemplate($options) {
         $recover_clan->where('id',$options['data']['clan_id'])->get();
 
         $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_name['name'], $stud_clan->{$session->language.'_class_name'},$recover_clan->{$session->language.'_class_name'}, date('d-m-Y', strtotime($options['data']['date'])));
+    }
+
+    if ($options['notify_type'] == 'recovery_assign_by_teacher_student') {
+        $template_edit = true;
+        $user_name = userNameAvtar($options['from_id']);
+
+        $recover_clan  = new Clan();
+        $recover_clan->where('id',$options['data']['clan_id'])->get();
+
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_name['name'],$recover_clan->{$session->language.'_class_name'}, date('d-m-Y', strtotime($options['data']['date'])));
+    }
+
+    if ($options['notify_type'] == 'recovery_assign_by_teacher_teacher') {
+        $template_edit = true;
+        $user_name = userNameAvtar($options['from_id']);
+        
+        $user = new User();
+        $user->where('id', $options['data']['student_id'])->get();
+
+        $recover_clan  = new Clan();
+        $recover_clan->where('id',$options['data']['clan_id'])->get();
+
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_name['name'], $user->firstname.' '.$user->lastname ,$recover_clan->{$session->language.'_class_name'}, date('d-m-Y', strtotime($options['data']['date'])));
     }   
+
+     
 
     if ($template_edit) {
         return $new_template;
@@ -219,7 +244,17 @@ function setMessageTemplate($options) {
         array(
             'en' => '%s student of %s will attend recovery Clan of %s on %s',
             'it' => '%s student of %s will attend recovery Clan of %s on %s',
-        )
+        ),
+        'recovery_assign_by_teacher_student' =>
+        array(
+            'en' => '%s reschedule your clan. The recovery Clan is %s on %s',
+            'it' => '%s reschedule your clan. The recovery Clan is %s on %s',
+        ),
+         'recovery_assign_by_teacher_teacher' =>
+        array(
+            'en' => '%s reschedule student %s  clan. The recovery Clan is %s on %s',
+            'it' => '%s reschedule student %s clan. The recovery Clan is %s on %s',
+        ),
     );
 
     return $template;

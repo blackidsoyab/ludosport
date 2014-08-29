@@ -79,7 +79,7 @@
 			foreach ($manager_list as $value) { 
 				$user_info = userNameAvtar($value);
 				?>
-			<div class="no-border text-center no-margin the-box">
+			<div class="no-border text-center margin-killer the-box">
 				<h4 class="bolded"><?php echo $user_info['name']; ?></h4>
 				<img src="<?php echo $user_info['avtar']; ?>" class="social-avatar has-margin has-light-shadow img-circle" alt="Avatar">
 			</div>

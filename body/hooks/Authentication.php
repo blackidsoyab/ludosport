@@ -51,8 +51,11 @@ class Authentication extends CI_Controller {
         $this->allowed_for_all = array(
             'clanAttendances',
             'saveClanAttendances',
-            'nextWeekAttendances'
-            );
+            'nextWeekAttendances',
+            'changeDateStudentByTeacher',
+            'getDateOfClanForTeacher',
+            'getSameLevelClans'
+        );
     }
 
     function checkPermission() {

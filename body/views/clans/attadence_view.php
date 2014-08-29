@@ -1,5 +1,74 @@
 <?php $session = $this->session->userdata('user_session'); ?>
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function() {
 
+	$('a[data-toggle~="modal"]').on('click', function(e) {
+		var target_modal = $(e.currentTarget).data('target');
+		var remote_content = e.currentTarget.href;
+		var modal = $(target_modal);
+		var modalBody = $(target_modal + ' .modal-body');
+		modal.on('show.bs.modal', function () {
+			$("input[name='student_id']").val($(e.currentTarget).data('studentid'));
+			$("input[name='attendance_id']").val($(e.currentTarget).data('attendanceid'));
+			modalBody.load(remote_content);
+		}).modal();
+		return false;
+	});
+
+
+	$('#change_dates').on('shown.bs.modal', function(){
+		$('#change_dates .modal-body').find('input').iCheck({radioClass: 'iradio_square-grey'});
+			$('#clan_dates').validate({
+			rules: {
+				clan_id: {required: true},
+				absence_date: {required: true},
+			},
+			messages: {
+				absence_date: {required: '* Please select any Date'},
+			}
+		});
+
+		$("input[name='clan_id']").on('ifChecked', function(event){
+			$.ajax({
+				type: "POST",
+				url: '<?php echo  base_url(). "getclandates_teacher/"; ?>' + $("input[name='clan_id']:checked").val(),
+				success: function(data) {
+					$('#clan-dates-selection').html(data);
+					$('#change_dates .modal-body').find('input').iCheck({radioClass: 'iradio_square-grey'});
+				}
+			});
+		});			
+
+		$('#clan_dates').submit(function(e) {
+			var post_data = {
+				'current_clan_id' : $("input[name='current_clan_id']").val(),
+				'clan_id' : $("input[name='clan_id']:checked").val(),
+				'student_id' : $("input[name='student_id']").val(),
+				'date' : $("input[name='date']:checked").val(),
+				'attendance_id' : $("input[name='attendance_id']").val()
+			};
+			$.ajax({
+				type: "POST",
+				url: '<?php echo  base_url(). 'mark_student_absence_teacher'; ?>',
+				data: post_data,
+				dataType : 'JSON',
+				success: function(data) {
+					if(data.status == true){
+						$('#change_dates').modal('hide');
+						$('tr#user_id_' + data.student_id).animate({height: 0}, 1000,"swing",function() {
+                            $(this).remove();
+                        })
+					}
+				}	
+			});
+			e.preventDefault();
+		});
+	});
+
+});
+//]]>
+</script>
 <div class="row">
 	<div class="col-lg-6 col-xs-6">
 		<h1 class="page-heading"><?php echo $this->lang->line('attendance_sheet'), ' : ', $clan_details->{$session->language.'_class_name'}; ?></h1>
@@ -17,12 +86,14 @@
 	<div class="table-responsive">
 		<form class="form-horizontal" method="post" action="<?php echo base_url().'clan/save_attendance/'.$clan_details->id; ?>">
 			<input type="hidden" name="date" value="<?php echo $date; ?>">
-			<table class="table table-th-block table-primary">
+			<table class="table">
 				<thead>
-					<tr>
-						<th style="width: 50px;">No</th>
-						<th style="width: 150px;">Full name</th>
-						<th><?php echo date('l, j<\s\u\p>S</\s\u\p> F Y', strtotime($date));?></th>
+					<tr class="bg-primary">
+						<td style="width: 50px;">No</td>
+						<td style="width: 150px;">Full name</td>
+						<td style="width: 225px;"><?php echo date('l, j<\s\u\p>S</\s\u\p> F Y', strtotime($date));?></td>
+						<td >Clan, School, Accadmey</td>
+						<td style="width: 100px;">&nbsp;</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -33,31 +104,44 @@
 					foreach ($userdetails as $value) { 
 						$count++;
 						?>
-						<tr>
+						<tr id="<?php echo 'user_id_', $value['id']; ?>">
 							<td>
 								<?php echo $count; ?>
 							</td>
 							<td>
-								<?php echo $value['firstname'], ' ', $value['lastname'] , ($value['type'] == 'recover') ? '&nbsp;&nbsp;<i class="fa fa-info text-danger" data-toggle="tooltip" data-original-title="Absense Recovery Student"></i>&nbsp;' : '&nbsp;'; ?>
+								<?php echo $value['firstname'], ' ', $value['lastname']; ?>
 							</td>
 							<td>
-								<div class="radio pull-left no-margin">
+								<div class="radio pull-left margin-killer padding-left-killer padding-top-killer">
 									<label>
 										<input type="radio" value="1" class="i-grey-square" name="<?php echo $value['type']; ?>_user_id[<?php echo $value['id']; ?>]" <?php echo ($value['attadence'] == 1)? 'checked' : ''; ?>>
 										<?php echo $this->lang->line('present'); ?>
 									</label>
 								</div>
-								<div class="radio pull-left no-margin">
+								<div class="radio pull-left margin-killer padding-top-killer">
 									<label>
 										<input type="radio" value="0" class="i-grey-square" name="<?php echo $value['type']; ?>_user_id[<?php echo $value['id']; ?>]" <?php echo ($value['attadence'] == 0)? 'checked' : ''; ?>>
 										<?php echo $this->lang->line('absent'); ?>
 									</label>
 								</div>
 							</td>
+							<td>
+								<?php echo $value['clan'],', ', $value['school'],', ', $value['academy']; ?>
+							</td>
+							<td>
+								<?php if($value['attadence'] == '1'){ ?>
+									<a href="<?php echo base_url().'get_same_level_clan/'. $clan_details->id; ?>" data-target="#change_dates" data-toggle="modal tooltip" data-original-title="want to Change Date" data-studentid="<?php echo $value['id']; ?>" data-attendanceid="<?php echo $value['attadence_id']; ?>">
+										<i class="fa fa-repeat icon-circle icon-bordered icon-xs icon-primary"></i>
+									</a>
+								<?php } ?>
+								<?php if($value['type'] == 'recover'){ ?>
+									 <i class="fa fa-info icon-circle icon-bordered icon-xs icon-primary" data-toggle="tooltip" data-original-title="Absense Recovery Student"></i>
+								<?php } ?>
+							</td>
 						</tr>
 						<?php } ?>
 						<tr>
-							<td colspan="3">
+							<td colspan="5">
 								<button type="submit" class="btn btn-primary">
 									<?php echo $this->lang->line('save'); ?>
 								</button>
@@ -79,3 +163,25 @@
 		</div>
 	</div>
 	<?php } ?>
+
+
+<div class="modal fade" id="change_dates"  tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content modal-no-shadow">
+			<form id="clan_dates">
+			<input type="hidden" name="current_clan_id" value="<?php echo $clan_details->id; ?>">
+			<input type="hidden" name="student_id" value="0">
+			<input type="hidden" name="attendance_id" value="0">
+				<div class="modal-header bg-primary no-border text-white">
+					<h4 class="modal-title">Change Dates</h4>
+				</div>
+				<div class="modal-body">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-inverse" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

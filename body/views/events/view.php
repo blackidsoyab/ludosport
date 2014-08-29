@@ -17,7 +17,7 @@
     <div class="col-sm-4">
         <div class="the-box no-border full store-item text-center">
             <img src="<?php echo IMG_URL .'event_images/' . $event->image; ?>" class="item-image" alt="Image">
-            <div class="the-box no-margin no-border ">
+            <div class="the-box margin-killer no-border ">
                 <div class="row">
                     <div class="col-xs-12">
                         <p class="text-danger bolded"><strong><?php echo ucfirst($event->{$session->language.'_name'}), ' at ', getLocationName($event->city_id, 'City'); ?></strong></p>

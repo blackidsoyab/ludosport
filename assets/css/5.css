@@ -125,6 +125,22 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
     background: #C88127;
 }
 
+.icon-bordered.icon-primary {
+    background: #fff;
+    color: #C88127;
+    -webkit-box-shadow: inset 0px 0px 0px 2px #C88127;
+    -moz-box-shadow: inset 0px 0px 0px 2px #C88127;
+    box-shadow: inset 0px 0px 0px 2px #C88127;
+}
+
+.icon-bordered.icon-primary:hover {
+    background: #fff;
+    color: #F1C15C;
+    -webkit-box-shadow: inset 0px 0px 0px 2px #F1C15C;
+    -moz-box-shadow: inset 0px 0px 0px 2px #F1C15C;
+    box-shadow: inset 0px 0px 0px 2px #F1C15C;
+}
+
 .tiles.dribbble-tile {
     color: #fff;
     background-color: #C88127;
@@ -178,4 +194,9 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
 
 .mail-apps-wrap .toolbar {
     background: #F1C15C;
+}
+
+.bg-primary {
+    color: #fff;
+    background-color: #C88127;
 }

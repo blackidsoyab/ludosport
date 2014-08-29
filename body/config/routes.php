@@ -95,6 +95,11 @@ $route['clan/teacherjson/(:any)/(:any)/(:any)'] = "json/getTeachersJsonData/$1/$
 $route['teacher/class_details/(:num)/(:num)'] = "dashboard/teacherClassDetails/$1/$2";
 $route['student/class_details/(:num)/(:num)'] = "dashboard/studentClassDetails/$1/$2";
 
+//Teacher Student Attadence
+$route['getclandates_teacher/(:num)'] = "clans/getDateOfClanForTeacher/$1";
+$route['get_same_level_clan/(:num)'] = "clans/getSameLevelClans/$1";
+$route['mark_student_absence_teacher'] = "clans/changeDateStudentByTeacher";
+
 //Student List
 $route['clan/studentlist'] = "clans/clanStudentList";
 $route['clan/studentlist/(:num)/(:any)'] = "clans/clanStudentList/$1/$2";

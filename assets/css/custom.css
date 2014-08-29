@@ -51,6 +51,42 @@ label.error{
     padding: 0px !important;
 }
 
+.padding-top-killer{
+    padding-top: 0px !important;
+}
+
+.padding-right-killer{
+    padding-right: 0px !important;
+}
+
+.padding-bottom-killer{
+    padding-bottom: 0px !important;
+}
+
+.padding-left-killer{
+    padding-left: 0px !important;
+}
+
+.margin-killer{
+    margin: 0px !important;
+}
+
+.margin-top-killer{
+    margin-top: 0px !important;
+}
+
+.margin-right-killer{
+    margin-right: 0px !important;
+}
+
+.margin-bottom-killer{
+    margin-bottom: 0px !important;
+}
+
+.margin-left-killer{
+    margin-left: 0px !important;
+}
+
 .alert-primary{
     background-color: rgb(55, 188, 155);
     color: rgb(255, 255, 255);
@@ -133,7 +169,7 @@ a.list-group-item:hover, a.list-group-item:focus {
 }
 
 .list-group-item.mail-list{
-    padding-left: 0px;
+    `-left: 0px;
     padding-right: 120px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -219,10 +255,6 @@ color: #656D78;
     display: block;
 }
 
-.no-margin {
-    margin: 0;
-}
-
 footer{
     bottom:0px;
     width:100%;
@@ -234,6 +266,10 @@ footer{
 
 .overflow-text-dot{
     text-overflow : ellipsis;
+}
+
+.radio .iradio_square-grey {
+    margin-right: 5px;
 }
 
 /* Summer Note Editor */

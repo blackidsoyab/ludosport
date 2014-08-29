@@ -131,6 +131,13 @@ class dashboard extends CI_Controller {
                 }
             }
         }
+
+        if(count($return) == 0){
+            $temp = array();
+            $temp['start'] = $current_date;
+            $return[] = $temp;
+        }
+
         echo json_encode($return);
     }
 
@@ -172,7 +179,7 @@ class dashboard extends CI_Controller {
                 foreach ($details as $value) {
                     $temp = array();
                     $temp['title'] =  date('h.i a', $value->lesson_from) . ' : ' . date('h.i a', $value->lesson_to);
-                    $temp['start'] = $date;
+                    $temp['start'] = date('Y-m-d', strtotime($date));
                     if(strtotime($date) < strtotime($current_date)){
                         //$temp['url'] = base_url() .'student/clan/' . $value->id .'/'. $date;
                         $temp['type'] = 'past';
@@ -202,7 +209,7 @@ class dashboard extends CI_Controller {
             $data['date'] = $date;
             $data['current_date'] = $current_date;
             $data['next_date'] = $next_date;
-            $this->layout->view('students/student_atte', $data); 
+            $this->layout->view('students/student_attendance', $data); 
         }else{
             $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
             redirect(base_url() . 'dashboard', 'refresh'); 

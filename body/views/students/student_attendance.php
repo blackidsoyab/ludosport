@@ -98,7 +98,7 @@ $(document).ready(function() {
 		<div class="panel-body">
 			<div class="row">
 				<?php foreach ($next_clans_dates as $date) { ?>
-				<div class="radio pull-left no-margin absence-radio-btn">
+				<div class="radio pull-left margin-killer absence-radio-btn">
 					<label>
 						<input type="radio" value="<?php echo $date;?>" class="i-grey-square" name="absence_date">
 						<?php echo date('l, j<\s\u\p>S</\s\u\p> F Y', strtotime($date));?>

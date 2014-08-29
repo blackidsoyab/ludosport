@@ -12,7 +12,7 @@
 
 <div class="row">
     <div class="col-md-8">
-        <div class="the-box transparent full no-margin profile-heading">
+        <div class="the-box transparent full margin-killer profile-heading">
         <?php if ($profile->id == $session->id) { ?>
         <div class="right-action">
             <button class="btn btn-primary btn-square btn-xs">Change cover</button>

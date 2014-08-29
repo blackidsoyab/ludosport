@@ -61,11 +61,11 @@ $(document).ready(function(){
 
 	/** BEGIN TOOLTIP FUNCTION **/
 	$('.tooltips').tooltip({
-	  selector: "[data-toggle=tooltip]",
+	  selector: "[data-toggle~=tooltip]",
 	  container: "body"
 	})
 	$('.popovers').popover({
-	  selector: "[data-toggle=popover]",
+	  selector: "[data-toggle~=popover]",
 	  container: "body"
 	})
 	/** END TOOLTIP FUNCTION **/
