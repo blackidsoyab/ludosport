@@ -360,10 +360,7 @@ class clans extends CI_Controller {
     }
 
     function changeStatusTrialStudent($clan_id, $student_master_id, $type = null) {
-        echo '<pre>';
-        print_r($this->input->post());
-        echo '<pre>';
-        exit();
+
         //Update the Notifications
         if ($type == 'notification') {
             Notification::updateNotification('apply_trial_lesson', $this->session_data->id, $student_master_id);
@@ -494,7 +491,7 @@ class clans extends CI_Controller {
                             if (!is_null($email->attachment)) {
                                 $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
                             }
-                            send_mail($option);}
+                            send_mail($option);
                         }
                     }
 
