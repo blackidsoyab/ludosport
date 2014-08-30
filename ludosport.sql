@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 28, 2014 at 06:35 PM
+-- Generation Time: Aug 30, 2014 at 11:49 AM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.13
 
@@ -72,14 +72,15 @@ CREATE TABLE IF NOT EXISTS `attendances` (
   `attendance` tinyint(1) NOT NULL DEFAULT '1',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `attendances`
 --
 
 INSERT INTO `attendances` (`id`, `clan_date`, `student_id`, `attendance`, `user_id`, `timestamp`) VALUES
-(1, '2014-08-28', 6, 1, 3, '2014-08-28 02:54:06');
+(1, '2014-09-02', 8, 0, 8, '2014-08-29 12:13:52'),
+(2, '2014-09-02', 6, 1, 3, '2014-09-02 12:30:19');
 
 -- --------------------------------------------------------
 
@@ -94,9 +95,17 @@ CREATE TABLE IF NOT EXISTS `attendance_recovers` (
   `clan_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
   `attendance` tinyint(1) NOT NULL DEFAULT '1',
+  `history` text,
   `user_id` int(11) NOT NULL,
-  `TIMESTAMP` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `attendance_recovers`
+--
+
+INSERT INTO `attendance_recovers` (`id`, `attendance_id`, `clan_date`, `clan_id`, `student_id`, `attendance`, `history`, `user_id`, `timestamp`) VALUES
+(1, 1, '2014-09-12', 5, 8, 1, 'a:3:{s:10:"2014-09-05";a:8:{s:2:"id";i:1;s:13:"attendance_id";s:1:"1";s:9:"clan_date";s:10:"2014-09-02";s:7:"clan_id";s:1:"3";s:10:"student_id";s:1:"8";s:10:"attendance";s:1:"1";s:7:"user_id";s:1:"3";s:9:"TIMESTAMP";s:19:"2014-08-29 17:43:57";}s:10:"2014-09-09";a:8:{s:2:"id";i:1;s:13:"attendance_id";s:1:"1";s:9:"clan_date";s:10:"2014-09-05";s:7:"clan_id";s:1:"5";s:10:"student_id";s:1:"8";s:10:"attendance";s:1:"1";s:7:"user_id";s:1:"3";s:9:"TIMESTAMP";s:19:"2014-08-29 17:43:57";}s:10:"2014-09-12";a:8:{s:2:"id";i:1;s:13:"attendance_id";s:1:"1";s:9:"clan_date";s:10:"2014-09-09";s:7:"clan_id";s:1:"3";s:10:"student_id";s:1:"8";s:10:"attendance";s:1:"1";s:7:"user_id";s:1:"5";s:9:"TIMESTAMP";s:19:"2014-08-29 17:43:57";}}', 3, '2014-08-29 12:13:57');
 
 -- --------------------------------------------------------
 
@@ -199,11 +208,11 @@ CREATE TABLE IF NOT EXISTS `clans` (
 --
 
 INSERT INTO `clans` (`id`, `academy_id`, `school_id`, `teacher_id`, `level_id`, `lesson_day`, `lesson_from`, `lesson_to`, `en_class_name`, `it_class_name`, `same_address`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `user_id`, `timestamp`) VALUES
-(1, 1, 1, '5', 1, '2,3', 1406345400, 1406356200, 'Poppey Ep 1', 'Poppey Ep 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-07-26 09:45:00'),
-(2, 2, 2, '7', 2, '3,4', 1406349000, 1406356200, 'Dexter Ep 1', 'Dexter Ep 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-07-26 09:46:59'),
+(1, 1, 1, '4', 1, '2,3', 1406345400, 1406356200, 'Poppey Ep 1', 'Poppey Ep 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-07-26 09:45:00'),
+(2, 2, 2, '5', 2, '3,4', 1406349000, 1406356200, 'Dexter Ep 1', 'Dexter Ep 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-07-26 09:46:59'),
 (3, 1, 3, '3', 1, '2,4,5', 1409218500, 1409222100, 'Sailor Ep 2', 'Sailor Ep 2', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:47:38'),
-(4, 2, 4, '8', 1, '2', 1406363400, 1406370600, 'Lab Ep 2', 'Lab Ep 2', 1, 'Baroda', '390016', 5, 4, 2, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:48:27'),
-(5, 1, 1, '7', 1, '5,6', 1407292200, 1407306600, 'Poppey Ep 2', 'Poppey Ep 2', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-08-06 05:25:51'),
+(4, 2, 4, '5', 1, '2', 1406363400, 1406370600, 'Lab Ep 2', 'Lab Ep 2', 1, 'Baroda', '390016', 5, 4, 2, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:48:27'),
+(5, 1, 1, '5', 1, '5,6', 1407292200, 1407306600, 'Poppey Ep 2', 'Poppey Ep 2', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-08-06 05:25:51'),
 (6, 1, 3, '3', 1, '2,4,5', 1406352600, 1406359800, 'Sailor Ep 3', 'Sailor Ep 3', 1, 'Baroda', '390016', 2, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:47:38');
 
 -- --------------------------------------------------------
@@ -245,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `emails` (
   `format_info` text CHARACTER SET utf8,
   `user_id` int(11) NOT NULL DEFAULT '1',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `emails`
@@ -260,7 +269,9 @@ INSERT INTO `emails` (`id`, `type`, `subject`, `message`, `attachment`, `format_
 (6, 'trial_lesson_rejected', 'Request for Trail Lesson has been Rejected', '<div><span style="line-height: 1.42857143;">#firstname #lastname r</span><span style="line-height: 1.42857143;">equest for the trial lesson.</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">Clan Name : </span><span style="line-height: 1.42857143;">#clan_name</span></div><div><span style="line-height: 1.42857143;">Clan Date : #lesson_date</span></div><div><span style="line-height: 1.42857143;">Date of request : #apply_date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">has been </span>rejected<span style="line-height: 1.42857143;"> by the #teacher_name on #reject_date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div>\r\n<div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#clan_name\r\n#lesson_date\r\n#apply_date\r\n#teacher_name\r\n#reject_date', 2, '2014-08-25 10:05:22'),
 (7, 'accepted_as_student', 'Confirm as a student', '<div><span style="line-height: 1.42857143;">#firstname #lastname is now student of &nbsp;</span><span style="line-height: 1.42857143;">#clan_name clan.</span></div><div><span style="line-height: 1.42857143;">Accepted by the #teacher_name on #accept_date</span><br></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#clan_name\r\n#teacher_name\r\n#accept_date', 2, '2014-08-25 10:05:22'),
 (8, 'student_absent', 'Student Absent', '<div><span style="line-height: 1.42857143;">#firstname #lastname will remain absent for&nbsp;</span><span style="line-height: 1.42857143;">#clan_name on #date.</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#clan_name\r\n#date', 2, '2014-08-25 10:05:22'),
-(9, 'recovery_student', 'Recover an Absent Class', '<div><span style="line-height: 1.42857143;">#firstname #lastname is a student of #student_clan will recover his absence class at #recover_clan on #date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#student_clan\r\n#recover_clan\r\n#date', 2, '2014-08-25 10:05:22');
+(9, 'recovery_student', 'Recover an Absent Class', '<div><span style="line-height: 1.42857143;">#firstname #lastname is a student of #student_clan will recover his absence class at #recover_clan on #date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#student_clan\r\n#recover_clan\r\n#date', 2, '2014-08-25 10:05:22'),
+(10, 'teacher_recovery_student_for_student', 'Student (Teacher assign Recovery Class)', '<div><span style="line-height: 1.42857143;">Dear #student_name<br><br>The teacher #teacher_name has set the recovery class for you as you were absent.<br>The Clan is #recover_clan on #date<br></span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#student_name\r\n#teacher_name\r\n#recover_clan\r\n#date', 2, '2014-08-25 10:05:22'),
+(11, 'teacher_recovery_student_for_teacher', 'Teacher (Teacher assign Recovery Class)', 'Dear #receiver_teacher<br><br>The #sender_teacher has send one studennt name #student_name for the recovery class.<br>The class is #recover_clan on #date<br><br><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#student_name\r\n#receiver_teacher\r\n#sender_teacher\r\n#recover_clan\r\n#date', 2, '2014-08-25 10:05:22');
 
 -- --------------------------------------------------------
 
@@ -426,7 +437,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `data` longtext,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
 
 --
 -- Dumping data for table `notifications`
@@ -434,26 +445,34 @@ CREATE TABLE IF NOT EXISTS `notifications` (
 
 INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `object_id`, `data`, `status`, `timestamp`) VALUES
 (1, 'I', 'user_register', 0, 2, 6, 'a:9:{s:9:"firstname";s:6:"Killer";s:8:"lastname";s:5:"Jeans";s:8:"username";s:6:"killer";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"30-08-1989";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 1, '2014-08-28 06:14:47'),
-(2, 'I', 'user_register', 0, 3, 6, 'a:9:{s:9:"firstname";s:6:"Killer";s:8:"lastname";s:5:"Jeans";s:8:"username";s:6:"killer";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"30-08-1989";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-08-28 06:14:52'),
-(3, 'I', 'user_register', 0, 4, 6, 'a:9:{s:9:"firstname";s:6:"Killer";s:8:"lastname";s:5:"Jeans";s:8:"username";s:6:"killer";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"30-08-1989";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-08-28 06:14:57'),
-(4, 'I', 'user_register', 0, 5, 6, 'a:9:{s:9:"firstname";s:6:"Killer";s:8:"lastname";s:5:"Jeans";s:8:"username";s:6:"killer";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"30-08-1989";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-08-28 06:15:01'),
+(2, 'I', 'user_register', 0, 3, 6, 'a:9:{s:9:"firstname";s:6:"Killer";s:8:"lastname";s:5:"Jeans";s:8:"username";s:6:"killer";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"30-08-1989";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 1, '2014-08-28 06:14:52'),
+(3, 'I', 'user_register', 0, 4, 6, 'a:9:{s:9:"firstname";s:6:"Killer";s:8:"lastname";s:5:"Jeans";s:8:"username";s:6:"killer";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"30-08-1989";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 1, '2014-08-28 06:14:57'),
+(4, 'I', 'user_register', 0, 5, 6, 'a:9:{s:9:"firstname";s:6:"Killer";s:8:"lastname";s:5:"Jeans";s:8:"username";s:6:"killer";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"30-08-1989";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 1, '2014-08-28 06:15:01'),
 (6, 'N', 'apply_trial_lesson', 6, 2, 6, 'a:3:{s:10:"student_id";s:1:"6";s:7:"clan_id";s:1:"1";s:4:"date";s:10:"2014-09-03";}', 1, '2014-08-28 06:20:13'),
 (7, 'N', 'apply_trial_lesson', 6, 3, 6, 'a:3:{s:10:"student_id";s:1:"6";s:7:"clan_id";s:1:"1";s:4:"date";s:10:"2014-09-03";}', 1, '2014-08-28 06:20:18'),
-(8, 'N', 'apply_trial_lesson', 6, 5, 6, 'a:3:{s:10:"student_id";s:1:"6";s:7:"clan_id";s:1:"1";s:4:"date";s:10:"2014-09-03";}', 0, '2014-08-28 06:20:23'),
+(8, 'N', 'apply_trial_lesson', 6, 5, 6, 'a:3:{s:10:"student_id";s:1:"6";s:7:"clan_id";s:1:"1";s:4:"date";s:10:"2014-09-03";}', 1, '2014-08-28 06:20:23'),
 (9, 'N', 'apply_trial_lesson', 6, 2, 6, 'a:3:{s:10:"student_id";s:1:"6";s:7:"clan_id";s:1:"2";s:4:"date";s:10:"2014-09-04";}', 0, '2014-09-03 06:37:46'),
 (10, 'N', 'apply_trial_lesson', 6, 3, 6, 'a:3:{s:10:"student_id";s:1:"6";s:7:"clan_id";s:1:"2";s:4:"date";s:10:"2014-09-04";}', 1, '2014-09-03 06:37:51'),
 (11, 'N', 'trial_lesson_approved', 3, 6, 6, 'a:4:{s:6:"status";s:1:"A";s:7:"clan_id";s:1:"2";s:4:"date";s:10:"2014-09-04";s:10:"student_id";s:1:"6";}', 1, '2014-09-04 02:54:06'),
 (12, 'N', 'trial_lesson_approved', 3, 2, 0, 'a:4:{s:6:"status";s:1:"A";s:7:"clan_id";s:1:"2";s:4:"date";s:10:"2014-09-04";s:10:"student_id";s:1:"6";}', 0, '2014-09-04 02:54:06'),
 (15, 'I', 'user_register', 0, 2, 7, 'a:4:{s:14:"palce_of_birth";s:1:"2";s:8:"zip_code";s:6:"390016";s:8:"tax_code";s:6:"963852";s:11:"blood_group";s:4:"B-ve";}', 0, '2014-08-28 10:48:03'),
-(16, 'I', 'user_register', 0, 3, 7, 'a:4:{s:14:"palce_of_birth";s:1:"2";s:8:"zip_code";s:6:"390016";s:8:"tax_code";s:6:"963852";s:11:"blood_group";s:4:"B-ve";}', 0, '2014-08-28 10:48:09'),
-(17, 'I', 'user_register', 0, 4, 7, 'a:4:{s:14:"palce_of_birth";s:1:"2";s:8:"zip_code";s:6:"390016";s:8:"tax_code";s:6:"963852";s:11:"blood_group";s:4:"B-ve";}', 0, '2014-08-28 10:48:15'),
-(18, 'I', 'user_register', 0, 5, 7, 'a:4:{s:14:"palce_of_birth";s:1:"2";s:8:"zip_code";s:6:"390016";s:8:"tax_code";s:6:"963852";s:11:"blood_group";s:4:"B-ve";}', 0, '2014-08-28 10:48:20'),
+(16, 'I', 'user_register', 0, 3, 7, 'a:4:{s:14:"palce_of_birth";s:1:"2";s:8:"zip_code";s:6:"390016";s:8:"tax_code";s:6:"963852";s:11:"blood_group";s:4:"B-ve";}', 1, '2014-08-28 10:48:09'),
+(17, 'I', 'user_register', 0, 4, 7, 'a:4:{s:14:"palce_of_birth";s:1:"2";s:8:"zip_code";s:6:"390016";s:8:"tax_code";s:6:"963852";s:11:"blood_group";s:4:"B-ve";}', 1, '2014-08-28 10:48:15'),
+(18, 'I', 'user_register', 0, 5, 7, 'a:4:{s:14:"palce_of_birth";s:1:"2";s:8:"zip_code";s:6:"390016";s:8:"tax_code";s:6:"963852";s:11:"blood_group";s:4:"B-ve";}', 1, '2014-08-28 10:48:20'),
 (19, 'I', 'user_register', 0, 7, 7, 'a:4:{s:14:"palce_of_birth";s:1:"2";s:8:"zip_code";s:6:"390016";s:8:"tax_code";s:6:"963852";s:11:"blood_group";s:4:"B-ve";}', 0, '2014-08-28 10:48:26'),
 (20, 'I', 'user_register', 0, 2, 8, 'a:9:{s:9:"firstname";s:5:"Denim";s:8:"lastname";s:5:"Jeans";s:8:"username";s:5:"denim";s:7:"city_id";s:1:"2";s:13:"date_of_birth";s:10:"17-02-1972";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-08-28 11:34:26'),
-(21, 'I', 'user_register', 0, 3, 8, 'a:9:{s:9:"firstname";s:5:"Denim";s:8:"lastname";s:5:"Jeans";s:8:"username";s:5:"denim";s:7:"city_id";s:1:"2";s:13:"date_of_birth";s:10:"17-02-1972";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-08-28 11:34:30'),
-(22, 'I', 'user_register', 0, 4, 8, 'a:9:{s:9:"firstname";s:5:"Denim";s:8:"lastname";s:5:"Jeans";s:8:"username";s:5:"denim";s:7:"city_id";s:1:"2";s:13:"date_of_birth";s:10:"17-02-1972";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-08-28 11:34:35'),
-(23, 'I', 'user_register', 0, 5, 8, 'a:9:{s:9:"firstname";s:5:"Denim";s:8:"lastname";s:5:"Jeans";s:8:"username";s:5:"denim";s:7:"city_id";s:1:"2";s:13:"date_of_birth";s:10:"17-02-1972";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-08-28 11:34:42'),
-(24, 'I', 'user_register', 0, 8, 8, 'a:9:{s:9:"firstname";s:5:"Denim";s:8:"lastname";s:5:"Jeans";s:8:"username";s:5:"denim";s:7:"city_id";s:1:"2";s:13:"date_of_birth";s:10:"17-02-1972";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-08-28 11:34:47');
+(21, 'I', 'user_register', 0, 3, 8, 'a:9:{s:9:"firstname";s:5:"Denim";s:8:"lastname";s:5:"Jeans";s:8:"username";s:5:"denim";s:7:"city_id";s:1:"2";s:13:"date_of_birth";s:10:"17-02-1972";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 1, '2014-08-28 11:34:30'),
+(22, 'I', 'user_register', 0, 4, 8, 'a:9:{s:9:"firstname";s:5:"Denim";s:8:"lastname";s:5:"Jeans";s:8:"username";s:5:"denim";s:7:"city_id";s:1:"2";s:13:"date_of_birth";s:10:"17-02-1972";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 1, '2014-08-28 11:34:35'),
+(23, 'I', 'user_register', 0, 5, 8, 'a:9:{s:9:"firstname";s:5:"Denim";s:8:"lastname";s:5:"Jeans";s:8:"username";s:5:"denim";s:7:"city_id";s:1:"2";s:13:"date_of_birth";s:10:"17-02-1972";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 1, '2014-08-28 11:34:42'),
+(24, 'I', 'user_register', 0, 8, 8, 'a:9:{s:9:"firstname";s:5:"Denim";s:8:"lastname";s:5:"Jeans";s:8:"username";s:5:"denim";s:7:"city_id";s:1:"2";s:13:"date_of_birth";s:10:"17-02-1972";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 1, '2014-08-28 11:34:47'),
+(34, 'N', 'student_absent', 8, 4, 6, 'a:1:{s:12:"absence_date";s:10:"2014-09-02";}', 0, '2014-08-29 11:23:17'),
+(35, 'N', 'recovery_assign_by_teacher_student', 4, 8, 1, 'a:5:{s:15:"current_clan_id";s:1:"1";s:7:"clan_id";s:1:"3";s:10:"student_id";s:1:"8";s:4:"date";s:10:"2014-09-02";s:13:"attendance_id";s:1:"6";}', 0, '2014-08-29 11:28:28'),
+(36, 'N', 'recovery_assign_by_teacher_teacher', 4, 3, 1, 'a:5:{s:15:"current_clan_id";s:1:"1";s:7:"clan_id";s:1:"3";s:10:"student_id";s:1:"8";s:4:"date";s:10:"2014-09-02";s:13:"attendance_id";s:1:"6";}', 1, '2014-08-29 11:28:33'),
+(37, 'N', 'recovery_assign_by_teacher_student', 3, 8, 2, 'a:5:{s:15:"current_clan_id";s:1:"3";s:7:"clan_id";s:1:"5";s:10:"student_id";s:1:"8";s:4:"date";s:10:"2014-08-30";s:13:"attendance_id";s:1:"6";}', 0, '2014-08-29 11:32:02'),
+(38, 'N', 'recovery_assign_by_teacher_teacher', 3, 7, 2, 'a:5:{s:15:"current_clan_id";s:1:"3";s:7:"clan_id";s:1:"5";s:10:"student_id";s:1:"8";s:4:"date";s:10:"2014-08-30";s:13:"attendance_id";s:1:"6";}', 0, '2014-08-29 11:32:06'),
+(39, 'N', 'student_absent', 8, 4, 1, 'a:1:{s:12:"absence_date";s:10:"2014-09-02";}', 0, '2014-08-29 11:45:49'),
+(40, 'N', 'student_absent', 8, 4, 1, 'a:3:{s:12:"absence_date";s:10:"2014-09-02";s:7:"clan_id";s:1:"3";s:4:"date";s:10:"2014-09-02";}', 0, '2014-08-29 12:13:52'),
+(41, 'N', 'recovery_student', 8, 3, 1, 'a:3:{s:12:"absence_date";s:10:"2014-09-02";s:7:"clan_id";s:1:"3";s:4:"date";s:10:"2014-09-02";}', 0, '2014-08-29 12:13:57');
 
 -- --------------------------------------------------------
 
@@ -616,14 +635,15 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   `status` enum('A','U','P') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `userdetails`
 --
 
 INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `first_lesson_date`, `approved_by`, `palce_of_birth`, `zip_code`, `tax_code`, `blood_group`, `status`, `user_id`, `timestamp`) VALUES
-(1, 6, '3', '2014-08-28', 3, 'Suspendisse ipsum risus, facilisis et nisi nec', 390016, 963852, 'B-ve', 'A', 6, '2014-08-28 01:42:35');
+(1, 6, '3', '2014-08-28', 3, 'Suspendisse ipsum risus, facilisis et nisi nec', 390016, 963852, 'B-ve', 'A', 6, '2014-08-28 01:42:35'),
+(2, 8, '1', '2014-08-28', 0, 'Suspendisse ipsum risus, facilisis et nisi nec', 390016, 963852, 'B-ve', 'A', 6, '2014-08-28 01:42:35');
 
 -- --------------------------------------------------------
 
@@ -657,11 +677,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `lastname`, `email`, `date_of_birth`, `city_id`, `state_id`, `country_id`, `permission`, `avtar`, `status`, `user_id`, `timestamp`) VALUES
 (1, '1', 'superadmin', '202cb962ac59075b964b07152d234b70', 'Soyab', 'Rana', 'ranasoyab@yopmail.com', 316895400, 1, 1, 1, NULL, '94048c9c2c04baf3b871be491ef8ded2.jpg', 'A', 1, '2014-07-17 07:05:53'),
 (2, '2', 'admin', '202cb962ac59075b964b07152d234b70', 'Society LudoSport', 'Masters', 'ranasoyab@yopmail.com', 316895400, 1, 1, 1, NULL, '666f7848493437bd4c99320ce487a5e2.jpg', 'A', 2, '2014-07-17 07:28:01'),
-(3, '3,4,5', 'rector_1', '202cb962ac59075b964b07152d234b70', 'James', 'Rector', 'ranasoyab@yopmail.com', 327004200, 1, 1, 1, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 05:59:32'),
+(3, '3,4,5', 'rector_1', '202cb962ac59075b964b07152d234b70', 'James', 'Rector', 'ranasoyab@yopmail.com', 327004200, 1, 1, 1, NULL, '063fd00a3c30c83404faf36e32b2dada.jpg', 'A', 3, '2014-08-28 05:59:32'),
 (4, '5', 'teacher_1', '202cb962ac59075b964b07152d234b70', 'Daniel', 'Teacher', 'ranasoyab@yopmail.com', 51906600, 3, 2, 1, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 06:00:28'),
-(5, '4', 'dean_1', '202cb962ac59075b964b07152d234b70', 'Jhon', 'Dean', 'ranasoyab@yopmail.com', 571257000, 5, 4, 2, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 06:01:16'),
+(5, '4,5', 'dean_1', '202cb962ac59075b964b07152d234b70', 'Jhon', 'Dean', 'ranasoyab@yopmail.com', 571257000, 5, 4, 2, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 06:01:16'),
 (6, '6', 'killer', '202cb962ac59075b964b07152d234b70', 'Killer', 'Jeans', 'ranasoyab@yopmail.com', 620418600, 1, 1, 1, NULL, 'c05b3802dd788813231e79ce67a5513d.jpg', 'A', 6, '2014-08-28 06:14:42'),
-(8, '6', 'denim', '202cb962ac59075b964b07152d234b70', 'Denim', 'Jeans', 'ranasoyab@yopmail.com', 67113000, 2, 1, 1, NULL, 'no_avatar.jpg', 'P', 0, '2014-08-28 11:34:20');
+(8, '6', 'denim', '202cb962ac59075b964b07152d234b70', 'Denim', 'Jeans', 'ranasoyab@yopmail.com', 67113000, 2, 1, 1, NULL, 'no_avatar.jpg', 'A', 0, '2014-08-28 11:34:20');
 
 --
 -- Indexes for dumped tables
@@ -818,12 +838,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `attendance_recovers`
 --
 ALTER TABLE `attendance_recovers`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `batches`
 --
@@ -848,7 +868,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `emails`
 --
 ALTER TABLE `emails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `eventcategories`
 --
@@ -888,7 +908,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
@@ -918,7 +938,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 -- AUTO_INCREMENT for table `userdetails`
 --
 ALTER TABLE `userdetails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `users`
 --
