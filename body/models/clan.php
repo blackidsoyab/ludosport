@@ -405,7 +405,7 @@ class Clan extends DataMapper {
         $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0");
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-            return $res->result();
+            return true;
         } else {
             return false;
         }

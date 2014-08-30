@@ -14,8 +14,10 @@ $(document).ready(function() {
 
 	$('#recover-absence-btn').click(function(){
 		$('#step_2').show();
-		$('#confirm-absence-btn').hide();
-		$('#recover-absence-btn').hide();
+		<?php if (isset($clans) && is_object($clans)) { ?>
+			$('#confirm-absence-btn').hide();
+			$('#recover-absence-btn').hide();
+		<?php } ?>
 	});
 
 	$('#cancel-recover-btn').click(function(){
@@ -98,12 +100,14 @@ $(document).ready(function() {
 		<div class="panel-body">
 			<div class="row">
 				<?php foreach ($next_clans_dates as $date) { ?>
-				<div class="radio pull-left margin-killer absence-radio-btn">
-					<label>
-						<input type="radio" value="<?php echo $date;?>" class="i-grey-square" name="absence_date">
-						<?php echo date('l, j<\s\u\p>S</\s\u\p> F Y', strtotime($date));?>
-					</label>
-				</div> 
+				<div class="col-lg-4 mar-bt-10">
+					<div class="radio pull-left margin-killer padding-top-killer padding-left-killer absence-radio-btn">
+						<label>
+							<input type="radio" value="<?php echo $date;?>" class="i-grey-square" name="absence_date">
+							<?php echo date('l, j<\s\u\p>S</\s\u\p> F Y', strtotime($date));?>
+						</label>
+					</div>
+				</div>
 				<?php } ?>
 			</div>
 			<div class="row" id="date-error">
@@ -157,9 +161,8 @@ $(document).ready(function() {
 		</div>
 	</div>
 	<?php } else if(isset($clans)) { ?>
-	<div class="col-lg-12">
+	<div class="col-lg-12" id="step_2">
 		<div class="alert alert-<?php echo $type;?> fade in alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 			<p class="text-center">
 				<?php echo $clans; ?>
 			</p>

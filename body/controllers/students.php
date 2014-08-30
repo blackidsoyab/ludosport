@@ -117,7 +117,12 @@ class students extends CI_Controller {
                 if(($key = array_search($clan->id, $array)) !== false) {
                     unset($array[$key]);
                 }
-                $data['clans'] = $clan->where_in('id', $array)->get();;
+                if(count($array) > 0){
+                    $data['clans'] = $clan->where_in('id', $array)->get();;
+                }else {
+                    $data['clans'] = 'No Clans are Avaialbe. Please try after Sometime'; 
+                    $data['type'] = 'danger';    
+                }
             } else {
                 $data['clans'] = 'No Clans are Avaialbe. Please try after Sometime'; 
                 $data['type'] = 'danger';

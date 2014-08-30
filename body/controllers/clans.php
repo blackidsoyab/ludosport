@@ -352,51 +352,79 @@ class clans extends CI_Controller {
 
     function listTrialLessonRequest($clan_id) {
         $clan = new Clan();
+
+        //Get the Clan Details
         $data['clan_details'] = $clan->where('id', $clan_id)->get();
+        
         $this->layout->view('clans/trial_lesson_request', $data);
     }
 
     function changeStatusTrialStudent($clan_id, $student_master_id, $type = null) {
+        echo '<pre>';
+        print_r($this->input->post());
+        echo '<pre>';
+        exit();
+        //Update the Notifications
         if ($type == 'notification') {
             Notification::updateNotification('apply_trial_lesson', $this->session_data->id, $student_master_id);
             Notification::updateNotification('trial_lesson_approved', $this->session_data->id, $student_master_id);
             Notification::updateNotification('trial_lesson_unapproved', $this->session_data->id, $student_master_id);
         }
 
+        //check that Data is passed or not
         if (!empty($student_master_id)) {
             $userdetail = new Userdetail();
+            //Get the Student Extra Details
             $userdetail->where(array('student_master_id' => $student_master_id, 'clan_id' => $clan_id))->get();
+            //Get the Student Full Details
+            $obj_user = $userdetail->User->get();
 
-            $obj_user = new User();
-            $obj_user->where('id', $student_master_id)->get();
+            //Student Exit or not
             if ($userdetail->result_count() == 1) {
+                //Check Update the data or Render View
                 if ($this->input->post() !== false) {
 
+                    //Update the Stauts
                     $userdetail->where(array('student_master_id' => $student_master_id, 'clan_id' => $clan_id))->update('status', $this->input->post('status'));
+
+                    //Udate who approved
                     $userdetail->where(array('student_master_id' => $student_master_id, 'clan_id' => $clan_id))->update('approved_by', $this->session_data->id);
 
+                    //Set notification type
                     $notification_type = 'trial_lesson_unapproved';
+                    //Set email type
                     $email_type = 'trial_lesson_rejected';
 
                     if ($this->input->post('status') == 'A') {
                         $attadence = new Attendance();
+                        //update record and set new type of notifications
                         $attadence->clan_date = $userdetail->first_lesson_date;
                         $attadence->student_id = $userdetail->student_master_id;
                         $attadence->user_id = $this->session_data->id;
                         $attadence->save();
+
+                        //Set notification type
                         $notification_type = 'trial_lesson_approved';
+                        //Set email type
                         $email_type = 'trial_lesson_accepted';
                     } else if ($this->input->post('status') == 'U') {
                         $attadence = new Attendance();
+                        //get details of student
                         $attadence->where(array('student_id' => $student_master_id, 'clan_date' => $userdetail->first_lesson_date))->get();
+                        //Delete that record
                         $attadence->delete();
                     } else if ($this->input->post('status') == 'AS') {
                         $user = new User();
+                        //get user details update record
                         $user->where(array('id' => $student_master_id))->update('status', 'A');
+
+                        //Set notification type
                         $notification_type = 'accept_as_student';
+                        //Set email type
                         $email_type = 'accepted_as_student';
                     }
 
+                    //Send notification to student
                     $notification = new Notification();
                     $notification->type = 'N';
                     $notification->notify_type = $notification_type;
@@ -406,21 +434,12 @@ class clans extends CI_Controller {
                     $notification->data = serialize($this->input->post());
                     $notification->save();
 
-
-                    $ids = array();
-                    $ids[] = User::getAdminIds();
-
-                    $clan = new Clan();
-                    $clan->where('id', $this->input->post('clan_id'))->get();
-                    $ids[] = array_unique(explode(',', $clan->school->academy->rector_id . ',' . $clan->school->dean_id . ',' . $clan->teacher_id));
-
-                    $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
-                    $user = new User();
-                    $user->where_in('id', $final_ids);
-
                     $email = new Email();
+                    //get the mail templates
                     $email->where('type', $email_type)->get();
                     $message = $email->message;
+
+                    //replace appropriate varaibles
                     $message = str_replace('#firstname', $obj_user->firstname, $message);
                     $message = str_replace('#lastname', $obj_user->lastname, $message);
                     $message = str_replace('#clan_name', $clan->en_class_name, $message);
@@ -438,10 +457,26 @@ class clans extends CI_Controller {
                         $message = str_replace('#accept_date', date('d-m-Y', strtotime(get_current_date_time()->get_date_time_for_db())), $message);
                     }
 
-                    foreach ($user->get() as $value) {
-                        if ($value->id == $this->session_data->id) {
-                            continue;
-                        } else {
+                    //get all the ids who's role is ADMIN
+                    $ids = array();
+                    $ids[] = User::getAdminIds();
+
+                    $clan = new Clan();
+                    //get Clan Detail
+                    $clan->where('id', $clan_id)->get();
+                    //get All ids of the Teacher, Dean, Rector of that Clan
+                    $ids[] = array_unique(explode(',', $clan->school->academy->rector_id . ',' . $clan->school->dean_id . ',' . $clan->teacher_id));
+
+                    //form multidimesional array to single array and get all unique values.
+                    $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
+
+                    $user = new User();
+                    //get all the details of the ids we get.
+                    $user->where_in('id', $final_ids)->get();
+
+                    foreach ($user as $value) {
+                        if ($value->id != $this->session_data->id) {
+                            //Send Notification
                             $notification = new Notification();
                             $notification->type = 'N';
                             $notification->notify_type = $notification_type;
@@ -451,6 +486,7 @@ class clans extends CI_Controller {
                             $notification->data = serialize($this->input->post());
                             $notification->save();
 
+                            //Send Email
                             $option = array();
                             $option['tomailid'] = $value->email;
                             $option['subject'] = $email->subject;
@@ -458,17 +494,17 @@ class clans extends CI_Controller {
                             if (!is_null($email->attachment)) {
                                 $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
                             }
-
-                            if (send_mail($option)) {
-                                //$mail->where('id', $value->id)->update('status', 1);
-                            }
+                            send_mail($option);}
                         }
                     }
 
                     $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
                     redirect(base_url() . 'clan/trial_lesson_request/' . $clan_id, 'refresh');
                 } else {
+
                     $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('trial_lesson'));
+                    
+                    //Set necessary variables for view
                     $data['userdetail'] = $userdetail;
                     $data['profile'] = $userdetail->User->get();
                     $data['clan'] = $userdetail->Clan->get();
@@ -476,7 +512,9 @@ class clans extends CI_Controller {
                     $data['show_unapproved_button'] = false;
                     $data['show_accept_button'] = false;
 
+                    //if the current user is teacher then only show button
                     if($this->session_data->role == 5){
+                        //check status and Show buttons.
                         if($userdetail->status == 'P' && $userdetail->approved_by == 0){
                             $data['show_approved_button'] = true;
                             $data['show_accept_button'] = true;                            
@@ -500,22 +538,50 @@ class clans extends CI_Controller {
 
     function clanAttendances($clan_id, $date){
         $clan = New Clan();
+
+        //get the Number of day like Monday : 1 .... Sunday : 7
         $day_numeric = date('N', strtotime($date));
-        $details = $clan->getClansByTeacherAndDay($this->session_data->id, $day_numeric);
-        $clan->where(array('id'=>$clan_id, 'teacher_id'=>$this->session_data->id))->get();
+
+        /*
+        *   get the Cland details
+        *   Param1(required) : Clan ID
+        *   Param2(required) : Teacher ID
+        *   Param3(required) : Day in Number like Monday : 1 .... Sunday : 7
+        */
+        $details = $clan->getClansDetailsByTeacherAndDay($clan_id, $this->session_data->id, $day_numeric);
+
+        //Current Date
         $current_date = get_current_date_time()->get_date_for_db();
+
+        //Set variable for view part
         $data['current_date'] = $current_date;
         
-        if($details && $clan->result_count() == 1){ 
+        //check if recored exits or not
+        if($details){ 
+            //get the full clan details
+            $clan = $clan->where(array('id'=>$clan_id, 'teacher_id'=>$this->session_data->id))->get();
+
+            //Set variable for view part
             $data['clan_details'] = $clan;
+
+            //Set variable for view part
             $data['date'] = $date;
+
+            //Get all the Students of that Clans.
             $userdetails = $clan->Userdetail->where('status', 'A')->get();
+
+            //check if students exits or not
             if($userdetails->result_count() > 0){
                 foreach ($userdetails as $value) {
+                    //get the Student full detail
                     $temp = $value->User->get();
                     if(!is_null($temp->id)){
                         $attadence = new Attendance();
+
+                        //get the Student is present or not
                         $attadence->where(array('clan_date'=>$date, 'student_id'=>$temp->id))->get();
+
+                        //Set an array of user details for view part 
                         $data['userdetails'][] = array(
                             'id'=>$temp->id, 
                             'firstname'=>$temp->firstname, 
@@ -528,178 +594,285 @@ class clans extends CI_Controller {
                             'type' => 'regular'); 
                     }
                 }
-            } else {
-                $data['userdetails'] = null;
             }
 
             $obj_recover = new Attendancerecover();
+            //Check for any recovery student is there.
             $obj_recover->where(array('clan_date'=>$date, 'clan_id'=>$clan_id))->get();
-            foreach ($obj_recover as $student) {
-                $userdetail = new Userdetail();
-                $userdetail->where('student_master_id', $student->student_id)->get();
-                $user = $userdetail->User->get();
-                $clan = $userdetail->Clan->get();
 
-                $recover = new Attendancerecover();
-                $recover->where(array('clan_date'=>$date, 'clan_id'=>$clan_id, 'student_id'=>$student->student_id))->get();
+            //check if students exits or not
+            if($obj_recover->result_count() > 0){
+                foreach ($obj_recover as $student) {
 
-                if($user->result_count() == 1) {
-                 $data['userdetails'][] = array(
-                    'id'=>$user->id, 
-                    'firstname'=>$user->firstname, 
-                    'lastname'=>$user->lastname,
-                    'attadence' => $recover->attendance, 
-                    'attadence_id' => $recover->attendance_id,
-                    'clan' => $clan->{$this->session_data->language.'_class_name'},
-                    'school' => $clan->School->{$this->session_data->language.'_school_name'},
-                    'academy' => $clan->School->Academy->{$this->session_data->language.'_academy_name'},
-                    'type' => 'recover'); 
-             }
-         }
+                    $userdetail = new Userdetail();
+                    $userdetail->where('student_master_id', $student->student_id)->get();
+                    //get the Student full detail
+                    $user = $userdetail->User->get();
+                    //get the Student Clan full detail
+                    $clan = $userdetail->Clan->get();
 
-         $this->layout->view('clans/attadence_view', $data);
-     }else{
-        $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                    $recover = new Attendancerecover();
+                    //get the recovery record
+                    $recover->where(array('clan_date'=>$date, 'clan_id'=>$clan_id, 'student_id'=>$student->student_id))->get();
+
+                    if($user->result_count() == 1){
+                         //Set an array of user details for view part 
+                        $data['userdetails'][] = array(
+                            'id'=>$user->id, 
+                            'firstname'=>$user->firstname, 
+                            'lastname'=>$user->lastname,
+                            'attadence' => $recover->attendance, 
+                            'attadence_id' => $recover->attendance_id,
+                            'clan' => $clan->{$this->session_data->language.'_class_name'},
+                            'school' => $clan->School->{$this->session_data->language.'_school_name'},
+                            'academy' => $clan->School->Academy->{$this->session_data->language.'_academy_name'},
+                            'type' => 'recover');
+                    }
+                }
+            }
+
+            //Sert null if variable is not set
+            if(!isset($data['userdetails'])){
+                $data['userdetails'] = null;
+            }
+            
+            $this->layout->view('clans/attadence_view', $data);
+        }else{
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'dashboard', 'refresh'); 
+        }
+    }
+
+    function saveClanAttendances($clan_id){
+        //check that clan id is passed or not
+        if (!empty($clan_id)) {
+            //check that data is post or views is to be render
+            if ($this->input->post() !== false) {
+
+                //get all the regular student and make absent or present
+                if($this->input->post('regular_user_id') !== false) {
+                    foreach ($this->input->post('regular_user_id') as $regular_key => $regular_value) {
+                        //check if he is absent
+                        if($regular_value == 0){
+                            $attadence = new Attendance();
+                            //get the attendance record 
+                            $attadence->where(array('clan_date'=>$this->input->post('date'), 'student_id'=>$regular_key))->get();
+                            //update the value
+                            $attadence->update('attendance', $regular_value);
+                        }
+                    }
+                }
+
+                //get all the recovery student and make absent or present
+                if($this->input->post('recover_user_id') !== false) {
+                    foreach ($this->input->post('recover_user_id') as $recover_key => $recover_value) {
+                         //check if he is absent
+                        if($recover_value == 0){
+                            $recover = new Attendancerecover();
+                            //get the attendance recovery record 
+                            $recover->where(array('clan_id'=>$clan_id,'clan_date'=>$this->input->post('date'),'student_id'=>$recover_key))->get();
+
+                            //update the value
+                            $recover->update('attendance', $recover_value);
+                        }
+                    }
+                }
+            }
+        }
+
+        redirect(base_url() .'dashboard', 'refresh');
+    }
+
+    function nextWeekAttendances($clan_id){
+        //Check clan id is passed or not
+        if(!empty($clan_id)){
+            $clan = New Clan();
+            //get the clan details
+            $clan->where(array('id'=>$clan_id, 'teacher_id'=>$this->session_data->id))->get();
+
+            //check if the clan exits.
+            if($clan->result_count() == 1){
+                //Current date
+                $current_date = get_current_date_time()->get_date_for_db();
+                
+                //Add 1 day in current date
+                $start_date = date('Y-m-d', strtotime('+1 day', strtotime($current_date)));
+                
+                //Add 1 week in current date
+                $end_date = date('Y-m-d', strtotime('+1 week', strtotime($current_date)));
+
+                //get the days on which the clan has lessons.
+                $days = explode(',', $clan->lesson_day);
+
+                //get the day number form current date
+                $curr = date('N', strtotime($current_date));
+
+                //get the custom array of the days made in config.
+                $days_name = $this->config->item('custom_days');
+
+                //get the Next lesson of the clan
+                if(getArrayNexyValue($days, $curr)){
+                    $next_day = $days_name[getArrayNexyValue($days, $curr)]['en'];    
+                }else{
+                    $next_day = $days_name[getArrayPreviousValue($days, $curr)]['en'];
+                }
+
+                /*
+                *   Make dates from the 2 dates
+                *   Param1(required) : Day Name ... 1:Monday ..... 7:Sunday
+                *   Param2(required) : Start Date
+                *   Param2(required) : End Date
+                */
+                $next_date = getDateByDay($next_day, $start_date, $end_date);
+                //Take the last date .. though it will return on 1 date.
+                $next_date = end($next_date);
+
+                //Get all the Student in that Clan.
+                $userdetails = $clan->Userdetail->where('status', 'A')->get();
+
+                //if Student Exit 
+                if($userdetails->result_count() > 0){
+                    foreach ($userdetails as $value) {
+                        $attadence = new Attendance();
+                        //Check any record exit for date and student
+                        $attadence->where(array('clan_date'=>$next_date, 'student_id'=>$value->student_master_id))->get();
+                        if($attadence->result_count() == 1){
+                            $attadence->attendance = $attadence->attendance;
+                        }else{
+                            $attadence->attendance = 1;
+                        }
+                        $attadence->clan_date = $next_date;
+                        $attadence->student_id = $value->student_master_id;
+                        $attadence->user_id = $this->session_data->id;
+                        $attadence->save();    
+                    }
+                    $this->session->set_flashdata('success', $this->lang->line('attendance_next_week_done'));
+                } else {
+                    $this->session->set_flashdata('info', $this->lang->line('no_student_exit'));
+                }
+            }else{
+                $this->session->set_flashdata('error', $this->lang->line('no_data_exit'));
+            }
+        }else{
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+        }
+
         redirect(base_url() . 'dashboard', 'refresh'); 
     }
-}
 
-function saveClanAttendances($clan_id){
-    if (!empty($clan_id)) {
-        if ($this->input->post() !== false) {
-            if($this->input->post('regular_user_id') !== false) {
-                foreach ($this->input->post('regular_user_id') as $regular_key => $regular_value) {
-                    $attadence = new Attendance();
-                    $attadence->where(array('clan_date'=>$this->input->post('date'), 'student_id'=>$regular_key))->update('attendance', $regular_value);
-                }
+    function getSameLevelClans($clan_id) {
+        $obj_clan = new Clan();
+        //get the details of the clan
+        $obj_clan->where('id', $clan_id)->get();
+
+        /*
+        *   get the Same Level of the Clan for Recovery Option
+        *   Param1(required) : City ID
+        *   Param2(required) : Level ID
+        */
+        $check = $obj_clan->getSameLevelClan($obj_clan->city_id, $obj_clan->level_id);
+
+        //check wether any clan exits.
+        $str = NULL;
+        if ($check !== FALSE) {
+            //the return value is multidimensional convert it to single dimensional
+            $array = MultiArrayToSinlgeArray($check);
+
+            //remove the current clan id
+            if(($key = array_search($obj_clan->id, $array)) !== false) {
+                unset($array[$key]);
             }
 
-            if($this->input->post('recover_user_id') !== false) {
-                foreach ($this->input->post('recover_user_id') as $recover_key => $recover_value) {
-                    $recover = new Attendancerecover();
-                    $recover->where(array('clan_id'=>$clan_id,'clan_date'=>$this->input->post('date'), 'student_id'=>$recover_key))->update('attendance', $recover_value);
+            //Again check where return is not empty
+            if(count($array) > 0){
+                //get all the Clan details and make HTML.
+                $clans = $obj_clan->where_in('id', $array)->get();;
+                $str .= '<h4 class="text-center text-black">Select Recovery Clan</h4>';
+                $str .= '<div class="row">';
+                foreach ($clans as $clan) {
+                    $str .= '<div class="col-lg-4">';
+                    $str .= '<div class="radio padding-left-killer">';
+                    $str .= '<label>';
+                    $str .= '<input type="radio" value="'. $clan->id .'" class="i-grey-square required" name="clan_id">';
+                    $str .= $clan->{$this->session_data->language.'_class_name'};
+                    $str .= '</label>';
+                    $str .= '</div>';
+                    $str .= '</div>';
+                    $str .= "\n";
                 }
+                $str .= '</div>';
+                $str .= '<div id="clan-dates-selection"></div>';
+            }else {
+                $str = 'No Clans';
             }
+        }else{
+            $str = 'No Clans';
         }
-    }
-    redirect(base_url() .'dashboard', 'refresh');
-}
 
-function nextWeekAttendances($clan_id){
-    $clan = New Clan();
-    $clan->where(array('id'=>$clan_id, 'teacher_id'=>$this->session_data->id))->get();
-
-    $current_date = get_current_date_time()->get_date_for_db();
-    $start_date = date('Y-m-d', strtotime('+1 day', strtotime($current_date)));
-    $end_date = date('Y-m-d', strtotime('+1 week', strtotime($current_date)));
-
-    $days = explode(',', $clan->lesson_day);
-    $curr = date('N', strtotime($current_date));
-    $days_name = $this->config->item('custom_days');
-
-    if(getArrayNexyValue($days, $curr)){
-        $next_day = $days_name[getArrayNexyValue($days, $curr)]['en'];    
-    }else{
-        $next_day = $days_name[getArrayPreviousValue($days, $curr)]['en'];
+        echo $str;
     }
 
-    $next_date = getDateByDay($next_day, $start_date, $end_date);
-    $next_date = end($next_date);
+    function getDateOfClanForTeacher($clan_id) {
+        $clan = new Clan();
+        /*
+        *   get the next dates for the clan 
+        *   Param1(required) : Clan ID
+        *   Param2(required) : Total no of dates to be return
+        *   Param2(optional) : Check Student limit in Clan
+        */
+        $dates = $clan->getAviableDateFromClan($clan_id, 5, 20);
 
-    if($clan->result_count() == 1){
-        $userdetails = $clan->Userdetail->where('status', 'A')->get();
-        if($userdetails->result_count() > 0){
-            foreach ($userdetails as $value) {
-                $temp = $value->User->get();
-                if(!is_null($temp->id)){
-                    $attadence = new Attendance();
-                    $attadence->where(array('clan_date'=>$next_date, 'student_id'=>$temp->id))->get();
-                    $attadence->clan_date = $next_date;
-                    $attadence->student_id = $temp->id;
-                    $attadence->user_id = $this->session_data->id;
-                    $attadence->save();
-                }
-            }
-        }
-    }
-    $this->session->set_flashdata('success', $this->lang->line('attendance_next_week_done'));
-    redirect(base_url() . 'dashboard', 'refresh'); 
-}
+        //Get the Clan details to dispaly Timinig of the Clan.
+        $clan->where('id', $clan_id)->get();
 
-function getSameLevelClans($clan_id)
-{
-    $obj_clan = new Clan();
-    $obj_clan->where('id', $clan_id)->get();
-    $check = $obj_clan->getSameLevelClan($obj_clan->city_id, $obj_clan->level_id);
-    $str = NULL;
-    if ($check !== FALSE) {
-        $array = MultiArrayToSinlgeArray($check);
-        $clans = $obj_clan->where_in('id', $array)->get();;
-
-        $str .= '<h4 class="text-center text-black">Select Clan</h4>';
+        //Make the whole HTML And send to view
+        $str = NULL;
+        $str .= '<h4 class="text-center text-black"> Class Timing : ' . date('H.i a', $clan->lesson_from) . '  - ' . date('H.i a', $clan->lesson_to) . '</h4>';
         $str .= '<div class="row">';
-        foreach ($clans as $clan) {
-            $str .= '<div class="col-lg-4">';
+        $str .= '<label for="absence_date" class="error col-lg-12 text-center" style="display:none"></label>';
+        foreach ($dates as $date) {
+            $str .= '<div class="col-lg-6">';
             $str .= '<div class="radio padding-left-killer">';
             $str .= '<label>';
-            $str .= '<input type="radio" value="'. $clan->id .'" class="i-grey-square required" name="clan_id">';
-            $str .= $clan->{$this->session_data->language.'_class_name'};
+            $str .= '<input type="radio" value="'. $date .'" class="i-grey-square required" name="date">';
+            $str .= date("l, j<\s\u\p>S</\s\u\p> F Y", strtotime($date));;
             $str .= '</label>';
             $str .= '</div>';
             $str .= '</div>';
             $str .= "\n";
         }
         $str .= '</div>';
-        $str .= '<div id="clan-dates-selection"></div>';
-    }else{
-        $str = 'No Clans';
+
+        echo $str;
     }
 
-    echo $str;
-}
+    function changeDateStudentByTeacher(){
+        $recover = new Attendancerecover();
+        //check where attendance revoce exits
+        $recover->where('attendance_id', $this->input->post('attendance_id'))->get();
 
-function getDateOfClanForTeacher($clan_id) {
-    $clan = new Clan();
-    $dates = $clan->getAviableDateFromClan($clan_id, 5, 20);
-
-    $clan->where('id', $clan_id)->get();
-    $str = NULL;
-
-    $str .= '<h4 class="text-center text-black"> Class Timing : ' . date('H.i a', $clan->lesson_from) . '  - ' . date('H.i a', $clan->lesson_to) . '</h4>';
-    $str .= '<div class="row">';
-    $str .= '<label for="absence_date" class="error col-lg-12 text-center" style="display:none"></label>';
-    foreach ($dates as $date) {
-        $str .= '<div class="col-lg-6">';
-        $str .= '<div class="radio padding-left-killer">';
-        $str .= '<label>';
-        $str .= '<input type="radio" value="'. $date .'" class="i-grey-square required" name="date">';
-        $str .= date("l, j<\s\u\p>S</\s\u\p> F Y", strtotime($date));;
-        $str .= '</label>';
-        $str .= '</div>';
-        $str .= '</div>';
-        $str .= "\n";
-    }
-    $str .= '</div>';
-
-    echo $str;
-}
-
-function changeDateStudentByTeacher(){
-    $current_date = get_current_date_time()->get_date_for_db();
-
-    $recover = new Attendancerecover();
-    $recover->where(array('clan_date'=>$current_date, 'student_id'=>$this->input->post('student_id'), 'clan_id'=>$this->input->post('current_clan_id')))->get();
-
-    $recover->attendance_id = $this->input->post('attendance_id');
-    $recover->clan_date = $this->input->post('date');
-    $recover->clan_id = $this->input->post('clan_id');
-    $recover->student_id = $this->input->post('student_id');
-    $recover->user_id = $this->session_data->id;
-
-    $recover->save();
+        //Set the necessary data
+        $recover->attendance_id = $this->input->post('attendance_id');
+        $recover->clan_date = $this->input->post('date');
+        $recover->clan_id = $this->input->post('clan_id');
+        $recover->student_id = $this->input->post('student_id');
+        if(!empty($recover->stored->history)){
+            $temp = unserialize($recover->stored->history);
+            $to_array = objectToArray($recover->stored);
+            unset($to_array['history']);
+            $temp[$this->input->post('date')] = $to_array;
+        } else {
+            $to_array = objectToArray($recover->stored);
+            unset($to_array['history']);
+            $temp[$this->input->post('date')] = $to_array;
+        }
+        $recover->history = serialize($temp);
+        $recover->user_id = $this->session_data->id;
+        $recover->timestamp = get_current_date_time()->get_date_time_for_db();
+        $recover->save();
 
         /*
-        * Send Student Notification and Email ....
+        * Send Student Notification and Email about schedule change...
         */
         $notification = new Notification();
         $notification->type = 'N';
@@ -710,20 +883,26 @@ function changeDateStudentByTeacher(){
         $notification->data = serialize($this->input->post());
         $notification->save();
 
+        //get selected caln details
         $clan = new Clan();
         $clan->where('id', $this->input->post('clan_id'))->get();
 
+        //get selected User details
         $user = new User();
         $user->where('id', $this->input->post('student_id'))->get();
 
+        //get email details
         $email = new Email();
         $email->where('type', 'teacher_recovery_student_for_student')->get();
         $message = $email->message;
+
+        //replace newcessary details
         $message = str_replace('#student_name', $user->firstname .' ' . $user->lastname , $message);
         $message = str_replace('#teacher_name', $this->session_data->name, $message);
         $message = str_replace('#recover_clan', $clan->en_class_name, $message);
         $message = str_replace('#date', date('d-m-Y', strtotime($this->input->post('date'))), $message);
 
+        //set option for sending mail
         $option = array();
         $option['tomailid'] = $user->email;
         $option['subject'] = $email->subject;
@@ -733,10 +912,8 @@ function changeDateStudentByTeacher(){
         }
         send_mail($option);
 
-        /*******************************/
-
         /*
-        * Send Recover Clan Teacher Notification and Email ....
+        * Send Recover Clan Teacher Notification and Email about schedule change...
         */
         $notification = new Notification();
         $notification->type = 'N';
@@ -747,18 +924,23 @@ function changeDateStudentByTeacher(){
         $notification->data = serialize($this->input->post());
         $notification->save();
 
+        //get Teacher detail of selected clan
         $teacher = new User();
         $teacher->where('id', $clan->teacher_id)->get();
 
+         //get email details
         $email = new Email();
         $email->where('type', 'teacher_recovery_student_for_teacher')->get();
         $message = $email->message;
+
+        //replace newcessary details
         $message = str_replace('#student_name', $user->firstname .' ' . $user->lastname , $message);
         $message = str_replace('#receiver_teacher', $teacher->firstname .' ' . $teacher->lastname, $message);
         $message = str_replace('#sender_teacher', $this->session_data->name, $message);
         $message = str_replace('#recover_clan', $clan->en_class_name, $message);
         $message = str_replace('#date', date('d-m-Y', strtotime($this->input->post('date'))), $message);
 
+        //set option for sending mail
         $option = array();
         $option['tomailid'] = $teacher->email;
         $option['subject'] = $email->subject;
@@ -767,8 +949,6 @@ function changeDateStudentByTeacher(){
             $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
         }
         send_mail($option);
-
-        /*******************************/
 
         echo json_encode(array('status'=>true,'student_id'=>$this->input->post('student_id')));
     }

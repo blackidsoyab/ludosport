@@ -40,6 +40,8 @@ $lang['message_sent_success'] = 'Message Sent Successfully';
 $lang['message_read_error'] = 'Error in reading Mail';
 $lang['message_reply_error'] = 'Error in replying Mail';
 $lang['unauthorize_access'] = 'Unauthorize Access';
+$lang['no_data_exit'] = 'No Data Exits';
+$lang['no_student_exit'] = 'No Student Exits';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';

@@ -82,7 +82,7 @@ $(document).ready(function() {
 </div>
 
 <?php if(!empty($userdetails)){ ?>
-<div class="the-box full no-border">
+<div class="the-box full no-border">	
 	<div class="table-responsive">
 		<form class="form-horizontal" method="post" action="<?php echo base_url().'clan/save_attendance/'.$clan_details->id; ?>">
 			<input type="hidden" name="date" value="<?php echo $date; ?>">
@@ -91,9 +91,9 @@ $(document).ready(function() {
 					<tr class="bg-primary">
 						<td style="width: 50px;">No</td>
 						<td style="width: 150px;">Full name</td>
-						<td style="width: 225px;"><?php echo date('l, j<\s\u\p>S</\s\u\p> F Y', strtotime($date));?></td>
+						<td style="width: 250px;"><?php echo date('l, j<\s\u\p>S</\s\u\p> F Y', strtotime($date));?></td>
 						<td >Clan, School, Accadmey</td>
-						<td style="width: 100px;">&nbsp;</td>
+						<td style="width: 100px;">Recovery</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -128,9 +128,12 @@ $(document).ready(function() {
 							<td>
 								<?php echo $value['clan'],', ', $value['school'],', ', $value['academy']; ?>
 							</td>
+
+
+							
 							<td>
-								<?php if($value['attadence'] == '1'){ ?>
-									<a href="<?php echo base_url().'get_same_level_clan/'. $clan_details->id; ?>" data-target="#change_dates" data-toggle="modal tooltip" data-original-title="want to Change Date" data-studentid="<?php echo $value['id']; ?>" data-attendanceid="<?php echo $value['attadence_id']; ?>">
+								<?php if(strtotime(get_current_date_time()->get_date_for_db()) <= strtotime($date) &&  !empty($value['attadence_id'])){ ?>
+									<a href="<?php echo base_url().'get_same_level_clan/'. $clan_details->id; ?>" data-target="#change_dates" data-toggle="modal tooltip" data-original-title="Recovery Class Setting" data-studentid="<?php echo $value['id']; ?>" data-attendanceid="<?php echo $value['attadence_id']; ?>">
 										<i class="fa fa-repeat icon-circle icon-bordered icon-xs icon-primary"></i>
 									</a>
 								<?php } ?>
@@ -140,13 +143,16 @@ $(document).ready(function() {
 							</td>
 						</tr>
 						<?php } ?>
-						<tr>
-							<td colspan="5">
-								<button type="submit" class="btn btn-primary">
-									<?php echo $this->lang->line('save'); ?>
-								</button>
-							</td>
-						</tr>
+						<?php if(strtotime(get_current_date_time()->get_date_for_db()) == strtotime($date)){ ?>
+							<tr>
+								<td colspan="5">
+									<button type="submit" class="btn btn-primary">
+										<?php echo $this->lang->line('save'); ?>
+									</button>
+								</td>
+							</tr>
+						<?php } ?>
+						
 					</tbody>
 				</table>
 			</form>

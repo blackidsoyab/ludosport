@@ -172,6 +172,20 @@ if (!function_exists('getArrayPreviousValue')) {
     }
 }
 
+if (!function_exists('objectToArray')) {
+    function objectToArray($array) {
+        if (is_object($array)) {
+            $array = get_object_vars($array);
+        }
+
+        if (is_array($array)) {
+            return array_map(__FUNCTION__, $array);
+        } else {
+            return $array;
+        }
+    }
+}
+
 /*
 *   Array Function End
 */

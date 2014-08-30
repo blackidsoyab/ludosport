@@ -87,6 +87,10 @@ label.error{
     margin-left: 0px !important;
 }
 
+.mar-bt-10{
+    margin-bottom: 10px;
+}
+
 .alert-primary{
     background-color: rgb(55, 188, 155);
     color: rgb(255, 255, 255);
@@ -94,11 +98,6 @@ label.error{
 
 .inline {
     display: inline;
-}
-
-.margin-killer{
-    margin-bottom: 0px;
-    margin-top: 0px;
 }
 
 .white-border{
@@ -270,6 +269,10 @@ footer{
 
 .radio .iradio_square-grey {
     margin-right: 5px;
+}
+
+.nowrap{
+    white-space: nowrap;
 }
 
 /* Summer Note Editor */
