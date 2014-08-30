@@ -38,6 +38,13 @@
 <div class="col-lg-8">
 	<div class="the-box">
 		<div class="featured-post-wide">
+			<p class="pull-left">
+				<?php
+					if (hasPermission('events', 'sendEventInvitation')) {
+			            echo '<a href="' . base_url() . 'event/invitation/' . $event_detail->id. '" class="actions btn btn-primary" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('send') .' '. $this->lang->line('invitation') . '">'.$this->lang->line('send') .' '. $this->lang->line('invitation').'</a>';
+			        }
+			    ?>
+			</p>
 			<p class="pull-right">
 				<?php
 					if (hasPermission('events', 'editEvent')) {

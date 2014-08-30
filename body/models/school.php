@@ -24,6 +24,7 @@ class School extends DataMapper {
         $this->db->from('schools');
         $this->db->join('academies', 'academies.id=schools.academy_id');
         $this->db->where('FIND_IN_SET(' . $rector_id . ', academies.rector_id) > 0');
+        $this->db->group_by("schools.id"); 
         $res = $this->db->get()->result();
         return $res;
     }
@@ -32,6 +33,7 @@ class School extends DataMapper {
         $this->db->select('count(*) as total');
         $this->db->from('schools');
         $this->db->where('FIND_IN_SET(' . $dean_id . ', schools.dean_id) > 0');
+        $this->db->group_by("schools.id"); 
         $res = $this->db->get()->result();
         return $res[0]->total;
     }
@@ -40,6 +42,7 @@ class School extends DataMapper {
         $this->db->select('*');
         $this->db->from('schools');
         $this->db->where('FIND_IN_SET(' . $dean_id . ', schools.dean_id) > 0');
+        $this->db->group_by("schools.id"); 
         $res = $this->db->get()->result();
         return $res;
     }
@@ -49,6 +52,7 @@ class School extends DataMapper {
         $this->db->from('schools');
         $this->db->join('clans', 'schools.id=clans.school_id');
         $this->db->where('FIND_IN_SET(' . $teacher_id . ', clans.teacher_id) > 0');
+        $this->db->group_by("schools.id"); 
         $res = $this->db->get()->result();
         return $res[0]->total;
     }
@@ -58,8 +62,34 @@ class School extends DataMapper {
         $this->db->from('schools');
         $this->db->join('clans', 'schools.id=clans.school_id');
         $this->db->where('FIND_IN_SET(' . $teacher_id . ', clans.teacher_id) > 0');
+        $this->db->group_by("schools.id"); 
         $res = $this->db->get()->result();
         return $res;
+    }
+
+    function getSchoolOfStudent($student_id) {
+        $where = NULL;
+        if (is_array($student_id)) {
+            foreach ($student_id as $id) {
+                $where .= " OR student_master_id='" . $id . "'";
+            }
+        } else {
+            $where .= " OR student_master_id='" . $student_id . "'";
+        }
+
+        $this->db->_protect_identifiers = false;
+        $this->db->select('*');
+        $this->db->from('schools');
+        $this->db->join('clans', 'schools.id=clans.school_id');
+        $this->db->join('userdetails', 'clans.id=userdetails.clan_id');
+        $this->db->where(substr($where, 4), null, false);
+        $this->db->group_by("schools.id"); 
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
     }
 
     function afterSave($options = array()) {
@@ -162,6 +192,26 @@ class School extends DataMapper {
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->dean_id);
+            }
+
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+
+    function getDeansByAcademy($academy_id){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('dean_id');
+        $this->db->from('schools');
+        $this->db->join('academies', 'academies.id=schools.academy_id');
+        $this->db->where('academies.id', $academy_id);
+        $this->db->group_by("academies.id"); 
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+             $temp = $res->result();
             foreach ($temp as $value) {
                 $array[] = explode(',', $value->dean_id);
             }

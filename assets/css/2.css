@@ -121,6 +121,15 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
     border-color: #CACAC7;
 }
 
+.btn-primary.disabled, .btn-primary[disabled],
+.btn-primary.disabled:hover, .btn-primary[disabled]:hover,
+.btn-primary.disabled:focus, .btn-primary[disabled]:focus,
+.btn-primary.disabled:active, .btn-primary[disabled]:active,
+.btn-primary.disabled.active, .btn-primary[disabled].active {
+    background-color: #888888;
+    border-color: #CACAC7;
+}
+
 .label-primary {
     background-color: #AEAEAE;
 }

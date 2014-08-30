@@ -61,6 +61,50 @@ $route[$controller . '/getjson'] = "json/get" . plural($controller) . "JsonData"
 $route[$controller . '/getjson/(:any)'] = "json/get" . plural($controller) . "JsonData/$1";
 $route[$controller . '/getjson/(:any)/(:any)'] = "json/get" . plural($controller) . "JsonData/$1/$2";
 
+//Default
+$route['default_controller'] = "dashboard";
+$route['404_override'] = 'authenticate/error_404';
+
+//Cron Jobs
+$route['send_regular_mail'] = "cronjobs/sendRegularMail";
+
+//Authenticate
+$route['login'] = "authenticate/index";
+$route['validate'] = "authenticate/validateUser";
+$route['logout'] = "authenticate/logout";
+$route['forgot_password'] = "authenticate/userForgotPassword";
+$route['send_reset_password_link'] = "authenticate/userSendResetPasswordLink";
+$route['reset_password/(:any)'] = "authenticate/userResetPassword/$1";
+$route['checkusername/(:num)'] = "ajax/checkUsernameExit/$1";
+$route['checkemail/(:num)'] = "ajax/checkEmailExit/$1";
+$route['denied'] = "authenticate/permissionDenied";
+
+//Registration
+$route['register/step_1'] = "authenticate/register";
+$route['add_user'] = "authenticate/saveUser";
+$route['register/step_2'] = "dashboard/studentRegistrationSecondPhase";
+
+//Commom
+$route['getstate/(:num)'] = "ajax/getAllStatesOptionsFromCountry/$1";
+$route['getcity/(:num)'] = "ajax/getAllCitiesOptionsFromState/$1";
+$route['checkNotification/(:num)'] = "ajax/checkNotification/$1";
+$route['checkMessage/(:num)'] = "ajax/checkMessage/$1";
+$route['load_more_notification/(:num)'] = "ajax/notificationPanigate/$1";
+
+//Dashboard
+$route['dashboard'] = "dashboard/index";
+$route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
+$route['change_role/(:any)'] = "ajax/setNewRole/$1";
+$route['mark_all_notification_read'] = "ajax/markAllNotificationRead";
+$route['mark_all_message_read'] = "ajax/markAllMessageRead";
+
+//Profile
+$route['change_password'] = "profiles/changePassword";
+$route['check_current_password'] = "ajax/checkCurrentPassword";
+
+//System Setting
+$route['system_setting/(:any)'] = "systemsettings/viewSystemSetting/$1";
+
 //Permission
 $route['permission/getmethod/(:any)/(:any)'] = "ajax/getMethodsFromControllers/$1/$2";
 $route['permission/check/(:num)'] = "ajax/checkValidPermision/$1";
@@ -119,50 +163,6 @@ $route['pending_student/save_trial_lesson'] = "dashboard/pendingStudnetSaveTrail
 //Email Templates
 $route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";
 
-//Default
-$route['default_controller'] = "dashboard";
-$route['404_override'] = 'authenticate/error_404';
-
-//Cron Jobs
-$route['send_regular_mail'] = "cronjobs/sendRegularMail";
-
-//Authenticate
-$route['login'] = "authenticate/index";
-$route['validate'] = "authenticate/validateUser";
-$route['logout'] = "authenticate/logout";
-$route['forgot_password'] = "authenticate/userForgotPassword";
-$route['send_reset_password_link'] = "authenticate/userSendResetPasswordLink";
-$route['reset_password/(:any)'] = "authenticate/userResetPassword/$1";
-$route['checkusername/(:num)'] = "ajax/checkUsernameExit/$1";
-$route['checkemail/(:num)'] = "ajax/checkEmailExit/$1";
-$route['denied'] = "authenticate/permissionDenied";
-
-//Registration
-$route['register/step_1'] = "authenticate/register";
-$route['add_user'] = "authenticate/saveUser";
-$route['register/step_2'] = "dashboard/studentRegistrationSecondPhase";
-
-//Commom
-$route['getstate/(:num)'] = "ajax/getAllStatesOptionsFromCountry/$1";
-$route['getcity/(:num)'] = "ajax/getAllCitiesOptionsFromState/$1";
-$route['checkNotification/(:num)'] = "ajax/checkNotification/$1";
-$route['checkMessage/(:num)'] = "ajax/checkMessage/$1";
-$route['load_more_notification/(:num)'] = "ajax/notificationPanigate/$1";
-
-//Dashboard
-$route['dashboard'] = "dashboard/index";
-$route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
-$route['change_role/(:any)'] = "ajax/setNewRole/$1";
-$route['mark_all_notification_read'] = "ajax/markAllNotificationRead";
-$route['mark_all_message_read'] = "ajax/markAllMessageRead";
-
-//Profile
-$route['change_password'] = "profiles/changePassword";
-$route['check_current_password'] = "ajax/checkCurrentPassword";
-
-//System Setting
-$route['system_setting/(:any)'] = "systemsettings/viewSystemSetting/$1";
-
 //Message System
 $route['message/compose'] = "messages/composeMessage";
 $route['message/compose/(:any)'] = "messages/composeMessage/$1";
@@ -172,6 +172,9 @@ $route['message/read/(:num)'] = "messages/readMessage/$1";
 $route['message/reply/(:num)'] = "messages/replyMessage/$1";
 $route['message/delete'] = "messages/deleteMessage";
 $route['message/attachmment/download/(:num)'] = "ajax/downloadAttachment/$1";
+
+//Events
+$route['event/invitation/(:num)'] = "events/sendEventInvitation/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

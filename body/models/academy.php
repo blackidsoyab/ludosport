@@ -5,101 +5,8 @@ class Academy extends DataMapper {
     public $table = 'academies';
     public $has_many = array('school');
 
-    // Optionally, don't include a constructor if you don't need one.
     function __construct($id = NULL) {
         parent::__construct($id);
-    }
-
-    function getTotalAcademyOfRector($dean_id) {
-        $where = NULL;
-        if (is_array($dean_id)) {
-            foreach ($dean_id as $id) {
-                $where .= " OR FIND_IN_SET('" . $id . "', rector_id) > 0";
-            }
-        } else {
-            $where .= " OR FIND_IN_SET('" . $dean_id . "', rector_id) > 0";
-        }
-
-        $this->db->_protect_identifiers = false;
-        $this->db->select('count(*) as total');
-        $this->db->from('academies');
-        $this->db->where(substr($where, 4));
-        $res = $this->db->get();
-        if ($res->num_rows > 0) {
-            $resutl = $res->result();
-            return $resutl[0]->total;
-        } else {
-            return false;
-        }
-    }
-
-    function getAcademyOfRector($rector_id) {
-        $where = NULL;
-        if (is_array($rector_id)) {
-            foreach ($rector_id as $id) {
-                $where .= " OR FIND_IN_SET('" . $id . "', rector_id) > 0";
-            }
-        } else {
-            $where .= " OR FIND_IN_SET('" . $rector_id . "', rector_id) > 0";
-        }
-
-        $this->db->_protect_identifiers = false;
-        $this->db->select('*');
-        $this->db->from('academies');
-        $this->db->where(substr($where, 4));
-        $res = $this->db->get();
-        if ($res->num_rows > 0) {
-            return $res->result();
-        } else {
-            return false;
-        }
-    }
-
-    function getAcademyOfDean($dean_id) {
-        $where = NULL;
-        if (is_array($dean_id)) {
-            foreach ($dean_id as $id) {
-                $where .= " OR FIND_IN_SET('" . $id . "', dean_id) > 0";
-            }
-        } else {
-            $where .= " OR FIND_IN_SET('" . $dean_id . "', dean_id) > 0";
-        }
-
-        $this->db->_protect_identifiers = false;
-        $this->db->select('*');
-        $this->db->from('academies');
-        $this->db->join('schools', 'academies.id=schools.academy_id');
-        $this->db->where(substr($where, 4));
-        $res = $this->db->get();
-        if ($res->num_rows > 0) {
-            return $res->result();
-        } else {
-            return false;
-        }
-    }
-
-    function getAcademyOfTeacher($teacher_id) {
-        $where = NULL;
-        if (is_array($teacher_id)) {
-            foreach ($teacher_id as $id) {
-                $where .= " OR FIND_IN_SET('" . $teacher_id . "', teacher_id) > 0";
-            }
-        } else {
-            $where .= " OR FIND_IN_SET('" . $teacher_id . "', teacher_id) > 0";
-        }
-
-        $this->db->_protect_identifiers = false;
-        $this->db->select('*');
-        $this->db->from('academies');
-        $this->db->join('schools', 'academies.id=schools.academy_id');
-        $this->db->join('clans', 'schools.id=clans.school_id');
-        $this->db->where(substr($where, 4));
-        $res = $this->db->get();
-        if ($res->num_rows > 0) {
-            return $res->result();
-        } else {
-            return false;
-        }
     }
 
     function afterSave($options = array()) {
@@ -125,6 +32,129 @@ class Academy extends DataMapper {
         return array_unique(MultiArrayToSinlgeArray($array));
     }
 
+    function getTotalAcademyOfRector($dean_id) {
+        $where = NULL;
+        if (is_array($dean_id)) {
+            foreach ($dean_id as $id) {
+                $where .= " OR FIND_IN_SET('" . $id . "', rector_id) > 0";
+            }
+        } else {
+            $where .= " OR FIND_IN_SET('" . $dean_id . "', rector_id) > 0";
+        }
+
+        $this->db->_protect_identifiers = false;
+        $this->db->select('count(*) as total');
+        $this->db->from('academies');
+        $this->db->where(substr($where, 4));
+        $this->db->group_by("academies.id"); 
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $resutl = $res->result();
+            return $resutl[0]->total;
+        } else {
+            return false;
+        }
+    }
+
+    function getAcademyOfRector($rector_id) {
+        $where = NULL;
+        if (is_array($rector_id)) {
+            foreach ($rector_id as $id) {
+                $where .= " OR FIND_IN_SET('" . $id . "', rector_id) > 0";
+            }
+        } else {
+            $where .= " OR FIND_IN_SET('" . $rector_id . "', rector_id) > 0";
+        }
+
+        $this->db->_protect_identifiers = false;
+        $this->db->select('*');
+        $this->db->from('academies');
+        $this->db->where(substr($where, 4));
+        $this->db->group_by("academies.id"); 
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+
+    function getAcademyOfDean($dean_id) {
+        $where = NULL;
+        if (is_array($dean_id)) {
+            foreach ($dean_id as $id) {
+                $where .= " OR FIND_IN_SET('" . $id . "', dean_id) > 0";
+            }
+        } else {
+            $where .= " OR FIND_IN_SET('" . $dean_id . "', dean_id) > 0";
+        }
+
+        $this->db->_protect_identifiers = false;
+        $this->db->select('*');
+        $this->db->from('academies');
+        $this->db->join('schools', 'academies.id=schools.academy_id');
+        $this->db->where(substr($where, 4));
+        $this->db->group_by("academies.id"); 
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+
+    function getAcademyOfTeacher($teacher_id) {
+        $where = NULL;
+        if (is_array($teacher_id)) {
+            foreach ($teacher_id as $id) {
+                $where .= " OR FIND_IN_SET('" . $teacher_id . "', teacher_id) > 0";
+            }
+        } else {
+            $where .= " OR FIND_IN_SET('" . $teacher_id . "', teacher_id) > 0";
+        }
+
+        $this->db->_protect_identifiers = false;
+        
+        $this->db->select('*');
+        $this->db->from('academies');
+        $this->db->join('schools', 'academies.id=schools.academy_id');
+        $this->db->join('clans', 'schools.id=clans.school_id');
+        $this->db->where(substr($where, 4));
+        $this->db->group_by("academies.id"); 
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+
+    function getAcademyOfStudent($student_id) {
+        $where = NULL;
+        if (is_array($student_id)) {
+            foreach ($student_id as $id) {
+                $where .= " OR student_master_id='" . $id . "'";
+            }
+        } else {
+            $where .= " OR student_master_id=" . $student_id;
+        }
+
+        $this->db->_protect_identifiers = false;
+        $this->db->select('*');
+        $this->db->from('academies');
+        $this->db->join('schools', 'academies.id=schools.academy_id');
+        $this->db->join('clans', 'schools.id=clans.school_id');
+        $this->db->join('userdetails', 'clans.id=userdetails.clan_id');
+        $this->db->where(substr($where, 4), null, false);
+        $this->db->group_by("academies.id"); 
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+
     function getRelatedRectorsByRector($rector_id) {
         $this->db->_protect_identifiers = false;
         $this->db->select('rector_id');
@@ -133,7 +163,9 @@ class Academy extends DataMapper {
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             $temp = $res->result();
-            return $temp[0]->rector_id;
+            $array[] = explode(',', $temp[0]->rector_id);
+            
+            return array_unique(MultiArrayToSinlgeArray($array));
         } else {
             return false;
         }
@@ -152,7 +184,7 @@ class Academy extends DataMapper {
                 $array[] = explode(',', $value->rector_id);
             }
 
-            return array_unique(MultiArrayToSinlgeArray($array));
+            
         } else {
             return false;
         }
@@ -189,6 +221,25 @@ class Academy extends DataMapper {
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->rector_id);
+            }
+
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+
+    function getRecotrsByAcademy($academy_id){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('rector_id');
+        $this->db->from('academies');
+        $this->db->where('id', $academy_id);
+        $this->db->group_by("academies.id"); 
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+             $temp = $res->result();
             foreach ($temp as $value) {
                 $array[] = explode(',', $value->rector_id);
             }

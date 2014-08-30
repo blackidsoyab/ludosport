@@ -237,7 +237,7 @@ class messages extends CI_Controller {
 
     private function _getRelatedUsers($role_id) {
 
-        if ($this->session_data->role == 1 || $this->session_data->role == 2) {
+        if ($this->session_data->role == 1) {
             $user = new User();
             return $user->getUsersByRole($role_id);
         }

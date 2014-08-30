@@ -159,6 +159,7 @@ function createPermissionArray() {
                 'addEvent' => array('name' => 'Add'),
                 'editEvent' => array('name' => 'Edit'),
                 'deleteEvent' => array('name' => 'Delete'),
+                'sendEventInvitation' => array('name' => 'Send Invitation'),
         )),
         'batches' => array(
             'name' => 'Batches',

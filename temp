@@ -1,0 +1,26 @@
+SELECT
+rector_id AS rectors,
+GROUP_CONCAT(dean_id) AS deans,
+GROUP_CONCAT(teacher_id) AS teachers,
+GROUP_CONCAT(student_master_id) AS studetns
+
+FROM academies, schools, clans, userdetails
+
+WHERE
+academies.id=schools.academy_id AND
+schools.id=clans.school_id AND
+clans.id=userdetails.clan_id AND
+academies.id = 1
+
+
++Academy : 1
+Rectors  : 3,5
+Deans    : 3,4
+Teachers : 3,4,3,5
+Students : 12,13,14,15,16,17,20,21
+
++Academy : 2
+Rectors  : 3
+Deans    : 3,4
+Teachers : 5,5
+Students : 

@@ -128,6 +128,7 @@ class Clan extends DataMapper {
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
         $this->db->where(substr($where, 4));
+        $this->db->group_by("clans.id"); 
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();
@@ -151,6 +152,7 @@ class Clan extends DataMapper {
         $this->db->from('clans');
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->where(substr($where, 4));
+        $this->db->group_by("clans.id"); 
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();
@@ -173,6 +175,31 @@ class Clan extends DataMapper {
         $this->db->select('*');
         $this->db->from('clans');
         $this->db->where(substr($where, 4));
+        $this->db->group_by("clans.id"); 
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+
+    function getClanOfStudent($student_id) {
+        $where = NULL;
+        if (is_array($student_id)) {
+            foreach ($student_id as $id) {
+                $where .= " OR student_master_id='" . $id . "'";
+            }
+        } else {
+            $where .= " OR student_master_id='" . $student_id . "'";
+        }
+
+        $this->db->_protect_identifiers = false;
+        $this->db->select('*');
+        $this->db->from('clans');
+        $this->db->join('userdetails', 'clans.id=userdetails.clan_id');
+        $this->db->where(substr($where, 4), null, false);
+        $this->db->group_by("clans.id"); 
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();
@@ -406,6 +433,27 @@ class Clan extends DataMapper {
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return true;
+        } else {
+            return false;
+        }
+    }
+
+    function getTeachersByAcademy($academy_id){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('teacher_id');
+        $this->db->from('clans');
+        $this->db->join('schools', 'schools.id=clans.school_id');
+        $this->db->join('academies', 'academies.id=schools.academy_id');
+        $this->db->where('academies.id', $academy_id);
+        $this->db->group_by("academies.id"); 
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+             $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->teacher_id);
+            }
+
+            return array_unique(MultiArrayToSinlgeArray($array));
         } else {
             return false;
         }

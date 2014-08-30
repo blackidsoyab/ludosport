@@ -9,6 +9,10 @@ label.error{
     font-weight: normal;;
 }
 
+small.help-block{
+    color: #E9573F;
+}
+
 .actions {
     margin-right: 5px;
     margin-left: 5px;
@@ -278,5 +282,15 @@ footer{
 /* Summer Note Editor */
 .note-editor hr {
     margin: 10px 0;
+}
+/*********************/
+
+/* Bootstrap Tabs and Chose Jquery issue solutions */
+.tab-content .chosen-container {
+    width: 100% !important;
+}
+
+.tab-content .tab-pane .chosen-container .chosen-choices .search-field .default{
+    width: 100% !important;
 }
 /*********************/

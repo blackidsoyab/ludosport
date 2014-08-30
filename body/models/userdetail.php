@@ -109,6 +109,28 @@ class Userdetail extends DataMapper {
         }
     }
 
+    function getStudentsByAcademy($academy_id){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('student_master_id');
+        $this->db->from('userdetails');
+        $this->db->join('clans', 'clans.id=userdetails.clan_id');
+        $this->db->join('schools', 'schools.id=clans.school_id');
+        $this->db->join('academies', 'academies.id=schools.academy_id');
+        $this->db->where('academies.id', $academy_id);
+        $this->db->group_by("academies.id"); 
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+             $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = $value->student_master_id;
+            }
+
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+
 }
 
 ?>

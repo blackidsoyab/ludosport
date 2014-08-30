@@ -227,6 +227,9 @@ $lang['description'] = 'Description';
 $lang['all'] = 'All';
 $lang['date'] = 'date';
 $lang['from'] = 'from';
+$lang['send'] = 'Send';
+$lang['invitation'] = 'Invitation';
+$lang['individual'] = 'Individual';
 
 //Batches
 $lang['batch'] = 'Batch';
