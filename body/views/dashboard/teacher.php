@@ -82,7 +82,7 @@ $monthNames = array_map(function ($ar) {
         });
     }
 </script>
-<h1 class="page-heading"><?php echo getRoleName($session->role); ?><small>&nbsp;<?php echo $this->lang->line('control_panel'); ?></small></h1>
+<h1 class="page-heading"><?php echo $session->role_name; ?><small>&nbsp;<?php echo $this->lang->line('control_panel'); ?></small></h1>
 
 <div class="alert alert-primary alert-block square"><?php echo $this->lang->line('numbers'); ?></div>
 

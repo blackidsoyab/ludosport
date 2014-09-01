@@ -52,7 +52,7 @@
     });
     //]]>
 </script>
-<h1 class="page-heading"><?php echo getRoleName($session->role); ?></h1>
+<h1 class="page-heading"><?php echo $session->role_name; ?></h1>
 <?php if(isset($already_applied)) { ?>
     <div class="row">
         <div class="col-lg-12">

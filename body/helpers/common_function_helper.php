@@ -26,7 +26,11 @@ if (!function_exists('getRoleName')) {
         $role->where('id', $id)->get();
         $ci = & get_instance();
         $session = $ci->session->userdata('user_session');
-        return $role->{$session->language . '_role_name'};
+        if(!empty($session)) {
+            return $role->{$session->language . '_role_name'};
+        } else {
+            return $role->en_role_name;
+        }
     }
 
 }

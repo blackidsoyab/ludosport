@@ -93,21 +93,6 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-3 control-label"><?php echo $this->lang->line('role'); ?></label>
-                                            <div class="col-sm-9">
-                                                <p class="form-control-static">
-                                                    <?php
-                                                    $role_name = NULL;
-                                                    foreach (explode(',', $profile->role_id) as $role) {
-                                                        $role_name .= ', ' . getRoleName($role);
-                                                    }
-
-                                                    echo substr($role_name, 2);
-                                                    ?>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
                                             <label class="col-sm-3 control-label"><?php echo $this->lang->line('dob'); ?></label>
                                             <div class="col-sm-9">
                                                 <p class="form-control-static"><?php echo date('d-m-Y', $profile->date_of_birth); ?></p>

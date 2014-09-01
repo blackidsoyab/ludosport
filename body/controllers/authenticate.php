@@ -46,6 +46,7 @@ class authenticate extends CI_Controller {
                 $roles = explode(',', $user->role_id);
                 sort($roles);
                 $user_data->role = $roles[0];
+                $user_data->role_name = getRoleName($roles[0]);
                 unset($roles[0]);
                 $user_data->all_roles = $roles;
                 $user_data->email = $user->email;
