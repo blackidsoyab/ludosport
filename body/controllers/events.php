@@ -13,6 +13,12 @@ class events extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
     }
 
+    /*
+    *   List all event if the id is null
+    *   Single event if id is passed
+    *   Param1(optional) : event id
+    *   Param2(optional) : any text (e.g. : notification)
+    */
     function viewEvent($id = null, $type = null) {
         if (is_null($id)) {
             $event = new Event();
@@ -34,6 +40,7 @@ class events extends CI_Controller {
         }
     }
 
+    //Add the event.
     function addEvent() {
         if ($this->input->post() !== false) {
             $event = new Event();
@@ -108,6 +115,11 @@ class events extends CI_Controller {
             $this->layout->view('events/add', $data);
         }
     }
+
+    /*
+    *   Edit the event
+    *   Param1(required) : event id
+    */
 
     function editEvent($id) {
         if (!empty($id)) {
@@ -206,6 +218,11 @@ class events extends CI_Controller {
         }
     }
 
+    /*
+    *   Delete the event
+    *   Param1(required) : event id
+    */
+
     function deleteEvent($id) {
         if (!empty($id)) {
             $event = new Event();
@@ -216,6 +233,7 @@ class events extends CI_Controller {
                     }
                 }
             $event->delete();
+
             $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
         } else {
             $this->session->set_flashdata('error', $this->lang->line('delete_data_error'));
@@ -223,6 +241,7 @@ class events extends CI_Controller {
         redirect(base_url() . 'event', 'refresh');
     }
 
+    //upload the event image keep the original image and conver the image in 780*450 & 300*200 scale
     function uploadImage() {
         $this->upload->initialize(array(
             'upload_path'   => "./assets/img/event_images/original",
@@ -253,6 +272,11 @@ class events extends CI_Controller {
         return $data;
     }
 
+    /*
+    *   Send invitations to Users
+    *   Param1(required) : event id
+    */
+
     function sendEventInvitation($event_id){
         //check Event it is passed or not
         if(!empty($event_id)){
@@ -272,22 +296,22 @@ class events extends CI_Controller {
 
                     //Get the Academy ids
                     if($this->input->post('to_academies') !== false){
-                        foreach ($this->input->post('to_academies') as $academy_key => $academy_value) {
-                            $user_ids[] = $this->_getIds('to_academies', $academy_value);
+                        foreach ($this->input->post('to_academies') as $academy_id) {
+                            $user_ids[] = $this->_getIds('to_academies', $academy_id);
                         }
                     }
 
                     //Get the School ids
                     if($this->input->post('to_schools') !== false){
-                        foreach ($this->input->post('to_schools') as $school_key => $school_value) {
-                            $user_ids[] = $this->_getIds('to_schools', $school_value);
+                        foreach ($this->input->post('to_schools') as $school_id) {
+                            $user_ids[] = $this->_getIds('to_schools', $school_id);
                         }
                     }
 
                     //Get the Clans ids
                     if($this->input->post('to_clans') !== false){
-                        foreach ($this->input->post('to_clans') as $clan_key => $clan_value) {
-                            $user_ids[] = $this->_getIds('to_clans', $clan_value);
+                        foreach ($this->input->post('to_clans') as $clan_id) {
+                            $user_ids[] = $this->_getIds('to_clans', $clan_id);
                         }
                     }
 
@@ -378,13 +402,13 @@ class events extends CI_Controller {
                     $this->session->set_flashdata('success', $this->lang->line('invitation_send_successfully'));
                     redirect(base_url() .'event/view/' . $event_id , 'refresh');
                 }else{
+                    //set array for view part
                     $data['event_detail'] = $event_detail;
                     $data['users'] = $this->_getUsers();
                     $data['academies'] = $this->_getAcademies();
                     $data['schools'] = $this->_getSchools();
                     $data['clans'] = $this->_getClans();
                     $data['students'] = $this->_getStudents();
-                   
                     $this->layout->view('events/send_invitation', $data);
                 }
             }else{
@@ -397,201 +421,253 @@ class events extends CI_Controller {
         }
     }
 
+    //get the related Users
     private function _getUsers(){
+        //Role Super Admin get all user
         if($this->session_data->role == 1){
             $user = new User();
             return $user->where('status', 'A')->get();
         }
 
+        //Role Admin get all user
         if($this->session_data->role == 2){
             $user = new User();
             return $user->where(array('role_id <>' =>1,'status'=> 'A'))->get();
         }
 
+        //Role Rector
         if($this->session_data->role == 3){
             $array = array();
 
             $academy = new Academy();
+            //Get related Rector of Rector
             $array[] = $academy->getRelatedRectorsByRector($this->session_data->id);
 
             $school = new School();
+            //Get related Deans of Rector
             $array[] = $school->getRelatedDeansByRector($this->session_data->id);
 
             $class = new Clan();
+            //Get related Teacher of Rector
             $array[] = $class->getRelatedTeachersByRector($this->session_data->id);
 
             $user_detail = new Userdetail();
+            //Get related Students of Rector
             $array[] = $user_detail->getRelatedStudentsByRector($this->session_data->id);
 
             $user = new User();
+            //convert multi array to single and from that get unique id details
             return $user->getUsersDetails(array_unique(MultiArrayToSinlgeArray($array)));
         }
 
+        //Role Dean
         if($this->session_data->role == 4){
             $array = array();
 
             $academy = new Academy();
+            //Get related Rector of Dean
             $array[] = $academy->getRelatedRectorsByDean($this->session_data->id);
 
             $school = new School();
+            //Get related Dean of Dean
             $array[] = $school->getRelatedDeansByDean($this->session_data->id);
 
             $class = new Clan();
+            //Get related Teacher of Dean
             $array[] = $class->getRelatedTeachersByDean($this->session_data->id);
 
             $user_detail = new Userdetail();
+            //Get related Student of Dean
             $array[] = $user_detail->getRelatedStudentsByDean($this->session_data->id);
 
             $user = new User();
+            //convert multi array to single and from that get unique id details
             return $user->getUsersDetails(array_unique(MultiArrayToSinlgeArray($array)));
         }
 
+        //Role Teacher
         if($this->session_data->role == 5){
             $array = array();
 
             $academy = new Academy();
+            //Get related Rector of Teacher
             $array[] = $academy->getRelatedRectorsByTeacher($this->session_data->id);
 
             $school = new School();
+            //Get related Dean of Teacher
             $array[] = $school->getRelatedDeansByTeacher($this->session_data->id);
 
             $class = new Clan();
+            //Get related Teacher of Teacher
             $array[] = $class->getRelatedTeachersByTeacher($this->session_data->id);
 
             $user_detail = new Userdetail();
+            //Get related Student of Teacher
             $array[] = $user_detail->getRelatedStudentsByTeacher($this->session_data->id);
 
             $user = new User();
+            //convert multi array to single and from that get unique id details
             return $user->getUsersDetails(array_unique(MultiArrayToSinlgeArray($array)));
         }
 
+        //Role Student
         if($this->session_data->role == 6){
             $array = array();
 
             $academy = new Academy();
+            //Get related Rector of Student
             $array[] = $academy->getRelatedRectorsByStudent($this->session_data->id);
 
             $school = new School();
+            //Get related Dean of Student
             $array[] = $school->getRelatedDeansByStudent($this->session_data->id);
 
             $class = new Clan();
+            //Get related Teacher of Student
             $array[] = $class->getRelatedTeachersByStudent($this->session_data->id);
 
             $user_detail = new Userdetail();
+            //Get related Student of Student
             $array[] = $user_detail->getRelatedStudentsByStudent($this->session_data->id);
 
             $user = new User();
+            //convert multi array to single and from that get unique id details
             return $user->getUsersDetails(array_unique(MultiArrayToSinlgeArray($array)));
         }
     }
 
+    //get the related Academies
     private function _getAcademies(){
+        //Role Super Admin get all Academies
         if($this->session_data->role == 1){
             $academy = new Academy();
             return $academy->get();
         }
 
+        //Role Super Admin get all Academies
         if($this->session_data->role == 2){
             $academy = new Academy();
             return $academy->get();
         }
 
-         if($this->session_data->role == 3){
+        //Role Rector then get all academies related to rector
+        if($this->session_data->role == 3){
             $academy = new Academy();
             return $academy->getAcademyOfRector($this->session_data->id);
         }
 
+        //Role Dean then get all academies related to dean
         if($this->session_data->role == 4){
             $academy = new Academy();
             return $academy->getAcademyOfDean($this->session_data->id);
         }
 
+        //Role Teacher then get all academies related to teacher
         if($this->session_data->role == 5){
             $academy = new Academy();
             return $academy->getAcademyOfTeacher($this->session_data->id);
         }
 
+        //Role Student then get all academies related to student
         if($this->session_data->role == 6){
             $academy = new Academy();
             return $academy->getAcademyOfStudent($this->session_data->id);
         }
     }
 
+    //get the related Schools
     private function _getSchools(){
+        //Role Super Admin get all Schools
         if($this->session_data->role == 1){
             $school = new School();
             return $school->get();
         }
 
+        ///Role Admin get all Schools
         if($this->session_data->role == 2){
             $school = new School();
             return $school->get();
         }
 
+        //Role Rector then get all schools related to rector
         if($this->session_data->role == 3){
             $school = new School();
             return $school->getSchoolOfRector($this->session_data->id);
         }
 
+        //Role Dean then get all schools related to dean
         if($this->session_data->role == 4){
             $school = new School();
             return $school->getSchoolOfDean($this->session_data->id);
         }
 
+        //Role Teacher then get all schools related to teacher
         if($this->session_data->role == 5){
             $school = new School();
             return $school->getSchoolOfTeacher($this->session_data->id);
         }
 
+        //Role Student then get all schools related to student
         if($this->session_data->role == 6){
             $school = new School();
             return $school->getSchoolOfStudent($this->session_data->id);
         }
     }
 
+    //get the related Clans
     private function _getClans(){
+        //Role Super Admin get all Clans
         if($this->session_data->role == 1){
             $clan = new Clan();
             return $clan->get();
         }
 
+        //Role Admin get all Clans
         if($this->session_data->role == 2){
             $clan = new Clan();
             return $clan->get();
         }
 
+        //Role Rector then get all clans related to rector
         if($this->session_data->role == 3){
             $clan = new Clan();
             return $clan->getClanOfRector($this->session_data->id);
         }
 
+        //Role Dean then get all clans related to dean
         if($this->session_data->role == 4){
             $clan = new Clan();
             return $clan->getClanOfDean($this->session_data->id);
         }
 
+        //Role Teacher then get all clans related to teacher
         if($this->session_data->role == 5){
             $clan = new Clan();
             return $clan->getClanOfTeacher($this->session_data->id);
         }
 
+        //Role Student then get all clans related to student
         if($this->session_data->role == 6){
             $clan = new Clan();
             return $clan->getClanOfStudent($this->session_data->id);
         }
     }
 
+    //get the related Students
     private function _getStudents(){
+        //Role Super Admin then get all students
         if($this->session_data->role == 1){
             $student = new User();
             return $student->where('role_id', 6)->get();
         }
 
+        //Role Admin then get all students
         if($this->session_data->role == 2){
             $student = new User();
             return $student->where('role_id', 6)->get();
         }
 
+        //Role Rector then get all students related to rector
         if($this->session_data->role == 3){
             $student = new Userdetail();
             $array = $student->getRelatedStudentsByRector($this->session_data->id);
@@ -600,6 +676,7 @@ class events extends CI_Controller {
             return $user->getUsersDetails($array);
         }
 
+        //Role Dean then get all students related to dean
         if($this->session_data->role == 4){
             $student = new Userdetail();
             $array = $student->getRelatedStudentsByDean($this->session_data->id);
@@ -608,6 +685,7 @@ class events extends CI_Controller {
             return $user->getUsersDetails($array);
         }
 
+        //Role Teacher then get all students related to teacher
         if($this->session_data->role == 5){
             $student = new Userdetail();
             $array = $student->getRelatedStudentsByTeacher($this->session_data->id);
@@ -616,6 +694,7 @@ class events extends CI_Controller {
             return $user->getUsersDetails($array);
         }
 
+        //Role Student then get all students related to sudent
         if($this->session_data->role == 6){
             $student = new Userdetail();
             $array = $student->getRelatedStudentsByStudent($this->session_data->id);
@@ -625,22 +704,34 @@ class events extends CI_Controller {
         }
     }
 
+    /*
+    *   get the user id
+    *   Param1(required) : to_academies | to_schools | to_clans
+    *   Param2(required) : academy_id   | school_id  | clan_id
+    *   return : array of the user ids.
+    */
+
     private function _getIds($type, $id){
         if($type == 'to_academies'){
             $array = array();
 
             $academy = new Academy();
+            //get all the rectors ids of an academy
             $array[] = $academy->getRecotrsByAcademy($id);
 
             $school = new School();
+            //get all the deans ids of an academy
             $array[] = $school->getDeansByAcademy($id);
 
             $clan= new Clan();
+            //get all the teachers ids of an academy
             $array[] = $clan->getTeachersByAcademy($id);
 
             $user = new Userdetail();
+            //get all the students ids of an academy
             $array[] = $user->getStudentsByAcademy($id);
 
+            //convert multi array to single and from that get unique ids
             $array = array_unique(MultiArrayToSinlgeArray($array));
             sort($array);
 
@@ -651,17 +742,22 @@ class events extends CI_Controller {
             $array = array();
 
             $academy = new Academy();
+            //get all the rectors ids of an school
             $array[] = $academy->getRecotrsBySchool($id);
 
             $school = new School();
+            //get all the deans ids of an school
             $array[] = $school->getDeansBySchool($id);
 
             $clan= new Clan();
+            //get all the teachers ids of an school
             $array[] = $clan->getTeachersBySchool($id);
 
             $user = new Userdetail();
+            //get all the students ids of an school
             $array[] = $user->getStudentsBySchool($id);
 
+            //convert multi array to single and from that get unique ids
             $array = array_unique(MultiArrayToSinlgeArray($array));
             sort($array);
 
@@ -672,17 +768,22 @@ class events extends CI_Controller {
             $array = array();
 
             $academy = new Academy();
+            //get all the rectors ids of an clan
             $array[] = $academy->getRecotrsByClan($id);
 
             $school = new School();
+            //get all the deans ids of an clan
             $array[] = $school->getDeansByClan($id);
 
             $clan= new Clan();
+            //get all the teachers ids of an clan
             $array[] = $clan->getTeachersByClan($id);
 
             $user = new Userdetail();
+            //get all the students ids of an clan
             $array[] = $user->getStudentsByClan($id);
 
+            //convert multi array to single and from that get unique ids
             $array = array_unique(MultiArrayToSinlgeArray($array));
             sort($array);
 

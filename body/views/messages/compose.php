@@ -90,7 +90,7 @@
     <input type="hidden" value="0" name="reply_of"/>
     <div class="col-sm-12">
 
-        <?php if (count($message_all_types) > 1) { ?>
+        <?php if (count($message_all_types) > 0) { ?>
             <div class="form-group">
                 <?php foreach ($message_all_types as $all_type) { ?>
                     <a href="<?php echo base_url() . 'message/compose/' . $all_type; ?>" class="btn <?php echo ($type == $all_type ? 'btn-primary active' : 'btn-default'); ?>"><?php echo ucwords($all_type); ?></a>
