@@ -16,7 +16,7 @@
     <?php foreach ($events as $event) { ?>
     <div class="col-sm-4">
         <div class="the-box no-border full store-item text-center">
-            <img src="<?php echo IMG_URL .'event_images/' . $event->image; ?>" class="item-image" alt="Image">
+            <img src="<?php echo IMG_URL .'event_images/300X200/' . $event->image; ?>" class="item-image" alt="Image">
             <div class="the-box margin-killer no-border ">
                 <div class="row">
                     <div class="col-xs-12">

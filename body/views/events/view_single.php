@@ -56,7 +56,7 @@
 			        }
 				?>
 			</p>
-			<img src="<?php echo IMG_URL .'event_images/' . $event_detail->image; ?>" class="img-responsive" alt="Image">
+			<img src="<?php echo IMG_URL .'event_images/780X450/' . $event_detail->image; ?>" class="img-responsive" alt="Image">
 			<div class="featured-text relative-left">
 				<h3><a href="#"><?php echo ucfirst($event_detail->{$session->language.'_name'}); ?></a></h3>
 				<p class="date">

@@ -144,7 +144,7 @@
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('current'), ' ', $this->lang->line('image'); ?>&nbsp;<span class="text-danger">&nbsp;</span></label>
                 <div class="col-lg-5">
-                    <img src="<?php echo IMG_URL . 'event_images/' . $event->image; ?>" class="img-batch" alt="Batch">
+                    <img src="<?php echo IMG_URL . 'event_images/300X200/' . $event->image; ?>" class="img-batch" alt="Batch">
                 </div>
             </div>
         <?php } ?>
@@ -156,7 +156,7 @@
                     <input type="text" class="form-control required" readonly="">
                     <span class="input-group-btn">
                         <span class="btn btn-default btn-file">
-                            Browse… <input type="file" name="event_image">
+                            Browse… <input type="file" name="event_image" id="event_image">
                         </span>
                     </span>
                 </div>

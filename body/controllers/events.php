@@ -225,7 +225,7 @@ class events extends CI_Controller {
 
     function uploadImage() {
         $this->upload->initialize(array(
-            'upload_path'   => "./assets/img/event_images/",
+            'upload_path'   => "./assets/img/event_images/original",
             'allowed_types' => 'jpg|jpeg|gif|png|bmp',
             'overwrite' => FALSE,
             'remove_spaces' => TRUE,
@@ -241,10 +241,13 @@ class events extends CI_Controller {
             $this->load->helper('image_manipulation/image_manipulation');
             include_lib_image_manipulation();
 
-            $magicianObj = new imageLib('./assets/img/event_images/' . $image);
+            $magicianObj = new imageLib('./assets/img/event_images/original/' . $image);
 
             $magicianObj->resizeImage(780, 450, 'landscape');
-            $magicianObj->saveImage('./assets/img/event_images/' . $image, 100);
+            $magicianObj->saveImage('./assets/img/event_images/780X450/' . $image, 100);
+
+            $magicianObj->resizeImage(300, 200, 'landscape');
+            $magicianObj->saveImage('./assets/img/event_images/300X200/' . $image, 100);
         }
 
         return $data;
@@ -344,28 +347,32 @@ class events extends CI_Controller {
                         $invitations->to_id = $user;
                         $invitations->save();
 
-                        //Send notification to User
-                        $notification = new Notification();
-                        $notification->type = 'N';
-                        $notification->notify_type = 'event_invitation';
-                        $notification->from_id = $this->session_data->id;
-                        $notification->to_id = $user;
-                        $notification->object_id = $event_detail->id;
-                        $notification->data = serialize(array_merge(objectToArray($event_detail->stored), $this->input->post()));
-                        $notification->save();
+                        if($user == $this->session_data->id){
+                            continue;
+                        } else {
+                            //Send notification to User
+                            $notification = new Notification();
+                            $notification->type = 'N';
+                            $notification->notify_type = 'event_invitation';
+                            $notification->from_id = $this->session_data->id;
+                            $notification->to_id = $user;
+                            $notification->object_id = $event_detail->id;
+                            $notification->data = serialize(array_merge(objectToArray($event_detail->stored), $this->input->post()));
+                            $notification->save();
 
-                        //Send Mail to user
-                        $message = str_replace('#user', $user_details->firstname .' '. $user_details->lastname, $message);
+                            //Send Mail to user
+                            $message = str_replace('#user', $user_details->firstname .' '. $user_details->lastname, $message);
 
-                        //Send Email
-                        $option = array();
-                        $option['tomailid'] = $user_details->email;
-                        $option['subject'] = $email->subject;
-                        $option['message'] = $message;
-                        if (!is_null($email->attachment)) {
-                            $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
+                            //Send Email
+                            $option = array();
+                            $option['tomailid'] = $user_details->email;
+                            $option['subject'] = $email->subject;
+                            $option['message'] = $message;
+                            if (!is_null($email->attachment)) {
+                                $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
+                            }
+                            send_mail($option);
                         }
-                        send_mail($option);
                     }
 
                     $this->session->set_flashdata('success', $this->lang->line('invitation_send_successfully'));
