@@ -42,6 +42,7 @@ $lang['message_reply_error'] = 'Error in replying Mail';
 $lang['unauthorize_access'] = 'Unauthorize Access';
 $lang['no_data_exit'] = 'No Data Exits';
 $lang['no_student_exit'] = 'No Student Exits';
+$lang['invitation_send_successfully'] = 'Invitation Send Successfully';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';

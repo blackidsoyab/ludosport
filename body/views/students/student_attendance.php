@@ -14,6 +14,9 @@ $(document).ready(function() {
 
 	$('#recover-absence-btn').click(function(){
 		$('#step_2').show();
+		$('#step_4').show();
+		$('#recover-clan-btn').hide();
+		$('#cancel-recover-btn').show();
 		<?php if (isset($clans) && is_object($clans)) { ?>
 			$('#confirm-absence-btn').hide();
 			$('#recover-absence-btn').hide();
@@ -54,7 +57,7 @@ $(document).ready(function() {
 				$(".ludosport-class-date div.clan-date").click(function(e){
 					$(this).closest(".ludosport-class-date").find("div.the-box").removeClass("bg-primary");
 					$(this).find("div.the-box").addClass("bg-primary").find(":radio").click();
-					$("#step_4").show();
+					$('#recover-clan-btn').show();
 				});
 			}
 		});

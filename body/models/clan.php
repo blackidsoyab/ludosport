@@ -445,7 +445,42 @@ class Clan extends DataMapper {
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
         $this->db->where('academies.id', $academy_id);
-        $this->db->group_by("academies.id"); 
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+             $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->teacher_id);
+            }
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+
+    function getTeachersBySchool($school_id){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('teacher_id');
+        $this->db->from('clans');
+        $this->db->join('schools', 'schools.id=clans.school_id');
+        $this->db->join('academies', 'academies.id=schools.academy_id');
+        $this->db->where('schools.id', $school_id);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+             $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->teacher_id);
+            }
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+
+    function getTeachersByClan($clan_id){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('teacher_id');
+        $this->db->from('clans');
+        $this->db->where('id', $clan_id);
         $res = $this->db->get();
         if ($res->num_rows > 0) {
              $temp = $res->result();

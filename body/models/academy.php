@@ -183,8 +183,7 @@ class Academy extends DataMapper {
             foreach ($temp as $value) {
                 $array[] = explode(',', $value->rector_id);
             }
-
-            
+            return array_unique(MultiArrayToSinlgeArray($array));
         } else {
             return false;
         }
@@ -203,7 +202,6 @@ class Academy extends DataMapper {
             foreach ($temp as $value) {
                 $array[] = explode(',', $value->rector_id);
             }
-
             return array_unique(MultiArrayToSinlgeArray($array));
         } else {
             return false;
@@ -224,7 +222,6 @@ class Academy extends DataMapper {
             foreach ($temp as $value) {
                 $array[] = explode(',', $value->rector_id);
             }
-
             return array_unique(MultiArrayToSinlgeArray($array));
         } else {
             return false;
@@ -236,7 +233,6 @@ class Academy extends DataMapper {
         $this->db->select('rector_id');
         $this->db->from('academies');
         $this->db->where('id', $academy_id);
-        $this->db->group_by("academies.id"); 
         $res = $this->db->get();
         if ($res->num_rows > 0) {
              $temp = $res->result();
@@ -244,6 +240,44 @@ class Academy extends DataMapper {
                 $array[] = explode(',', $value->rector_id);
             }
 
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+
+    function getRecotrsBySchool($school_id){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('rector_id');
+        $this->db->from('academies');
+        $this->db->join('schools', 'academies.id=schools.academy_id');
+        $this->db->where('schools.id', $school_id);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+             $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->rector_id);
+            }
+
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+
+    function getRecotrsByClan($clan_id){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('rector_id');
+        $this->db->from('academies');
+        $this->db->join('schools', 'academies.id=schools.academy_id');
+        $this->db->join('clans', 'schools.id=clans.school_id');
+        $this->db->where('clans.id', $clan_id);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+             $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->rector_id);
+            }
             return array_unique(MultiArrayToSinlgeArray($array));
         } else {
             return false;

@@ -100,10 +100,9 @@ class Userdetail extends DataMapper {
         if ($res->num_rows > 0) {
             $temp = $res->result();
             foreach ($temp as $value) {
-                $array[] = explode(',', $value->student_master_id);
+                $array[] = $value->student_master_id;
             }
-
-            return array_unique(MultiArrayToSinlgeArray($array));
+            return array_unique($array);
         } else {
             return false;
         }
@@ -117,15 +116,50 @@ class Userdetail extends DataMapper {
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
         $this->db->where('academies.id', $academy_id);
-        $this->db->group_by("academies.id"); 
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-             $temp = $res->result();
+            $temp = $res->result();
             foreach ($temp as $value) {
                 $array[] = $value->student_master_id;
             }
+            return array_unique($array);
+        } else {
+            return false;
+        }
+    }
 
-            return array_unique(MultiArrayToSinlgeArray($array));
+    function getStudentsBySchool($school_id){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('student_master_id');
+        $this->db->from('userdetails');
+        $this->db->join('clans', 'clans.id=userdetails.clan_id');
+        $this->db->join('schools', 'schools.id=clans.school_id');
+        $this->db->where('schools.id', $school_id);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = $value->student_master_id;
+            }
+            return array_unique($array);
+        } else {
+            return false;
+        }
+    }
+
+    function getStudentsByClan($clan_id){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('student_master_id');
+        $this->db->from('userdetails');
+        $this->db->join('clans', 'clans.id=userdetails.clan_id');
+        $this->db->where('clans.id', $clan_id);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = $value->student_master_id;
+            }
+            return array_unique($array);
         } else {
             return false;
         }

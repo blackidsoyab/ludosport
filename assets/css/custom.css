@@ -95,6 +95,10 @@ small.help-block{
     margin-bottom: 10px;
 }
 
+.mar-tp-10{
+    margin-top: 10px;
+}
+
 .alert-primary{
     background-color: rgb(55, 188, 155);
     color: rgb(255, 255, 255);
@@ -294,3 +298,6 @@ footer{
     width: 100% !important;
 }
 /*********************/
+.nav-tabs.left-position > li {
+    margin-bottom: 0px;
+}

@@ -146,6 +146,16 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
     background-color: #C88127;
 }
 
+.bg-primary {
+    background-color: #C88127;
+    border-color: #C88127;
+    color: #fff;
+}
+
+.bg-primary h1, .bg-primary h2, .bg-primary h3, .bg-primary h4, .bg-primary h5, .bg-primary h6 {
+    color: #fff;
+}
+
 .panel-primary {
     border-color: #C88127;
 }
@@ -196,7 +206,25 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
     background: #F1C15C;
 }
 
-.bg-primary {
+.nav-tabs.left-position {
+    border-right: 1px solid #F1C15C;
+    border-bottom: none;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    background-color: #fff;
+    border: 1px solid #C88127;
+}
+
+.nav-tabs.left-position > li.active > a,
+.nav-tabs.left-position > li.active > a:hover,
+.nav-tabs.left-position > li.active > a:focus {
+    color: #C88127;
+    border: 1px solid #F1C15C;
+    border-right-color: transparent;
+}
+
+.nav>li>a:hover, .nav>li>a:focus {
     color: #fff;
     background-color: #C88127;
 }

@@ -56,6 +56,16 @@ if (!function_exists('getLocationName')) {
 
 }
 
+function getFullLocationByCity($city_id){
+    $ci = & get_instance();
+    $session = $ci->session->userdata('user_session');
+
+    $city = new City();
+    $city_name = $city->where('id', $city_id)->get();
+
+    return $city->{$session->language . '_name'}. ', ' . $city->State->{$session->language . '_name'}. ', ' . $city->State->Country->{$session->language . '_name'};
+}
+
 if (!function_exists('getLastReplyOfMessage')) {
 
     function getLastReplyOfMessage($msg_id) {

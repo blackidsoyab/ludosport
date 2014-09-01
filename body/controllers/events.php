@@ -20,7 +20,7 @@ class events extends CI_Controller {
             $this->layout->view('events/view', $data);
         } else {
             if ($type == 'notification') {
-                //update notification status
+                Notification::updateNotification('event_invitation', $this->session_data->id, $id);
             }
 
             $event = new Event();
@@ -251,7 +251,6 @@ class events extends CI_Controller {
     }
 
     function sendEventInvitation($event_id){
-        $this->_getIds('to_academies', 1);
         //check Event it is passed or not
         if(!empty($event_id)){
             $event_detail = new Event();
@@ -259,11 +258,118 @@ class events extends CI_Controller {
 
             //Check data exits or not
             if($event_detail->result_count() == 1){
+                //Check where the data is post or render view
                 if($this->input->post() !== false){
-                    echo '<pre>';
-                    print_r($_POST);
-                    echo '<pre>';
-                    exit();
+                    $user_ids = array();
+                    
+                    //Get the Individuals ids
+                    if($this->input->post('to_individuals') !== false){
+                        $user_ids[] = $this->input->post('to_individuals');
+                    }
+
+                    //Get the Academy ids
+                    if($this->input->post('to_academies') !== false){
+                        foreach ($this->input->post('to_academies') as $academy_key => $academy_value) {
+                            $user_ids[] = $this->_getIds('to_academies', $academy_value);
+                        }
+                    }
+
+                    //Get the School ids
+                    if($this->input->post('to_schools') !== false){
+                        foreach ($this->input->post('to_schools') as $school_key => $school_value) {
+                            $user_ids[] = $this->_getIds('to_schools', $school_value);
+                        }
+                    }
+
+                    //Get the Clans ids
+                    if($this->input->post('to_clans') !== false){
+                        foreach ($this->input->post('to_clans') as $clan_key => $clan_value) {
+                            $user_ids[] = $this->_getIds('to_clans', $clan_value);
+                        }
+                    }
+
+                    //Get the Students ids
+                    if($this->input->post('to_students') !== false){
+                        $user_ids[] = $this->input->post('to_students');
+                    }
+
+                    $email = new Email();
+                    //get the mail templates
+                    $email->where('type', 'event_invitation')->get();
+                    $message = $email->message;
+
+                    if(!empty($event_detail->image)){
+                        $path= 'assets/img/event_images/' . $event_detail->image;
+                        if(file_exists($path)){
+                            //$type = pathinfo($path, PATHINFO_EXTENSION);
+                            //$data = file_get_contents($path);
+                            //$base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+                            $base64 = base_url() . $path;
+                            $image = '<img src="'.$base64.'" style="width:25%"/>';
+                        } else {
+                            $image = '&nbsp;';
+                        }    
+                    } else {
+                        $image = '&nbsp;';
+                    }    
+
+                    //replace appropriate varaibles
+                    $message = str_replace('#event_name', $event_detail->en_name, $message);
+                    $message = str_replace('#from_date', date('d-m-Y', strtotime($event_detail->date_from)), $message);
+                    $message = str_replace('#to_date', date('d-m-Y', strtotime($event_detail->date_to)), $message);
+                    $message = str_replace('#location', getFullLocationByCity($event_detail->city_id), $message);
+                    $message = str_replace('#event_image', $image, $message);
+                    $user_info = userNameAvtar($event_detail->user_id);
+                    $message = str_replace('#event_created_by', $user_info['name'], $message);
+                    $message = str_replace('#invitation_send_by', $this->session_data->name, $message);
+
+                    
+                    //Now from multidimensional array make single dimensional and get only unique values
+                    $user_ids = array_unique(MultiArrayToSinlgeArray($user_ids));
+
+                    //Short the array 
+                    sort($user_ids);
+
+                    //loop through each user
+                    foreach ($user_ids as $user) {
+                        //get the User details
+                        $user_details = new User();
+                        $user_details->where('id', $user)->get();                        
+
+                        //Save - Update the Invitation
+                        $invitations = new Eventinvitation();
+                        $invitations->where(array('event_id'=>$event_id, 'from_id'=>$this->session_data->id, 'to_id'=>$user))->get();
+                        $invitations->event_id = $event_id;
+                        $invitations->from_id = $this->session_data->id;
+                        $invitations->to_id = $user;
+                        $invitations->save();
+
+                        //Send notification to User
+                        $notification = new Notification();
+                        $notification->type = 'N';
+                        $notification->notify_type = 'event_invitation';
+                        $notification->from_id = $this->session_data->id;
+                        $notification->to_id = $user;
+                        $notification->object_id = $event_detail->id;
+                        $notification->data = serialize(array_merge(objectToArray($event_detail->stored), $this->input->post()));
+                        $notification->save();
+
+                        //Send Mail to user
+                        $message = str_replace('#user', $user_details->firstname .' '. $user_details->lastname, $message);
+
+                        //Send Email
+                        $option = array();
+                        $option['tomailid'] = $user_details->email;
+                        $option['subject'] = $email->subject;
+                        $option['message'] = $message;
+                        if (!is_null($email->attachment)) {
+                            $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
+                        }
+                        send_mail($option);
+                    }
+
+                    $this->session->set_flashdata('success', $this->lang->line('invitation_send_successfully'));
+                    redirect(base_url() .'event/view/' . $event_id , 'refresh');
                 }else{
                     $data['event_detail'] = $event_detail;
                     $data['users'] = $this->_getUsers();
@@ -529,18 +635,51 @@ class events extends CI_Controller {
             $array[] = $user->getStudentsByAcademy($id);
 
             $array = array_unique(MultiArrayToSinlgeArray($array));
-            echo '<pre>';
-            print_r($array);
-            echo '<pre>';
-            exit();
+            sort($array);
+
+            return $array;
         }
 
         if($type == 'to_schools'){
-            
+            $array = array();
+
+            $academy = new Academy();
+            $array[] = $academy->getRecotrsBySchool($id);
+
+            $school = new School();
+            $array[] = $school->getDeansBySchool($id);
+
+            $clan= new Clan();
+            $array[] = $clan->getTeachersBySchool($id);
+
+            $user = new Userdetail();
+            $array[] = $user->getStudentsBySchool($id);
+
+            $array = array_unique(MultiArrayToSinlgeArray($array));
+            sort($array);
+
+            return $array;
         }
 
         if($type == 'to_clans'){
-            
+            $array = array();
+
+            $academy = new Academy();
+            $array[] = $academy->getRecotrsByClan($id);
+
+            $school = new School();
+            $array[] = $school->getDeansByClan($id);
+
+            $clan= new Clan();
+            $array[] = $clan->getTeachersByClan($id);
+
+            $user = new Userdetail();
+            $array[] = $user->getStudentsByClan($id);
+
+            $array = array_unique(MultiArrayToSinlgeArray($array));
+            sort($array);
+
+            return $array;
         }
     }
 

@@ -133,9 +133,35 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
     background: #82BF8C;
 }
 
+.icon-bordered.icon-primary {
+    background: #fff;
+    color: #82BF8C;
+    -webkit-box-shadow: inset 0px 0px 0px 2px #82BF8C;
+    -moz-box-shadow: inset 0px 0px 0px 2px #82BF8C;
+    box-shadow: inset 0px 0px 0px 2px #82BF8C;
+}
+
+.icon-bordered.icon-primary:hover {
+    background: #fff;
+    color: #BEDAC5;
+    -webkit-box-shadow: inset 0px 0px 0px 2px #BEDAC5;
+    -moz-box-shadow: inset 0px 0px 0px 2px #BEDAC5;
+    box-shadow: inset 0px 0px 0px 2px #BEDAC5;
+}
+
 .tiles.dribbble-tile {
     color: #fff;
     background-color: #82BF8C;
+}
+
+.bg-primary {
+    background-color: #82BF8C;
+    border-color: #82BF8C;
+    color: #fff;
+}
+
+.bg-primary h1, .bg-primary h2, .bg-primary h3, .bg-primary h4, .bg-primary h5, .bg-primary h6 {
+    color: #fff;
 }
 
 .panel-primary {
@@ -189,4 +215,27 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
 
 .mail-apps-wrap .toolbar {
     background: #BEDAC5;
+}
+
+.nav-tabs.left-position {
+    border-right: 1px solid #BEDAC5;
+    border-bottom: none;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    background-color: #fff;
+    border: 1px solid #82BF8C;
+}
+
+.nav-tabs.left-position > li.active > a,
+.nav-tabs.left-position > li.active > a:hover,
+.nav-tabs.left-position > li.active > a:focus {
+    color: #82BF8C;
+    border: 1px solid #BEDAC5;
+    border-right-color: transparent;
+}
+
+.nav>li>a:hover, .nav>li>a:focus {
+    color: #fff;
+    background-color: #82BF8C;
 }

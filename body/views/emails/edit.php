@@ -12,6 +12,7 @@
             }
         });
 
+        $('textarea[name="message"]').summernote();
     });
     //]]>
 </script>

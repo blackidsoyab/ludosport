@@ -208,7 +208,6 @@ class School extends DataMapper {
         $this->db->from('schools');
         $this->db->join('academies', 'academies.id=schools.academy_id');
         $this->db->where('academies.id', $academy_id);
-        $this->db->group_by("academies.id"); 
         $res = $this->db->get();
         if ($res->num_rows > 0) {
              $temp = $res->result();
@@ -216,6 +215,42 @@ class School extends DataMapper {
                 $array[] = explode(',', $value->dean_id);
             }
 
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+
+    function getDeansBySchool($school_id){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('dean_id');
+        $this->db->from('schools');
+        $this->db->where('id', $school_id);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+             $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->dean_id);
+            }
+
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
+
+    function getDeansByClan($clan_id){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('dean_id');
+        $this->db->from('schools');
+        $this->db->join('clans', 'schools.id=clans.school_id');
+        $this->db->where('clans.id', $clan_id);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+             $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->dean_id);
+            }
             return array_unique(MultiArrayToSinlgeArray($array));
         } else {
             return false;

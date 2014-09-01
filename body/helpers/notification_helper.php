@@ -110,6 +110,10 @@ function makeURL($options) {
         $url = base_url() . 'clan/change_status_trial_student/' . $options['data']['clan_id'] . '/' . $options['data']['student_id'] . '/notification';
     }
 
+    if ($options['notify_type'] == 'event_invitation') {
+        $url = base_url() . 'event/view/' . $options['data']['id'] . '/notification';
+    }
+
     return $url;
 }
 
@@ -182,9 +186,13 @@ function getMessageTemplate($options) {
         $recover_clan->where('id',$options['data']['clan_id'])->get();
 
         $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_name['name'], $user->firstname.' '.$user->lastname ,$recover_clan->{$session->language.'_class_name'}, date('d-m-Y', strtotime($options['data']['date'])));
-    }   
+    }
 
-     
+    if ($options['notify_type'] == 'event_invitation') {
+        $template_edit = true;
+        $event_field = $session->language .'_name';
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $options['data'][$event_field], getFullLocationByCity( $options['data']['city_id']));
+    }   
 
     if ($template_edit) {
         return $new_template;
@@ -250,11 +258,16 @@ function setMessageTemplate($options) {
             'en' => '%s reschedule your clan. The recovery Clan is %s on %s',
             'it' => '%s reschedule your clan. The recovery Clan is %s on %s',
         ),
-         'recovery_assign_by_teacher_teacher' =>
+        'recovery_assign_by_teacher_teacher' =>
         array(
             'en' => '%s reschedule student %s  clan. The recovery Clan is %s on %s',
             'it' => '%s reschedule student %s clan. The recovery Clan is %s on %s',
         ),
+        'event_invitation' =>
+        array(
+            'en' => '%s at %s',
+            'it' => '%s at %s',
+        )
     );
 
     return $template;
