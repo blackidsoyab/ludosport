@@ -44,9 +44,7 @@ class schools extends CI_Controller {
                             $data['students'][] = $user->stored;
                         }
                     }
-                } else {
-                    $data['students'] = null;
-                } 
+                }
             }
 
             if(!isset($data['clans'])){

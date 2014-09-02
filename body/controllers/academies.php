@@ -26,23 +26,25 @@ class academies extends CI_Controller {
             $schools =  $academy->School->get();
             $data['schools'] = $schools;
             foreach ($schools as $school) {
-                $temp = $school->Clan->get();
-                if(!empty($temp->all)) {
-                    foreach ($temp->all as $value) {
-                        $data['clans'][] = $value->stored;
-                        $userdetails = $value->Userdetail->get();
+                $clans = $school->Clan->get();
+                if(!empty($clans->all)) {
+                    foreach ($clans as $clan) {
+                        $data['clans'][] = $clan->stored;
+                        $userdetails = $clan->Userdetail->get();
                         if($userdetails->result_count() > 0){
-                            foreach ($userdetails as $value) {
-                                $user = $value->User->get();
+                            foreach ($userdetails as $userdetail) {
+                                $user = $userdetail->User->get();
                                 if(!is_null($user->id)){
                                     $data['students'][] = $user->stored;
                                 }
                             }
-                        } else {
-                            $data['students'] = null;
                         }
                     }
                 }
+            }
+
+            if(!isset($data['schools'])){
+                $data['schools'] = null;
             }
 
             if(!isset($data['clans'])){

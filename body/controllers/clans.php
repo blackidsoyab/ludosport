@@ -51,8 +51,6 @@ class clans extends CI_Controller {
                         $data['students'][] = $user->stored;
                     }
                 }
-            } else {
-                $data['students'] = null;
             } 
 
             if(!isset($data['students'])){
