@@ -941,7 +941,6 @@ class messages extends CI_Controller {
                 
                 //Check message prefix
                 if ($message_part[0] == 'inbox') {
-
                     //Check message sufix is single message set status to Trash or if group leave group
                     if($message_part[2] == 'single'){
                         $message->where(array('type' => 'single', 'to_id' => $this->session_data->id, 'id' => $message_part[1]))->update('to_status', 'T');
@@ -951,7 +950,9 @@ class messages extends CI_Controller {
                 } else if ($message_part[0] == 'sent') {
                     //Check message sufix is single message set status to Trash
                     if($message_part[2] == 'single'){
-                        $message->where(array('type' => 'single', 'from_id' => $this->session_data->id, 'id' => $message_part[1]))->update('    from_status', 'T');
+                        $message->where(array('id' => $message_part[1], 'type' => 'single', 'from_id' => $this->session_data->id,))->update('from_status', 'T');
+                    } else if($message_part[2] == 'group'){
+                        $message->leaveGroupMessage($message_part[1], $this->session_data->id);
                     }
                 } else if ($message_part[0] == 'trash') {
                     // now deleting permentally

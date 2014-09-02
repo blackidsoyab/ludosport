@@ -722,7 +722,14 @@ public function getMessagesJsonData($type = 'inbox') {
         $user_info = userNameAvtar($aRow['from_id']);
     } else if($type == 'sent'){
         $user_info = userNameAvtar($aRow['to_id']);
+    } else if($aRow['type'] == 'single' && $type == 'trash'){
+        if($this->session_data->id == $aRow['from_id']){
+            $user_info = userNameAvtar($aRow['to_id']);    
+        } else {
+            $user_info = userNameAvtar($aRow['from_id']);
+        }
     }
+
 
     if ($aRow['type'] == 'single') {
         $type_label = '<span class="label label-info">Single</span>';

@@ -100,6 +100,7 @@ class Message extends DataMapper {
             unset($to_ids[$key]);
         }
         $message->where(array('id' => $message_id))->update('to_id', implode(',', $to_ids));
+        $message->where(array('id' => $message_id, 'from_id'=>$user_id))->update('from_status', 'E');
         if ($message->reply_of != 0) {
             $this->leaveGroupMessage($message->reply_of, $user_id);
         }else{
