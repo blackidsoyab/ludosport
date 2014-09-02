@@ -171,7 +171,7 @@ class json extends CI_Controller {
             $where = ' AND FIND_IN_SET(' . $role_id . ', role_id) > 0';
         }
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('firstname', 'lastname', 'username', 'status');
+        $this->datatable->aColumns = array('firstname', 'lastname', 'username', 'status', 'avtar');
         $this->datatable->eColumns = array('users.id', 'role_id');
         $this->datatable->sIndexColumn = "users.id";
         $this->datatable->sTable = " users, roles";
@@ -180,7 +180,7 @@ class json extends CI_Controller {
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
-            $temp_arr[] = $aRow['firstname'] . ' ' . $aRow['lastname'];
+            $temp_arr[] = '<img src="' . IMG_URL .'user_avtar/40X40/' . $aRow['avtar'].'" class="avatar img-circle" alt="avatar"><a href="' . base_url() . 'profile/view/' . $aRow['id'] . '" class="text-black">' .$aRow['firstname'] . ' ' . $aRow['lastname'] .'</a>';
             $temp_arr[] = $aRow['username'];
             $tmp = NULL;
             foreach (explode(',', $aRow['role_id']) as $role_id) {
