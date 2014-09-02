@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 01, 2014 at 06:38 PM
+-- Generation Time: Sep 02, 2014 at 04:21 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.13
 
@@ -72,7 +72,19 @@ CREATE TABLE IF NOT EXISTS `attendances` (
   `attendance` tinyint(1) NOT NULL DEFAULT '1',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `attendances`
+--
+
+INSERT INTO `attendances` (`id`, `clan_date`, `student_id`, `attendance`, `user_id`, `timestamp`) VALUES
+(1, '2014-09-02', 14, 0, 3, '2014-09-02 06:48:02'),
+(2, '2014-09-02', 15, 0, 3, '2014-09-02 10:23:49'),
+(3, '2014-09-02', 16, 1, 3, '2014-09-02 10:23:49'),
+(4, '2014-09-03', 14, 1, 2, '2014-09-02 06:48:02'),
+(5, '2014-09-03', 15, 1, 2, '2014-09-02 06:48:02'),
+(6, '2014-09-03', 16, 1, 2, '2014-09-02 06:48:02');
 
 -- --------------------------------------------------------
 
@@ -161,6 +173,140 @@ INSERT INTO `cities` (`id`, `state_id`, `en_name`, `it_name`, `user_id`, `timest
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `clandates`
+--
+
+CREATE TABLE IF NOT EXISTS `clandates` (
+`id` int(11) NOT NULL,
+  `clan_id` int(11) NOT NULL,
+  `clan_date` date NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=171 ;
+
+--
+-- Dumping data for table `clandates`
+--
+
+INSERT INTO `clandates` (`id`, `clan_id`, `clan_date`) VALUES
+(1, 1, '2014-07-01'),
+(2, 3, '2014-07-01'),
+(3, 4, '2014-07-01'),
+(4, 1, '2014-07-02'),
+(5, 2, '2014-07-02'),
+(6, 6, '2014-07-02'),
+(7, 2, '2014-07-03'),
+(8, 3, '2014-07-03'),
+(9, 5, '2014-07-04'),
+(10, 3, '2014-07-04'),
+(11, 5, '2014-07-05'),
+(12, 6, '2014-07-06'),
+(13, 6, '2014-07-07'),
+(14, 1, '2014-07-08'),
+(15, 3, '2014-07-08'),
+(16, 4, '2014-07-08'),
+(17, 1, '2014-07-09'),
+(18, 2, '2014-07-09'),
+(19, 6, '2014-07-09'),
+(20, 2, '2014-07-10'),
+(21, 3, '2014-07-10'),
+(22, 5, '2014-07-11'),
+(23, 3, '2014-07-11'),
+(24, 5, '2014-07-12'),
+(25, 6, '2014-07-13'),
+(26, 6, '2014-07-14'),
+(27, 1, '2014-07-15'),
+(28, 3, '2014-07-15'),
+(29, 4, '2014-07-15'),
+(30, 1, '2014-07-16'),
+(31, 2, '2014-07-16'),
+(32, 6, '2014-07-16'),
+(33, 2, '2014-07-17'),
+(34, 3, '2014-07-17'),
+(35, 5, '2014-07-18'),
+(36, 3, '2014-07-18'),
+(37, 5, '2014-07-19'),
+(38, 6, '2014-07-20'),
+(39, 6, '2014-07-21'),
+(40, 1, '2014-07-22'),
+(41, 3, '2014-07-22'),
+(42, 4, '2014-07-22'),
+(43, 1, '2014-07-23'),
+(44, 2, '2014-07-23'),
+(45, 6, '2014-07-23'),
+(46, 2, '2014-07-24'),
+(47, 3, '2014-07-24'),
+(48, 5, '2014-07-25'),
+(49, 3, '2014-07-25'),
+(50, 5, '2014-07-26'),
+(51, 6, '2014-07-27'),
+(52, 6, '2014-07-28'),
+(53, 1, '2014-07-29'),
+(54, 3, '2014-07-29'),
+(55, 4, '2014-07-29'),
+(56, 1, '2014-07-30'),
+(57, 2, '2014-07-30'),
+(58, 6, '2014-07-30'),
+(59, 2, '2014-07-31'),
+(60, 3, '2014-07-31'),
+(61, 5, '2014-08-01'),
+(62, 3, '2014-08-01'),
+(63, 5, '2014-08-02'),
+(64, 6, '2014-08-03'),
+(65, 6, '2014-08-04'),
+(66, 1, '2014-08-05'),
+(67, 3, '2014-08-05'),
+(68, 4, '2014-08-05'),
+(69, 1, '2014-08-06'),
+(70, 2, '2014-08-06'),
+(71, 6, '2014-08-06'),
+(72, 2, '2014-08-07'),
+(73, 3, '2014-08-07'),
+(74, 5, '2014-08-08'),
+(75, 3, '2014-08-08'),
+(76, 5, '2014-08-09'),
+(77, 6, '2014-08-10'),
+(78, 6, '2014-08-11'),
+(79, 1, '2014-08-12'),
+(80, 3, '2014-08-12'),
+(81, 4, '2014-08-12'),
+(82, 1, '2014-08-13'),
+(83, 2, '2014-08-13'),
+(84, 6, '2014-08-13'),
+(85, 2, '2014-08-14'),
+(86, 3, '2014-08-14'),
+(87, 5, '2014-08-15'),
+(88, 3, '2014-08-15'),
+(89, 5, '2014-08-16'),
+(90, 6, '2014-08-17'),
+(91, 6, '2014-08-18'),
+(92, 1, '2014-08-19'),
+(93, 3, '2014-08-19'),
+(94, 4, '2014-08-19'),
+(95, 1, '2014-08-20'),
+(96, 2, '2014-08-20'),
+(97, 6, '2014-08-20'),
+(98, 2, '2014-08-21'),
+(99, 3, '2014-08-21'),
+(100, 5, '2014-08-22'),
+(101, 3, '2014-08-22'),
+(102, 5, '2014-08-23'),
+(103, 6, '2014-08-24'),
+(104, 6, '2014-08-25'),
+(105, 1, '2014-08-26'),
+(106, 3, '2014-08-26'),
+(107, 4, '2014-08-26'),
+(108, 1, '2014-08-27'),
+(109, 2, '2014-08-27'),
+(110, 6, '2014-08-27'),
+(111, 2, '2014-08-28'),
+(112, 3, '2014-08-28'),
+(113, 5, '2014-08-29'),
+(114, 3, '2014-08-29'),
+(115, 5, '2014-08-30'),
+(116, 6, '2014-08-31');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `clans`
 --
 
@@ -198,7 +344,7 @@ INSERT INTO `clans` (`id`, `academy_id`, `school_id`, `teacher_id`, `level_id`, 
 (3, 1, 3, '3', 1, '2,4,5', 1409218500, 1409222100, 'Sailor Ep 2', 'Sailor Ep 2', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:47:38'),
 (4, 2, 4, '5', 1, '2', 1406363400, 1406370600, 'Lab Ep 2', 'Lab Ep 2', 1, 'Baroda', '390016', 5, 4, 2, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:48:27'),
 (5, 1, 1, '5', 1, '5,6', 1407292200, 1407306600, 'Poppey Ep 2', 'Poppey Ep 2', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-08-06 05:25:51'),
-(6, 1, 3, '3', 1, '2,4,5', 1406352600, 1406359800, 'Sailor Ep 3', 'Sailor Ep 3', 1, 'Baroda', '390016', 2, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:47:38');
+(6, 1, 3, '3', 1, '1,3,7', 1406352600, 1406359800, 'Sailor Ep 3', 'Sailor Ep 3', 1, 'Baroda', '390016', 2, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:47:38');
 
 -- --------------------------------------------------------
 
@@ -403,7 +549,14 @@ CREATE TABLE IF NOT EXISTS `messageattachments` (
   `file_size` bigint(25) NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `messageattachments`
+--
+
+INSERT INTO `messageattachments` (`id`, `message_id`, `file_name`, `original_name`, `file_type`, `file_size`, `user_id`, `timestamp`) VALUES
+(1, 5, 'a4980d04a51383ca387521eab8eeabfd.jpg', 'image.jpg', 'image/jpeg', 61, 2, '2014-09-02 04:19:52');
 
 -- --------------------------------------------------------
 
@@ -424,7 +577,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `from_status` enum('S','D','T','E') NOT NULL DEFAULT 'D',
   `to_status` enum('R','U','T','E') NOT NULL DEFAULT 'U',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `messages`
@@ -434,7 +587,17 @@ INSERT INTO `messages` (`id`, `type`, `initial_id`, `reply_of`, `group_id`, `fro
 (1, 'single', 1, 0, '0', 3, '8', 'Hello', '<p>[removed]alert&#40;''Hello''&#41;;[removed]</p>', 'S', 'R', '2014-08-30 06:47:26'),
 (2, 'single', 1, 1, '0', 8, '3', 'Hello', '<p><a href="http://google.com" target="_blank">Hello</a></p><p>&lt;a href="fsdfsdf"&gt;Man Made&lt;/a&gt;</p>', 'S', 'R', '2014-08-30 06:54:02'),
 (3, 'single', 1, 2, '0', 3, '8', 'Hello', '<p><img src="http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png" ><br></p>', 'S', 'R', '2014-08-30 06:55:15'),
-(4, 'single', 1, 3, '0', 8, '3', 'Hello', '<p>&lt;img src="http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png" /&gt;</p>', 'S', 'R', '2014-08-30 07:03:52');
+(4, 'single', 1, 3, '0', 8, '3', 'Hello', '<p>&lt;img src="http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png" /&gt;</p>', 'S', 'R', '2014-08-30 07:03:52'),
+(5, 'group', 5, 0, 'rector_3_1', 2, '3,5,6', 'Hello ..............', '<p>Hi.....</p>', 'E', 'R', '2014-09-02 04:19:52'),
+(6, 'group', 5, 5, 'rector_3_1', 3, '5,6', 'Hello ..............', '<p>Hello ..........................</p>', 'S', 'R', '2014-09-02 04:20:22'),
+(7, 'group', 5, 6, 'rector_3_1', 5, '3,6', 'Hello ..............', '<p ><span >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut facilisis \npretium pulvinar. Nam in velit in risus euismod gravida ac sit amet \nquam. Suspendisse placerat blandit diam gravida pretium. Sed tincidunt, \ntellus nec rhoncus varius, dui nisl ornare erat, sed vulputate est massa\n a ex. Donec euismod metus nisi, vitae aliquam sem consectetur \nsollicitudin. Mauris sed sodales ante. Sed porttitor ullamcorper urna. \nUt diam sem, dictum a cursus vitae, ullamcorper ut ipsum. Sed sit amet \nmauris at velit malesuada porttitor. Fusce nec auctor ligula, nec \nvulputate nisi.\n</span></p>', 'S', 'R', '2014-09-02 04:21:58'),
+(8, 'group', 5, 7, 'rector_3_1', 3, '5,6', 'Hello ..............', '<p ><span >Suspendisse vitae congue risus.</span><br><span >Suspendisse potenti.</span><br><span >Praesent lacus \n ligula, vulputate vel nunc vitae, imperdiet lobortis purus.</span><br><span >Aenean \n faucibus tempor magna.</span><br><span >Etiam a lorem sed eros luctus mollis.</span><br><span >Mauris \n viverra ac nisi eget efficitur.</span><br><span >Curabitur libero enim, accumsan sed \n posuere pretium, mollis in libero.</span><br><span >Ut egestas eget tellus vitae \n ultricies.</span><br><span >Pellentesque pellentesque finibus arcu at vulputate.</span><br><span >Nunc ut \n velit eget mi mollis maximus.</span><br><span >Nunc et arcu a odio luctus semper vitae \n nec nisi.</span><br><span >Aenean non tempus enim.</span><br><span >Pellentesque facilisis aliquam justo.</span><br><span >Nam tellus velit, maximus vitae lobortis a, rutrum vulputate elit.</span><br><span >Vivamus hendrerit nibh a consectetur sodales.&nbsp;</span><br></p>', 'S', 'R', '2014-09-02 04:24:15'),
+(9, 'group', 5, 8, 'rector_3_1', 2, '3,5,6', 'Hello ..............', '<p><span>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."</span></p>', 'E', 'R', '2014-09-02 04:43:20'),
+(10, 'group', 5, 9, 'rector_3_1', 5, '3,6', 'Hello ..............', '<p><span >هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء لصفحة ما سيلهي \nالقارئ عن التركيز على الشكل الخارجي للنص أو شكل توضع الفقرات في الصفحة \nالتي يقرأها. ولذلك يتم استخدام طريقة لوريم إيبسوم لأنها تعطي توزيعاَ \nطبيعياَ -إلى حد ما- للأحرف عوضاً عن استخدام "هنا يوجد محتوى نصي، هنا \nيوجد محتوى نصي" فتجعلها تبدو (أي الأحرف) وكأنها نص مقروء. العديد من \nبرامح النشر المكتبي وبرامح تحرير صفحات الويب تستخدم لوريم إيبسوم بشكل \nإفتراضي كنموذج عن النص، وإذا قمت بإدخال "lorem ipsum" في أي محرك بحث \nستظهر العديد من المواقع الحديثة العهد في نتائج البحث. على مدى السنين \nظهرت نسخ جديدة ومختلفة من نص لوريم إيبسوم، أحياناً عن طريق الصدفة، \nوأحياناً عن عمد كإدخال بعض العبارات الفكاهية إليها.  \n</span></p>', 'S', 'R', '2014-09-02 04:45:41'),
+(11, 'group', 5, 10, 'rector_3_1', 2, '5,3,6', 'Hello ..............', '<p><span>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."</span></p>', 'E', 'R', '2014-09-02 04:49:27'),
+(12, 'single', 12, 0, '0', 2, '5', 'Testing', '<h  >"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."</h5>', 'T', 'R', '2014-09-02 04:51:13'),
+(13, 'single', 12, 12, '0', 5, '2', 'Testing', '<p>Nice .......<br></p>', 'S', 'R', '2014-09-02 04:59:48'),
+(14, 'single', 14, 0, '0', 3, '2', 'New', '<p>Hi ....</p>', 'S', 'R', '2014-09-02 05:01:45');
 
 -- --------------------------------------------------------
 
@@ -447,7 +610,34 @@ CREATE TABLE IF NOT EXISTS `messagestatus` (
   `message_id` int(11) NOT NULL,
   `status` enum('R','U') NOT NULL DEFAULT 'U',
   `to_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+
+--
+-- Dumping data for table `messagestatus`
+--
+
+INSERT INTO `messagestatus` (`id`, `message_id`, `status`, `to_id`) VALUES
+(1, 5, 'R', 3),
+(2, 5, 'R', 5),
+(3, 5, 'U', 6),
+(4, 6, 'R', 2),
+(5, 6, 'R', 5),
+(6, 6, 'U', 6),
+(7, 7, 'R', 3),
+(8, 7, 'R', 2),
+(9, 7, 'U', 6),
+(10, 8, 'R', 5),
+(11, 8, 'R', 2),
+(12, 8, 'U', 6),
+(13, 9, 'R', 3),
+(14, 9, 'R', 5),
+(15, 9, 'U', 6),
+(16, 10, 'R', 2),
+(17, 10, 'R', 3),
+(18, 10, 'U', 6),
+(19, 11, 'R', 5),
+(20, 11, 'R', 3),
+(21, 11, 'U', 6);
 
 -- --------------------------------------------------------
 
@@ -474,7 +664,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
 INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `object_id`, `data`, `status`, `timestamp`) VALUES
 (1, 'N', 'event_invitation', 3, 3, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:3:"ALL";s:9:"school_id";s:1:"0";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:36:"d48964571913989890a1905b09fceedf.jpg";s:11:"description";s:11:"<p>ddsD</p>";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:2:{i:0;s:1:"1";i:1;s:1:"2";}}', 1, '2014-09-01 07:10:58'),
 (2, 'N', 'event_invitation', 3, 4, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:3:"ALL";s:9:"school_id";s:1:"0";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:36:"d48964571913989890a1905b09fceedf.jpg";s:11:"description";s:11:"<p>ddsD</p>";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:2:{i:0;s:1:"1";i:1;s:1:"2";}}', 0, '2014-09-01 07:11:09'),
-(3, 'N', 'event_invitation', 3, 5, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:3:"ALL";s:9:"school_id";s:1:"0";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:36:"d48964571913989890a1905b09fceedf.jpg";s:11:"description";s:11:"<p>ddsD</p>";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:2:{i:0;s:1:"1";i:1;s:1:"2";}}', 0, '2014-09-01 07:11:21'),
+(3, 'N', 'event_invitation', 3, 5, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:3:"ALL";s:9:"school_id";s:1:"0";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:36:"d48964571913989890a1905b09fceedf.jpg";s:11:"description";s:11:"<p>ddsD</p>";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:2:{i:0;s:1:"1";i:1;s:1:"2";}}', 1, '2014-09-01 07:11:21'),
 (4, 'N', 'event_invitation', 3, 12, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:3:"ALL";s:9:"school_id";s:1:"0";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:36:"d48964571913989890a1905b09fceedf.jpg";s:11:"description";s:11:"<p>ddsD</p>";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:2:{i:0;s:1:"1";i:1;s:1:"2";}}', 1, '2014-09-01 07:11:31'),
 (5, 'N', 'event_invitation', 3, 13, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:3:"ALL";s:9:"school_id";s:1:"0";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:36:"d48964571913989890a1905b09fceedf.jpg";s:11:"description";s:11:"<p>ddsD</p>";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:2:{i:0;s:1:"1";i:1;s:1:"2";}}', 0, '2014-09-01 07:11:42'),
 (6, 'N', 'event_invitation', 3, 14, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:3:"ALL";s:9:"school_id";s:1:"0";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:36:"d48964571913989890a1905b09fceedf.jpg";s:11:"description";s:11:"<p>ddsD</p>";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:2:{i:0;s:1:"1";i:1;s:1:"2";}}', 0, '2014-09-01 07:11:51'),
@@ -747,6 +937,12 @@ ALTER TABLE `cities`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `clandates`
+--
+ALTER TABLE `clandates`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `clans`
 --
 ALTER TABLE `clans`
@@ -873,7 +1069,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `attendance_recovers`
 --
@@ -889,6 +1085,11 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 ALTER TABLE `cities`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `clandates`
+--
+ALTER TABLE `clandates`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=171;
 --
 -- AUTO_INCREMENT for table `clans`
 --
@@ -933,17 +1134,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `messageattachments`
 --
 ALTER TABLE `messageattachments`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `messagestatus`
 --
 ALTER TABLE `messagestatus`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `notifications`
 --
