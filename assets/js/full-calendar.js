@@ -10,7 +10,7 @@ $(document).ready(function() {
     $('#today-button').click(function(){
         $('#calendar').fullCalendar('today');
         beforeCalenderLoad();
-        $("html, body").scrollTop($('#today-button').offset().top); 
+        $("html, body").scrollTop($('#next-button').offset().top); 
     });
 
     //Onclick Next Month
@@ -59,7 +59,7 @@ function loadCalander(year, month, url){
             element.removeClass('fc-event-start');
             element.removeClass('fc-event-end');
 
-            if(event.tip){
+            if(event.tooltip){
                 element.attr('data-toggle', 'tooltip');
                 element.attr('data-original-title', event.tooltip);
                 $(element).tooltip({ container: "body"})    

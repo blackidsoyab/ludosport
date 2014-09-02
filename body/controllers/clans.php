@@ -668,35 +668,34 @@ class clans extends CI_Controller {
                 //get all the regular student and make absent or present
                 if($this->input->post('regular_user_id') !== false) {
                     foreach ($this->input->post('regular_user_id') as $regular_key => $regular_value) {
-                        //check if he is absent
-                        if($regular_value == 0){
-                            $attadence = new Attendance();
-                            //get the attendance record 
-                            $attadence->where(array('clan_date'=>$this->input->post('date'), 'student_id'=>$regular_key))->get();
-                            //update the value
-                            $attadence->update('attendance', $regular_value);
-                        }
+                        $attadence = new Attendance();
+                        //get the attendance record 
+                        $attadence->where(array('clan_date'=>$this->input->post('date'), 'student_id'=>$regular_key))->get();
+                        //update the value
+                        $attadence->clan_date = $this->input->post('date');
+                        $attadence->student_id = $regular_key;
+                        $attadence->attendance = $regular_value;
+                        //$attadence->user_id = $this->session_data->id;
+                        $attadence->save();
                     }
                 }
 
                 //get all the recovery student and make absent or present
                 if($this->input->post('recover_user_id') !== false) {
                     foreach ($this->input->post('recover_user_id') as $recover_key => $recover_value) {
-                         //check if he is absent
-                        if($recover_value == 0){
-                            $recover = new Attendancerecover();
-                            //get the attendance recovery record 
-                            $recover->where(array('clan_id'=>$clan_id,'clan_date'=>$this->input->post('date'),'student_id'=>$recover_key))->get();
+                        $recover = new Attendancerecover();
+                        //get the attendance recovery record 
+                        $recover->where(array('clan_id'=>$clan_id,'clan_date'=>$this->input->post('date'),'student_id'=>$recover_key))->get();
 
-                            //update the value
-                            $recover->update('attendance', $recover_value);
-                        }
+                        //update the value
+                        $recover->update('attendance', $recover_value);
                     }
                 }
             }
         }
 
-        redirect(base_url() .'dashboard', 'refresh');
+        $this->session->set_flashdata('success', $this->lang->line('attendance_save_successfully'));
+        redirect(base_url() .'clan/clan_attendance/' . $clan_id .'/'. $this->input->post('date'), 'refresh');
     }
 
     function nextWeekAttendances($clan_id){

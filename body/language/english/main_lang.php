@@ -43,6 +43,8 @@ $lang['unauthorize_access'] = 'Unauthorize Access';
 $lang['no_data_exit'] = 'No Data Exits';
 $lang['no_student_exit'] = 'No Student Exits';
 $lang['invitation_send_successfully'] = 'Invitation Send Successfully';
+$lang['attendance_next_week_done'] = 'Attendance for next week done';
+$lang['attendance_save_successfully'] = 'Attendance Saved Successfully';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';
@@ -197,8 +199,6 @@ $lang['absent'] = 'Absent';
 $lang['attendance_sheet'] = 'Attendance Sheet';
 $lang['next_class'] = 'Next Clan';
 $lang['attendance'] = 'Attendance';
-$lang['attendance_next_week_done'] = 'Attendance for next week done';
-
 
 //Levels
 $lang['is_basic'] = 'is basic';

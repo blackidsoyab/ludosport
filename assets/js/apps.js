@@ -501,8 +501,32 @@ $(document).ready(function(){
 		});
 	}
 	/** END WIDGET PIE FUNCTION **/
-	
-	
+
+	/* Auto Close Alert */
+	if($(".alert-success").length > 0){
+		$(".alert-success").fadeTo(2500, 1000).slideUp(1000, function(){
+			$(".alert-success").alert('close');
+		});
+	}
+
+	if($(".alert-warning").length > 0){
+		$(".alert-warning").fadeTo(2500, 1000).slideUp(1000, function(){
+			$(".alert-warning").alert('close');
+		});
+	}
+
+	if($(".alert-info").length > 0){
+		$(".alert-info").fadeTo(2500, 1000).slideUp(1000, function(){
+			$(".alert-info").alert('close');
+		});
+	}
+
+	if($(".alert-danger").length > 0){
+		$(".alert-danger").fadeTo(2500, 1000).slideUp(1000, function(){
+			$(".alert-danger").alert('close');
+		});
+	}
+	/** END **/
 });
 
 function PositionFooter() {
