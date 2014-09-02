@@ -13,6 +13,12 @@ class clans extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
     }
 
+     /*
+    *   List all clans if the id is null
+    *   Single clan if id is passed
+    *   Param1(optional) : clan id
+    *   Param2(optional) : any text (e.g. : notification)
+    */
     function viewClan($id = null, $type = null) {
         $academy = New Academy();
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
@@ -65,6 +71,7 @@ class clans extends CI_Controller {
         }
     }
 
+    //Add the Clan
     function addClan() {
         if ($this->input->post() !== false) {
             $obj = new Clan();
@@ -138,6 +145,10 @@ class clans extends CI_Controller {
         }
     }
 
+    /*
+    *   Edit the Clan
+    *   Param1(required) : Clan id
+    */
     function editClan($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
@@ -228,6 +239,10 @@ class clans extends CI_Controller {
         }
     }
 
+    /*
+    *   Delete the Clan
+    *   Param1(required) : Clan id
+    */
     function deleteClan($id) {
         if (!empty($id)) {
             $clan = new Clan();
@@ -246,6 +261,11 @@ class clans extends CI_Controller {
         }
     }
 
+    /*
+    *   List the Teachers of the Clan
+    *   Param1(optional) : Clan id
+    *   Param2(optional) : all, academy, school, clan
+    */
     function clanTeacherList($id = 0, $type = 'all') {
         $this->layout->setField('page_title', $this->lang->line('list') . ' ' . $this->lang->line('teachers'));
 
@@ -299,6 +319,11 @@ class clans extends CI_Controller {
         $this->layout->view('clans/teacher_list', $data);
     }
 
+    /*
+    *   List the Students of the Clan
+    *   Param1(optional) : Clan id
+    *   Param2(optional) : all, academy, school, clan
+    */
     function clanStudentList($id = 0, $type = 'all') {
         $this->layout->setField('page_title', $this->lang->line('list') . ' ' . $this->lang->line('student'));
 
@@ -352,6 +377,10 @@ class clans extends CI_Controller {
         $this->layout->view('clans/student_list', $data);
     }
 
+    /*
+    *   List the student who request for trial lesson
+    *   Param1(required) : Clan id
+    */
     function listTrialLessonRequest($clan_id) {
         $clan = new Clan();
 
@@ -361,6 +390,12 @@ class clans extends CI_Controller {
         $this->layout->view('clans/trial_lesson_request', $data);
     }
 
+    /*
+    *   Change the Status of the student who applied for trail lesson from Pending => Approved or Unapproved
+    *   Param1(required) : Clan id
+    *   Param2(required) : Student id
+    *   Param3(optional) : any text (e.g. : notification)
+    */
     function changeStatusTrialStudent($clan_id, $student_master_id, $type = null) {
 
         //Update the Notifications
@@ -535,6 +570,11 @@ class clans extends CI_Controller {
         }
     }
 
+    /*
+    *   List the student of the clan for the attendance
+    *   Param1(required) : Clan id
+    *   Param2(required) : Date
+    */
     function clanAttendances($clan_id, $date){
         $clan = New Clan();
 
@@ -659,6 +699,10 @@ class clans extends CI_Controller {
         }
     }
 
+    /*
+    *   Save the attendance for the clan 
+    *   Param1(required) : Clan id
+    */
     function saveClanAttendances($clan_id){
         //check that clan id is passed or not
         if (!empty($clan_id)) {
@@ -698,6 +742,10 @@ class clans extends CI_Controller {
         redirect(base_url() .'clan/clan_attendance/' . $clan_id .'/'. $this->input->post('date'), 'refresh');
     }
 
+    /*
+    *   Make next week attendance of the clan 
+    *   Param1(required) : Clan id
+    */
     function nextWeekAttendances($clan_id){
         //Check clan id is passed or not
         if(!empty($clan_id)){
@@ -779,6 +827,11 @@ class clans extends CI_Controller {
         redirect(base_url() . 'dashboard', 'refresh'); 
     }
 
+    /*
+    *   Get the same level of the clan
+    *   Used for the Recovery Class option
+    *   Param1(required) : Clan id
+    */
     function getSameLevelClans($clan_id) {
         $obj_clan = new Clan();
         //get the details of the clan
@@ -831,6 +884,11 @@ class clans extends CI_Controller {
         echo $str;
     }
 
+    /*
+    *   Get next dates of the clans
+    *   Used for the Recovery Class option
+    *   Param1(required) : Clan id
+    */
     function getDateOfClanForTeacher($clan_id) {
         $clan = new Clan();
         /*
@@ -865,6 +923,7 @@ class clans extends CI_Controller {
         echo $str;
     }
 
+    //save the recovery class for student set by teacher
     function changeDateStudentByTeacher(){
         $recover = new Attendancerecover();
         //check where attendance revoce exits
