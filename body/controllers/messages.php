@@ -316,7 +316,7 @@ class messages extends CI_Controller {
                     //again sort the array by first name
                     return subvalue_sort(array_map("unserialize", array_unique(array_map("serialize", MultiArrayToSinlgeArray($array)))), 'firstname');
                 }else{
-                    return fasle;
+                    return false;
                 }
             } else{
                 return false;
@@ -811,8 +811,11 @@ class messages extends CI_Controller {
         if ($result !== FALSE) {
             $message->where(array('id'=>$id, 'to_id' => $this->session_data->id, 'to_status'  => 'U', 'type' => 'single'))->update('to_status', 'R');
 
+            $message_chain = $message->getMessageChain($id);
             $messagestatus = new Messagestatus();
-            $messagestatus->where(array('message_id'=>$id, 'to_id' => $this->session_data->id, 'status' => 'U'))->update('status', 'R');
+            $messagestatus->where(array('to_id' => $this->session_data->id, 'status' => 'U'));
+            $messagestatus->where_in('message_id', $message_chain);
+            $messagestatus->update('status', 'R');
 
             $data = $this->_sidebarData();
             $data['id'] = $id;
