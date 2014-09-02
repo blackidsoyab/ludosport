@@ -58,7 +58,7 @@
             "aoColumns": [
                 {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": ""}
             ],
-            "sAjaxSource": "<?php echo base_url() . "clan/teacherjson/"; ?>" + $('#academy_id').val() + '/' + $('#school_id').val() + '/' + $('#clan_id').val(),
+            "sAjaxSource": "<?php echo base_url() . 'clan/teacherjson/'; ?>" + $('#academy_id').val() + '/' + $('#school_id').val() + '/' + $('#clan_id').val(),
             "fnInitComplete": function (oSettings, json) {
                 PositionFooter();     
             }
