@@ -438,77 +438,6 @@ $(document).ready(function(){
 	}
 	/** END ICHECK **/
 	
-
-   
-
-	/** BEGIN INPUT FILE **/
-	if ($('.btn-file').length > 0){
-		$(document)
-			.on('change', '.btn-file :file', function() {
-				"use strict";
-				var input = $(this),
-				numFiles = input.get(0).files ? input.get(0).files.length : 1,
-				label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-				input.trigger('fileselect', [numFiles, label]);
-		});
-		$('.btn-file :file').on('fileselect', function(event, numFiles, label) {
-			
-			var input = $(this).parents('.input-group').find(':text'),
-				log = numFiles > 1 ? numFiles + ' files selected' : label;
-			
-			if( input.length ) {
-				input.val(log);
-			} else {
-				if( log ) alert(log);
-			}
-		});
-	}
-	/** END INPUT FILE **/
-	
-	
-	
-	
-	/** BEGIN DATEPICKER **/
-	if ($('.datepicker').length > 0){
-		$('.datepicker').datepicker()
-	}
-	
-	if ($('#datepicker1').length > 0){
-		var nowTemp = new Date();
-		var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
-		 
-		var checkin = $('#datepicker1').datepicker({
-		  onRender: function(date) {
-			return date.valueOf() < now.valueOf() ? 'disabled' : '';
-		  }
-		}).on('changeDate', function(ev) {
-		  if (ev.date.valueOf() > checkout.date.valueOf()) {
-			var newDate = new Date(ev.date)
-			newDate.setDate(newDate.getDate() + 1);
-			checkout.setValue(newDate);
-		  }
-		  checkin.hide();
-		  $('#datepicker2')[0].focus();
-		}).data('datepicker');
-		var checkout = $('#datepicker2').datepicker({
-		  onRender: function(date) {
-			return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
-		  }
-		}).on('changeDate', function(ev) {
-		  checkout.hide();
-		}).data('datepicker');
-	}
-	/** END DATEPICKER **/
-	
-	
-	
-	
-	/** BEGIN TIMEPICKER **/
-	if ($('.timepicker').length > 0){
-		$('.timepicker').timepicker();
-	}
-	/** END TIMEPICKER **/
-	
 	
 	
 	/** BEGIN INPUT MASK **/
@@ -526,7 +455,7 @@ $(document).ready(function(){
 		$('.ip_address_masking').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: {'Z': {pattern: /[0-9]/, optional: true}}});
 		$('.ip_address_masking').mask('099.099.099.099');
 		$('.percent_masking').mask('##0,00%', {reverse: true});
-                $('.academy_fee_masking').mask('000000.00');
+        $('.academy_fee_masking').mask('000000.00');
 	});
 	/** END INPUT MASK **/
 	

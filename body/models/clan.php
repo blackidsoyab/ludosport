@@ -395,10 +395,29 @@ class Clan extends DataMapper {
     }
 
     function getClansByTeacherAndDay($teacher_id, $day = '1'){
+        $session = get_instance()->session->userdata('user_session');
         $this->db->_protect_identifiers = false;
-        $this->db->select('*');
+        $this->db->select('clans.id,' .$session->language. '_class_name AS clan,'.$session->language.'_school_name AS school,' .$session->language.'_academy_name AS academy');
         $this->db->from('clans');
+        $this->db->join('schools', 'schools.id=clans.school_id');
+        $this->db->join('academies', 'academies.id=schools.academy_id');
         $this->db->where('teacher_id', $teacher_id);
+        $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0");
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+
+    function getClansByDay($day = '1'){
+        $session = get_instance()->session->userdata('user_session');
+        $this->db->_protect_identifiers = false;
+        $this->db->select('clans.id,' .$session->language. '_class_name AS clan,'.$session->language.'_school_name AS school,' .$session->language.'_academy_name AS academy');
+        $this->db->from('clans');
+        $this->db->join('schools', 'schools.id=clans.school_id');
+        $this->db->join('academies', 'academies.id=schools.academy_id');
         $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0");
         $res = $this->db->get();
         if ($res->num_rows > 0) {
@@ -429,6 +448,20 @@ class Clan extends DataMapper {
         $this->db->from('clans');
         $this->db->where('id', $clan_id);
         $this->db->where('teacher_id', $teacher_id);
+        $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0");
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function getClansDetailsByDay($clan_id, $day = '1'){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('*');
+        $this->db->from('clans');
+        $this->db->where('id', $clan_id);
         $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0");
         $res = $this->db->get();
         if ($res->num_rows > 0) {

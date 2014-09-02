@@ -43,6 +43,10 @@ class clans extends CI_Controller {
             $data['clan'] = $obj->where('id', $id)->get();
             $data['school'] = $obj->School->get();
             $data['academy'] = $obj->School->Academy->get();
+
+            $obj_clan_dates = new Clandate();
+            $data['clan_dates'] = $obj_clan_dates->where('clan_id', $id)->get();
+
             $userdetails = $obj->Userdetail->get();
             if($userdetails->result_count() > 0){
                 foreach ($userdetails as $value) {
@@ -537,13 +541,24 @@ class clans extends CI_Controller {
         //get the Number of day like Monday : 1 .... Sunday : 7
         $day_numeric = date('N', strtotime($date));
 
-        /*
-        *   get the Cland details
-        *   Param1(required) : Clan ID
-        *   Param2(required) : Teacher ID
-        *   Param3(required) : Day in Number like Monday : 1 .... Sunday : 7
-        */
-        $details = $clan->getClansDetailsByTeacherAndDay($clan_id, $this->session_data->id, $day_numeric);
+        //Role Super Admin or Admin
+        if($this->session_data->id == 1 || $this->session_data->id == 2){
+            /*
+            *   get the Cland details
+            *   Param1(required) : Clan ID
+            *   Param2(required) : Day in Number like Monday : 1 .... Sunday : 7
+            */
+            $details = $clan->getClansDetailsByDay($clan_id,$day_numeric);
+        }else{
+            /*
+            *   get the Cland details
+            *   Param1(required) : Clan ID
+            *   Param2(required) : Teacher ID
+            *   Param3(required) : Day in Number like Monday : 1 .... Sunday : 7
+            */
+            $details = $clan->getClansDetailsByTeacherAndDay($clan_id, $this->session_data->id, $day_numeric);    
+        }
+        
 
         //Current Date
         $current_date = get_current_date_time()->get_date_for_db();
@@ -554,7 +569,13 @@ class clans extends CI_Controller {
         //check if recored exits or not
         if($details){ 
             //get the full clan details
-            $clan = $clan->where(array('id'=>$clan_id, 'teacher_id'=>$this->session_data->id))->get();
+            //Role Super Admin or Admin
+            if($this->session_data->id == 1 || $this->session_data->id == 2){
+                $clan = $clan->where(array('id'=>$clan_id))->get();    
+            }else {
+                $clan = $clan->where(array('id'=>$clan_id, 'teacher_id'=>$this->session_data->id))->get();    
+            }
+            
 
             //Set variable for view part
             $data['clan_details'] = $clan;
@@ -682,8 +703,12 @@ class clans extends CI_Controller {
         //Check clan id is passed or not
         if(!empty($clan_id)){
             $clan = New Clan();
-            //get the clan details
-            $clan->where(array('id'=>$clan_id, 'teacher_id'=>$this->session_data->id))->get();
+            //Role Super Admin or Admin => get the clan details
+            if($this->session_data->id == 1 || $this->session_data->id == 2){
+                $clan = $clan->where(array('id'=>$clan_id))->get();    
+            }else {
+                $clan = $clan->where(array('id'=>$clan_id, 'teacher_id'=>$this->session_data->id))->get();    
+            }
 
             //check if the clan exits.
             if($clan->result_count() == 1){

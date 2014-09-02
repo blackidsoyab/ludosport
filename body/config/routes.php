@@ -97,6 +97,9 @@ $route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
 $route['change_role/(:any)'] = "ajax/setNewRole/$1";
 $route['mark_all_notification_read'] = "ajax/markAllNotificationRead";
 $route['mark_all_message_read'] = "ajax/markAllMessageRead";
+$route['teacher/class_details/(:num)/(:num)'] = "dashboard/teacherClassDetails/$1/$2";
+$route['student/class_details/(:num)/(:num)'] = "dashboard/studentClassDetails/$1/$2";
+$route['admin/class_details/(:num)/(:num)'] = "dashboard/adminClassDetails/$1/$2";
 
 //Profile
 $route['change_password'] = "profiles/changePassword";
@@ -134,10 +137,6 @@ $route['clan/teacherjson'] = "json/getTeachersJsonData";
 $route['clan/teacherjson/(:any)'] = "json/getTeachersJsonData/$1";
 $route['clan/teacherjson/(:any)/(:any)'] = "json/getTeachersJsonData/$1/$2";
 $route['clan/teacherjson/(:any)/(:any)/(:any)'] = "json/getTeachersJsonData/$1/$2/$3";
-
-//Teacher Dashborad
-$route['teacher/class_details/(:num)/(:num)'] = "dashboard/teacherClassDetails/$1/$2";
-$route['student/class_details/(:num)/(:num)'] = "dashboard/studentClassDetails/$1/$2";
 
 //Teacher Student Attadence
 $route['getclandates_teacher/(:num)'] = "clans/getDateOfClanForTeacher/$1";

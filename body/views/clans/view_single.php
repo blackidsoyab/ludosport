@@ -1,5 +1,5 @@
 <?php $session = $this->session->userdata('user_session'); ?>
-<h1 class="page-heading"><?php echo $school->{$session->language.'_class_name'}; ?></h1>
+<h1 class="page-heading"><?php echo $clan->{$session->language.'_class_name'}; ?></h1>
 
 <div class="row">
 	<div class="col-md-12">
@@ -28,6 +28,12 @@
 						<a href="#student-detail" data-toggle="tab">
 							<?php echo $this->lang->line('student'); ?>
 							<span class="badge badge-primary"><?php echo count($students); ?></span>
+						</a>
+					</li>
+
+					<li>
+						<a href="#clan-attadence" data-toggle="tab">
+							<?php echo $this->lang->line('attendance'); ?>
 						</a>
 					</li>
 				</ul>
@@ -250,6 +256,17 @@
 						</div>
 						<?php } else { ?>
 						<h3 class="text-danger">No Students</h3>
+						<?php } ?>
+					</div>
+
+					<div class="tab-pane fade" id="clan-attadence">
+					<h4><?php echo $this->lang->line('attendance'); ?></h4>
+						<?php if(!is_null($clan_dates)) { ?>
+							<div class="the-box no-border tags-cloud">
+								<?php foreach($clan_dates as $date) { ?>
+									<a href="<?php echo base_url() .'clan/clan_attendance/' . $date->clan_id .'/'. $date->clan_date; ?>"><span class="label label-primary"><?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date->clan_date)); ?></span></a>
+								<?php } ?>
+							</div>	
 						<?php } ?>
 					</div>
 				</div>
