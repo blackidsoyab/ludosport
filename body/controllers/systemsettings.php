@@ -19,7 +19,7 @@ class systemsettings extends CI_Controller {
         }
 
         $setting = new Systemsetting();
-        $data['setting'] = $setting->where('type', $type)->get();
+        $data['setting'] = $setting->where('type', $type)->order_by('sequence', 'ASC')->get();
         if ($type == 'general') {
             $role = new Role();
             $data['roles'] = $role->where('id >', '1')->get();
