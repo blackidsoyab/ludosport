@@ -60,7 +60,7 @@
                     <input type="text" class="form-control required" readonly="">
                     <span class="input-group-btn">
                         <span class="btn btn-default btn-file">
-                            Browse… <input type="file" name="batch_image">
+                            <?php echo $this->lang->line('browse_file'); ?> <input type="file" name="batch_image">
                         </span>
                     </span>
                 </div>

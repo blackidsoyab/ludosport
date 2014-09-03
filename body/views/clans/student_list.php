@@ -125,7 +125,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="4"><i>Loading...</i></td>
+                    <td colspan="4"><i><?php echo $this->lang->line('loading'); ?>...</i></td>
                 </tr>
             </tbody>
         </table>

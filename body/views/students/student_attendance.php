@@ -13,14 +13,18 @@ $(document).ready(function() {
 
 
 	$('#recover-absence-btn').click(function(){
-		$('#step_2').show();
-		$('#step_4').show();
-		$('#recover-clan-btn').hide();
-		$('#cancel-recover-btn').show();
-		<?php if (isset($clans) && is_object($clans)) { ?>
-			$('#confirm-absence-btn').hide();
-			$('#recover-absence-btn').hide();
-		<?php } ?>
+		if($("#step_1 .panel-body").find('.checked').length == 0){
+			$('#date-error').show();
+		}else{
+			$('#step_2').show();
+			$('#step_4').show();
+			$('#recover-clan-btn').hide();
+			$('#cancel-recover-btn').show();
+			<?php if (isset($clans) && is_object($clans)) { ?>
+				$('#confirm-absence-btn').hide();
+				$('#recover-absence-btn').hide();
+			<?php } ?>
+		}
 	});
 
 	$('#cancel-recover-btn').click(function(){
@@ -89,7 +93,7 @@ $(document).ready(function() {
 
 <div class="row">
 	<div class="col-lg-6 col-xs-6">
-		<h1 class="page-heading h1">Absence Managment</h1>
+		<h1 class="page-heading h1"><?php echo $this->lang->line('communicate_absence'); ?></h1>
 	</div>
 </div>
 
@@ -97,7 +101,7 @@ $(document).ready(function() {
 <form id="student_mark_absence" action="<?php echo base_url().'student_mark_absence'; ?>" method="post">
 	<div class="panel panel-primary" id="step_1">
 		<div class="panel-heading">
-			<h3 class="panel-title"><i class="fa fa-calendar"></i> Select date of Absence</h3>
+			<h3 class="panel-title"><i class="fa fa-calendar"></i> <?php echo $this->lang->line('select_date_of_absence'); ?></h3>
 		</div>
 
 		<div class="panel-body">
@@ -115,7 +119,7 @@ $(document).ready(function() {
 			</div>
 			<div class="row" id="date-error">
 				<div class="col-lg-12">
-					<small class="help-block text-danger">Please Select date </small>
+					<small class="help-block text-danger"><?php echo $this->lang->line('select_date'); ?></small>
 				</div>
 			</div>
 		</div>
@@ -123,8 +127,8 @@ $(document).ready(function() {
 		<div class="panel-footer">
 			<div class="row">
 				<div class="col-lg-12 col-sm-12 col-xs-12 text-right">
-					<a class="btn btn-primary" id="recover-absence-btn">Recover Absence</a>
-					<a class="btn btn-primary" id="confirm-absence-btn">Confirm Absence</a>					
+					<a class="btn btn-primary" id="recover-absence-btn"><?php echo $this->lang->line('recover_absence'); ?></a>
+					<a class="btn btn-primary" id="confirm-absence-btn"><?php echo $this->lang->line('confirm_absence'); ?></a>					
 				</div>
 			</div>
 			
@@ -133,7 +137,7 @@ $(document).ready(function() {
 	<?php if (isset($clans) && is_object($clans)) { ?>
 	<div class="panel panel-primary" id="step_2">
 		<div class="panel-heading">
-			<h3 class="panel-title"><i class="fa fa-university"></i> Select Clan</h3>
+			<h3 class="panel-title"><i class="fa fa-university"></i> <?php echo $this->lang->line('select_clan'); ?></h3>
 		</div>
 
 		<div class="panel-body ludosport-class">
@@ -150,7 +154,7 @@ $(document).ready(function() {
 
 	<div class="panel panel-primary" id="step_3">
 		<div class="panel-heading">
-			<h3 class="panel-title"><i class="fa fa-calendar"></i> Select Date for Recover</h3>
+			<h3 class="panel-title"><i class="fa fa-calendar"></i> <?php echo $this->lang->line('select_date'); ?></h3>
 		</div>
 
 		<div class="panel-body ludosport-class-date" id="clan_dates">
@@ -159,8 +163,8 @@ $(document).ready(function() {
 
 	<div id="step_4">
 		<div class="text-center">
-			<a class="btn btn-primary" id="recover-clan-btn">Confirm Absence</a>
-			<a class="btn btn-primary" id="cancel-recover-btn">Cancel</a>
+			<a class="btn btn-primary" id="recover-clan-btn"><?php echo $this->lang->line('confirm_absence'); ?></a>
+			<a class="btn btn-primary" id="cancel-recover-btn"><?php echo $this->lang->line('cancel'); ?></a>
 		</div>
 	</div>
 	<?php } else if(isset($clans)) { ?>

@@ -73,8 +73,8 @@
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('type'); ?> <span class="text-danger">&nbsp;</span></label>
                 <div class="col-lg-5">
                     <select class="form-control required" name="type">
-                        <option value="ac" <?php echo ($academy->type == 'ac') ? 'selected' : ''; ?>>Academy</option>
-                        <option value="as" <?php echo ($academy->type == 'as') ? 'selected' : ''; ?>>Affiliated School</option>
+                        <option value="ac" <?php echo ($academy->type == 'ac') ? 'selected' : ''; ?>><?php echo $this->lang->line('academy'); ?></option>
+                        <option value="as" <?php echo ($academy->type == 'as') ? 'selected' : ''; ?>><?php echo $this->lang->line('affiliated_school'); ?></option>
                     </select>
                 </div>
             </div>

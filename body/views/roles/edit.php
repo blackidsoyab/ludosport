@@ -26,7 +26,7 @@
             },
             messages: {
                 en_role_name: {
-                    remote: '* Role Already exits'
+                    remote: '* <?php echo $this->lang->line("role_exits"); ?>'
                 }
             },
             errorPlacement: function(error, element) {
@@ -82,8 +82,8 @@
         <div class="form-group">
             <label class="col-lg-3 control-label">&nbsp;</label>
             <div class="col-lg-5">
-                <button id="permission_tree-checkAll" type="button" class="btn btn-default">Check all</button>
-                <button id="permission_tree-uncheckAll" type="button" class="btn btn-default">Uncheck all</button>
+                 <button id="permission_tree-checkAll" type="button" class="btn btn-default"><?php echo $this->lang->line('check_all'); ?></button>
+                <button id="permission_tree-uncheckAll" type="button" class="btn btn-default"><?php echo $this->lang->line('uncheck_all'); ?></button>
             </div>
         </div>
 

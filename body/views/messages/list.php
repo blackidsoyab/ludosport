@@ -66,7 +66,7 @@
         </thead>
         <tbody>
             <tr>
-                <td>Loading ...</td>
+                <td><?php echo $this->lang->line('loading'); ?> ...</td>
             </tr>
         </tbody>
     </table>

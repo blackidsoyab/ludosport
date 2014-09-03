@@ -15,7 +15,7 @@
         <div class="the-box transparent full margin-killer profile-heading">
         <?php if ($profile->id == $session->id) { ?>
         <div class="right-action">
-            <button class="btn btn-primary btn-square btn-xs">Change cover</button>
+            <button class="btn btn-primary btn-square btn-xs"><?php echo $this->lang->line('change_cover'); ?></button>
         </div><!-- /.right-action -->
         <?php } ?>
 
@@ -23,7 +23,7 @@
         <img src="<?php echo IMG_URL . 'user_avtar/100X100/' . $profile->avtar; ?>" class="avatar" alt="Avatar">
         <div class="profile-info">
             <p class="user-name"><?php echo $profile->firstname . ' ' . $profile->lastname; ?></p>
-            <p class="text-muted">Hometown : <a href="#fakelink"><?php echo getLocationName($profile->city_id, 'City') . ', ' . getLocationName($profile->state_id, 'State'); ?></a></p>
+            <p class="text-muted"><?php echo $this->lang->line('hometown'); ?>  : <a href="#fakelink"><?php echo getLocationName($profile->city_id, 'City') . ', ' . getLocationName($profile->state_id, 'State'); ?></a></p>
             <p class="right-button">
                 <?php if ($profile->id == $session->id) { ?>
                 <?php if (hasPermission('profiles', 'editProfile')) { ?>

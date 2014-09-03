@@ -48,7 +48,7 @@
                     <input type="text" class="form-control" readonly="">
                     <span class="input-group-btn">
                         <span class="btn btn-default btn-file">
-                            Browse… <input type="file" name="attachment">
+                            <?php echo $this->lang->line('browse_file'); ?> <input type="file" name="attachment">
                         </span>
                     </span>
                 </div>

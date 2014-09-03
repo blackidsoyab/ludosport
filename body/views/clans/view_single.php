@@ -47,7 +47,7 @@
 								<tbody>
 									<tr>
 										<td width="35%"><?php echo $this->lang->line('type'); ?> :</td>
-										<td><?php echo ($academy->type == 'ac') ? 'Academy' : 'Affiliated School'; ?></td>
+										<td><?php echo ($academy->type == 'ac') ? $this->lang->line('academy') : $this->lang->line('affiliated_school'); ?></td>
 									</tr>
 									<tr>
 										<td><?php echo $this->lang->line('rector'); ?>(s) :</td>
@@ -218,10 +218,10 @@
 						<div class="table-responsive">
 							<table class="table table-th-block">
 								<thead>
-									<td>Full Name</td>
-									<td>Date of Birth</td>
-									<td>Status</td>
-									<td>Location</td>
+									<td><?php echo $this->lang->line('full_name'); ?></td>
+									<td><?php echo $this->lang->line('dob'); ?></td>
+									<td><?php echo $this->lang->line('status'); ?></td>
+									<td><?php echo $this->lang->line('location'); ?></td>
 								</thead>
 								<tbody>
 									<?php foreach ($students as $stud) { ?>
@@ -255,7 +255,7 @@
 							</table>
 						</div>
 						<?php } else { ?>
-						<h3 class="text-danger">No Students</h3>
+						<h3 class="text-danger"><?php echo $this->lang->line('no_student'); ?></h3>
 						<?php } ?>
 					</div>
 

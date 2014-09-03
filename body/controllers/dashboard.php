@@ -205,7 +205,12 @@ class dashboard extends CI_Controller {
     }
 
     function getActiveStudentDashboard() {
-        $this->layout->view('dashboard/student');
+        $data['monthNames'] = array_map(function ($ar) {
+            $session = get_instance()->session->userdata('user_session');
+            return $ar["$session->language"];
+        }, $this->config->item('custom_months'));
+
+        $this->layout->view('dashboard/student', $data);
     }
 
     function studentClassDetails($year, $month){

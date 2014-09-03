@@ -27,6 +27,10 @@ $lang['see_all'] = 'See all';
 $lang['view_all'] = 'View all';
 $lang['compulsory_note'] = 'Fields marked with <span class="text-danger">*</span> are mandatory.';
 $lang['details'] = 'details';
+$lang['loading'] = 'Loading';
+$lang['browse_file'] = 'Browse File';
+$lang['no'] = 'No';
+$lang['yes'] = 'Yes';
 
 //Operation's Messages
 $lang['add_data_success'] = 'Data added successfully';
@@ -74,6 +78,7 @@ $lang['teachers'] = 'Teachers';
 $lang['students'] = 'Students';
 $lang['languages'] = 'Languages';
 $lang['notifications'] = 'Notifications';
+$lang['today'] = 'Today';
 
 //Pending Student
 $lang['request_for_trail_lesson'] = 'Request for Trail Lesson';
@@ -82,6 +87,13 @@ $lang['select_clan'] = 'Select Clan';
 $lang['your_location'] = 'Your location';
 $lang['select_date'] = 'Select Date';
 $lang['confirm'] = 'Confirm';
+
+//Student
+$lang['communicate_absence'] = 'Communicate Absence';
+$lang['select_date_of_absence'] = 'Select date of Absence';
+$lang['recover_absence'] = 'Recover Absence';
+$lang['confirm_absence'] = 'Confirm Absence';
+$lang['select_date_for_recover'] = 'Select Date for Recover';
 
 //Login
 $lang['welcome_to_login'] = 'Welcome to MyLudosport, enter your credentials to access.';
@@ -123,6 +135,8 @@ $lang['current'] = 'Current';
 $lang['re_enter'] = 'Re-enter';
 $lang['full_name'] = 'Full Name';
 $lang['avtar'] = 'Avtar';
+$lang['hometown'] = 'Hometown';
+$lang['change_cover'] = 'Change Cover';
 
 //Register
 $lang['firstname'] = 'Firstname';
@@ -147,7 +161,6 @@ $lang['blood_group'] = 'Blood Group';
 $lang['controller'] = 'Controller';
 $lang['method'] = 'Method';
 $lang['parent'] = 'Parent';
-$lang['no'] = 'No';
 $lang['is'] = 'is';
 $lang['menu'] = 'Menu';
 
@@ -155,6 +168,9 @@ $lang['menu'] = 'Menu';
 $lang['allow'] = 'Allow';
 $lang['deny'] = 'Deny';
 $lang['is_manager'] = 'Is Manager';
+$lang['check_all'] = 'Check All';
+$lang['uncheck_all'] = 'Uncheck All';
+$lang['role_exits'] = 'Role already exits';
 
 //User
 $lang['active'] = 'Active';
@@ -179,13 +195,16 @@ $lang['dean'] = 'Dean';
 $lang['rector'] = 'Rector';
 $lang['paid'] = 'Paid';
 $lang['fee'] = 'Fee';
+$lang['affiliated_school'] = 'Affiliated School';
+$lang['no_academy'] = 'No Academy';
 
 //School
 $lang['principal'] = 'Principal';
 $lang['mobile_number'] = 'Mobile Number';
 $lang['range'] = 'Range';
+$lang['no_school'] = 'No School';
 
-//Classes
+//Clan
 $lang['teacher'] = 'Teacher';
 $lang['same_as_school'] = 'Same as School';
 $lang['day'] = 'Day';
@@ -200,6 +219,8 @@ $lang['unapproved'] = 'Unapproved';
 $lang['reset'] = 'Reset';
 $lang['filter'] = 'Filter';
 $lang['accept_as_student'] = 'Accept as Student';
+$lang['no_clan'] = 'No Clan';
+$lang['no_student'] = 'No Student';
 
 //Clan Attadence
 $lang['present'] = 'Present';
@@ -207,6 +228,10 @@ $lang['absent'] = 'Absent';
 $lang['attendance_sheet'] = 'Attendance Sheet';
 $lang['next_class'] = 'Next Clan';
 $lang['attendance'] = 'Attendance';
+$lang['recovery'] = 'Recovery';
+$lang['no_student_in_clan'] = 'No Student is there in your Clan';
+$lang['absenece_recovery_student'] = 'Absense Recovery Student';
+$lang['assign_recovery_clan'] = 'Assign Recovery Clan';
 
 //Levels
 $lang['is_basic'] = 'is basic';
@@ -233,9 +258,21 @@ $lang['description'] = 'Description';
 $lang['all'] = 'All';
 $lang['date'] = 'date';
 $lang['from'] = 'from';
+
+//Event Invitations
 $lang['send'] = 'Send';
 $lang['invitation'] = 'Invitation';
 $lang['individual'] = 'Individual';
+$lang['select_inidvidual_users'] = 'Select Individuals User\'s';
+$lang['select_any_user'] = 'Select any User';
+$lang['select_academies'] = 'Select Academies';
+$lang['select_any_academy'] = 'Select any Academy';
+$lang['select_schools'] = 'Select Schools';
+$lang['select_any_school'] = 'Select any School';
+$lang['select_clans'] = 'Select Clans';
+$lang['select_any_clan'] = 'Select any Clan';
+$lang['select_studetns'] = 'Select Students';
+$lang['select_any_student'] = 'Select any Student';
 
 //Batches
 $lang['batch'] = 'Batch';
@@ -253,10 +290,10 @@ $lang['sent'] = 'Sent';
 $lang['draft'] = 'Draft';
 $lang['trash'] = 'Trash';
 $lang['search'] = 'Search';
-$lang['browse_file'] = 'Browse File';
 $lang['to'] = 'To';
 $lang['send'] = 'Send';
 $lang['subject'] = 'Subject';
 $lang['discard'] = 'Discard';
 $lang['leave_group'] = 'Leave Group';
+$lang['attachmments'] = 'Attachmment(s)';
 ?>

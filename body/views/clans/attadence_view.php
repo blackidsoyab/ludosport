@@ -89,11 +89,11 @@ $(document).ready(function() {
 			<table class="table">
 				<thead>
 					<tr class="bg-primary">
-						<td style="width: 50px;">No</td>
-						<td style="width: 150px;">Full name</td>
+						<td style="width: 50px;"><?php echo $this->lang->line('no'); ?></td>
+						<td style="width: 150px;"><?php echo $this->lang->line('full_name'); ?></td>
 						<td style="width: 250px;"><?php echo date('l, j<\s\u\p>S</\s\u\p> F Y', strtotime($date));?></td>
-						<td >Clan, School, Accadmey</td>
-						<td style="width: 100px;">Recovery</td>
+						<td ><?php echo $this->lang->line('clan'), ', ', $this->lang->line('school'), ', ', $this->lang->line('academy'); ?></td>
+						<td style="width: 100px;"><?php echo $this->lang->line('recovery'); ?></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -133,12 +133,12 @@ $(document).ready(function() {
 							
 							<td>
 								<?php if(strtotime(get_current_date_time()->get_date_for_db()) <= strtotime($date) &&  !empty($value['attadence_id'])){ ?>
-									<a href="<?php echo base_url().'get_same_level_clan/'. $clan_details->id; ?>" data-target="#change_dates" data-toggle="modal tooltip" data-original-title="Recovery Class Setting" data-studentid="<?php echo $value['id']; ?>" data-attendanceid="<?php echo $value['attadence_id']; ?>">
+									<a href="<?php echo base_url().'get_same_level_clan/'. $clan_details->id; ?>" data-target="#change_dates" data-toggle="modal tooltip" data-original-title="<?php echo $this->lang->line('assign_recovery_clan'); ?>" data-studentid="<?php echo $value['id']; ?>" data-attendanceid="<?php echo $value['attadence_id']; ?>">
 										<i class="fa fa-repeat icon-circle icon-bordered icon-xs icon-primary"></i>
 									</a>
 								<?php } ?>
 								<?php if($value['type'] == 'recover'){ ?>
-									 <i class="fa fa-info icon-circle icon-bordered icon-xs icon-primary" data-toggle="tooltip" data-original-title="Absense Recovery Student"></i>
+									 <i class="fa fa-info icon-circle icon-bordered icon-xs icon-primary" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('absenece_recovery_student'); ?>"></i>
 								<?php } ?>
 							</td>
 						</tr>
@@ -163,7 +163,7 @@ $(document).ready(function() {
 		<div class="col-lg-12">
 			<div class="alert alert-danger fade in alert-dismissable">
 				<p class="text-center">
-					<?php echo 'No Student is there in your Clan'; ?>
+					<?php echo $this->lang->line('no_student_in_clan'); ?>
 				</p>
 			</div>
 		</div>
@@ -179,13 +179,13 @@ $(document).ready(function() {
 			<input type="hidden" name="student_id" value="0">
 			<input type="hidden" name="attendance_id" value="0">
 				<div class="modal-header bg-primary no-border text-white">
-					<h4 class="modal-title">Change Dates</h4>
+					<h4 class="modal-title"><?php echo $this->lang->line('select'), ' ' , $this->lang->line('recovery'); ?></h4>
 				</div>
 				<div class="modal-body">
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-inverse" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-inverse" data-dismiss="modal"><?php echo $this->lang->line('cancel'); ?></button>
+					<button type="submit" class="btn btn-primary"><?php echo $this->lang->line('save'); ?></button>
 				</div>
 			</form>
 		</div>

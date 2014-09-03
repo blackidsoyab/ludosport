@@ -8,7 +8,7 @@
             'title': 'Manage Event',
             'message': 'Do you Want to Delete the Event ?',
             'buttons': {
-                'Yes': {'class': 'btn btn-danger',
+                '<?php echo $this->lang->line("yes"); ?>': {'class': 'btn btn-danger',
                     'action': function() {
                         $.ajax({
                             type: 'POST',
@@ -23,7 +23,7 @@
                         });
                     }
                 },
-                'No': {
+                '<?php echo $this->lang->line("no"); ?>': {
                     'class': 'btn btn-default',
                     'action': function() {
                     }	// Nothing to do in this case. You can as well omit the action property.

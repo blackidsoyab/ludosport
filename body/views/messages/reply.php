@@ -41,7 +41,7 @@
 
     <?php if(messageHasAttachments($message->id)){ ?>
     <div class="panel-footer">
-        <p><strong>Attachment :</strong></p>
+        <p><strong><?php echo $this->lang->line('attachmments'); ?>  :</strong></p>
         <ul class="attachment-list">
         <?php
             foreach (getMessageAttachments($message->id) as $value) {

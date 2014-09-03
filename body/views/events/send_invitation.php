@@ -42,8 +42,8 @@ function loadChoseSelect(select_name){
 			<div class="col-sm-10">
 				<div class="tab-content">
 					<div class="tab-pane active text-style" id="individual">
-						<h4 class="small-title">Select Individuals User's</h4>
-						<select class="form-control chosen-select mar-tp-10" name="to_individuals[]" multiple="multiple" data-placeholder="Select any User">
+						<h4 class="small-title"><?php echo $this->lang->line('select_inidvidual_users'); ?></h4>
+						<select class="form-control chosen-select mar-tp-10" name="to_individuals[]" multiple="multiple" data-placeholder="<?php echo $this->lang->line('select_any_user'); ?>">
 							<?php 
 								foreach ($users as $user) {
 									echo '<option value="'.$user->id.'">' . $user->firstname .' '. $user->lastname .'</option>';
@@ -53,8 +53,8 @@ function loadChoseSelect(select_name){
 					</div>
 
 					<div class="tab-pane text-style" id="academies">
-						<h4 class="small-title">Select Academies</h4>
-						<select class="form-control chosen-select" name="to_academies[]" multiple="multiple" data-placeholder="Select any Academy">
+						<h4 class="small-title"><?php echo $this->lang->line('select_academies'); ?></h4>
+						<select class="form-control chosen-select" name="to_academies[]" multiple="multiple" data-placeholder="<?php echo $this->lang->line('select_any_academy'); ?>">
 							<?php 
 								foreach ($academies as $academy) {
 									echo '<option value="'.$academy->id.'">' . $academy->{$session->language.'_academy_name'} .'</option>';
@@ -64,8 +64,8 @@ function loadChoseSelect(select_name){
 					</div>
 
 					<div class="tab-pane text-style" id="schools">
-						<h4 class="small-title">Select Schools</h4>
-						<select class="form-control chosen-select required" name="to_schools[]" multiple="multiple" data-placeholder="Select any School">
+						<h4 class="small-title"><?php echo $this->lang->line('select_schools'); ?></h4>
+						<select class="form-control chosen-select required" name="to_schools[]" multiple="multiple" data-placeholder="<?php echo $this->lang->line('select_any_school'); ?>">
 							<?php 
 								foreach ($schools as $school) {
 									echo '<option value="'.$school->id.'">' . $school->{$session->language.'_school_name'} .'</option>';
@@ -75,8 +75,8 @@ function loadChoseSelect(select_name){
 					</div>
 
 					<div class="tab-pane text-style" id="clans">
-						<h4 class="small-title">Select Clans</h4>
-						<select class="form-control chosen-select required" name="to_clans[]" multiple="multiple" data-placeholder="Select any Clan">
+						<h4 class="small-title"><?php echo $this->lang->line('select_clans'); ?></h4>
+						<select class="form-control chosen-select required" name="to_clans[]" multiple="multiple" data-placeholder="<?php echo $this->lang->line('select_any_clan'); ?>">
 							<?php 
 								foreach ($clans as $clan) {
 									echo '<option value="'.$clan->id.'">' . $clan->{$session->language.'_class_name'} .'</option>';
@@ -86,8 +86,8 @@ function loadChoseSelect(select_name){
 					</div>
 
 					<div class="tab-pane text-style" id="students">
-						<h4 class="small-title">Select Students</h4>
-						<select class="form-control chosen-select required" name="to_students[]" multiple="multiple" data-placeholder="Select any Student">
+						<h4 class="small-title"><?php echo $this->lang->line('select_studetns'); ?></h4>
+						<select class="form-control chosen-select required" name="to_students[]" multiple="multiple" data-placeholder="<?php echo $this->lang->line('select_any_student'); ?>">
 							<?php 
 								foreach ($students as $student) {
 									echo '<option value="'.$student->id.'">' . $student->firstname .' '. $student->lastname .'</option>';

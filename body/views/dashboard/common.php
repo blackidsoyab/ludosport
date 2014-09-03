@@ -6,7 +6,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <p><strong><?php echo $this->lang->line('hello'); ?></strong></p>
         <p class="text-muted">
-            <?php echo $this->lang->line('welcome'); ?> to Ludosport
+            <?php echo $this->lang->line('welcome'),' ', $this->config->item('app_name'); ?>
             <br />
             <i class="fa fa-smile-o" style="font-size: 50px"></i>
         </p>

@@ -65,7 +65,7 @@
         <span id="current-month-year"></span>
         <div class="btn-group pull-right">
             <a href="javascript:;" class="btn btn-primary" id="prev-button"><i class="fa fa-chevron-left"></i></a>
-            <a href="javascript:;" class="btn btn-primary" id="today-button">Today</a>
+            <a href="javascript:;" class="btn btn-primary" id="today-button"><?php echo $this->lang->line('today'); ?></a>
             <a href="javascript:;" class="btn btn-primary" id="next-button"><i class="fa fa-chevron-right"></i></a>
         </div>
 </div>

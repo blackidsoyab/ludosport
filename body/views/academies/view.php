@@ -24,7 +24,7 @@ echo $lengths[0]; ?>,
             'title': 'Manage Academy',
             'message': 'Do you Want to Delete the Academy ?',
             'buttons': {
-                'Yes': {'class': 'btn btn-danger',
+                '<?php echo $this->lang->line("yes"); ?>': {'class': 'btn btn-danger',
                     'action': function() {
                         $.ajax({
                             type: 'POST',
@@ -39,7 +39,7 @@ echo $lengths[0]; ?>,
                         });
                     }
                 },
-                'No': {
+                '<?php echo $this->lang->line("no"); ?>': {
                     'class': 'btn btn-default',
                     'action': function() {
                     }	// Nothing to do in this case. You can as well omit the action property.
@@ -79,7 +79,7 @@ echo $lengths[0]; ?>,
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="7"><i>Loading...</i></td>
+                    <td colspan="7"><i><?php echo $this->lang->line('loading'); ?>...</i></td>
                 </tr>
             </tbody>
         </table>

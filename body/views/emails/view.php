@@ -36,7 +36,7 @@ echo $lengths[0]; ?>,
             </thead>
             <tbody>
                 <tr>
-                     <td colspan="2"><i>Loading...</i></td>
+                     <td colspan="2"><i><?php echo $this->lang->line('loading'); ?>...</i></td>
                 </tr>
             </tbody>
         </table>

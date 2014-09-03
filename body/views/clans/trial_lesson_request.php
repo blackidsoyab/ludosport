@@ -8,7 +8,7 @@
             "aoColumns": [
                 {"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center", "bSortable": false},{"sClass": "text-center", "bSortable": false}
             ],
-            "sAjaxSource": "<?php echo base_url() . "clan/listTrialLessonRequestJson/" . $clan_details->id; ?>"
+            "sAjaxSource": "<?php echo base_url() . 'clan/listTrialLessonRequestJson/' . $clan_details->id; ?>"
         });
     });
 </script>
