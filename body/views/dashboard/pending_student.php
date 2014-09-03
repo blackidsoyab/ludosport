@@ -6,8 +6,14 @@
             e.stopPropagation();
         });
 
+        $("#step_1").hide();
         $("#step_2").hide();
         $("#step_3").hide();
+
+        $('#request-trail-lesson').click(function(e) {
+            e.preventDefault(); // prevent the link's default behaviour
+            $('#step_1').show();
+        });
         
         $(".ludosport-class div.clan").click(function(e){
             PositionFooter();
@@ -53,6 +59,18 @@
     //]]>
 </script>
 <h1 class="page-heading"><?php echo $session->role_name; ?></h1>
+
+<div class="row">
+    <div class="col-lg-12 text-center">
+        <a href="" class="btn btn-primary btn-perspective btn-lg" id="request-trail-lesson"><?php echo $this->lang->line('request_for_trail_lesson'); ?></a>
+        <a href="<?php echo base_url() .'register/step_2'; ?>" class="btn btn-success btn-perspective btn-lg"><?php echo $this->lang->line('continue_registration_process'); ?></a>
+    </div>
+</div>
+
+<div class="clear">
+&nbsp;
+</div>
+
 <?php if(isset($already_applied)) { ?>
     <div class="row">
         <div class="col-lg-12">
@@ -70,7 +88,7 @@
         <input type="hidden" value="<?php echo $session->id ?>" name="student_id" />
         <div class="panel panel-primary" id="step_1">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-university"></i> Select Clan</h3>
+                <h3 class="panel-title"><i class="fa fa-university"></i> <?php echo $this->lang->line('select_clan'); ?></h3>
                 <div class="right-content">
                     <?php echo $this->lang->line('your_location'), ' : ', $city_name, ', ', $state_name, ', ', $country_name; ?>
                 </div>
@@ -86,11 +104,11 @@
                     </div> 
                 <?php } ?>
             </div>
-
         </div>
+
         <div class="panel panel-primary" id="step_2">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-calendar"></i> Select Date</h3>
+                <h3 class="panel-title"><i class="fa fa-calendar"></i> <?php echo $this->lang->line('select_date'); ?></h3>
             </div>
 
             <div class="panel-body ludosport-class-date" id="clan_dates">
@@ -99,7 +117,7 @@
 
         <div id="step_3">
             <div class="text-center">
-                <a class="btn btn-primary NextStep" id="btn-setp-2">Confirm<i class="fa fa-angle-right"></i></a>
+                <a class="btn btn-primary NextStep" id="btn-setp-2"><?php echo $this->lang->line('confirm'); ?><i class="fa fa-angle-right"></i></a>
             </div>
         </div>
     </form>

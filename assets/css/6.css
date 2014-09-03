@@ -102,6 +102,12 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
     border-color: #acafb2;
 }
 
+.btn-primary.btn-perspective {
+-webkit-box-shadow: 0px 3px 0px #E8E9EE;
+-moz-box-shadow: 0px 3px 0px #E8E9EE;
+ box-shadow: 0px 3px 0px #313940;
+}
+
 .btn-primary:hover, .btn-primary:focus, 
 .btn-primary:active, .btn-primary.active, 
 .open .dropdown-toggle.btn-primary {

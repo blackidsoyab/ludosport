@@ -75,6 +75,14 @@ $lang['students'] = 'Students';
 $lang['languages'] = 'Languages';
 $lang['notifications'] = 'Notifications';
 
+//Pending Student
+$lang['request_for_trail_lesson'] = 'Request for Trail Lesson';
+$lang['continue_registration_process'] = 'Continue Registration Process';
+$lang['select_clan'] = 'Select Clan';
+$lang['your_location'] = 'Your location';
+$lang['select_date'] = 'Select Date';
+$lang['confirm'] = 'Confirm';
+
 //Login
 $lang['welcome_to_login'] = 'Welcome to MyLudosport, enter your credentials to access.';
 $lang['username'] = 'Username';
@@ -212,9 +220,6 @@ $lang['show'] = 'Show';
 $lang['remove'] = 'Remove';
 $lang['pre_format'] = 'Pre Format';
 $lang['attachment_removed'] = 'Attachment removed successfully';
-
-//Pending Student Dashboard
-$lang['your_location'] = 'Your location';
 
 //Event Category
 $lang['eventcategory'] = 'Event Category';

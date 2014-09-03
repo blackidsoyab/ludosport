@@ -381,6 +381,9 @@ class dashboard extends CI_Controller {
                 $data['clans'] = 'No Clans are Avaialbe. Please try after Sometime'; 
                 $data['clan_error_type'] = 'danger';
             }
+
+            $user = new User();
+            $user->where('id', $this->session_data->id)->get();
         }
 
         //Set User Location Details
