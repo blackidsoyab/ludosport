@@ -89,7 +89,7 @@ $lang['select_date'] = 'Select Date';
 $lang['confirm'] = 'Confirm';
 
 //Student
-$lang['communicate_absence'] = 'Communicate Absence';
+$lang['communicate_absence'] = 'Going To Miss A Class? Nofity IT';
 $lang['select_date_of_absence'] = 'Select date of Absence';
 $lang['recover_absence'] = 'Recover Absence';
 $lang['confirm_absence'] = 'Confirm Absence';

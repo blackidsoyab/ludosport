@@ -6,7 +6,6 @@
     //]]>
 </script>
 <div class="alert alert-warning alert-bold-border fade in alert-dismissable">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-times"></i></button>
     <?php echo $this->lang->line('forgot_password_message'); ?>
 </div>
 <form id="form" method="post" action="<?php echo base_url() . 'send_reset_password_link'; ?>">

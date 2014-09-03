@@ -210,6 +210,9 @@ class dashboard extends CI_Controller {
             return $ar["$session->language"];
         }, $this->config->item('custom_months'));
 
+        $user = new User();
+        $data['users'] = $user->where('role_id', 6)->get();
+
         $this->layout->view('dashboard/student', $data);
     }
 

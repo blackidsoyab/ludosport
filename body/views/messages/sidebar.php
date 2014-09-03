@@ -1,4 +1,4 @@
-<div class="mail-apps-wrap">
+<div class="mail-apps-wrap margin-killer">
     <div class="the-box toolbar no-border margin-killer">
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group">
@@ -10,7 +10,7 @@
         </div>
     </div>
     <?php $page = ($this->uri->segment(2) ? $this->uri->segment(2) : 'inbox'); ?>
-    <div class="the-box margin-killer">
+    <div class="the-box margin-killer no-border">
         <div class="row">
             <div class="col-sm-4 col-md-3">
                 <div class="list-group primary square no-border">

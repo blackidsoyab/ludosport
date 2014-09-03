@@ -137,7 +137,7 @@ class json extends CI_Controller {
         $this->datatable->eColumns = array('id', 'is_delete');
         $this->datatable->sIndexColumn = "id";
         $this->datatable->sTable = " roles";
-        $this->datatable->myWhere = 'WHERE id != 1';
+        $this->datatable->myWhere = 'WHERE id > ' . $this->session_data->role;    
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {

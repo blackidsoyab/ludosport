@@ -326,7 +326,7 @@
             <?php $page = ($this->uri->segment(1) ? $this->uri->segment(1) : 'dashboard'); ?>
             <div class="sidebar-left sidebar-nicescroller">
                 <ul class="sidebar-menu">
-                    <li class="static left-profile-summary">
+                   <!-- <li class="static left-profile-summary">
                         <div class="media">
                             <p class="pull-left">
                                 <img src="<?php echo IMG_URL . 'user_avtar/70X70/' . $session->avtar; ?>" class="avatar img-circle" alt="<?php echo $session->name; ?>" data-toggle="tooltip" data-original-title="<?php echo $session->name; ?>">
@@ -341,7 +341,7 @@
                                 <button class="btn btn-success btn-xs"><i class="fa fa-cog"></i></button><a href="<?php echo base_url() . 'logout'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('logout'); ?>" class="logout-action"> <button class="btn btn-danger btn-xs"><?php echo $this->lang->line('logout'); ?></button></a>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
 
                     <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('dashboard'); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a></li>
 
@@ -441,7 +441,7 @@
                         <div>&nbsp;</div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="alert alert-success fade in alert-dismissable">
+                                <div class="auto-close alert alert-success fade in alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <p class="text-center">
                                         <i class="fa fa-thumbs-o-up icon-sm"></i>
@@ -456,7 +456,7 @@
                         <div>&nbsp;</div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="alert alert-warning fade in alert-dismissable">
+                                <div class="auto-close alert alert-warning fade in alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <p class="text-center">
                                         <i class="fa fa-warning icon-sm"></i>
@@ -471,7 +471,7 @@
                         <div>&nbsp;</div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="alert alert-info fade in alert-dismissable">
+                                <div class="auto-close alert alert-info fade in alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <p class="text-center">
                                         <i class="fa fa-info icon-sm"></i>
@@ -486,7 +486,7 @@
                         <div>&nbsp;</div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="alert alert-danger fade in alert-dismissable">
+                                <div class="auto-close alert alert-danger fade in alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                     <p class="text-center">
                                         <i class="fa fa-thumbs-o-down icon-sm"></i>
@@ -500,7 +500,8 @@
                 </div>
                 <!-- BEGIN FOOTER -->
                 <footer id="footer" style="position:fixed">
-                    &copy; 2014Ludosport<a href="#fakelink"></a><br />
+                    &copy; <?php echo get_current_date_time()->year, ' ', $this->config->item('app_name'); ?><a href="#fakelink"></a><br />
+                    Not associated with disney, lucasfilm ltd. Or any lfl ltd. Film or franchise.
                 </footer>
                 <!-- END FOOTER -->
             </div>

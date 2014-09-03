@@ -503,27 +503,9 @@ $(document).ready(function(){
 	/** END WIDGET PIE FUNCTION **/
 
 	/* Auto Close Alert */
-	if($(".alert-success").length > 0){
-		$(".alert-success").fadeTo(2500, 1000).slideUp(1000, function(){
-			$(".alert-success").alert('close');
-		});
-	}
-
-	if($(".alert-warning").length > 0){
-		$(".alert-warning").fadeTo(2500, 1000).slideUp(1000, function(){
-			$(".alert-warning").alert('close');
-		});
-	}
-
-	if($(".alert-info").length > 0){
-		$(".alert-info").fadeTo(2500, 1000).slideUp(1000, function(){
-			$(".alert-info").alert('close');
-		});
-	}
-
-	if($(".alert-danger").length > 0){
-		$(".alert-danger").fadeTo(2500, 1000).slideUp(1000, function(){
-			$(".alert-danger").alert('close');
+	if($(".auto-close").length > 0){
+		$(".auto-close").fadeTo(2500, 1000).slideUp(1000, function(){
+			$(".auto-close").alert('close');
 		});
 	}
 	/** END **/
@@ -534,8 +516,9 @@ function PositionFooter() {
         var height = window.innerHeight;
         var parentsHeight = $('#middle-section').height();
         var current_height=height-133;
-        if(parentsHeight>current_height)
-        {
+        $('.page-content').css('min-height', current_height +'px');	
+        if(parentsHeight>current_height) {
+        	$('.page-content').css('min-height', '0px');	
             $('#footer').css('position', 'relative');
         }
     }

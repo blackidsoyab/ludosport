@@ -1,3 +1,31 @@
+/**
+----------------------------------------------
+LOGIN, FORGOT PASS, REGISTER AND LOCK SCREEN
+----------------------------------------------
+**/
+body.login{
+    background: #212721;
+    padding: 0;
+}
+.login .btn-warning {
+    background-color: #ed8b00;
+    border-color: #c88127
+}
+
+.login .btn-warning:hover, .login .btn-warning:focus, .login .btn-warning:active, .login .btn-warning.active, .login .open .dropdown-toggle.btn-warning {
+    background-color: #E8AA2E;
+    border-color: #E8AA2E;
+}
+
+.login .btn-warning.btn-perspective {
+    -webkit-box-shadow: 0px 3px 0px #C6901F;
+    -moz-box-shadow: 0px 3px 0px #C6901F;
+    box-shadow: 0px 3px 0px #C6901F;
+}
+
+/**
+----------------------------------------------
+**/
 .text-black{
     color: #000000;
 }
