@@ -71,13 +71,25 @@ class users extends CI_Controller {
             $data['cities'] = $city->get();
 
             $role = new Role();
-            $data['roles'] = $role->where('id >', $this->session_data->id)->get();
+            if($this->session_data->id == 1 || $this->session_data->id == 2){
+                $data['roles'] = $role->get();
+            }else{
+                $data['roles'] = $role->where('id >', $this->session_data->role)->get();    
+            }
 
             $academy = New Academy();
             if ($this->session_data->role == '1' || $this->session_data->role == '2') {
                 $data['academies'] = $academy->get();
-            } else {
+            } else if ($this->session_data->role == '3'){
                 $data['academies'] = $academy->getAcademyOfRector($this->session_data->id);
+            } else if ($this->session_data->role == '4'){
+                $data['academies'] = $academy->getAcademyOfDean($this->session_data->id);
+            } else if ($this->session_data->role == '5'){
+                $data['academies'] = $academy->getAcademyOfTeacher($this->session_data->id);
+            } else if ($this->session_data->role == '6'){
+                $data['academies'] = $academy->getAcademyOfStudent($this->session_data->id);
+            } else {
+                $data['academies'] = NULL;
             }
 
             $this->layout->view('users/add', $data);
@@ -131,7 +143,7 @@ class users extends CI_Controller {
                 $user = new User();
                 $data['user'] = $user->where('id', $id)->get();
                 if ($user->role_id <= $this->session_data->role) {
-                    $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+                    $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
                     redirect(base_url() . 'user', 'refresh');
                 } else {
                     $this->layout->setField('page_title', 'Edit User');
@@ -152,14 +164,27 @@ class users extends CI_Controller {
                     $data['cities'] = $city->get();
 
                     $role = new Role();
-                    $data['roles'] = $role->where_not_in('id', array(1))->get();
+                    if($this->session_data->id == 1 || $this->session_data->id == 2){
+                        $data['roles'] = $role->get();
+                    }else{
+                        $data['roles'] = $role->where('id >', $this->session_data->role)->get();    
+                    }
 
                     $academy = New Academy();
                     if ($this->session_data->role == '1' || $this->session_data->role == '2') {
                         $data['academies'] = $academy->get();
-                    } else {
+                    } else if ($this->session_data->role == '3'){
                         $data['academies'] = $academy->getAcademyOfRector($this->session_data->id);
+                    } else if ($this->session_data->role == '4'){
+                        $data['academies'] = $academy->getAcademyOfDean($this->session_data->id);
+                    } else if ($this->session_data->role == '5'){
+                        $data['academies'] = $academy->getAcademyOfTeacher($this->session_data->id);
+                    } else if ($this->session_data->role == '6'){
+                        $data['academies'] = $academy->getAcademyOfStudent($this->session_data->id);
+                    } else {
+                        $data['academies'] = NULL;
                     }
+
 
                     $this->layout->view('users/edit', $data);
                 }
