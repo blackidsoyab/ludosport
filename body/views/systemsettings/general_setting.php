@@ -4,8 +4,8 @@
         $("#edit").validate();
 
          $('.datepicker').datepicker({
-                format: "dd-mm-yyyy",
-                startView: 2,
+                format: "dd-mm",
+                startView: 1,
                 autoclose: true,
                 todayHighlight: true
             }).on('changeDate', function (ev) {
@@ -71,11 +71,11 @@
                         <?php echo timezone_menu($value->sys_value, 'form-control required', $value->sys_key); ?>
                     </div>
                 </div>
-            <?php } else if ($value->sys_key == 'reset_app_date') { ?>
+            <?php } else if ($value->sys_key == 'reset_app_day_month') { ?>
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo ucfirst(str_replace('_', ' ', $value->sys_key)); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-8">
-                    <input type="text" name="<?php echo $value->sys_key; ?>"  class="form-control required datepicker" value="<?php echo date('d-m-Y', strtotime($value->sys_value)); ?>"/>
+                    <input type="text" name="<?php echo $value->sys_key; ?>"  class="form-control required datepicker" value="<?php echo $value->sys_value; ?>"/>
                 </div>
             </div>
             <?php } else if ($value->sys_key == 'terms_conditions') { ?>
