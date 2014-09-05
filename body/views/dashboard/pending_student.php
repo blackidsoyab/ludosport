@@ -90,7 +90,13 @@
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-university"></i> <?php echo $this->lang->line('select_clan'); ?></h3>
                 <div class="right-content">
-                    <?php echo $this->lang->line('your_location'), ' : ', $city_name, ', ', $state_name, ', ', $country_name; ?>
+                    <a href="#" class="dropdown-toggle text-white" data-toggle="dropdown"><?php echo $this->lang->line('change_location'); ?><b class="caret"></b></a>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <?php foreach ($cities as $city) { ?>
+                            <li><a href="#"><?php echo $city['city_name']; ?></a></li>
+                        <?php } ?>
+                    </ul>
                 </div>
             </div>
 

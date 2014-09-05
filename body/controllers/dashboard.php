@@ -296,7 +296,7 @@ class dashboard extends CI_Controller {
         //get time before 2 hours of clan start
         $time_1 = strtotime('-2 hour', $time_0);
         //get Current time
-        $time_2 = strtotime(get_current_date_time()->get_time_for_db());
+        $time_2 = strtotime(get_current_date_time()->get_date_time_for_db());
 
         //check user Extra Detail exist
         if($userdetail->result_count() == 1){
@@ -310,6 +310,7 @@ class dashboard extends CI_Controller {
 
                 //for div color
                 $data['type'] = 'success';
+
 
                 //check that is time left to change dates.
                 if($time_2 <= $time_1) {
@@ -376,7 +377,7 @@ class dashboard extends CI_Controller {
                 if ($check !== FALSE) {
                     $data['clans'] = $check;
                 } else {
-                    $data['clans'] = 'No Clans are Avaialbe. Please try after Sometime';
+                    $data['clans'] = 'No Clans are Avaialbe. Please check other Location. Change the Location from top.';
                     $data['clan_error_type'] = 'danger'; 
                 }  
             }
@@ -386,7 +387,7 @@ class dashboard extends CI_Controller {
             if ($check !== FALSE) {
                 $data['clans'] = $check;
             } else {
-                $data['clans'] = 'No Clans are Avaialbe. Please try after Sometime'; 
+                $data['clans'] = 'No Clans are Avaialbe. Please check other Location. Change the Location from top.'; 
                 $data['clan_error_type'] = 'danger';
             }
 
@@ -394,14 +395,20 @@ class dashboard extends CI_Controller {
             $user->where('id', $this->session_data->id)->get();
         }
 
-        //Set User Location Details
-        $city = new City();
-        //City name
-        $data['city_name'] = $city->where('id', $user->city_id)->get()->{$this->session_data->language . '_name'};
-        //State name
-        $data['state_name'] = $city->state->{$this->session_data->language . '_name'};
-        //Country name
-        $data['country_name'] = $city->state->country->{$this->session_data->language . '_name'};
+
+        $clan = new Clan();
+        $cities_ids = $clan->getCitiesofClans();
+
+        $cities = new City();
+        $cities->where_in('id', $cities_ids)->get();
+        foreach ($cities as $city) {
+            $temp = array();
+            $temp['id'] = $city->id;
+            $temp['city_name'] = $city->{$this->session_data->language . '_name'};
+            $temp['state_name'] = $city->state->{$this->session_data->language . '_name'};
+            $temp['country_name'] = $city->state->country->{$this->session_data->language . '_name'};
+            $data['cities'][] = $temp;
+        }
 
         //Set Layout view
         $this->layout->view('dashboard/pending_student', $data);

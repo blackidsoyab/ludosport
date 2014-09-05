@@ -609,10 +609,9 @@ class clans extends CI_Controller {
                         //check status and Show buttons.
                         if($userdetail->status == 'P' && $userdetail->approved_by == 0){
                             $data['show_approved_button'] = true;
-                            $data['show_accept_button'] = true;                            
+                            $data['show_unapproved_button'] = true;                            
                         }else if(($userdetail->status == 'A' || $userdetail->status == 'U') && $userdetail->approved_by == $this->session_data->id){
-                            $data['show_unapproved_button'] = true;
-                            $data['show_accept_button'] = true;                            
+                            $data['show_unapproved_button'] = true;                          
                         }
                     }
 
@@ -689,8 +688,25 @@ class clans extends CI_Controller {
                 foreach ($userdetails as $value) {
                     //get the Student full detail
                     $temp = $value->User->get();
-                    if(strtotime($value->first_lesson_date) > strtotime($date)){
-                        continue;
+                    if($temp->status != 'A'){
+                        if($value->status == 'A' && strtotime($value->first_lesson_date) == strtotime($date)){
+                            $attadence = new Attendance();
+
+                            //get the Student is present or not
+                            $attadence->where(array('clan_date'=>$date, 'student_id'=>$temp->id))->get();
+
+                            //Set an array of user details for view part 
+                            $data['userdetails'][] = array(
+                                'id'=>$temp->id, 
+                                'firstname'=>$temp->firstname, 
+                                'lastname'=>$temp->lastname,
+                                'attadence' => $attadence->attendance,
+                                'attadence_id' => $attadence->id,
+                                'clan' => $clan->{$this->session_data->language.'_class_name'},
+                                'school' => $clan->School->{$this->session_data->language.'_school_name'},
+                                'academy' => $clan->School->Academy->{$this->session_data->language.'_academy_name'},
+                                'type' => 'regular');
+                        }
                     } else {
                         if(!is_null($temp->id)){
                             $attadence = new Attendance();
