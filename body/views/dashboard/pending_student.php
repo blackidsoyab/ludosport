@@ -97,7 +97,7 @@
             <div class="panel-body ludosport-class">
             <?php foreach ($clans as $clan) {  ?>
                     <div class="col-lg-4 col-xs-4 clan">
-                        <div class="the-box rounded text-center" data-clan="<?php echo $clan->id; ?>">
+                        <div class="the-box rounded text-center padding-killer margin-bottom-killer" data-clan="<?php echo $clan->id; ?>">
                             <input type="radio" value="<?php echo $clan->id; ?>" name="clan_id" />
                             <h4 class="light"><?php echo $clan->{$session->language . '_class_name'}; ?></h4>
                         </div>

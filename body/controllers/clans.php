@@ -30,9 +30,15 @@ class clans extends CI_Controller {
                 }
             }
             $data['schools'] = $temp;
-        } else {
+        } else if ($this->session_data->role == '3'){
             $school = new School();
             $data['schools'] = $school->getSchoolOfRector($this->session_data->id);
+        } else if ($this->session_data->role == '4'){
+            $school = new School();
+            $data['schools'] = $school->getSchoolOfDean($this->session_data->id);
+        } else if ($this->session_data->role == '5'){
+            $school = new School();
+            $data['schools'] = $school->getSchoolOfTeacher($this->session_data->id);
         }
 
         if (is_null($id)) {
@@ -41,18 +47,70 @@ class clans extends CI_Controller {
             $data['school_id'] = $id;
             $this->layout->view('clans/view', $data);
         } else {
+
             if ($type == 'notification') {
                 Notification::updateNotification('teacher_assign_class', $this->session_data->id, $id);
             }
 
             $obj = new Clan();
             $data['clan'] = $obj->where('id', $id)->get();
+
+            if(!validAcess($id, 'clan')){
+                $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                redirect(base_url() . 'dashboard', 'refresh'); 
+            }
+
             $data['school'] = $obj->School->get();
             $data['academy'] = $obj->School->Academy->get();
-
+            $data['teacher'] = userNameAvtar($obj->teacher_id);
             $obj_clan_dates = new Clandate();
             $data['clan_dates'] = $obj_clan_dates->where('clan_id', $id)->get();
 
+            $present = 0;
+            $absence = 0;
+            $recovery = 0;
+
+            $attadence = new Teacherattendance();
+            $attadence->where(array('clan_id' =>$id))->get();
+            if($attadence->result_count() > 0){
+                foreach ($attadence as $date) {
+                    $temp = array();
+                    $temp['id'] = $date->stored->id;
+                    $temp['date'] = $date->stored->clan_date;
+                    $temp['status'] = $date->stored->status;
+                    if($date->stored->attendance == 1){
+                        if($date->stored->status == 'U' && $date->stored->attendance != 0){
+                            $temp['type'] = 'label label-success-danger';
+                            $temp['unapproved_reason'] = $date->stored->to_message;
+                        } else{
+                            $temp['type'] = 'label label-success';    
+                        }
+                        $present = @$present + 1; 
+                    }else{
+                        if($date->stored->status == 'P'){
+                            $temp['type'] = 'label label-default';
+                        } else if($date->stored->status == 'A' && $date->stored->recovery_teacher == 0){
+                            $temp['type'] = 'label label-danger';
+                            $absence = @$absence+ 1;
+                        } else if($date->stored->status == 'A' && $date->stored->recovery_teacher != 0){
+                            $temp['type'] = 'label label-danger-warning';
+                            $absence = @$absence+ 1;
+                            $recovery = $recovery + 1;
+                            $temp['recover_teacher'] = userNameAvtar($date->stored->recovery_teacher, false);
+                        } else {
+                            $temp['type'] = 'label';
+                        }
+                    }
+                    $data['teacher_attendance'][] = $temp;
+                }
+            }else{
+                $data['teacher_attendance'] = null;
+            }
+            
+
+            $data['present'] = $present;
+            $data['absence'] = $absence;
+            $data['recovery'] = $recovery;
             $userdetails = $obj->Userdetail->get();
             if($userdetails->result_count() > 0){
                 foreach ($userdetails as $value) {

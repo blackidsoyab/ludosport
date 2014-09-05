@@ -505,7 +505,7 @@ $(document).ready(function(){
 	/* Auto Close Alert */
 	if($(".auto-close").length > 0){
 		$(".auto-close").fadeTo(2500, 1000).slideUp(1000, function(){
-			$(".auto-close").alert('close');
+			$(".auto-close").closest('.row').hide();
 		});
 	}
 	/** END **/

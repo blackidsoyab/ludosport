@@ -16,7 +16,7 @@ function getNotifications($user_id) {
             $user_info = userNameAvtar($notify->from_id);
             $options['user_name'] = $user_info['name'];
             $message = getMessageTemplate($options);
-            $img = '<img src="' . $user_info['avtar'] . '" class="absolute-left-content img-circle" alt="Avatar">';
+            $img = '<img src="' . $user_info['avtar'] . '" class="absolute-left-content img-circle" alt="Avatar" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $options['user_name'] . '">';
         } else {
             $message = getMessageTemplate($options);
             $img = '<i class="fa fa-info-circle icon-rounded icon-xs icon-primary notification-icon"></i>';
@@ -45,7 +45,7 @@ function getSingleNotification($notification_id) {
         $user_info = userNameAvtar($notify->from_id);
         $options['user_name'] = $user_info['name'];
         $message = getMessageTemplate($options);
-        $img = '<img src="' . $user_info['avtar'] . '" class="absolute-left-content img-circle" alt="Avatar">';
+        $img = '<img src="' . $user_info['avtar'] . '" class="absolute-left-content img-circle" alt="Avatar" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $options['user_name'] . '">';
     } else {
         $message = getMessageTemplate($options);
         $img = '<i class="fa fa-info-circle icon-rounded icon-xs icon-primary notification-icon"></i>';
@@ -114,6 +114,10 @@ function makeURL($options) {
         $url = base_url() . 'event/view/' . $options['data']['id'] . '/notification';
     }
 
+    if ($options['notify_type'] == 'teacher_absent') {
+        $url = base_url() . 'dean/absence_approval/' . $options['object_id'] . '/notification';
+    }
+
     return $url;
 }
 
@@ -122,11 +126,7 @@ function getMessageTemplate($options) {
     $session = & get_instance()->session->userdata('user_session');
     $template_edit = false;
 
-    if (
-            $options['notify_type'] == 'trial_lesson_approved' ||
-            $options['notify_type'] == 'trial_lesson_unapproved' ||
-            $options['notify_type'] == 'accept_as_student'
-    ) {
+    if ($options['notify_type'] == 'trial_lesson_approved' || $options['notify_type'] == 'trial_lesson_unapproved' || $options['notify_type'] == 'accept_as_student') {
         $template_edit = true;
         $user_request = userNameAvtar($options['data']['student_id']);
         $from = userNameAvtar($options['from_id']);
@@ -149,7 +149,6 @@ function getMessageTemplate($options) {
 
         $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_name['name'], $clan->{$session->language.'_class_name'}, date('d-m-Y', strtotime($options['data']['absence_date'])));
     }
-
 
     if ($options['notify_type'] == 'recovery_student') {
         $template_edit = true;
@@ -192,7 +191,39 @@ function getMessageTemplate($options) {
         $template_edit = true;
         $event_field = $session->language .'_name';
         $new_template = sprintf($templates[$options['notify_type']][$session->language], $options['data'][$event_field], getFullLocationByCity( $options['data']['city_id']));
-    }   
+    }
+
+    if ($options['notify_type'] == 'teacher_absent') {
+        $template_edit = true;
+        $user_name = userNameAvtar($options['from_id']);
+        
+        $clan = new Clan();
+        $clan->where('id', $options['data']['clan_id'])->get();
+        
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_name['name'], $clan->{$session->language . '_class_name'}, date('d-m-Y', strtotime($options['data']['date'])));
+    }
+
+    if ($options['notify_type'] == 'recovery_teacher') {
+        $template_edit = true;
+        $user_name = userNameAvtar($options['from_id']);
+        if($options['data']['recovery_teacher'] ==  $session->id){
+            $recover_user_name['name'] = 'You';
+        } else{
+            $recover_user_name = userNameAvtar($options['data']['recovery_teacher']);    
+        }
+
+        $teacher_user_name = userNameAvtar($options['data']['teacher_id']);  
+        
+        $clan = new Clan();
+        $clan->where('id', $options['data']['clan_id'])->get();
+
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $recover_user_name['name'], $clan->{$session->language.'_class_name'}, date('d-m-Y', strtotime($options['data']['clan_date'])), $teacher_user_name['name'], $user_name['name']);
+    }
+
+    if ($options['notify_type'] == 'holiday_approved' || $options['notify_type'] == 'holiday_upapproved') {
+        $template_edit = true;
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], date('d-m-Y', strtotime($options['data']['clan_date'])));
+    }
 
     if ($template_edit) {
         return $new_template;
@@ -267,7 +298,27 @@ function setMessageTemplate($options) {
         array(
             'en' => '%s at %s',
             'it' => '%s at %s',
-        )
+        ),
+        'teacher_absent' =>
+        array(
+            'en' => '%s will remain absent for %s on %s',
+            'it' => '%s will remain absent for %s on %s',
+        ),
+        'recovery_teacher' =>
+        array(
+            'en' => '%s will take lesson of %s on %s inplace of %s. It is approved by %s',
+            'it' => '%s avrà lezione di %s su %s inplace di %s. It is approved by %s',
+        ),
+        'holiday_approved' =>
+        array(
+            'en' => 'Your request for holiday on %s is approved',
+            'it' => 'Your request for holiday on %s is approved',
+        ),
+        'holiday_upapproved' =>
+        array(
+            'en' => 'Your request for holiday on %s is unapproved',
+            'it' => 'Your request for holiday on %s is unapproved',
+        ),
     );
 
     return $template;

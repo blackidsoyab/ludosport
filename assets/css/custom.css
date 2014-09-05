@@ -329,3 +329,17 @@ footer{
 .nav-tabs.left-position > li {
     margin-bottom: 0px;
 }
+
+.label-danger-warning{
+    background: -webkit-linear-gradient(left, #E9573F 50%, #F6BB42 50%);
+    background: -o-linear-gradient(right, #E9573F 50%, #F6BB42 50%);
+    background: -moz-linear-gradient(right, #E9573F 50%, #F6BB42 50%);
+    background: linear-gradient(to right, #E9573F 50% , #F6BB42 50%);
+}
+
+.label-success-danger{
+    background: -webkit-linear-gradient(left, #8cc152 80%, #E9573F 20%);
+    background: -o-linear-gradient(right, #8cc152 80%, #E9573F 20%);
+    background: -moz-linear-gradient(right, #8cc152 80%, #E9573F 20%);
+    background: linear-gradient(to right, #8cc152 80% , #E9573F 20%);
+}

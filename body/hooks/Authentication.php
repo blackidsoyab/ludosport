@@ -43,7 +43,9 @@ class Authentication extends CI_Controller {
             'notifications',
             'cronjobs',
             'messages',
-            'students'
+            'students',
+            'teachers',
+            'deans'
         );
     }
 

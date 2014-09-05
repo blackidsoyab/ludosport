@@ -193,7 +193,7 @@
         <![endif]-->
     </head>
 
-    <body class="tooltips">
+    <body class="tooltips popovers">
         <!-- Wrapper -->
         <div class="wrapper">
             <!-- Top Nav -->
@@ -438,8 +438,8 @@
             <div class="page-content">
                 <div class="container-fluid" id="middle-section">
                     <?php if ($this->session->flashdata('success') != '') { ?>
-                        <div>&nbsp;</div>
                         <div class="row">
+                            <div>&nbsp;</div>
                             <div class="col-lg-12">
                                 <div class="auto-close alert alert-success fade in alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -453,8 +453,8 @@
                     <?php } ?>
 
                     <?php if ($this->session->flashdata('warning') != '') { ?>
-                        <div>&nbsp;</div>
                         <div class="row">
+                            <div>&nbsp;</div>
                             <div class="col-lg-12">
                                 <div class="auto-close alert alert-warning fade in alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -468,8 +468,8 @@
                     <?php } ?>
 
                     <?php if ($this->session->flashdata('info') != '') { ?>
-                        <div>&nbsp;</div>
                         <div class="row">
+                            <div>&nbsp;</div>
                             <div class="col-lg-12">
                                 <div class="auto-close alert alert-info fade in alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -483,8 +483,8 @@
                     <?php } ?>
 
                     <?php if ($this->session->flashdata('error') != '') { ?>
-                        <div>&nbsp;</div>
                         <div class="row">
+                            <div>&nbsp;</div>
                             <div class="col-lg-12">
                                 <div class="auto-close alert alert-danger fade in alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>

@@ -42,10 +42,25 @@ if (!function_exists('userNameAvtar')) {
         $user->where('id', $user_id)->limit(1)->get();
         $return['name'] = $user->firstname . ' ' . $user->lastname;
         $return['avtar'] = IMG_URL . 'user_avtar/100X100/' . $user->avtar;
+        unset($user);
         return $return;
     }
 
 }
+
+if (!function_exists('userNameEmail')) {
+
+    function userNameEmail($user_id) {
+        $user = new User();
+        $user->where('id', $user_id)->limit(1)->get();
+        $return['name'] = $user->firstname . ' ' . $user->lastname;
+        $return['email'] = $user->email;
+        unset($user);
+        return $return;
+    }
+
+}
+
 
 if (!function_exists('getLocationName')) {
 
@@ -197,6 +212,17 @@ if (!function_exists('objectToArray')) {
         } else {
             return $array;
         }
+    }
+}
+
+if (!function_exists('array_column')) {
+    function array_column($array,$column) {
+    $col = array();
+    $array = objectToArray($array);
+    foreach ($array as $k => $v) {
+        $col[]=$v[$column];
+    }
+    return $col;
     }
 }
 

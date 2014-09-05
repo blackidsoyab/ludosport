@@ -15,7 +15,11 @@ class users extends CI_Controller {
 
     function viewUser($id = null, $type = null) {
         $role = new Role();
-        $data['roles'] = $role->where('id >', $this->session_data->role)->get();
+        if($this->session_data->id == 1){
+            $data['roles'] = $role->get();
+        }else{
+            $data['roles'] = $role->where('id >', $this->session_data->role)->get();    
+        }
 
         if (is_null($id)) {
             $this->layout->view('users/view', $data);
@@ -71,7 +75,7 @@ class users extends CI_Controller {
             $data['cities'] = $city->get();
 
             $role = new Role();
-            if($this->session_data->id == 1 || $this->session_data->id == 2){
+            if($this->session_data->id == 1){
                 $data['roles'] = $role->get();
             }else{
                 $data['roles'] = $role->where('id >', $this->session_data->role)->get();    
@@ -164,7 +168,7 @@ class users extends CI_Controller {
                     $data['cities'] = $city->get();
 
                     $role = new Role();
-                    if($this->session_data->id == 1 || $this->session_data->id == 2){
+                    if($this->session_data->id == 1){
                         $data['roles'] = $role->get();
                     }else{
                         $data['roles'] = $role->where('id >', $this->session_data->role)->get();    

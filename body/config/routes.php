@@ -97,9 +97,6 @@ $route['change_language/(:any)'] = "ajax/setNewLanguage/$1";
 $route['change_role/(:any)'] = "ajax/setNewRole/$1";
 $route['mark_all_notification_read'] = "ajax/markAllNotificationRead";
 $route['mark_all_message_read'] = "ajax/markAllMessageRead";
-$route['teacher/class_details/(:num)/(:num)'] = "dashboard/teacherClassDetails/$1/$2";
-$route['student/class_details/(:num)/(:num)'] = "dashboard/studentClassDetails/$1/$2";
-$route['admin/class_details/(:num)/(:num)'] = "dashboard/adminClassDetails/$1/$2";
 
 //Profile
 $route['change_password'] = "profiles/changePassword";
@@ -118,19 +115,12 @@ $route['role/check/(:num)'] = "ajax/checkValidRole/$1";
 //Classes
 $route['clan/getschools/(:num)'] = "ajax/getSchoolsOptionFromAcademy/$1";
 $route['clan/getclasses/(:num)'] = "ajax/getClassesOptionFromSchool/$1";
-
-//Clan Trail Lession Request
 $route['clan/trial_lesson_request/(:num)'] = "clans/listTrialLessonRequest/$1";
 $route['clan/listTrialLessonRequestJson/(:num)'] = "json/getTrialLessonRequestJsonData/$1";
 $route['clan/change_status_trial_student/(:num)/(:num)'] = "clans/changeStatusTrialStudent/$1/$2";
 $route['clan/change_status_trial_student/(:num)/(:num)/(:any)'] = "clans/changeStatusTrialStudent/$1/$2/$3";
 
-//Clan Attadence
-$route['clan/clan_attendance/(:num)/(:any)'] = "clans/clanAttendances/$1/$2";
-$route['clan/save_attendance/(:num)'] = "clans/saveClanAttendances/$1";
-$route['clan/next_week_attendance/(:num)'] = "clans/nextWeekAttendances/$1";
-
-//Teacher List
+//Teacher List => Admin , Rector, Dean, Teacher
 $route['clan/teacherlist'] = "clans/clanTeacherList";
 $route['clan/teacherlist/(:num)/(:any)'] = "clans/clanTeacherList/$1/$2";
 $route['clan/teacherjson'] = "json/getTeachersJsonData";
@@ -138,12 +128,7 @@ $route['clan/teacherjson/(:any)'] = "json/getTeachersJsonData/$1";
 $route['clan/teacherjson/(:any)/(:any)'] = "json/getTeachersJsonData/$1/$2";
 $route['clan/teacherjson/(:any)/(:any)/(:any)'] = "json/getTeachersJsonData/$1/$2/$3";
 
-//Teacher Student Attadence
-$route['getclandates_teacher/(:num)'] = "clans/getDateOfClanForTeacher/$1";
-$route['get_same_level_clan/(:num)'] = "clans/getSameLevelClans/$1";
-$route['mark_student_absence_teacher'] = "clans/changeDateStudentByTeacher";
-
-//Student List
+//Student List => Admin , Rector, Dean, Teacher
 $route['clan/studentlist'] = "clans/clanStudentList";
 $route['clan/studentlist/(:num)/(:any)'] = "clans/clanStudentList/$1/$2";
 $route['clan/studentjson'] = "json/getStudentsJsonData";
@@ -151,7 +136,29 @@ $route['clan/studentjson/(:any)'] = "json/getStudentsJsonData/$1";
 $route['clan/studentjson/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2";
 $route['clan/studentjson/(:any)/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2/$3";
 
+//Admin Dashboard
+$route['admin/class_details/(:num)/(:num)'] = "dashboard/adminClassDetails/$1/$2";
+
+//Dean Dashboard
+$route['dean/absence_approval/(:num)'] = "deans/teacherAbsenceApproval/$1";
+$route['dean/absence_approval/(:num)/(:any)'] = "deans/teacherAbsenceApproval/$1/$2";
+$route['dean/change_recovery_teacher/(:num)'] = "deans/getSchoolTeachers/$1";
+$route['dean/update_recovery_teacher'] = "deans/UpdateRecoverTeacher";
+
+//Teacher Dashboard
+$route['teacher/class_details/(:num)/(:num)'] = "dashboard/teacherClassDetails/$1/$2";
+$route['getclandates_teacher/(:num)'] = "clans/getDateOfClanForTeacher/$1";
+$route['get_same_level_clan/(:num)'] = "clans/getSameLevelClans/$1";
+$route['mark_student_absence_teacher'] = "clans/changeDateStudentByTeacher";
+$route['clan/clan_attendance/(:num)/(:any)'] = "clans/clanAttendances/$1/$2";
+$route['clan/save_attendance/(:num)'] = "clans/saveClanAttendances/$1";
+$route['clan/next_week_attendance/(:num)'] = "clans/nextWeekAttendances/$1";
+$route['teacher_mark_absence'] = "teachers/markAbsence";
+$route['teacher/school_related_teacher/(:num)'] = "teachers/teachersReleatedSchool/$1";
+
+
 //Student Dashboard
+$route['student/class_details/(:num)/(:num)'] = "dashboard/studentClassDetails/$1/$2";
 $route['student_mark_absence'] = "students/markAbsence";
 $route['student/clan/(:num)/(:any)'] = "dashboard/studentClan/$1/$2";
 

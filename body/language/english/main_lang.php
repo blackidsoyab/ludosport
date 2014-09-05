@@ -89,11 +89,15 @@ $lang['select_date'] = 'Select Date';
 $lang['confirm'] = 'Confirm';
 
 //Student
-$lang['communicate_absence'] = 'Going To Miss A Class? Nofity IT';
+$lang['communicate_absence'] = 'Communicate Absence';
+$lang['going_to_miss_class'] = 'Going To Miss A Class? Nofity IT';
 $lang['select_date_of_absence'] = 'Select date of Absence';
 $lang['recover_absence'] = 'Recover Absence';
 $lang['confirm_absence'] = 'Confirm Absence';
 $lang['select_date_for_recover'] = 'Select Date for Recover';
+
+//Teacher Dashboard
+$lang['replace_teacher'] = 'Replace Teacher';
 
 //Login
 $lang['welcome_to_login'] = 'Welcome to MyLudosport, enter your credentials to access.';

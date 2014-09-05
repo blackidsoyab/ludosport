@@ -23,6 +23,12 @@ class academies extends CI_Controller {
 
             $academy = new Academy();
             $data['academy'] = $academy->where('id', $id)->get();
+
+            if(!validAcess($id, 'academy')){
+                $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                redirect(base_url() . 'dashboard', 'refresh'); 
+            }
+
             $schools =  $academy->School->get();
             $data['schools'] = $schools;
             foreach ($schools as $school) {

@@ -56,30 +56,30 @@ class Message extends DataMapper {
     }
 
     function getMessageForReading($id) {
-        global $arr;
+        global $global_arr;
         $sql = $this->db->query("select messages.id, type, initial_id, reply_of, group_id, from_id, to_id, subject, message, messages.from_status,messages.to_status, CONCAT(users.firstname,' ',users.lastname) as from_person,CONCAT(u1.firstname,' ',u1.lastname) as to_person, messages.timestamp, users.avtar AS from_avtar, u1.avtar AS to_avtar from messages, users, users u1 WHERE users.id=messages.from_id AND u1.id=messages.to_id AND messages.id ='" . $id . "' AND (from_id ='" . $this->session_data->id . "' OR FIND_IN_SET(" . $this->session_data->id . ", to_id) >0)");
         if ($sql->num_rows() > 0) {
             $result = $sql->result();
-            $arr[] = $result[0];
+            $global_arr[] = $result[0];
             if ($result[0]->reply_of != 0) {
                 $this->getMessageForReading($result[0]->reply_of);
             }
         }
-        return $arr;
+        return $global_arr;
     }
 
     function getMessageChain($id) {
-        global $chain;
+        global $global_chain;
         $sql = $this->db->query("select id, reply_of from messages WHERE id ='" . $id . "' AND (from_id ='" . $this->session_data->id . "' OR FIND_IN_SET(" . $this->session_data->id . ", to_id) >0)");
         if ($sql->num_rows() > 0) {
             $result = $sql->result();
-            $chain[] = $result[0]->id;
+            $global_chain[] = $result[0]->id;
             if ($result[0]->reply_of != 0) {
                 $this->getMessageChain($result[0]->reply_of);
             }
         }
-        sort($chain);
-        return $chain;
+        sort($global_chain);
+        return $global_chain;
     }
 
     function getMessageForReplying($id) {

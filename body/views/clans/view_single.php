@@ -32,8 +32,14 @@
 					</li>
 
 					<li>
-						<a href="#clan-attadence" data-toggle="tab">
-							<?php echo $this->lang->line('attendance'); ?>
+						<a href="#teacher-attadence" data-toggle="tab">
+							<?php echo $this->lang->line('teacher'), ' ', $this->lang->line('attendance'); ?>
+						</a>
+					</li>
+
+					<li>
+						<a href="#student-attadence" data-toggle="tab">
+							<?php echo $this->lang->line('student'), ' ', $this->lang->line('attendance'); ?>
 						</a>
 					</li>
 				</ul>
@@ -259,8 +265,53 @@
 						<?php } ?>
 					</div>
 
-					<div class="tab-pane fade" id="clan-attadence">
-					<h4><?php echo $this->lang->line('attendance'); ?></h4>
+					<div class="tab-pane fade" id="teacher-attadence">
+						<h4><?php echo $teacher['name'], '\'s  ', $this->lang->line('attendance'); ?></h4>
+						<?php if(!is_null($teacher_attendance)) { ?>
+							<div class="the-box no-border tags-cloud margin-killer padding-killer">
+								<span class="label label-primary">Total </span><span class="badge badge-primary"><?php echo count($teacher_attendance); ?></span>
+								<span class="label label-default">Holiday approval Pending</span>
+								<span class="label label-success">Present </span><span class="badge badge-success"><?php echo $present; ?></span>
+								<span class="label label-danger">Absence</span> <span class="badge badge-danger"><?php echo $absence; ?></span>
+								<span class="label label-danger-warning">Absence + Recovery Teacher Assign</span>
+								<span class="label label-success-danger">Holiday Unapproved</span>
+								<p class="help-block margin-killer pull-left">
+									<span class="label label-danger-warning">&nbsp;</span>
+									Mouser hover on date to see Recovery teacher name
+								</p>
+								<p class="help-block margin-killer">
+									<span class="label label-success-danger">&nbsp;</span>
+									Mouser hover on date to see Unapproval reason
+								</p>
+							</div>
+							<hr class="mar-tp-10 mar-bt-10" />
+							<div class="the-box no-border tags-cloud padding-killer">
+								<?php foreach($teacher_attendance as $date) {
+									if($date['status'] == 'P'){
+								?>
+									<a href="<?php echo base_url(). 'dean/absence_approval/'. $date['id'] ; ?>">
+										<span class="<?php echo $date['type']; ?>"  data-toggle="tooltip" data-original-title="<?php echo @$date['recover_teacher']['name']; ?>">
+											<?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date['date'])); ?>
+										</span>	
+									</a>
+									<?php } else if($date['status'] == 'U') { ?>
+									<span class="<?php echo $date['type']; ?>" data-toggle="tooltip" data-original-title="<?php echo @$date['unapproved_reason']; ?>">
+										<?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date['date'])); ?>
+									</span>
+									<?php } else { ?>
+									<span class="<?php echo $date['type']; ?>" data-toggle="tooltip" data-original-title="<?php echo @$date['recover_teacher']['name']; ?>">
+										<?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date['date'])); ?>
+									</span>
+									<?php } ?>
+								<?php } ?>
+							</div>	
+						<?php } else { ?>
+							<h3 class="text-danger"><?php echo $this->lang->line('no_attendance'); ?></h3>
+						<?php } ?>
+					</div>
+
+					<div class="tab-pane fade" id="student-attadence">
+						<h4><?php echo $this->lang->line('student'), ' ', $this->lang->line('attendance'); ?></h4>
 						<?php if(!is_null($clan_dates)) { ?>
 							<div class="the-box no-border tags-cloud">
 								<?php foreach($clan_dates as $date) { ?>

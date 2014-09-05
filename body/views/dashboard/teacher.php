@@ -6,7 +6,15 @@
         initCalender();
     });
 </script>
-<h1 class="page-heading"><?php echo $session->role_name; ?><small>&nbsp;<?php echo $this->lang->line('control_panel'); ?></small></h1>
+
+<div class="row">
+    <div class="col-lg-6">
+        <h1 class="page-heading"><?php echo $session->role_name; ?><small>&nbsp;<?php echo $this->lang->line('control_panel'); ?></small></h1>
+    </div>
+    <div class="col-lg-6">
+        <a href="<?php echo base_url().'teacher_mark_absence'; ?>" class="h1 page-heading btn btn-primary pull-right"><?php echo $this->lang->line('communicate_absence'); ?></a>
+    </div>
+</div>
 
 <div class="alert alert-primary alert-block square"><?php echo $this->lang->line('numbers'); ?></div>
 

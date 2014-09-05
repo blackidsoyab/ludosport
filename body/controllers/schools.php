@@ -17,9 +17,14 @@ class schools extends CI_Controller {
         $academy = new Academy();
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
             $data['academies'] = $academy->get();
-        } else {
+        } else if ($this->session_data->role == '3'){
             $data['academies'] = $academy->getAcademyOfRector($this->session_data->id);
+        } else if ($this->session_data->role == '4'){
+            $data['academies'] = $academy->getAcademyOfDean($this->session_data->id);
+        } else if ($this->session_data->role == '5'){
+            $data['academies'] = $academy->getAcademyOfTeacher($this->session_data->id);
         }
+
         if (is_null($id)) {
             $this->layout->view('schools/view', $data);
         } else if (!is_null($id) && $type == "list_school_academy_wise") {
@@ -32,6 +37,12 @@ class schools extends CI_Controller {
 
             $obj = new school();
             $data['school'] = $obj->where('id', $id)->get();
+
+            if(!validAcess($id, 'school')){
+                $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                redirect(base_url() . 'dashboard', 'refresh'); 
+            }
+
             $data['academy'] = $obj->Academy->get();
             $clans =  $obj->Clan->get();
             $data['clans'] = $clans;

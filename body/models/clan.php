@@ -1,25 +1,25 @@
 <?php
-
-class Clan extends DataMapper {
-
+class Clan extends DataMapper
+{
+    
     public $has_one = array('school');
     public $has_many = array('userdetail');
-
+    
     // Optionally, don't include a constructor if you don't need one.
     function __construct($id = NULL) {
         parent::__construct($id);
     }
-
+    
     public static function getAssignTeacherIds() {
         $obj = new Clan();
         $array = array();
         foreach ($obj->get() as $value) {
             $array[] = explode(',', $value->teacher_id);
         }
-
+        
         return array_unique(MultiArrayToSinlgeArray($array));
     }
-
+    
     function getTotalTeachers() {
         $this->db->select('teacher_id');
         $this->db->from('clans');
@@ -30,10 +30,10 @@ class Clan extends DataMapper {
         foreach ($res as $r) {
             $count = array_merge($count, explode(',', $r->teacher_id));
         }
-
+        
         return count(array_unique($count));
     }
-
+    
     function getTotalStudents() {
         $this->db->select('count(*) as total');
         $this->db->from('userdetails');
@@ -43,7 +43,7 @@ class Clan extends DataMapper {
         $res = $this->db->get()->result();
         return $res[0]->total;
     }
-
+    
     function getTotalTeacherOfRector($rector_id) {
         $this->db->select('teacher_id');
         $this->db->from('clans');
@@ -55,10 +55,10 @@ class Clan extends DataMapper {
         foreach ($res as $r) {
             $count = array_merge($count, explode(',', $r->teacher_id));
         }
-
+        
         return count(array_unique($count));
     }
-
+    
     function getTotalStudentsOfRector($rector_id) {
         $this->db->select('count(*) as total');
         $this->db->from('userdetails');
@@ -69,7 +69,7 @@ class Clan extends DataMapper {
         $res = $this->db->get()->result();
         return $res[0]->total;
     }
-
+    
     function getTotalTeacherOfDean($dean_id) {
         $this->db->select('teacher_id');
         $this->db->from('clans');
@@ -80,10 +80,10 @@ class Clan extends DataMapper {
         foreach ($res as $r) {
             $count = array_merge($count, explode(',', $r->teacher_id));
         }
-
+        
         return count(array_unique($count));
     }
-
+    
     function getTotalStudentsOfDean($dean_id) {
         $this->db->select('count(*) as total');
         $this->db->from('userdetails');
@@ -93,7 +93,7 @@ class Clan extends DataMapper {
         $res = $this->db->get()->result();
         return $res[0]->total;
     }
-
+    
     function getTotalClassesOfTeacher($teacher_id) {
         $this->db->select('count(*) as total');
         $this->db->from('clans');
@@ -101,7 +101,7 @@ class Clan extends DataMapper {
         $res = $this->db->get()->result();
         return $res[0]->total;
     }
-
+    
     function getTotalStudentsOfTeacher($teacher_id) {
         $this->db->select('count(*) as total');
         $this->db->from('userdetails');
@@ -111,24 +111,24 @@ class Clan extends DataMapper {
         $res = $this->db->get()->result();
         return $res[0]->total;
     }
-
+    
     function getClanOfRector($rector_id) {
         $where = NULL;
         if (is_array($rector_id)) {
             foreach ($rector_id as $id) {
-                $where .= " OR FIND_IN_SET('" . $id . "', rector_id) > 0";
+                $where.= " OR FIND_IN_SET('" . $id . "', rector_id) > 0";
             }
         } else {
-            $where .= " OR FIND_IN_SET('" . $rector_id . "', rector_id) > 0";
+            $where.= " OR FIND_IN_SET('" . $rector_id . "', rector_id) > 0";
         }
-
+        
         $this->db->_protect_identifiers = false;
         $this->db->select('clans.*');
         $this->db->from('clans');
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
         $this->db->where(substr($where, 4));
-        $this->db->group_by("clans.id"); 
+        $this->db->group_by("clans.id");
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();
@@ -136,23 +136,23 @@ class Clan extends DataMapper {
             return false;
         }
     }
-
+    
     function getClanOfDean($dean_id) {
         $where = NULL;
         if (is_array($dean_id)) {
             foreach ($dean_id as $id) {
-                $where .= " OR FIND_IN_SET('" . $id . "', dean_id) > 0";
+                $where.= " OR FIND_IN_SET('" . $id . "', dean_id) > 0";
             }
         } else {
-            $where .= " OR FIND_IN_SET('" . $dean_id . "', dean_id) > 0";
+            $where.= " OR FIND_IN_SET('" . $dean_id . "', dean_id) > 0";
         }
-
+        
         $this->db->_protect_identifiers = false;
         $this->db->select('clans.*');
         $this->db->from('clans');
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->where(substr($where, 4));
-        $this->db->group_by("clans.id"); 
+        $this->db->group_by("clans.id");
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();
@@ -160,22 +160,22 @@ class Clan extends DataMapper {
             return false;
         }
     }
-
+    
     function getClanOfTeacher($teacher_id) {
         $where = NULL;
         if (is_array($teacher_id)) {
             foreach ($teacher_id as $id) {
-                $where .= " OR FIND_IN_SET('" . $teacher_id . "', teacher_id) > 0";
+                $where.= " OR FIND_IN_SET('" . $teacher_id . "', teacher_id) > 0";
             }
         } else {
-            $where .= " OR FIND_IN_SET('" . $teacher_id . "', teacher_id) > 0";
+            $where.= " OR FIND_IN_SET('" . $teacher_id . "', teacher_id) > 0";
         }
-
+        
         $this->db->_protect_identifiers = false;
         $this->db->select('*');
         $this->db->from('clans');
         $this->db->where(substr($where, 4));
-        $this->db->group_by("clans.id"); 
+        $this->db->group_by("clans.id");
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();
@@ -183,23 +183,23 @@ class Clan extends DataMapper {
             return false;
         }
     }
-
+    
     function getClanOfStudent($student_id) {
         $where = NULL;
         if (is_array($student_id)) {
             foreach ($student_id as $id) {
-                $where .= " OR student_master_id='" . $id . "'";
+                $where.= " OR student_master_id='" . $id . "'";
             }
         } else {
-            $where .= " OR student_master_id='" . $student_id . "'";
+            $where.= " OR student_master_id='" . $student_id . "'";
         }
-
+        
         $this->db->_protect_identifiers = false;
         $this->db->select('*');
         $this->db->from('clans');
         $this->db->join('userdetails', 'clans.id=userdetails.clan_id');
         $this->db->where(substr($where, 4), null, false);
-        $this->db->group_by("clans.id"); 
+        $this->db->group_by("clans.id");
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();
@@ -207,7 +207,7 @@ class Clan extends DataMapper {
             return false;
         }
     }
-
+    
     function afterSave($options = array()) {
         $notify = new Notification();
         $notify->notify_type = 'teacher_assign_class';
@@ -217,7 +217,7 @@ class Clan extends DataMapper {
         $notify->save();
         return true;
     }
-
+    
     function getAviableTrialClan($city_id, $under_sixteen, $class_limit = 3) {
         static $counter = 0;
         $counter++;
@@ -236,14 +236,14 @@ class Clan extends DataMapper {
         } else {
             $city = new City();
             $id = $city->getRandomCityId();
-            if($counter > 10){
+            if ($counter > 10) {
                 return false;
-            }else{
+            } else {
                 return $this->getAviableTrialClan($id, $under_sixteen);
             }
         }
     }
-
+    
     function getSameLevelClan($city_id, $level_id, $class_limit = 3) {
         static $counter = 0;
         $counter++;
@@ -260,14 +260,14 @@ class Clan extends DataMapper {
         } else {
             $city = new City();
             $id = $city->getRandomCityId();
-            if($counter > 10){
+            if ($counter > 10) {
                 return false;
-            }else{
+            } else {
                 return $this->getSameLevelClan($id, $level_id);
             }
         }
     }
-
+    
     function getAviableDateFromClan($clan_id, $total_dates = 5, $student_limit = null) {
         $this->db->select('id, lesson_day');
         $this->db->from('clans');
@@ -286,26 +286,26 @@ class Clan extends DataMapper {
                 $day = $days_array[$day]['en'];
                 $temp_dates[] = getDateByDay($day, $start_date, $end_date);
             }
-
+            
             $finals_dates = array_unique(MultiArrayToSinlgeArray($temp_dates));
             sort($finals_dates);
-
+            
             foreach ($finals_dates as $value) {
                 if (!in_array($value, $dates)) {
                     $attendance = new Attendance();
                     $recover = new Attendancerecover();
-                    if(!is_null($student_limit)){
+                    if (!is_null($student_limit)) {
                         $total_1 = $attendance->getTotalStudentsForDate($value, $result[0]->id);
                         $total_2 = $recover->getTotalStudentsForDate($value, $result[0]->id);
                         $total_stud = (int)$total_1 + (int)$total_2;
                         if ($total_stud < $student_limit) {
-                           $dates[] = $value;
+                            $dates[] = $value;
                         }
-                    }else {
+                    } else {
                         $dates[] = $value;
                     }
                 }
-
+                
                 if (count($dates) == $total_dates) {
                     break;
                 }
@@ -316,7 +316,7 @@ class Clan extends DataMapper {
             return FALSE;
         }
     }
-
+    
     function getRelatedTeachersByRector($rector_id) {
         $this->db->_protect_identifiers = false;
         $this->db->select('teacher_id');
@@ -335,7 +335,7 @@ class Clan extends DataMapper {
             return false;
         }
     }
-
+    
     function getRelatedTeachersByDean($dean_id) {
         $this->db->_protect_identifiers = false;
         $this->db->select('teacher_id');
@@ -348,13 +348,13 @@ class Clan extends DataMapper {
             foreach ($temp as $value) {
                 $array[] = explode(',', $value->teacher_id);
             }
-
+            
             return array_unique(MultiArrayToSinlgeArray($array));
         } else {
             return false;
         }
     }
-
+    
     function getRelatedTeachersByTeacher($teacher_id) {
         $this->db->_protect_identifiers = false;
         $this->db->select('c1.teacher_id');
@@ -368,13 +368,13 @@ class Clan extends DataMapper {
             foreach ($temp as $value) {
                 $array[] = explode(',', $value->teacher_id);
             }
-
+            
             return array_unique(MultiArrayToSinlgeArray($array));
         } else {
             return false;
         }
     }
-
+    
     function getRelatedTeachersByStudent($student_id) {
         $this->db->_protect_identifiers = false;
         $this->db->select('teacher_id');
@@ -387,17 +387,17 @@ class Clan extends DataMapper {
             foreach ($temp as $value) {
                 $array[] = explode(',', $value->teacher_id);
             }
-
+            
             return array_unique(MultiArrayToSinlgeArray($array));
         } else {
             return false;
         }
     }
-
-    function getClansByTeacherAndDay($teacher_id, $day = '1'){
+    
+    function getClansByTeacherAndDay($teacher_id, $day = '1') {
         $session = get_instance()->session->userdata('user_session');
         $this->db->_protect_identifiers = false;
-        $this->db->select('clans.id,' .$session->language. '_class_name AS clan,'.$session->language.'_school_name AS school,' .$session->language.'_academy_name AS academy');
+        $this->db->select('clans.id,' . $session->language . '_class_name AS clan,' . $session->language . '_school_name AS school,' . $session->language . '_academy_name AS academy');
         $this->db->from('clans');
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
@@ -410,11 +410,11 @@ class Clan extends DataMapper {
             return false;
         }
     }
-
-    function getClansByDay($day = '1'){
+    
+    function getClansByDay($day = '1') {
         $session = get_instance()->session->userdata('user_session');
         $this->db->_protect_identifiers = false;
-        $this->db->select('clans.id,' .$session->language. '_class_name AS clan,'.$session->language.'_school_name AS school,' .$session->language.'_academy_name AS academy');
+        $this->db->select('clans.id,' . $session->language . '_class_name AS clan,' . $session->language . '_school_name AS school,' . $session->language . '_academy_name AS academy');
         $this->db->from('clans');
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
@@ -426,8 +426,8 @@ class Clan extends DataMapper {
             return false;
         }
     }
-
-    function getClansByStudentAndDay($student_id, $day = '1'){
+    
+    function getClansByStudentAndDay($student_id, $day = '1') {
         $this->db->_protect_identifiers = false;
         $this->db->select('*');
         $this->db->from('clans');
@@ -441,8 +441,8 @@ class Clan extends DataMapper {
             return false;
         }
     }
-
-    function getClansDetailsByTeacherAndDay($clan_id, $teacher_id, $day = '1'){
+    
+    function getClansDetailsByTeacherAndDay($clan_id, $teacher_id, $day = '1') {
         $this->db->_protect_identifiers = false;
         $this->db->select('*');
         $this->db->from('clans');
@@ -456,8 +456,8 @@ class Clan extends DataMapper {
             return false;
         }
     }
-
-    function getClansDetailsByDay($clan_id, $day = '1'){
+    
+    function getClansDetailsByDay($clan_id, $day = '1') {
         $this->db->_protect_identifiers = false;
         $this->db->select('*');
         $this->db->from('clans');
@@ -470,8 +470,8 @@ class Clan extends DataMapper {
             return false;
         }
     }
-
-    function getTeachersByAcademy($academy_id){
+    
+    function getTeachersByAcademy($academy_id) {
         $this->db->_protect_identifiers = false;
         $this->db->select('teacher_id');
         $this->db->from('clans');
@@ -480,7 +480,7 @@ class Clan extends DataMapper {
         $this->db->where('academies.id', $academy_id);
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-             $temp = $res->result();
+            $temp = $res->result();
             foreach ($temp as $value) {
                 $array[] = explode(',', $value->teacher_id);
             }
@@ -489,8 +489,8 @@ class Clan extends DataMapper {
             return false;
         }
     }
-
-    function getTeachersBySchool($school_id){
+    
+    function getTeachersBySchool($school_id) {
         $this->db->_protect_identifiers = false;
         $this->db->select('teacher_id');
         $this->db->from('clans');
@@ -499,7 +499,7 @@ class Clan extends DataMapper {
         $this->db->where('schools.id', $school_id);
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-             $temp = $res->result();
+            $temp = $res->result();
             foreach ($temp as $value) {
                 $array[] = explode(',', $value->teacher_id);
             }
@@ -508,25 +508,23 @@ class Clan extends DataMapper {
             return false;
         }
     }
-
-    function getTeachersByClan($clan_id){
+    
+    function getTeachersByClan($clan_id) {
         $this->db->_protect_identifiers = false;
         $this->db->select('teacher_id');
         $this->db->from('clans');
         $this->db->where('id', $clan_id);
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-             $temp = $res->result();
+            $temp = $res->result();
             foreach ($temp as $value) {
                 $array[] = explode(',', $value->teacher_id);
             }
-
+            
             return array_unique(MultiArrayToSinlgeArray($array));
         } else {
             return false;
         }
     }
-
 }
-
 ?>

@@ -183,7 +183,7 @@ class ajax extends CI_Controller {
         $str .= '<h4 class="text-center text-black"> Class Timing : ' . date('H.i a', $clan->lesson_from) . '  - ' . date('H.i a', $clan->lesson_to) . '</h4>';
         foreach ($dates as $date) {
             $str .= '<div class="col-lg-4 col-xs-4 clan-date">';
-            $str .= '<div class="the-box rounded text-center" data-clan-date="' . $date . '">';
+            $str .= '<div class="the-box rounded text-center padding-killer mar-bt-10" data-clan-date="' . $date . '">';
             $str .= '<input type="radio" value="' . $date . '" name="date" />';
             $str .= '<h4 class="light">' . date('l', strtotime($date)). '<br />' . date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date)) . '</h4>';
             $str .= '</div></div>';
@@ -296,10 +296,9 @@ class ajax extends CI_Controller {
         $session = $this->session->userdata('user_session');
         $schools = New School();
         $schools->Where('academy_id', $academy_id);
-        $school_name = $session->language . '_school_name';
-        echo '<option value="0">', $this->lang->line('select'), ' ', $this->lang->line('school'), '</option>';
+        echo '<option value="0">', $this->lang->line('all'), ' ', $this->lang->line('school'), '</option>';
         foreach ($schools->get() as $school) {
-            echo '<option value="' . $school->id . '">' . $school->$school_name . '</option>';
+            echo '<option value="' . $school->id . '">' . $school->{$session->language . '_school_name'} . '</option>';
         }
     }
 
@@ -307,7 +306,7 @@ class ajax extends CI_Controller {
         $session = $this->session->userdata('user_session');
         $obj = New Clan();
         $obj->Where('school_id', $school_id);
-        echo '<option value="0">', $this->lang->line('select'), ' ', $this->lang->line('clan'), '</option>';
+        echo '<option value="0">', $this->lang->line('all'), ' ', $this->lang->line('clan'), '</option>';
         foreach ($obj->get() as $class) {
             echo '<option value="' . $class->id . '">' . $class->{$session->language . '_class_name'} . '</option>';
         }
