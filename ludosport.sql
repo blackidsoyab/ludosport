@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 03, 2014 at 06:16 PM
+-- Generation Time: Sep 05, 2014 at 06:56 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.13
 
@@ -55,9 +55,9 @@ CREATE TABLE IF NOT EXISTS `academies` (
 --
 
 INSERT INTO `academies` (`id`, `rector_id`, `en_academy_name`, `it_academy_name`, `type`, `contact_firstname`, `contact_lastname`, `association_fullname`, `role_referent`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `fee1`, `fee2`, `user_id`, `timestamp`) VALUES
-(1, '3,5', 'Poppey Sailor Man', 'Poppey Sailor Man', 'ac', 'Soyab', 'Rana', 'PSM', 'Poppeyyyyyyyyyy Sailorrrrrrrrrrr Mannnnnnnnnnnnnnnnn', 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 500.00, 20.00, 2, '2014-07-25 08:45:52'),
-(2, '3', 'Dexter Laboratory', 'Dexter Laboratory', 'ac', 'Soyab', 'Rana', 'DL', 'Temparory', 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 100.00, 30.00, 2, '2014-07-25 11:22:54'),
-(3, '5', 'Power Puff Girls', 'Power Puff Girls', 'ac', 'John', 'Candy', 'Power Puff Girls', 'Maecenas nec leo nec lacus posuere ultricies. Mauris fermentum porta nulla. Vestibulum dictum, nulla vitae gravida sollicitudin, mauris justo bibendum velit, in varius tortor ipsum et nulla. Phasellus a convallis magna. Suspendisse potenti. In hac habitas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\r\nEtiam finibus purus vel augue consectetur, vitae viverra mauris egestas.\r\nInteger blandit elit vitae risus fringilla scelerisque.\r\nCurabitur sollicitudin sem non nibh mattis, eu blandit risus ultricies.', '123456', 4, 2, 1, '1234567890', '91987654321', 'ppg@yopmail.com', 100.00, 50.00, 2, '2014-07-31 04:29:26');
+(1, '3,5', 'Poppey Sailor Man', 'Poppey Sailor Man', 'ac', 'Soyab', 'Rana', 'PSM', 'Poppeyyyyyyyyyy Sailorrrrrrrrrrr Mannnnnnnnnnnnnnnnn', 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 50000.00, 2000.00, 2, '2014-07-25 08:45:52'),
+(2, '3', 'Dexter Laboratory', 'Dexter Laboratory', 'ac', 'Soyab', 'Rana', 'DL', 'Temparory', 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 10000.00, 3000.00, 2, '2014-07-25 11:22:54'),
+(3, '5', 'Power Puff Girls', 'Power Puff Girls', 'ac', 'John', 'Candy', 'Power Puff Girls', 'Maecenas nec leo nec lacus posuere ultricies. Mauris fermentum porta nulla. Vestibulum dictum, nulla vitae gravida sollicitudin, mauris justo bibendum velit, in varius tortor ipsum et nulla. Phasellus a convallis magna. Suspendisse potenti. In hac habitas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nEtiam finibus purus vel augue consectetur, vitae viverra mauris egestas.\nInteger blandit elit vitae risus fringilla scelerisque.\nCurabitur sollicitudin sem non nibh mattis, eu blandit risus ultricies.', '123456', 4, 2, 1, '1234567890', '91987654321', 'ppg@yopmail.com', 10000.00, 5000.00, 2, '2014-07-31 04:29:26');
 
 -- --------------------------------------------------------
 
@@ -344,7 +344,7 @@ INSERT INTO `clans` (`id`, `academy_id`, `school_id`, `teacher_id`, `level_id`, 
 (3, 1, 3, '3', 1, '2,4,5', 1409218500, 1409222100, 'Sailor Ep 2', 'Sailor Ep 2', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:47:38'),
 (4, 2, 4, '5', 1, '2', 1406363400, 1406370600, 'Lab Ep 2', 'Lab Ep 2', 1, 'Baroda', '390016', 5, 4, 2, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:48:27'),
 (5, 1, 1, '5', 1, '5,6', 1407292200, 1407306600, 'Poppey Ep 2', 'Poppey Ep 2', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-08-06 05:25:51'),
-(6, 1, 3, '3', 1, '1,3,7', 1406352600, 1406359800, 'Sailor Ep 3', 'Sailor Ep 3', 1, 'Baroda', '390016', 2, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:47:38');
+(6, 1, 3, '7', 1, '1,3,7', 1406352600, 1406359800, 'Sailor Ep 3', 'Sailor Ep 3', 1, 'Baroda', '390016', 2, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:47:38');
 
 -- --------------------------------------------------------
 
@@ -385,25 +385,29 @@ CREATE TABLE IF NOT EXISTS `emails` (
   `format_info` text CHARACTER SET utf8,
   `user_id` int(11) NOT NULL DEFAULT '1',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `emails`
 --
 
 INSERT INTO `emails` (`id`, `type`, `subject`, `message`, `attachment`, `format_info`, `user_id`, `timestamp`) VALUES
-(1, 'user_registration', 'User Registration', 'Hello #firstname #lastname<br>Thankyou for Registration.<br><div><br><span style="font-weight: bold;">Basic Details:<br></span>Name : #firstname #lastname<br>Location :  #location<br>Date of Birth : #dob<br><br><span style="font-weight: bold;">Login Details:<br></span>Nickname : #nickname<br>Password :  #password<br></div><div><br></div><div>Thanks,</div><div>MyLudosport Team</div>\r\n<div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#location\r\n#dob\r\n#nickname\r\n#password', 2, '2014-07-26 07:15:22'),
-(2, 'forgot_password', 'Forgot Password', 'Hello #firstname #lastname <div><br></div><div>You have request for the reset the password.</div><div>Please click the below link to reset password.<br>\r\n#reset_link</div><div><br></div><div>Thanks,</div><div>MyLudosport Team</div>\r\n<div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#reset_link', 1, '2014-07-26 07:15:22'),
-(3, 'user_registration_notification', 'New User Registration Notification', 'New User<div>#firstname #lastname is registerd on #date<div><br><span style="font-weight: bold;">Basic Details:<br></span>Name : #firstname #lastname<br>Location :  #location<br>Date of Birth : #dob<br><br><span style="font-weight: bold;">Login Details:<br></span>Nickname : #nickname<br><br></div><div><div>Thanks,</div><div>MyLudosport Team</div></div></div>\n<div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#location\r\n#dob\r\n#nickname\r\n#date', 2, '2014-07-26 07:15:22'),
-(4, 'trial_lesson_request', 'Request for Trail Lesson', '<div><span style="line-height: 1.42857143;">#firstname #lastname </span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">Request for the trial lesson.</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">Clan Name : </span><span style="line-height: 1.42857143;">#clan_name</span></div><div><span style="line-height: 1.42857143;">Clan Date : #lesson_date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">Date of request : #apply_date</span></div><div><div><br></div><div><div>Thanks,</div></div></div>\r\n<div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#clan_name\r\n#lesson_date\r\n#apply_date', 2, '2014-08-25 10:05:22'),
-(5, 'trial_lesson_accepted', 'Request for Trail Lesson has been accepted', '<div><span style="line-height: 1.42857143;">#firstname #lastname r</span><span style="line-height: 1.42857143;">equest for the trial lesson.</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">Clan Name : </span><span style="line-height: 1.42857143;">#clan_name</span></div><div><span style="line-height: 1.42857143;">Clan Date : #lesson_date</span></div><div><span style="line-height: 1.42857143;">Date of request : #apply_date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">has been </span>accepted<span style="line-height: 1.42857143;"> by the #teacher_name on #accept_date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div>\r\n<div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#clan_name\r\n#lesson_date\r\n#apply_date\r\n#teacher_name\r\n#accept_date\r\n', 2, '2014-08-25 10:05:22'),
-(6, 'trial_lesson_rejected', 'Request for Trail Lesson has been Rejected', '<div><span style="line-height: 1.42857143;">#firstname #lastname r</span><span style="line-height: 1.42857143;">equest for the trial lesson.</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">Clan Name : </span><span style="line-height: 1.42857143;">#clan_name</span></div><div><span style="line-height: 1.42857143;">Clan Date : #lesson_date</span></div><div><span style="line-height: 1.42857143;">Date of request : #apply_date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">has been </span>rejected<span style="line-height: 1.42857143;"> by the #teacher_name on #reject_date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div>\r\n<div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#clan_name\r\n#lesson_date\r\n#apply_date\r\n#teacher_name\r\n#reject_date', 2, '2014-08-25 10:05:22'),
-(7, 'accepted_as_student', 'Confirm as a student', '<div><span style="line-height: 1.42857143;">#firstname #lastname is now student of &nbsp;</span><span style="line-height: 1.42857143;">#clan_name clan.</span></div><div><span style="line-height: 1.42857143;">Accepted by the #teacher_name on #accept_date</span><br></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#clan_name\r\n#teacher_name\r\n#accept_date', 2, '2014-08-25 10:05:22'),
-(8, 'student_absent', 'Student Absent', '<div><span style="line-height: 1.42857143;">#firstname #lastname will remain absent for&nbsp;</span><span style="line-height: 1.42857143;">#clan_name on #date.</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#clan_name\r\n#date', 2, '2014-08-25 10:05:22'),
-(9, 'recovery_student', 'Recover an Absent Class', '<div><span style="line-height: 1.42857143;">#firstname #lastname is a student of #student_clan will recover his absence class at #recover_clan on #date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#student_clan\r\n#recover_clan\r\n#date', 2, '2014-08-25 10:05:22'),
-(10, 'teacher_recovery_student_for_student', 'Student (Teacher assign Recovery Class)', '<div><span style="line-height: 1.42857143;">Dear #student_name<br><br>The teacher #teacher_name has set the recovery class for you as you were absent.<br>The Clan is #recover_clan on #date<br></span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#student_name\r\n#teacher_name\r\n#recover_clan\r\n#date', 2, '2014-08-25 10:05:22'),
-(11, 'teacher_recovery_student_for_teacher', 'Teacher (Teacher assign Recovery Class)', 'Dear #receiver_teacher<br><br>The #sender_teacher has send one studennt name #student_name for the recovery class.<br>The class is #recover_clan on #date<br><br><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#student_name\r\n#receiver_teacher\r\n#sender_teacher\r\n#recover_clan\r\n#date', 2, '2014-08-25 10:05:22'),
-(12, 'event_invitation', 'Event Invitation', '<p>Dear #user</p><p>New Event is organised.</p><h4><span>Event Details :</span></h4><h4><hr></h4><p>#event_image</p><hr><p>Name : #event_name</p><p>Date : #from_date to #to_date</p><p>Location : #location</p><p>Event Created &nbsp;:&nbsp;#event_created_by</p><hr><p><br></p><p>The&nbsp;Invitation is send you by&nbsp;#invitation_send_by</p><p><br></p><p></p><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div><p></p>', NULL, '#user\r\n#event_name\r\n#from_date\r\n#to_date\r\n#location\r\n#event_image\r\n#event_created_by\r\n#invitation_send_by', 2, '2014-08-25 10:05:22');
+(1, 'user_registration', 'User Registration | MyLudosport', 'Hello #firstname #lastname<br>Thankyou for Registration.<br><div><br><span style="font-weight: bold;">Basic Details:<br></span>Name : #firstname #lastname<br>Location :  #location<br>Date of Birth : #dob<br><br><span style="font-weight: bold;">Login Details:<br></span>Nickname : #nickname<br>Password :  #password<br></div><div><br></div><div>Thanks,</div><div>MyLudosport Team</div>\r\n<div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#location\r\n#dob\r\n#nickname\r\n#password', 2, '2014-07-26 07:15:22'),
+(2, 'forgot_password', 'Forgot Password | MyLudosport', 'Hello #firstname #lastname <div><br></div><div>You have request for the reset the password.</div><div>Please click the below link to reset password.<br>\r\n#reset_link</div><div><br></div><div>Thanks,</div><div>MyLudosport Team</div>\r\n<div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#reset_link', 1, '2014-07-26 07:15:22'),
+(3, 'user_registration_notification', 'New User Registration Notification | MyLudosport', 'New User<div>#firstname #lastname is registerd on #date<div><br><span style="font-weight: bold;">Basic Details:<br></span>Name : #firstname #lastname<br>Location :  #location<br>Date of Birth : #dob<br><br><span style="font-weight: bold;">Login Details:<br></span>Nickname : #nickname<br><br></div><div><div>Thanks,</div><div>MyLudosport Team</div></div></div>\n<div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#location\r\n#dob\r\n#nickname\r\n#date', 2, '2014-07-26 07:15:22'),
+(4, 'trial_lesson_request', 'Request for Trail Lesson | MyLudosport', '<div><span style="line-height: 1.42857143;">#firstname #lastname </span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">Request for the trial lesson.</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">Clan Name : </span><span style="line-height: 1.42857143;">#clan_name</span></div><div><span style="line-height: 1.42857143;">Clan Date : #lesson_date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">Date of request : #apply_date</span></div><div><div><br></div><div><div>Thanks,</div></div></div>\r\n<div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#clan_name\r\n#lesson_date\r\n#apply_date', 2, '2014-08-25 10:05:22'),
+(5, 'trial_lesson_accepted', 'Request for Trail Lesson has been accepted | MyLudosport', '<div><span style="line-height: 1.42857143;">#firstname #lastname r</span><span style="line-height: 1.42857143;">equest for the trial lesson.</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">Clan Name : </span><span style="line-height: 1.42857143;">#clan_name</span></div><div><span style="line-height: 1.42857143;">Clan Date : #lesson_date</span></div><div><span style="line-height: 1.42857143;">Date of request : #apply_date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">has been </span>accepted<span style="line-height: 1.42857143;"> by the #teacher_name on #accept_date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div>\r\n<div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#clan_name\r\n#lesson_date\r\n#apply_date\r\n#teacher_name\r\n#accept_date\r\n', 2, '2014-08-25 10:05:22'),
+(6, 'trial_lesson_rejected', 'Request for Trail Lesson has been Rejected | MyLudosport', '<div><span style="line-height: 1.42857143;">#firstname #lastname r</span><span style="line-height: 1.42857143;">equest for the trial lesson.</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">Clan Name : </span><span style="line-height: 1.42857143;">#clan_name</span></div><div><span style="line-height: 1.42857143;">Clan Date : #lesson_date</span></div><div><span style="line-height: 1.42857143;">Date of request : #apply_date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div><span style="line-height: 1.42857143;">has been </span>rejected<span style="line-height: 1.42857143;"> by the #teacher_name on #reject_date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div>\r\n<div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#clan_name\r\n#lesson_date\r\n#apply_date\r\n#teacher_name\r\n#reject_date', 2, '2014-08-25 10:05:22'),
+(7, 'accepted_as_student', 'Confirm as a student | MyLudosport', '<div><span style="line-height: 1.42857143;">#firstname #lastname is now student of &nbsp;</span><span style="line-height: 1.42857143;">#clan_name clan.</span></div><div><span style="line-height: 1.42857143;">Accepted by the #teacher_name on #accept_date</span><br></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#clan_name\r\n#teacher_name\r\n#accept_date', 2, '2014-08-25 10:05:22'),
+(8, 'student_absent', 'Student Absent | MyLudosport', '<div><span style="line-height: 1.42857143;">#firstname #lastname will remain absent for&nbsp;</span><span style="line-height: 1.42857143;">#clan_name on #date.</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#clan_name\r\n#date', 2, '2014-08-25 10:05:22'),
+(9, 'recovery_student', 'Recover an Absent Class | MyLudosport', '<div><span style="line-height: 1.42857143;">#firstname #lastname is a student of #student_clan will recover his absence class at #recover_clan on #date</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#firstname\r\n#lastname\r\n#student_clan\r\n#recover_clan\r\n#date', 2, '2014-08-25 10:05:22'),
+(10, 'teacher_recovery_student_for_student', 'Student (Teacher assign Recovery Class) | MyLudosport', '<div><span style="line-height: 1.42857143;">Dear #student_name<br><br>The teacher #teacher_name has set the recovery class for you as you were absent.<br>The Clan is #recover_clan on #date<br></span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#student_name\r\n#teacher_name\r\n#recover_clan\r\n#date', 2, '2014-08-25 10:05:22'),
+(11, 'teacher_recovery_student_for_teacher', 'Teacher (Teacher assign Recovery Class) | MyLudosport', 'Dear #receiver_teacher<br><br>The #sender_teacher has send one studennt name #student_name for the recovery class.<br>The class is #recover_clan on #date<br><br><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#student_name\r\n#receiver_teacher\r\n#sender_teacher\r\n#recover_clan\r\n#date', 2, '2014-08-25 10:05:22'),
+(12, 'event_invitation', 'Event Invitation | MyLudosport', '<p>Dear #user</p><p>New Event is organised.</p><h4><span>Event Details :</span></h4><h4><hr></h4><p>#event_image</p><hr><p>Name : #event_name</p><p>Date : #from_date to #to_date</p><p>Location : #location</p><p>Event Created &nbsp;:&nbsp;#event_created_by</p><hr><p><br></p><p>The&nbsp;Invitation is send you by&nbsp;#invitation_send_by</p><p><br></p><p></p><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div><p></p>', NULL, '#user\r\n#event_name\r\n#from_date\r\n#to_date\r\n#location\r\n#event_image\r\n#event_created_by\r\n#invitation_send_by', 2, '2014-08-25 10:05:22'),
+(13, 'teacher_absent', 'Teacher Absent | MyLudosport', '<div><span>Dear #user_name,</span></div><div><span><br></span></div><div><span>The #teacher_name will remain absent for&nbsp;</span><span>#clan_name on #date.</span></div><div><span><br></span></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#teacher_name\r\n#clan_name\r\n#date', 2, '2014-08-25 10:05:22'),
+(14, 'recovery_teacher', 'Recovery Teacher | MyLudosport', '<div><span>Dear #user_name,</span></div><div><span><br></span></div><div><span><br></span></div><div>You will take lesson of #clan_name on #clan_date in place of #teacher_name.</div><div><span>It is approved by #approved_user_name.</span><br></div><div><br></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#clan_name\r\n#clan_date\r\n#teacher_name\r\n#approved_user_name', 2, '2014-08-25 10:05:22'),
+(15, 'holiday_approved', 'Holiday Approved | MyLudosport', '<div><span>Dear #user_name,</span></div><div><br></div><div>Your request for holiday on #date is approved.</div><div><span>It is approved by #authorized_user_name</span><span>.</span><br></div><div><br></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#date\r\n#authorized_user_name', 2, '2014-08-25 10:05:22'),
+(16, 'holiday_upapproved', 'Holiday Unapproved | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>Your request for holiday on #date is <span>unapproved</span>.</div><div>It is unapproved by #authorized_user_name.<br></div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#date\r\n#authorized_user_name', 2, '2014-08-25 10:05:22');
 
 -- --------------------------------------------------------
 
@@ -655,7 +659,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `data` longtext,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48 ;
 
 --
 -- Dumping data for table `notifications`
@@ -663,7 +667,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
 
 INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `object_id`, `data`, `status`, `timestamp`) VALUES
 (1, 'N', 'event_invitation', 3, 3, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:3:"ALL";s:9:"school_id";s:1:"0";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:36:"d48964571913989890a1905b09fceedf.jpg";s:11:"description";s:11:"<p>ddsD</p>";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:2:{i:0;s:1:"1";i:1;s:1:"2";}}', 1, '2014-09-01 07:10:58'),
-(2, 'N', 'event_invitation', 3, 4, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:3:"ALL";s:9:"school_id";s:1:"0";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:36:"d48964571913989890a1905b09fceedf.jpg";s:11:"description";s:11:"<p>ddsD</p>";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:2:{i:0;s:1:"1";i:1;s:1:"2";}}', 0, '2014-09-01 07:11:09'),
+(2, 'N', 'event_invitation', 3, 4, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:3:"ALL";s:9:"school_id";s:1:"0";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:36:"d48964571913989890a1905b09fceedf.jpg";s:11:"description";s:11:"<p>ddsD</p>";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:2:{i:0;s:1:"1";i:1;s:1:"2";}}', 1, '2014-09-01 07:11:09'),
 (3, 'N', 'event_invitation', 3, 5, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:3:"ALL";s:9:"school_id";s:1:"0";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:36:"d48964571913989890a1905b09fceedf.jpg";s:11:"description";s:11:"<p>ddsD</p>";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:2:{i:0;s:1:"1";i:1;s:1:"2";}}', 1, '2014-09-01 07:11:21'),
 (4, 'N', 'event_invitation', 3, 12, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:3:"ALL";s:9:"school_id";s:1:"0";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:36:"d48964571913989890a1905b09fceedf.jpg";s:11:"description";s:11:"<p>ddsD</p>";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:2:{i:0;s:1:"1";i:1;s:1:"2";}}', 1, '2014-09-01 07:11:31'),
 (5, 'N', 'event_invitation', 3, 13, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:3:"ALL";s:9:"school_id";s:1:"0";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:36:"d48964571913989890a1905b09fceedf.jpg";s:11:"description";s:11:"<p>ddsD</p>";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:2:{i:0;s:1:"1";i:1;s:1:"2";}}', 0, '2014-09-01 07:11:42'),
@@ -677,9 +681,38 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (13, 'N', 'event_invitation', 2, 2, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:3:"ALL";s:9:"school_id";s:1:"0";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:36:"d48964571913989890a1905b09fceedf.jpg";s:11:"description";s:11:"<p>ddsD</p>";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:14:"to_individuals";a:1:{i:0;s:1:"2";}}', 1, '2014-09-01 07:31:02'),
 (14, 'N', 'event_invitation', 2, 2, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:3:"ALL";s:9:"school_id";s:1:"0";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:36:"d48964571913989890a1905b09fceedf.jpg";s:11:"description";s:11:"<p>ddsD</p>";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:14:"to_individuals";a:1:{i:0;s:1:"2";}}', 1, '2014-09-01 08:05:22'),
 (15, 'I', 'user_register', 0, 2, 22, 'a:9:{s:9:"firstname";s:4:"Pepe";s:8:"lastname";s:5:"Jeans";s:8:"username";s:4:"pepe";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"31-12-1985";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-03 05:32:35'),
-(16, 'I', 'user_register', 0, 3, 22, 'a:9:{s:9:"firstname";s:4:"Pepe";s:8:"lastname";s:5:"Jeans";s:8:"username";s:4:"pepe";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"31-12-1985";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-03 05:32:40'),
-(17, 'I', 'user_register', 0, 4, 22, 'a:9:{s:9:"firstname";s:4:"Pepe";s:8:"lastname";s:5:"Jeans";s:8:"username";s:4:"pepe";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"31-12-1985";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-03 05:32:46'),
-(18, 'I', 'user_register', 0, 5, 22, 'a:9:{s:9:"firstname";s:4:"Pepe";s:8:"lastname";s:5:"Jeans";s:8:"username";s:4:"pepe";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"31-12-1985";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-03 05:32:51');
+(16, 'I', 'user_register', 0, 3, 22, 'a:9:{s:9:"firstname";s:4:"Pepe";s:8:"lastname";s:5:"Jeans";s:8:"username";s:4:"pepe";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"31-12-1985";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 1, '2014-09-03 05:32:40'),
+(17, 'I', 'user_register', 0, 4, 22, 'a:9:{s:9:"firstname";s:4:"Pepe";s:8:"lastname";s:5:"Jeans";s:8:"username";s:4:"pepe";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"31-12-1985";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 1, '2014-09-03 05:32:46'),
+(18, 'I', 'user_register', 0, 5, 22, 'a:9:{s:9:"firstname";s:4:"Pepe";s:8:"lastname";s:5:"Jeans";s:8:"username";s:4:"pepe";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"31-12-1985";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 1, '2014-09-03 05:32:51'),
+(19, 'N', 'teacher_absent', 5, 3, 13, 'a:5:{s:6:"action";s:15:"recover-teacher";s:7:"clan_id";s:1:"5";s:12:"from_message";s:12:"Family Issue";s:4:"date";s:10:"2014-09-06";s:10:"teacher_id";s:1:"4";}', 1, '2014-09-05 06:09:05'),
+(20, 'N', 'holiday_approved', 3, 5, 13, 'a:11:{s:2:"id";i:13;s:9:"clan_date";s:10:"2014-09-06";s:7:"clan_id";s:1:"5";s:10:"teacher_id";s:1:"5";s:10:"attendance";s:1:"0";s:16:"recovery_teacher";s:1:"4";s:12:"from_message";s:12:"Family Issue";s:10:"to_message";N;s:6:"status";s:1:"A";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-09-05 11:39:05";}', 0, '2014-09-05 06:23:25'),
+(21, 'N', 'recovery_teacher', 3, 4, 13, 'a:11:{s:2:"id";i:13;s:9:"clan_date";s:10:"2014-09-06";s:7:"clan_id";s:1:"5";s:10:"teacher_id";s:1:"5";s:10:"attendance";s:1:"0";s:16:"recovery_teacher";s:1:"4";s:12:"from_message";s:12:"Family Issue";s:10:"to_message";N;s:6:"status";s:1:"A";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-09-05 11:39:05";}', 0, '2014-09-05 06:23:32'),
+(22, 'N', 'holiday_approved', 3, 5, 13, 'a:11:{s:2:"id";i:13;s:9:"clan_date";s:10:"2014-09-06";s:7:"clan_id";s:1:"5";s:10:"teacher_id";s:1:"5";s:10:"attendance";s:1:"0";s:16:"recovery_teacher";s:1:"4";s:12:"from_message";s:12:"Family Issue";s:10:"to_message";N;s:6:"status";s:1:"A";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-09-05 11:39:05";}', 0, '2014-09-05 06:27:04'),
+(23, 'N', 'recovery_teacher', 3, 4, 13, 'a:11:{s:2:"id";i:13;s:9:"clan_date";s:10:"2014-09-06";s:7:"clan_id";s:1:"5";s:10:"teacher_id";s:1:"5";s:10:"attendance";s:1:"0";s:16:"recovery_teacher";s:1:"4";s:12:"from_message";s:12:"Family Issue";s:10:"to_message";N;s:6:"status";s:1:"A";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-09-05 11:39:05";}', 0, '2014-09-05 06:27:13'),
+(24, 'N', 'holiday_approved', 3, 5, 13, 'a:11:{s:2:"id";i:13;s:9:"clan_date";s:10:"2014-09-06";s:7:"clan_id";s:1:"5";s:10:"teacher_id";s:1:"5";s:10:"attendance";s:1:"0";s:16:"recovery_teacher";s:1:"4";s:12:"from_message";s:12:"Family Issue";s:10:"to_message";N;s:6:"status";s:1:"A";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-09-05 11:39:05";}', 0, '2014-09-05 06:30:51'),
+(25, 'N', 'recovery_teacher', 3, 4, 13, 'a:11:{s:2:"id";i:13;s:9:"clan_date";s:10:"2014-09-06";s:7:"clan_id";s:1:"5";s:10:"teacher_id";s:1:"5";s:10:"attendance";s:1:"0";s:16:"recovery_teacher";s:1:"4";s:12:"from_message";s:12:"Family Issue";s:10:"to_message";N;s:6:"status";s:1:"A";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-09-05 11:39:05";}', 0, '2014-09-05 06:30:57'),
+(26, 'N', 'holiday_approved', 3, 5, 13, 'a:11:{s:2:"id";i:13;s:9:"clan_date";s:10:"2014-09-06";s:7:"clan_id";s:1:"5";s:10:"teacher_id";s:1:"5";s:10:"attendance";s:1:"0";s:16:"recovery_teacher";s:1:"4";s:12:"from_message";s:12:"Family Issue";s:10:"to_message";N;s:6:"status";s:1:"A";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-09-05 11:39:05";}', 0, '2014-09-05 06:34:36'),
+(27, 'N', 'recovery_teacher', 3, 4, 13, 'a:11:{s:2:"id";i:13;s:9:"clan_date";s:10:"2014-09-06";s:7:"clan_id";s:1:"5";s:10:"teacher_id";s:1:"5";s:10:"attendance";s:1:"0";s:16:"recovery_teacher";s:1:"4";s:12:"from_message";s:12:"Family Issue";s:10:"to_message";N;s:6:"status";s:1:"A";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-09-05 11:39:05";}', 0, '2014-09-05 06:34:42'),
+(28, 'N', 'teacher_absent', 5, 3, 14, 'a:4:{s:6:"action";s:15:"confirm_absence";s:7:"clan_id";s:1:"5";s:12:"from_message";s:12:"Family Issue";s:4:"date";s:10:"2014-09-06";}', 1, '2014-09-05 06:37:09'),
+(29, 'N', 'holiday_approved', 3, 5, 14, 'a:11:{s:2:"id";i:14;s:9:"clan_date";s:10:"2014-09-06";s:7:"clan_id";s:1:"5";s:10:"teacher_id";s:1:"5";s:10:"attendance";s:1:"0";s:16:"recovery_teacher";s:1:"4";s:12:"from_message";s:12:"Family Issue";s:10:"to_message";N;s:6:"status";s:1:"A";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-09-05 12:07:09";}', 0, '2014-09-05 06:39:05'),
+(30, 'N', 'recovery_teacher', 3, 4, 14, 'a:11:{s:2:"id";i:14;s:9:"clan_date";s:10:"2014-09-06";s:7:"clan_id";s:1:"5";s:10:"teacher_id";s:1:"5";s:10:"attendance";s:1:"0";s:16:"recovery_teacher";s:1:"4";s:12:"from_message";s:12:"Family Issue";s:10:"to_message";N;s:6:"status";s:1:"A";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-09-05 12:07:09";}', 0, '2014-09-05 06:39:12'),
+(31, 'N', 'holiday_approved', 3, 5, 14, 'a:11:{s:2:"id";i:14;s:9:"clan_date";s:10:"2014-09-06";s:7:"clan_id";s:1:"5";s:10:"teacher_id";s:1:"5";s:10:"attendance";s:1:"0";s:16:"recovery_teacher";s:1:"4";s:12:"from_message";s:12:"Family Issue";s:10:"to_message";N;s:6:"status";s:1:"A";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-09-05 12:07:09";}', 0, '2014-09-05 06:46:35'),
+(32, 'N', 'recovery_teacher', 3, 4, 14, 'a:11:{s:2:"id";i:14;s:9:"clan_date";s:10:"2014-09-06";s:7:"clan_id";s:1:"5";s:10:"teacher_id";s:1:"5";s:10:"attendance";s:1:"0";s:16:"recovery_teacher";s:1:"4";s:12:"from_message";s:12:"Family Issue";s:10:"to_message";N;s:6:"status";s:1:"A";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-09-05 12:07:09";}', 0, '2014-09-05 06:46:42'),
+(33, 'I', 'user_register', 0, 2, 23, 'a:9:{s:9:"firstname";s:4:"Paul";s:8:"lastname";s:5:"Smith";s:8:"username";s:4:"paul";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"29-12-1982";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-05 09:58:30'),
+(34, 'I', 'user_register', 0, 3, 23, 'a:9:{s:9:"firstname";s:4:"Paul";s:8:"lastname";s:5:"Smith";s:8:"username";s:4:"paul";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"29-12-1982";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-05 09:58:36'),
+(35, 'I', 'user_register', 0, 4, 23, 'a:9:{s:9:"firstname";s:4:"Paul";s:8:"lastname";s:5:"Smith";s:8:"username";s:4:"paul";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"29-12-1982";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-05 09:58:42'),
+(36, 'I', 'user_register', 0, 5, 23, 'a:9:{s:9:"firstname";s:4:"Paul";s:8:"lastname";s:5:"Smith";s:8:"username";s:4:"paul";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"29-12-1982";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-05 09:58:49'),
+(37, 'I', 'user_register', 0, 7, 23, 'a:9:{s:9:"firstname";s:4:"Paul";s:8:"lastname";s:5:"Smith";s:8:"username";s:4:"paul";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"29-12-1982";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-05 09:58:55'),
+(38, 'I', 'user_register', 0, 2, 24, 'a:9:{s:9:"firstname";s:4:"Paul";s:8:"lastname";s:5:"Smith";s:8:"username";s:4:"paul";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"16-05-1993";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-05 10:09:30'),
+(39, 'I', 'user_register', 0, 3, 24, 'a:9:{s:9:"firstname";s:4:"Paul";s:8:"lastname";s:5:"Smith";s:8:"username";s:4:"paul";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"16-05-1993";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-05 10:09:37'),
+(40, 'I', 'user_register', 0, 4, 24, 'a:9:{s:9:"firstname";s:4:"Paul";s:8:"lastname";s:5:"Smith";s:8:"username";s:4:"paul";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"16-05-1993";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-05 10:09:44'),
+(41, 'I', 'user_register', 0, 5, 24, 'a:9:{s:9:"firstname";s:4:"Paul";s:8:"lastname";s:5:"Smith";s:8:"username";s:4:"paul";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"16-05-1993";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-05 10:09:50'),
+(42, 'I', 'user_register', 0, 7, 24, 'a:9:{s:9:"firstname";s:4:"Paul";s:8:"lastname";s:5:"Smith";s:8:"username";s:4:"paul";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"16-05-1993";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-05 10:10:01'),
+(43, 'I', 'user_register', 0, 2, 25, 'a:9:{s:9:"firstname";s:4:"Paul";s:8:"lastname";s:5:"Smith";s:8:"username";s:4:"paul";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"16-05-1993";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-05 10:16:44'),
+(44, 'I', 'user_register', 0, 3, 25, 'a:9:{s:9:"firstname";s:4:"Paul";s:8:"lastname";s:5:"Smith";s:8:"username";s:4:"paul";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"16-05-1993";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-05 10:16:51'),
+(45, 'I', 'user_register', 0, 4, 25, 'a:9:{s:9:"firstname";s:4:"Paul";s:8:"lastname";s:5:"Smith";s:8:"username";s:4:"paul";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"16-05-1993";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-05 10:16:57'),
+(46, 'I', 'user_register', 0, 5, 25, 'a:9:{s:9:"firstname";s:4:"Paul";s:8:"lastname";s:5:"Smith";s:8:"username";s:4:"paul";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"16-05-1993";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-05 10:17:03'),
+(47, 'I', 'user_register', 0, 7, 25, 'a:9:{s:9:"firstname";s:4:"Paul";s:8:"lastname";s:5:"Smith";s:8:"username";s:4:"paul";s:7:"city_id";s:1:"1";s:13:"date_of_birth";s:10:"16-05-1993";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-05 10:17:09');
 
 -- --------------------------------------------------------
 
@@ -824,7 +857,44 @@ INSERT INTO `systemsettings` (`id`, `type`, `sequence`, `sys_key`, `sys_value`, 
 (12, 'general', 8, 'data_table_length', '10,15,20,25,50,75,100', 1, '2014-08-07 05:31:10'),
 (13, 'mail', 3, 'smtp_port', '465', 1, '2014-08-07 05:31:10'),
 (14, 'general', 9, 'terms_conditions', '<p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus scelerisque tincidunt porttitor. Aliquam mollis nulla felis, eget maximus ipsum posuere ut. Duis bibendum sagittis metus, sed mattis ex sagittis sed. Vivamus facilisis justo arcu, id bibendum nulla ultrices vitae. Donec vitae ex ultricies, aliquet magna vitae, elementum nunc. Vivamus nulla nisl, ultricies a rhoncus quis, lobortis quis neque. Integer nisi ex, rhoncus vitae vehicula et, scelerisque non dui. Morbi porta, est sit amet egestas scelerisque, leo sem molestie diam, eget sagittis metus risus eget nisi. Aliquam erat volutpat. Vestibulum ac libero tellus. Cras imperdiet nunc eu tincidunt venenatis.</span></p><p><span>Phasellus condimentum, lorem vitae gravida gravida, ipsum felis facilisis massa, eget elementum risus lorem vel est. Fusce augue justo, facilisis non ligula in, feugiat porta sem. Praesent nec augue turpis. Nulla consectetur porta est vel efficitur. Vestibulum condimentum, libero sed tincidunt lobortis, eros lorem efficitur sapien, et interdum dui purus id justo. Vivamus porttitor felis sed purus sodales finibus. Maecenas convallis in ligula a hendrerit. Vivamus dapibus dapibus dictum. Integer iaculis leo purus, at lobortis mi eleifend sed. Maecenas vitae gravida nulla, vel luctus nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam efficitur mauris at tortor maximus, ut placerat elit tempus. Nunc pretium blandit efficitur.</span></p><p><span>Duis convallis lobortis leo quis faucibus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum et tempor est, scelerisque consequat nunc. Nam sit amet tempus ipsum. Nunc porta convallis arcu. In vehicula ligula felis, non dapibus mauris congue eget. Donec elit lorem, molestie nec pharetra euismod, sagittis eget tellus. Sed justo dolor, rutrum ut magna posuere, egestas maximus dui. Praesent erat magna, ornare molestie ultrices ut, porta at erat. Sed tempor elit sit amet libero imperdiet cursus.</span></p>', 2, '2014-09-03 06:14:42'),
-(15, 'general', 7, 'reset_app_date', '31-12-2014', 2, '2014-09-03 06:14:42');
+(15, 'general', 7, 'reset_app_day_month', '31-12', 2, '2014-09-03 06:14:42');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teacher_attendances`
+--
+
+CREATE TABLE IF NOT EXISTS `teacher_attendances` (
+`id` int(11) NOT NULL,
+  `clan_date` date NOT NULL,
+  `clan_id` int(11) NOT NULL,
+  `teacher_id` int(11) NOT NULL,
+  `attendance` tinyint(1) NOT NULL DEFAULT '1',
+  `recovery_teacher` int(11) NOT NULL,
+  `from_message` varchar(255) DEFAULT NULL,
+  `to_message` varchar(255) DEFAULT NULL,
+  `status` enum('A','P','U') NOT NULL DEFAULT 'P',
+  `user_id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+
+--
+-- Dumping data for table `teacher_attendances`
+--
+
+INSERT INTO `teacher_attendances` (`id`, `clan_date`, `clan_id`, `teacher_id`, `attendance`, `recovery_teacher`, `from_message`, `to_message`, `status`, `user_id`, `timestamp`) VALUES
+(1, '2014-07-01', 3, 3, 1, 0, NULL, NULL, 'A', 2, '2014-09-04 08:46:38'),
+(2, '2014-07-08', 3, 3, 1, 0, NULL, NULL, 'A', 2, '2014-09-04 08:46:38'),
+(3, '2014-07-15', 3, 3, 1, 0, NULL, NULL, 'A', 2, '2014-09-04 08:46:38'),
+(4, '2014-07-22', 3, 3, 1, 0, NULL, NULL, 'A', 2, '2014-09-04 08:46:38'),
+(5, '2014-07-29', 3, 3, 1, 0, NULL, NULL, 'A', 2, '2014-09-04 08:46:38'),
+(6, '2014-08-05', 3, 3, 0, 7, 'Family Function', NULL, 'A', 2, '2014-09-04 08:46:38'),
+(7, '2014-08-12', 3, 3, 1, 0, NULL, NULL, 'A', 2, '2014-09-04 08:46:38'),
+(8, '2014-08-19', 3, 3, 0, 0, 'Doctor''s Appoiment', NULL, 'A', 2, '2014-09-04 08:46:38'),
+(9, '2014-08-26', 3, 3, 1, 0, NULL, NULL, 'A', 2, '2014-09-04 08:46:38'),
+(12, '2014-09-12', 5, 5, 0, 4, 'Family Issue', NULL, 'A', 5, '2014-09-05 05:27:45'),
+(14, '2014-09-06', 5, 5, 1, 4, 'Family Issue', 'No you have to come', 'U', 5, '2014-09-05 06:37:09');
 
 -- --------------------------------------------------------
 
@@ -855,11 +925,11 @@ INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `first_lesson_d
 (5, 14, '1', '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:02'),
 (6, 15, '1', '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
 (7, 16, '1', '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
-(8, 17, '5', '2014-08-11', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-05 00:09:27'),
-(9, 20, '5', '2014-08-28', 2, NULL, NULL, NULL, NULL, 'A', 20, '2014-08-21 01:37:12'),
+(8, 17, '5', '2014-08-15', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-05 00:09:27'),
+(9, 20, '5', '2014-08-29', 2, NULL, NULL, NULL, NULL, 'A', 20, '2014-08-21 01:37:12'),
 (10, 13, '5', '2014-08-30', 3, NULL, NULL, NULL, NULL, 'A', 13, '2014-08-25 05:27:01'),
 (11, 21, '6', '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2014-08-25 05:52:04'),
-(12, 12, '1', '2014-08-04', 2, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-04 00:09:02');
+(12, 12, '2', '2014-09-10', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:02');
 
 -- --------------------------------------------------------
 
@@ -879,36 +949,38 @@ CREATE TABLE IF NOT EXISTS `users` (
   `city_id` int(11) NOT NULL,
   `state_id` int(11) NOT NULL,
   `country_id` int(11) NOT NULL,
+  `city_of_residence` varchar(255) DEFAULT NULL,
   `permission` longtext,
   `avtar` varchar(255) NOT NULL DEFAULT 'no_avatar.jpg',
   `status` enum('A','D','P','U') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `lastname`, `email`, `date_of_birth`, `city_id`, `state_id`, `country_id`, `permission`, `avtar`, `status`, `user_id`, `timestamp`) VALUES
-(1, '1', 'superadmin', '202cb962ac59075b964b07152d234b70', 'Soyab', 'Rana', 'ranasoyab@yopmail.com', 316895400, 1, 1, 1, NULL, '94048c9c2c04baf3b871be491ef8ded2.jpg', 'A', 1, '2014-07-17 01:35:53'),
-(2, '2', 'admin', '202cb962ac59075b964b07152d234b70', 'Admin', 'James', 'soyab@blackidsolutions.com', 316895400, 1, 1, 1, NULL, '666f7848493437bd4c99320ce487a5e2.jpg', 'A', 2, '2014-07-17 01:58:01'),
-(3, '3,4,5', 'rector_1', '202cb962ac59075b964b07152d234b70', 'Rector', 'Tom', 'ranasoyab@yopmail.com', 316895400, 1, 1, 1, NULL, '063fd00a3c30c83404faf36e32b2dada.jpg', 'A', 3, '2014-07-17 01:58:01'),
-(4, '4', 'dean_1', '202cb962ac59075b964b07152d234b70', 'Dean', 'Jerry', 'ranasoyab@yopmail.com', 1277922600, 1, 1, 1, NULL, 'no_avatar.jpg', 'A', 0, '2014-07-17 01:58:01'),
-(5, '5,3', 'teacher_1', '202cb962ac59075b964b07152d234b70', 'Teacher', 'Pluto', 'ranasoyab@yopmail.com', 653682600, 2, 1, 1, NULL, '44999132c325dd575171618f58a0712a.jpg', 'A', 5, '2014-07-21 04:41:41'),
-(6, '3', 'rector_2', '202cb962ac59075b964b07152d234b70', 'Rector', 'Goopy', 'ranasoyab@yopmail.com', 1277922600, 1, 1, 1, NULL, 'no_avatar.jpg', 'A', 2, '2014-07-17 01:58:01'),
-(7, '5', 'teacher_2', '202cb962ac59075b964b07152d234b70', 'Teacher', '2', 'ranasoyab@yopmail.com', 653682600, 2, 1, 1, NULL, 'no_avatar.jpg', 'A', 1, '2014-07-21 04:41:41'),
-(8, '5', 'teacher_3', '202cb962ac59075b964b07152d234b70', 'Teacher', '3', 'ranasoyab@yopmail.com', 653682600, 2, 1, 1, NULL, 'no_avatar.jpg', 'A', 1, '2014-07-21 04:41:41'),
-(12, '6', 'killer', '202cb962ac59075b964b07152d234b70', 'Killer', 'Jeans', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, 'c05b3802dd788813231e79ce67a5513d.jpg', 'P', 3, '2014-07-31 05:15:54'),
-(13, '6', 'martin', '202cb962ac59075b964b07152d234b70', 'Martin', 'Lusi', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, '0b1b838debca3f07a19dfb93846a38a2.jpg', 'A', 13, '2014-07-31 23:50:27'),
-(14, '6', 'student_1', '202cb962ac59075b964b07152d234b70', 'Melba', 'Stevens', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, 'no_avatar.jpg', 'A', 3, '2014-08-04 00:07:32'),
-(15, '6', 'student_2', '202cb962ac59075b964b07152d234b70', 'Tolunay', 'Ankone', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, 'no_avatar.jpg', 'A', 3, '2014-08-04 00:07:19'),
-(16, '6', 'student_3', '202cb962ac59075b964b07152d234b70', 'Ubaldo', 'Genovese', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, 'no_avatar.jpg', 'A', 3, '2014-08-04 00:07:56'),
-(17, '6', 'student_4', '202cb962ac59075b964b07152d234b70', 'Berto', 'Milani', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, 'no_avatar.jpg', 'A', 3, '2014-08-04 00:08:37'),
-(19, '5', 'teacher_4', '202cb962ac59075b964b07152d234b70', 'Teacher', '4', 'ranasoyab@yopmail.com', 653682600, 2, 1, 1, NULL, 'no_avatar.jpg', 'A', 1, '2014-07-21 04:41:41'),
-(20, '6', 'denim', '202cb962ac59075b964b07152d234b70', 'Denim', 'Jeans', 'ranasoyab@yopmail.com', 1218479400, 1, 1, 1, NULL, 'no_avatar.jpg', 'A', 0, '2014-08-21 01:18:58'),
-(21, '6', 'levis', '202cb962ac59075b964b07152d234b70', 'levis', 'Jeans', 'ranasoyab@yopmail.com', 706127400, 2, 1, 1, NULL, 'no_avatar.jpg', 'A', 0, '2014-08-25 05:50:58'),
-(22, '6', 'pepe', '202cb962ac59075b964b07152d234b70', 'Pepe', 'Jeans', 'ranasoyab@yopmail.com', 504815400, 1, 1, 1, NULL, 'no_avatar.jpg', 'P', 0, '2014-09-03 05:32:30');
+INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `lastname`, `email`, `date_of_birth`, `city_id`, `state_id`, `country_id`, `city_of_residence`, `permission`, `avtar`, `status`, `user_id`, `timestamp`) VALUES
+(1, '1', 'superadmin', '202cb962ac59075b964b07152d234b70', 'Soyab', 'Rana', 'ranasoyab@yopmail.com', 316895400, 1, 1, 1, NULL, NULL, '94048c9c2c04baf3b871be491ef8ded2.jpg', 'A', 1, '2014-07-17 01:35:53'),
+(2, '2', 'admin', '202cb962ac59075b964b07152d234b70', 'Admin', 'James', 'ranasoyab@yopmail.com', 316895400, 1, 1, 1, NULL, NULL, '666f7848493437bd4c99320ce487a5e2.jpg', 'A', 2, '2014-07-17 01:58:01'),
+(3, '3,4,5', 'rector_1', '202cb962ac59075b964b07152d234b70', 'Rector', 'Tom', 'ranasoyab@yopmail.com', 316895400, 1, 1, 1, NULL, NULL, '063fd00a3c30c83404faf36e32b2dada.jpg', 'A', 3, '2014-07-17 01:58:01'),
+(4, '4', 'dean_1', '202cb962ac59075b964b07152d234b70', 'Dean', 'Jerry', 'ranasoyab@yopmail.com', 1277922600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 0, '2014-07-17 01:58:01'),
+(5, '5,3', 'teacher_1', '202cb962ac59075b964b07152d234b70', 'Teacher', 'Pluto', 'ranasoyab@yopmail.com', 653682600, 2, 1, 1, NULL, NULL, '44999132c325dd575171618f58a0712a.jpg', 'A', 5, '2014-07-21 04:41:41'),
+(6, '3', 'rector_2', '202cb962ac59075b964b07152d234b70', 'Rector', 'Goopy', 'ranasoyab@yopmail.com', 1277922600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-07-17 01:58:01'),
+(7, '5', 'teacher_2', '202cb962ac59075b964b07152d234b70', 'Teacher', '2', 'ranasoyab@yopmail.com', 653682600, 2, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 1, '2014-07-21 04:41:41'),
+(8, '5', 'teacher_3', '202cb962ac59075b964b07152d234b70', 'Teacher', '3', 'ranasoyab@yopmail.com', 653682600, 2, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 1, '2014-07-21 04:41:41'),
+(12, '6', 'killer', '202cb962ac59075b964b07152d234b70', 'Killer', 'Jeans', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, 'c05b3802dd788813231e79ce67a5513d.jpg', 'P', 3, '2014-07-31 05:15:54'),
+(13, '6', 'martin', '202cb962ac59075b964b07152d234b70', 'Martin', 'Lusi', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, '0b1b838debca3f07a19dfb93846a38a2.jpg', 'A', 13, '2014-07-31 23:50:27'),
+(14, '6', 'student_1', '202cb962ac59075b964b07152d234b70', 'Melba', 'Stevens', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 3, '2014-08-04 00:07:32'),
+(15, '6', 'student_2', '202cb962ac59075b964b07152d234b70', 'Tolunay', 'Ankone', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 3, '2014-08-04 00:07:19'),
+(16, '6', 'student_3', '202cb962ac59075b964b07152d234b70', 'Ubaldo', 'Genovese', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 3, '2014-08-04 00:07:56'),
+(17, '6', 'student_4', '202cb962ac59075b964b07152d234b70', 'Berto', 'Milani', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 3, '2014-08-04 00:08:37'),
+(19, '5', 'teacher_4', '202cb962ac59075b964b07152d234b70', 'Teacher', '4', 'ranasoyab@yopmail.com', 653682600, 2, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 1, '2014-07-21 04:41:41'),
+(20, '6', 'denim', '202cb962ac59075b964b07152d234b70', 'Denim', 'Jeans', 'ranasoyab@yopmail.com', 1218479400, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 0, '2014-08-21 01:18:58'),
+(21, '6', 'levis', '202cb962ac59075b964b07152d234b70', 'levis', 'Jeans', 'ranasoyab@yopmail.com', 706127400, 2, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 0, '2014-08-25 05:50:58'),
+(22, '6', 'pepe', '202cb962ac59075b964b07152d234b70', 'Pepe', 'Jeans', 'ranasoyab@yopmail.com', 504815400, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'P', 0, '2014-09-03 05:32:30'),
+(33, '6', 'paul', '202cb962ac59075b964b07152d234b70', 'Paul', 'Smith', 'ranasoyab@yopmail.com', 712175400, 1, 1, 1, 'Vadodara', NULL, 'no_avatar.jpg', 'P', 33, '2014-09-05 10:47:40');
 
 --
 -- Indexes for dumped tables
@@ -1053,6 +1125,12 @@ ALTER TABLE `systemsettings`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `sys_key` (`sys_key`);
 
 --
+-- Indexes for table `teacher_attendances`
+--
+ALTER TABLE `teacher_attendances`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `userdetails`
 --
 ALTER TABLE `userdetails`
@@ -1112,7 +1190,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `emails`
 --
 ALTER TABLE `emails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `eventcategories`
 --
@@ -1157,7 +1235,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
@@ -1184,6 +1262,11 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 ALTER TABLE `systemsettings`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
+-- AUTO_INCREMENT for table `teacher_attendances`
+--
+ALTER TABLE `teacher_attendances`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+--
 -- AUTO_INCREMENT for table `userdetails`
 --
 ALTER TABLE `userdetails`
@@ -1192,7 +1275,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
