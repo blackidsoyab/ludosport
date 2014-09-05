@@ -121,6 +121,16 @@
                 <input type="text" name="date_of_birth"  class="form-control required datepicker" placeholder="<?php echo $this->lang->line('dob'); ?>" style="border-radius: 0px;"  data-date-format="dd-mm-yyyy" value="<?php echo date('d-m-Y', $profile->date_of_birth); ?>" />
             </div>
         </div>
+        
+        <div class="form-group">
+            <label for="question" class="col-lg-3 control-label">
+                <?php echo $this->lang->line('city_of_residence'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-lg-5">
+                <input type="text" name="city_of_residence"  class="form-control required" placeholder="<?php echo $this->lang->line('city_of_residence'); ?>"  value="<?php echo $profile->city_of_residence; ?>"/>
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('country'); ?> <span class="text-danger">*</span></label>

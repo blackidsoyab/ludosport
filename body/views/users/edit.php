@@ -151,6 +151,16 @@
 
         <div class="form-group">
             <label for="question" class="col-lg-3 control-label">
+                <?php echo $this->lang->line('city_of_residence'); ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-lg-5">
+                <input type="text" name="city_of_residence"  class="form-control required" placeholder="<?php echo $this->lang->line('city_of_residence'); ?>"  value="<?php echo  $user->city_of_residence; ?>"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="question" class="col-lg-3 control-label">
                 <?php echo $this->lang->line('select'), ' ', $this->lang->line('city'); ?>
                 <span class="text-danger">*</span>
             </label>

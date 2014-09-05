@@ -27,6 +27,28 @@ class authenticate extends CI_Controller {
         }
     }
 
+    private function _setSessionData($user){
+        $user_data = new stdClass();
+        $user_data->id = $user->id;
+        $user_data->name = $user->firstname . ' ' . $user->lastname;
+        $user_data->avtar = $user->avtar;
+        $user_data->language = 'en';
+        $roles = explode(',', $user->role_id);
+        sort($roles);
+        $user_data->role = $roles[0];
+        $user_data->role_name = getRoleName($roles[0]);
+        unset($roles[0]);
+        $user_data->all_roles = $roles;
+        $user_data->email = $user->email;
+        $user_data->status = $user->status;
+        $newdata = array('user_session' => $user_data);
+        $this->session->set_userdata($newdata);
+        $this->_setLastNotification($user->id);
+        $this->_setLastmessage($user->id);
+
+        return true;
+    }
+
     function validateUser() {
         $user = new User();
         $user->where('username', $this->input->post('username'));
@@ -38,24 +60,7 @@ class authenticate extends CI_Controller {
                 $this->session->set_flashdata('info', 'You are not an active member. <br /> Contact Admin.');
                 redirect(base_url() . 'login', 'refresh');
             } else {
-                $user_data = new stdClass();
-                $user_data->id = $user->id;
-                $user_data->name = $user->firstname . ' ' . $user->lastname;
-                $user_data->avtar = $user->avtar;
-                $user_data->language = 'en';
-                $roles = explode(',', $user->role_id);
-                sort($roles);
-                $user_data->role = $roles[0];
-                $user_data->role_name = getRoleName($roles[0]);
-                unset($roles[0]);
-                $user_data->all_roles = $roles;
-                $user_data->email = $user->email;
-                $user_data->status = $user->status;
-                $newdata = array('user_session' => $user_data);
-
-                $this->session->set_userdata($newdata);
-                $this->setLastNotification($user->id);
-                $this->setLastmessage($user->id);
+                $this->_setSessionData($user);
                 redirect(base_url() . 'dashboard', 'refresh');
             }
         } else {
@@ -64,7 +69,7 @@ class authenticate extends CI_Controller {
         }
     }
 
-    function setLastNotification($user_id) {
+    private function _setLastNotification($user_id) {
         $notification = new Notification();
         $notification->where(array('to_id' => $user_id, 'status' => 0));
         $notification->order_by('id', 'desc');
@@ -77,7 +82,7 @@ class authenticate extends CI_Controller {
         }
     }
 
-    function setLastMessage($user_id) {
+    private function _setLastMessage($user_id) {
         $obj_message = new Message();
         $id = $obj_message->getLastMessageID($user_id);
         if (!empty($id)) {
@@ -102,8 +107,11 @@ class authenticate extends CI_Controller {
 
     function register() {
         $this->layout->setField('page_title', 'Registration');
+        $clan = new Clan();
+        $cities_ids = $clan->getCitiesofClans();
+
         $city = new City();
-        $data['cities'] = $city->get();
+        $data['cities'] = $city->where_in('id', $cities_ids)->get();
         $this->layout->view('authenticate/register', $data);
     }
 
@@ -119,6 +127,7 @@ class authenticate extends CI_Controller {
         $new_user->state_id = $city->state->id;
         $new_user->country_id = $city->state->country->id;
         $new_user->date_of_birth = strtotime(date('Y-m-d', strtotime($this->input->post('date_of_birth'))));
+        $new_user->city_of_residence = $this->input->post('city_of_residence');
         $new_user->email = $this->input->post('email');
         $new_user->password = md5($this->input->post('password'));
         if ($new_user->save()) {
@@ -193,8 +202,13 @@ class authenticate extends CI_Controller {
                 send_mail($option);
             }
 
-            $this->session->set_flashdata('success', 'Login with Username or Password');
-            redirect(base_url() . 'login', 'refresh');
+            unset($obj_user);
+            $obj_user = new User();
+            $obj_user->where('id', $new_user->id)->get();
+
+            $this->_setSessionData($obj_user);
+            $this->session->set_flashdata('success', 'Registration is successful');
+            redirect(base_url() . 'dashboard', 'refresh');
         } else {
             $this->session->set_flashdata('error', 'Please try after Sometime');
             redirect(base_url() . 'register', 'refresh');

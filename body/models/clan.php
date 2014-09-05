@@ -526,5 +526,22 @@ class Clan extends DataMapper
             return false;
         }
     }
+
+    function getCitiesofClans() {
+        $this->db->_protect_identifiers = false;
+        $this->db->select('city_id');
+        $this->db->from('clans');
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $temp = $res->result();
+            foreach ($temp as $value) {
+                $array[] = explode(',', $value->city_id);
+            }
+            
+            return array_unique(MultiArrayToSinlgeArray($array));
+        } else {
+            return false;
+        }
+    }
 }
 ?>

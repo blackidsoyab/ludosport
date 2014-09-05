@@ -28,6 +28,18 @@ body.login{
     box-shadow: 0px 3px 0px #C6901F;
 }
 
+.register-select {
+  color: #999;
+}
+
+.register-select option:first-child{
+  color: #999;
+}
+
+.register-select option{
+  color: #000;
+}
+
 /**
 ----------------------------------------------
 **/

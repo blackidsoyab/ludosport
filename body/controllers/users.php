@@ -51,6 +51,7 @@ class users extends CI_Controller {
             $city->where('id', $this->input->post('city_id'))->get();
             $user->state_id = $city->state->id;
             $user->country_id = $city->state->country->id;
+            $user->city_of_residence = $this->input->post('city_of_residence');
             $user->role_id = implode(',', $this->input->post('role_id'));
             $user->username = $this->input->post('username');
             $user->password = md5($this->input->post('new_password'));
@@ -115,6 +116,7 @@ class users extends CI_Controller {
                 $city->where('id', $this->input->post('city_id'))->get();
                 $user->state_id = $city->state->id;
                 $user->country_id = $city->state->country->id;
+                $user->city_of_residence = $this->input->post('city_of_residence');
                 $user->role_id = implode(',', $this->input->post('role_id'));
 
                 if ($this->input->post('username') != '') {

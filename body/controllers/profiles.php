@@ -44,18 +44,16 @@ class profiles extends CI_Controller {
                 $user->country_id = $this->input->post('country_id');
                 $user->state_id = $this->input->post('state_id');
                 $user->city_id = $this->input->post('city_id');
+                $user->city_of_residence = $this->input->post('city_of_residence');
                 $user->username = $this->input->post('username');
 
                 $user->user_id = $this->session_data->id;
                 $user->save();
 
-                $user_data->id = $this->session_data->id;
-                $user_data->name = $this->input->post('firstname') .' '. $this->input->post('lastname');
-                $user_data->language = $this->session_data->language;
-                $user_data->all_roles =$this->session_data->all_roles;
-                $user_data->role = $this->session_data->role;
-                $user_data->status = $this->session_data->status;
-                $newdata = array('user_session' => $user_data);
+                $session = $this->session->userdata('user_session');
+                $session->name = $this->input->post('firstname') .' '. $this->input->post('lastname');
+                $session->email = $this->input->post('email');
+                $newdata = array('user_session' => $session);
                 $this->session->set_userdata($newdata);
 
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));

@@ -79,6 +79,14 @@
                                     <p class="form-control-static"><?php echo date('d-m-Y', $profile->date_of_birth); ?></p>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label"><?php echo $this->lang->line('city_of_residence'), ' : '; ?></label>
+                                <div class="col-lg-8">
+                                    <p class="form-control-static"><?php echo $profile->city_of_residence; ?></p>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('city'), ' : '; ?></label>
                                 <div class="col-lg-8">

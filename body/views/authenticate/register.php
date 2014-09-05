@@ -38,6 +38,14 @@
         }).on('changeDate', function (ev) {
             $(this).datepicker('hide');
         });
+
+        $('#city_id').change(function(){
+            if($(this).val() == 0){
+                $(this).addClass('register-select');
+            }else{
+                $(this).removeClass('register-select');
+            }
+        });
     });
     //]]>
 </script>
@@ -60,19 +68,24 @@
     </div>
 
     <div class="form-group has-feedback lg left-feedback no-label">
-        <select class="form-control no-border input-lg rounded required" name="city_id">
-            <option value=""><?php echo $this->lang->line('city'); ?></option>
+        <select class="form-control no-border input-lg rounded required register-select" name="city_id" id="city_id">
+            <option value="0"><?php echo $this->lang->line('clan'), ' ', $this->lang->line('city'); ?></option>
             <?php foreach ($cities as $city) { ?>
                 <option value="<?php echo $city->id; ?>"><?php echo $city->en_name; ?></option>
             <?php } ?>
         </select>
-        <span class="fa fa-user form-control-feedback"></span>
+        <span class="fa fa-globe form-control-feedback"></span>
+    </div>
+
+    <div class="form-group has-feedback lg left-feedback no-label">
+        <input type="text" name="city_of_residence" class="form-control no-border input-lg rounded required" placeholder="<?php echo $this->lang->line('city_of_residence'); ?>">
+        <span class="fa fa-globe form-control-feedback"></span>
     </div>
 
     <div class="form-group has-feedback lg left-feedback no-label">
         <input type="text" name="date_of_birth" class="form-control no-border input-lg rounded required datepicker" placeholder="<?php echo $this->lang->line('dob'); ?>" readonly="readonly" data-date-format="dd-mm-yyyy">
 
-        <span class="fa fa-user form-control-feedback"></span>
+        <span class="fa fa-calendar form-control-feedback"></span>
     </div>
 
     <div class="form-group has-feedback lg left-feedback no-label">
