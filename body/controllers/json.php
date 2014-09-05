@@ -164,11 +164,39 @@ class json extends CI_Controller {
         exit();
     }
 
-    public function getUsersJsonData($role_id) {
+    public function getUsersJsonData($role_id, $assigned = 0) {
         $where = null;
 
         if ($role_id != 0) {
-            $where = ' AND FIND_IN_SET(' . $role_id . ', role_id) > 0';
+            $where = ' AND FIND_IN_SET(' . $role_id . ', users.role_id) > 0';
+
+            if($assigned != 0){
+                if($role_id == 2){
+                    $ids = User::getAdminIds();
+                }
+
+                if($role_id == 3){
+                    $ids = Academy::getAssignRectorIds();
+                }
+
+                if($role_id == 4){
+                    $ids = School::getAssignDeanIds();
+                }
+
+                if($role_id == 5){
+                    $ids = Clan::getAssignTeacherIds();
+                }
+
+                if($role_id == 6){
+                    $ids = Userdetail::getAssingStudentIds();
+                }
+
+                if($assigned == 1){
+                    $where .= ' AND users.id IN (' . implode(',', $ids) .')';
+                } else if($assigned == 2){
+                    $where .= ' AND users.id NOT IN (' . implode(',', $ids) .')';
+                }
+            }
         }
         $this->load->library('datatable');
         $this->datatable->aColumns = array('firstname', 'lastname', 'username', 'status', 'avtar');

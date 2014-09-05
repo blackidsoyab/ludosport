@@ -2,8 +2,15 @@
     
     $(document).ready(function() {
         loadDatable();
-       
+        $('#assigned_users').prop('disabled', true);
         $('#role_id').change(function(){
+            loadDatable();
+            if($('#role_id').val() != 0){
+                $('#assigned_users').prop('disabled', false);
+            }
+        });
+
+        $('#assigned_users').change(function(){
             loadDatable();
         });
     });
@@ -19,7 +26,7 @@ echo $lengths[0]; ?>,
             "aoColumns": [
                 {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center","bSortable": false}
             ],
-            "sAjaxSource": "<?php echo base_url() . "user/getjson/"; ?>" + $('#role_id').val(),
+            "sAjaxSource": "<?php echo base_url() . "user/getjson/"; ?>" + $('#role_id').val() + '/' + $('#assigned_users').val(),
             "fnInitComplete": function (oSettings, json) {
                 PositionFooter();     
             }
@@ -82,6 +89,14 @@ echo $lengths[0]; ?>,
                     <?php foreach ($roles as $role) { ?>
                         <option value="<?php echo $role->id; ?>" <?php echo (@$role_id == $role->id) ? 'selected' : ''; ?>><?php echo $role->{$session->language . '_role_name'}; ?></option>
 <?php } ?>    
+                </select>
+            </div>
+
+            <div class=" col-lg-4">
+                <select class="form-control" id="assigned_users">
+                    <option value="0">All</option>
+                    <option value="1">Assigned</option>
+                    <option value="2">Unassigned</option>
                 </select>
             </div>
         </div>
