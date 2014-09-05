@@ -138,7 +138,7 @@ $lang['year_course'] = 'Year Course';
 $lang['current'] = 'Current';
 $lang['re_enter'] = 'Re-enter';
 $lang['full_name'] = 'Full Name';
-$lang['avtar'] = 'Avtar';
+$lang['avtar'] = 'Avatar';
 $lang['hometown'] = 'Hometown';
 $lang['change_cover'] = 'Change Cover';
 
