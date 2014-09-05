@@ -689,23 +689,27 @@ class clans extends CI_Controller {
                 foreach ($userdetails as $value) {
                     //get the Student full detail
                     $temp = $value->User->get();
-                    if(!is_null($temp->id)){
-                        $attadence = new Attendance();
+                    if(strtotime($value->first_lesson_date) > strtotime($date)){
+                        continue;
+                    } else {
+                        if(!is_null($temp->id)){
+                            $attadence = new Attendance();
 
-                        //get the Student is present or not
-                        $attadence->where(array('clan_date'=>$date, 'student_id'=>$temp->id))->get();
+                            //get the Student is present or not
+                            $attadence->where(array('clan_date'=>$date, 'student_id'=>$temp->id))->get();
 
-                        //Set an array of user details for view part 
-                        $data['userdetails'][] = array(
-                            'id'=>$temp->id, 
-                            'firstname'=>$temp->firstname, 
-                            'lastname'=>$temp->lastname,
-                            'attadence' => $attadence->attendance,
-                            'attadence_id' => $attadence->id,
-                            'clan' => $clan->{$this->session_data->language.'_class_name'},
-                            'school' => $clan->School->{$this->session_data->language.'_school_name'},
-                            'academy' => $clan->School->Academy->{$this->session_data->language.'_academy_name'},
-                            'type' => 'regular'); 
+                            //Set an array of user details for view part 
+                            $data['userdetails'][] = array(
+                                'id'=>$temp->id, 
+                                'firstname'=>$temp->firstname, 
+                                'lastname'=>$temp->lastname,
+                                'attadence' => $attadence->attendance,
+                                'attadence_id' => $attadence->id,
+                                'clan' => $clan->{$this->session_data->language.'_class_name'},
+                                'school' => $clan->School->{$this->session_data->language.'_school_name'},
+                                'academy' => $clan->School->Academy->{$this->session_data->language.'_academy_name'},
+                                'type' => 'regular'); 
+                        }
                     }
                 }
             }
@@ -858,18 +862,24 @@ class clans extends CI_Controller {
                 //if Student Exit 
                 if($userdetails->result_count() > 0){
                     foreach ($userdetails as $value) {
-                        $attadence = new Attendance();
-                        //Check any record exit for date and student
-                        $attadence->where(array('clan_date'=>$next_date, 'student_id'=>$value->student_master_id))->get();
-                        if($attadence->result_count() == 1){
-                            $attadence->attendance = $attadence->attendance;
-                        }else{
-                            $attadence->attendance = 1;
+                        //get the Student full detail
+                        $temp = $value->User->get();
+                        if(strtotime($value->first_lesson_date) > strtotime($next_date)){
+                            continue;
+                        } else {
+                            $attadence = new Attendance();
+                            //Check any record exit for date and student
+                            $attadence->where(array('clan_date'=>$next_date, 'student_id'=>$value->student_master_id))->get();
+                            if($attadence->result_count() == 1){
+                                $attadence->attendance = $attadence->attendance;
+                            }else{
+                                $attadence->attendance = 1;
+                            }
+                            $attadence->clan_date = $next_date;
+                            $attadence->student_id = $value->student_master_id;
+                            $attadence->user_id = $this->session_data->id;
+                            $attadence->save();  
                         }
-                        $attadence->clan_date = $next_date;
-                        $attadence->student_id = $value->student_master_id;
-                        $attadence->user_id = $this->session_data->id;
-                        $attadence->save();    
                     }
                     $this->session->set_flashdata('success', $this->lang->line('attendance_next_week_done'));
                 } else {
