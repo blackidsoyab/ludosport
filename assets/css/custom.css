@@ -7,6 +7,11 @@ body.login{
     background: #212721;
     padding: 0;
 }
+
+.login-header {
+    background: #1e241e;
+}
+
 .login .btn-warning {
     background-color: #ed8b00;
     border-color: #c88127
