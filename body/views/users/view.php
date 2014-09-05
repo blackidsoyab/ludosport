@@ -116,7 +116,7 @@ echo $lengths[0]; ?>,
                 </tr>
             </thead>
             <tbody>
-            <td colspan="4"><i><?php echo $this->lang->line('loading'); ?>...</i></td>
+                <td colspan="5"><i><?php echo $this->lang->line('loading'); ?>...</i></td>
             </tbody>
         </table>
     </div>
