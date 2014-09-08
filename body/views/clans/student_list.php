@@ -56,7 +56,7 @@
             'iDisplayLength': 10,
             "bServerSide" : true,
             "aoColumns": [
-                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": ""}
+                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": ""}
             ],
             "sAjaxSource": "<?php echo base_url() . "clan/studentjson/"; ?>" + $('#academy_id').val() + '/' + $('#school_id').val() + '/' + $('#clan_id').val(),
             "fnInitComplete": function (oSettings, json) {
@@ -118,14 +118,15 @@
             <thead class="the-box dark full">
                 <tr align="left">
                     <th><?php echo $this->lang->line('student'), ' ', $this->lang->line('name'); ?></th>
-                    <th><?php echo $this->lang->line('clan'), ' ', $this->lang->line('name'); ?></th>
-                    <th><?php echo $this->lang->line('school'), ' ', $this->lang->line('name'); ?></th>
-                    <th><?php echo $this->lang->line('academy'), ' ', $this->lang->line('name'); ?></th>
+                    <th width="50"><?php echo $this->lang->line('level'); ?></th>
+                    <th width="175"><?php echo $this->lang->line('clan'), ' ', $this->lang->line('name'); ?></th>
+                    <th width="175"><?php echo $this->lang->line('school'), ' ', $this->lang->line('name'); ?></th>
+                    <th width="175"><?php echo $this->lang->line('academy'), ' ', $this->lang->line('name'); ?></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="4"><i><?php echo $this->lang->line('loading'); ?>...</i></td>
+                    <td colspan="5"><i><?php echo $this->lang->line('loading'); ?>...</i></td>
                 </tr>
             </tbody>
         </table>

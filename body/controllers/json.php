@@ -468,25 +468,26 @@ class json extends CI_Controller {
         }
 
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS student_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'clans.' . $this->session_data->language . '_class_name AS class_name','avtar');
+        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS student_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'clans.' . $this->session_data->language . '_class_name AS class_name','avtar', $this->session_data->language.'_name AS batch_name', 'batches.image');
         $this->datatable->eColumns = array('users.user_id');
         $this->datatable->sIndexColumn = "users.user_id";
-        $this->datatable->sTable = " clans, users, schools, academies, userdetails";
+        $this->datatable->sTable = " clans, users, schools, academies, userdetails, batches";
 
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.level_id ' . $where;
         } else if ($this->session_data->role == '3') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.level_id ' . $where;
         } else if ($this->session_data->role == '4') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.level_id ' . $where;
         } else if ($this->session_data->role == '5') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.level_id ' . $where;
         }
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
             $temp_arr[] = '<img src="' . IMG_URL .'user_avtar/40X40/' . $aRow['avtar'].'" class="avatar img-circle" alt="avatar"><a href="' . base_url() . 'profile/view/' . $aRow['user_id'] . '" class="text-black">' . $aRow['student_name'] . '</a>';
+            $temp_arr[] = '<img src="' . IMG_URL .'batches/' . $aRow['image'].'" class="avatar img-circle" alt="avatar" data-toggle="tooltip" data-original-title="'.$aRow['batch_name'].'">';
             $temp_arr[] = $aRow['class_name'];
             $temp_arr[] = $aRow['school_name'];
             $temp_arr[] = $aRow['academy_name'];
