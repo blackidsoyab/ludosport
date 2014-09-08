@@ -275,7 +275,7 @@ $lang['select_studetns'] = 'Select Students';
 $lang['select_any_student'] = 'Select any Student';
 
 //Batches
-$lang['batch'] = 'Batch';
+$lang['batch'] = 'Badge';
 $lang['image'] = 'Image';
 $lang['degrees'] = 'Gradi';
 $lang['honors'] = 'Onoreficenze';
