@@ -132,4 +132,24 @@ class students extends CI_Controller {
         }
     }
 
+    function viewHistory(){
+        $this->layout->setField('page_title', $this->lang->line('history'));
+        $this->layout->view('students/view_histroy');
+    }
+
+    function viewTopRating(){
+        $this->layout->setField('page_title', $this->lang->line('top_10_rating'));
+        $this->layout->view('students/top_ten_rating');
+    }
+
+    function viewRatingList(){
+        $this->layout->setField('page_title', $this->lang->line('rating_list'));
+        $this->layout->view('students/rating_list');
+    }
+
+    function viewDuelsList(){
+        $this->layout->setField('page_title', $this->lang->line('duels_list'));
+        $this->layout->view('students/duels_list');
+    }
+
 }

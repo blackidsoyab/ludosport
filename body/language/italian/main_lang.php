@@ -69,6 +69,21 @@ $lang['level'] = 'Level';
 $lang['email_template'] = 'Email Template';
 $lang['setting'] = 'Setting';
 
+//Student Menu
+$lang['histroy'] = 'History';
+$lang['rating'] = 'Rating';
+$lang['top_10'] = 'Top 10';
+$lang['journal'] = 'Journal';
+$lang['duels'] = 'Duels';
+$lang['evolution'] = 'Evolution';
+$lang['news'] = 'News';
+$lang['shop'] = 'Shop';
+$lang['administrations'] = 'Administrations';
+$lang['received'] = 'Ricevute';
+$lang['renewals'] = 'Rinnovi';
+$lang['certificates'] = 'Certificati';
+$lang['merchandising'] = 'Merchandising';
+
 //Dashboard
 $lang['control_panel'] = 'Pannello di controllo';
 $lang['numbers'] = 'Numeri';

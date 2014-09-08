@@ -161,6 +161,10 @@ $route['teacher/school_related_teacher/(:num)'] = "teachers/teachersReleatedScho
 $route['student/class_details/(:num)/(:num)'] = "dashboard/studentClassDetails/$1/$2";
 $route['student_mark_absence'] = "students/markAbsence";
 $route['student/clan/(:num)/(:any)'] = "dashboard/studentClan/$1/$2";
+$route['history'] = "students/viewHistory";
+$route['rating'] = "students/viewTopRating";
+$route['rating_list'] = "students/viewRatingList";
+$route['duels'] = "students/viewDuelsList";
 
 //Pending Student
 $route['getclanonlocation/(:num)'] = "ajax/getClanDetails/$1";
