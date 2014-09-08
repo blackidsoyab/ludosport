@@ -343,7 +343,9 @@ function checkMessage(last_id){
                         </div>
                     </li> -->
 
-                    <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>"><a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('dashboard'); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a></li>
+                    <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>">
+                        <a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('dashboard'); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a>
+                    </li>
 
                     <?php if ($session->status == 'A' && $session->role !=6) { ?>
 
@@ -430,15 +432,16 @@ function checkMessage(last_id){
                     </li>
                     <?php } ?>
                     <?php } else if($session->status == 'A' && $session->role ==6) { ?>
-                    <li>
-                        <a href="<?php echo base_url(). 'history'?>">
+                    <li class="<?php echo ($page == 'history') ? 'active selected' : ''; ?>">
+                        <a href="<?php echo base_url(). 'history'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('histroy'); ?>">
                             <i class="fa fa-graduation-cap icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                             <?php echo $this->lang->line('histroy'); ?>
                         </a>
                     </li>
-                    <li>
-                        <a href="javascript:;">
+
+                    <li class="<?php echo ($page == 'rating' || $page == 'rating_list') ? 'active selected' : ''; ?>">
+                        <a href="javascript:;" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('rating'); ?>">
                             <i class="fa fa-list icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                             <?php echo $this->lang->line('rating'); ?>
@@ -448,167 +451,175 @@ function checkMessage(last_id){
                             <li><a href="<?php echo base_url(). 'rating_list'?>"><?php echo $this->lang->line('list'); ?></a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="<?php echo base_url(). 'journal'?>">
+
+                    <li class="<?php echo ($page == 'journal') ? 'active selected' : ''; ?>">
+                        <a href="<?php echo base_url(). 'journal'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('journal'); ?>">
                             <i class="fa fa-book icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                             <?php echo $this->lang->line('journal'); ?>
                         </a>
                     </li>
-                    <li>
-                        <a href="<?php echo base_url(). 'duels'?>">
-                            <i class="icon-sidebar"><img src="assets/img/icons/duels.png" width="24" height="24" alt=""></i>
+
+                    <li class="<?php echo ($page == 'duels') ? 'active selected' : ''; ?>">
+                        <a href="<?php echo base_url(). 'duels'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('duels'); ?>">
+                            <i class="icon-sidebar"><img src="<?php echo IMG_URL; ?>icons/duels.png" width="24" height="24" alt=""></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                             <?php echo $this->lang->line('duels'); ?>
                         </a>
                     </li>
 
-
-                    <li>
-                        <a href="<?php echo base_url(). 'evolution'?>">
+                    <li class="<?php echo ($page == 'evolution') ? 'active selected' : ''; ?>">
+                        <a href="<?php echo base_url(). 'evolution'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('evolution'); ?>">
                             <i class="fa fa-leaf icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                             <?php echo $this->lang->line('evolution'); ?>
                         </a>
                     </li>
-                    <li>
-                        <a href="<?php echo base_url(). 'events'?>">
+
+                    <li class="<?php echo ($page == 'events') ? 'active selected' : ''; ?>">
+                        <a href="<?php echo base_url(). 'events'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('events'); ?>">
                             <i class="fa fa-calendar icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                             <?php echo $this->lang->line('events'); ?>
-                        </a></li>
-                        <li>
-                            <a href="<?php echo base_url(). 'news'?>">
-                                <i class="fa fa-bullhorn icon-sidebar"></i>
-                                <i class="fa fa-angle-right chevron-icon-sidebar"></i>
-                                <?php echo $this->lang->line('news'); ?>
-                            </a></li>
-                            <li>
-                                <a href="<?php echo base_url(). 'shop'?>">
-                                    <i class="fa fa-shopping-cart icon-sidebar"></i>
-                                    <i class="fa fa-angle-right chevron-icon-sidebar"></i>
-                                    (<?php echo $this->lang->line('shop'); ?>)
-                                </a></li>
+                        </a>
+                    </li>
 
-                                <li>
-                                    <a href="#fakelink">
-                                        <i class="fa fa-table icon-sidebar"></i>
-                                        <i class="fa fa-angle-right chevron-icon-sidebar"></i>
-                                        <?php echo $this->lang->line('administrations'); ?>
-                                    </a>
-                                    <ul class="submenu">
-                                        <li><a href="<?php echo base_url(). 'received'?>"><?php echo $this->lang->line('received'); ?></a></li>
-                                        <li><a href="<?php echo base_url(). 'renewals'?>"><?php echo $this->lang->line('renewals'); ?></a></li>
-                                        <li><a href="<?php echo base_url(). 'certificates'?>"><?php echo $this->lang->line('certificates'); ?></a></li>
-                                    </ul>
-                                </li>
-                                <li class="static"><?php echo $this->lang->line('merchandising'); ?></li>
-                                <?php } ?>
-                            </ul>
-                        </div>
-                        <!-- END SIDEBAR LEFT -->
+                    <li class="<?php echo ($page == 'news') ? 'active selected' : ''; ?>">
+                        <a href="<?php echo base_url(). 'news'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('news'); ?>">
+                            <i class="fa fa-bullhorn icon-sidebar"></i>
+                            <i class="fa fa-angle-right chevron-icon-sidebar"></i>
+                            <?php echo $this->lang->line('news'); ?>
+                        </a>
+                    </li>
 
-                        <!-- BEGIN PAGE CONTENT -->
-                        <div class="page-content">
-                            <div class="container-fluid" id="middle-section">
-                                <?php if ($this->session->flashdata('success') != '') { ?>
-                                <div class="row">
-                                    <div>&nbsp;</div>
-                                    <div class="col-lg-12">
-                                        <div class="auto-close alert alert-success fade in alert-dismissable">
-                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                            <p class="text-center">
-                                                <i class="fa fa-thumbs-o-up icon-sm"></i>
-                                                <?php echo parse_smileys($this->session->flashdata('success'), IMG_URL . "smileys/"); ?>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php } ?>
+                    <li class="<?php echo ($page == 'shop') ? 'active selected' : ''; ?>">
+                        <a href="<?php echo base_url(). 'shop'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('shop'); ?>">
+                            <i class="fa fa-shopping-cart icon-sidebar"></i>
+                            <i class="fa fa-angle-right chevron-icon-sidebar"></i>
+                            (<?php echo $this->lang->line('shop'); ?>)
+                        </a>
+                    </li>
 
-                                <?php if ($this->session->flashdata('warning') != '') { ?>
-                                <div class="row">
-                                    <div>&nbsp;</div>
-                                    <div class="col-lg-12">
-                                        <div class="auto-close alert alert-warning fade in alert-dismissable">
-                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                            <p class="text-center">
-                                                <i class="fa fa-warning icon-sm"></i>
-                                                <?php echo parse_smileys($this->session->flashdata('warning'), IMG_URL . "smileys/"); ?>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php } ?>
+                    <li class="<?php echo ($page == 'received' || $page == 'renewals' || $page == 'certificates') ? 'active selected' : ''; ?>">
+                        <a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('administrations'); ?>">
+                            <i class="fa fa-table icon-sidebar"></i>
+                            <i class="fa fa-angle-right chevron-icon-sidebar"></i>
+                            <?php echo $this->lang->line('administrations'); ?>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="<?php echo base_url(). 'received'?>"><?php echo $this->lang->line('received'); ?></a></li>
+                            <li><a href="<?php echo base_url(). 'renewals'?>"><?php echo $this->lang->line('renewals'); ?></a></li>
+                            <li><a href="<?php echo base_url(). 'certificates'?>"><?php echo $this->lang->line('certificates'); ?></a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="static"><?php echo $this->lang->line('merchandising'); ?></li>
+                    <?php } ?>
+                </ul>
+            </div>
+            <!-- END SIDEBAR LEFT -->
 
-                                <?php if ($this->session->flashdata('info') != '') { ?>
-                                <div class="row">
-                                    <div>&nbsp;</div>
-                                    <div class="col-lg-12">
-                                        <div class="auto-close alert alert-info fade in alert-dismissable">
-                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                            <p class="text-center">
-                                                <i class="fa fa-info icon-sm"></i>
-                                                <?php echo parse_smileys($this->session->flashdata('info'), IMG_URL . "smileys/"); ?>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php } ?>
-
-                                <?php if ($this->session->flashdata('error') != '') { ?>
-                                <div class="row">
-                                    <div>&nbsp;</div>
-                                    <div class="col-lg-12">
-                                        <div class="auto-close alert alert-danger fade in alert-dismissable">
-                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                            <p class="text-center">
-                                                <i class="fa fa-thumbs-o-down icon-sm"></i>
-                                                <?php echo parse_smileys($this->session->flashdata('error'), IMG_URL . "smileys/"); ?>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php } ?>
-                                <?php echo @$content_for_layout; ?>
+            <!-- BEGIN PAGE CONTENT -->
+            <div class="page-content">
+                <div class="container-fluid" id="middle-section">
+                    <?php if ($this->session->flashdata('success') != '') { ?>
+                    <div class="row">
+                        <div>&nbsp;</div>
+                        <div class="col-lg-12">
+                            <div class="auto-close alert alert-success fade in alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <p class="text-center">
+                                    <i class="fa fa-thumbs-o-up icon-sm"></i>
+                                    <?php echo parse_smileys($this->session->flashdata('success'), IMG_URL . "smileys/"); ?>
+                                </p>
                             </div>
-                            <!-- BEGIN FOOTER -->
-                            <footer id="footer" style="position:fixed">
-                                &copy; <?php echo get_current_date_time()->year, ' ', $this->config->item('app_name'); ?><a href="#fakelink"></a><br />
-                                Not associated with disney, lucasfilm ltd. Or any lfl ltd. Film or franchise.
-                            </footer>
-                            <!-- END FOOTER -->
                         </div>
-                        <!-- /.page-content -->
                     </div>
-                    <!-- /.wrapper -->
+                    <?php } ?>
 
-                    <div id="back-top" style="display: block;">
-                        <a href="#top"><i class="fa fa-chevron-up"></i></a>
+                    <?php if ($this->session->flashdata('warning') != '') { ?>
+                    <div class="row">
+                        <div>&nbsp;</div>
+                        <div class="col-lg-12">
+                            <div class="auto-close alert alert-warning fade in alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <p class="text-center">
+                                    <i class="fa fa-warning icon-sm"></i>
+                                    <?php echo parse_smileys($this->session->flashdata('warning'), IMG_URL . "smileys/"); ?>
+                                </p>
+                            </div>
+                        </div>
                     </div>
+                    <?php } ?>
 
-                    <script src="<?php echo JS_URL; ?>bootstrap.min.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>retina/retina.min.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>nicescroll/jquery.nicescroll.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>slimscroll/jquery.slimscroll.min.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>backstretch/jquery.backstretch.min.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>skycons/skycons.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>prettify/prettify.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>magnific-popup/jquery.magnific-popup.min.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>owl-carousel/owl.carousel.min.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>chosen/chosen.jquery.min.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>icheck/icheck.min.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>datepicker/bootstrap-datepicker.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>timepicker/bootstrap-timepicker.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>mask/jquery.mask.min.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>summernote/summernote.min.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>markdown/markdown.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>markdown/to-markdown.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>markdown/bootstrap-markdown.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>slider/bootstrap-slider.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>toastr/toastr.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>fullcalendar/lib/jquery-ui.custom.min.js"></script>
-                    <script src="<?php echo PLUGIN_URL; ?>fullcalendar/fullcalendar/fullcalendar.js"></script>
-                    <script src="<?php echo JS_URL; ?>apps.js"></script>
-                </body>
-                </html>
+                    <?php if ($this->session->flashdata('info') != '') { ?>
+                    <div class="row">
+                        <div>&nbsp;</div>
+                        <div class="col-lg-12">
+                            <div class="auto-close alert alert-info fade in alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <p class="text-center">
+                                    <i class="fa fa-info icon-sm"></i>
+                                    <?php echo parse_smileys($this->session->flashdata('info'), IMG_URL . "smileys/"); ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+
+                    <?php if ($this->session->flashdata('error') != '') { ?>
+                    <div class="row">
+                        <div>&nbsp;</div>
+                        <div class="col-lg-12">
+                            <div class="auto-close alert alert-danger fade in alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <p class="text-center">
+                                    <i class="fa fa-thumbs-o-down icon-sm"></i>
+                                    <?php echo parse_smileys($this->session->flashdata('error'), IMG_URL . "smileys/"); ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <?php echo @$content_for_layout; ?>
+                </div>
+                <!-- BEGIN FOOTER -->
+                <footer id="footer" style="position:fixed">
+                    &copy; <?php echo get_current_date_time()->year, ' ', $this->config->item('app_name'); ?><a href="#fakelink"></a><br />
+                    Not associated with disney, lucasfilm ltd. Or any lfl ltd. Film or franchise.
+                </footer>
+                <!-- END FOOTER -->
+            </div>
+            <!-- /.page-content -->
+        </div>
+        <!-- /.wrapper -->
+
+        <div id="back-top" style="display: block;">
+            <a href="#top"><i class="fa fa-chevron-up"></i></a>
+        </div>
+
+        <script src="<?php echo JS_URL; ?>bootstrap.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>retina/retina.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>nicescroll/jquery.nicescroll.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>backstretch/jquery.backstretch.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>skycons/skycons.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>prettify/prettify.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>magnific-popup/jquery.magnific-popup.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>owl-carousel/owl.carousel.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>chosen/chosen.jquery.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>icheck/icheck.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>datepicker/bootstrap-datepicker.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>timepicker/bootstrap-timepicker.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>mask/jquery.mask.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>summernote/summernote.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>markdown/markdown.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>markdown/to-markdown.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>markdown/bootstrap-markdown.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>slider/bootstrap-slider.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>toastr/toastr.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>fullcalendar/lib/jquery-ui.custom.min.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>fullcalendar/fullcalendar/fullcalendar.js"></script>
+        <script src="<?php echo JS_URL; ?>apps.js"></script>
+    </body>
+    </html>

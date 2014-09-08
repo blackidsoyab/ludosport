@@ -127,8 +127,8 @@ $session = $this->session->userdata('user_session');
                 <p class="text-muted">
                 " La gloria di colui che tutto move per l'universo penetra e risplende in una parte più e meno altrove."</p>
                 <p class="social-icon">
-                    <img src="<?php echo IMG_URL . 'batches/106030b78b8efb74848eeb4ed7f105b3.png'; ?>" width="40" height="40" alt="">
-                    <img src="<?php echo IMG_URL . 'batches/4569d92e03563e86570282cd090a54a3.png'; ?>" width="40" height="40" alt="">
+                    <img src="<?php echo IMG_URL . 'batches/03c0e2e2b6050bdeac592090aa063e8f.png'; ?>" width="40" height="40" alt="">
+                    <img src="<?php echo IMG_URL . 'batches/3b69f92034caa56c01b0dc557cfa18b0.png'; ?>" width="40" height="40" alt="">
                 </p>
             </div>
             <button class="btn btn-warning btn-block btn-lg btn-square">Pts. 1843</button>
