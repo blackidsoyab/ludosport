@@ -292,7 +292,7 @@ class dashboard extends CI_Controller {
         $clan = $userdetail->Clan->get();
 
         //get Clan time
-        $time_0 = strtotime(date('H:i', strtotime($userdetail->first_lesson_date . date('H:i',$clan->lesson_from))));
+        $time_0 = strtotime(date('Y-m-d H:i:s', strtotime($userdetail->first_lesson_date . date('H:i',$clan->lesson_from))));
         //get time before 2 hours of clan start
         $time_1 = strtotime('-2 hour', $time_0);
         //get Current time
@@ -306,11 +306,10 @@ class dashboard extends CI_Controller {
             // if status is Accepted
             if ($userdetail->status == 'A'){
                 //get already applied clan name, date, time
-                $data['already_applied'] = 'Your request for the clan ' . $clan->{$this->session_data->language . '_class_name'}. '<br /> on '. date("d-m-Y", strtotime($userdetail->first_lesson_date)) . ' : ' . date('h.i a', $clan->lesson_from) . '  - ' . date('h.i a', $clan->lesson_to). ' is accepted';
+                $data['already_applied'] = 'Your request for the clan <strong>' . $clan->{$this->session_data->language . '_class_name'}.'</strong> of school <strong>' .  $clan->School->{$this->session_data->language . '_school_name'}.'</strong> at academy <strong>' .  $clan->School->Academy->{$this->session_data->language . '_academy_name'} . '</strong><br /> on '. date("d-m-Y", strtotime($userdetail->first_lesson_date)) . ' : ' . date('h.i a', $clan->lesson_from) . '  - ' . date('h.i a', $clan->lesson_to). ' is accepted';
 
                 //for div color
                 $data['type'] = 'success';
-
 
                 //check that is time left to change dates.
                 if($time_2 <= $time_1) {
@@ -320,80 +319,35 @@ class dashboard extends CI_Controller {
                     //if time less than 2 hours from stating clan
                     if($time_2 <= $time_0) {
                         $data['clans'] = 'Get ready for the Class';
-                        $data['clan_error_type'] = 'info'; 
+                        $data['change_only_date'] = true;
                     }else{
                         //Now if clan started check attadence
                         $attadence = new Attendance();
                         $attadence->where(array('clan_date' =>$userdetail->first_lesson_date, 'student_id'=>$this->session_data->id))->get();
 
-                        //Check Data extis in attandence table
-                        if($attadence->result_count() == 1){
-                            //check he is present or not
-                            if($attadence->attendance == 1){
-                                redirect(base_url() .'register/step_2', 'refresh');
-                            } else {
-                                //get already applied clan name, date, time
-                                $data['already_applied'] = 'Your missed the clan ' . $clan->{$this->session_data->language . '_class_name'}. '<br /> on '. date("d-m-Y", strtotime($userdetail->first_lesson_date)) . ' : ' . date('h.i a', $clan->lesson_from) . '  - ' . date('h.i a', $clan->lesson_to);
-
-                                //for div color
-                                $data['type'] = 'danger';
-                                
-                                //Get the Clans details in his location
-                                $check = $this->getClanDetails($this->session_data->id);
-                                if ($check !== FALSE) {
-                                    $data['clans'] = $check;
-                                } else {
-                                    $data['clans'] = 'No Clans are Avaialbe. Please try after Sometime'; 
-                                    $data['clan_error_type'] = 'danger';
-                                } 
-                            }
+                        //Check Data extis in attandence table & check he is present or not
+                        if($attadence->result_count() == 1 && $attadence->attendance == 1){
+                            redirect(base_url() .'register/step_2', 'refresh');
                         }else{
                             //get already applied clan name, date, time
-                            $data['already_applied'] = 'Your missed the clan ' . $clan->{$this->session_data->language . '_class_name'}. '<br /> on '. date("d-m-Y", strtotime($userdetail->first_lesson_date)) . ' : ' . date('h.i a', $clan->lesson_from) . '  - ' . date('h.i a', $clan->lesson_to);
+                            $data['already_applied'] = 'Your missed the clan <strong>' . $clan->{$this->session_data->language . '_class_name'}.'</strong> of school <strong>' .  $clan->School->{$this->session_data->language . '_school_name'}.'</strong> at academy <strong>' .  $clan->School->Academy->{$this->session_data->language . '_academy_name'} . '</strong><br /> on '. date("d-m-Y", strtotime($userdetail->first_lesson_date)) . ' : ' . date('h.i a', $clan->lesson_from) . '  - ' . date('h.i a', $clan->lesson_to);
 
                             //for div color
                             $data['type'] = 'danger';
-                                
-                            //Get the Clans details in his location
-                            $check = $this->getClanDetails($this->session_data->id);
-                            if ($check !== FALSE) {
-                                $data['clans'] = $check;
-                            } else {
-                                $data['clans'] = 'No Clans are Avaialbe. Please try after Sometime'; 
-                                $data['clan_error_type'] = 'danger';
-                            } 
                         }
                     }
                 }
             } else if ($userdetail->status == 'P' || $userdetail->status == 'U'){
                  //get already applied clan name, date, time
-                $data['already_applied'] = 'You have already applied for the clan ' . $clan->{$this->session_data->language . '_class_name'}. '<br /> on '. date("d-m-Y", strtotime($userdetail->first_lesson_date)) . ' : ' . date('h.i a', $clan->lesson_from) . '  - ' . date('h.i a', $clan->lesson_to);
+                $data['already_applied'] = 'You have already applied for the clan <strong>' . $clan->{$this->session_data->language . '_class_name'}.'</strong> of school <strong>' .  $clan->School->{$this->session_data->language . '_school_name'}.'</strong> at academy <strong>' .  $clan->School->Academy->{$this->session_data->language . '_academy_name'} . '</strong><br /> on '. date("d-m-Y", strtotime($userdetail->first_lesson_date)) . ' : ' . date('h.i a', $clan->lesson_from) . '  - ' . date('h.i a', $clan->lesson_to);
                 
                 //for div color
-                $data['type'] = 'info';
-
-                //Get the Clans details in his location
-                $check = $this->getClanDetails($this->session_data->id);
-                if ($check !== FALSE) {
-                    $data['clans'] = $check;
-                } else {
-                    $data['clans'] = 'No Clans are Avaialbe. Please check other Location. Change the Location from top.';
-                    $data['clan_error_type'] = 'danger'; 
-                }  
+                $data['type'] = 'info'; 
             }
-        }else{
-            //Get the Clans details in his location
-            $check = $this->getClanDetails($this->session_data->id);
-            if ($check !== FALSE) {
-                $data['clans'] = $check;
-            } else {
-                $data['clans'] = 'No Clans are Avaialbe. Please check other Location. Change the Location from top.'; 
-                $data['clan_error_type'] = 'danger';
-            }
-
-            $user = new User();
-            $user->where('id', $this->session_data->id)->get();
         }
+
+        $user = New User();
+        $data['user_details'] = $user->where('id', $this->session_data->id)->get();
 
 
         $clan = new Clan();
@@ -404,43 +358,19 @@ class dashboard extends CI_Controller {
         foreach ($cities as $city) {
             $temp = array();
             $temp['id'] = $city->id;
-            $temp['city_name'] = $city->{$this->session_data->language . '_name'};
-            $temp['state_name'] = $city->state->{$this->session_data->language . '_name'};
-            $temp['country_name'] = $city->state->country->{$this->session_data->language . '_name'};
+            $temp['city_name'] = ucwords($city->{$this->session_data->language . '_name'}).', '.ucwords($city->state->{$this->session_data->language . '_name'}).', '.ucwords($city->state->country->{$this->session_data->language . '_name'});
             $data['cities'][] = $temp;
+        }
+
+        if(!isset($data['clans'])){
+            $data['clans'] = null;
         }
 
         //Set Layout view
         $this->layout->view('dashboard/pending_student', $data);
     }
 
-    private function getClanDetails($user_id){
-        $user = New User();
-        //Get Current Login User details
-        $user->where('id', $this->session_data->id)->get();
 
-        //Calculate Age
-        $age = explode(' ', time_elapsed_string(date('Y-m-d H:i:s', $user->date_of_birth)));
-
-        //Under 16 or not
-        if ($age[1] == 'year' && $age[0] < 16) {
-            $under_sixteen = 1;
-        } else {
-            $under_sixteen = 0;
-        }
-
-        $clan = New Clan();
-        //get all the Clan in the User city and also check level(based on age).
-        $clans_data = $clan->getAviableTrialClan($user->city_id, $under_sixteen);
-
-        //check result
-        if ($clans_data !== FALSE) {
-            //now the result is in multidimensional data make it single dimensional and the get clans details
-            return $clan->where_in('id', MultiArrayToSinlgeArray($clans_data))->get();
-        } else {
-            return FALSE;
-        }
-    }
 
     function pendingStudnetSaveTrailLesson() {
         $user_details = new Userdetail();

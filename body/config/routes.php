@@ -163,6 +163,7 @@ $route['student_mark_absence'] = "students/markAbsence";
 $route['student/clan/(:num)/(:any)'] = "dashboard/studentClan/$1/$2";
 
 //Pending Student
+$route['getclanonlocation/(:num)'] = "ajax/getClanDetails/$1";
 $route['getclandates/(:num)'] = "ajax/getDateForClan/$1";
 $route['pending_student/save_trial_lesson'] = "dashboard/pendingStudnetSaveTrailLesson";
 

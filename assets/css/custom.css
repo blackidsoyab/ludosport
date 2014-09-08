@@ -116,6 +116,26 @@ small.help-block{
     padding-left: 0px !important;
 }
 
+.pad-10{
+    padding: 10px 10px 10px 10px;
+}
+
+.pad-tp-10{
+    padding-top: 10px;
+}
+
+.pad-rt-10{
+    padding-right: 10px;
+}
+
+.pad-bt-10{
+    padding-bottom: 10px;
+}
+
+.pad-lt-10{
+    padding-left: 10px;
+}
+
 .margin-killer{
     margin: 0px !important;
 }
@@ -136,12 +156,24 @@ small.help-block{
     margin-left: 0px !important;
 }
 
+.mar-10{
+    margin : 10px 10px 10px 10px;
+}
+
 .mar-bt-10{
     margin-bottom: 10px;
 }
 
 .mar-tp-10{
     margin-top: 10px;
+}
+
+.mar-lt-10{
+    margin-left: 10px;
+}
+
+.mar-rt-10{
+    margin-rigth: 10px;
 }
 
 .alert-primary{

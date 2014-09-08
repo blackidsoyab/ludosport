@@ -173,6 +173,47 @@ class ajax extends CI_Controller {
         exit;
     }
 
+    function getClanDetails($city_id){
+        $user = New User();
+        //Get Current Login User details
+        $user->where('id', $this->session_data->id)->get();
+
+        //Calculate Age
+        $age = explode(' ', time_elapsed_string(date('Y-m-d H:i:s', $user->date_of_birth)));
+
+        //Under 16 or not
+        if ($age[1] == 'year' && $age[0] < 16) {
+            $under_sixteen = 1;
+        } else {
+            $under_sixteen = 0;
+        }
+
+        $clan = New Clan();
+        //get all the Clan in the User city and also check level(based on age).
+        $clans_data = $clan->getAviableTrialClan($city_id, $under_sixteen);
+
+        //check result
+        if ($clans_data !== FALSE) {
+            //now the result is in multidimensional data make it single dimensional and the get clans details
+            //return $clan->where_in('id', MultiArrayToSinlgeArray($clans_data))->get();
+            $clan->where_in('id', MultiArrayToSinlgeArray($clans_data))->get();
+            $str = NULL;
+            foreach ($clan as $clan_detail) {
+                $str .= '<div class="col-lg-4 col-xs-4 clan">';
+                $str .= '<div class="the-box rounded text-center padding-killer margin-bottom-killer" data-clan="'.$clan_detail->id.'">';
+                $str .= '<input type="radio" value="'.$clan_detail->id.'" name="clan_id" />';
+                $str .= '<h4 class="light">'. $clan_detail->{$this->session_data->language . '_class_name'} .'</h4>';
+                $str .= '</div>';
+                $str .= '</div>';
+                $str .= "\n";
+            }
+
+            echo $str;
+        } else {
+            return 'There is no Clan. Please Contact on 123-4567-8900 or mail us at info@myludosport.net';
+        }
+    }
+
     function getDateForClan($clan_id) {
         $clan = new Clan();
         $dates = $clan->getAviableDateFromClan($clan_id, 5, 20);

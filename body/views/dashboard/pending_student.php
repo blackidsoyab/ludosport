@@ -2,19 +2,50 @@
 <script>
     //<![CDATA[
     $(document).ready(function() {
-        $(".ludosport-class :radio").hide().click(function(e){
-            e.stopPropagation();
-        });
-
         $("#step_1").hide();
         $("#step_2").hide();
         $("#step_3").hide();
 
         $('#request-trail-lesson').click(function(e) {
-            e.preventDefault(); // prevent the link's default behaviour
+            e.preventDefault(); 
             $('#step_1').show();
+
+            <?php if($change_only_date) { ?>
+                loadTrailClan();
+                $('.ludosport-class div.clan').trigger('click');
+            <?php } else { ?>
+                ChangeLocation(<?php echo $user_details->city_id; ?>);
+            <?php } ?>
         });
-        
+    });
+
+    function ChangeLocation(cityid) {
+        $.ajax({
+            type: 'POST',
+            url: http_host_js + 'getclanonlocation/' + cityid,
+            success: function(data) {
+                $('#step_1 ul.dropdown-menu li.active').removeClass('active');
+                $('.loc-'+cityid).addClass('active');
+
+                $('.current-location-selected').empty();
+                $('.current-location-selected').html($('#step_1 ul.dropdown-menu li.active').text());
+
+                $('#step_1 .panel-body').empty();
+                $('#step_1 .panel-body').html(data);
+                loadTrailClan();
+
+                $("#step_2").hide();
+                $("#step_3").hide();
+            }
+        });
+        PositionFooter();
+    }
+
+    function loadTrailClan(){
+        $(".ludosport-class :radio").hide().click(function(e){
+            e.stopPropagation();
+        });
+
         $(".ludosport-class div.clan").click(function(e){
             PositionFooter();
             $(this).closest(".ludosport-class").find("div.the-box").removeClass("bg-primary");
@@ -45,18 +76,13 @@
                 }
             });
         });
-        
-        $('#step_3').click(function(e) {
-            e.preventDefault(); // prevent the link's default behaviour
-            $('#trial_clan_selection').submit(); // trigget the submit handler
-        });
 
-        <?php if($change_only_date) { ?>
-            $('.ludosport-class div.clan').trigger('click');
-        <?php } ?>
-        
-    });
-    //]]>
+        $('#step_3').click(function(e) {
+            e.preventDefault(); 
+            $('#trial_clan_selection').submit(); 
+        });
+    }
+//]]>
 </script>
 <h1 class="page-heading"><?php echo $session->role_name; ?></h1>
 
@@ -83,56 +109,51 @@
     </div>   
 <?php } ?>
 
-<?php if (isset($clans) && is_object($clans)) { ?>
-    <form id="trial_clan_selection" action="<?php echo base_url() . 'pending_student/save_trial_lesson'; ?>" method="post">
-        <input type="hidden" value="<?php echo $session->id ?>" name="student_id" />
-        <div class="panel panel-primary" id="step_1">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-university"></i> <?php echo $this->lang->line('select_clan'); ?></h3>
+<form id="trial_clan_selection" action="<?php echo base_url() . 'pending_student/save_trial_lesson'; ?>" method="post">
+    <input type="hidden" value="<?php echo $session->id ?>" name="student_id" />
+    <div class="panel panel-primary" id="step_1">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-university"></i> <?php echo $this->lang->line('select_clan'); ?></h3>
+            <?php if(!$change_only_date) { ?>
                 <div class="right-content">
-                    <a href="#" class="dropdown-toggle text-white" data-toggle="dropdown"><?php echo $this->lang->line('change_location'); ?><b class="caret"></b></a>
+                    <div class="btn-group">
+                        <div class="inline">
+                            Current Location : <span class="text-black current-location-selected"></span>
+                        </div>
+                        <a href="#" class="dropdown-toggle mar-lt-10" data-toggle="dropdown"><?php echo $this->lang->line('change_location'); ?><b class="caret"></b></a>
 
-                    <ul class="dropdown-menu" role="menu">
-                        <?php foreach ($cities as $city) { ?>
-                            <li><a href="#"><?php echo $city['city_name']; ?></a></li>
-                        <?php } ?>
-                    </ul>
+                        <ul class="dropdown-menu pull-right margin-list" role="menu">
+                            <?php foreach ($cities as $city) { ?>
+                                <li class="<?php echo ($user_details->city_id == $city['id']) ? 'active loc-'.$city['id'] : 'loc-'.$city['id']; ?>"><a href="javascript:;" onclick="ChangeLocation(<?php echo $city['id']; ?>)" ><?php echo $city['city_name']; ?></a></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+
+        <div class="panel-body ludosport-class">
+            <div class="col-lg-4 col-xs-4 clan">
+                <div class="the-box rounded text-center padding-killer margin-bottom-killer" data-clan="<?php echo @$clans->id; ?>">
+                    <input type="radio" value="<?php echo @$clans->id; ?>" name="clan_id" />
+                    <h4 class="light"><?php echo @$clans->{$session->language . '_class_name'}; ?></h4>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="panel-body ludosport-class">
-            <?php foreach ($clans as $clan) {  ?>
-                    <div class="col-lg-4 col-xs-4 clan">
-                        <div class="the-box rounded text-center padding-killer margin-bottom-killer" data-clan="<?php echo $clan->id; ?>">
-                            <input type="radio" value="<?php echo $clan->id; ?>" name="clan_id" />
-                            <h4 class="light"><?php echo $clan->{$session->language . '_class_name'}; ?></h4>
-                        </div>
-                    </div> 
-                <?php } ?>
-            </div>
+    <div class="panel panel-primary" id="step_2">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-calendar"></i> <?php echo $this->lang->line('select_date'); ?></h3>
         </div>
 
-        <div class="panel panel-primary" id="step_2">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-calendar"></i> <?php echo $this->lang->line('select_date'); ?></h3>
-            </div>
-
-            <div class="panel-body ludosport-class-date" id="clan_dates">
-            </div>
+        <div class="panel-body ludosport-class-date" id="clan_dates">
         </div>
+    </div>
 
-        <div id="step_3">
-            <div class="text-center">
-                <a class="btn btn-primary NextStep" id="btn-setp-2"><?php echo $this->lang->line('confirm'); ?><i class="fa fa-angle-right"></i></a>
-            </div>
+    <div id="step_3">
+        <div class="text-center">
+            <a class="btn btn-primary NextStep" id="btn-setp-2"><?php echo $this->lang->line('confirm'); ?><i class="fa fa-angle-right"></i></a>
         </div>
-    </form>
-<?php } else if(isset($clans)) { ?>
-<div class="alert alert-<?php echo $clan_error_type; ?> fade in alert-dismissable">
-    <p class="text-center">
-        <?php echo $clans; ?>
-    </p>
-</div>   
-<?php } ?>
-
-
+    </div>
+</form>
