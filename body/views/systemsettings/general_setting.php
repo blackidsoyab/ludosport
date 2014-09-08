@@ -64,6 +64,18 @@
                         </select>
                     </div>
                 </div>
+            <?php } else if ($value->sys_key == 'pupil_basic_level') { ?>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><?php echo ucfirst(str_replace('_', ' ', $value->sys_key)); ?> <span class="text-danger">*</span></label>
+                    <div class="col-lg-8">
+                        <select class="form-control required" name="<?php echo $value->sys_key; ?>">
+                            <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('level'); ?></option>
+                            <?php foreach ($batches as $batch) { ?> 
+                                <option value="<?php echo $batch->id; ?>" <?php echo ($batch->id == $value->sys_value) ? 'selected' : ''; ?>><?php echo $batch->{$session->language . '_name'}; ?></option>
+                            <?php } ?>     
+                        </select>
+                    </div>
+                </div>
             <?php } else if ($value->sys_key == 'timezone') { ?>
                 <div class="form-group">
                     <label class="col-lg-3 control-label"><?php echo ucfirst(str_replace('_', ' ', $value->sys_key)); ?> <span class="text-danger">*</span></label>

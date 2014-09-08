@@ -23,6 +23,9 @@ class systemsettings extends CI_Controller {
         if ($type == 'general') {
             $role = new Role();
             $data['roles'] = $role->where('id >', '1')->get();
+
+            $batch = new Batch();
+            $data['batches'] = $batch->get();
             $this->layout->view('systemsettings/general_setting', $data);
         }
 
