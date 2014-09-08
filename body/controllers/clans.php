@@ -705,7 +705,7 @@ class clans extends CI_Controller {
                                 'clan' => $clan->{$this->session_data->language.'_class_name'},
                                 'school' => $clan->School->{$this->session_data->language.'_school_name'},
                                 'academy' => $clan->School->Academy->{$this->session_data->language.'_academy_name'},
-                                'type' => 'regular');
+                                'type' => 'trial');
                         }
                     } else {
                         if(!is_null($temp->id)){

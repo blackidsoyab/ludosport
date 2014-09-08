@@ -140,6 +140,9 @@ $(document).ready(function() {
 								<?php if($value['type'] == 'recover'){ ?>
 									 <i class="fa fa-info icon-circle icon-bordered icon-xs icon-primary" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('absenece_recovery_student'); ?>"></i>
 								<?php } ?>
+								<?php if($value['type'] == 'trial'){ ?>
+									 <i class="fa fa-info icon-circle icon-bordered icon-xs icon-primary" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('trial_request_student'); ?>"></i>
+								<?php } ?>
 							</td>
 						</tr>
 						<?php } ?>
