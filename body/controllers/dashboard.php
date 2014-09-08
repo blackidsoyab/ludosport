@@ -211,7 +211,7 @@ class dashboard extends CI_Controller {
         }, $this->config->item('custom_months'));
 
         $user = new User();
-        $data['users'] = $user->where('role_id', 6)->get();
+        $data['users'] = $user->where('role_id', 6)->get(10);
 
         $this->layout->view('dashboard/student', $data);
     }
@@ -390,8 +390,6 @@ class dashboard extends CI_Controller {
         $obj_user->where('id', $this->session_data->id)->get();
 
         $ids = array();
-        //For Email and Notification get All Admins
-        $ids[] = User::getAdminIds();
 
         $clan = new Clan();
         //For Email and Notification get Clan related Rectors, Deans, Teacher
