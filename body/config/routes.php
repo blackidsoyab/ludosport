@@ -137,6 +137,7 @@ $route['clan/studentjson'] = "json/getStudentsJsonData";
 $route['clan/studentjson/(:any)'] = "json/getStudentsJsonData/$1";
 $route['clan/studentjson/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2";
 $route['clan/studentjson/(:any)/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2/$3";
+$route['clan/change_date/(:num)'] = "clans/changeClanDate/$1";
 
 //Admin Dashboard
 $route['admin/class_details/(:num)/(:num)'] = "dashboard/adminClassDetails/$1/$2";

@@ -240,6 +240,7 @@ function createPermissionArray() {
                 'clanStudentList' => array('name' => 'Student List'),
                 'listTrialLessonRequest' => array('name' => 'List Trial Lesson Request'),
                 'changeStatusTrialStudent' => array('name' => 'Approve / Unapprove Request'),
+                'changeClanDate' => array('name' => 'Change Clan Dates'),
                 )),
         'eventcategories' => array(
             'name' => 'Event Categories',

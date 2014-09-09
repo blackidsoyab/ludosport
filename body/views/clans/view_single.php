@@ -32,6 +32,12 @@
 					</li>
 
 					<li>
+						<a href="#clan-dates" data-toggle="tab">
+							<?php echo $this->lang->line('clan'), ' ', $this->lang->line('date'); ?>
+						</a>
+					</li>
+
+					<li>
 						<a href="#teacher-attadence" data-toggle="tab">
 							<?php echo $this->lang->line('teacher'), ' ', $this->lang->line('attendance'); ?>
 						</a>
@@ -265,6 +271,89 @@
 						<?php } ?>
 					</div>
 
+					<div class="tab-pane fade" id="clan-dates">
+						<?php if (hasPermission('clans', 'changeClanDate')) { ?>
+							<script type="text/javascript">
+								$(document).ready(function() {
+									$('.datepicker').datepicker({
+							            format: "dd-mm-yyyy",
+							            startDate: "<?php echo date('d-m-Y', strtotime(get_current_date_time()->get_date_for_db())); ?>",
+							            endDate: "<?php echo date('d-m-Y', strtotime($clan->clan_to)); ?>",
+							            startView: 2,
+							            autoclose: true,
+							            todayHighlight: true
+							        }).on('changeDate', function (ev) {
+							            $(this).datepicker('hide');
+							        });
+
+							        $('#form-clan-change-date').validate();
+							    });
+							</script>
+
+							<h4><?php echo $this->lang->line('change'), ' ',$this->lang->line('clan'), ' ', $this->lang->line('date'); ?></h4>
+							<form id="form-clan-change-date" class="form-horizontal" method="post" action="<?php echo base_url() .'clan/change_date/' .$clan->id; ?>">
+								<input type="hidden" value="<?php echo $clan->id; ?>" name="clan_id">
+								<div class="form-group">
+						            <label for="question" class="col-lg-3 control-label">
+						                <?php echo $this->lang->line('date_from'); ?>
+						                <span class="text-danger">*</span>
+						            </label>
+						            <div class="col-lg-5">
+						                <select name="clan_shift_from" class=" form-control required">
+						                	<option value=""><?php echo $this->lang->line('date_from'); ?></option>
+						                	<?php foreach ($next_clan_dates as $clan_date) { ?>
+						                        <option value="<?php echo $clan_date; ?>"><?php echo date('d-m-Y', strtotime($clan_date)); ?></option>
+						                    <?php } ?>
+						                </select>
+						            </div>
+						        </div>
+
+						        <div class="form-group">
+						            <label for="question" class="col-lg-3 control-label">
+						                <?php echo $this->lang->line('date_to'); ?>
+						                <span class="text-danger">*</span>
+						            </label>
+						            <div class="col-lg-5">
+						                <input type="text" name="clan_date"  class=" form-control required datepicker" placeholder="<?php echo $this->lang->line('date_to'); ?>"/>
+						            </div>
+						        </div>
+
+						        <div class="form-group">
+						            <label for="question" class="col-lg-3 control-label">
+						                <?php echo $this->lang->line('reason'); ?>
+						                <span class="text-danger">&nbsp;</span>
+						            </label>
+						            <div class="col-lg-5">
+						                <textarea name="description" class="form-control"></textarea>
+						            </div>
+						        </div>
+
+						        <div class="form-group">
+						            <label class="col-lg-3 control-label">&nbsp;</label>
+						            <div class="col-lg-5">
+						                <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('save'); ?>"><?php echo $this->lang->line('save'); ?></button>
+						                <a href="<?php echo base_url() . 'user' ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('cancel'); ?>"><?php echo $this->lang->line('cancel'); ?></a>
+						            </div>
+						        </div>
+
+						        <div class="form-group">
+						            <label class="col-lg-3 control-label">&nbsp;</label>
+						            <div class="col-lg-5">
+						                <?php echo $this->lang->line('compulsory_note'); ?>
+						            </div>
+						        </div>
+							</form>
+						<?php } ?>
+						<h4><?php echo $this->lang->line('clan'), ' ', $this->lang->line('dates'); ?></h4>
+						<?php if($clan_dates->result_count() > 0) { ?>
+							<div class="the-box no-border tags-cloud">
+								<?php foreach($clan_dates as $date) { ?>
+									<a href="#"><span class="label label-primary"><?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date->clan_date)); ?></span></a>
+								<?php } ?>
+							</div>	
+						<?php } ?>
+					</div>
+
 					<div class="tab-pane fade" id="teacher-attadence">
 						<h4><?php echo $teacher['name'], '\'s  ', $this->lang->line('attendance'); ?></h4>
 						<?php if(!is_null($teacher_attendance)) { ?>
@@ -312,12 +401,14 @@
 
 					<div class="tab-pane fade" id="student-attadence">
 						<h4><?php echo $this->lang->line('student'), ' ', $this->lang->line('attendance'); ?></h4>
-						<?php if(!is_null($clan_dates)) { ?>
+						<?php if($clan_dates->result_count() > 0) { ?>
 							<div class="the-box no-border tags-cloud">
 								<?php foreach($clan_dates as $date) { ?>
 									<a href="<?php echo base_url() .'clan/clan_attendance/' . $date->clan_id .'/'. $date->clan_date; ?>"><span class="label label-primary"><?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date->clan_date)); ?></span></a>
 								<?php } ?>
 							</div>	
+						<?php } else { ?>
+							<h3 class="text-danger"><?php echo $this->lang->line('no_attendance'); ?></h3>
 						<?php } ?>
 					</div>
 				</div>

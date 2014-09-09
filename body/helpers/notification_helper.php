@@ -225,6 +225,15 @@ function getMessageTemplate($options) {
         $new_template = sprintf($templates[$options['notify_type']][$session->language], date('d-m-Y', strtotime($options['data']['clan_date'])));
     }
 
+    if ($options['notify_type'] == 'change_clan_date') {
+        $template_edit = true;
+
+        $clan = new Clan();
+        $clan->where('id', $options['data']['clan_id'])->get();
+
+        $new_template = sprintf($templates[$options['notify_type']][$session->language],$clan->{$session->language.'_class_name'}, date('d-m-Y', strtotime($options['data']['clan_shift_from'])), date('d-m-Y', strtotime($options['data']['clan_date'])));
+    }
+
     if ($template_edit) {
         return $new_template;
     } else {
@@ -318,6 +327,11 @@ function setMessageTemplate($options) {
         array(
             'en' => 'Your request for holiday on %s is unapproved',
             'it' => 'Your request for holiday on %s is unapproved',
+        ),
+        'change_clan_date' =>
+        array(
+            'en' => 'Your clan %s has been reschedule from %s to %s',
+            'it' => 'Your clan %s has been reschedule from %s to %s',
         ),
     );
 

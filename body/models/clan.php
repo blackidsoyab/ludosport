@@ -269,7 +269,7 @@ class Clan extends DataMapper
     }
     
     function getAviableDateFromClan($clan_id, $total_dates = 5, $student_limit = null) {
-        $this->db->select('id, lesson_day');
+        $this->db->select('id, lesson_day, clan_to');
         $this->db->from('clans');
         $this->db->where_in('id', $clan_id, null);
         $query = $this->db->get();
@@ -277,7 +277,9 @@ class Clan extends DataMapper
             $result = $query->result();
             $current_date = get_current_date_time()->get_date_for_db();
             $start_date = date('Y-m-d', strtotime("+1 day", strtotime($current_date)));
-            $end_date = date('Y-m-d', strtotime("+1 month", strtotime($start_date)));
+            //$end_date = date('Y-m-d', strtotime("+1 month", strtotime($start_date)));
+            $end_date = $result[0]->clan_to;
+        
             $dates = array();
             
             $days = explode(',', $result[0]->lesson_day);
@@ -287,31 +289,39 @@ class Clan extends DataMapper
                 $temp_dates[] = getDateByDay($day, $start_date, $end_date);
             }
             
-            $finals_dates = array_unique(MultiArrayToSinlgeArray($temp_dates));
-            sort($finals_dates);
-            
-            foreach ($finals_dates as $value) {
-                if (!in_array($value, $dates)) {
-                    $attendance = new Attendance();
-                    $recover = new Attendancerecover();
-                    if (!is_null($student_limit)) {
-                        $total_1 = $attendance->getTotalStudentsForDate($value, $result[0]->id);
-                        $total_2 = $recover->getTotalStudentsForDate($value, $result[0]->id);
-                        $total_stud = (int)$total_1 + (int)$total_2;
-                        if ($total_stud < $student_limit) {
-                            $dates[] = $value;
+            if(count($temp_dates)>0){
+                $finals_dates = array_unique(MultiArrayToSinlgeArray($temp_dates));
+
+                if(count($finals_dates)>0){
+                    sort($finals_dates);
+                    foreach ($finals_dates as $value) {
+                        if (!in_array($value, $dates)) {
+                            $attendance = new Attendance();
+                            $recover = new Attendancerecover();
+                            if (!is_null($student_limit)) {
+                                $total_1 = $attendance->getTotalStudentsForDate($value, $result[0]->id);
+                                $total_2 = $recover->getTotalStudentsForDate($value, $result[0]->id);
+                                $total_stud = (int)$total_1 + (int)$total_2;
+                                if ($total_stud < $student_limit) {
+                                    $dates[] = $value;
+                                }
+                            } else {
+                                $dates[] = $value;
+                            }
                         }
-                    } else {
-                        $dates[] = $value;
+                        
+                        if (count($dates) == $total_dates) {
+                            break;
+                        }
                     }
+                    sort($dates);
+                    return array_unique($dates);
+                } else {
+                    return FALSE;
                 }
-                
-                if (count($dates) == $total_dates) {
-                    break;
-                }
+            }else{
+                return FALSE;
             }
-            sort($dates);
-            return array_unique($dates);
         } else {
             return FALSE;
         }

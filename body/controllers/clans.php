@@ -54,6 +54,7 @@ class clans extends CI_Controller {
 
             $obj = new Clan();
             $data['clan'] = $obj->where('id', $id)->get();
+            $data['next_clan_dates'] = $obj->getAviableDateFromClan($id, 365);
 
             if(!validAcess($id, 'clan')){
                 $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
@@ -656,7 +657,7 @@ class clans extends CI_Controller {
         $day_numeric = date('N', strtotime($date));
 
         //Role Super Admin or Admin
-        if($this->session_data->id == 1 || $this->session_data->id == 2){
+        if($this->session_data->role == 1 || $this->session_data->role == 2){
             /*
             *   get the Cland details
             *   Param1(required) : Clan ID
@@ -671,6 +672,14 @@ class clans extends CI_Controller {
             *   Param3(required) : Day in Number like Monday : 1 .... Sunday : 7
             */
             $details = $clan->getClansDetailsByTeacherAndDay($clan_id, $this->session_data->id, $day_numeric);    
+        }
+
+        if(!$details){
+            $obj_clan_date = new Clandate();
+            $obj_clan_date->where(array('clan_id'=>$clan_id, 'clan_date' => $date))->get();
+            if($obj_clan_date->result_count() == 1){
+                $details = true;
+            }
         }
         
 
@@ -1130,6 +1139,83 @@ class clans extends CI_Controller {
         send_mail($option);
 
         echo json_encode(array('status'=>true,'student_id'=>$this->input->post('student_id')));
+    }
+
+    /*
+    *   Shift the Clan from one date to another
+    *   Param1(required) : Clan id
+    */
+    function changeClanDate($clan_id){
+        $obj_clan_date = new Clandate();
+        $obj_clan_date->where(array('clan_id'=>$clan_id, 'clan_date' => $this->input->post('clan_date'), 'clan_shift_from' => $this->input->post('clan_shift_from')))->get();
+
+        $obj_clan_date->clan_id = $clan_id;
+        $obj_clan_date->clan_date = date('Y-m-d', strtotime($this->input->post('clan_date')));
+        $obj_clan_date->clan_shift_from = $this->input->post('clan_shift_from');
+        $obj_clan_date->description = @$this->input->post('description');
+        $obj_clan_date->user_id = $this->session_data->id;
+        $obj_clan_date->save();
+
+
+        $clan = new Clan();
+        //For Email and Notification get Clan related Rectors, Deans, Teacher
+        $clan->where('id', $clan_id)->get();
+        $ids[] = array_unique(explode(',', $clan->school->academy->rector_id . ',' . $clan->school->dean_id . ',' . $clan->teacher_id));
+        $ids[] = Userdetail::getAssignStudentIdsByCaln($clan_id);
+
+        //Make single array form all ids
+        $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
+
+        //remove the current userid from the retun ids.
+        if (($key = array_search($this->session_data->id, $final_ids)) !== false) {
+            unset($final_ids[$key]);
+        }
+
+        if(count($final_ids) > 0){
+            $user = new User();
+            //Fecth all the Admin, Rector, Dean, Teacher details
+            $user->where_in('id', $final_ids);
+
+            //Compose message for Trial Lesson Request and replace  necessary things
+            $email = new Email();
+            $email->where('type', 'change_clan_date')->get();
+            $message = $email->message;
+            
+            //loop through for notification and mail
+            foreach ($user->get() as $value) {
+                //Send Notification
+                $notification = new Notification();
+                $notification->type = 'N';
+                $notification->notify_type = 'change_clan_date';
+                $notification->from_id = $this->session_data->id;
+                $notification->to_id = $value->id;
+                $notification->object_id = $obj_clan_date->id;
+                $notification->data = serialize($this->input->post());
+                $notification->save();
+
+                //Send Email
+                $option = array();
+                $message = NULL;
+                $message = $email->message;
+                $message = str_replace('#user_name', $value->firstname.' '.$value->lastname, $message);
+                $message = str_replace('#clan_name', $clan->en_class_name, $message);
+                $message = str_replace('#school_name', $clan->school->en_school_name, $message);
+                $message = str_replace('#academy_name', $clan->school->academy->en_academy_name, $message);
+                $message = str_replace('#from_date', date('d-m-Y', strtotime($this->input->post('clan_shift_from'))), $message);
+                $message = str_replace('#to_date', date('d-m-Y', strtotime($this->input->post('clan_date'))), $message);
+                $message = str_replace('#authorized_user_name', $this->session_data->name, $message);
+                
+                $option['tomailid'] = $value->email;
+                $option['subject'] = $email->subject;
+                $option['message'] = $message;
+                if (!is_null($email->attachment)) {
+                    $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
+                }
+                send_mail($option);
+            }
+        }
+
+        redirect(base_url().'clan/view/'. $clan_id, 'refresh');
     }
 
 }
