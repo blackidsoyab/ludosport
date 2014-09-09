@@ -157,6 +157,63 @@
                     </select>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('clan'), ' ', $this->lang->line('start_from'); ?> <span class="text-danger">*</span></label>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <select class="form-control required" name="clan_start[month]">
+                            <?php 
+                            $start_selected_month = date('m', strtotime($clan->clan_from));
+                            foreach ($this->config->item('custom_months') as $start_key => $start_value) {
+                                $start_month_id =  (int)$start_key + 1;
+                            ?>
+                                <option value="<?php echo $start_month_id; ?>" <?php echo ($start_selected_month == $start_month_id)? 'selected' : ''; ?>><?php echo $start_value[$session->language]; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="col-xs-2">
+                        <select class="form-control required" name="clan_start[year]">
+                            <?php
+                                $start_selected_year = date('Y', strtotime($clan->clan_from));
+                                $current_year = get_current_date_time()->year;
+                                $year_from = $current_year - 5;
+                                $year_to = $current_year + 5;
+                                for($i = $year_from; $i<=$year_to; $i++){ ?>
+                                <option value="<?php echo $i; ?>" <?php echo ($start_selected_year == $i)? 'selected' : ''; ?>><?php echo $i; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('clan'), ' ', $this->lang->line('end_in'); ?> <span class="text-danger">*</span></label>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <select class="form-control required" name="clan_end[month]">
+                            <?php 
+                            $end_selected_month = date('m', strtotime($clan->clan_to));
+                            foreach ($this->config->item('custom_months') as $end_key => $end_value) {
+                                $end_month_id =  (int)$end_key + 1;
+                            ?>
+                                <option value="<?php echo $end_month_id; ?>" <?php echo ($end_selected_month == $end_month_id)? 'selected' : ''; ?>><?php echo $end_value[$session->language]; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="col-xs-2">
+                        <select class="form-control required" name="clan_end[year]">
+                            <?php
+                                $end_selected_year = date('Y', strtotime($clan->clan_to));
+                                $current_year = get_current_date_time()->year;
+                                $year_to = $current_year + 5;
+                                for($i = $current_year; $i<=$year_to; $i++){ ?>
+                                <option value="<?php echo $i; ?>" <?php echo ($end_selected_year == $i)? 'selected' : ''; ?>><?php echo $i; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
             
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('day'), ' ', $this->lang->line('lesson'); ?> <span class="text-danger">*</span></label>

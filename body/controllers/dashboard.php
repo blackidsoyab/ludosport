@@ -88,21 +88,23 @@ class dashboard extends CI_Controller {
             $details = $clans->getClansByDay($day_numeric);
             if($details){
                 foreach ($details as $value) {
-                    $temp = array();
-                    $temp['title'] = $value->clan;
-                    $temp['start'] = $date;
-                    $temp['tooltip'] = $value->school .', '. $value->academy;
-                    if(strtotime($date) < strtotime($current_date)){
-                        $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
-                        $temp['type'] = 'past';
-                    }else if(strtotime($date) == strtotime($current_date)){
-                        $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
-                        $temp['type'] = 'present';
-                    } else {
-                        $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
-                        $temp['type'] = 'future';
+                    if(strtotime($date) >= strtotime($value->clan_from) && strtotime($date) <= strtotime($value->clan_to)){
+                        $temp = array();
+                        $temp['title'] = $value->clan;
+                        $temp['start'] = $date;
+                        $temp['tooltip'] = $value->school .', '. $value->academy;
+                        if(strtotime($date) < strtotime($current_date)){
+                            $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                            $temp['type'] = 'past';
+                        }else if(strtotime($date) == strtotime($current_date)){
+                            $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                            $temp['type'] = 'present';
+                        } else {
+                            $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                            $temp['type'] = 'future';
+                        }
+                        $return[] = $temp;
                     }
-                    $return[] = $temp;
                 }
             }
         }
@@ -168,21 +170,23 @@ class dashboard extends CI_Controller {
             $details = $clans->getClansByTeacherAndDay($this->session_data->id, $day_numeric);
             if($details){
                 foreach ($details as $value) {
-                    $temp = array();
-                    $temp['title'] = $value->clan;
-                    $temp['start'] = $date;
-                    $temp['tooltip'] = $value->school .', '. $value->academy;
-                    if(strtotime($date) < strtotime($current_date)){
-                        $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
-                        $temp['type'] = 'past';
-                    }else if(strtotime($date) == strtotime($current_date)){
-                        $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
-                        $temp['type'] = 'present';
-                    } else {
-                        $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
-                        $temp['type'] = 'future';
+                    if(strtotime($date) >= strtotime($value->clan_from) && strtotime($date) <= strtotime($value->clan_to)){
+                        $temp = array();
+                        $temp['title'] = $value->clan;
+                        $temp['start'] = $date;
+                        $temp['tooltip'] = $value->school .', '. $value->academy;
+                        if(strtotime($date) < strtotime($current_date)){
+                            $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                            $temp['type'] = 'past';
+                        }else if(strtotime($date) == strtotime($current_date)){
+                            $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                            $temp['type'] = 'present';
+                        } else {
+                            $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                            $temp['type'] = 'future';
+                        }
+                        $return[] = $temp;
                     }
-                    $return[] = $temp;
                 }
             }
         }
@@ -240,19 +244,21 @@ class dashboard extends CI_Controller {
 
             if($details){
                 foreach ($details as $value) {
-                    $temp = array();
-                    $temp['title'] =  date('h.i a', $value->lesson_from) . ' : ' . date('h.i a', $value->lesson_to);
-                    $temp['start'] = date('Y-m-d', strtotime($date));
-                    if(strtotime($date) < strtotime($current_date)){
-                        //$temp['url'] = base_url() .'student/clan/' . $value->id .'/'. $date;
-                        $temp['type'] = 'past';
-                    }else if(strtotime($date) == strtotime($current_date)){
-                        //$temp['url'] = base_url() .'student/clan/' . $value->id .'/'. $date;
-                        $temp['type'] = 'present';
-                    } else {
-                        $temp['type'] = 'future';
+                    if(strtotime($date) >= strtotime($value->clan_from) && strtotime($date) <= strtotime($value->clan_to)){
+                        $temp = array();
+                        $temp['title'] =  date('h.i a', $value->lesson_from) . ' : ' . date('h.i a', $value->lesson_to);
+                        $temp['start'] = date('Y-m-d', strtotime($date));
+                        if(strtotime($date) < strtotime($current_date)){
+                            //$temp['url'] = base_url() .'student/clan/' . $value->id .'/'. $date;
+                            $temp['type'] = 'past';
+                        }else if(strtotime($date) == strtotime($current_date)){
+                            //$temp['url'] = base_url() .'student/clan/' . $value->id .'/'. $date;
+                            $temp['type'] = 'present';
+                        } else {
+                            $temp['type'] = 'future';
+                        }
+                        $return[] = $temp;
                     }
-                    $return[] = $temp;
                 }
             }
         }

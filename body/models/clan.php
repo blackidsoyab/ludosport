@@ -397,7 +397,7 @@ class Clan extends DataMapper
     function getClansByTeacherAndDay($teacher_id, $day = '1') {
         $session = get_instance()->session->userdata('user_session');
         $this->db->_protect_identifiers = false;
-        $this->db->select('clans.id,' . $session->language . '_class_name AS clan,' . $session->language . '_school_name AS school,' . $session->language . '_academy_name AS academy');
+        $this->db->select('clans.id,' . $session->language . '_class_name AS clan,' . $session->language . '_school_name AS school,' . $session->language . '_academy_name AS academy, clans.clan_from, clans.clan_to');
         $this->db->from('clans');
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
@@ -414,7 +414,7 @@ class Clan extends DataMapper
     function getClansByDay($day = '1') {
         $session = get_instance()->session->userdata('user_session');
         $this->db->_protect_identifiers = false;
-        $this->db->select('clans.id,' . $session->language . '_class_name AS clan,' . $session->language . '_school_name AS school,' . $session->language . '_academy_name AS academy');
+        $this->db->select('clans.id,' . $session->language . '_class_name AS clan,' . $session->language . '_school_name AS school,' . $session->language . '_academy_name AS academy, clans.clan_from, clans.clan_to');
         $this->db->from('clans');
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
