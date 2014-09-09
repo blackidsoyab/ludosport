@@ -441,6 +441,10 @@ class clans extends CI_Controller {
     */
     function listTrialLessonRequest($clan_id = null) {
         if(!is_null($clan_id)){
+            if(!validAcess($clan_id, 'clan')){
+                $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                redirect(base_url() . 'dashboard', 'refresh'); 
+            }
             $clan = new Clan();
             //Get the Clan Details
             $data['clan_details'] = $clan->where('id', $clan_id)->get();    
