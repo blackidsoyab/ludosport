@@ -564,13 +564,31 @@ class json extends CI_Controller {
         exit();
     }
 
-    public function getTrialLessonRequestJsonData($clan_id) {
+    public function getTrialLessonRequestJsonData($clan_id = null) {
         $this->load->library('datatable');
         $this->datatable->aColumns = array('CONCAT(users.firstname," ", users.lastname) AS student_name', 'userdetails.first_lesson_date', 'userdetails.status');
         $this->datatable->eColumns = array('userdetails.id', 'student_master_id', 'clan_id');
         $this->datatable->sIndexColumn = "userdetails.id";
-        $this->datatable->sTable = " clans, users, userdetails";
-        $this->datatable->myWhere = 'WHERE userdetails.student_master_id=users.id AND users.status= "P" AND clans.id=' . $clan_id;
+            
+        if(!is_null($clan_id)){
+            $this->datatable->sTable = " clans, users, userdetails";
+            $this->datatable->myWhere = 'WHERE userdetails.clan_id=clans.id AND userdetails.student_master_id=users.id AND users.status= "P" AND clans.id=' . $clan_id;
+        }else{
+            if($this->session_data->role == 1 || $this->session_data->role == 2){
+                $this->datatable->sTable = " users, userdetails";
+                $this->datatable->myWhere = 'WHERE userdetails.student_master_id=users.id AND users.status= "P"';
+            } else if($this->session_data->role == 3){
+                $this->datatable->sTable = " users, userdetails, academies, schools, clans";
+                $this->datatable->myWhere = 'WHERE userdetails.student_master_id=users.id AND users.status= "P" AND academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.id=userdetails.clan_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0';
+            } else if($this->session_data->role == 4){
+                $this->datatable->sTable = " users, userdetails, schools, clans";
+                $this->datatable->myWhere = 'WHERE userdetails.student_master_id=users.id AND users.status= "P" AND  schools.id=clans.school_id AND clans.id=userdetails.clan_id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0';
+            } else if($this->session_data->role == 5){
+                $this->datatable->sTable = " users, userdetails, clans";
+                $this->datatable->myWhere = 'WHERE userdetails.student_master_id=users.id AND users.status= "P" AND   clans.id=userdetails.clan_id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0';
+            }
+        }
+        
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {

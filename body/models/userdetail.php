@@ -165,6 +165,39 @@ class Userdetail extends DataMapper {
         }
     }
 
+    function getTotalTrailRequestByClan($clan_id){
+        $this->db->select('count(*) as total');
+        $this->db->from('users');
+        $this->db->join('userdetails', 'users.id=userdetails.student_master_id');
+        $this->db->where('users.status', 'P');
+        $this->db->where('userdetails.clan_id', $clan_id);
+        $res = $this->db->get()->result();
+        return $res[0]->total;
+    }
+
+    function getTotalTrailRequestByUser($user_id){
+        $session = get_instance()->session->userdata('user_session');
+
+        $this->db->_protect_identifiers = false;
+        $this->db->select('count(*) as total');
+        $this->db->from('users');
+        $this->db->join('userdetails', 'users.id=userdetails.student_master_id');
+        $this->db->join('clans c1', 'c1.id=userdetails.clan_id');
+        if($session->role == 3) {
+            $this->db->join('clans', 'schools.id=clans.school_id');
+            $this->db->join('schools', 'academies.id=schools.academy_id');
+            $this->db->where('FIND_IN_SET(' . $user_id . ', academies.rector_id) > 0');    
+        } else if($session->role == 4) {
+            $this->db->join('clans', 'schools.id=clans.school_id');
+            $this->db->where('FIND_IN_SET(' . $user_id . ', schools.dean_id) > 0');    
+        } else if($session->role == 5) {
+            $this->db->where('FIND_IN_SET(' . $user_id . ', c1.teacher_id) > 0');    
+        }
+        $this->db->where('users.status', 'P');
+        $res = $this->db->get()->result();
+        return $res[0]->total;
+    }
+
 }
 
 ?>

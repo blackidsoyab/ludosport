@@ -1,4 +1,14 @@
-<?php $session = $this->session->userdata('user_session'); ?>
+<?php 
+$session = $this->session->userdata('user_session'); 
+
+if(!is_null($clan_details)){
+    $url = base_url() . 'clan/listTrialLessonRequestJson/' . $clan_details->id;
+    $clan_name = ' : '. $clan_details->{$session->language .'_class_name'} ;
+}else{
+    $url = base_url() . 'clan/listTrialLessonRequestJson';
+    $clan_name = null;
+}
+?>
 <script type="text/javascript" >
     $(document).ready(function() {
         $('#list_data').dataTable({
@@ -8,14 +18,14 @@
             "aoColumns": [
                 {"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center", "bSortable": false},{"sClass": "text-center", "bSortable": false}
             ],
-            "sAjaxSource": "<?php echo base_url() . 'clan/listTrialLessonRequestJson/' . $clan_details->id; ?>"
+            "sAjaxSource": "<?php echo $url; ?>"
         });
     });
 </script>
 
 <div class="row">
     <div class="col-md-6">
-        <h1 class="page-heading h1"><?php echo $this->lang->line('list'), ' ', $this->lang->line('trial_lesson'), ' ', $this->lang->line('student'), ' : ', $clan_details->{$session->language .'_class_name'}; ?></h1>    
+        <h1 class="page-heading h1"><?php echo $this->lang->line('list'), ' ', $this->lang->line('trial_lesson'), ' ', $this->lang->line('student'), $clan_name; ?></h1>    
     </div>
 </div>
 

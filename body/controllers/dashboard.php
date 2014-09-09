@@ -145,6 +145,9 @@ class dashboard extends CI_Controller {
         $data['total_classes'] = $class->getTotalClassesOfTeacher($this->session_data->id);
         $data['total_students'] = $class->getTotalStudentsOfTeacher($this->session_data->id);
 
+        $user_details = new Userdetail();
+        $data['total_trail_request'] = $user_details->getTotalTrailRequestByUser($this->session_data->id);
+
         $data['monthNames'] = array_map(function ($ar) {
             $session = get_instance()->session->userdata('user_session');
             return $ar["$session->language"];

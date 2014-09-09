@@ -40,7 +40,7 @@
                     echo '&nbsp;';
                 }
                 ?>
-            </div><!-- /.tiles-inner -->
+            </div>
         </div>							
     </div>
     <div class="col-md-3">
@@ -64,8 +64,26 @@
                     echo '&nbsp;';
                 }
                 ?>
-            </div><!-- /.tiles-inner -->
+            </div>
         </div>							
+    </div>
+    <div class="col-md-3">
+        <div class="the-box no-border bg-success tiles-information">
+            <i class="fa fa-users icon-bg"></i>
+            <div class="tiles-inner text-center">
+                <p><?php echo $this->lang->line('trial_lesson'); ?></p>
+                <h1 class="bolded">
+                    <?php if (hasPermission('clans', 'listTrialLessonRequest')) { ?>
+                        <a href="<?php echo base_url() . 'clan/trial_lesson_request' ?>"  data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('list'), ' ', $this->lang->line('trial_lesson'); ?>"><?php echo @$total_trail_request; ?></a>
+                        <?php
+                    } else {
+                        echo @$total_trail_request;
+                    }
+                    ?>
+                </h1>
+                &nbsp;
+            </div>
+        </div>                          
     </div>
 </div>
 

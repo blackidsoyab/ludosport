@@ -439,11 +439,14 @@ class clans extends CI_Controller {
     *   List the student who request for trial lesson
     *   Param1(required) : Clan id
     */
-    function listTrialLessonRequest($clan_id) {
-        $clan = new Clan();
-
-        //Get the Clan Details
-        $data['clan_details'] = $clan->where('id', $clan_id)->get();
+    function listTrialLessonRequest($clan_id = null) {
+        if(!is_null($clan_id)){
+            $clan = new Clan();
+            //Get the Clan Details
+            $data['clan_details'] = $clan->where('id', $clan_id)->get();    
+        } else{
+            $data['clan_details'] = null;
+        }
         
         $this->layout->view('clans/trial_lesson_request', $data);
     }

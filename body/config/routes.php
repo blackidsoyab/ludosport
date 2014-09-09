@@ -115,7 +115,9 @@ $route['role/check/(:num)'] = "ajax/checkValidRole/$1";
 //Classes
 $route['clan/getschools/(:num)'] = "ajax/getSchoolsOptionFromAcademy/$1";
 $route['clan/getclasses/(:num)'] = "ajax/getClassesOptionFromSchool/$1";
+$route['clan/trial_lesson_request'] = "clans/listTrialLessonRequest";
 $route['clan/trial_lesson_request/(:num)'] = "clans/listTrialLessonRequest/$1";
+$route['clan/listTrialLessonRequestJson'] = "json/getTrialLessonRequestJsonData";
 $route['clan/listTrialLessonRequestJson/(:num)'] = "json/getTrialLessonRequestJsonData/$1";
 $route['clan/change_status_trial_student/(:num)/(:num)'] = "clans/changeStatusTrialStudent/$1/$2";
 $route['clan/change_status_trial_student/(:num)/(:num)/(:any)'] = "clans/changeStatusTrialStudent/$1/$2/$3";

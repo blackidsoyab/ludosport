@@ -323,25 +323,10 @@ function checkMessage(last_id){
                 <!-- /.Top Nav -->
 
                 <!-- BEGIN SIDEBAR LEFT -->
-                <?php $page = ($this->uri->segment(1) ? $this->uri->segment(1) : 'dashboard'); ?>
+                <?php $page = ($this->uri->segment(1) ? $this->uri->segment(2) ? $this->uri->segment(2) : $this->uri->segment(1) : 'dashboard');  
+                ?>
                 <div class="sidebar-left sidebar-nicescroller">
                     <ul class="sidebar-menu">
-                   <!-- <li class="static left-profile-summary">
-                        <div class="media">
-                            <p class="pull-left">
-                                <img src="<?php echo IMG_URL . 'user_avtar/70X70/' . $session->avtar; ?>" class="avatar img-circle" alt="<?php echo $session->name; ?>" data-toggle="tooltip" data-original-title="<?php echo $session->name; ?>">
-
-                            </p>
-                            <div class="media-body">
-                                <h4 class="overflow-hidden overflow-text-dot">
-                                    <?php echo $this->lang->line('hello'); ?>
-                                    <br />
-                                    <strong><?php echo $session->name; ?></strong>
-                                </h4>
-                                <button class="btn btn-success btn-xs"><i class="fa fa-cog"></i></button><a href="<?php echo base_url() . 'logout'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('logout'); ?>" class="logout-action"> <button class="btn btn-danger btn-xs"><?php echo $this->lang->line('logout'); ?></button></a>
-                            </div>
-                        </div>
-                    </li> -->
 
                     <li class="<?php echo ($page == 'dashboard') ? 'active selected' : ''; ?>">
                         <a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('dashboard'); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a>
@@ -365,7 +350,11 @@ function checkMessage(last_id){
                     <li class="<?php echo ($page == 'clan') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'clan'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('clan'); ?>"><i class="fa fa-users icon-sidebar"></i><?php echo $this->lang->line('clan'); ?></a></li>
                     <?php } ?>
 
-                    <?php if (hasPermission('users', 'viewUser')) { ?>
+                    <?php if (hasPermission('clans', 'listTrialLessonRequest')) { ?>
+                    <li class="<?php echo ($page == 'trial_lesson_request') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'clan/trial_lesson_request'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('trial_lesson'); ?>"><i class="glyphicon glyphicon-registration-mark icon-sidebar"></i><?php echo $this->lang->line('trial_lesson'); ?></a></li>
+                    <?php } ?>
+
+                     <?php if (hasPermission('users', 'viewUser')) { ?>
                     <li class="<?php echo ($page == 'user') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'user'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('user'); ?>"><i class="fa fa-user icon-sidebar"></i><?php echo $this->lang->line('user'); ?></a></li>
                     <?php } ?>
 
