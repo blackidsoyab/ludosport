@@ -63,6 +63,7 @@ class users extends CI_Controller {
                 $user_details = new Userdetail();
                 $user_details->student_master_id = $user->id;
                 $user_details->clan_id = $this->input->post('class_id');
+                $user_details->status = 'A';
                 $user_details->user_id = $this->session_data->id;
                 $user_details->save();
             }
@@ -72,8 +73,11 @@ class users extends CI_Controller {
         } else {
             $this->layout->setField('page_title', $this->lang->line('add') . ' ' . $this->lang->line('user'));
 
+            $clan = new Clan();
+            $cities_ids = $clan->getCitiesofClans();
+
             $city = new City();
-            $data['cities'] = $city->get();
+            $data['cities'] = $city->where_in('id', $cities_ids)->get();
 
             $role = new Role();
             if($this->session_data->id == 1){
@@ -136,6 +140,7 @@ class users extends CI_Controller {
                     $user_details->student_master_id = $user->id;
                     $user_details->clan_id = $this->input->post('class_id');
                     $user_details->user_id = $this->session_data->id;
+                    $user_details->status = 'A';
                     $user_details->save();
                 } else {
                     $user_details = new Userdetail();
@@ -166,8 +171,11 @@ class users extends CI_Controller {
                     $data['schools'] = $school->where('academy_id', $school->academy_id)->get();
                     $data['academy_id'] = $school->academy_id;
 
+                    $clan = new Clan();
+                    $cities_ids = $clan->getCitiesofClans();
+
                     $city = new City();
-                    $data['cities'] = $city->get();
+                    $data['cities'] = $city->where_in('id', $cities_ids)->get();
 
                     $role = new Role();
                     if($this->session_data->id == 1){
