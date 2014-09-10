@@ -225,8 +225,8 @@ function checkMessage(last_id){
                                 <?php } ?>
                                 <li class="dropdown pull-left">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <img src="<?php echo IMG_URL . 'user_avtar/40X40/' . $session->avtar; ?>" class="avatar img-circle" alt="<?php echo $session->name; ?>" data-placement="bottom" data-toggle="tooltip" data-original-title="<?php echo $session->name; ?>">
-                                        <?php echo $this->lang->line('hello'); ?>, <strong><?php echo $session->name; ?></strong>
+                                        <img src="<?php echo IMG_URL . 'user_avtar/40X40/' . $session->avtar; ?>" class="avatar img-circle" alt="<?php echo $session->logged_in_name; ?>" data-placement="bottom" data-toggle="tooltip" data-original-title="<?php echo $session->logged_in_name; ?>">
+                                        <?php echo $this->lang->line('hello'); ?>, <strong data-placement="bottom" data-toggle="tooltip" data-original-title="<?php echo $session->logged_in_name; ?>"><?php echo $session->logged_in_name; ?></strong>
                                     </a>
                                     <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
                                         <?php if (hasPermission('profiles', 'viewProfile')) { ?>

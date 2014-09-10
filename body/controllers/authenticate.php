@@ -30,6 +30,7 @@ class authenticate extends CI_Controller {
     private function _setSessionData($user){
         $user_data = new stdClass();
         $user_data->id = $user->id;
+        $user_data->logged_in_name = $user->firstname;
         $user_data->name = $user->firstname . ' ' . $user->lastname;
         $user_data->avtar = $user->avtar;
         $user_data->language = 'en';

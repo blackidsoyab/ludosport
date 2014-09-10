@@ -51,6 +51,7 @@ class profiles extends CI_Controller {
                 $user->save();
 
                 $session = $this->session->userdata('user_session');
+                $session->logged_in_name = $this->input->post('firstname');
                 $session->name = $this->input->post('firstname') .' '. $this->input->post('lastname');
                 $session->email = $this->input->post('email');
                 $newdata = array('user_session' => $session);
