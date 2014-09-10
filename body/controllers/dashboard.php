@@ -354,13 +354,13 @@ class dashboard extends CI_Controller {
             $user_details->save();
             
             //Make student Active
-            $user = new User();
+            /*$user = new User();
             $user->where(array('id' => $this->session_data->id))->update('status', 'A');
 
             $session = $this->session->userdata('user_session');
             $session->status = 'A';
             $newdata = array('user_session' => $session);
-            $this->session->set_userdata($newdata);
+            $this->session->set_userdata($newdata);*/
 
             redirect(base_url() .'dashboard', 'refresh');
         }else {
