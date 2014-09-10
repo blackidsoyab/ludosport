@@ -214,12 +214,24 @@ class ajax extends CI_Controller {
 
     function getDateForClan($clan_id) {
         $clan = new Clan();
-        $dates = $clan->getAviableDateFromClan($clan_id, 5, 20);
-
+        $temp_dates = $clan->getAviableDateFromClan($clan_id, 5, 20);
+        $dates = array();
         $clan->where('id', $clan_id)->get();
         $str = NULL;
 
         $str .= '<h4 class="text-center text-black"> Class Timing : ' . date('H.i a', $clan->lesson_from) . '  - ' . date('H.i a', $clan->lesson_to) . '</h4>';
+
+        foreach ($temp_dates as $date) {
+            $obj_clan_date = new Clandate();
+            $obj_clan_date->where(array('clan_id'=>$clan_id, 'clan_shift_from' => $date))->get();
+            if($obj_clan_date->result_count() == 1){
+                $dates[] = $obj_clan_date->clan_date;
+            }else{
+                $dates[] = $date;
+            }
+        }
+
+        sort($dates);
         foreach ($dates as $date) {
             $str .= '<div class="col-lg-4 col-xs-4 clan-date">';
             $str .= '<div class="the-box rounded text-center padding-killer mar-bt-10" data-clan-date="' . $date . '">';

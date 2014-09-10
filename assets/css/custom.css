@@ -438,3 +438,8 @@ footer{
     background: -moz-linear-gradient(right, #F6BB42 80%, #AAB2BD 20%);
     background: linear-gradient(to right, #F6BB42 80% , #AAB2BD 20%);
 }
+
+#confirmButtons .btn-default{
+    color: #fff;
+    background-color: #000;
+}

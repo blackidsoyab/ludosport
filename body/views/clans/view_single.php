@@ -1,37 +1,42 @@
 <?php $session = $this->session->userdata('user_session'); ?>
 <script type="text/javascript" >
 function deleteRow(ele) {
-    var current_id = $(ele).attr('id');
-    var parent = $(ele).parent().parent();
-
     $.confirm({
         'title': 'Manage Clan Date',
         'message': 'Do you Want to Delete ?',
         'buttons': {
-            '<?php echo $this->lang->line("yes"); ?>': {'class': 'btn btn-danger',
+            '<?php echo $this->lang->line("yes"); ?>': {
+            	'class': 'btn btn-danger',
                 'action': function() {
-                    $.ajax({
-                        type: 'POST',
-                        url: http_host_js + 'clan/delete_date/' + current_id,
-                        data: {'id' : current_id},
-                        dataType : 'JSON',
-                        success: function(data) {
-                        	if(data.return){
-                        		$(parent).animate({height: 0}, 1000,"swing",function() {
-                            		$(this).remove();
-                        		})	
-                        	}
-                            
-                        }
-                    });
-                }
+                    UpdateClanDate(ele, 0);
+            	}
             },
+            '<?php echo $this->lang->line("yes").', '. $this->lang->line("notify"); ?>': {
+                'class': 'btn btn-primary',
+                'action': function() {
+                    UpdateClanDate(ele, 1);
+            	},
+        	},
             '<?php echo $this->lang->line("no"); ?>': {
                 'class': 'btn btn-default'	
             }
-        }
+   		}
     });
     return false;
+}
+
+function UpdateClanDate(ele, notify){
+	var current_id = $(ele).attr('id');
+    var parent = $(ele).parent().parent();
+	$.ajax({
+		type: 'POST',
+		url: http_host_js + 'clan/delete_date/' + current_id,
+		data: {'id' : current_id, 'notify' : notify},
+		dataType : 'JSON',
+		success: function(data) {
+			window.location.reload();
+		}
+	});
 }
 </script>
 <h1 class="page-heading"><?php echo $clan->{$session->language.'_class_name'}; ?></h1>
@@ -363,6 +368,12 @@ function deleteRow(ele) {
 						            </div>
 						        </div>
 
+						        <div class="form-group">
+						            <label class="col-lg-3 control-label">Notify related users</label>
+						            <div class="col-lg-5">
+						                <input type="checkbox" value="1" class="i-grey-square" name="notify">
+						            </div>
+						        </div>
 						        <div class="form-group">
 						            <label class="col-lg-3 control-label">&nbsp;</label>
 						            <div class="col-lg-5">

@@ -1147,8 +1147,7 @@ class clans extends CI_Controller {
     */
     function changeClanDate($clan_id){
         $obj_clan_date = new Clandate();
-        $obj_clan_date->where(array('clan_id'=>$clan_id, 'clan_date' => $this->input->post('clan_date'), 'clan_shift_from' => $this->input->post('clan_shift_from')))->get();
-
+        $obj_clan_date->where(array('clan_id'=>$clan_id, 'clan_date' => $this->input->post('clan_shift_from')))->get();
         $obj_clan_date->clan_id = $clan_id;
         $obj_clan_date->type = 'S';
         $obj_clan_date->clan_date = date('Y-m-d', strtotime($this->input->post('clan_date')));
@@ -1157,7 +1156,67 @@ class clans extends CI_Controller {
         $obj_clan_date->user_id = $this->session_data->id;
         $obj_clan_date->save();
 
+        $ids = Userdetail::getAssignStudentIdsByCaln($clan_id);
+        $user = new User();
+        $user->where_in('id', $ids);
+        foreach ($user->get() as $value) {
+            if($value->role_id == 6 && $value->status == 'P'){
+                $user_details = new Userdetail();
+                $user_details->where(array('clan_id'=>$clan_id,'student_master_id'=>$value->id,'first_lesson_date' =>$this->input->post('clan_shift_from') ,'status'=>'A'))->get();
+                $user_details->first_lesson_date = date('Y-m-d', strtotime($this->input->post('clan_date')));
+                $user_details->save();
+            }
+        }
 
+        if($this->input->post('notify') == 1){
+            $this->_changeClanDateNofification($obj_clan_date->id, $clan_id, $this->input->post());
+        }
+        
+
+        redirect(base_url().'clan/view/'. $clan_id, 'refresh');
+    }
+
+    function deleteClanDate($id){
+        $obj_clan_date = new Clandate();
+        $obj_clan_date->where('id', $id)->get();
+        $return = false;
+        if(strtotime(get_current_date_time()->get_date_for_db()) < strtotime($obj_clan_date->clan_date) && $obj_clan_date->type == 'S'){
+
+            $arr = array();
+            $arr['clan_id'] = $obj_clan_date->clan_id;
+            $arr['clan_shift_from'] = $obj_clan_date->clan_date;
+            $arr['clan_date'] = $obj_clan_date->clan_shift_from;
+            $arr['description'] = $obj_clan_date->description;
+            $arr['notify'] = $this->input->post('notify');
+
+            $obj_clan_date->type = 'R';
+            $obj_clan_date->clan_date = $obj_clan_date->clan_shift_from;
+            $obj_clan_date->clan_shift_from = null;
+            $obj_clan_date->description = null;
+            $obj_clan_date->save();
+            $return = true;
+
+            $ids = Userdetail::getAssignStudentIdsByCaln($obj_clan_date->clan_id);
+            $user = new User();
+            $user->where_in('id', $ids);
+            foreach ($user->get() as $value) {
+                if($value->role_id == 6 && $value->status == 'P'){
+                    $user_details = new Userdetail();
+                    $user_details->where(array('clan_id'=>$obj_clan_date->clan_id,'student_master_id'=>$value->id,'first_lesson_date' =>$arr['clan_shift_from'] ,'status'=>'A'))->get();
+                    $user_details->first_lesson_date = date('Y-m-d', strtotime($arr['clan_date']));
+                    $user_details->save();
+                }
+            }
+
+            if($this->input->post('notify') == 1){
+                $this->_changeClanDateNofification($obj_clan_date->id, $obj_clan_date->clan_id, $arr);
+            }
+        }
+
+        echo json_encode(array('return'=>$return));
+    }
+
+    private function _changeClanDateNofification($id, $clan_id, $post){
         $clan = new Clan();
         //For Email and Notification get Clan related Rectors, Deans, Teacher
         $clan->where('id', $clan_id)->get();
@@ -1190,8 +1249,8 @@ class clans extends CI_Controller {
                 $notification->notify_type = 'change_clan_date';
                 $notification->from_id = $this->session_data->id;
                 $notification->to_id = $value->id;
-                $notification->object_id = $obj_clan_date->id;
-                $notification->data = serialize($this->input->post());
+                $notification->object_id = $id;
+                $notification->data = serialize($post);
                 $notification->save();
 
                 //Send Email
@@ -1202,8 +1261,8 @@ class clans extends CI_Controller {
                 $message = str_replace('#clan_name', $clan->en_class_name, $message);
                 $message = str_replace('#school_name', $clan->school->en_school_name, $message);
                 $message = str_replace('#academy_name', $clan->school->academy->en_academy_name, $message);
-                $message = str_replace('#from_date', date('d-m-Y', strtotime($this->input->post('clan_shift_from'))), $message);
-                $message = str_replace('#to_date', date('d-m-Y', strtotime($this->input->post('clan_date'))), $message);
+                $message = str_replace('#from_date', date('d-m-Y', strtotime($post['clan_shift_from'])), $message);
+                $message = str_replace('#to_date', date('d-m-Y', strtotime($post['clan_date'])), $message);
                 $message = str_replace('#authorized_user_name', $this->session_data->name, $message);
                 
                 $option['tomailid'] = $value->email;
@@ -1216,19 +1275,7 @@ class clans extends CI_Controller {
             }
         }
 
-        redirect(base_url().'clan/view/'. $clan_id, 'refresh');
-    }
-
-    function deleteClanDate($id){
-        $obj_clan_date = new Clandate();
-        $obj_clan_date->where('id', $id)->get();
-        $return = false;
-        if(strtotime(get_current_date_time()->get_date_for_db()) < strtotime($obj_clan_date->clan_date) && $obj_clan_date->type == 'S'){
-            $obj_clan_date->delete();            
-            $return = true;
-        }
-
-        echo json_encode(array('return'=>$return));
+        return true;
     }
 
 }

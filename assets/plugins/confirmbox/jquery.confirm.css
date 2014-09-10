@@ -49,14 +49,7 @@
 }
 
 #confirmBox .button{
-    display:inline-block;
-    position:relative;
-    height: 33px;
-    font:17px/33px 'Cuprum','Lucida Sans Unicode', 'Lucida Grande', sans-serif;
     margin-right: 15px;
-    padding: 0 35px 0 40px;
-    text-decoration:none;
-    border:none;
 }
 
 #confirmBox .button:last-child{	margin-right:0;}
