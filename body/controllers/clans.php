@@ -1147,7 +1147,11 @@ class clans extends CI_Controller {
     */
     function changeClanDate($clan_id){
         $obj_clan_date = new Clandate();
-        $obj_clan_date->where(array('clan_id'=>$clan_id, 'clan_date' => $this->input->post('clan_shift_from')))->get();
+        $obj_clan_date->where('clan_id',$clan_id);
+        $obj_clan_date->where('clan_date', $this->input->post('clan_shift_from'));
+        $obj_clan_date->or_where('clan_shift_from', $this->input->post('clan_shift_from'));
+        $obj_clan_date->get();
+
         $obj_clan_date->clan_id = $clan_id;
         $obj_clan_date->type = 'S';
         $obj_clan_date->clan_date = date('Y-m-d', strtotime($this->input->post('clan_date')));
