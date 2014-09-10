@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 09, 2014 at 12:30 PM
+-- Generation Time: Sep 10, 2014 at 01:55 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.13
 
@@ -48,18 +48,16 @@ CREATE TABLE IF NOT EXISTS `academies` (
   `fee2` decimal(8,2) NOT NULL DEFAULT '0.00',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `academies`
 --
 
 INSERT INTO `academies` (`id`, `rector_id`, `en_academy_name`, `it_academy_name`, `type`, `contact_firstname`, `contact_lastname`, `association_fullname`, `role_referent`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `fee1`, `fee2`, `user_id`, `timestamp`) VALUES
-(4, '23', 'LudoSport Russia', 'LudoSport Russia', 'ac', 'Maksim', 'Varezhkin', 'LudoSport Russia- Lightsaber Combat Academy', 'President', 'Ulitsa Varvarka 8', '90467', 9, 9, 5, '1234567890', '1234567890', 'russia@ludosport.net', 400.00, 20.00, 2, '2014-08-03 08:15:29'),
-(5, '22', 'LudoSport UK', 'LudoSport UK', 'ac', 'Jordan', 'Court', 'LudoSport UK - Lightsaber Combat Academy', 'President', '119 Tennant Rd.', '54321', 10, 11, 6, '1234567890', '1234567890', 'england@ludosport.net', 400.00, 20.00, 2, '2014-08-03 08:22:00'),
-(6, '46', 'Main LudoSport Academy', 'Main LudoSport Academy', 'ac', 'Simone', 'Spreafico', 'LudoSport Combat Academy ASD', 'Presidente', 'Via Padre Massimiliano Kolbe 5', '20137', 6, 10, 2, '3929341589', '3482606944', 'info@ludosport.net', 400.00, 20.00, 2, '2014-08-04 07:44:24'),
-(7, '21', 'LudoSport Irleand', 'LudoSport Irlanda', 'ac', 'Jim', 'Tuohy', 'LudoSport Ireland - Lightsaber Combat Academy', '', '1', '123456', 8, 8, 3, '12345689', '123', 'ireland@ludosport.net', 400.00, 20.00, 2, '2014-08-04 07:45:33'),
-(8, '58', 'LudoSport Ravenna', 'LudoSport Ravenna', 'as', 'Davide', 'Monferini', 'Dojo Ravenna', 'director', ' Via P.  Coriandro 1', '48121', 18, 10, 2, '333 8123929', '123', 'dmonfer@tin.it', 200.00, 20.00, 2, '2014-08-27 17:08:18');
+(1, '3,5', 'Poppey Sailor Man', 'Poppey Sailor Man', 'ac', 'Soyab', 'Rana', 'PSM', 'Poppeyyyyyyyyyy Sailorrrrrrrrrrr Mannnnnnnnnnnnnnnnn', 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 500.00, 20.00, 2, '2014-07-25 08:45:52'),
+(2, '3,6', 'Dexter Laboratory', 'Dexter Laboratory', 'ac', 'Soyab', 'Rana', 'DL', 'Temparory', 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 100.00, 30.00, 2, '2014-07-25 11:22:54'),
+(3, '5', 'Power Puff Girls', 'Power Puff Girls', 'ac', 'John', 'Candy', 'Power Puff Girls', 'Maecenas nec leo nec lacus posuere ultricies. Mauris fermentum porta nulla. Vestibulum dictum, nulla vitae gravida sollicitudin, mauris justo bibendum velit, in varius tortor ipsum et nulla. Phasellus a convallis magna. Suspendisse potenti. In hac habitas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\r\nEtiam finibus purus vel augue consectetur, vitae viverra mauris egestas.\r\nInteger blandit elit vitae risus fringilla scelerisque.\r\nCurabitur sollicitudin sem non nibh mattis, eu blandit risus ultricies.', '123456', 4, 2, 1, '1234567890', '91987654321', 'ppg@yopmail.com', 100.00, 50.00, 2, '2014-07-31 04:29:26');
 
 -- --------------------------------------------------------
 
@@ -199,10 +197,26 @@ INSERT INTO `cities` (`id`, `state_id`, `en_name`, `it_name`, `user_id`, `timest
 --
 
 CREATE TABLE IF NOT EXISTS `clandates` (
-  `id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
+  `type` enum('R','S') NOT NULL DEFAULT 'R',
   `clan_id` int(11) NOT NULL,
-  `clan_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `clan_date` date NOT NULL,
+  `clan_shift_from` date DEFAULT NULL,
+  `description` text,
+  `history` text,
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `clandates`
+--
+
+INSERT INTO `clandates` (`id`, `type`, `clan_id`, `clan_date`, `clan_shift_from`, `description`, `history`, `user_id`, `timestamp`) VALUES
+(3, 'R', 1, '2014-09-16', NULL, NULL, NULL, 1, '2014-09-09 12:57:43'),
+(4, 'R', 1, '2014-09-17', NULL, NULL, NULL, 1, '2014-09-09 12:57:43'),
+(5, 'S', 1, '2014-09-21', '2014-09-16', '', NULL, 1, '2014-09-10 05:11:52'),
+(6, 'S', 1, '2014-09-04', '2014-09-02', '', NULL, 1, '2014-09-10 05:11:52');
 
 -- --------------------------------------------------------
 
@@ -216,6 +230,8 @@ CREATE TABLE IF NOT EXISTS `clans` (
   `school_id` int(11) NOT NULL,
   `teacher_id` varchar(11) NOT NULL,
   `level_id` int(11) NOT NULL,
+  `clan_from` date NOT NULL,
+  `clan_to` date NOT NULL,
   `lesson_day` varchar(25) NOT NULL,
   `lesson_from` bigint(100) NOT NULL DEFAULT '0',
   `lesson_to` bigint(100) NOT NULL DEFAULT '0',
@@ -232,37 +248,19 @@ CREATE TABLE IF NOT EXISTS `clans` (
   `email` varchar(65) NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `clans`
 --
 
-INSERT INTO `clans` (`id`, `academy_id`, `school_id`, `teacher_id`, `level_id`, `lesson_day`, `lesson_from`, `lesson_to`, `en_class_name`, `it_class_name`, `same_address`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `user_id`, `timestamp`) VALUES
-(5, 5, 6, '7', 7, '5', 1407092400, 1407099600, 'Clan of the King', 'Clan del Re', 1, '119 Tennant Rd.', '54321', 10, 11, 6, '1', '1', 'demo@yopmail.com', 2, '2014-08-03 08:29:36'),
-(6, 6, 10, '46', 19, '4', 1409770800, 1409778000, 'Clan della Luce', 'Clan della Luce', 1, 'via Padre Massimiliano Kolbe 5', '20137', 6, 10, 2, '1234567890', '1234567890', 'info@ludosport.net', 2, '2014-08-21 09:21:40'),
-(7, 6, 10, '46', 2, '2', 1409166000, 1409173200, 'Clan della Fenice', 'Clan della Fenice', 1, 'via Padre Massimiliano Kolbe 5', '20137', 6, 10, 2, '1234567890', '1234567890', 'info@ludosport.net', 2, '2014-08-26 09:43:28'),
-(8, 6, 10, '37', 8, '2', 1410201000, 1410208200, 'Clan della Chimera', 'Clan della Chimera', 1, 'via Padre Massimiliano Kolbe 5', '20137', 6, 10, 2, '1234567890', '1234567890', 'info@ludosport.net', 2, '2014-08-26 09:46:53'),
-(9, 6, 10, '45', 8, '6', 1409079600, 1409086800, 'Clan del Sole Nascente', 'Clan del Sole Nascente', 1, 'via Padre Massimiliano Kolbe 5', '20137', 6, 10, 2, '1234567890', '1234567890', 'info@ludosport.net', 2, '2014-08-26 09:48:07'),
-(10, 6, 10, '38', 7, '2', 1409072400, 1409079600, 'Clan della Medusa', 'Clan della Medusa', 1, 'via Padre Massimiliano Kolbe 5', '20137', 6, 10, 2, '1234567890', '1234567890', 'info@ludosport.net', 2, '2014-08-26 09:50:47'),
-(11, 6, 10, '47', 9, '5', 1409079600, 1409086800, 'Clan della Terza Torre', 'Clan della Terza Torre', 1, 'via Padre Massimiliano Kolbe 5', '20137', 6, 10, 2, '1234567890', '1234567890', 'info@ludosport.net', 2, '2014-08-26 09:54:49'),
-(12, 6, 13, '36', 1, '5', 1409079600, 1409086800, 'Clan del Drago', 'Clan del Drago', 0, 'via Seprio, 2 (ingresso via Marsala)\n21013 Gallarate VA ', '21023', 16, 10, 2, '+39 348 2527132', '', 'varese@ludosport.net', 2, '2014-08-26 10:20:50'),
-(13, 6, 13, '39', 1, '6', 1409079600, 1409086800, 'Clan delle Tenebre', 'Clan delle Tenebre', 0, 'via Seprio, 2 (ingresso via Marsala)\nGallarate VA ', '21013', 16, 10, 2, '+39 348 2527132', '393482527132', 'varese@ludosport.net', 2, '2014-08-26 10:22:53'),
-(14, 6, 11, '48', 1, '2', 1409077800, 1409085000, 'Clan del Diamante Grezzo', 'Clan del Diamante Grezzo', 0, 'via Asinari di Bernezzo 84/c', '10146', 7, 10, 2, '+39 331 3133737', '', 'torino@ludosport.net', 2, '2014-08-26 14:52:54'),
-(15, 6, 11, '49', 1, '2,3', 1409855400, 1409862600, 'Clan dei Due Soli', 'Clan dei Due Soli', 0, 'via Asinari di Bernezzo 84/c', '10146', 7, 10, 2, '+39 331 3133737', '', 'torino@ludosport.net', 2, '2014-08-26 14:57:34'),
-(16, 6, 10, '43', 18, '1', 1409126400, 1409148000, 'Corso Istruttori Shi-Cho', 'Corso Istruttori Shi-Cho', 1, 'via Padre Massimiliano Kolbe 5', '20137', 6, 10, 2, '1234567890', '1234567890', 'info@ludosport.net', 2, '2014-08-27 09:48:40'),
-(17, 6, 10, '45', 18, '1', 1409126400, 1409148000, 'Corso Istruttori Makashi', 'Corso Istruttori Makashi', 1, 'via Padre Massimiliano Kolbe 5', '20137', 6, 10, 2, '1234567890', '1234567890', 'info@ludosport.net', 2, '2014-08-27 09:51:48'),
-(18, 6, 10, '46', 18, '7', 1410163200, 1410184800, 'Corso Istruttori Soresu', 'Corso Istruttori Soresu', 1, 'via Padre Massimiliano Kolbe 5', '20137', 6, 10, 2, '1234567890', '1234567890', 'info@ludosport.net', 2, '2014-08-27 09:53:49'),
-(19, 6, 10, '47', 19, '1', 1409126400, 1409155200, 'Clan Master Shii Cho', 'Clan Master Shii Cho', 1, 'via Padre Massimiliano Kolbe 5', '20137', 6, 10, 2, '1234567890', '1234567890', 'info@ludosport.net', 2, '2014-08-27 13:03:53'),
-(20, 6, 10, '46', 20, '7', 1410163200, 1410192000, 'Clan Master Makashi', 'Clan Master Makashi', 1, 'via Padre Massimiliano Kolbe 5', '20137', 6, 10, 2, '1234567890', '1234567890', 'info@ludosport.net', 2, '2014-08-27 13:04:37'),
-(21, 6, 10, '47', 18, '1', 1409126400, 1409155200, 'International instructors course', 'Corso istruttori Internazionale', 1, 'via Padre Massimiliano Kolbe 5', '20137', 6, 10, 2, '1234567890', '1234567890', 'info@ludosport.net', 2, '2014-08-27 13:21:47'),
-(22, 6, 12, '59', 8, '5', 1409166000, 1409173200, 'Clan della Croce del Sud', 'Clan della Croce del Sud', 0, 'Palagym Assarotti - Via San Bartolomeo degli Armeni 1 (Via Serra)', '16122', 17, 10, 2, '+39 320 0809640', '', 'genova@ludosport.net', 2, '2014-08-27 14:54:44'),
-(23, 6, 12, '60', 9, '6', 1409166000, 1409173200, 'Clan della Stella Polare', 'Clan della Stella Polare', 0, 'Palagym Assarotti - Via San Bartolomeo degli Armeni 1 (Via Serra)', '16122', 17, 10, 2, '+39 320 0809640', '', 'genova@ludosport.net', 2, '2014-08-27 14:57:56'),
-(24, 6, 10, '57', 4, '4', 1409846400, 1409851800, 'Clan Youngling', 'Clan Youngling', 1, 'via Padre Massimiliano Kolbe 5', '20137', 6, 10, 2, '1234567890', '1234567890', 'info@ludosport.net', 2, '2014-08-28 14:20:34'),
-(25, 6, 14, '127', 8, '6', 1409679000, 1409686200, 'Clan della Prima Legione', 'Clan della Prima Legione', 1, 'piazzale Ss. Pietro e Paolo 15', '144', 11, 10, 2, '+39 347 1558492', '123', 'roma@ludosport.net', 2, '2014-09-02 14:51:46'),
-(26, 8, 19, '58', 8, '5', 1409684400, 1409691600, 'Clan dello Spirito', 'Clan dello Spirito', 1, 'Via P.  Coriandro 1 - 48121', '48121', 18, 10, 2, '333 8123929', '', 'dmonfer@tin.it', 2, '2014-09-02 15:09:15'),
-(27, 6, 13, '52', 7, '6', 1409686200, 1409693400, 'Clan del Leviatano', 'Clan del Leviatano', 1, 'via di Merdor 66', '54321', 16, 10, 2, '1234567890', '123456789', 'varese@ludosport.net', 2, '2014-09-02 16:48:10'),
-(28, 6, 10, '157', 1, '1', 1410130800, 1410134400, 'try', 'try', 1, 'via Padre Massimiliano Kolbe 5', '20137', 6, 10, 2, '1234567890', '1234567890', 'info@ludosport.net', 2, '2014-09-08 10:26:59');
+INSERT INTO `clans` (`id`, `academy_id`, `school_id`, `teacher_id`, `level_id`, `clan_from`, `clan_to`, `lesson_day`, `lesson_from`, `lesson_to`, `en_class_name`, `it_class_name`, `same_address`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `user_id`, `timestamp`) VALUES
+(1, 1, 1, '5', 1, '2014-07-01', '2015-06-30', '2,3', 1406345400, 1406356200, 'Poppey Ep 1', 'Poppey Ep 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-07-26 09:45:00'),
+(2, 2, 2, '7', 2, '2014-07-01', '2015-06-30', '3,4', 1406349000, 1406356200, 'Dexter Ep 1', 'Dexter Ep 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-07-26 09:46:59'),
+(3, 1, 3, '3', 1, '2014-07-01', '2015-06-30', '2,4,5', 1406352600, 1406359800, 'Sailor Ep 2', 'Sailor Ep 2', 1, 'Baroda', '390016', 2, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:47:38'),
+(4, 2, 4, '8', 1, '2014-07-01', '2015-06-30', '2', 1406363400, 1406370600, 'Lab Ep 2', 'Lab Ep 2', 1, 'Baroda', '390016', 5, 4, 2, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:48:27'),
+(5, 1, 1, '7', 1, '2014-07-01', '2015-06-30', '5,6', 1407292200, 1407306600, 'Poppey Ep 2', 'Poppey Ep 2', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-08-06 05:25:51'),
+(6, 1, 3, '3', 1, '2014-07-01', '2015-06-30', '1,3,7', 1406352600, 1406359800, 'Sailor Ep 3', 'Sailor Ep 3', 1, 'Baroda', '390016', 2, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:47:38');
 
 -- --------------------------------------------------------
 
@@ -305,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `emails` (
   `format_info` text CHARACTER SET utf8,
   `user_id` int(11) NOT NULL DEFAULT '1',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `emails`
@@ -327,7 +325,8 @@ INSERT INTO `emails` (`id`, `type`, `subject`, `message`, `attachment`, `format_
 (13, 'teacher_absent', 'Teacher Absent | MyLudosport', '<div><span>Dear #user_name,</span></div><div><span><br></span></div><div><span>The #teacher_name will remain absent for&nbsp;</span><span>#clan_name on #date.</span></div><div><span><br></span></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#teacher_name\r\n#clan_name\r\n#date', 2, '2014-08-25 08:05:22'),
 (14, 'recovery_teacher', 'Recovery Teacher | MyLudosport', '<div><span>Dear #user_name,</span></div><div><span><br></span></div><div><span><br></span></div><div>You will take lesson of #clan_name on #clan_date in place of #teacher_name.</div><div><span>It is approved by #approved_user_name.</span><br></div><div><br></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#clan_name\r\n#clan_date\r\n#teacher_name\r\n#approved_user_name', 2, '2014-08-25 08:05:22'),
 (15, 'holiday_approved', 'Holiday Approved | MyLudosport', '<div><span>Dear #user_name,</span></div><div><br></div><div>Your request for holiday on #date is approved.</div><div><span>It is approved by #authorized_user_name</span><span>.</span><br></div><div><br></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#date\r\n#authorized_user_name', 2, '2014-08-25 08:05:22'),
-(16, 'holiday_upapproved', 'Holiday Unapproved | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>Your request for holiday on #date is <span>unapproved</span>.</div><div>It is unapproved by #authorized_user_name.<br></div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#date\r\n#authorized_user_name', 2, '2014-08-25 08:05:22');
+(16, 'holiday_upapproved', 'Holiday Unapproved | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>Your request for holiday on #date is <span>unapproved</span>.</div><div>It is unapproved by #authorized_user_name.<br></div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#date\r\n#authorized_user_name', 2, '2014-08-25 08:05:22'),
+(17, 'change_clan_date', 'Clan Reschedule | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>The #clan_name of #school_name at #academy_name has been&nbsp;reschedule from #from_date to #to_date.</div><div><br></div><div>It is done by #authorized_user_name.<br></div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#clan_name\r\n#school_name\r\n#academy_name\r\n#from_date\r\n#to_date\r\n#authorized_user_name', 1, '2014-09-09 11:56:53');
 
 -- --------------------------------------------------------
 
@@ -583,7 +582,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `data` longtext,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=672 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=761 ;
 
 --
 -- Dumping data for table `notifications`
@@ -591,7 +590,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
 
 INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `object_id`, `data`, `status`, `timestamp`) VALUES
 (1, 'N', 'rector_assign_academy', 2, 3, 1, NULL, 1, '2014-07-25 08:45:52'),
-(2, 'N', 'rector_assign_academy', 2, 5, 1, NULL, 0, '2014-07-25 08:45:52'),
+(2, 'N', 'rector_assign_academy', 2, 5, 1, NULL, 1, '2014-07-25 08:45:52'),
 (5, 'N', 'dean_assign_school', 2, 3, 1, NULL, 1, '2014-07-25 10:49:30'),
 (6, 'N', 'rector_assign_academy', 2, 3, 2, NULL, 1, '2014-07-25 11:22:55'),
 (7, 'N', 'dean_assign_school', 2, 3, 1, NULL, 1, '2014-07-26 05:43:28'),
@@ -601,14 +600,14 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (12, 'N', 'teacher_assign_class', 2, 3, 1, NULL, 1, '2014-07-26 06:36:03'),
 (13, 'N', 'dean_assign_school', 2, 4, 4, NULL, 0, '2014-07-26 09:43:41'),
 (14, 'N', 'dean_assign_school', 2, 4, 3, NULL, 0, '2014-07-26 09:44:24'),
-(15, 'N', 'teacher_assign_class', 2, 5, 1, NULL, 0, '2014-07-26 09:45:00'),
+(15, 'N', 'teacher_assign_class', 2, 5, 1, NULL, 1, '2014-07-26 09:45:00'),
 (16, 'N', 'teacher_assign_class', 2, 7, 2, NULL, 0, '2014-07-26 09:47:00'),
 (17, 'N', 'teacher_assign_class', 2, 7, 3, NULL, 0, '2014-07-26 09:47:38'),
 (18, 'N', 'teacher_assign_class', 2, 8, 4, NULL, 0, '2014-07-26 09:48:27'),
 (19, 'I', 'user_register', 0, 2, 9, NULL, 1, '2014-07-26 11:10:31'),
 (20, 'I', 'user_register', 0, 3, 9, NULL, 1, '2014-07-26 11:10:31'),
 (21, 'I', 'user_register', 0, 4, 9, NULL, 0, '2014-07-26 11:10:31'),
-(22, 'I', 'user_register', 0, 5, 9, NULL, 0, '2014-07-26 11:10:31'),
+(22, 'I', 'user_register', 0, 5, 9, NULL, 1, '2014-07-26 11:10:31'),
 (23, 'I', 'user_register', 0, 6, 9, NULL, 0, '2014-07-26 11:10:31'),
 (24, 'I', 'user_register', 0, 7, 9, NULL, 0, '2014-07-26 11:10:31'),
 (25, 'I', 'user_register', 0, 8, 9, NULL, 0, '2014-07-26 11:10:31'),
@@ -620,37 +619,37 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (33, 'I', 'user_register', 0, 2, 10, NULL, 1, '2014-07-30 11:31:59'),
 (34, 'I', 'user_register', 0, 3, 10, NULL, 1, '2014-07-30 11:31:59'),
 (35, 'I', 'user_register', 0, 4, 10, NULL, 0, '2014-07-30 11:31:59'),
-(36, 'I', 'user_register', 0, 5, 10, NULL, 0, '2014-07-30 11:31:59'),
+(36, 'I', 'user_register', 0, 5, 10, NULL, 1, '2014-07-30 11:31:59'),
 (37, 'I', 'user_register', 0, 6, 10, NULL, 0, '2014-07-30 11:31:59'),
 (38, 'I', 'user_register', 0, 7, 10, NULL, 0, '2014-07-30 11:31:59'),
 (39, 'I', 'user_register', 0, 8, 10, NULL, 0, '2014-07-30 11:32:00'),
 (40, 'I', 'user_register', 0, 2, 11, NULL, 1, '2014-07-30 11:35:32'),
 (41, 'I', 'user_register', 0, 3, 11, NULL, 1, '2014-07-30 11:35:32'),
 (42, 'I', 'user_register', 0, 4, 11, NULL, 0, '2014-07-30 11:35:33'),
-(43, 'I', 'user_register', 0, 5, 11, NULL, 0, '2014-07-30 11:35:33'),
+(43, 'I', 'user_register', 0, 5, 11, NULL, 1, '2014-07-30 11:35:33'),
 (44, 'I', 'user_register', 0, 6, 11, NULL, 0, '2014-07-30 11:35:33'),
 (45, 'I', 'user_register', 0, 7, 11, NULL, 0, '2014-07-30 11:35:33'),
 (46, 'I', 'user_register', 0, 8, 11, NULL, 0, '2014-07-30 11:35:33'),
-(47, 'N', 'rector_assign_academy', 2, 5, 3, NULL, 0, '2014-07-31 04:29:27'),
+(47, 'N', 'rector_assign_academy', 2, 5, 3, NULL, 1, '2014-07-31 04:29:27'),
 (48, 'N', 'dean_assign_school', 2, 4, 5, NULL, 0, '2014-07-31 08:50:42'),
 (49, 'I', 'user_register', 0, 2, 14, NULL, 1, '2014-07-31 10:14:59'),
 (50, 'I', 'user_register', 0, 3, 14, NULL, 0, '2014-07-31 10:14:59'),
 (51, 'I', 'user_register', 0, 4, 14, NULL, 0, '2014-07-31 10:14:59'),
-(52, 'I', 'user_register', 0, 5, 14, NULL, 0, '2014-07-31 10:14:59'),
+(52, 'I', 'user_register', 0, 5, 14, NULL, 1, '2014-07-31 10:14:59'),
 (53, 'I', 'user_register', 0, 6, 14, NULL, 0, '2014-07-31 10:14:59'),
 (54, 'I', 'user_register', 0, 7, 14, NULL, 0, '2014-07-31 10:14:59'),
 (55, 'I', 'user_register', 0, 8, 14, NULL, 0, '2014-07-31 10:14:59'),
 (56, 'I', 'user_register', 0, 2, 15, NULL, 1, '2014-07-31 11:22:15'),
 (57, 'I', 'user_register', 0, 3, 15, NULL, 0, '2014-07-31 11:22:15'),
 (58, 'I', 'user_register', 0, 4, 15, NULL, 0, '2014-07-31 11:22:16'),
-(59, 'I', 'user_register', 0, 5, 15, NULL, 0, '2014-07-31 11:22:16'),
+(59, 'I', 'user_register', 0, 5, 15, NULL, 1, '2014-07-31 11:22:16'),
 (60, 'I', 'user_register', 0, 6, 15, NULL, 0, '2014-07-31 11:22:16'),
 (61, 'I', 'user_register', 0, 7, 15, NULL, 0, '2014-07-31 11:22:16'),
 (62, 'I', 'user_register', 0, 8, 15, NULL, 0, '2014-07-31 11:22:16'),
 (63, 'I', 'user_register', 0, 2, 16, NULL, 1, '2014-07-31 11:29:52'),
 (64, 'I', 'user_register', 0, 3, 16, NULL, 0, '2014-07-31 11:29:52'),
 (65, 'I', 'user_register', 0, 4, 16, NULL, 0, '2014-07-31 11:29:52'),
-(66, 'I', 'user_register', 0, 5, 16, NULL, 0, '2014-07-31 11:29:52'),
+(66, 'I', 'user_register', 0, 5, 16, NULL, 1, '2014-07-31 11:29:52'),
 (67, 'I', 'user_register', 0, 6, 16, NULL, 0, '2014-07-31 11:29:52'),
 (68, 'I', 'user_register', 0, 7, 16, NULL, 0, '2014-07-31 11:29:52'),
 (69, 'I', 'user_register', 0, 8, 16, NULL, 0, '2014-07-31 11:29:52'),
@@ -1256,7 +1255,50 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (668, 'N', 'teacher_assign_class', 2, 127, 25, NULL, 0, '2014-09-02 14:51:46'),
 (669, 'N', 'teacher_assign_class', 2, 58, 26, NULL, 0, '2014-09-02 15:09:15'),
 (670, 'N', 'teacher_assign_class', 2, 52, 27, NULL, 0, '2014-09-02 16:48:10'),
-(671, 'N', 'teacher_assign_class', 2, 157, 28, NULL, 0, '2014-09-08 10:26:59');
+(671, 'N', 'teacher_assign_class', 2, 157, 28, NULL, 0, '2014-09-08 10:26:59'),
+(672, 'I', 'user_register', 0, 2, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:06:34'),
+(673, 'I', 'user_register', 0, 21, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:06:42'),
+(674, 'I', 'user_register', 0, 22, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:06:49'),
+(675, 'I', 'user_register', 0, 23, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:06:56'),
+(676, 'I', 'user_register', 0, 33, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:07:02'),
+(677, 'I', 'user_register', 0, 36, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:07:08'),
+(678, 'I', 'user_register', 0, 37, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:07:14'),
+(679, 'I', 'user_register', 0, 38, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:07:21'),
+(680, 'I', 'user_register', 0, 39, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:07:27'),
+(681, 'I', 'user_register', 0, 43, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:07:35'),
+(682, 'I', 'user_register', 0, 45, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:07:42'),
+(683, 'I', 'user_register', 0, 46, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:07:49'),
+(684, 'I', 'user_register', 0, 47, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:07:55'),
+(685, 'I', 'user_register', 0, 48, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:08:01'),
+(686, 'I', 'user_register', 0, 49, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:08:08'),
+(687, 'I', 'user_register', 0, 52, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:08:14'),
+(688, 'I', 'user_register', 0, 57, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:08:22'),
+(689, 'I', 'user_register', 0, 58, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:08:28'),
+(690, 'I', 'user_register', 0, 59, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:08:41'),
+(691, 'I', 'user_register', 0, 60, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:08:47'),
+(692, 'I', 'user_register', 0, 127, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:08:53'),
+(693, 'I', 'user_register', 0, 157, 158, 'a:10:{s:9:"firstname";s:6:"Ireneo";s:8:"lastname";s:8:"Genovese";s:8:"username";s:6:"ireneo";s:7:"city_id";s:1:"6";s:17:"city_of_residence";s:4:"Temp";s:13:"date_of_birth";s:10:"16-04-1990";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:3:"123";s:16:"terms_conditions";s:2:"on";}', 0, '2014-09-09 10:08:59'),
+(740, 'N', 'change_clan_date', 1, 3, 1, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-10";s:9:"clan_date";s:10:"12-09-2014";s:11:"description";s:14:"Holiday ......";}', 0, '2014-09-09 12:53:50'),
+(741, 'N', 'change_clan_date', 1, 5, 1, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-10";s:9:"clan_date";s:10:"12-09-2014";s:11:"description";s:14:"Holiday ......";}', 1, '2014-09-09 12:53:56'),
+(742, 'N', 'change_clan_date', 1, 12, 1, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-10";s:9:"clan_date";s:10:"12-09-2014";s:11:"description";s:14:"Holiday ......";}', 0, '2014-09-09 12:54:03'),
+(743, 'N', 'change_clan_date', 1, 14, 1, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-10";s:9:"clan_date";s:10:"12-09-2014";s:11:"description";s:14:"Holiday ......";}', 0, '2014-09-09 12:54:09'),
+(744, 'N', 'change_clan_date', 1, 15, 1, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-10";s:9:"clan_date";s:10:"12-09-2014";s:11:"description";s:14:"Holiday ......";}', 0, '2014-09-09 12:54:15'),
+(745, 'N', 'change_clan_date', 1, 16, 1, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-10";s:9:"clan_date";s:10:"12-09-2014";s:11:"description";s:14:"Holiday ......";}', 0, '2014-09-09 12:54:31'),
+(746, 'N', 'change_clan_date', 1, 23, 1, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-10";s:9:"clan_date";s:10:"12-09-2014";s:11:"description";s:14:"Holiday ......";}', 0, '2014-09-09 12:54:44'),
+(747, 'N', 'change_clan_date', 1, 3, 2, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-10";s:9:"clan_date";s:10:"12-09-2014";s:11:"description";s:13:"Hoilday .....";}', 0, '2014-09-09 12:57:43'),
+(748, 'N', 'change_clan_date', 1, 5, 2, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-10";s:9:"clan_date";s:10:"12-09-2014";s:11:"description";s:13:"Hoilday .....";}', 1, '2014-09-09 12:57:49'),
+(749, 'N', 'change_clan_date', 1, 12, 2, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-10";s:9:"clan_date";s:10:"12-09-2014";s:11:"description";s:13:"Hoilday .....";}', 0, '2014-09-09 12:58:00'),
+(750, 'N', 'change_clan_date', 1, 14, 2, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-10";s:9:"clan_date";s:10:"12-09-2014";s:11:"description";s:13:"Hoilday .....";}', 0, '2014-09-09 12:58:06'),
+(751, 'N', 'change_clan_date', 1, 15, 2, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-10";s:9:"clan_date";s:10:"12-09-2014";s:11:"description";s:13:"Hoilday .....";}', 0, '2014-09-09 12:58:12'),
+(752, 'N', 'change_clan_date', 1, 16, 2, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-10";s:9:"clan_date";s:10:"12-09-2014";s:11:"description";s:13:"Hoilday .....";}', 0, '2014-09-09 12:58:25'),
+(753, 'N', 'change_clan_date', 1, 23, 2, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-10";s:9:"clan_date";s:10:"12-09-2014";s:11:"description";s:13:"Hoilday .....";}', 0, '2014-09-09 12:58:31'),
+(754, 'N', 'change_clan_date', 1, 3, 5, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-16";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:0:"";}', 0, '2014-09-10 05:11:53'),
+(755, 'N', 'change_clan_date', 1, 5, 5, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-16";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:0:"";}', 0, '2014-09-10 05:11:59'),
+(756, 'N', 'change_clan_date', 1, 12, 5, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-16";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:0:"";}', 0, '2014-09-10 05:12:05'),
+(757, 'N', 'change_clan_date', 1, 14, 5, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-16";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:0:"";}', 0, '2014-09-10 05:12:11'),
+(758, 'N', 'change_clan_date', 1, 15, 5, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-16";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:0:"";}', 0, '2014-09-10 05:12:17'),
+(759, 'N', 'change_clan_date', 1, 16, 5, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-16";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:0:"";}', 0, '2014-09-10 05:12:23'),
+(760, 'N', 'change_clan_date', 1, 23, 5, 'a:4:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-16";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:0:"";}', 0, '2014-09-10 05:12:31');
 
 -- --------------------------------------------------------
 
@@ -1321,7 +1363,7 @@ INSERT INTO `roles` (`id`, `en_role_name`, `it_role_name`, `is_manager`, `permis
 (2, 'Admin', 'Admin', 0, 'a:15:{s:5:"roles";a:2:{i:0;s:8:"viewRole";i:1;s:8:"editRole";}s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:4:{i:0;s:11:"viewAcademy";i:1;s:10:"addAcademy";i:2;s:11:"editAcademy";i:3;s:13:"deleteAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:6:"levels";a:4:{i:0;s:9:"viewLevel";i:1;s:8:"addLevel";i:2;s:9:"editLevel";i:3;s:11:"deleteLevel";}s:5:"clans";a:8:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:22:"listTrialLessonRequest";i:7;s:24:"changeStatusTrialStudent";}s:15:"eventcategories";a:4:{i:0;s:17:"viewEventcategory";i:1;s:16:"addEventcategory";i:2;s:17:"editEventcategory";i:3;s:19:"deleteEventcategory";}s:6:"events";a:4:{i:0;s:9:"viewEvent";i:1;s:8:"addEvent";i:2;s:9:"editEvent";i:3;s:11:"deleteEvent";}s:7:"batches";a:3:{i:0;s:9:"viewBatch";i:1;s:9:"editBatch";i:2;s:11:"deleteBatch";}s:8:"profiles";a:3:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";}s:6:"emails";a:2:{i:0;s:9:"viewEmail";i:1;s:9:"editEmail";}s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:9:"viewState";i:1;s:8:"addState";i:2;s:9:"editState";i:3;s:11:"deleteState";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"3";i:4;s:1:"4";i:5;s:1:"5";i:6;s:1:"6";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"3";i:4;s:1:"4";i:5;s:1:"5";i:6;s:1:"6";s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 07:27:03'),
 (3, 'Rector', 'Rettore', 0, 'a:6:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:7:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:22:"listTrialLessonRequest";}s:8:"profiles";a:3:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";}s:8:"messages";a:1:{s:13:"group_message";a:1:{s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 10:13:22'),
 (4, 'Dean', 'Preside', 0, 'a:7:{s:5:"roles";a:1:{i:0;s:8:"viewRole";}s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:4:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:22:"listTrialLessonRequest";}s:8:"profiles";a:3:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";}s:8:"messages";a:1:{s:13:"group_message";a:1:{s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 10:13:43'),
-(5, 'Teacher', 'Insegnante', 0, 'a:6:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:4:{i:0;s:15:"clanTeacherList";i:1;s:15:"clanStudentList";i:2;s:22:"listTrialLessonRequest";i:3;s:24:"changeStatusTrialStudent";}s:8:"profiles";a:3:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";}s:8:"messages";a:1:{s:13:"group_message";a:1:{s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 10:16:50'),
+(5, 'Teacher', 'Insegnante', 0, 'a:6:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:5:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:22:"listTrialLessonRequest";i:4;s:24:"changeStatusTrialStudent";}s:8:"profiles";a:3:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";}s:8:"messages";a:1:{s:13:"group_message";a:1:{s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 10:16:50'),
 (6, 'Pupil', 'Pupil', 0, 'a:4:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:8:"profiles";a:3:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";}}', '0', 2, '2014-07-17 10:17:08');
 
 -- --------------------------------------------------------
@@ -1346,26 +1388,18 @@ CREATE TABLE IF NOT EXISTS `schools` (
   `email` varchar(65) NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `schools`
 --
 
 INSERT INTO `schools` (`id`, `academy_id`, `dean_id`, `en_school_name`, `it_school_name`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `user_id`, `timestamp`) VALUES
-(6, 5, '4', 'Cheltenham School', 'Scuola di Cheltenham', '119 Tennant Rd.', 54321, 10, 11, 6, '1', '1', 'demo@yopmail.com', 2, '2014-08-03 08:26:06'),
-(8, 4, '24', 'Moscow School', 'Scuola di Mosca', 'Ulitsa Varvarka 8', 54321, 9, 9, 5, '1', '1', 'demo@yopmail.com', 2, '2014-08-03 08:33:29'),
-(9, 7, '24', 'Dublin School', 'Scuola di Dublino', '123 Cloverfield St.', 54321, 8, 8, 3, '1234567890', '1', 'demo@yopmail.com', 2, '2014-08-04 14:59:20'),
-(10, 6, '45', 'Milan School', 'Scuola di Milano', 'via Padre Massimiliano Kolbe 5', 20137, 6, 10, 2, '1234567890', '1234567890', 'info@ludosport.net', 2, '2014-08-04 15:12:03'),
-(11, 6, '48', 'Turin School', 'Scuola di Torino', 'via Vattelappesca 1', 54321, 7, 10, 2, '1234567890', '123456789', 'torino@ludosport.net', 2, '2014-08-04 15:13:02'),
-(12, 6, '59', 'Genoa School', 'Scuola di Genova', 'via Lauzi 81', 54321, 17, 10, 2, '1234567890', '123456789', 'genova@ludosport.net', 2, '2014-08-04 15:14:11'),
-(13, 6, '36,39', 'Varese School', 'Scuola di Varese', 'via di Merdor 66', 54321, 16, 10, 2, '1234567890', '123456789', 'varese@ludosport.net', 2, '2014-08-04 15:15:21'),
-(14, 6, '127', 'Rome School', 'Scuola di Roma', 'piazzale Ss. Pietro e Paolo 15', 144, 11, 10, 2, '+39 347 1558492', '123', 'roma@ludosport.net', 2, '2014-08-04 15:16:19'),
-(15, 6, '30', 'Padua School', 'Scuola di Padova', 'via Spritz 50', 54321, 15, 10, 2, '12345689', '1234567890', 'padova@ludosport.net', 2, '2014-08-04 15:17:33'),
-(16, 6, '31', 'Pavia School', 'Scuola di Pavia', 'via Scotti 12', 54321, 14, 10, 2, '12345689', '1234567890', 'pavia@ludosport.net', 2, '2014-08-04 15:18:31'),
-(17, 6, '32', 'Cuneo School', 'Scuola di Cuneo', 'piazza Galimberti 1', 54321, 13, 10, 2, '12345689', '1234567890', 'cuneo@ludosport.net', 2, '2014-08-04 15:19:44'),
-(18, 6, '33', 'Bologna School', 'Scuola di Bologna', 'piazza Grande 6', 54321, 12, 10, 2, '12345689', '1234567890', 'bologna@ludosport.net', 2, '2014-08-04 15:20:56'),
-(19, 8, '58', 'Ravenna School', 'Scuola di Ravenna', 'Via P.  Coriandro 1 - 48121', 48121, 18, 10, 2, '333 8123929', '', 'dmonfer@tin.it', 2, '2014-08-27 17:12:48');
+(1, 1, '3', 'Poppey', 'Poppey', 'Baroda', 390016, 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-07-25 10:49:30'),
+(2, 2, '3', 'Dexter', 'Dexter', 'Baroda', 390016, 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-07-25 11:23:56'),
+(3, 1, '4', 'Salior', 'Salior', 'Baroda', 390016, 1, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:43:41'),
+(4, 2, '4', 'Laboratory', 'Laboratory', 'Baroda', 390016, 1, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:44:24'),
+(5, 3, '4', 'Power Girls', 'Power Girls', 'Baroda', 390016, 2, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-31 08:50:42');
 
 -- --------------------------------------------------------
 
@@ -1460,147 +1494,39 @@ CREATE TABLE IF NOT EXISTS `teacher_attendances` (
 CREATE TABLE IF NOT EXISTS `userdetails` (
 `id` int(11) NOT NULL,
   `student_master_id` int(11) NOT NULL,
-  `level_id` int(11) NOT NULL,
   `clan_id` varchar(11) NOT NULL,
-  `first_lesson_date` date DEFAULT NULL,
+  `level_id` int(11) NOT NULL,
+  `first_lesson_date` date NOT NULL,
   `approved_by` int(11) NOT NULL DEFAULT '0',
   `palce_of_birth` text,
-  `zip_code` bigint(15) DEFAULT NULL,
-  `tax_code` bigint(15) DEFAULT NULL,
+  `zip_code` bigint(11) DEFAULT NULL,
+  `tax_code` bigint(11) DEFAULT NULL,
   `blood_group` varchar(10) DEFAULT NULL,
   `status` enum('A','U','P') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=126 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `userdetails`
 --
 
-INSERT INTO `userdetails` (`id`, `student_master_id`, `level_id`, `clan_id`, `first_lesson_date`, `approved_by`, `palce_of_birth`, `zip_code`, `tax_code`, `blood_group`, `status`, `user_id`, `timestamp`) VALUES
-(1, 34, 6, '6', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-21 09:29:41'),
-(2, 35, 6, '6', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-21 09:38:27'),
-(3, 36, 6, '6', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-21 09:41:34'),
-(4, 37, 6, '6', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-21 09:42:41'),
-(5, 38, 6, '6', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-21 09:43:42'),
-(6, 39, 6, '6', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-21 09:44:22'),
-(7, 40, 6, '6', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-21 09:44:59'),
-(8, 41, 6, '6', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-21 09:45:36'),
-(9, 42, 6, '6', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-21 09:46:02'),
-(10, 43, 6, '6', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-21 09:59:04'),
-(11, 44, 6, '6', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-21 10:00:01'),
-(13, 48, 6, '18', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-26 14:47:23'),
-(14, 49, 6, '18', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 13:06:09'),
-(15, 50, 6, '7', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 13:10:44'),
-(16, 51, 6, '7', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 13:12:45'),
-(18, 22, 6, '21', '2014-09-08', 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 13:23:09'),
-(19, 23, 6, '21', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 13:23:44'),
-(20, 52, 6, '7', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 13:29:48'),
-(21, 53, 6, '7', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 13:32:03'),
-(22, 54, 6, '7', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 13:34:05'),
-(23, 55, 6, '7', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 13:41:56'),
-(24, 56, 6, '7', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 13:43:12'),
-(25, 58, 6, '17', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 13:48:17'),
-(26, 59, 6, '17', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 13:53:52'),
-(27, 60, 6, '17', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 13:55:03'),
-(28, 61, 6, '20', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 13:57:27'),
-(29, 33, 6, '17', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 14:34:58'),
-(30, 62, 6, '23', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 15:24:05'),
-(31, 63, 6, '23', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:33:46'),
-(32, 65, 6, '23', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:40:11'),
-(33, 66, 6, '23', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:41:22'),
-(34, 64, 6, '23', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:42:25'),
-(35, 67, 6, '23', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:46:13'),
-(36, 68, 6, '23', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:49:23'),
-(37, 70, 6, '23', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:49:52'),
-(38, 69, 6, '23', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:50:17'),
-(39, 71, 6, '23', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:50:57'),
-(40, 72, 6, '22', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:51:41'),
-(41, 74, 6, '23', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:53:04'),
-(42, 73, 6, '22', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:53:26'),
-(43, 77, 6, '22', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:56:41'),
-(44, 75, 6, '22', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:57:03'),
-(45, 78, 6, '22', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:57:26'),
-(46, 76, 6, '22', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:57:46'),
-(47, 79, 6, '22', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:58:11'),
-(48, 80, 6, '22', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:58:37'),
-(49, 81, 6, '22', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:59:22'),
-(50, 82, 6, '22', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 16:59:43'),
-(51, 84, 6, '22', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 17:01:35'),
-(52, 83, 6, '22', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-27 17:09:09'),
-(53, 85, 6, '9', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-28 11:56:24'),
-(54, 86, 6, '9', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-28 11:58:53'),
-(55, 87, 6, '9', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-28 12:01:53'),
-(56, 88, 6, '9', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-28 12:02:52'),
-(57, 89, 6, '9', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-28 12:04:14'),
-(58, 90, 6, '9', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-28 12:05:29'),
-(59, 91, 6, '9', NULL, 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-28 12:06:42'),
-(60, 92, 6, '9', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 12:11:25'),
-(61, 93, 6, '9', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 12:14:01'),
-(62, 94, 6, '9', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 12:15:32'),
-(63, 95, 6, '11', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 12:57:23'),
-(64, 96, 6, '11', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 12:58:47'),
-(65, 97, 6, '11', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 13:07:20'),
-(66, 98, 6, '11', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 13:08:27'),
-(67, 99, 6, '11', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 13:09:52'),
-(68, 100, 6, '11', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 13:13:42'),
-(69, 101, 6, '11', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 13:15:13'),
-(70, 102, 6, '11', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 13:19:26'),
-(71, 103, 6, '11', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 13:25:29'),
-(72, 104, 6, '11', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 13:26:45'),
-(73, 105, 6, '14', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 13:57:37'),
-(74, 106, 6, '14', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 13:58:42'),
-(75, 107, 6, '14', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 13:59:48'),
-(76, 108, 6, '14', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 14:01:20'),
-(77, 109, 6, '14', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 14:02:55'),
-(78, 110, 6, '14', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 14:04:02'),
-(79, 111, 6, '14', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 14:05:28'),
-(80, 112, 6, '14', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 14:15:36'),
-(81, 113, 6, '24', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-28 14:22:55'),
-(82, 114, 6, '8', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-01 08:36:13'),
-(83, 115, 6, '8', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-01 08:37:50'),
-(84, 116, 6, '8', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-01 08:41:43'),
-(85, 117, 6, '8', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-01 08:42:54'),
-(86, 118, 6, '8', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-01 08:44:06'),
-(87, 119, 6, '8', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-01 08:45:09'),
-(88, 120, 6, '8', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-01 08:46:22'),
-(89, 121, 6, '8', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-01 08:58:10'),
-(90, 122, 6, '8', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-01 09:05:09'),
-(91, 123, 6, '8', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-01 09:06:18'),
-(92, 124, 6, '16', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-01 09:10:51'),
-(93, 125, 6, '24', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 14:38:16'),
-(94, 126, 6, '24', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 14:41:50'),
-(95, 127, 6, '16', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 14:47:06'),
-(96, 128, 6, '16', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 14:53:11'),
-(97, 129, 6, '25', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 14:54:34'),
-(98, 130, 6, '25', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 14:55:49'),
-(99, 131, 6, '25', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 14:56:58'),
-(100, 132, 6, '25', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 14:58:42'),
-(101, 133, 6, '24', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 15:00:19'),
-(102, 134, 6, '15', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 15:20:54'),
-(103, 135, 6, '15', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 15:23:44'),
-(104, 136, 6, '13', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 16:19:25'),
-(105, 137, 6, '13', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 16:20:45'),
-(106, 138, 6, '13', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 16:22:04'),
-(107, 139, 6, '13', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 16:23:30'),
-(108, 140, 6, '12', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 16:25:18'),
-(109, 141, 6, '12', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 16:27:35'),
-(110, 142, 6, '12', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 16:29:22'),
-(111, 143, 6, '12', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 16:30:30'),
-(112, 144, 6, '12', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-02 16:31:45'),
-(113, 145, 6, '14', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-03 08:18:37'),
-(114, 146, 6, '14', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-03 08:20:58'),
-(115, 147, 6, '14', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-03 08:22:08'),
-(116, 148, 6, '14', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-03 08:23:28'),
-(117, 149, 6, '14', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-03 08:24:53'),
-(118, 150, 6, '15', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-03 08:26:07'),
-(119, 151, 6, '15', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-03 08:27:12'),
-(120, 152, 6, '15', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-03 08:28:18'),
-(121, 153, 6, '15', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-03 08:29:32'),
-(122, 154, 6, '15', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-03 08:31:16'),
-(123, 155, 6, '15', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-03 08:32:22'),
-(124, 156, 6, '26', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-04 10:06:40'),
-(125, 45, 6, '6', NULL, 0, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-08 10:15:23');
+INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `level_id`, `first_lesson_date`, `approved_by`, `palce_of_birth`, `zip_code`, `tax_code`, `blood_group`, `status`, `user_id`, `timestamp`) VALUES
+(5, 14, '1', 6, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:02'),
+(6, 15, '1', 6, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
+(7, 16, '1', 6, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
+(8, 17, '5', 6, '2014-08-11', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-05 00:09:27'),
+(9, 20, '5', 6, '2014-08-28', 2, NULL, NULL, NULL, NULL, 'A', 20, '2014-08-21 01:37:12'),
+(10, 13, '5', 6, '2014-08-30', 3, NULL, NULL, NULL, NULL, 'A', 13, '2014-08-25 05:27:01'),
+(11, 21, '6', 6, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2014-08-25 05:52:04'),
+(12, 12, '1', 6, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'P', 2, '2014-08-04 00:09:02'),
+(13, 25, '6', 6, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2014-08-25 05:52:04'),
+(15, 27, '4', 6, '2014-09-09', 8, 'roma', 0, 0, 'ah+', 'A', 27, '2014-09-04 15:25:53'),
+(16, 28, '4', 6, '2014-09-16', 0, NULL, NULL, NULL, NULL, 'P', 28, '2014-09-05 08:45:20'),
+(18, 31, '4', 6, '2014-09-16', 8, NULL, NULL, NULL, NULL, 'A', 31, '2014-09-05 11:33:36'),
+(19, 33, '4', 6, '2014-09-30', 8, NULL, NULL, NULL, NULL, 'A', 33, '2014-09-05 13:05:45'),
+(20, 34, '4', 6, '2014-09-23', 8, NULL, NULL, NULL, NULL, 'A', 34, '2014-09-05 13:18:57'),
+(21, 23, '1', 6, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:02');
 
 -- --------------------------------------------------------
 
@@ -1611,7 +1537,7 @@ INSERT INTO `userdetails` (`id`, `student_master_id`, `level_id`, `clan_id`, `fi
 CREATE TABLE IF NOT EXISTS `users` (
 `id` int(11) NOT NULL,
   `role_id` varchar(25) NOT NULL,
-  `username` varchar(65) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
+  `username` varchar(65) NOT NULL,
   `password` varchar(65) NOT NULL,
   `firstname` varchar(65) NOT NULL,
   `lastname` varchar(65) NOT NULL,
@@ -1620,149 +1546,44 @@ CREATE TABLE IF NOT EXISTS `users` (
   `city_id` int(11) NOT NULL,
   `state_id` int(11) NOT NULL,
   `country_id` int(11) NOT NULL,
-  `city_of_residence` varchar(225) DEFAULT NULL,
+  `city_of_residence` varchar(255) DEFAULT NULL,
   `permission` longtext,
   `avtar` varchar(255) NOT NULL DEFAULT 'no_avatar.jpg',
-  `status` enum('A','D','P') NOT NULL DEFAULT 'P',
+  `status` enum('A','D','P','U') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=158 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `lastname`, `email`, `date_of_birth`, `city_id`, `state_id`, `country_id`, `city_of_residence`, `permission`, `avtar`, `status`, `user_id`, `timestamp`) VALUES
-(1, '1', 'superadmin', '202cb962ac59075b964b07152d234b70', 'Soyab', 'Rana', 'soyab1@yopmail.com', 316895400, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 0, '2014-07-17 07:05:53'),
-(2, '2', 'admin', '202cb962ac59075b964b07152d234b70', 'Society of', 'LudoSport Masters', 'simone@ludosport.net', 1409954400, 6, 10, 2, NULL, NULL, '816908fffdf9c03a66252a5cb57b986d.jpg', 'A', 2, '2014-07-17 07:28:01'),
-(21, '3,4,5', 'Jim', '202cb962ac59075b964b07152d234b70', 'Jim ', 'Tuohy', '123@123.it', 1230764400, 8, 8, 3, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-04 07:46:19'),
-(22, '3,6', 'Jordan', '202cb962ac59075b964b07152d234b70', 'Jordan ', 'Court', '1234@123.it', 1234306800, 10, 11, 6, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-04 07:47:21'),
-(23, '3,6', 'Maksim', '202cb962ac59075b964b07152d234b70', 'Maksim ', 'Varezhkin', '1235@123.it', 1233615600, 9, 9, 5, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-04 07:47:58'),
-(33, '4,5,6', 'Inox', '47eb752bac1c08c75e30d9624b3e58b7', 'Simone', 'Pedrazzi', 'simone.pedrazzi@student.unife.it', 1407276000, 12, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-04 15:08:09'),
-(34, '6', 'eugenio', '1633ee3b531902b6aa51776f78b5abab', 'Eugenio', 'Di Fraia', 'eugenio.difraia@gmail.com', 335656800, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-21 09:29:41'),
-(35, '6', 'lorenzoferrario', '5aa8d66f2030d7e61e221b3c450406fc', 'Lorenzo', 'Ferrario', 'demo@test.it', 315529200, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-21 09:38:27'),
-(36, '4,5,6', 'krauss', '202cb962ac59075b964b07152d234b70', 'Davide', 'Crespi', 'masterkrauss@gmail.com', 315529200, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-21 09:41:34'),
-(37, '5,6', 'Ryo', '969044ea4df948fb0392308cfff9cdce', 'Paolo', 'Scalzulli', 'stoimpazzendo@hotmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-21 09:42:41'),
-(38, '5,6', 'antonio', '36bd8b49b1cafbf50f41f632d80b499d', 'Antonio', 'Rocchitelli', 'antonio.rocchitelli@fastwebnet.it', 315529200, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-21 09:43:42'),
-(39, '4,5,6', 'Paolobi', '969044ea4df948fb0392308cfff9cdce', 'Paolo', 'Lasalvia', 'paololas@gmail.com', 498265200, 6, 10, 2, NULL, NULL, '7d187b7060be735019321bec573130f1.png', 'A', 39, '2014-08-21 09:44:22'),
-(40, '6', 'greylaw', 'ea46e7e94ccee171a97fe14853d5861e', 'Lorenzo', 'Todaro', 'demo5@test.it', 315529200, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-21 09:44:59'),
-(41, '5,6', 'gianandrea', '5f34242b362fd6a4d433b992ed1078a5', 'Gianandrea', 'Barinotti', 'g.barinotti@gmail.com', 315529200, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-21 09:45:36'),
-(42, '6', 'mauro', '202cb962ac59075b964b07152d234b70', 'Mauro', 'Visioni', 'demo7@test.it', 315529200, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-21 09:46:02'),
-(43, '5,6', 'valeria', 'd6c92c6b37c6f707bd859b0c6fb0e191', 'Valeria', 'Ricciardi', 'demo8@test.it', 315529200, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-21 09:59:04'),
-(44, '6', 'debora', 'b6da20debd2a649b4dfa7dece7662a93', 'Debora', 'Girelli', 'girelli.debora@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-21 10:00:01'),
-(45, '4,5,6', 'Cornelius', 'cdaeb1282d614772beb1e74c192bebda', 'Ugo Cesare', 'Tonelli', 'ugocesare@abridge.it', 599094000, 6, 10, 2, 'Milan', NULL, 'no_avatar.jpg', 'A', 2, '2014-08-21 15:49:45'),
-(46, '3,5', 'Nemo', '202cb962ac59075b964b07152d234b70', 'Simone', 'Spreafico', 'spreafico.s@gmail.com', 63673200, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-26 10:29:35'),
-(47, '3,5', 'Sabnak', '691271029b2e8a3cd3d202c9a7794ff9', 'Gianluca', 'Longo', 'gianlucalongo@gmail.com', -151462800, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-26 10:32:55'),
-(48, '4,5,6', 'Vlisia', '4731d7ea0369be5d7c780ce09c74265b', 'Silvana', 'Guglielmo', 'vlisia2005@libero.it', -222742800, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-26 14:47:23'),
-(49, '5,6', 'Fatum', 'a53bd0415947807bcb95ceec535820ee', 'Fabio', 'Bollino', 'fatum1981@gmail.com', 363477600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-26 14:55:27'),
-(50, '6', 'Angela', '36388794be2cf5f298978498ff3c64a2', 'Angela', 'Lavorato', 'angela@ludosport.net', 199494000, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 13:10:44'),
-(51, '6', 'Marco', 'f5888d0bb58d611107e11f7cbc41c97a', 'Marco', 'Bosoni', 'marcobosoni@gmail.com', 198284400, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 13:12:45'),
-(52, '5,6', 'Noise', 'aaddc3454ccbefbb2d8d8461f8f7f481', 'Davide', 'Molteni', 'davidemolteniit@gmail.com', 315529200, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 13:29:48'),
-(53, '6', 'Maxblanche', '8cac5ac44b51f182143a43c4cdb6c4ac', 'Massimo', 'bianchi', 'bianchima70@hotmail.com', 22802400, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 13:32:03'),
-(54, '6', 'Chiara', '243a3b6f7ddfea2599743ce3370d5229', 'Chiara', 'Magnelli', 'chiara.magnelli@libero.it', 335224800, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 13:34:04'),
-(55, '6', 'Paolo', '969044ea4df948fb0392308cfff9cdce', 'Paolo', 'Cartago', 'paolocartago@gmail.com', 724374000, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 13:41:56'),
-(56, '6', 'Jake', '1200cf8ad328a60559cf5e7c5f46ee6d', 'Jacopo', 'Sarno', 'sarnojac@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 13:43:12'),
-(57, '3,5', 'Dago', 'f7e5b2a36620ce9382a72c998af755f5', 'Fabio', 'Monticelli', 'fabio@abridge.it', 1409090400, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 13:44:45'),
-(58, '3,4,5,6', 'hiras', '446fca5553df49ad9c6348cf1ff71d51', 'Davide', 'Monferini', 'davide.monferini@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 13:48:17'),
-(59, '4,5,6', 'Ander', '1c42f9c1ca2f65441465b43cd9339d6c', 'Andrea', 'Ungaro', 'aungaro@gmail.com', 163033200, 17, 10, 2, NULL, NULL, 'f604f857506ac036984619cd05c76b64.jpg', 'A', 59, '2014-08-27 13:53:52'),
-(60, '5,6', 'Pini', 'b5f8e9089a612ec2b57627dda6e95b40', 'Andrea', 'Pini', 'andrerin.pini@gmail.com', -3600, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 13:55:03'),
-(61, '6', 'mialee', '8070b0b01d9042fdbc54f095bd2832ef', 'Elisa', 'Brondolo', 'elfamialee@live.it', -3600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 13:57:27'),
-(62, '6', 'Ardyken', 'a53bd0415947807bcb95ceec535820ee', 'Fabio', 'Ardizzoni', 'faardiz@gmail.com', 631148400, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 15:20:25'),
-(63, '6', 'Deran_Nos', '1c42f9c1ca2f65441465b43cd9339d6c', 'Andrea', 'Zoppi', 'harlock76@gmail.com', 194914800, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:28:02'),
-(64, '6', 'Wanme_Netai', '4c1aa3bca264abbd9ea912d4b9d124b9', 'Yitao', 'Mora', 'yitao.mora@yahoo.it', 480207600, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:33:51'),
-(65, '6', 'Justicar', '21b836f007435bd70b9cc5455054cf3c', 'Gilberto', 'Presello', 'psycho81@gmail.com', 350262000, 17, 10, 2, NULL, NULL, '12fe3d4190350e74d9b1e032f94b0d18.jpg', 'A', 2, '2014-08-27 16:38:10'),
-(66, '6', 'Rip''ken', '9667aacee4c11ab5cb1aee39cb183599', 'Riccardo', 'Sartori', 'riccardorsartori@fastwebnet.it', 298504800, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:39:57'),
-(67, '6', 'Elerwen', '84248f04a5567607e949ab74b6ecbdae', 'Viviana', 'Corsini', 'elerwen@hotmail.com', 465343200, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:41:43'),
-(68, '6', 'Lotar', '81375516ddb5dcf39a95e5360816b0c9', 'Fabrizio', 'Macario', 'fabrizio.macario@email.it', 325116000, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:46:32'),
-(69, '6', 'Darth_Modificus', '8571e629c370ad40073826db1901ee47', 'Ruggero', 'Pini', 'ruggero.pini@gmail.com', 228438000, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:48:41'),
-(70, '6', 'Katsumoto', '150be5b860e60a7fc7c7d9b9815e93d1', 'Matteo', 'Corradi', 'maimatterione@gmail.com', 374886000, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:49:19'),
-(71, '6', 'Radagast', '47eb752bac1c08c75e30d9624b3e58b7', 'Simone', 'Frattini', 'ciuighifratto@libero.it', 903650400, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:50:27'),
-(72, '6', 'Rixh', 'dbc3ede8cf726a5f892a7808f647aa3e', 'Mattia', 'Bottero', 'mattia.b90@hotmail.it', 662079600, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:51:09'),
-(73, '6', 'Lenmana', 'e358bf645a205cf15efa983b5517d945', 'Rebecca', 'Traverso', 'rebecca.traverso@hotmail.it', 847753200, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:52:13'),
-(74, '6', 'Harlock', 'f5888d0bb58d611107e11f7cbc41c97a', 'Marco', 'Martina', 'saezzt@live.it', 481327200, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:52:45'),
-(75, '6', 'Dulcis', '3477402667742da39c8e93bf4f30b271', 'Francesca', 'Bellino', 'francesca.bellino83@gmail.com', 425772000, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:53:55'),
-(76, '6', 'Vader', 'd1f9cc6dcce0518273c68f03cbbb51f8', 'Michelangelo', 'Repetto', 'michelangelo.repetto@gmail.com', 402534000, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:54:33'),
-(77, '6', 'Nergal', '5b1b4dee9103f759fdb57197a78780a6', 'Enrico', 'Giovanetti', 'exelion71@hotmail.it', 588808800, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:55:28'),
-(78, '6', 'Sal-Ias', 'ff377aff39a9345a9cca803fb5c5c081', 'Luca', 'De Longis', 'lucadelongis@live.it', 415062000, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:56:40'),
-(79, '6', 'Manzoni', '8a94bdfc825df46f880854f41fee346b', 'Michele', 'Esposito', 'spsmhl86@gmail.com', 507164400, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:57:19'),
-(80, '6', 'Frank_Revenge', '1c42f9c1ca2f65441465b43cd9339d6c', 'Andrea', 'Mossa', 'frankieromox@gmail.com', 489535200, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:58:00'),
-(81, '6', 'Shura', 'dbc3ede8cf726a5f892a7808f647aa3e', 'Mattia', 'Pacino', 'muetts@hotmail.com', 378687600, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:58:46'),
-(82, '6', 'Faurin', '0581938f0767a65b373cea80e905c25f', 'Francesco', 'Scaravelli', 'scaravelli.francesco@gmail.com', 548546400, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 16:59:26'),
-(83, '6', 'Slevin', '0581938f0767a65b373cea80e905c25f', 'Francesco', 'Rovati', 'fra.rovati@fastwebnet.it', 420328800, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 17:00:11'),
-(84, '6', 'Duddius', '1c42f9c1ca2f65441465b43cd9339d6c', 'Andrea', 'Secondi', 'second92@hotmail.it', 701305200, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-27 17:01:17'),
-(85, '6', 'Darksider', '51af78a02435124ebc225e570e533ac9', 'Alessandro', 'Cuocci', 'askaflowne@libero.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 11:56:24'),
-(86, '6', 'davide', '446fca5553df49ad9c6348cf1ff71d51', 'Davide', 'Pedrazzoli', 'xpedra@alice.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 11:58:53'),
-(87, '6', 'meg', '35623e2fb12281ddb6d7d5f63c5a29e3', 'Eleonora', 'Nalli', 'meg-86@hotmail.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 12:01:53'),
-(88, '6', 'gianluca', '77aaddd8de3aadc90393716e4e2b3464', 'Gianluca', 'De Santis', 'gianluca.desantis@tiscali.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 12:02:52'),
-(89, '6', 'giuliano', '189df91e921b376444241687a8fcdc2a', 'Giuliano', 'Golfieri', 'giuliano.golfieri@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 12:04:14'),
-(90, '6', 'giuseppe', '353f9bfab2d01dbb1db343fdaf9ab02e', 'Giuseppe', 'Milani', 'giuseppemilani@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 12:05:29'),
-(91, '6', 'niccolo', '2943299556db3aafd672a679cae153aa', 'Niccolò', 'Guerrini', 'niccolo.guerrini@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 12:06:42'),
-(92, '6', 'rossana', 'd70fc2235d4c24e1ff36823e7fa7a916', 'Rossana', 'Valsecchi', 'rossanavals@facebook.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 12:11:25'),
-(93, '6', 'simone', '47eb752bac1c08c75e30d9624b3e58b7', 'Simone', 'Li Vigni', 'simonelivigni@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 12:14:01'),
-(94, '6', 'nix', '393b7e38038f12c5fb4c92e81a1b5a01', 'Stefano', 'Sora', 'lordatreides@libero.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 12:15:32'),
-(95, '6', 'Yoda4ever', '1c42f9c1ca2f65441465b43cd9339d6c', 'Andrea ', 'Guerrato', 'andreg1990@hotmail.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 12:57:23'),
-(96, '6', 'Giorgio', '16cdae1dc8f5ccc69c51eea2851bff68', 'Giorgio', 'Santi', 'giorgio.1983@hotmail.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 12:58:47'),
-(97, '6', 'Diego', '078c007bd92ddec308ae2f5115c1775d', 'Diego', 'Malatesta', 'diego.malatesta@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 13:07:20'),
-(98, '6', 'Aria', '649b7e6ef5b75a95d166b8b266619494', 'Margherita', 'Frezza', 'margherita.frezza@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 13:08:27'),
-(99, '5,6', 'Don', '317a58affea472972b63bffdd3392ae0', 'Stefano', 'Madama', 'stefano.madama@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 13:09:52'),
-(100, '6', 'Viviana', '84248f04a5567607e949ab74b6ecbdae', 'Viviana', 'Massicut', 'erethria@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 13:13:42'),
-(101, '6', 'Andreacarrà', '1c42f9c1ca2f65441465b43cd9339d6c', 'Andrea', 'Carrà', 'carrandry@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 13:15:13'),
-(102, '6', 'Cortellessa', '446fca5553df49ad9c6348cf1ff71d51', 'Davide', 'Cortellessa', 'cordavide@hotmail.it', 640303200, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 13:16:39'),
-(103, '6', 'Anna', 'a70f9e38ff015afaa9ab0aacabee2e13', 'Anna', 'Diaz', 'anna.dzd@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 13:25:29'),
-(104, '6', 'Mattia', 'dbc3ede8cf726a5f892a7808f647aa3e', 'Mattia', 'Galli', 'gm.lord.m@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 13:26:45'),
-(105, '6', 'Viani', 'f5888d0bb58d611107e11f7cbc41c97a', 'Marco', 'Viani', 'viani.marco@gmail.com', -3600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 13:57:37'),
-(106, '6', 'sarda', '446fca5553df49ad9c6348cf1ff71d51', 'Davide', 'Sarda', 'davide.sarda@gmail.com', -3600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 13:58:42'),
-(107, '6', 'Stefaniello', '0bcd78cbe73a2a1a3c2ee731718d9d71', 'Teodoro', 'Stefaniello', 'teodoro.stefanello@gmail.com', -3600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 13:59:48'),
-(108, '6', 'Torrero', '7d6543d7862a07edf7902086f39b4b9a', 'Carlo', 'Torrero', 'carlotorrero1995@gmail.com', -3600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 14:01:20'),
-(109, '6', 'darrigo', 'd2462e55381a20059ed811cefd42493e', 'Alessio', 'D''Arrigo', 'gpdarrigo@inwind.it', -3600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 14:02:55'),
-(110, '6', 'Cafaro', '4cf34194f97afa90c0626574e99bfec7', 'Raffaele', 'Cafaro', 'rafcafaro@hotmail.com', -3600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 14:04:02'),
-(111, '6', 'panizza', '679ab793796da4cbd0dda3d0daf74ec1', 'Daniele', 'Panizza', 'daniele.panizza@hotmail.it', -3600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 14:05:28'),
-(112, '6', 'Jarekwishmaster', '177dacb14b34103960ec27ba29bd686b', 'Alberto', 'Vezzosi', 'jarekwishmaster@gmail.com', -3600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 14:15:36'),
-(113, '6', 'sara', '5bd537fc3789b5482e4936968f0fde95', 'Sara', 'Magnifico', 'prova@prova.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-08-28 14:22:55'),
-(114, '6', 'Cecilia', 'd432eb18017c004fd305969713a17aa8', 'Cecilia ', 'Allgaier', 'cecilia.allgaier@gmail.com', -3600, 17, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-01 08:36:13'),
-(115, '6', 'Gabrielespreafico', '8bc674f8b3278ec1de6112accd643b4f', 'Gabriele ', 'Spreafico', 'julii.caesar@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-01 08:37:50'),
-(116, '6', 'Comunian', '078c007bd92ddec308ae2f5115c1775d', 'Diego', 'Comunian', 'diego.comunian@studenti.unimi.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-01 08:41:43'),
-(117, '6', 'Bassani', 'fadf17141f3f9c3389d10d09db99f757', 'Elena ', 'Bassani', 'penpen@virgilio.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-01 08:42:54'),
-(118, '6', 'salvatori', 'f76405ac130dac085b2a6249073b213b', 'Flavio ', 'Salvatori', 'flavio.s@tiscali.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-01 08:44:06'),
-(119, '6', 'Mistura', 'f5888d0bb58d611107e11f7cbc41c97a', 'Marco', 'Mistura', 'giovaneduca@yahoo.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-01 08:45:09'),
-(120, '6', 'parlavecchio', '649b7e6ef5b75a95d166b8b266619494', 'Margherita ', 'Parlavecchio', 'chiamatemismaele@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-01 08:46:22'),
-(121, '6', 'salvotelli', '317a58affea472972b63bffdd3392ae0', 'Stefano', 'Salvotelli', 'ste.salvotelli@tiscali.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-01 08:58:10'),
-(122, '6', 'Negretti', 'ab3ab964804dc9ae20de3b02d379b1bd', 'Valentina', 'Negretti', 'vale.ombra@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-01 09:05:09'),
-(123, '6', 'Barozzini', '1c42f9c1ca2f65441465b43cd9339d6c', 'Andrea', 'Barozzini', 'andrea.barozzini@gmail.com', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-01 09:06:18'),
-(124, '6', 'rainer', '177dacb14b34103960ec27ba29bd686b', 'Alberto', 'Rainer', 'rainertaste@hotmail.com', -3600, 15, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-01 09:10:51'),
-(125, '6', 'Ferrarini', '078c007bd92ddec308ae2f5115c1775d', 'Diego', 'Ferrarini', 'prova2@prova.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 14:38:16'),
-(126, '6', 'pasetti', '86e32b59e149100cfe0636143e8e48de', 'Samuele', 'Pasetti', 'prova3@prova.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 14:41:50'),
-(127, '4,5,6', 'Catilina', '1c42f9c1ca2f65441465b43cd9339d6c', 'Andrea', 'Bruno', 'catilina@mclink.it', -3600, 11, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 14:47:06'),
-(128, '5,6', 'Pagani', '8f91bdb4de0142710ac1718345b96308', 'Ernesto', 'Pagani', 'ernesto.pagani@tiscali.it', -3600, 11, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 14:53:11'),
-(129, '6', 'Viola', '627ff2d71412e17a4d8b03838b4f747d', 'Jacopo', 'Viola', 'jacopo-94@libero.it', -3600, 11, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 14:54:33'),
-(130, '6', 'caporelli', '51af78a02435124ebc225e570e533ac9', 'Alessandro', 'Caporelli', 'alessandro.capo@hotmail.it', -3600, 11, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 14:55:49'),
-(131, '6', 'sansoni', '51af78a02435124ebc225e570e533ac9', 'Alessandro', 'Sansoni', 'alesan77@gmail.com', -3600, 11, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 14:56:58'),
-(132, '6', 'daddosio', '6ab7ec99b6aa105aeab1acde2019b125', 'Kok ', 'D''Addosio', 'no@no.it', -3600, 11, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 14:58:42'),
-(133, '6', 'nervo', 'f5888d0bb58d611107e11f7cbc41c97a', 'Marco', 'Nervo', 'no2@no.it', -3600, 6, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 15:00:19'),
-(134, '6', 'zappulla', '4a181673429f0b6abbfd452f0f3b5950', 'Antonio', 'Zappulla', 'a.za@email.it', -3600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 15:20:54'),
-(135, '6', 'Ugrote', '150be5b860e60a7fc7c7d9b9815e93d1', 'Matteo', 'Ugrote', 'info@ugrote.it', -3600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 15:23:44'),
-(136, '6', 'Cesana', '314e1391e7d4bc6ca63e70f04d5c3d10', 'Eugenio', 'Cesana', 'eugenio.cesana@gmail.com', -3600, 16, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 16:19:25'),
-(137, '6', 'Mirko', '13592f2caf86af30572a825229a2a8dc', 'Mirko', 'Ferrari', 'mirko.ferrari@outlook.it', -3600, 16, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 16:20:45'),
-(138, '6', 'Longoni', 'd8ae5776067290c4712fa454006c8ec6', 'Samuel', 'Longoni', 'sammywindu98@gmail.com', -3600, 16, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 16:22:04'),
-(139, '6', 'Pedrocchi', '47eb752bac1c08c75e30d9624b3e58b7', 'Simone', 'Pedrocchi', 'simone.pedrocchi@libero.it', -3600, 16, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 16:23:30'),
-(140, '6', 'Colombo', '627ff2d71412e17a4d8b03838b4f747d', 'Jacopo', 'Colombo', 'colombo.jacopo.cj@gmail.com', -3600, 16, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 16:25:18'),
-(141, '6', 'Deleo', '4c61cb1773ec5d477f47835b345ad994', 'Gaetano', 'De Leo', 'mrway80@gmail.com', -3600, 16, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 16:27:35'),
-(142, '6', 'Poletti', '0581938f0767a65b373cea80e905c25f', 'Francesco', 'Poletti', 'peffe@inwind.it', -3600, 16, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 16:29:22'),
-(143, '6', 'Poletti2', 'f5888d0bb58d611107e11f7cbc41c97a', 'Marco', 'Poletti', 'marco.poletti.1981@gmail.com', -3600, 16, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 16:30:30'),
-(144, '6', 'Poletti3', '649b7e6ef5b75a95d166b8b266619494', 'Margherita', 'Poletti', 'marghe95_19@libero.it', -3600, 16, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-02 16:31:45'),
-(145, '6', 'mad max', '8cac5ac44b51f182143a43c4cdb6c4ac', 'Massimo', 'Bruna', 'brunamassimo@yahoo.it', 128818800, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-03 08:18:37'),
-(146, '6', 'Miglino', 'c3875d07f44c422f3b3bc019c23e16ae', 'Denis', 'Miglino', 'miglinodenis@gmail.com', 650498400, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-03 08:20:58'),
-(147, '6', 'Battaglino', 'f5888d0bb58d611107e11f7cbc41c97a', 'Marco', 'Battaglino', 'write.marco.battaglino@gmail.com', 485042400, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-03 08:22:08'),
-(148, '6', 'Colotti', '77aaddd8de3aadc90393716e4e2b3464', 'Gianluca', 'Colotti', 'colottig@gmail.com', -3600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-03 08:23:28'),
-(149, '6', 'Munteanu', '36388794be2cf5f298978498ff3c64a2', 'Angela', 'Munteanu', 'coca.munteanu@libero.it', -3600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-03 08:24:53'),
-(150, '6', 'Bocco', '1c42f9c1ca2f65441465b43cd9339d6c', 'Andrea', 'Bocco', 'ignis22@live.it', 708559200, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-03 08:26:07'),
-(151, '6', 'Cucchi', 'dd1a3f84b837f51d1ea2ac1278edfe0b', 'Domenico', 'Cucchi', 'darkfire77777@hotmail.com', -3600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-03 08:27:12'),
-(152, '6', 'Pavese', '22a3d92dfcfc5b9d13b553d2d6ffc746', 'Carlotta', 'Pavese', 'carlotta95@fastwebnet.it', -3600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-03 08:28:18'),
-(153, '6', 'dellacqua', '177dacb14b34103960ec27ba29bd686b', 'Alberto', 'Dell''Acqua', 'cacamo.antonella@tiscali.it', 915577200, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-03 08:29:32'),
-(154, '6', 'Ercole', 'dcc4ed45e6d3fb1c13044163a464b44a', 'Giacomo', 'Ercole', 'giacomo.ercole@gmail.com', 668905200, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-03 08:31:16'),
-(155, '6', 'Girolami', '8a94bdfc825df46f880854f41fee346b', 'Michele', 'Girolami', 'giancarlo.girolami@libero.it', 848271600, 7, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-03 08:32:22'),
-(156, '6', 'Biondi', '317a58affea472972b63bffdd3392ae0', 'Stefano', 'Biondi', 'prova4@prova.it', 304034400, 18, 10, 2, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-09-04 10:06:40'),
-(157, '5', 'teacher', '202cb962ac59075b964b07152d234b70', 'Try', 'Try', 'try@g.it', 631148400, 6, 10, 2, 'Milano', NULL, 'no_avatar.jpg', 'A', 2, '2014-09-08 10:26:10');
+(1, '1', 'superadmin', '202cb962ac59075b964b07152d234b70', 'Soyab', 'Rana', 'ranasoyab@yopmail.com', 316895400, 1, 1, 1, NULL, NULL, '94048c9c2c04baf3b871be491ef8ded2.jpg', 'A', 1, '2014-07-17 07:05:53'),
+(2, '2', 'admin', '202cb962ac59075b964b07152d234b70', 'Carmelo', 'Samperi', 'ranasoyab@yopmail.com', 316850400, 5, 4, 2, NULL, NULL, '8027582c0afeb7eea3b69cb106bc4330.jpg', 'A', 2, '2014-07-17 07:28:01'),
+(3, '3,4,5', 'rector_1', '202cb962ac59075b964b07152d234b70', 'Rector', '1', 'ranasoyab@yopmail.com', 316895400, 1, 1, 1, NULL, NULL, '063fd00a3c30c83404faf36e32b2dada.jpg', 'A', 3, '2014-07-17 07:28:01'),
+(4, '4', 'dean_1', '202cb962ac59075b964b07152d234b70', 'Dean', '1', 'ranasoyab@yopmail.com', 1277922600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 0, '2014-07-17 07:28:01'),
+(5, '5,3', 'teacher_1', '202cb962ac59075b964b07152d234b70', 'Teacher', '1', 'ranasoyab@yopmail.com', 653682600, 2, 1, 1, NULL, NULL, '44999132c325dd575171618f58a0712a.jpg', 'A', 5, '2014-07-21 10:11:41'),
+(6, '3', 'rector_2', '202cb962ac59075b964b07152d234b70', 'Rector', '2', 'ranasoyab@yopmail.com', 1277922600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 2, '2014-07-17 07:28:01'),
+(7, '5', 'teacher_2', '202cb962ac59075b964b07152d234b70', 'Teacher', '2', 'ranasoyab@yopmail.com', 653682600, 2, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 1, '2014-07-21 10:11:41'),
+(8, '5', 'teacher_3', '202cb962ac59075b964b07152d234b70', 'Teacher', '3', 'ranasoyab@yopmail.com', 653682600, 2, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 1, '2014-07-21 10:11:41'),
+(12, '6', 'killer', '202cb962ac59075b964b07152d234b70', 'Killer', 'Jeans', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, 'c05b3802dd788813231e79ce67a5513d.jpg', 'A', 3, '2014-07-31 10:45:54'),
+(13, '6', 'martin', '202cb962ac59075b964b07152d234b70', 'Martin', 'Lusi', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, '0b1b838debca3f07a19dfb93846a38a2.jpg', 'A', 13, '2014-08-01 05:20:27'),
+(14, '6', 'student_1', '202cb962ac59075b964b07152d234b70', 'A Student', 'First', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 3, '2014-08-04 05:37:32'),
+(15, '6', 'student_2', '202cb962ac59075b964b07152d234b70', 'C Student', 'Second', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 3, '2014-08-04 05:37:19'),
+(16, '6', 'student_3', '202cb962ac59075b964b07152d234b70', 'D Student', 'Third', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 3, '2014-08-04 05:37:56'),
+(17, '6', 'student_4', '202cb962ac59075b964b07152d234b70', 'B Student', 'Fourth', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 3, '2014-08-04 05:38:37'),
+(19, '5', 'teacher_4', '202cb962ac59075b964b07152d234b70', 'Teacher', '4', 'ranasoyab@yopmail.com', 653682600, 2, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 1, '2014-07-21 10:11:41'),
+(20, '6', 'denim', '202cb962ac59075b964b07152d234b70', 'Denim', 'Jeans', 'ranasoyab@yopmail.com', 1218479400, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 0, '2014-08-21 06:48:58'),
+(21, '6', 'levis', '202cb962ac59075b964b07152d234b70', 'levis', 'Jeans', 'ranasoyab@yopmail.com', 706127400, 2, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 0, '2014-08-25 11:20:58'),
+(23, '6', 'iqbal', '202cb962ac59075b964b07152d234b70', 'Iqbal', 'Hussain', 'iqbal@blackid.com', 318060000, 2, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 0, '2014-08-27 10:20:39'),
+(25, '6', 'karl', '202cb962ac59075b964b07152d234b70', 'Karl', 'Marks', 'ranasoyab@yopmail.com', 421909200, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', 'A', 0, '2014-08-28 11:48:19'),
+(27, '6', 'Fede', '202cb962ac59075b964b07152d234b70', 'Federico', 'De Medici', 'ranasoyab@yopmail.com', 752565600, 5, 4, 2, NULL, NULL, 'no_avatar.jpg', 'A', 0, '2014-09-04 15:20:52'),
+(28, '6', '123', '202cb962ac59075b964b07152d234b70', 'Carmelo2', 'Samperi1', 'ranasoyab@yopmail.com', 635061600, 5, 4, 2, NULL, NULL, 'e920884e47d4e84f51c262df3cd36583.jpg', 'P', 28, '2014-09-05 07:18:30'),
+(30, '6', '1234', '81dc9bdb52d04dc20036dbd8313ed055', 'Pietro', 'Rossi', 'ranasoyab@yopmail.com', 1239685200, 5, 4, 2, 'Pietro', NULL, 'no_avatar.jpg', 'P', 0, '2014-09-05 11:04:54'),
+(31, '6', 'eu', '202cb962ac59075b964b07152d234b70', 'Eugenio', 'Di Fraia', 'ranasoyab@yopmail.com', 317973600, 5, 4, 2, 'Cassina de Pecchi', NULL, 'no_avatar.jpg', 'P', 0, '2014-09-05 11:32:37'),
+(33, '6', 'bart', '202cb962ac59075b964b07152d234b70', 'Bart', 'Simpson', 'ranasoyab@yopmail.com', 633938400, 5, 4, 2, 'e', NULL, 'no_avatar.jpg', 'P', 33, '2014-09-05 13:00:47'),
+(34, '6', 'merge', '202cb962ac59075b964b07152d234b70', 'Merge', 'Simpson', 'ranasoyab@yopmail.com', 633852000, 5, 4, 2, 's', NULL, 'no_avatar.jpg', 'P', 0, '2014-09-05 13:17:44');
 
 --
 -- Indexes for dumped tables
@@ -1796,6 +1617,12 @@ ALTER TABLE `batches`
 -- Indexes for table `cities`
 --
 ALTER TABLE `cities`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `clandates`
+--
+ALTER TABLE `clandates`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -1904,7 +1731,7 @@ ALTER TABLE `systemsettings`
 -- Indexes for table `userdetails`
 --
 ALTER TABLE `userdetails`
- ADD PRIMARY KEY (`id`), ADD KEY `student_master_id` (`student_master_id`);
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -1920,7 +1747,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `academies`
 --
 ALTER TABLE `academies`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `attendances`
 --
@@ -1942,10 +1769,15 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
 ALTER TABLE `cities`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
+-- AUTO_INCREMENT for table `clandates`
+--
+ALTER TABLE `clandates`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
 -- AUTO_INCREMENT for table `clans`
 --
 ALTER TABLE `clans`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `countries`
 --
@@ -1955,7 +1787,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `emails`
 --
 ALTER TABLE `emails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `eventcategories`
 --
@@ -2000,7 +1832,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=672;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=761;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
@@ -2015,7 +1847,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT for table `schools`
 --
 ALTER TABLE `schools`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `states`
 --
@@ -2030,22 +1862,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 -- AUTO_INCREMENT for table `userdetails`
 --
 ALTER TABLE `userdetails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=126;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=158;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `userdetails`
---
-ALTER TABLE `userdetails`
-ADD CONSTRAINT `userdetails_ibfk_1` FOREIGN KEY (`student_master_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
