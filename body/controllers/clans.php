@@ -1150,6 +1150,7 @@ class clans extends CI_Controller {
         $obj_clan_date->where(array('clan_id'=>$clan_id, 'clan_date' => $this->input->post('clan_date'), 'clan_shift_from' => $this->input->post('clan_shift_from')))->get();
 
         $obj_clan_date->clan_id = $clan_id;
+        $obj_clan_date->type = 'S';
         $obj_clan_date->clan_date = date('Y-m-d', strtotime($this->input->post('clan_date')));
         $obj_clan_date->clan_shift_from = $this->input->post('clan_shift_from');
         $obj_clan_date->description = @$this->input->post('description');
@@ -1216,6 +1217,18 @@ class clans extends CI_Controller {
         }
 
         redirect(base_url().'clan/view/'. $clan_id, 'refresh');
+    }
+
+    function deleteClanDate($id){
+        $obj_clan_date = new Clandate();
+        $obj_clan_date->where('id', $id)->get();
+        $return = false;
+        if(strtotime(get_current_date_time()->get_date_for_db()) < strtotime($obj_clan_date->clan_date) && $obj_clan_date->type == 'S'){
+            $obj_clan_date->delete();            
+            $return = true;
+        }
+
+        echo json_encode(array('return'=>$return));
     }
 
 }

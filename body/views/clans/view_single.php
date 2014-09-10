@@ -1,4 +1,39 @@
 <?php $session = $this->session->userdata('user_session'); ?>
+<script type="text/javascript" >
+function deleteRow(ele) {
+    var current_id = $(ele).attr('id');
+    var parent = $(ele).parent().parent();
+
+    $.confirm({
+        'title': 'Manage Clan Date',
+        'message': 'Do you Want to Delete ?',
+        'buttons': {
+            '<?php echo $this->lang->line("yes"); ?>': {'class': 'btn btn-danger',
+                'action': function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: http_host_js + 'clan/delete_date/' + current_id,
+                        data: {'id' : current_id},
+                        dataType : 'JSON',
+                        success: function(data) {
+                        	if(data.return){
+                        		$(parent).animate({height: 0}, 1000,"swing",function() {
+                            		$(this).remove();
+                        		})	
+                        	}
+                            
+                        }
+                    });
+                }
+            },
+            '<?php echo $this->lang->line("no"); ?>': {
+                'class': 'btn btn-default'	
+            }
+        }
+    });
+    return false;
+}
+</script>
 <h1 class="page-heading"><?php echo $clan->{$session->language.'_class_name'}; ?></h1>
 
 <div class="row">
@@ -344,13 +379,45 @@
 						        </div>
 							</form>
 						<?php } ?>
-						<h4><?php echo $this->lang->line('clan'), ' ', $this->lang->line('dates'); ?></h4>
+						<h4><?php echo $this->lang->line('manage'),' ', $this->lang->line('clan'), ' ', $this->lang->line('dates'); ?></h4>
 						<?php if($clan_dates->result_count() > 0) { ?>
-							<div class="the-box no-border tags-cloud">
-								<?php foreach($clan_dates as $date) { ?>
-									<a href="#"><span class="label label-primary"><?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date->clan_date)); ?></span></a>
-								<?php } ?>
-							</div>	
+							<div class="table-responsive">
+								<table class="table table-th-block">
+									<thead>
+										<td><?php echo ucwords($this->lang->line('date')); ?></td>
+										<td><?php echo $this->lang->line('shift_from'); ?></td>
+										<td><?php echo $this->lang->line('reason'); ?></td>
+										<?php if (hasPermission('clans', 'changeClanDate')) { ?>
+											<td><?php echo $this->lang->line('actions'); ?></td>
+										<?php } ?>
+									</thead>
+									<tbody>
+										<?php foreach($clan_dates as $date) { ?>
+											<tr>
+												<td>
+												<span class="label label-primary"><?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date->clan_date)); ?></span>
+												</td>
+												<td>
+													<?php if(!is_null($date->clan_shift_from)) { ?>
+														<span class="label label-default"><?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date->clan_shift_from)); ?></span>
+													<?php } else { echo '&nbsp;'; } ?>
+												</td>
+												<td><p><?php echo @$date->description; ?></p></td>
+												<?php if (hasPermission('clans', 'changeClanDate')) { ?>
+													<td>
+														<?php if(strtotime(get_current_date_time()->get_date_for_db()) < strtotime($date->clan_date) && $date->type == 'S') { ?>
+															<a href="javascript:;" onclick="deleteRow(this)" class="actions" id="<?php echo $date->id; ?>" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>
+														<?php }else{
+															echo '&nbsp;';
+														}
+														?>
+													</td>
+												<?php } ?>
+											</tr>
+										<?php } ?>
+									</tbody>
+								</table>
+							</div>
 						<?php } ?>
 					</div>
 

@@ -90,6 +90,7 @@ $route['getcity/(:num)'] = "ajax/getAllCitiesOptionsFromState/$1";
 $route['checkNotification/(:num)'] = "ajax/checkNotification/$1";
 $route['checkMessage/(:num)'] = "ajax/checkMessage/$1";
 $route['load_more_notification/(:num)'] = "ajax/notificationPanigate/$1";
+$route['class_details/(:num)/(:num)'] = "ajax/generateCalendatDates/$1/$2";
 
 //Dashboard
 $route['dashboard'] = "dashboard/index";
@@ -138,9 +139,10 @@ $route['clan/studentjson/(:any)'] = "json/getStudentsJsonData/$1";
 $route['clan/studentjson/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2";
 $route['clan/studentjson/(:any)/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2/$3";
 $route['clan/change_date/(:num)'] = "clans/changeClanDate/$1";
+$route['clan/delete_date/(:num)'] = "clans/deleteClanDate/$1";
 
 //Admin Dashboard
-$route['admin/class_details/(:num)/(:num)'] = "dashboard/adminClassDetails/$1/$2";
+
 
 //Dean Dashboard
 $route['dean/absence_approval/(:num)'] = "deans/teacherAbsenceApproval/$1";
@@ -149,7 +151,6 @@ $route['dean/change_recovery_teacher/(:num)'] = "deans/getSchoolTeachers/$1";
 $route['dean/update_recovery_teacher'] = "deans/UpdateRecoverTeacher";
 
 //Teacher Dashboard
-$route['teacher/class_details/(:num)/(:num)'] = "dashboard/teacherClassDetails/$1/$2";
 $route['getclandates_teacher/(:num)'] = "clans/getDateOfClanForTeacher/$1";
 $route['get_same_level_clan/(:num)'] = "clans/getSameLevelClans/$1";
 $route['mark_student_absence_teacher'] = "clans/changeDateStudentByTeacher";
@@ -161,7 +162,6 @@ $route['teacher/school_related_teacher/(:num)'] = "teachers/teachersReleatedScho
 
 
 //Student Dashboard
-$route['student/class_details/(:num)/(:num)'] = "dashboard/studentClassDetails/$1/$2";
 $route['student_mark_absence'] = "students/markAbsence";
 $route['student/clan/(:num)/(:any)'] = "dashboard/studentClan/$1/$2";
 $route['history'] = "students/viewHistory";
