@@ -56,7 +56,8 @@ class Authentication extends CI_Controller {
             'nextWeekAttendances',
             'changeDateStudentByTeacher',
             'getDateOfClanForTeacher',
-            'getSameLevelClans'
+            'getSameLevelClans',
+            'deleteClanDate'
         );
     }
 

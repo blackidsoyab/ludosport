@@ -1,4 +1,11 @@
 <?php $session = $this->session->userdata('user_session'); ?>
+<script src="<?php echo JS_URL; ?>full-calendar.js"></script>
+<script type="text/javascript">
+    var monthNames = <?php echo json_encode($monthNames);?>;
+    $(document).ready(function() {
+        initCalender();
+    });
+</script>
 <h1 class="page-heading"><?php echo $session->role_name; ?><small>&nbsp;<?php echo $this->lang->line('control_panel'); ?></small></h1>
 <!-- End page heading -->
 
@@ -71,11 +78,7 @@
                 </h1> 
                 <?php if (hasPermission('users', 'addUser')) { ?>
                     <a href="<?php echo base_url() . 'user/add' ?>" class="link" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?></a>
-<?php
-} else {
-    echo '&nbsp;';
-}
-?>
+                <?php } else { echo '&nbsp;'; } ?>
             </div><!-- /.tiles-inner -->
         </div>							
     </div>
@@ -93,14 +96,56 @@
                 }
                 ?>
                 </h1>
-<?php if (hasPermission('users', 'addUser')) { ?>
+                <?php if (hasPermission('users', 'addUser')) { ?>
                     <a href="<?php echo base_url() . 'user/add' ?>" class="link" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?></a>
-<?php
-} else {
-    echo '&nbsp;';
-}
-?>
+                <?php } else { echo '&nbsp;'; } ?>
             </div><!-- /.tiles-inner -->
         </div>							
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="the-box no-margin no-border padding-bottom-killer">
+            <div class="row">
+                <div class="col-sm-4">
+                    <span id="current-month-year" class="btn btn-primary"></span>
+                </div>
+
+                <div class="col-sm-4">
+                     <div class="progress-icon" style="display:none" align="center">
+                        <i class="fa fa-cog fa-spin fa-2x text-primary"></i>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="btn-group pull-right">
+                        <a href="javascript:;" class="btn btn-primary" id="prev-button"><i class="fa fa-chevron-left"></i></a>
+                        <a href="javascript:;" class="btn btn-primary" id="today-button"><?php echo $this->lang->line('today'); ?></a>
+                        <a href="javascript:;" class="btn btn-primary" id="next-button"><i class="fa fa-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="the-box no-margin no-border padding-bottom-killer">
+            <span class="label badge-info">Past Clan</span>
+            <span class="label badge-info-danger">Past Shifted Clan on</span>
+            <span class="label badge-warning-info">Past Shifted Clan of</span>
+            <span class="label badge-success">Present Clan</span>
+            <span class="label badge-success-danger">Present Shifted Clan on</span>
+            <span class="label badge-warning-success">Present Shifted Clan of</span>
+            <span class="label badge-inverse">Future Clan</span>
+            <span class="label badge-inverse-danger">Future Shifted Clan on</span>
+            <span class="label badge-warning-inverse">Future Shifted Clan of</span>
+        </div>
+    
+        <div class="the-box no-margin no-border">
+            <input type="hidden" value="<?php echo get_current_date_time()->year; ?>" id="calendar-year">
+            <input type="hidden" value="<?php echo get_current_date_time()->month - 1; ?>" id="calendar-month">
+            <input type="hidden" value="<?php echo base_url().'class_details/'; ?>" id="calendar-event-src">
+            <div id="calendar"></div>
+            <div style="clear:both"></div>
+        </div>
     </div>
 </div>

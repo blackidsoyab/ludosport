@@ -426,9 +426,26 @@ class Clan extends DataMapper
         $this->db->_protect_identifiers = false;
         $this->db->select('clans.id,' . $session->language . '_class_name AS clan,' . $session->language . '_school_name AS school,' . $session->language . '_academy_name AS academy, clans.clan_from, clans.clan_to');
         $this->db->from('clans');
-        $this->db->join('schools', 'schools.id=clans.school_id');
-        $this->db->join('academies', 'academies.id=schools.academy_id');
-        $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0");
+        if($session->role == 1 || $session->role == 2){
+            $this->db->join('schools', 'schools.id=clans.school_id');
+            $this->db->join('academies', 'academies.id=schools.academy_id');
+        } else if($session->role == 3){
+            $this->db->join('schools', 'schools.id=clans.school_id');
+            $this->db->join('academies', 'academies.id=schools.academy_id');
+            $this->db->where("FIND_IN_SET(" . $session->id . ", rector_id) > 0");
+        } else if($session->role == 4){
+            $this->db->join('schools', 'schools.id=clans.school_id');
+            $this->db->join('academies', 'academies.id=schools.academy_id');
+            $this->db->where("FIND_IN_SET(" . $session->id . ", dean_id) > 0");
+        } else if($session->role == 5){
+            $this->db->join('schools', 'schools.id=clans.school_id');
+            $this->db->join('academies', 'academies.id=schools.academy_id');
+            $this->db->where("FIND_IN_SET(" . $session->id . ", teacher_id) > 0");
+        } else if($session->role == 6){
+            $this->db->join('userdetails', 'clans.id=userdetails.clan_id');
+            $this->db->where('student_master_id', $student_id);
+        }
+        $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0"); 
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();

@@ -392,3 +392,49 @@ footer{
     background: -moz-linear-gradient(right, #8cc152 80%, #E9573F 20%);
     background: linear-gradient(to right, #8cc152 80% , #E9573F 20%);
 }
+
+.badge-info-danger{
+    background: -webkit-linear-gradient(left, #3BAFDA 80%, #E9573F 20%);
+    background: -o-linear-gradient(right, #3BAFDA 80%, #E9573F 20%);
+    background: -moz-linear-gradient(right, #3BAFDA 80%, #E9573F 20%);
+    background: linear-gradient(to right, #3BAFDA 80% , #E9573F 20%);
+}
+
+.badge-warning-info{
+    background: -webkit-linear-gradient(left, #F6BB42 80%, #3BAFDA 20%);
+    background: -o-linear-gradient(right, #F6BB42 80%, #3BAFDA 20%);
+    background: -moz-linear-gradient(right, #F6BB42 80%, #3BAFDA 20%);
+    background: linear-gradient(to right, #F6BB42 80% , #3BAFDA 20%);
+}
+
+.badge-success-danger{
+    background: -webkit-linear-gradient(left, #8CC152 80%, #E9573F 20%);
+    background: -o-linear-gradient(right, #8CC152 80%, #E9573F 20%);
+    background: -moz-linear-gradient(right, #8CC152 80%, #E9573F 20%);
+    background: linear-gradient(to right, #8CC152 80% , #E9573F 20%);
+}
+
+.badge-warning-success{
+    background: -webkit-linear-gradient(left, #F6BB42 80%, #8CC152 20%);
+    background: -o-linear-gradient(right, #F6BB42 80%, #8CC152 20%);
+    background: -moz-linear-gradient(right, #F6BB42 80%, #8CC152 20%);
+    background: linear-gradient(to right, #F6BB42 80% , #8CC152 20%);
+}
+
+.badge-inverse{
+    background-color: #AAB2BD;
+}
+
+.badge-inverse-danger{
+    background: -webkit-linear-gradient(left, #AAB2BD 80%, #E9573F 20%);
+    background: -o-linear-gradient(right, #AAB2BD 80%, #E9573F 20%);
+    background: -moz-linear-gradient(right, #AAB2BD 80%, #E9573F 20%);
+    background: linear-gradient(to right, #AAB2BD 80% , #E9573F 20%);
+}
+
+.badge-warning-inverse{
+    background: -webkit-linear-gradient(left, #F6BB42 80%, #AAB2BD 20%);
+    background: -o-linear-gradient(right, #F6BB42 80%, #AAB2BD 20%);
+    background: -moz-linear-gradient(right, #F6BB42 80%, #AAB2BD 20%);
+    background: linear-gradient(to right, #F6BB42 80% , #AAB2BD 20%);
+}

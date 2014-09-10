@@ -114,8 +114,6 @@ class ajax extends CI_Controller {
         echo json_encode($array);
     }
 
-    
-
     function markAllMessageRead(){
         $obj_message = new Message();
         $obj_message->where(array('to_id' => $this->session_data->id, 'to_status' => 'U'))->get();
@@ -231,6 +229,96 @@ class ajax extends CI_Controller {
             $str .= "\n";
         }
         echo $str;
+    }
+
+    function generateCalendatDates($year, $month){
+        $month = $month + 1;
+        $current_date = get_current_date_time()->get_date_for_db();        
+        $return = array();
+        $total_days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        for($i=1;$i<=$total_days;$i++){
+            $date = date('Y-m-d', strtotime($year .'-'. $month .'-'. $i));
+            $day_numeric = date('N', strtotime($date));
+            $clans = New Clan();
+            $details = $clans->getClansByDay($day_numeric);  
+
+            if($details){
+               foreach ($details as $value) {
+                    if(strtotime($date) >= strtotime($value->clan_from) && strtotime($date) <= strtotime($value->clan_to)){  
+                        $obj_clan_date = new Clandate();
+                        $obj_clan_date->where(array('clan_id'=>$value->id, 'clan_shift_from' => $date))->get();
+                        
+                        if($obj_clan_date->result_count() == 1){
+                            $temp = array();
+                            $temp['title'] = $value->clan;
+                            $temp['start'] = $obj_clan_date->clan_date;
+                            $temp['tooltip'] = 'clan shifted of ' . date('d-m-Y', strtotime($obj_clan_date->clan_shift_from)) . ' ' . $value->school .', '. $value->academy;
+                            if($this->session_data->role == 1 || $this->session_data->role == 2 || $this->session_data->role == 5) {
+                                $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                            }
+                            if(strtotime($date) < strtotime($current_date)){
+                                $temp['type'] = 'past';
+                                $temp['class'] = 'badge badge-warning-info';
+                            }else if(strtotime($date) == strtotime($current_date)){
+                                $temp['type'] = 'present';
+                                $temp['class'] = 'badge badge-warning-success';
+                            } else {
+                                $temp['type'] = 'future';
+                                $temp['class'] = 'badge badge-warning-inverse';
+                            }
+                            $return[] = $temp;
+                            
+
+                            $temp = array();
+                            $temp['title'] = $value->clan;
+                            $temp['start'] = $date;
+                            $temp['tooltip'] = 'clan shifted on ' . date('d-m-Y', strtotime($obj_clan_date->clan_date)) . ' ' . $value->school .', '. $value->academy;
+                            if(strtotime($date) < strtotime($current_date)){
+                                $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                                $temp['type'] = 'past';
+                                $temp['class'] = 'badge badge-info-danger';
+                            }else if(strtotime($date) == strtotime($current_date)){
+                                $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                                $temp['type'] = 'present';
+                                $temp['class'] = 'badge badge-success-danger';
+                            } else {
+                                $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                                $temp['type'] = 'future';
+                                $temp['class'] = 'badge badge-inverse-danger';
+                            }
+                            $return[] = $temp;
+                        }else{
+                            $temp = array();
+                            $temp['title'] = $value->clan;
+                            $temp['start'] = $date;
+                            $temp['tooltip'] = $value->school .', '. $value->academy;
+                            if(strtotime($date) < strtotime($current_date)){
+                                $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                                $temp['type'] = 'past';
+                                $temp['class'] = 'badge badge-info';
+                            }else if(strtotime($date) == strtotime($current_date)){
+                                $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                                $temp['type'] = 'present';
+                                $temp['class'] = 'badge badge-success';
+                            } else {
+                                $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                                $temp['type'] = 'future';
+                                $temp['class'] = 'badge badge-inverse';
+                            }
+                            $return[] = $temp;
+                        }         
+                    }
+                }
+            }
+        }
+
+        if(count($return) == 0){
+            $temp = array();
+            $temp['start'] = date('Y-m-d', strtotime($year .'-'.$month.'-01'));
+            $return[] = $temp;
+        }
+
+        echo json_encode($return);
     }
 
     /*

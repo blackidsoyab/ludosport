@@ -51,7 +51,7 @@
     <script src="<?php echo PLUGIN_URL; ?>confirmbox/jquery.confirm.js"></script>
 
     <?php echo smiley_js(); ?>
-    <script>
+    <script type="text/javascript">
         var http_host_js = '<?php echo base_url(); ?>';
 
         function UpdateLang(ele) {

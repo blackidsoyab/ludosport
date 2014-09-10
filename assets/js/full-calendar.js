@@ -64,14 +64,8 @@ function loadCalander(year, month, url){
                 element.attr('data-original-title', event.tooltip);
                 $(element).tooltip({ container: "body"})    
             }
-            
-            if(event.type == 'past'){
-                element.addClass('badge badge-info');
-            } else if(event.type == 'present'){
-                element.addClass('badge badge-success');
-            } else if(event.type == 'future'){
-                element.addClass('badge badge-inverse');
-            }
+
+            element.addClass(event.class);
         },
         viewRender: function(event, element) {
             $('.progress-icon').fadeIn();
