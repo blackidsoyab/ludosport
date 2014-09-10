@@ -164,13 +164,12 @@ class json extends CI_Controller {
         exit();
     }
 
-    public function getUsersJsonData($role_id, $assigned = 0) {
+    public function getUsersJsonData($role_id) {
         $where = null;
 
-        if ($role_id != 0) {
-            $where = ' AND FIND_IN_SET(' . $role_id . ', users.role_id) > 0';
-
-            if($assigned != 0){
+        if($this->session_data->role == 1 || $this->session_data->role == 2){
+            if ($role_id != 0) {
+                $where = ' AND FIND_IN_SET(' . $role_id . ', users.role_id) > 0';
                 if($role_id == 2){
                     $ids = User::getAdminIds();
                 }
@@ -191,24 +190,100 @@ class json extends CI_Controller {
                     $ids = Userdetail::getAssingStudentIds();
                 }
 
-                if($assigned == 1){
-                    $where .= ' AND users.id IN (' . implode(',', $ids) .')';
-                } else if($assigned == 2){
-                    $where .= ' AND users.id NOT IN (' . implode(',', $ids) .')';
+                $where .= ' AND users.id IN (' . implode(',', $ids) .')';
+            }
+        } else if($this->session_data->role == 3){
+            if($role_id == 0){
+                $school = new School();
+                $ids[] = $school->getRelatedDeansByRector($this->session_data->id);
+
+                $class = new Clan();
+                $ids[] = $class->getRelatedTeachersByRector($this->session_data->id);
+
+                $user_detail = new Userdetail();
+                $ids[] = $user_detail->getRelatedStudentsByRector($this->session_data->id);
+
+                $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
+                
+                $where .= ' AND users.id IN (' . implode(',', $final_ids) .')';
+            }else{
+                $where = ' AND FIND_IN_SET(' . $role_id . ', users.role_id) > 0';
+
+                if($role_id == 4){
+                    $school = new School();
+                    $ids = $school->getRelatedDeansByRector($this->session_data->id);
                 }
+
+                if($role_id == 5){
+                    $class = new Clan();
+                    $ids = $class->getRelatedTeachersByRector($this->session_data->id);
+                }
+
+                if($role_id == 6){
+                    $user_detail = new Userdetail();
+                    $ids = $user_detail->getRelatedStudentsByRector($this->session_data->id);
+                }
+
+                $where .= ' AND users.id IN (' . implode(',', $ids) .')';
+            }
+        } else if($this->session_data->role == 4){
+            if($role_id == 0){
+
+                $class = new Clan();
+                $ids[] = $class->getRelatedTeachersByDean($this->session_data->id);
+
+                $user_detail = new Userdetail();
+                $ids[] = $user_detail->getRelatedStudentsByDean($this->session_data->id);
+
+                $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
+                
+                $where .= ' AND users.id IN (' . implode(',', $final_ids) .')';
+            }else{
+                $where = ' AND FIND_IN_SET(' . $role_id . ', users.role_id) > 0';
+
+                if($role_id == 5){
+                    $class = new Clan();
+                    $ids = $class->getRelatedTeachersByDean($this->session_data->id);
+                }
+
+                if($role_id == 6){
+                    $user_detail = new Userdetail();
+                    $ids = $user_detail->getRelatedStudentsByDean($this->session_data->id);
+                }
+
+                $where .= ' AND users.id IN (' . implode(',', $ids) .')';
+            }
+        } else if($this->session_data->role == 5){
+            if($role_id == 0){
+                $user_detail = new Userdetail();
+                $ids[] = $user_detail->getRelatedStudentsByTeacher($this->session_data->id);
+
+                $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
+                
+                $where .= ' AND users.id IN (' . implode(',', $final_ids) .')';
+            }else{
+                $where = ' AND FIND_IN_SET(' . $role_id . ', users.role_id) > 0';
+
+                if($role_id == 6){
+                    $user_detail = new Userdetail();
+                    $ids = $user_detail->getRelatedStudentsByTeacher($this->session_data->id);
+                }
+
+                $where .= ' AND users.id IN (' . implode(',', $ids) .')';
             }
         }
+
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('firstname', 'lastname', 'username', 'status', 'avtar');
+        $this->datatable->aColumns = array('CONCAT(firstname," ", lastname) AS name', 'username', 'status', 'avtar');
         $this->datatable->eColumns = array('users.id', 'role_id');
         $this->datatable->sIndexColumn = "users.id";
         $this->datatable->sTable = " users, roles";
-        $this->datatable->myWhere = 'WHERE users.id !=  1 AND users.role_id=roles.id AND roles.id >' . $this->session_data->role . $where;
+        $this->datatable->myWhere = 'WHERE users.role_id=roles.id AND roles.id >' . $this->session_data->role . $where;
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
-            $temp_arr[] = '<img src="' . IMG_URL .'user_avtar/40X40/' . $aRow['avtar'].'" class="avatar img-circle" alt="avatar"><a href="' . base_url() . 'profile/view/' . $aRow['id'] . '" class="text-black">' .$aRow['firstname'] . ' ' . $aRow['lastname'] .'</a>';
+            $temp_arr[] = '<img src="' . IMG_URL .'user_avtar/40X40/' . $aRow['avtar'].'" class="avatar img-circle" alt="avatar"><a href="' . base_url() . 'profile/view/' . $aRow['id'] . '" class="text-black">' .$aRow['name'] .'</a>';
             $temp_arr[] = $aRow['username'];
             $tmp = NULL;
             foreach (explode(',', $aRow['role_id']) as $role_id) {
