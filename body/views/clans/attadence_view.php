@@ -146,7 +146,7 @@ $(document).ready(function() {
 							</td>
 						</tr>
 						<?php } ?>
-						<?php if(strtotime(get_current_date_time()->get_date_for_db()) == strtotime($date)){ ?>
+						<?php if($show_save_button){ ?>
 							<tr>
 								<td colspan="5">
 									<button type="submit" class="btn btn-primary">

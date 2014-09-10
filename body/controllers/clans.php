@@ -685,9 +685,6 @@ class clans extends CI_Controller {
 
         //Current Date
         $current_date = get_current_date_time()->get_date_for_db();
-
-        //Set variable for view part
-        $data['current_date'] = $current_date;
         
         //check if recored exits or not
         if($details){ 
@@ -698,13 +695,6 @@ class clans extends CI_Controller {
             }else {
                 $clan = $clan->where(array('id'=>$clan_id, 'teacher_id'=>$this->session_data->id))->get();    
             }
-            
-
-            //Set variable for view part
-            $data['clan_details'] = $clan;
-
-            //Set variable for view part
-            $data['date'] = $date;
 
             //Get all the Students of that Clans.
             $userdetails = $clan->Userdetail->where('status', 'A')->get();
@@ -794,6 +784,21 @@ class clans extends CI_Controller {
             //Sert null if variable is not set
             if(!isset($data['userdetails'])){
                 $data['userdetails'] = null;
+            }
+
+            //Set variable for view part
+            $data['show_save_button'] = false;
+            $data['current_date'] = $current_date;
+            $data['clan_details'] = $clan;
+            $data['date'] = $date;
+            $time_from = strtotime(date('Y-m-d H:i:s', strtotime($date . date('H:i',$clan->lesson_from))));
+            $time_to = strtotime(date('Y-m-d H:i:s', strtotime($date . date('H:i',$clan->lesson_to))));
+            $time_2 = strtotime(get_current_date_time()->get_date_time_for_db());
+            
+            if(strtotime(get_current_date_time()->get_date_for_db()) == strtotime($date)){
+                if($time_2 >= $time_from && $time_2 <= $time_to){
+                    $data['show_save_button'] = true;
+                }
             }
             
             $this->layout->view('clans/attadence_view', $data);
