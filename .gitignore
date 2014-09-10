@@ -8,6 +8,7 @@
 /assets/img/user_avtar/*
 /assets/img/batches/*
 /assets/message_attachments/*
+/assets/email_attachments/*
 /assets/img/event_images/*
 upload_to_ftp.sh
 git-ftp.py

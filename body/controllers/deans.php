@@ -72,7 +72,7 @@ class deans extends CI_Controller
                 $option['subject'] = $email->subject;
                 $option['message'] = $message;
                 if (!is_null($email->attachment)) {
-                    $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
+                    $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
                 }
                 send_mail($option);
 
@@ -110,7 +110,7 @@ class deans extends CI_Controller
                     $option['subject'] = $email->subject;
                     $option['message'] = $message;
                     if (!is_null($email->attachment)) {
-                        $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
+                        $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
                     }
                     send_mail($option);
                 }

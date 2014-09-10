@@ -33,7 +33,7 @@ class cronjobs extends CI_Controller {
                     $option['subject'] = $value->subject;
                     $option['message'] = $value->message;
                     if (!is_null($value->attachment)) {
-                        $option['attachement'] = base_url() . 'assets/email_attachments/' . $value->attachment;
+                        $option['attachement'] = 'assets/email_attachments/' . $value->attachment;
                     }
 
                     if (send_mail($option)) {

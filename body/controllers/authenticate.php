@@ -150,7 +150,7 @@ class authenticate extends CI_Controller {
             $option['subject'] = $email->subject;
             $option['message'] = $message;
             if (!is_null($email->attachment)) {
-                $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
+                $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
             }
 
             send_mail($option);
@@ -197,7 +197,7 @@ class authenticate extends CI_Controller {
                 $option['subject'] = $email->subject;
                 $option['message'] = $message;
                 if (!is_null($email->attachment)) {
-                    $option['attachement'] = base_url() . 'assets/email_attachments/' . $email->attachment;
+                    $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
                 }
 
                 send_mail($option);
@@ -240,7 +240,10 @@ class authenticate extends CI_Controller {
             $option['tomailid'] = $user->email;
             $option['subject'] = $email->subject;
             $option['message'] = $message;
-
+            if (!is_null($email->attachment)) {
+                $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+            }
+            
             if (send_mail($option)) {
                 $this->session->set_flashdata('success', 'Check your Mail Address.');
             } else {
