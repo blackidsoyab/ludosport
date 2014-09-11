@@ -561,4 +561,24 @@ class ajax extends CI_Controller {
      * ------------------- END ------------------
      * ------------------------------------------
      */
+
+     /*
+     * ------------------------------------------
+     *           Methos for the Message
+     *                   START
+     * ------------------------------------------
+     */
+
+     function downloadRegistrationPdf($file) {
+        if (file_exists('assets/registration_attachments/' . $file)) {
+            $path = './assets/registration_attachments/' . $file;
+            downloadFile($path, $file);
+        }    
+    }
+
+     /*
+     * ------------------------------------------
+     * ------------------- END ------------------
+     * ------------------------------------------
+     */
 }

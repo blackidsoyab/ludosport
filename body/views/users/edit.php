@@ -227,12 +227,12 @@
                     <input type="radio" name="status" id="radios-0" value="A" <?php echo ($user->status == 'A') ? 'checked' : ''; ?>>
                     <?php echo $this->lang->line('active'); ?>
                 </label> 
-                <label class="radio-inline" for="radios-0">
-                    <input type="radio" name="status" id="radios-0" value="D" <?php echo ($user->status == 'D') ? 'checked' : ''; ?>>
+                <label class="radio-inline" for="radios-1">
+                    <input type="radio" name="status" id="radios-1" value="D" <?php echo ($user->status == 'D') ? 'checked' : ''; ?>>
                     <?php echo $this->lang->line('deactive'); ?>
                 </label> 
-                <label class="radio-inline" for="radios-0">
-                    <input type="radio" name="status" id="radios-0" value="P" <?php echo ($user->status == 'P') ? 'checked' : ''; ?>>
+                <label class="radio-inline" for="radios-2">
+                    <input type="radio" name="status" id="radios-2" value="P" <?php echo ($user->status == 'P') ? 'checked' : ''; ?>>
                     <?php echo $this->lang->line('pending'); ?>
                 </label> 
             </div>

@@ -60,7 +60,7 @@ class users extends CI_Controller {
                 $user_details = new Userdetail();
                 $user_details->student_master_id = $user->id;
                 $user_details->clan_id = $this->input->post('class_id');
-                $user_details->status = 'A';
+                $user_details->status = $this->input->post('status');
                 $user_details->user_id = $this->session_data->id;
                 $user_details->save();
             }
@@ -137,7 +137,7 @@ class users extends CI_Controller {
                     $user_details->student_master_id = $user->id;
                     $user_details->clan_id = $this->input->post('class_id');
                     $user_details->user_id = $this->session_data->id;
-                    $user_details->status = 'A';
+                    $user_details->status = $this->input->post('status');
                     $user_details->save();
                 } else {
                     $user_details = new Userdetail();

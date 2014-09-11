@@ -134,7 +134,15 @@ class dashboard extends CI_Controller {
 
     function getStudentDashboard() {
         if ($this->session_data->status === 'P') {
-            $this->getPendingStudentDashboard();
+            $userdetail = new Userdetail();
+            //Get the User extra details exit.
+            $userdetail->where('student_master_id', $this->session_data->id)->get();
+
+            if($userdetail->result_count() == 1 && $userdetail->status == 'P2'){
+                redirect(base_url() .'register/step_2', 'refresh');
+            }else{
+                $this->getPendingStudentDashboard();
+            }
         } else if ($this->session_data->status === 'A') {
             $this->getActiveStudentDashboard();
         } else {
@@ -346,26 +354,36 @@ class dashboard extends CI_Controller {
             $user_details->where('student_master_id', $this->session_data->id)->get();
 
             //save the data
+            $user_details->student_master_id= $this->session_data->id;
+            $user_details->level_id= $this->config->item('pupil_basic_level');
             $user_details->palce_of_birth = $this->input->post('palce_of_birth');
             $user_details->zip_code = $this->input->post('zip_code');
             $user_details->tax_code = $this->input->post('tax_code');
             $user_details->blood_group = $this->input->post('blood_group');
+            $user_details->status = 'P2';
             $user_details->user_id = $this->session_data->id;
             $user_details->save();
-            
-            //Make student Active
-            /*$user = new User();
-            $user->where(array('id' => $this->session_data->id))->update('status', 'A');
-
-            $session = $this->session->userdata('user_session');
-            $session->status = 'A';
-            $newdata = array('user_session' => $session);
-            $this->session->set_userdata($newdata);*/
 
             redirect(base_url() .'dashboard', 'refresh');
         }else {
+            $user_details = new Userdetail();
+            $data['user_details'] = $user_details->where('student_master_id', $this->session_data->id)->get();
+
+            if($data['user_details']->status == 'P2'){
+                $user = new User($this->session_data->id);
+                //Calculate Age
+                $age = explode(' ', time_elapsed_string(date('Y-m-d H:i:s', $user->date_of_birth)));
+                if ($age[1] == 'year' && $age[0] != 0) {
+                    $data['download_pdfs'] = attributionCards($age);
+                } else {
+                    $data['download_pdfs'] = false;
+                }    
+            }else {
+                $data['download_pdfs'] = false;
+            }
+            
             $this->layout->setField('page_title', 'Registration Step 2');
-            $this->layout->view('authenticate/register_step_2');
+            $this->layout->view('authenticate/register_step_2', $data);
         }
     }
 

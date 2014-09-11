@@ -134,8 +134,30 @@ if (!function_exists('downloadFile')) {
             readfile($path);
         }
     }
-
 }
+
+if (!function_exists('attributionCards')) {
+    function attributionCards($age) {
+        $array = array();
+
+        if($age < 16){
+            $array['unique_solution'] = array('file' => '1.pdf','en' => 'Unique Solution', 'it' => 'Soluzione Unica');
+            $array['two_installments'] = array('file' => '1.pdf','en' => 'Two Installments', 'it' => 'Due Rate');
+            $array['no_choice'] = array('file' => '1.pdf','en' => 'No Choice', 'it' => 'Nessuna Scelta');    
+        } else if ($age >= 16 & $age < 18){
+            $array['unique_solution'] = array('file' => '1.pdf','en' => 'Unique Solution', 'it' => 'Soluzione Unica');
+            $array['two_installments'] = array('file' => '1.pdf','en' => 'Two Installments', 'it' => 'Due Rate');
+            $array['no_choice'] = array('file' => '1.pdf','en' => 'No Choice', 'it' => 'Nessuna Scelta');    
+        } else if($age >= 18){
+            $array['unique_solution'] = array('file' => '1.pdf','en' => 'Unique Solution', 'it' => 'Soluzione Unica');
+            $array['two_installments'] = array('file' => '1.pdf','en' => 'Two Installments', 'it' => 'Due Rate');
+            $array['no_choice'] = array('file' => '1.pdf','en' => 'No Choice', 'it' => 'Nessuna Scelta');
+        }
+        
+        return $array;
+    }
+}
+
 
 /*
 *   Array Function Start

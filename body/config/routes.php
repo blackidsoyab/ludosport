@@ -83,6 +83,7 @@ $route['denied'] = "authenticate/permissionDenied";
 $route['register/step_1'] = "authenticate/register";
 $route['add_user'] = "authenticate/saveUser";
 $route['register/step_2'] = "dashboard/studentRegistrationSecondPhase";
+$route['register_step_2/download/(:any)'] = "ajax/downloadRegistrationPdf/$1";
 
 //Commom
 $route['getstate/(:num)'] = "ajax/getAllStatesOptionsFromCountry/$1";
