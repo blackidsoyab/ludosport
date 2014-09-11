@@ -254,31 +254,20 @@ class json extends CI_Controller {
                 $where .= ' AND users.id IN (' . implode(',', $ids) .')';
             }
         } else if($this->session_data->role == 5){
-            if($role_id == 0){
-                $user_detail = new Userdetail();
-                $ids[] = $user_detail->getRelatedStudentsByTeacher($this->session_data->id);
-
-                $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
-                
-                $where .= ' AND users.id IN (' . implode(',', $final_ids) .')';
-            }else{
+            if($role_id != 0){
                 $where = ' AND FIND_IN_SET(' . $role_id . ', users.role_id) > 0';
-
-                if($role_id == 6){
-                    $user_detail = new Userdetail();
-                    $ids = $user_detail->getRelatedStudentsByTeacher($this->session_data->id);
-                }
-
-                $where .= ' AND users.id IN (' . implode(',', $ids) .')';
             }
+            $user_detail = new Userdetail();
+            $ids = $user_detail->getRelatedStudentsByTeacher($this->session_data->id);
+            $where .= ' AND users.id IN (' . implode(',', $ids) .')';
         }
 
         $this->load->library('datatable');
         $this->datatable->aColumns = array('CONCAT(firstname," ", lastname) AS name', 'username', 'status', 'avtar');
         $this->datatable->eColumns = array('users.id', 'role_id');
         $this->datatable->sIndexColumn = "users.id";
-        $this->datatable->sTable = " users, roles";
-        $this->datatable->myWhere = 'WHERE users.role_id=roles.id AND roles.id >' . $this->session_data->role . $where;
+        $this->datatable->sTable = " users";
+        $this->datatable->myWhere = 'WHERE user_id != 1 ' .  $where;
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -544,8 +533,8 @@ class json extends CI_Controller {
 
         $this->load->library('datatable');
         $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS student_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'clans.' . $this->session_data->language . '_class_name AS class_name','avtar', $this->session_data->language.'_name AS batch_name', 'batches.image');
-        $this->datatable->eColumns = array('users.user_id');
-        $this->datatable->sIndexColumn = "users.user_id";
+        $this->datatable->eColumns = array('users.id');
+        $this->datatable->sIndexColumn = "users.id";
         $this->datatable->sTable = " clans, users, schools, academies, userdetails, batches";
 
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
@@ -561,7 +550,7 @@ class json extends CI_Controller {
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
-            $temp_arr[] = '<img src="' . IMG_URL .'user_avtar/40X40/' . $aRow['avtar'].'" class="avatar img-circle" alt="avatar"><a href="' . base_url() . 'profile/view/' . $aRow['user_id'] . '" class="text-black">' . $aRow['student_name'] . '</a>';
+            $temp_arr[] = '<img src="' . IMG_URL .'user_avtar/40X40/' . $aRow['avtar'].'" class="avatar img-circle" alt="avatar"><a href="' . base_url() . 'profile/view/' . $aRow['id'] . '" class="text-black">' . $aRow['student_name'] . '</a>';
             $temp_arr[] = '<img src="' . IMG_URL .'batches/' . $aRow['image'].'" class="avatar img-circle" alt="avatar" data-toggle="tooltip" data-original-title="'.$aRow['batch_name'].'">';
             $temp_arr[] = $aRow['class_name'];
             $temp_arr[] = $aRow['school_name'];

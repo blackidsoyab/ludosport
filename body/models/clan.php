@@ -106,7 +106,6 @@ class Clan extends DataMapper
         $this->db->select('count(*) as total');
         $this->db->from('userdetails');
         $this->db->join('clans', 'clans.id=userdetails.clan_id');
-        $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->where("FIND_IN_SET('" . $teacher_id . "', clans.teacher_id) > 0");
         $res = $this->db->get()->result();
         return $res[0]->total;
