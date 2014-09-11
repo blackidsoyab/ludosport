@@ -158,6 +158,35 @@ if (!function_exists('attributionCards')) {
     }
 }
 
+if (!function_exists('colorOfBlades')) {
+    function colorOfBlades($id = null, $return = null) {
+        $array = array();
+        $array[1] = array('image' => 'grey_sword.png','en' => 'grey', 'it' => 'grey');
+        $array[2] = array('image' => 'red_sword.png','en' => 'Red', 'it' => 'Red');
+        $array[3] = array('image' => 'green_sword.png','en' => 'Green', 'it' => 'Green');
+        $array[4] = array('image' => 'purple_sword.png','en' => 'Purple', 'it' => 'Purple');
+        $array[5] = array('image' => 'blue_sword.png','en' => 'Blue', 'it' => 'Blue');
+        $array[6] = array('image' => 'white_sword.png','en' => 'White', 'it' => 'White');
+
+        if(is_null($id) && is_null($return)){
+            return $array;    
+        } else {
+            if(array_key_exists($id, $array)){
+                if(is_null($return)){
+                    return $array[$id];
+                }else{
+                    return $array[$id][$return];
+                }
+            }else{
+                if(is_null($return)){
+                    return $array[1];
+                }else{
+                    return $array[1][$return];
+                }
+            }
+        }
+    }
+}
 
 /*
 *   Array Function Start

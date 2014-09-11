@@ -30,16 +30,23 @@ class profiles extends CI_Controller {
             $userdetail = new Userdetail();
             $data['userdetail'] = $userdetail->where('student_master_id', $id)->get();
             $data['batch_detail'] = $userdetail->Batch;
+            if(!is_null($data['batch_detail']->cover_image)){
+                $data['cover_image'] = IMG_URL .'batches/cover_image/'. $data['batch_detail']->cover_image;
+            } else {
+                $data['cover_image'] = IMG_URL .'banner.png';
+            }
+            
 
             if($data['userdetail']->clan_id != 0){
                 $clan = new Clan($data['userdetail']->clan_id);
                 $data['ac_sc_clan_name'] = $clan->School->Academy->{$this->session_data->language.'_academy_name'} .', '. $clan->School->{$this->session_data->language.'_school_name'} .', '. $clan->{$this->session_data->language.'_class_name'};
             }else{
                 $data['ac_sc_clan_name'] = null;
-            }    
-        }else{
+            }   
+        } else {
             $data['ac_sc_clan_name'] = null;
             $data['batch_detail'] = null;
+            $data['cover_image'] = IMG_URL .'banner.png';
         }   
         
 
@@ -51,28 +58,42 @@ class profiles extends CI_Controller {
             if ($this->input->post() !== false) {
                 $user = new User();
                 $user->where('id', $id)->get();
-
+                $session = $this->session->userdata('user_session');
                 $user_data = new stdClass();
                 if ($_FILES['avtar']['name'] != '') {
                     $avtar = $this->uploadAvtar($id);
                     $user->avtar = $avtar['file_name'];
-                    $user_data->avtar = $user->avtar;
+                    $session->avtar = $user->avtar;
                 }
 
                 $user->firstname = $this->input->post('firstname');
                 $user->lastname = $this->input->post('lastname');
                 $user->email = $this->input->post('email');
                 $user->date_of_birth = strtotime(date('Y-m-d', strtotime($this->input->post('date_of_birth'))));
-                $user->country_id = $this->input->post('country_id');
-                $user->state_id = $this->input->post('state_id');
                 $user->city_id = $this->input->post('city_id');
+                $city = new City();
+                $city->where('id', $this->input->post('city_id'))->get();
+                $user->state_id = $city->state->id;
+                $user->country_id = $city->state->country->id;
                 $user->city_of_residence = $this->input->post('city_of_residence');
                 $user->username = $this->input->post('username');
+                $user->address = $this->input->post('address');
+                $user->phone_no_1 = $this->input->post('phone_no_1');
+                $user->phone_no_2 = $this->input->post('phone_no_2');
+                $user->quote = $this->input->post('quote');
+                $user->about_me = $this->input->post('about_me');
 
                 $user->user_id = $this->session_data->id;
                 $user->save();
 
-                $session = $this->session->userdata('user_session');
+                if(in_array(6, explode(',',$user->role_id))){ 
+                    $userdetail = new Userdetail();
+                    $userdetail->where('student_master_id', $id)->get();
+                    $userdetail->color_of_blade = $this->input->post('color_of_blade');
+                    $userdetail->save();
+                }
+
+                
                 $session->logged_in_name = $this->input->post('firstname');
                 $session->name = $this->input->post('firstname') .' '. $this->input->post('lastname');
                 $session->email = $this->input->post('email');
@@ -86,14 +107,15 @@ class profiles extends CI_Controller {
                 $profile = new User();
                 $data['profile'] = $profile->where('id', $id)->get();
 
-                $countries = New Country();
-                $data['countries'] = $countries->get();
+                if(in_array(6, explode(',',$data['profile']->role_id))){ 
+                    $userdetail = new Userdetail();
+                    $data['userdetail'] = $userdetail->where('student_master_id', $id)->get();
+                }
+                $clan = new Clan();
+                $cities_ids = $clan->getCitiesofClans();
 
-                $states = New State();
-                $data['states'] = $states->where('country_id', $profile->country_id)->get();
-
-                $cities = New City();
-                $data['cities'] = $cities->where('state_id', $profile->state_id)->get();
+                $city = new City();
+                $data['cities'] = $city->where_in('id', $cities_ids)->get();
 
                 $this->layout->view('profiles/edit', $data);
             } else {

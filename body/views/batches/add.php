@@ -1,17 +1,63 @@
 <script>
     //<![CDATA[
     $(document).ready(function() {
+        $("#batch_cover_image").change(function (e) {
+            if(this.disabled) return alert('File upload not supported!');
+            var F = this.files;
+            if(F && F[0]) {
+                for(var i=0; i<F.length; i++){
+                  readImage(F[0]);  
+                }
+            }
+        });
+
         $("#add").validate({
+            rules: {
+                batch_cover_image : {
+                    ImageDimension: ['width','750']
+                }
+            },
             errorPlacement: function(error, element) {
                 if (element.attr('type') === 'radio' || element.attr('type') === 'checkbox') {
                     error.appendTo(element.parent());
-                }
-                else {
+                } else if(element.attr('type') == 'file'){
+                    error.appendTo(element.parent().parent().parent().parent());
+                } else {
                     error.insertAfter(element);
                 }
             }
         });
+
+        jQuery.validator.addMethod("ImageDimension", function(value, element, params) {
+                if(params[0] == 'width'){
+                    if($('#cover-img-width').val() == 0 ){
+                        return true;
+                    } else {
+                        return (Number($('#cover-img-width').val()) > Number(params[1]));
+                    }
+                } else {
+                    if($('#cover-img-height').val() == 0 ){
+                        return true;
+                    } else {
+                        return (Number($('#cover-img-height').val()) > Number(params[1]));
+                    }
+                }    
+        },'Image {0} must greater than {1}px');
     });
+
+    function readImage(file) {
+        var reader = new FileReader();
+        var image  = new Image();
+        reader.readAsDataURL(file);  
+        reader.onload = function(_file) {
+            image.src    = _file.target.result;
+            image.onload = function() {
+                //$('#temp-img').attr('src', image.src);
+                $('#cover-img-height').val(this.height);
+                $('#cover-img-width').val(this.width);
+            };     
+        };
+    }
     //]]>
 </script>
 <h1 class="page-heading"><?php echo $this->lang->line('add'), ' ', $this->lang->line('batch'); ?></h1>
@@ -61,6 +107,27 @@
                 }
                 ?>
             </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label"><?php echo $this->lang->line('cover_image'); ?>&nbsp;<span class="text-danger">&nbsp;</span></label>
+            <div class="col-lg-5">
+                <div class=" input-group">
+                    <input type="text" class="form-control" readonly="">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                            <?php echo $this->lang->line('browse_file'); ?> <input type="file" id="batch_cover_image" name="batch_cover_image">
+                        </span>
+                    </span>
+                </div>
+                <?php
+                if ($this->session->flashdata('file_errors_cover')) {
+                    echo '<label class="error">' . $this->session->flashdata('file_errors_cover') . '</label>';
+                }
+                ?>
+            </div>
+            <input type="hidden" value="0" id="cover-img-height">
+            <input type="hidden" value="0" id="cover-img-width">
         </div>
 
         <div class="form-group">
