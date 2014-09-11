@@ -23,7 +23,8 @@
         <img src="<?php echo IMG_URL . 'user_avtar/100X100/' . $profile->avtar; ?>" class="avatar" alt="Avatar">
         <div class="profile-info">
             <p class="user-name"><?php echo $profile->firstname . ' ' . $profile->lastname; ?></p>
-            <p class="text-muted"><?php echo $this->lang->line('hometown'); ?>  : <a href="#fakelink"><?php echo getLocationName($profile->city_id, 'City') . ', ' . getLocationName($profile->state_id, 'State'); ?></a></p>
+            <p class="text-muted"><?php echo $ac_sc_clan_name; ?></a></p>
+            <p class="text-muted"><?php echo $ac_sc_clan_name; ?></a></p>
             <p class="right-button">
                 <?php if ($profile->id == $session->id) { ?>
                 <?php if (hasPermission('profiles', 'editProfile')) { ?>
@@ -38,6 +39,9 @@
         <div class="panel-heading">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#panel-about" data-toggle="tab"><i class="fa fa-user"></i></a></li>
+                <?php if($profile->role_id == 6 && !empty($userdetail) && $userdetail->result_count() == 1) { ?>  
+                    <li><a href="#panel-extra-details" data-toggle="tab"><i class="fa fa-bell"></i></a></li>
+                <?php } ?>
             </ul>
         </div>
         <div id="panel-collapse-1" class="collapse in">
@@ -103,6 +107,38 @@
                                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('country'), ' : '; ?></label>
                                 <div class="col-lg-8">
                                     <p class="form-control-static"><?php echo getLocationName($profile->country_id, 'Country'); ?></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="panel-extra-details">
+                         <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label"><?php echo $this->lang->line('palce_of_birth'), ' : '; ?></label>
+                                <div class="col-lg-7">
+                                    <p class="form-control-static"><?php echo $userdetail->palce_of_birth; ?></p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label"><?php echo $this->lang->line('city_of_residence'), ' ', $this->lang->line('by'), ' ',$this->lang->line('zip_code'), ' : '; ?></label>
+                                <div class="col-lg-7">
+                                    <p class="form-control-static"><?php echo $userdetail->zip_code; ?></p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label"><?php echo $this->lang->line('city_of_residence'), ' ', $this->lang->line('by'), ' ',$this->lang->line('tax_code'), ' : '; ?></label>
+                                <div class="col-lg-7">
+                                    <p class="form-control-static"><?php echo $userdetail->tax_code; ?></p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label"><?php echo $this->lang->line('blood_group'), ' : '; ?></label>
+                                <div class="col-lg-7">
+                                    <p class="form-control-static"><?php echo $userdetail->blood_group; ?></p>
                                 </div>
                             </div>
                         </form>

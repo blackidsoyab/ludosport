@@ -14,14 +14,24 @@ class profiles extends CI_Controller {
     }
 
     function viewProfile($id = null, $type = null) {
-        $user = new User();
         if (is_null($id)) {
-            $data['profile'] = $user->where('id', $this->session_data->id)->get();
-            $this->layout->view('profiles/view', $data);
-        } else {
-            $data['profile'] = $user->where('id', $id)->get();
-            $this->layout->view('profiles/view', $data);
+            $id = $this->session_data->id;
         }
+
+        $user = new User();
+        $data['profile'] = $user->where('id', $id)->get();
+            
+        $userdetail = new Userdetail();
+        $data['userdetail'] = $userdetail->where('student_master_id', $id)->get();
+
+        if($data['userdetail']->clan_id != 0){
+            $clan = new Clan($data['userdetail']->clan_id);
+            $data['ac_sc_clan_name'] = $clan->School->Academy->{$this->session_data->language.'_academy_name'} .', '. $clan->School->{$this->session_data->language.'_school_name'} .', '. $clan->{$this->session_data->language.'_class_name'};
+        }else{
+            $data['ac_sc_clan_name'] = null;
+        }
+
+        $this->layout->view('profiles/view', $data);
     }
 
     function editProfile($id) {
