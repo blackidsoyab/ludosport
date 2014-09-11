@@ -59,6 +59,7 @@ class users extends CI_Controller {
             if (in_array('6', $this->input->post('role_id'))) {
                 $user_details = new Userdetail();
                 $user_details->student_master_id = $user->id;
+                $user_details->batch_id= $this->config->item('pupil_basic_level');
                 $user_details->clan_id = $this->input->post('class_id');
                 $user_details->status = $this->input->post('status');
                 $user_details->user_id = $this->session_data->id;
@@ -135,6 +136,7 @@ class users extends CI_Controller {
                     $user_details = new Userdetail();
                     $user_details->where('student_master_id', $id)->get();
                     $user_details->student_master_id = $user->id;
+                    $user_details->batch_id= $this->config->item('pupil_basic_level');
                     $user_details->clan_id = $this->input->post('class_id');
                     $user_details->user_id = $this->session_data->id;
                     $user_details->status = $this->input->post('status');

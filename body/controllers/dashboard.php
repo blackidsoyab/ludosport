@@ -355,7 +355,7 @@ class dashboard extends CI_Controller {
 
             //save the data
             $user_details->student_master_id= $this->session_data->id;
-            $user_details->level_id= $this->config->item('pupil_basic_level');
+            $user_details->batch_id= $this->config->item('pupil_basic_level');
             $user_details->palce_of_birth = $this->input->post('palce_of_birth');
             $user_details->zip_code = $this->input->post('zip_code');
             $user_details->tax_code = $this->input->post('tax_code');

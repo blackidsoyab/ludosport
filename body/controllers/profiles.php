@@ -20,16 +20,28 @@ class profiles extends CI_Controller {
 
         $user = new User();
         $data['profile'] = $user->where('id', $id)->get();
-            
-        $userdetail = new Userdetail();
-        $data['userdetail'] = $userdetail->where('student_master_id', $id)->get();
 
-        if($data['userdetail']->clan_id != 0){
-            $clan = new Clan($data['userdetail']->clan_id);
-            $data['ac_sc_clan_name'] = $clan->School->Academy->{$this->session_data->language.'_academy_name'} .', '. $clan->School->{$this->session_data->language.'_school_name'} .', '. $clan->{$this->session_data->language.'_class_name'};
+        if($user->result_count() != 1){
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'dashboard', 'refresh'); 
+        }
+        
+        if(in_array(6, explode(',',$data['profile']->role_id))){
+            $userdetail = new Userdetail();
+            $data['userdetail'] = $userdetail->where('student_master_id', $id)->get();
+            $data['batch_detail'] = $userdetail->Batch;
+
+            if($data['userdetail']->clan_id != 0){
+                $clan = new Clan($data['userdetail']->clan_id);
+                $data['ac_sc_clan_name'] = $clan->School->Academy->{$this->session_data->language.'_academy_name'} .', '. $clan->School->{$this->session_data->language.'_school_name'} .', '. $clan->{$this->session_data->language.'_class_name'};
+            }else{
+                $data['ac_sc_clan_name'] = null;
+            }    
         }else{
             $data['ac_sc_clan_name'] = null;
-        }
+            $data['batch_detail'] = null;
+        }   
+        
 
         $this->layout->view('profiles/view', $data);
     }
