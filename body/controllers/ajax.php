@@ -258,47 +258,50 @@ class ajax extends CI_Controller {
                foreach ($details as $value) {
                     if(strtotime($date) >= strtotime($value->clan_from) && strtotime($date) <= strtotime($value->clan_to)){  
                         $obj_clan_date = new Clandate();
-                        $obj_clan_date->where(array('clan_id'=>$value->id, 'clan_shift_from' => $date))->get();
-                        
-                        if($obj_clan_date->result_count() == 1){
-                            $temp = array();
-                            $temp['title'] = $value->clan;
-                            $temp['start'] = $obj_clan_date->clan_date;
-                            $temp['tooltip'] = 'clan shifted of ' . date('d-m-Y', strtotime($obj_clan_date->clan_shift_from)) . ' ' . $value->school .', '. $value->academy;
-                            if($this->session_data->role == 1 || $this->session_data->role == 2 || $this->session_data->role == 5) {
-                                $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
-                            }
-                            if(strtotime($date) < strtotime($current_date)){
-                                $temp['type'] = 'past';
-                                $temp['class'] = 'badge badge-warning-info';
-                            }else if(strtotime($date) == strtotime($current_date)){
-                                $temp['type'] = 'present';
-                                $temp['class'] = 'badge badge-warning-success';
-                            } else {
-                                $temp['type'] = 'future';
-                                $temp['class'] = 'badge badge-warning-inverse';
-                            }
-                            $return[] = $temp;
-                            
+                        $check = $obj_clan_date->isClanShifted($value->id, $date);                    
 
-                            $temp = array();
-                            $temp['title'] = $value->clan;
-                            $temp['start'] = $date;
-                            $temp['tooltip'] = 'clan shifted on ' . date('d-m-Y', strtotime($obj_clan_date->clan_date)) . ' ' . $value->school .', '. $value->academy;
-                            if(strtotime($date) < strtotime($current_date)){
-                                $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
-                                $temp['type'] = 'past';
-                                $temp['class'] = 'badge badge-info-danger';
-                            }else if(strtotime($date) == strtotime($current_date)){
-                                $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
-                                $temp['type'] = 'present';
-                                $temp['class'] = 'badge badge-success-danger';
-                            } else {
-                                $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
-                                $temp['type'] = 'future';
-                                $temp['class'] = 'badge badge-inverse-danger';
+                        if($check != false){
+                            if($check->clan_date == $date){
+                                $temp = array();
+                                $temp['title'] = $value->clan;
+                                $temp['start'] = $check->clan_date;
+                                $temp['tooltip'] = 'clan shifted of ' . date('d-m-Y', strtotime($check->clan_shift_from)) . ' ' . $value->school .', '. $value->academy;
+                                if($this->session_data->role == 1 || $this->session_data->role == 2 || $this->session_data->role == 5) {
+                                    $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                                }
+                                if(strtotime($date) < strtotime($current_date)){
+                                    $temp['type'] = 'past';
+                                    $temp['class'] = 'badge badge-warning-info';
+                                }else if(strtotime($date) == strtotime($current_date)){
+                                    $temp['type'] = 'present';
+                                    $temp['class'] = 'badge badge-warning-success';
+                                } else {
+                                    $temp['type'] = 'future';
+                                    $temp['class'] = 'badge badge-warning-inverse';
+                                }
+                                $return[] = $temp;
                             }
-                            $return[] = $temp;
+
+                            if($check->clan_shift_from == $date){
+                                $temp = array();
+                                $temp['title'] = $value->clan;
+                                $temp['start'] = $date;
+                                $temp['tooltip'] = 'clan shifted on ' . date('d-m-Y', strtotime($check->clan_date)) . ' ' . $value->school .', '. $value->academy;
+                                if(strtotime($date) < strtotime($current_date)){
+                                    $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                                    $temp['type'] = 'past';
+                                    $temp['class'] = 'badge badge-info-danger';
+                                }else if(strtotime($date) == strtotime($current_date)){
+                                    $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                                    $temp['type'] = 'present';
+                                    $temp['class'] = 'badge badge-success-danger';
+                                } else {
+                                    $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                                    $temp['type'] = 'future';
+                                    $temp['class'] = 'badge badge-inverse-danger';
+                                }
+                                $return[] = $temp;   
+                            }
                         }else{
                             $temp = array();
                             $temp['title'] = $value->clan;
