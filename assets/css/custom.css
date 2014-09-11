@@ -443,3 +443,7 @@ footer{
     color: #fff;
     background-color: #000;
 }
+
+.datepicker .datepicker-years, .datepicker .datepicker-months, .datepicker .datepicker-days {
+    min-width: 226px;
+}

@@ -80,6 +80,15 @@
                 showMeridian : false
             });
         }
+
+        $('.datepicker').datepicker({
+            format: "dd-mm-yyyy",
+            startView: 2,
+            autoclose: true,
+            todayHighlight: true
+        }).on('changeDate', function (ev) {
+            $(this).datepicker('hide');
+        });
     });
     //]]>
 </script>
@@ -155,48 +164,15 @@
 
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('clan'), ' ', $this->lang->line('start_from'); ?> <span class="text-danger">*</span></label>
-                <div class="row">
-                    <div class="col-xs-2">
-                        <select class="form-control required" name="clan_start[month]">
-                            <?php foreach ($this->config->item('custom_months') as $month_key => $month_value) { ?>
-                                <option value="<?php echo (int)$month_key + 1; ?>"><?php echo $month_value[$session->language]; ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div class="col-xs-2">
-                        <select class="form-control required" name="clan_start[year]">
-                            <?php
-                                $current_year = get_current_date_time()->year;
-                                $year_from = $current_year - 5;
-                                $year_to = $current_year + 5;
-                                for($i = $year_from; $i<=$year_to; $i++){ ?>
-                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control datepicker required" name="clan_from">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('clan'), ' ', $this->lang->line('end_in'); ?> <span class="text-danger">*</span></label>
-                <div class="row">
-                    <div class="col-xs-2">
-                        <select class="form-control required" name="clan_end[month]">
-                            <?php foreach ($this->config->item('custom_months') as $month_key => $month_value) { ?>
-                                <option value="<?php echo (int)$month_key + 1; ?>"><?php echo $month_value[$session->language]; ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div class="col-xs-2">
-                        <select class="form-control required" name="clan_end[year]">
-                            <?php
-                                $current_year = get_current_date_time()->year;
-                                $year_to = $current_year + 5;
-                                for($i = $current_year; $i<=$year_to; $i++){ ?>
-                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control datepicker required" name="clan_to">
                 </div>
             </div>
 

@@ -147,11 +147,8 @@ class clans extends CI_Controller {
             $obj->school_id = $this->input->post('school_id');
             $obj->teacher_id = implode(',', $this->input->post('teacher_id'));
             $obj->level_id = $this->input->post('level_id');
-            $clan_start = $this->input->post('clan_start');
-            $clan_end = $this->input->post('clan_end'); 
-            $total_days = cal_days_in_month(CAL_GREGORIAN, $clan_end['month'], $clan_end['year']);
-            $obj->clan_from = date('Y-m-d', strtotime('01-'.$clan_start['month'].'-'.$clan_start['year']));
-            $obj->clan_to = date('Y-m-d', strtotime($total_days.'-'.$clan_end['month'].'-'.$clan_end['year']));
+            $obj->clan_from = date('Y-m-d', strtotime($this->input->post('clan_from')));
+            $obj->clan_to = date('Y-m-d', strtotime($this->input->post('clan_to')));
             $obj->lesson_day = implode(',', $this->input->post('lesson_day'));
             $obj->lesson_from = strtotime($this->input->post('lesson_from'));
             $obj->lesson_to = strtotime($this->input->post('lesson_to'));
@@ -231,11 +228,8 @@ class clans extends CI_Controller {
                 $obj->school_id = $this->input->post('school_id');
                 $obj->teacher_id = implode(',', $this->input->post('teacher_id'));
                 $obj->level_id = $this->input->post('level_id');
-                $clan_start = $this->input->post('clan_start');
-                $clan_end = $this->input->post('clan_end'); 
-                $total_days = cal_days_in_month(CAL_GREGORIAN, $clan_end['month'], $clan_end['year']);
-                $obj->clan_from = date('Y-m-d', strtotime('01-'.$clan_start['month'].'-'.$clan_start['year']));
-                $obj->clan_to = date('Y-m-d', strtotime($total_days.'-'.$clan_end['month'].'-'.$clan_end['year']));
+                $obj->clan_from = date('Y-m-d', strtotime($this->input->post('clan_from')));
+                $obj->clan_to = date('Y-m-d', strtotime($this->input->post('clan_to')));
                 $obj->lesson_day = implode(',', $this->input->post('lesson_day'));
                 $obj->lesson_from = strtotime($this->input->post('lesson_from'));
                 $obj->lesson_to = strtotime($this->input->post('lesson_to'));
