@@ -161,12 +161,12 @@ if (!function_exists('attributionCards')) {
 if (!function_exists('colorOfBlades')) {
     function colorOfBlades($id = null, $return = null) {
         $array = array();
-        $array[1] = array('image' => 'grey_sword.png','en' => 'grey', 'it' => 'grey');
-        $array[2] = array('image' => 'red_sword.png','en' => 'Red', 'it' => 'Red');
-        $array[3] = array('image' => 'green_sword.png','en' => 'Green', 'it' => 'Green');
-        $array[4] = array('image' => 'purple_sword.png','en' => 'Purple', 'it' => 'Purple');
-        $array[5] = array('image' => 'blue_sword.png','en' => 'Blue', 'it' => 'Blue');
-        $array[6] = array('image' => 'white_sword.png','en' => 'White', 'it' => 'White');
+        $array[1] = array('image' => 'amber_sword.jpg','en' => 'Amber', 'it' => 'Amber');
+        $array[2] = array('image' => 'blue_sword.jpg','en' => 'Blue', 'it' => 'Blue');
+        $array[3] = array('image' => 'green_sword.jpg','en' => 'Green', 'it' => 'Green');
+        $array[4] = array('image' => 'purple_sword.jpg','en' => 'Purple', 'it' => 'Purple');
+        $array[5] = array('image' => 'red_sword.jpg','en' => 'Red', 'it' => 'Red');
+        $array[6] = array('image' => 'white_sword.jpg','en' => 'White', 'it' => 'White');
 
         if(is_null($id) && is_null($return)){
             return $array;    
@@ -179,9 +179,9 @@ if (!function_exists('colorOfBlades')) {
                 }
             }else{
                 if(is_null($return)){
-                    return $array[1];
+                    return $array[6];
                 }else{
-                    return $array[1][$return];
+                    return $array[6][$return];
                 }
             }
         }
