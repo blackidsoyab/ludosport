@@ -47,6 +47,10 @@ body.login{
     color: #000000;
 }
 
+.text-justify{
+    text-align: justify;
+}
+
 label.error{
     color: #E9573F;
     padding-left: 5px;
@@ -451,4 +455,8 @@ footer{
 
 .datepicker .datepicker-years, .datepicker .datepicker-months, .datepicker .datepicker-days {
     min-width: 226px;
+}
+
+.profile-heading .profile-info .text-muted {
+    width: 80%;
 }

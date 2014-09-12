@@ -33,30 +33,30 @@ $session = $this->session->userdata('user_session');
 <div class="col-lg-8">
     <div class="the-box">
         <div class="blog-detail-image">
-        <img src="<?php echo IMG_URL .'banner.png'; ?>" class="img-blog" alt="Banner">
+        <img src="<?php echo $cover_image; ?>" class="img-blog" alt="Banner">
         </div>
     </div>
 
     <div class="the-box no-border">
         <div class="the-box no-border bg-info full">
             <div id="tiles-slide-3" class="owl-carousel tiles-carousel-color">
-                <?php  foreach ($users as $user) { ?>
+                <?php  foreach ($challenge_users as $challenge_user) { ?>
                     <div class="item full">
                         <div class="avatar-wrap">
                             <div class="media">
                                 <a class="pull-left" href="#fakelink">
-                                <img src="<?php echo IMG_URL . 'user_avtar/100X100/' . $user->avtar; ?>" class="avatar img-circle has-white-shadow media-object" alt="avatar">
+                                <img src="<?php echo IMG_URL . 'user_avtar/100X100/' . $challenge_user->avtar; ?>" class="avatar img-circle has-white-shadow media-object" alt="avatar">
                                 </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading"><?php echo $user->firstname,' ',$user->lastname; ?></h4>
+                                    <h4 class="media-heading"><?php echo $challenge_user->firstname,' ',$challenge_user->lastname; ?></h4>
                                 </div>
                             </div>
                         </div>
                         <div class="des">
                             <h4 class="bolded"><a href="#fakelink">Challenged you!</a></h4>
-                            <p class="small"><?php echo date('d-m-Y', $user->date_of_birth); ?></p>
+                            <p class="small"><?php echo date('d-m-Y', $challenge_user->date_of_birth); ?></p>
                             <p class="small">Pick the gauntlet up and prepare to fight.</p>
-                            <a href="<?php echo base_url() .'profile/view/' . $user->id; ?>" class="btn btn-warning btn-sm">Accept the duel</a>
+                            <a href="<?php echo base_url() .'profile/view/' . $challenge_user->id; ?>" class="btn btn-warning btn-sm">Accept the duel</a>
                         </div>
                     </div>
                 <?php } ?>
@@ -65,10 +65,10 @@ $session = $this->session->userdata('user_session');
 
         <div class="row">
             <div class="col-lg-6">
-                <button class="btn btn-block btn-danger"><i class="fa fa-cogs"></i> -CHALLENGE TO A DUEL!- </button>
+                <a href="<?php echo base_url() .'duels'; ?>" class="btn btn-block btn-danger"><i class="fa fa-cogs"></i> -CHALLENGE TO A DUEL!- </a>
             </div>
             <div class="col-sm-6">
-                <a href="<?php base_url() .'message/compose'; ?>" class="btn btn-block btn-info"><i class="fa fa-cogs"></i> -WRITE MESSAGE- </a>
+                <a href="<?php echo base_url() .'message/compose'; ?>" class="btn btn-block btn-info"><i class="fa fa-cogs"></i> -WRITE MESSAGE- </a>
             </div>
         </div>
     </div>
@@ -82,17 +82,17 @@ $session = $this->session->userdata('user_session');
     <div class="row">
         <div class="col-lg-12">
             <div class="the-box no-border">
-                <h4 class="small-heading more-margin-bottom text-center">The best <?php echo count($users->all)?></h4>
+                <h4 class="small-heading more-margin-bottom text-center">The best <?php echo count($challenge_users->all)?></h4>
                 <div id="store-item-carousel-1" class="owl-carousel shop-carousel owl-theme">
-                <?php  foreach ($users as $user) { ?>
+                <?php  foreach ($challenge_users as $challenge_user) { ?>
                     <div class="item">
                         <div class="media">
                             <a class="pull-left" href="#fakelink">
-                                <img class="lazyOwl media-object sm img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . $user->avtar; ?>" alt="Image">
+                                <img class="lazyOwl media-object sm img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . $challenge_user->avtar; ?>" alt="Image">
                             </a>
                             <div class="media-body">
                                 <h4 class="media-heading nowrap overflow-hidden overflow-text-dot">
-                                    <a href="<?php echo base_url() .'profile/view/' . $user->id; ?>" data-toggle="tooltip" data-original-title="<?php echo $user->firstname,' ',$user->lastname; ?>"><?php echo $user->firstname,' ',$user->lastname; ?></a>
+                                    <a href="<?php echo base_url() .'profile/view/' . $challenge_user->id; ?>" data-toggle="tooltip" data-original-title="<?php echo $challenge_user->firstname,' ',$challenge_user->lastname; ?>"><?php echo $challenge_user->firstname,' ',$challenge_user->lastname; ?></a>
                                 </h4>
                                 <p class="price text-danger"><strong>1</strong></p>
                             </div>
@@ -113,10 +113,10 @@ $session = $this->session->userdata('user_session');
 
         <div class="the-box no-border full card-info">
             <div class="the-box no-border text-center no-margin">
-                <h4 class="bolded"><a href="my-profile.html"><?php echo $session->name; ?></a></h4>
+                <h4 class="bolded"><a href="<?php echo base_url() . 'profile/view/' . $user->id; ?>"><?php echo $session->name; ?></a></h4>
                 <img src="<?php echo IMG_URL . 'user_avtar/70X70/' . $session->avtar; ?>" class="social-avatar has-margin has-light-shadow img-circle" alt="Avatar">
-                <p class="text-info">JEDI</p>
-                <p class="text-muted">Gegio: LudoSport, Milano, Clan della Luce</p>
+                <p class="text-info"><?php echo @$batch_detail->{$session->language.'_name'}; ?></p>
+                <p class="text-muted">Gegio: <?php echo @$ac_sc_clan_name; ?></p>
                 <p class="bordered">
                 <i class="fa fa-star text-warning"></i>
                 <i class="fa fa-star text-warning"></i>
@@ -124,12 +124,17 @@ $session = $this->session->userdata('user_session');
                 <i class="fa fa-star text-warning"></i>
                 <i class="fa fa-star text-warning"></i>
                 </p>
-                <p class="text-muted">
-                " La gloria di colui che tutto move per l'universo penetra e risplende in una parte più e meno altrove."</p>
-                <p class="social-icon">
-                    <img src="<?php echo IMG_URL . 'batches/03c0e2e2b6050bdeac592090aa063e8f.png'; ?>" width="40" height="40" alt="">
-                    <img src="<?php echo IMG_URL . 'batches/3b69f92034caa56c01b0dc557cfa18b0.png'; ?>" width="40" height="40" alt="">
-                </p>
+                <?php if(!is_null($user->quote) && !empty($user->quote)) { ?>
+                    <p class="text-muted">
+                        "<?php echo $user->quote; ?>"
+                    </p>
+                <?php } ?>
+
+                <?php if(!is_null($batch_image)) { ?>
+                    <p class="social-icon">
+                        <img src="<?php echo $batch_image; ?>" width="40" height="40" alt="<?php echo $batch_detail->{$session->language.'_name'}; ?>" data-toggle="tooltip" data-original-title="<?php echo $batch_detail->{$session->language.'_name'}; ?>">
+                    </p>
+                <?php } ?>
             </div>
             <button class="btn btn-warning btn-block btn-lg btn-square">Pts. 1843</button>
         </div>

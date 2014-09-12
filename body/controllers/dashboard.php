@@ -152,13 +152,25 @@ class dashboard extends CI_Controller {
     }
 
     function getActiveStudentDashboard() {
-        $data['monthNames'] = array_map(function ($ar) {
-            $session = get_instance()->session->userdata('user_session');
-            return $ar["$session->language"];
-        }, $this->config->item('custom_months'));
-
         $user = new User();
-        $data['users'] = $user->where('role_id', 6)->get(10);
+        $data['user'] = $user->where('id', $this->session_data->id)->get();
+
+        $userdetail = new Userdetail();
+        $data['userdetail'] = $userdetail->where('student_master_id', $this->session_data->id)->get();
+        $data['batch_detail'] = $userdetail->Batch;
+        if(!is_null($data['batch_detail']->cover_image)){
+            $data['cover_image'] = IMG_URL .'batches/cover_image/'. $data['batch_detail']->cover_image;
+            $data['batch_image'] = IMG_URL .'batches/'. $data['batch_detail']->image;
+        } else {
+            $data['cover_image'] = IMG_URL .'banner.png';
+            $data['batch_image'] = null;
+        }
+
+        $clan = new Clan($data['userdetail']->clan_id);
+        $data['ac_sc_clan_name'] = $clan->School->Academy->{$this->session_data->language.'_academy_name'} .', '. $clan->School->{$this->session_data->language.'_school_name'} .', '. $clan->{$this->session_data->language.'_class_name'};
+
+        $challenge_user = new User();
+        $data['challenge_users'] = $challenge_user->where(array('role_id'=>6, 'status' => 'A'))->get(10);
 
         $this->layout->view('dashboard/student', $data);
     }
