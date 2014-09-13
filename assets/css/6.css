@@ -17,6 +17,10 @@ footer {
     line-height: 170%;
 }
 
+.text-primary{
+    color: #29AF8E !important;
+}
+
 /* Sidebar Menu */
 .sidebar-left {
     background: #fff;
@@ -98,4 +102,23 @@ border-color: #d63d36;
 
 .btn-group.open .dropdown-toggle {
 box-shadow: none;
+}
+
+.bg-default{
+    color: #fff;
+    background-color: #ddddda;
+}
+
+#statistics-challenge{
+    height: 350px;
+}
+
+#top-five-users .top-user-image{
+    width: 50px;
+    position: relative;
+    margin-right: 10px;
+}
+
+.duel-single .bg-success{
+    background-color: #8CC152;
 }

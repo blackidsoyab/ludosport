@@ -169,6 +169,13 @@ $route['history'] = "students/viewHistory";
 $route['rating'] = "students/viewTopRating";
 $route['rating_list'] = "students/viewRatingList";
 $route['duels'] = "students/viewDuelsList";
+$route['duels/do_it'] = "students/challengeStudent";
+$route['duels/json_data/(:num)/(:any)'] = "json/getDuelJsonData/$1/$2";
+$route['duels/json_data/(:num)/(:any)/(:any)'] = "json/getDuelJsonData/$1/$2/$3";
+$route['duels/view'] = "students/duelView";
+$route['duels/view/(:any)'] = "students/duelView/$1";
+$route['duels/single/(:num)'] = "students/duelSingleView/$1";
+$route['duels/single/(:num)/(:any)'] = "students/duelSingleView/$1/$2";
 
 //Pending Student
 $route['getclanonlocation/(:num)'] = "ajax/getClanDetails/$1";

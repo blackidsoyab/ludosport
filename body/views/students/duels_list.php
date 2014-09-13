@@ -1,1 +1,0 @@
-<h1 class="page-heading h1"><?php echo $this->lang->line('duels'); ?></h1>

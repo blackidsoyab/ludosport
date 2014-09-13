@@ -44,9 +44,16 @@ body.login{
 ----------------------------------------------
 **/
 .text-black{
-    color: #000000;
+    color: #000 !important;
 }
 
+.text-white{
+    color: #fff !important;
+}
+
+.bg-danger .error{
+    color: #fff;   
+}
 .text-justify{
     text-align: justify;
 }
@@ -460,3 +467,52 @@ footer{
 .profile-heading .profile-info .text-muted {
     width: 80%;
 }
+
+.avatar-60{
+    width: 60px;
+    height: 60px;
+}
+ /* ******* DUELS LIST ******  */
+.label-default-warning{
+    background: -webkit-linear-gradient(left, #AAB2BD 60%, #F6BB42 40%);
+    background: -o-linear-gradient(right, #AAB2BD 60%, #F6BB42 40%);
+    background: -moz-linear-gradient(right, #AAB2BD 60%, #F6BB42 40%);
+    background: linear-gradient(to right, #AAB2BD 60% , #F6BB42 40%);
+}
+
+.label-default-success{
+    background: -webkit-linear-gradient(left, #AAB2BD 60%, #8CC152 40%);
+    background: -o-linear-gradient(right, #AAB2BD 60%, #8CC152 40%);
+    background: -moz-linear-gradient(right, #AAB2BD 60%, #8CC152 40%);
+    background: linear-gradient(to right, #AAB2BD 60% , #8CC152 40%);
+}
+
+.label-default-danger{
+    background: -webkit-linear-gradient(left, #AAB2BD 60%, #E9573F 40%);
+    background: -o-linear-gradient(right, #AAB2BD 60%, #E9573F 40%);
+    background: -moz-linear-gradient(right, #AAB2BD 60%, #E9573F 40%);
+    background: linear-gradient(to right, #AAB2BD 60% , #E9573F 40%);
+}
+
+.label-info-warning{
+    background: -webkit-linear-gradient(left, #3BAFDA 60%, #F6BB42 40%);
+    background: -o-linear-gradient(right, #3BAFDA 60%, #F6BB42 40%);
+    background: -moz-linear-gradient(right, #3BAFDA 60%, #F6BB42 40%);
+    background: linear-gradient(to right, #3BAFDA 60% , #F6BB42 40%);
+}
+
+.label-info-success{
+    background: -webkit-linear-gradient(left, #3BAFDA 60%, #8CC152 40%);
+    background: -o-linear-gradient(right, #3BAFDA 60%, #8CC152 40%);
+    background: -moz-linear-gradient(right, #3BAFDA 60%, #8CC152 40%);
+    background: linear-gradient(to right, #3BAFDA 60% , #8CC152 40%);
+}
+
+.label-info-danger{
+    background: -webkit-linear-gradient(left, #3BAFDA 60%, #E9573F 40%);
+    background: -o-linear-gradient(right, #3BAFDA 60%, #E9573F 40%);
+    background: -moz-linear-gradient(right, #3BAFDA 60%, #E9573F 40%);
+    background: linear-gradient(to right, #3BAFDA 60% , #E9573F 40%);
+}
+
+/* ******* ------------- ******  */

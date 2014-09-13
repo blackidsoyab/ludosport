@@ -118,6 +118,18 @@ function makeURL($options) {
         $url = base_url() . 'dean/absence_approval/' . $options['object_id'] . '/notification';
     }
 
+    if ($options['notify_type'] == 'challenge_made') {
+        $url = base_url() . 'duels/single/' . $options['object_id'] . '/notification';
+    }
+
+    if ($options['notify_type'] == 'challenge_accepted') {
+        $url = base_url() . 'duels/single/' . $options['object_id'] . '/notification';
+    }
+
+    if ($options['notify_type'] == 'challenge_rejected') {
+        $url = base_url() . 'duels/single/' . $options['object_id'] . '/notification';
+    }
+
     return $url;
 }
 
@@ -234,6 +246,29 @@ function getMessageTemplate($options) {
         $new_template = sprintf($templates[$options['notify_type']][$session->language],$clan->{$session->language.'_class_name'}, date('d-m-Y', strtotime($options['data']['clan_shift_from'])), date('d-m-Y', strtotime($options['data']['clan_date'])));
     }
 
+    if ($options['notify_type'] == 'challenge_made') {
+        $template_edit = true;
+        $user_name = userNameAvtar($options['data']['from_id']);
+        //$link = '<a href="'.base_url().'profile/view/'.$options['data']['from_id'].'">' . $user_name['name'] .'</a>';
+        $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name']);
+    }
+
+    if ($options['notify_type'] == 'challenge_accepted') {
+        $template_edit = true;
+        $user_name = userNameAvtar($options['data']['to_id']);
+        $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name']);
+    }
+
+    if ($options['notify_type'] == 'challenge_rejected') {
+        $template_edit = true;
+        if($options['data']['to_status'] == 'R'){
+            $user_name = userNameAvtar($options['data']['to_id']);
+        }else{
+            $user_name = userNameAvtar($options['data']['from_id']);
+        }
+        $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name']);
+    }
+
     if ($template_edit) {
         return $new_template;
     } else {
@@ -332,6 +367,21 @@ function setMessageTemplate($options) {
         array(
             'en' => 'Your clan %s has been reschedule from %s to %s',
             'it' => 'Your clan %s has been reschedule from %s to %s',
+        ),
+        'challenge_made' =>
+        array(
+            'en' => '%s has challenged you.',
+            'it' => '%s has challenged you.',
+        ),
+        'challenge_accepted' =>
+        array(
+            'en' => '%s has accepted the challenge.',
+            'it' => '%s has accepted the challenge.',
+        ),
+        'challenge_rejected' =>
+        array(
+            'en' => '%s has rejected the challenge.',
+            'it' => '%s has rejected the challenge.',
         ),
     );
 

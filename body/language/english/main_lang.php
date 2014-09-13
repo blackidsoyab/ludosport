@@ -319,4 +319,8 @@ $lang['subject'] = 'Subject';
 $lang['discard'] = 'Discard';
 $lang['leave_group'] = 'Leave Group';
 $lang['attachmments'] = 'Attachmment(s)';
+
+//Challenges
+$lang['duel_accept'] = 'Yes, I am ready';
+$lang['duel_reject'] = 'Right now, Not interested';
 ?>

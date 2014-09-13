@@ -868,4 +868,79 @@ class json extends CI_Controller {
         exit();
     }
 
+    function getDuelJsonData($user_id, $type = 'all', $type_2 = null){
+        $where = null;
+
+        if($type == 'all'){
+            $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .')';
+        } else if($type == 'made'){
+            if(is_null($type_2) || $type_2 == 'null'){
+                $where = ' AND from_id=' . $user_id;
+            }else{
+                $where = ' AND from_id=' . $user_id .' AND to_status ="' . $type_2 .'"';
+            }
+        } else if($type == 'received'){
+            if(is_null($type_2) || $type_2 == 'null'){
+                $where = ' AND to_id=' . $user_id;
+            }else{
+                $where = ' AND to_id=' . $user_id .' AND to_status ="' . $type_2 .'"';
+            }
+        } else if($type == 'rejected'){
+            $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND (to_status ="R" OR from_status ="R")';
+        } else if($type == 'accepted'){
+            $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND (to_status ="A" OR from_status ="A")';
+        } else if($type == 'pending'){
+            $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND (to_status ="P" OR from_status ="P")';
+        }
+
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('CONCAT(from_user.firstname," ",from_user.lastname) AS from_name', 'from_user.avtar AS from_avtar', 'from_userdetail.total_score AS from_total_score', 'CONCAT(to_user.firstname," ",to_user.lastname) AS to_name', 'to_user.avtar AS to_avtar', 'to_userdetail.total_score AS to_total_score');
+        $this->datatable->eColumns = array('challenges.from_id', 'challenges.to_id', 'challenges.id', 'challenges.from_status', 'challenges.to_status', 'challenges.made_on', 'challenges.status_changed_on', 'challenges.played_on', 'challenges.result', 'challenges.result_status');
+        $this->datatable->sIndexColumn = "challenges.id";
+        $this->datatable->sTable = " challenges, users from_user, users to_user, userdetails from_userdetail, userdetails to_userdetail";
+        $this->datatable->myWhere = ' WHERE from_user.id= challenges.from_id AND to_user.id = challenges.to_id AND from_userdetail.student_master_id=from_user.id AND to_userdetail.student_master_id=to_user.id' . $where;   
+
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $link_type = null;
+            if($aRow['from_id'] == $user_id){
+                $temp_arr[] = '<img src="'. IMG_URL .'user_avtar/40X40/' . $aRow['to_avtar'] .'" class="avatar img-circle" alt="avatar"><a href="'. base_url().'profile/view/'.$aRow['to_id'].'">'. $aRow['to_name'] .'</a>';
+                $temp_arr[] =$aRow['to_total_score'];
+                
+                if($aRow['to_status'] == 'P'){
+                    $temp_arr[] = '<span class="label label-default-warning">'.$this->lang->line('pending').'</span>';
+                } else if($aRow['to_status'] == 'A'){
+                    $temp_arr[] = '<span class="label label-default-success">'.$this->lang->line('accepted').'</span>';
+                } else if($aRow['to_status'] == 'R'){
+                    $temp_arr[] = '<span class="label label-default-danger">'.$this->lang->line('rejected').'</span>';
+                }
+            } else if($aRow['to_id'] == $user_id){
+                $temp_arr[] = '<img src="'. IMG_URL .'user_avtar/40X40/' . $aRow['from_avtar'] .'" class="avatar img-circle" alt="avatar"><a href="'. base_url().'profile/view/'.$aRow['from_id'].'">'. $aRow['from_name'] .'</a>';
+                $temp_arr[] =$aRow['from_total_score'];
+                
+                if($aRow['to_status'] == 'P'){
+                    $temp_arr[] = '<span class="label label-info-warning">'.$this->lang->line('pending').'</span>';
+                } else if($aRow['to_status'] == 'A'){
+                    $temp_arr[] = '<span class="label label-info-success">'.$this->lang->line('accepted').'</span>';
+                } else if($aRow['to_status'] == 'R'){
+                    $temp_arr[] = '<span class="label label-info-danger">'.$this->lang->line('rejected').'</span>';
+                }
+            }
+
+            if($type == 'all') {
+                $type = $link_type;
+            }
+        
+            $temp_arr[] = $aRow['from_id'].'-'.$aRow['to_id'].' : '.$user_id;
+            //date('d-m-Y', strtotime($aRow['made_on']));
+            $temp_arr[] = '<a href="'. base_url() .'duels/single/' . $aRow['id'] .'" data-toggle="tooltip" data-placement="bottom" data-original-title="detail view" class="btn btn-default btn-xs"><i class="fa fa-share"></i></a>';
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
 }

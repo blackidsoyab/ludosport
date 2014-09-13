@@ -1,6 +1,4 @@
-<?php
-$session = $this->session->userdata('user_session');
-?>
+<?php $session = $this->session->userdata('user_session'); ?>
 <script type="text/javascript">
     $(document).ready(function(){
         if ($('#store-item-carousel-1').length > 0){
@@ -48,13 +46,12 @@ $session = $this->session->userdata('user_session');
                                 <img src="<?php echo IMG_URL . 'user_avtar/100X100/' . $challenge_user->avtar; ?>" class="avatar img-circle has-white-shadow media-object" alt="avatar">
                                 </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading"><?php echo $challenge_user->firstname,' ',$challenge_user->lastname; ?></h4>
+                                    <h4 class="media-heading"><?php echo $challenge_user->name; ?></h4>
                                 </div>
                             </div>
                         </div>
                         <div class="des">
                             <h4 class="bolded"><a href="#fakelink">Challenged you!</a></h4>
-                            <p class="small"><?php echo date('d-m-Y', $challenge_user->date_of_birth); ?></p>
                             <p class="small">Pick the gauntlet up and prepare to fight.</p>
                             <a href="<?php echo base_url() .'profile/view/' . $challenge_user->id; ?>" class="btn btn-warning btn-sm">Accept the duel</a>
                         </div>
@@ -82,7 +79,7 @@ $session = $this->session->userdata('user_session');
     <div class="row">
         <div class="col-lg-12">
             <div class="the-box no-border">
-                <h4 class="small-heading more-margin-bottom text-center">The best <?php echo count($challenge_users->all)?></h4>
+                <h4 class="small-heading more-margin-bottom text-center">The best <?php echo count($challenge_users)?></h4>
                 <div id="store-item-carousel-1" class="owl-carousel shop-carousel owl-theme">
                 <?php  foreach ($challenge_users as $challenge_user) { ?>
                     <div class="item">
@@ -92,7 +89,7 @@ $session = $this->session->userdata('user_session');
                             </a>
                             <div class="media-body">
                                 <h4 class="media-heading nowrap overflow-hidden overflow-text-dot">
-                                    <a href="<?php echo base_url() .'profile/view/' . $challenge_user->id; ?>" data-toggle="tooltip" data-original-title="<?php echo $challenge_user->firstname,' ',$challenge_user->lastname; ?>"><?php echo $challenge_user->firstname,' ',$challenge_user->lastname; ?></a>
+                                    <a href="<?php echo base_url() .'profile/view/' . $challenge_user->id; ?>" data-toggle="tooltip" data-original-title="<?php echo $challenge_user->name; ?>"><?php echo $challenge_user->name; ?></a>
                                 </h4>
                                 <p class="price text-danger"><strong>1</strong></p>
                             </div>
@@ -108,21 +105,22 @@ $session = $this->session->userdata('user_session');
 <div class="col-lg-4">
     <div class="panel panel-warning panel-square panel-no-border">
         <div class="panel-heading">
-            <span class="bolded">Number Rating: 5</span>
+            <span class="bolded"><a class="text-white padding-killer" href="<?php echo base_url() . 'profile/view/' . $user->id; ?>"><?php echo $user->firstname .' ' . $user->lastname; ?></a></span>
         </div>
 
         <div class="the-box no-border full card-info">
             <div class="the-box no-border text-center no-margin">
-                <h4 class="bolded"><a href="<?php echo base_url() . 'profile/view/' . $user->id; ?>"><?php echo $session->name; ?></a></h4>
                 <img src="<?php echo IMG_URL . 'user_avtar/70X70/' . $session->avtar; ?>" class="social-avatar has-margin has-light-shadow img-circle" alt="Avatar">
                 <p class="text-info"><?php echo @$batch_detail->{$session->language.'_name'}; ?></p>
                 <p class="text-muted">Gegio: <?php echo @$ac_sc_clan_name; ?></p>
-                <p class="bordered">
-                <i class="fa fa-star text-warning"></i>
-                <i class="fa fa-star text-warning"></i>
-                <i class="fa fa-star text-warning"></i>
-                <i class="fa fa-star text-warning"></i>
-                <i class="fa fa-star text-warning"></i>
+                <p class="text-muted bordered">
+                <?php
+                    $role_name = NULL;
+                    foreach (explode(',', $user->role_id) as $role) {
+                        $role_name .= ', ' . getRoleName($role);
+                    }
+                    echo substr($role_name, 2);
+                ?>
                 </p>
                 <?php if(!is_null($user->quote) && !empty($user->quote)) { ?>
                     <p class="text-muted">

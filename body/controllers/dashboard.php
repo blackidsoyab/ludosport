@@ -169,8 +169,8 @@ class dashboard extends CI_Controller {
         $clan = new Clan($data['userdetail']->clan_id);
         $data['ac_sc_clan_name'] = $clan->School->Academy->{$this->session_data->language.'_academy_name'} .', '. $clan->School->{$this->session_data->language.'_school_name'} .', '. $clan->{$this->session_data->language.'_class_name'};
 
-        $challenge_user = new User();
-        $data['challenge_users'] = $challenge_user->where(array('role_id'=>6, 'status' => 'A'))->get(10);
+        $challenge_user = new Userdetail();
+        $data['challenge_users'] = $challenge_user->topStudents(10);
 
         $this->layout->view('dashboard/student', $data);
     }

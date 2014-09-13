@@ -179,9 +179,9 @@ if (!function_exists('colorOfBlades')) {
                 }
             }else{
                 if(is_null($return)){
-                    return $array[6];
+                    return $array[2];
                 }else{
-                    return $array[6][$return];
+                    return $array[2][$return];
                 }
             }
         }

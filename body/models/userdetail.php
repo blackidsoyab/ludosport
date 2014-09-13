@@ -200,6 +200,156 @@ class Userdetail extends DataMapper {
         return $res[0]->total;
     }
 
+    function randomUserDetails(){
+        $session = get_instance()->session->userdata('user_session');
+        $this->db->_protect_identifiers = false;
+        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar');
+        $this->db->from('users');
+        $this->db->join('userdetails', 'users.id=userdetails.student_master_id');
+        $this->db->where('users.status', 'A');
+        $this->db->order_by('RAND()');
+        $this->db->limit(1);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $return = $res->result();
+            if($return[0]->id != $session->id){
+                return $return[0];
+            } else{
+                return $this->randomUserDetails();
+            }
+        } else {
+            return $this->randomUserDetails();
+        }
+    }
+
+    function userForChallenge($user_id, $type = 'all', $limit = 1){
+        $session = get_instance()->session->userdata('user_session');
+        $this->db->_protect_identifiers = false;
+        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, users.status, userdetails.total_score');
+        $this->db->from('userdetails');
+        if($type == 'all'){
+            $this->db->join('users', 'users.id=userdetails.student_master_id');
+        } else if($type == 'academy'){
+            $this->db->join('users', 'users.id=userdetails.student_master_id');
+            $this->db->join('clans', 'clans.id=userdetails.clan_id');
+            $this->db->join('schools', 'schools.id=clans.school_id');
+            $this->db->join('academies', 'academies.id=schools.academy_id');
+            $this->db->join('schools sc2', 'academies.id=sc2.academy_id');
+            $this->db->join('clans c2', 'sc2.id=c2.school_id');
+            $this->db->join('userdetails s2', 'c2.id=s2.clan_id');
+            $this->db->where('s2.student_master_id ', $user_id);
+        } else if($type == 'school'){
+            $this->db->join('users', 'users.id=userdetails.student_master_id');
+            $this->db->join('clans', 'clans.id=userdetails.clan_id');
+            $this->db->join('schools', 'schools.id=clans.school_id');
+            $this->db->join('clans c2', 'schools.id=c2.school_id');
+            $this->db->join('userdetails s2', 'c2.id=s2.clan_id');
+            $this->db->where('s2.student_master_id ', $user_id);
+        } if($type == 'clan'){
+            $this->db->join('users', 'users.id=userdetails.student_master_id');
+            $this->db->join('clans', 'clans.id=userdetails.clan_id');
+            $this->db->join('userdetails s2', 'clans.id=s2.clan_id');
+            $this->db->where('s2.student_master_id ', $user_id);
+        }
+        $this->db->where('userdetails.student_master_id !=', $user_id);
+        $this->db->order_by('RAND()');
+        $this->db->where('users.status', 'A');
+        $this->db->limit($limit);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $return = $res->result();
+            return $return[0];
+        } else {
+            return $this->randomUserDetails();
+        }
+    }
+
+    function beforeMeUserDetails($id, $limit){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, total_score');
+        $this->db->from('users');
+        $this->db->join('userdetails', 'users.id=userdetails.student_master_id');
+        $this->db->where('users.status', 'A');
+        $this->db->where('users.id !=', $id);
+        $this->db->order_by('RAND()');
+        $this->db->limit($limit);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $return = $res->result();
+            return $return;
+        } else {
+            return false;
+        }
+    }
+
+    function afterMeUserDetails($id, $limit){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, total_score');
+        $this->db->from('users');
+        $this->db->join('userdetails', 'users.id=userdetails.student_master_id');
+        $this->db->where('users.status', 'A');
+        $this->db->where('users.id !=', $id);
+        $this->db->order_by('RAND()');
+        $this->db->limit($limit);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $return = $res->result();
+            return $return;
+        } else {
+            return false;
+        }
+    }
+
+    function studentVictories($limit){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, total_score');
+        $this->db->from('users');
+        $this->db->join('userdetails', 'users.id=userdetails.student_master_id');
+        $this->db->where('users.status', 'A');
+        $this->db->order_by('RAND()');
+        $this->db->limit($limit);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $return = $res->result();
+            return $return;
+        } else {
+            return false;
+        }
+    }
+
+    function studentDefeats($limit){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, total_score');
+        $this->db->from('users');
+        $this->db->join('userdetails', 'users.id=userdetails.student_master_id');
+        $this->db->where('users.status', 'A');
+        $this->db->order_by('RAND()');
+        $this->db->limit($limit);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $return = $res->result();
+            return $return;
+        } else {
+            return false;
+        }
+    }
+
+    function topStudents($limit){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, total_score');
+        $this->db->from('users');
+        $this->db->join('userdetails', 'users.id=userdetails.student_master_id');
+        $this->db->where('users.status', 'A');
+        $this->db->order_by('RAND()');
+        $this->db->limit($limit);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $return = $res->result();
+            return $return;
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>

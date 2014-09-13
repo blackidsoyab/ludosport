@@ -34,7 +34,7 @@ class notifications extends CI_Controller {
                 if ($obj->type == 'N') {
                     $user_info = userNameAvtar($obj->from_id);
                     $message = getMessageTemplate($options);
-                    $img = '<img src="' . $user_info['avtar'] . '" class="media-object img-circle" alt="Avatar">';
+                    $img = '<img src="' . $user_info['avtar'] . '" class="media-object img-circle" alt="Avatar" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $user_info['name'] . '">';
                 } else {
                     $message = getMessageTemplate($options);
                     $img = '<i class="fa fa-3x fa-info-circle"></i>';

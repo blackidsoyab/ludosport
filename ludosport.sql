@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 11, 2014 at 06:46 PM
+-- Generation Time: Sep 13, 2014 at 06:37 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.13
 
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `batches` (
   `description` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
 
 --
 -- Dumping data for table `batches`
@@ -156,6 +156,35 @@ INSERT INTO `batches` (`id`, `type`, `en_name`, `it_name`, `image`, `cover_image
 (42, 'S', 'Style Master in Djem-So', 'Maestro di Djem-So', '6198824741d2cef9be0fff724cf4f777.png', NULL, '<p><br></p>', 2, '2014-09-04 14:20:51'),
 (43, 'S', 'Style Master in Niman', 'Maestro di Niman', '31bf67508bc6ab370e6913dbb0f9dbe1.png', NULL, '<p><br></p>', 2, '2014-09-04 14:21:08'),
 (44, 'S', 'Style Master in Vaapad', 'Maestro di Vaapad', '2e622daab8de916330cf3d1d06e27a59.png', NULL, '<p><br></p>', 2, '2014-09-04 14:21:24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `challenges`
+--
+
+CREATE TABLE IF NOT EXISTS `challenges` (
+`id` int(11) NOT NULL,
+  `from_id` int(11) NOT NULL,
+  `from_status` enum('A','R') NOT NULL DEFAULT 'A',
+  `to_id` int(11) NOT NULL,
+  `to_status` enum('P','A','R') NOT NULL DEFAULT 'P',
+  `made_on` datetime NOT NULL,
+  `status_changed_on` datetime DEFAULT NULL,
+  `played_on` datetime NOT NULL,
+  `place` varchar(255) DEFAULT NULL,
+  `result` int(11) NOT NULL DEFAULT '0',
+  `result_status` enum('MP','MNP','SP') NOT NULL DEFAULT 'MNP',
+  `user_id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `challenges`
+--
+
+INSERT INTO `challenges` (`id`, `from_id`, `from_status`, `to_id`, `to_status`, `made_on`, `status_changed_on`, `played_on`, `place`, `result`, `result_status`, `user_id`, `timestamp`) VALUES
+(1, 25, 'A', 23, 'A', '2014-09-13 18:23:50', '2014-09-13 18:24:26', '2014-09-15 10:00:00', '0', 0, 'MNP', 25, '2014-09-13 12:53:50');
 
 -- --------------------------------------------------------
 
@@ -291,7 +320,7 @@ CREATE TABLE IF NOT EXISTS `emails` (
   `format_info` text CHARACTER SET utf8,
   `user_id` int(11) NOT NULL DEFAULT '1',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `emails`
@@ -314,7 +343,8 @@ INSERT INTO `emails` (`id`, `type`, `subject`, `message`, `attachment`, `format_
 (14, 'recovery_teacher', 'Recovery Teacher | MyLudosport', '<div><span>Dear #user_name,</span></div><div><span><br></span></div><div><span><br></span></div><div>You will take lesson of #clan_name on #clan_date in place of #teacher_name.</div><div><span>It is approved by #approved_user_name.</span><br></div><div><br></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#clan_name\r\n#clan_date\r\n#teacher_name\r\n#approved_user_name', 2, '2014-08-25 08:05:22'),
 (15, 'holiday_approved', 'Holiday Approved | MyLudosport', '<div><span>Dear #user_name,</span></div><div><br></div><div>Your request for holiday on #date is approved.</div><div><span>It is approved by #authorized_user_name</span><span>.</span><br></div><div><br></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#date\r\n#authorized_user_name', 2, '2014-08-25 08:05:22'),
 (16, 'holiday_upapproved', 'Holiday Unapproved | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>Your request for holiday on #date is <span>unapproved</span>.</div><div>It is unapproved by #authorized_user_name.<br></div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#date\r\n#authorized_user_name', 2, '2014-08-25 08:05:22'),
-(17, 'change_clan_date', 'Clan Reschedule | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>The #clan_name of #school_name at #academy_name has been&nbsp;reschedule from #from_date to #to_date.</div><div><br></div><div>It is done by #authorized_user_name.<br></div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#clan_name\r\n#school_name\r\n#academy_name\r\n#from_date\r\n#to_date\r\n#authorized_user_name', 1, '2014-09-09 11:56:53');
+(17, 'change_clan_date', 'Clan Reschedule | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>The #clan_name of #school_name at #academy_name has been&nbsp;reschedule from #from_date to #to_date.</div><div><br></div><div>It is done by #authorized_user_name.<br></div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#clan_name\r\n#school_name\r\n#academy_name\r\n#from_date\r\n#to_date\r\n#authorized_user_name', 1, '2014-09-09 11:56:53'),
+(18, 'challenge_made', 'Open Challenge | MyLudosport', '<div>Dear #to_name,</div><div><br></div><div>You have received challenge from #from_name on date : #on_date #on_time.</div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#to_name\r\n#from_name\r\n#on_date\r\n#to_time', 1, '2014-09-09 11:56:53');
 
 -- --------------------------------------------------------
 
@@ -570,7 +600,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `data` longtext,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=805 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=815 ;
 
 --
 -- Dumping data for table `notifications`
@@ -652,7 +682,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (78, 'N', 'rector_assign_academy', 2, 20, 6, NULL, 0, '2014-08-04 07:44:24'),
 (79, 'N', 'rector_assign_academy', 2, 20, 7, NULL, 0, '2014-08-04 07:45:33'),
 (80, 'N', 'dean_assign_school', 2, 24, 9, NULL, 0, '2014-08-04 14:59:20'),
-(81, 'N', 'dean_assign_school', 2, 25, 10, NULL, 0, '2014-08-04 15:12:03'),
+(81, 'N', 'dean_assign_school', 2, 25, 10, NULL, 1, '2014-08-04 15:12:03'),
 (82, 'N', 'dean_assign_school', 2, 26, 11, NULL, 0, '2014-08-04 15:13:02'),
 (83, 'N', 'dean_assign_school', 2, 27, 12, NULL, 0, '2014-08-04 15:14:11'),
 (84, 'N', 'dean_assign_school', 2, 28, 13, NULL, 0, '2014-08-04 15:15:21'),
@@ -685,7 +715,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (111, 'I', 'user_register', 0, 22, 62, NULL, 0, '2014-08-27 15:20:33'),
 (112, 'I', 'user_register', 0, 23, 62, NULL, 0, '2014-08-27 15:20:35'),
 (113, 'I', 'user_register', 0, 24, 62, NULL, 0, '2014-08-27 15:20:37'),
-(114, 'I', 'user_register', 0, 25, 62, NULL, 0, '2014-08-27 15:20:39'),
+(114, 'I', 'user_register', 0, 25, 62, NULL, 1, '2014-08-27 15:20:39'),
 (115, 'I', 'user_register', 0, 26, 62, NULL, 0, '2014-08-27 15:20:41'),
 (116, 'I', 'user_register', 0, 27, 62, NULL, 0, '2014-08-27 15:20:43'),
 (117, 'I', 'user_register', 0, 28, 62, NULL, 0, '2014-08-27 15:20:45'),
@@ -711,7 +741,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (137, 'I', 'user_register', 0, 22, 63, NULL, 0, '2014-08-27 16:28:08'),
 (138, 'I', 'user_register', 0, 23, 63, NULL, 0, '2014-08-27 16:28:10'),
 (139, 'I', 'user_register', 0, 24, 63, NULL, 0, '2014-08-27 16:28:12'),
-(140, 'I', 'user_register', 0, 25, 63, NULL, 0, '2014-08-27 16:28:14'),
+(140, 'I', 'user_register', 0, 25, 63, NULL, 1, '2014-08-27 16:28:14'),
 (141, 'I', 'user_register', 0, 29, 63, NULL, 0, '2014-08-27 16:28:16'),
 (142, 'I', 'user_register', 0, 30, 63, NULL, 0, '2014-08-27 16:28:18'),
 (143, 'I', 'user_register', 0, 31, 63, NULL, 0, '2014-08-27 16:28:20'),
@@ -734,7 +764,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (160, 'I', 'user_register', 0, 22, 64, NULL, 0, '2014-08-27 16:33:57'),
 (161, 'I', 'user_register', 0, 23, 64, NULL, 0, '2014-08-27 16:33:59'),
 (162, 'I', 'user_register', 0, 24, 64, NULL, 0, '2014-08-27 16:34:01'),
-(163, 'I', 'user_register', 0, 25, 64, NULL, 0, '2014-08-27 16:34:03'),
+(163, 'I', 'user_register', 0, 25, 64, NULL, 1, '2014-08-27 16:34:03'),
 (164, 'I', 'user_register', 0, 29, 64, NULL, 0, '2014-08-27 16:34:05'),
 (165, 'I', 'user_register', 0, 30, 64, NULL, 0, '2014-08-27 16:34:07'),
 (166, 'I', 'user_register', 0, 31, 64, NULL, 0, '2014-08-27 16:34:09'),
@@ -757,7 +787,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (183, 'I', 'user_register', 0, 22, 65, NULL, 0, '2014-08-27 16:38:16'),
 (184, 'I', 'user_register', 0, 23, 65, NULL, 0, '2014-08-27 16:38:18'),
 (185, 'I', 'user_register', 0, 24, 65, NULL, 0, '2014-08-27 16:38:20'),
-(186, 'I', 'user_register', 0, 25, 65, NULL, 0, '2014-08-27 16:38:22'),
+(186, 'I', 'user_register', 0, 25, 65, NULL, 1, '2014-08-27 16:38:22'),
 (187, 'I', 'user_register', 0, 29, 65, NULL, 0, '2014-08-27 16:38:24'),
 (188, 'I', 'user_register', 0, 30, 65, NULL, 0, '2014-08-27 16:38:26'),
 (189, 'I', 'user_register', 0, 31, 65, NULL, 0, '2014-08-27 16:38:28'),
@@ -780,7 +810,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (206, 'I', 'user_register', 0, 22, 66, NULL, 0, '2014-08-27 16:40:03'),
 (207, 'I', 'user_register', 0, 23, 66, NULL, 0, '2014-08-27 16:40:05'),
 (208, 'I', 'user_register', 0, 24, 66, NULL, 0, '2014-08-27 16:40:07'),
-(209, 'I', 'user_register', 0, 25, 66, NULL, 0, '2014-08-27 16:40:09'),
+(209, 'I', 'user_register', 0, 25, 66, NULL, 1, '2014-08-27 16:40:09'),
 (210, 'I', 'user_register', 0, 29, 66, NULL, 0, '2014-08-27 16:40:11'),
 (211, 'I', 'user_register', 0, 30, 66, NULL, 0, '2014-08-27 16:40:13'),
 (212, 'I', 'user_register', 0, 31, 66, NULL, 0, '2014-08-27 16:40:15'),
@@ -803,7 +833,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (229, 'I', 'user_register', 0, 22, 67, NULL, 0, '2014-08-27 16:41:49'),
 (230, 'I', 'user_register', 0, 23, 67, NULL, 0, '2014-08-27 16:41:51'),
 (231, 'I', 'user_register', 0, 24, 67, NULL, 0, '2014-08-27 16:41:53'),
-(232, 'I', 'user_register', 0, 25, 67, NULL, 0, '2014-08-27 16:41:55'),
+(232, 'I', 'user_register', 0, 25, 67, NULL, 1, '2014-08-27 16:41:55'),
 (233, 'I', 'user_register', 0, 29, 67, NULL, 0, '2014-08-27 16:41:57'),
 (234, 'I', 'user_register', 0, 30, 67, NULL, 0, '2014-08-27 16:41:59'),
 (235, 'I', 'user_register', 0, 31, 67, NULL, 0, '2014-08-27 16:42:01'),
@@ -826,7 +856,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (252, 'I', 'user_register', 0, 22, 68, NULL, 0, '2014-08-27 16:46:38'),
 (253, 'I', 'user_register', 0, 23, 68, NULL, 0, '2014-08-27 16:46:40'),
 (254, 'I', 'user_register', 0, 24, 68, NULL, 0, '2014-08-27 16:46:42'),
-(255, 'I', 'user_register', 0, 25, 68, NULL, 0, '2014-08-27 16:46:44'),
+(255, 'I', 'user_register', 0, 25, 68, NULL, 1, '2014-08-27 16:46:44'),
 (256, 'I', 'user_register', 0, 29, 68, NULL, 0, '2014-08-27 16:46:46'),
 (257, 'I', 'user_register', 0, 30, 68, NULL, 0, '2014-08-27 16:46:48'),
 (258, 'I', 'user_register', 0, 31, 68, NULL, 0, '2014-08-27 16:46:50'),
@@ -849,7 +879,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (275, 'I', 'user_register', 0, 22, 69, NULL, 0, '2014-08-27 16:48:47'),
 (276, 'I', 'user_register', 0, 23, 69, NULL, 0, '2014-08-27 16:48:49'),
 (277, 'I', 'user_register', 0, 24, 69, NULL, 0, '2014-08-27 16:48:51'),
-(278, 'I', 'user_register', 0, 25, 69, NULL, 0, '2014-08-27 16:48:53'),
+(278, 'I', 'user_register', 0, 25, 69, NULL, 1, '2014-08-27 16:48:53'),
 (279, 'I', 'user_register', 0, 29, 69, NULL, 0, '2014-08-27 16:48:55'),
 (280, 'I', 'user_register', 0, 30, 69, NULL, 0, '2014-08-27 16:48:57'),
 (281, 'I', 'user_register', 0, 31, 69, NULL, 0, '2014-08-27 16:48:59'),
@@ -872,7 +902,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (298, 'I', 'user_register', 0, 60, 69, NULL, 0, '2014-08-27 16:49:27'),
 (299, 'I', 'user_register', 0, 23, 70, NULL, 0, '2014-08-27 16:49:28'),
 (300, 'I', 'user_register', 0, 24, 70, NULL, 0, '2014-08-27 16:49:30'),
-(301, 'I', 'user_register', 0, 25, 70, NULL, 0, '2014-08-27 16:49:32'),
+(301, 'I', 'user_register', 0, 25, 70, NULL, 1, '2014-08-27 16:49:32'),
 (302, 'I', 'user_register', 0, 29, 70, NULL, 0, '2014-08-27 16:49:34'),
 (303, 'I', 'user_register', 0, 30, 70, NULL, 0, '2014-08-27 16:49:36'),
 (304, 'I', 'user_register', 0, 31, 70, NULL, 0, '2014-08-27 16:49:38'),
@@ -895,7 +925,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (321, 'I', 'user_register', 0, 22, 71, NULL, 0, '2014-08-27 16:50:33'),
 (322, 'I', 'user_register', 0, 23, 71, NULL, 0, '2014-08-27 16:50:35'),
 (323, 'I', 'user_register', 0, 24, 71, NULL, 0, '2014-08-27 16:50:37'),
-(324, 'I', 'user_register', 0, 25, 71, NULL, 0, '2014-08-27 16:50:39'),
+(324, 'I', 'user_register', 0, 25, 71, NULL, 1, '2014-08-27 16:50:39'),
 (325, 'I', 'user_register', 0, 29, 71, NULL, 0, '2014-08-27 16:50:41'),
 (326, 'I', 'user_register', 0, 30, 71, NULL, 0, '2014-08-27 16:50:43'),
 (327, 'I', 'user_register', 0, 31, 71, NULL, 0, '2014-08-27 16:50:45'),
@@ -918,7 +948,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (344, 'I', 'user_register', 0, 22, 72, NULL, 0, '2014-08-27 16:51:16'),
 (345, 'I', 'user_register', 0, 23, 72, NULL, 0, '2014-08-27 16:51:18'),
 (346, 'I', 'user_register', 0, 24, 72, NULL, 0, '2014-08-27 16:51:20'),
-(347, 'I', 'user_register', 0, 25, 72, NULL, 0, '2014-08-27 16:51:22'),
+(347, 'I', 'user_register', 0, 25, 72, NULL, 1, '2014-08-27 16:51:22'),
 (348, 'I', 'user_register', 0, 29, 72, NULL, 0, '2014-08-27 16:51:24'),
 (349, 'I', 'user_register', 0, 30, 72, NULL, 0, '2014-08-27 16:51:26'),
 (350, 'I', 'user_register', 0, 31, 72, NULL, 0, '2014-08-27 16:51:28'),
@@ -941,7 +971,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (367, 'I', 'user_register', 0, 22, 73, NULL, 0, '2014-08-27 16:52:19'),
 (368, 'I', 'user_register', 0, 23, 73, NULL, 0, '2014-08-27 16:52:21'),
 (369, 'I', 'user_register', 0, 24, 73, NULL, 0, '2014-08-27 16:52:23'),
-(370, 'I', 'user_register', 0, 25, 73, NULL, 0, '2014-08-27 16:52:25'),
+(370, 'I', 'user_register', 0, 25, 73, NULL, 1, '2014-08-27 16:52:25'),
 (371, 'I', 'user_register', 0, 29, 73, NULL, 0, '2014-08-27 16:52:27'),
 (372, 'I', 'user_register', 0, 30, 73, NULL, 0, '2014-08-27 16:52:29'),
 (373, 'I', 'user_register', 0, 31, 73, NULL, 0, '2014-08-27 16:52:31'),
@@ -962,7 +992,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (388, 'I', 'user_register', 0, 48, 73, NULL, 0, '2014-08-27 16:52:53'),
 (389, 'I', 'user_register', 0, 49, 73, NULL, 0, '2014-08-27 16:52:55'),
 (390, 'I', 'user_register', 0, 24, 74, NULL, 0, '2014-08-27 16:52:55'),
-(391, 'I', 'user_register', 0, 25, 74, NULL, 0, '2014-08-27 16:52:57'),
+(391, 'I', 'user_register', 0, 25, 74, NULL, 1, '2014-08-27 16:52:57'),
 (392, 'I', 'user_register', 0, 59, 73, NULL, 1, '2014-08-27 16:52:57'),
 (393, 'I', 'user_register', 0, 29, 74, NULL, 0, '2014-08-27 16:52:59'),
 (394, 'I', 'user_register', 0, 60, 73, NULL, 0, '2014-08-27 16:52:59'),
@@ -987,7 +1017,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (413, 'I', 'user_register', 0, 22, 75, NULL, 0, '2014-08-27 16:54:01'),
 (414, 'I', 'user_register', 0, 23, 75, NULL, 0, '2014-08-27 16:54:03'),
 (415, 'I', 'user_register', 0, 24, 75, NULL, 0, '2014-08-27 16:54:05'),
-(416, 'I', 'user_register', 0, 25, 75, NULL, 0, '2014-08-27 16:54:07'),
+(416, 'I', 'user_register', 0, 25, 75, NULL, 1, '2014-08-27 16:54:07'),
 (417, 'I', 'user_register', 0, 29, 75, NULL, 0, '2014-08-27 16:54:09'),
 (418, 'I', 'user_register', 0, 30, 75, NULL, 0, '2014-08-27 16:54:11'),
 (419, 'I', 'user_register', 0, 31, 75, NULL, 0, '2014-08-27 16:54:13'),
@@ -1010,7 +1040,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (436, 'I', 'user_register', 0, 60, 75, NULL, 0, '2014-08-27 16:54:41'),
 (437, 'I', 'user_register', 0, 23, 76, NULL, 0, '2014-08-27 16:54:41'),
 (438, 'I', 'user_register', 0, 24, 76, NULL, 0, '2014-08-27 16:54:43'),
-(439, 'I', 'user_register', 0, 25, 76, NULL, 0, '2014-08-27 16:54:45'),
+(439, 'I', 'user_register', 0, 25, 76, NULL, 1, '2014-08-27 16:54:45'),
 (440, 'I', 'user_register', 0, 29, 76, NULL, 0, '2014-08-27 16:54:47'),
 (441, 'I', 'user_register', 0, 30, 76, NULL, 0, '2014-08-27 16:54:49'),
 (442, 'I', 'user_register', 0, 31, 76, NULL, 0, '2014-08-27 16:54:51'),
@@ -1033,7 +1063,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (459, 'I', 'user_register', 0, 22, 77, NULL, 0, '2014-08-27 16:55:34'),
 (460, 'I', 'user_register', 0, 23, 77, NULL, 0, '2014-08-27 16:55:36'),
 (461, 'I', 'user_register', 0, 24, 77, NULL, 0, '2014-08-27 16:55:38'),
-(462, 'I', 'user_register', 0, 25, 77, NULL, 0, '2014-08-27 16:55:40'),
+(462, 'I', 'user_register', 0, 25, 77, NULL, 1, '2014-08-27 16:55:40'),
 (463, 'I', 'user_register', 0, 29, 77, NULL, 0, '2014-08-27 16:55:42'),
 (464, 'I', 'user_register', 0, 30, 77, NULL, 0, '2014-08-27 16:55:44'),
 (465, 'I', 'user_register', 0, 31, 77, NULL, 0, '2014-08-27 16:55:46'),
@@ -1056,7 +1086,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (482, 'I', 'user_register', 0, 22, 78, NULL, 0, '2014-08-27 16:56:46'),
 (483, 'I', 'user_register', 0, 23, 78, NULL, 0, '2014-08-27 16:56:48'),
 (484, 'I', 'user_register', 0, 24, 78, NULL, 0, '2014-08-27 16:56:50'),
-(485, 'I', 'user_register', 0, 25, 78, NULL, 0, '2014-08-27 16:56:52'),
+(485, 'I', 'user_register', 0, 25, 78, NULL, 1, '2014-08-27 16:56:52'),
 (486, 'I', 'user_register', 0, 29, 78, NULL, 0, '2014-08-27 16:56:54'),
 (487, 'I', 'user_register', 0, 30, 78, NULL, 0, '2014-08-27 16:56:56'),
 (488, 'I', 'user_register', 0, 31, 78, NULL, 0, '2014-08-27 16:56:58'),
@@ -1079,7 +1109,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (505, 'I', 'user_register', 0, 60, 78, NULL, 0, '2014-08-27 16:57:26'),
 (506, 'I', 'user_register', 0, 23, 79, NULL, 0, '2014-08-27 16:57:27'),
 (507, 'I', 'user_register', 0, 24, 79, NULL, 0, '2014-08-27 16:57:29'),
-(508, 'I', 'user_register', 0, 25, 79, NULL, 0, '2014-08-27 16:57:31'),
+(508, 'I', 'user_register', 0, 25, 79, NULL, 1, '2014-08-27 16:57:31'),
 (509, 'I', 'user_register', 0, 29, 79, NULL, 0, '2014-08-27 16:57:33'),
 (510, 'I', 'user_register', 0, 30, 79, NULL, 0, '2014-08-27 16:57:35'),
 (511, 'I', 'user_register', 0, 31, 79, NULL, 0, '2014-08-27 16:57:37'),
@@ -1102,7 +1132,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (528, 'I', 'user_register', 0, 22, 80, NULL, 0, '2014-08-27 16:58:06'),
 (529, 'I', 'user_register', 0, 23, 80, NULL, 0, '2014-08-27 16:58:08'),
 (530, 'I', 'user_register', 0, 24, 80, NULL, 0, '2014-08-27 16:58:10'),
-(531, 'I', 'user_register', 0, 25, 80, NULL, 0, '2014-08-27 16:58:12'),
+(531, 'I', 'user_register', 0, 25, 80, NULL, 1, '2014-08-27 16:58:12'),
 (532, 'I', 'user_register', 0, 29, 80, NULL, 0, '2014-08-27 16:58:14'),
 (533, 'I', 'user_register', 0, 30, 80, NULL, 0, '2014-08-27 16:58:16'),
 (534, 'I', 'user_register', 0, 31, 80, NULL, 0, '2014-08-27 16:58:18'),
@@ -1125,7 +1155,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (551, 'I', 'user_register', 0, 22, 81, NULL, 0, '2014-08-27 16:58:52'),
 (552, 'I', 'user_register', 0, 23, 81, NULL, 0, '2014-08-27 16:58:54'),
 (553, 'I', 'user_register', 0, 24, 81, NULL, 0, '2014-08-27 16:58:56'),
-(554, 'I', 'user_register', 0, 25, 81, NULL, 0, '2014-08-27 16:58:58'),
+(554, 'I', 'user_register', 0, 25, 81, NULL, 1, '2014-08-27 16:58:58'),
 (555, 'I', 'user_register', 0, 29, 81, NULL, 0, '2014-08-27 16:59:00'),
 (556, 'I', 'user_register', 0, 30, 81, NULL, 0, '2014-08-27 16:59:02'),
 (557, 'I', 'user_register', 0, 31, 81, NULL, 0, '2014-08-27 16:59:04'),
@@ -1148,7 +1178,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (574, 'I', 'user_register', 0, 22, 82, NULL, 0, '2014-08-27 16:59:32'),
 (575, 'I', 'user_register', 0, 23, 82, NULL, 0, '2014-08-27 16:59:34'),
 (576, 'I', 'user_register', 0, 24, 82, NULL, 0, '2014-08-27 16:59:36'),
-(577, 'I', 'user_register', 0, 25, 82, NULL, 0, '2014-08-27 16:59:38'),
+(577, 'I', 'user_register', 0, 25, 82, NULL, 1, '2014-08-27 16:59:38'),
 (578, 'I', 'user_register', 0, 29, 82, NULL, 0, '2014-08-27 16:59:40'),
 (579, 'I', 'user_register', 0, 30, 82, NULL, 0, '2014-08-27 16:59:42'),
 (580, 'I', 'user_register', 0, 31, 82, NULL, 0, '2014-08-27 16:59:44'),
@@ -1171,7 +1201,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (597, 'I', 'user_register', 0, 22, 83, NULL, 0, '2014-08-27 17:00:17'),
 (598, 'I', 'user_register', 0, 23, 83, NULL, 0, '2014-08-27 17:00:19'),
 (599, 'I', 'user_register', 0, 24, 83, NULL, 0, '2014-08-27 17:00:21'),
-(600, 'I', 'user_register', 0, 25, 83, NULL, 0, '2014-08-27 17:00:23'),
+(600, 'I', 'user_register', 0, 25, 83, NULL, 1, '2014-08-27 17:00:23'),
 (601, 'I', 'user_register', 0, 29, 83, NULL, 0, '2014-08-27 17:00:25'),
 (602, 'I', 'user_register', 0, 30, 83, NULL, 0, '2014-08-27 17:00:27'),
 (603, 'I', 'user_register', 0, 31, 83, NULL, 0, '2014-08-27 17:00:29'),
@@ -1194,7 +1224,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (620, 'I', 'user_register', 0, 22, 84, NULL, 0, '2014-08-27 17:01:23'),
 (621, 'I', 'user_register', 0, 23, 84, NULL, 0, '2014-08-27 17:01:25'),
 (622, 'I', 'user_register', 0, 24, 84, NULL, 0, '2014-08-27 17:01:27'),
-(623, 'I', 'user_register', 0, 25, 84, NULL, 0, '2014-08-27 17:01:29'),
+(623, 'I', 'user_register', 0, 25, 84, NULL, 1, '2014-08-27 17:01:29'),
 (624, 'I', 'user_register', 0, 29, 84, NULL, 0, '2014-08-27 17:01:31'),
 (625, 'I', 'user_register', 0, 30, 84, NULL, 0, '2014-08-27 17:01:33'),
 (626, 'I', 'user_register', 0, 31, 84, NULL, 0, '2014-08-27 17:01:35'),
@@ -1219,7 +1249,7 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (645, 'I', 'user_register', 0, 22, 102, 'a:9:{s:9:"firstname";s:6:"Davide";s:8:"lastname";s:11:"Cortellessa";s:8:"username";s:11:"Cortellessa";s:7:"city_id";s:1:"6";s:13:"date_of_birth";s:10:"17-04-1990";s:5:"email";s:20:"cordavide@hotmail.it";s:8:"password";s:6:"davide";s:9:"cpassword";s:6:"davide";s:16:"terms_conditions";s:2:"on";}', 0, '2014-08-28 13:16:47'),
 (646, 'I', 'user_register', 0, 23, 102, 'a:9:{s:9:"firstname";s:6:"Davide";s:8:"lastname";s:11:"Cortellessa";s:8:"username";s:11:"Cortellessa";s:7:"city_id";s:1:"6";s:13:"date_of_birth";s:10:"17-04-1990";s:5:"email";s:20:"cordavide@hotmail.it";s:8:"password";s:6:"davide";s:9:"cpassword";s:6:"davide";s:16:"terms_conditions";s:2:"on";}', 0, '2014-08-28 13:16:49'),
 (647, 'I', 'user_register', 0, 24, 102, 'a:9:{s:9:"firstname";s:6:"Davide";s:8:"lastname";s:11:"Cortellessa";s:8:"username";s:11:"Cortellessa";s:7:"city_id";s:1:"6";s:13:"date_of_birth";s:10:"17-04-1990";s:5:"email";s:20:"cordavide@hotmail.it";s:8:"password";s:6:"davide";s:9:"cpassword";s:6:"davide";s:16:"terms_conditions";s:2:"on";}', 0, '2014-08-28 13:16:51'),
-(648, 'I', 'user_register', 0, 25, 102, 'a:9:{s:9:"firstname";s:6:"Davide";s:8:"lastname";s:11:"Cortellessa";s:8:"username";s:11:"Cortellessa";s:7:"city_id";s:1:"6";s:13:"date_of_birth";s:10:"17-04-1990";s:5:"email";s:20:"cordavide@hotmail.it";s:8:"password";s:6:"davide";s:9:"cpassword";s:6:"davide";s:16:"terms_conditions";s:2:"on";}', 0, '2014-08-28 13:16:54'),
+(648, 'I', 'user_register', 0, 25, 102, 'a:9:{s:9:"firstname";s:6:"Davide";s:8:"lastname";s:11:"Cortellessa";s:8:"username";s:11:"Cortellessa";s:7:"city_id";s:1:"6";s:13:"date_of_birth";s:10:"17-04-1990";s:5:"email";s:20:"cordavide@hotmail.it";s:8:"password";s:6:"davide";s:9:"cpassword";s:6:"davide";s:16:"terms_conditions";s:2:"on";}', 1, '2014-08-28 13:16:54'),
 (649, 'I', 'user_register', 0, 29, 102, 'a:9:{s:9:"firstname";s:6:"Davide";s:8:"lastname";s:11:"Cortellessa";s:8:"username";s:11:"Cortellessa";s:7:"city_id";s:1:"6";s:13:"date_of_birth";s:10:"17-04-1990";s:5:"email";s:20:"cordavide@hotmail.it";s:8:"password";s:6:"davide";s:9:"cpassword";s:6:"davide";s:16:"terms_conditions";s:2:"on";}', 0, '2014-08-28 13:16:56'),
 (650, 'I', 'user_register', 0, 30, 102, 'a:9:{s:9:"firstname";s:6:"Davide";s:8:"lastname";s:11:"Cortellessa";s:8:"username";s:11:"Cortellessa";s:7:"city_id";s:1:"6";s:13:"date_of_birth";s:10:"17-04-1990";s:5:"email";s:20:"cordavide@hotmail.it";s:8:"password";s:6:"davide";s:9:"cpassword";s:6:"davide";s:16:"terms_conditions";s:2:"on";}', 0, '2014-08-28 13:16:58'),
 (651, 'I', 'user_register', 0, 31, 102, 'a:9:{s:9:"firstname";s:6:"Davide";s:8:"lastname";s:11:"Cortellessa";s:8:"username";s:11:"Cortellessa";s:7:"city_id";s:1:"6";s:13:"date_of_birth";s:10:"17-04-1990";s:5:"email";s:20:"cordavide@hotmail.it";s:8:"password";s:6:"davide";s:9:"cpassword";s:6:"davide";s:16:"terms_conditions";s:2:"on";}', 0, '2014-08-28 13:17:01'),
@@ -1270,18 +1300,20 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (790, 'N', 'change_clan_date', 1, 5, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 0, '2014-09-10 09:46:54'),
 (791, 'N', 'change_clan_date', 1, 12, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 1, '2014-09-10 09:47:01'),
 (792, 'N', 'change_clan_date', 1, 13, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 0, '2014-09-10 09:47:07'),
-(793, 'N', 'change_clan_date', 1, 14, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 0, '2014-09-10 09:47:18'),
+(793, 'N', 'change_clan_date', 1, 14, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 1, '2014-09-10 09:47:18'),
 (794, 'N', 'change_clan_date', 1, 15, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 0, '2014-09-10 09:47:24'),
 (795, 'N', 'change_clan_date', 1, 16, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 0, '2014-09-10 09:47:29'),
 (796, 'N', 'change_clan_date', 1, 17, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 0, '2014-09-10 09:47:36'),
 (797, 'N', 'change_clan_date', 1, 20, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 0, '2014-09-10 09:47:41'),
 (798, 'N', 'change_clan_date', 1, 21, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 0, '2014-09-10 09:47:47'),
 (799, 'N', 'change_clan_date', 1, 23, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 0, '2014-09-10 09:47:53'),
-(800, 'N', 'change_clan_date', 1, 25, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 0, '2014-09-10 09:47:59'),
+(800, 'N', 'change_clan_date', 1, 25, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 1, '2014-09-10 09:47:59'),
 (801, 'N', 'change_clan_date', 1, 27, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 0, '2014-09-10 09:48:05'),
 (802, 'N', 'change_clan_date', 1, 31, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 0, '2014-09-10 09:48:12'),
 (803, 'N', 'change_clan_date', 1, 33, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 0, '2014-09-10 09:48:18'),
-(804, 'N', 'change_clan_date', 1, 34, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 0, '2014-09-10 09:48:24');
+(804, 'N', 'change_clan_date', 1, 34, 5, 'a:5:{s:7:"clan_id";s:1:"1";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"21-09-2014";s:11:"description";s:13:"Holiday .....";s:6:"notify";s:1:"1";}', 0, '2014-09-10 09:48:24'),
+(813, 'N', 'challenge_made', 25, 23, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"23";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-13 18:23:50";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-15 10:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-13 12:53:50'),
+(814, 'N', 'challenge_accepted', 23, 25, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";s:2:"25";s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"23";s:9:"to_status";s:1:"A";s:7:"made_on";s:19:"2014-09-13 18:23:50";s:17:"status_changed_on";s:19:"2014-09-13 18:24:26";s:9:"played_on";s:19:"2014-09-15 10:00:00";s:5:"place";s:1:"0";s:6:"result";s:1:"0";s:13:"result_status";s:3:"MNP";s:7:"user_id";s:2:"25";s:9:"timestamp";s:19:"2014-09-13 18:23:50";}', 0, '2014-09-13 12:54:26');
 
 -- --------------------------------------------------------
 
@@ -1478,6 +1510,10 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   `clan_id` varchar(11) NOT NULL DEFAULT '0',
   `batch_id` int(11) NOT NULL,
   `color_of_blade` int(11) NOT NULL DEFAULT '1',
+  `xpr` int(11) NOT NULL DEFAULT '0',
+  `war` int(11) NOT NULL DEFAULT '0',
+  `sty` int(11) NOT NULL DEFAULT '0',
+  `total_score` int(11) NOT NULL DEFAULT '0',
   `first_lesson_date` date DEFAULT NULL,
   `approved_by` int(11) NOT NULL DEFAULT '0',
   `palce_of_birth` text,
@@ -1493,22 +1529,22 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
 -- Dumping data for table `userdetails`
 --
 
-INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `batch_id`, `color_of_blade`, `first_lesson_date`, `approved_by`, `palce_of_birth`, `zip_code`, `tax_code`, `blood_group`, `status`, `user_id`, `timestamp`) VALUES
-(5, 14, '1', 4, 2, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:02'),
-(6, 15, '2', 1, 1, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
-(7, 16, '2', 6, 1, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
-(8, 17, '5', 6, 1, '2014-08-11', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-05 00:09:27'),
-(9, 20, '5', 6, 1, '2014-08-28', 2, NULL, NULL, NULL, NULL, 'A', 20, '2014-08-21 01:37:12'),
-(10, 13, '5', 6, 1, '2014-08-30', 3, NULL, NULL, NULL, NULL, 'A', 13, '2014-08-25 05:27:01'),
-(11, 21, '6', 6, 1, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2014-08-25 05:52:04'),
-(13, 25, '6', 6, 1, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2014-08-25 05:52:04'),
-(15, 27, '4', 6, 1, '2014-09-09', 8, 'roma', 0, 0, 'ah+', 'A', 27, '2014-09-04 15:25:53'),
-(16, 28, '4', 6, 1, '2014-09-16', 0, NULL, NULL, NULL, NULL, 'P', 28, '2014-09-05 08:45:20'),
-(18, 31, '4', 6, 1, '2014-09-16', 8, NULL, NULL, NULL, NULL, 'A', 31, '2014-09-05 11:33:36'),
-(19, 33, '4', 6, 1, '2014-09-30', 8, NULL, NULL, NULL, NULL, 'A', 33, '2014-09-05 13:05:45'),
-(20, 34, '4', 6, 1, '2014-09-23', 8, NULL, NULL, NULL, NULL, 'A', 34, '2014-09-05 13:18:57'),
-(21, 23, '2', 6, 1, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:02'),
-(25, 12, '0', 0, 1, NULL, 0, 'Vadodara', 390016, 610093, 'B -ve', 'P2', 12, '2014-09-11 05:49:27');
+INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `batch_id`, `color_of_blade`, `xpr`, `war`, `sty`, `total_score`, `first_lesson_date`, `approved_by`, `palce_of_birth`, `zip_code`, `tax_code`, `blood_group`, `status`, `user_id`, `timestamp`) VALUES
+(5, 14, '3', 4, 6, 0, 0, 0, 10, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:02'),
+(6, 15, '2', 1, 6, 0, 0, 0, 10, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
+(7, 16, '2', 6, 6, 0, 0, 0, 10, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
+(8, 17, '5', 6, 6, 0, 0, 0, 10, '2014-08-11', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-05 00:09:27'),
+(9, 20, '5', 6, 6, 0, 0, 0, 10, '2014-08-28', 2, NULL, NULL, NULL, NULL, 'A', 20, '2014-08-21 01:37:12'),
+(10, 13, '5', 6, 6, 0, 0, 0, 10, '2014-08-30', 3, NULL, NULL, NULL, NULL, 'A', 13, '2014-08-25 05:27:01'),
+(11, 21, '6', 6, 6, 0, 0, 0, 10, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2014-08-25 05:52:04'),
+(13, 25, '6', 6, 6, 0, 0, 0, 10, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2014-08-25 05:52:04'),
+(15, 27, '4', 6, 6, 0, 0, 0, 10, '2014-09-09', 8, 'roma', 0, 0, 'ah+', 'A', 27, '2014-09-04 15:25:53'),
+(16, 28, '4', 6, 6, 0, 0, 0, 10, '2014-09-16', 0, NULL, NULL, NULL, NULL, 'P', 28, '2014-09-05 08:45:20'),
+(18, 31, '1', 6, 6, 0, 0, 0, 10, '2014-09-16', 8, NULL, NULL, NULL, NULL, 'A', 31, '2014-09-05 11:33:36'),
+(19, 33, '4', 6, 6, 0, 0, 0, 10, '2014-09-30', 8, NULL, NULL, NULL, NULL, 'A', 33, '2014-09-05 13:05:45'),
+(20, 34, '1', 6, 6, 0, 0, 0, 10, '2014-09-23', 8, NULL, NULL, NULL, NULL, 'A', 34, '2014-09-05 13:18:57'),
+(21, 23, '2', 6, 6, 0, 0, 0, 10, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:02'),
+(25, 12, '0', 0, 6, 0, 0, 0, 10, NULL, 0, 'Vadodara', 390016, 610093, 'B -ve', 'P2', 12, '2014-09-11 05:49:27');
 
 -- --------------------------------------------------------
 
@@ -1556,8 +1592,8 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `last
 (8, '5', 'teacher_3', '202cb962ac59075b964b07152d234b70', 'Teacher', '3', 'ranasoyab@yopmail.com', 653682600, 2, 1, 1, NULL, NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, 'A', 1, '2014-07-21 10:11:41'),
 (12, '6', 'killer', '202cb962ac59075b964b07152d234b70', 'Killer', 'Jeans', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, 'c05b3802dd788813231e79ce67a5513d.jpg', NULL, NULL, NULL, NULL, NULL, 'P', 3, '2014-07-31 10:45:54'),
 (13, '6', 'martin', '202cb962ac59075b964b07152d234b70', 'Martin', 'Lusi', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, '0b1b838debca3f07a19dfb93846a38a2.jpg', NULL, NULL, NULL, NULL, NULL, 'A', 13, '2014-08-01 05:20:27'),
-(14, '6', 'student_1', '202cb962ac59075b964b07152d234b70', 'A Student', 'First', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, 'Vadodara', NULL, 'no_avatar.jpg', 'Baroda', '91987654321', '91987654321', '', '<p><br></p>', 'A', 14, '2014-08-04 05:37:32'),
-(15, '6', 'student_2', '202cb962ac59075b964b07152d234b70', 'C Student', 'Second', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, 'A', 3, '2014-08-04 05:37:19'),
+(14, '6', 'student_1', '202cb962ac59075b964b07152d234b70', 'A Student', 'First', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, 'Vadodara', NULL, '6c922946889fe1aa9ad85ba33d1f43eb.jpg', 'Baroda', '91987654321', '91987654321', 'Victorious warriors win first and then go to war, while defeated warriors go to war first and then seek to win.', '<p><br></p>', 'A', 14, '2014-08-04 05:37:32'),
+(15, '6', 'student_2', '202cb962ac59075b964b07152d234b70', 'C Student', 'Second', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, 'P', 3, '2014-08-04 05:37:19'),
 (16, '6', 'student_3', '202cb962ac59075b964b07152d234b70', 'D Student', 'Third', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, 'A', 3, '2014-08-04 05:37:56'),
 (17, '6', 'student_4', '202cb962ac59075b964b07152d234b70', 'B Student', 'Fourth', 'ranasoyab@yopmail.com', 653682600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, 'A', 3, '2014-08-04 05:38:37'),
 (19, '5', 'teacher_4', '202cb962ac59075b964b07152d234b70', 'Teacher', '4', 'ranasoyab@yopmail.com', 653682600, 2, 1, 1, NULL, NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, 'A', 1, '2014-07-21 10:11:41'),
@@ -1598,6 +1634,12 @@ ALTER TABLE `attendance_recovers`
 -- Indexes for table `batches`
 --
 ALTER TABLE `batches`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `challenges`
+--
+ALTER TABLE `challenges`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -1749,7 +1791,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `batches`
 --
 ALTER TABLE `batches`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
+--
+-- AUTO_INCREMENT for table `challenges`
+--
+ALTER TABLE `challenges`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `cities`
 --
@@ -1774,7 +1821,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `emails`
 --
 ALTER TABLE `emails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `eventcategories`
 --
@@ -1819,7 +1866,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=805;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=815;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
