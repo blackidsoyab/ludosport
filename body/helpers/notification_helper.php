@@ -91,7 +91,7 @@ function makeURL($options) {
     }
 
     if ($options['notify_type'] == 'user_register') {
-        $url = base_url() . 'user/view/' . $options['object_id'] . '/notification';
+        $url = base_url() . 'profile/view/' . $options['object_id'] . '/notification';
     }
 
     if ($options['notify_type'] == 'apply_trial_lesson') {
@@ -130,30 +130,52 @@ function makeURL($options) {
         $url = base_url() . 'duels/single/' . $options['object_id'] . '/notification';
     }
 
+    if ($options['notify_type'] == 'challenge_winner') {
+        $url = base_url() . 'duels/single/' . $options['object_id'] . '/notification';
+    }
+
     return $url;
 }
 
-function getMessageTemplate($options) {
+function getMessageTemplate($options, $user_name_link = false) {
     $templates = setMessageTemplate($options);
     $session = & get_instance()->session->userdata('user_session');
     $template_edit = false;
 
+    if ($options['notify_type'] == 'rector_assign_academy') {
+        $template_edit = true;
+        $user_name = userNameAvtar($options['from_id'], $user_name_link);
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_name['name']);
+    }
+
+    if ($options['notify_type'] == 'dean_assign_school') {
+        $template_edit = true;
+        $user_name = userNameAvtar($options['from_id'], $user_name_link);
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_name['name']);
+    }
+
+    if ($options['notify_type'] == 'teacher_assign_class') {
+        $template_edit = true;
+        $user_name = userNameAvtar($options['from_id'], $user_name_link);
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_name['name']);
+    }
+
     if ($options['notify_type'] == 'trial_lesson_approved' || $options['notify_type'] == 'trial_lesson_unapproved' || $options['notify_type'] == 'accept_as_student') {
         $template_edit = true;
         $user_request = userNameAvtar($options['data']['student_id']);
-        $from = userNameAvtar($options['from_id']);
+        $from = userNameAvtar($options['from_id'], $user_name_link);
         $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_request['name'], $from['name']);
     }
 
     if ($options['notify_type'] == 'apply_trial_lesson') {
         $template_edit = true;
-        $user_request = userNameAvtar($options['data']['student_id']);
+        $user_request = userNameAvtar($options['data']['student_id'], $user_name_link);
         $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_request['name']);
     }
 
     if ($options['notify_type'] == 'student_absent') {
         $template_edit = true;
-        $user_name = userNameAvtar($options['from_id']);
+        $user_name = userNameAvtar($options['from_id'], $user_name_link);
         
         $userdetail = new Userdetail();
         $userdetail->where('student_master_id', $options['from_id'])->get();
@@ -164,7 +186,7 @@ function getMessageTemplate($options) {
 
     if ($options['notify_type'] == 'recovery_student') {
         $template_edit = true;
-        $user_name = userNameAvtar($options['from_id']);
+        $user_name = userNameAvtar($options['from_id'], $user_name_link);
         
         $userdetail = new Userdetail();
         $userdetail->where('student_master_id', $options['from_id'])->get();
@@ -178,7 +200,7 @@ function getMessageTemplate($options) {
 
     if ($options['notify_type'] == 'recovery_assign_by_teacher_student') {
         $template_edit = true;
-        $user_name = userNameAvtar($options['from_id']);
+        $user_name = userNameAvtar($options['from_id'], $user_name_link);
 
         $recover_clan  = new Clan();
         $recover_clan->where('id',$options['data']['clan_id'])->get();
@@ -188,7 +210,7 @@ function getMessageTemplate($options) {
 
     if ($options['notify_type'] == 'recovery_assign_by_teacher_teacher') {
         $template_edit = true;
-        $user_name = userNameAvtar($options['from_id']);
+        $user_name = userNameAvtar($options['from_id'], $user_name_link);
         
         $user = new User();
         $user->where('id', $options['data']['student_id'])->get();
@@ -207,7 +229,7 @@ function getMessageTemplate($options) {
 
     if ($options['notify_type'] == 'teacher_absent') {
         $template_edit = true;
-        $user_name = userNameAvtar($options['from_id']);
+        $user_name = userNameAvtar($options['from_id'], $user_name_link);
         
         $clan = new Clan();
         $clan->where('id', $options['data']['clan_id'])->get();
@@ -217,11 +239,11 @@ function getMessageTemplate($options) {
 
     if ($options['notify_type'] == 'recovery_teacher') {
         $template_edit = true;
-        $user_name = userNameAvtar($options['from_id']);
+        $user_name = userNameAvtar($options['from_id'], $user_name_link);
         if($options['data']['recovery_teacher'] ==  $session->id){
             $recover_user_name['name'] = 'You';
         } else{
-            $recover_user_name = userNameAvtar($options['data']['recovery_teacher']);    
+            $recover_user_name = userNameAvtar($options['data']['recovery_teacher'], $user_name_link);    
         }
 
         $teacher_user_name = userNameAvtar($options['data']['teacher_id']);  
@@ -248,23 +270,32 @@ function getMessageTemplate($options) {
 
     if ($options['notify_type'] == 'challenge_made') {
         $template_edit = true;
-        $user_name = userNameAvtar($options['data']['from_id']);
-        //$link = '<a href="'.base_url().'profile/view/'.$options['data']['from_id'].'">' . $user_name['name'] .'</a>';
+        $user_name = userNameAvtar($options['data']['from_id'], $user_name_link);
         $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name']);
     }
 
     if ($options['notify_type'] == 'challenge_accepted') {
         $template_edit = true;
-        $user_name = userNameAvtar($options['data']['to_id']);
+        $user_name = userNameAvtar($options['data']['to_id'], $user_name_link);
         $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name']);
     }
 
     if ($options['notify_type'] == 'challenge_rejected') {
         $template_edit = true;
         if($options['data']['to_status'] == 'R'){
-            $user_name = userNameAvtar($options['data']['to_id']);
+            $user_name = userNameAvtar($options['data']['to_id'], $user_name_link);
         }else{
-            $user_name = userNameAvtar($options['data']['from_id']);
+            $user_name = userNameAvtar($options['data']['from_id'], $user_name_link);
+        }
+        $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name']);
+    }
+
+    if ($options['notify_type'] == 'challenge_winner') {
+        $template_edit = true;
+        if($options['data']['result'] == $session->id){
+            $user_name['name'] = 'You';
+        }else{
+            $user_name = userNameAvtar($options['data']['result'], $user_name_link);
         }
         $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name']);
     }
@@ -280,18 +311,18 @@ function setMessageTemplate($options) {
     $template = array(
         'rector_assign_academy' =>
         array(
-            'en' => @$options['user_name'] . ' added you as rector in academy',
-            'it' => @$options['user_name'] . ' hai aggiunto come rettore in accademia'
+            'en' => '<strong>%s</strong> added you as rector in academy',
+            'it' => '<strong>%s</strong> hai aggiunto come rettore in accademia'
         ),
         'dean_assign_school' =>
         array(
-            'en' => @$options['user_name'] . ' added you as dean in school',
-            'it' => @$options['user_name'] . ' hai aggiunto come dean in school'
+            'en' => '<strong>%s</strong> added you as dean in school',
+            'it' => '<strong>%s</strong> hai aggiunto come dean in school'
         ),
         'teacher_assign_class' =>
         array(
-            'en' => @$options['user_name'] . ' added you as teacher in class',
-            'it' => @$options['user_name'] . ' hai aggiunto come teacher in clan'
+            'en' => '<strong>%s</strong> added you as teacher in class',
+            'it' => '<strong>%s</strong> hai aggiunto come teacher in clan'
         ),
         'user_register' =>
         array(
@@ -345,13 +376,13 @@ function setMessageTemplate($options) {
         ),
         'teacher_absent' =>
         array(
-            'en' => '%s will remain absent for %s on %s',
-            'it' => '%s will remain absent for %s on %s',
+            'en' => '<strong>%s</strong> will remain absent for %s on %s',
+            'it' => '<strong>%s</strong> will remain absent for %s on %s',
         ),
         'recovery_teacher' =>
         array(
-            'en' => '%s will take lesson of %s on %s inplace of %s. It is approved by %s',
-            'it' => '%s avrà lezione di %s su %s inplace di %s. It is approved by %s',
+            'en' => '<strong>%s</strong> will take lesson of %s on %s inplace of <strong>%s</strong>. It is approved by <strong>%s</strong>',
+            'it' => '<strong>%s</strong> avrà lezione di %s su %s inplace di <strong>%s</strong>. It is approved by <strong>%s</strong>',
         ),
         'holiday_approved' =>
         array(
@@ -365,24 +396,29 @@ function setMessageTemplate($options) {
         ),
         'change_clan_date' =>
         array(
-            'en' => 'Your clan %s has been reschedule from %s to %s',
-            'it' => 'Your clan %s has been reschedule from %s to %s',
+            'en' => 'Your clan <strong>%s</strong> has been reschedule from %s to %s',
+            'it' => 'Your clan <strong>%s</strong> has been reschedule from %s to %s',
         ),
         'challenge_made' =>
         array(
-            'en' => '%s has challenged you.',
-            'it' => '%s has challenged you.',
+            'en' => '<strong>%s</strong> has challenged you.',
+            'it' => '<strong>%s</strong> has challenged you.',
         ),
         'challenge_accepted' =>
         array(
-            'en' => '%s has accepted the challenge.',
-            'it' => '%s has accepted the challenge.',
+            'en' => '<strong>%s</strong> has accepted the challenge.',
+            'it' => '<strong>%s</strong> has accepted the challenge.',
         ),
         'challenge_rejected' =>
         array(
-            'en' => '%s has rejected the challenge.',
-            'it' => '%s has rejected the challenge.',
+            'en' => '<strong>%s</strong> has rejected the challenge.',
+            'it' => '<strong>%s</strong> has rejected the challenge.',
         ),
+        'challenge_winner' =>
+        array(
+            'en' => '<strong>%s</strong> has won the challenge.',
+            'it' => '<strong>%s</strong> has won the challenge.',
+        )
     );
 
     return $template;

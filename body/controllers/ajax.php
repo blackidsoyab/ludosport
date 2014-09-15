@@ -147,7 +147,7 @@ class ajax extends CI_Controller {
 
                 if ($notify->type == 'N') {
                     $user_info = userNameAvtar($notify->from_id);
-                    $message = getMessageTemplate($options);
+                    $message = getMessageTemplate($options, true);
                     $img = '<img src="' . $user_info['avtar'] . '" class="media-object img-circle" alt="Avatar">';
                 } else {
                     $message = getMessageTemplate($options);
@@ -160,7 +160,7 @@ class ajax extends CI_Controller {
                 $str .= '<p class="text-primary">' . time_elapsed_string($notify->timestamp) . '</p></div>';
 
                 $str .= '<div class="right-button">';
-                $str .= '<a href="' . makeURL($options) . '" data-toggle="tooltip" data-placement="bottom" data-original-title="' . @$message . '" class="btn btn-primary"><i class="fa fa-share"></i></a>';
+                $str .= '<a href="' . makeURL($options) . '" class="btn btn-primary"><i class="fa fa-share"></i></a>';
                 $str .='</div></div></div></div>';
             }
             echo $str;
@@ -581,4 +581,26 @@ class ajax extends CI_Controller {
      * ------------------- END ------------------
      * ------------------------------------------
      */
+
+    function duelResultBox($id){
+        $challenge = new Challenge();
+        $single = $challenge->getSingleChallengeDetails($id);
+        if($single != false && $single[0]->result_status == 'MNP' && ($single[0]->from_id == $this->session_data->id || $single[0]->to_id == $this->session_data->id)) {
+            $str = '<div class="form-group">';
+                $str .= '<div class="col-lg-12 text-center">'; 
+                    $str .= '<label class="radio-inline padding-killer" for="radios-0">';
+                        $str .= '<input type="radio" name="winner" id="radios-0" value="'.$single[0]->from_id.'">';
+                        $str .= '<span class="pad-lt-10">' .$single[0]->from_name .'</span>';
+                    $str .= '</label>';
+                    $str .= '<label class="radio-inline padding-killer" for="radios-1">';
+                        $str .= '<input type="radio" name="winner" id="radios-1" value="'.$single[0]->to_id.'">';
+                        $str .= '<span class="pad-lt-10">' .$single[0]->to_name .'</span>';
+                    $str .= '</label>';
+                $str .= '</div>';
+            $str .= '</div>';
+            echo $str;
+        } else {
+            echo 'Something Went Wrong !!';
+        }
+    }
 }

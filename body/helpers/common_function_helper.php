@@ -37,10 +37,14 @@ if (!function_exists('getRoleName')) {
 
 if (!function_exists('userNameAvtar')) {
 
-    function userNameAvtar($user_id) {
+    function userNameAvtar($user_id, $link = false) {
         $user = new User();
         $user->where('id', $user_id)->limit(1)->get();
-        $return['name'] = $user->firstname . ' ' . $user->lastname;
+        if($link){
+            $return['name'] = '<a href="'.base_url() .'profile/view/'. $user_id .'" class="user-extra-link">' . $user->firstname . ' ' . $user->lastname .'</a>';
+        }else{
+            $return['name'] = $user->firstname . ' ' . $user->lastname;
+        }
         $return['avtar'] = IMG_URL . 'user_avtar/100X100/' . $user->avtar;
         unset($user);
         return $return;

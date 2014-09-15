@@ -175,13 +175,13 @@ class students extends CI_Controller {
         $data['recommended_user'] = $userdetail->userForChallenge($this->session_data->id, 'academy');
 
         //Suggested User
-        $data['suggested_user'] = $userdetail->randomUserDetails($this->session_data->id, 'all');
+        $data['suggested_user'] = $userdetail->userForChallenge($this->session_data->id, 'all');
 
         //Victories User
-        $data['my_victories'] = $userdetail->studentVictories(3);
+        $data['my_victories'] = $challenge->studentVictories($this->session_data->id,3);
 
         //Defeats User
-        $data['my_defeats'] = $userdetail->studentDefeats(3);
+        $data['my_defeats'] = $challenge->studentDefeats($this->session_data->id,3);
 
         //Four Before Me
         $data['four_before_me_users'] = $userdetail->beforeMeUserDetails($this->session_data->id, 4);
@@ -239,25 +239,76 @@ class students extends CI_Controller {
         $notification->object_id = $object_id;
         $notification->data = serialize(objectToArray($post));
         $notification->save();
-
-        $user = new User();
-        if($post->from_id == $this->session_data->id){
-            $user->where('id', $post->to_id)->get();    
-        } else {
-            $user->where('id', $post->from_id)->get();    
-        }
-        
-
+   
         //get email details
         $email = new Email();
         $email->where('type', $type)->get();
         $message = $email->message;
 
-        //replace newcessary details
-        $message = str_replace('#to_name', $user->firstname .' ' . $user->lastname , $message);
-        $message = str_replace('#from_name', $this->session_data->name, $message);
-        $message = str_replace('#on_date',  date('d-m-Y', strtotime($post->played_on)), $message);
-        $message = str_replace('#on_time', date('H:i', strtotime($post->played_on)), $message);
+        $user = new User();
+        //replace necessary details
+        if($type == 'challenge_made'){
+            //25 K -> 20 D
+            if($post->from_id == $this->session_data->id){
+                $user->where('id', $post->to_id)->get();    
+            } else {
+                $user->where('id', $post->from_id)->get();    
+            }
+            $message = str_replace('#to_name', $user->firstname .' ' . $user->lastname , $message);
+            $message = str_replace('#from_name', $this->session_data->name, $message);
+            $message = str_replace('#on_date',  date('d-m-Y', strtotime($post->played_on)), $message);
+            $message = str_replace('#on_time', date('H:i a', strtotime($post->played_on)), $message);
+        }
+
+        if($type == 'challenge_made'){
+            //25 K -> 20 D
+            if($post->from_id == $this->session_data->id){
+                $user->where('id', $post->to_id)->get();    
+            } else {
+                $user->where('id', $post->from_id)->get();    
+            }
+            $message = str_replace('#to_name', $user->firstname .' ' . $user->lastname , $message);
+            $message = str_replace('#from_name', $this->session_data->name, $message);
+            $message = str_replace('#on_date',  date('d-m-Y', strtotime($post->played_on)), $message);
+            $message = str_replace('#on_time', date('H:i a', strtotime($post->played_on)), $message);
+        }
+
+        if($type == 'challenge_accepted'){
+            $user->where('id', $post->from_id)->get();  
+            $message = str_replace('#from_name', $user->firstname .' ' . $user->lastname , $message);
+            $message = str_replace('#to_name', $this->session_data->name, $message);
+            $message = str_replace('#on_date',  date('d-m-Y', strtotime($post->played_on)), $message);
+            $message = str_replace('#on_time', date('H:i a', strtotime($post->played_on)), $message);
+        }
+
+        if($type == 'challenge_rejected'){
+            //25 K -> 20 D
+            if($post->from_id == $this->session_data->id){
+                $user->where('id', $post->to_id)->get();
+            } else {
+                $user->where('id', $post->from_id)->get();
+            }
+            $message = str_replace('#from_name', $user->firstname .' ' . $user->lastname , $message);
+            $message = str_replace('#to_name', $this->session_data->name, $message);
+            $message = str_replace('#on_date',  date('d-m-Y', strtotime($post->played_on)), $message);
+            $message = str_replace('#on_time', date('H:i a', strtotime($post->played_on)), $message);
+        }
+
+        if($type == 'challenge_winner'){
+            //25 K -> 20 D
+            if($post->from_id == $this->session_data->id){
+                $user->where('id', $post->to_id)->get();
+            } else {
+                $user->where('id', $post->from_id)->get();
+            }
+            $message = str_replace('#user_name', $user->firstname .' ' . $user->lastname , $message);
+            $message = str_replace('#opponent_name', $this->session_data->name, $message);
+            $message = str_replace('#on_date',  date('d-m-Y', strtotime($post->played_on)), $message);
+            $message = str_replace('#on_time', date('H:i a', strtotime($post->played_on)), $message);
+            $winner = userNameAvtar($post->result);
+            $message = str_replace('#winner', $winner['name'], $message);
+        }
+        
 
         //set option for sending mail
         $option = array();
@@ -307,6 +358,7 @@ class students extends CI_Controller {
                         $challenge->from_status = $this->input->post('action');
                     }else{
                         $challenge->to_status = $this->input->post('action');
+                        $challenge->result = $challenge->from_id;
                     }
                     
                     $challenge->status_changed_on = get_current_date_time()->get_date_time_for_db();
@@ -347,6 +399,7 @@ class students extends CI_Controller {
             $data['show_accept_button'] = false;
             $data['show_reject_button'] = false;
             $data['status'] = false;
+            $data['show_result_button'] = false;
 
             if($this->session_data->id == $single[0]->from_id){
                 $user_id = $single[0]->to_id;
@@ -359,14 +412,33 @@ class students extends CI_Controller {
                 }
             }
 
-            if($single[0]->from_status == 'A' && $single[0]->to_status == 'P'){
-                $data['status'] = '<h2 class="bolded text-white text-center bg-warning">'.$this->lang->line('pending').'</h2>';
-                 $data['show_reject_button'] = true;
-            } else if($single[0]->from_status == 'A'  && $single[0]->to_status == 'A'){
-                $data['status'] = '<h2 class="bolded text-white text-center bg-success">'.$this->lang->line('accepted').'</h2>';
-                $data['show_reject_button'] = true;
-            } else if($single[0]->from_status == 'R' || $single[0]->to_status == 'R'){
-                $data['status'] = '<h2 class="bolded text-white text-center bg-danger">'.$this->lang->line('rejected').'</h2>';
+            if($single[0]->result_status == 'MNP') {
+                if($single[0]->from_status == 'A' && $single[0]->to_status == 'P'){
+                    $data['status'] = '<h2 class="bolded text-white text-center bg-warning">'.$this->lang->line('pending').'</h2>';
+                     $data['show_reject_button'] = true;
+                } else if($single[0]->from_status == 'A'  && $single[0]->to_status == 'A'){
+                    $data['status'] = '<h2 class="bolded text-white text-center bg-success">'.$this->lang->line('accepted').'</h2>';
+                    $data['show_reject_button'] = true;
+
+                    //get date after 7 days 
+                    $time_1 = strtotime('+7 day', strtotime($single[0]->status_changed_on));
+                    //get Current time
+                    $time_2 = strtotime(get_current_date_time()->get_date_time_for_db());
+
+                    if($single[0]->result_status == 'MNP' && $time_2 <= $time_1){
+                        $data['show_result_button'] = true;
+                    }
+                } else if($single[0]->from_status == 'R' || $single[0]->to_status == 'R'){
+                    $data['status'] = '<h2 class="bolded text-white text-center bg-danger">'.$this->lang->line('rejected').'</h2>';
+                }
+            } else if($single[0]->result_status == 'MP'){
+                if($single[0]->result == $this->session_data->id) {
+                    $winner = 'You';
+                }else{
+                    $winner = 'Opponent';
+                }
+                
+                $data['status'] = '<h2 class="bolded text-white text-center bg-success">'.$this->lang->line('winner') .' : '. $winner .'</h2>';
             }
 
             $data['single'] = $single[0];
@@ -377,11 +449,30 @@ class students extends CI_Controller {
             $data['challenge_user_batch_detail'] = $userdetail->Batch;
             $data['challenge_user_batch_image'] = IMG_URL .'batches/'. $data['challenge_user_batch_detail']->image;
             $clan = new Clan($data['challenge_userdetail']->clan_id);
-            $data['challenge_user_ac_sc_clan_name'] =  $clan->{$this->session_data->language.'_class_name'}.', '. $clan->School->{$this->session_data->language.'_school_name'}.', '. $clan->School->Academy->{$this->session_data->language.'_academy_name'};
-            
+            $data['challenge_user_ac_sc_clan_name'] =  $clan->{$this->session_data->language.'_class_name'}.', '. $clan->School->{$this->session_data->language.'_school_name'}.', '. $clan->School->Academy->{$this->session_data->language.'_academy_name'}; 
 
             $this->layout->view('students/duel_single', $data);
         }
+    }
+
+    function duelResult(){
+        $challenge = new Challenge();
+        $single = $challenge->getSingleChallengeDetails($this->input->post('id'));
+        if($single != false && $single[0]->result_status == 'MNP' && ($single[0]->from_id == $this->session_data->id || $single[0]->to_id == $this->session_data->id)) {
+            if($single[0]->to_status == 'A' && $single[0]->from_status == 'A'){
+                $obj = new Challenge($this->input->post('id'));
+                $obj->result = $this->input->post('winner');
+                $obj->result_status = 'MP';
+                $obj->save();
+
+                $this->_sendNotificationEmail('challenge_winner', $obj->stored, $obj->id);
+            }
+            $status = true;
+        }else{
+            $status = false;
+        }
+
+        echo json_encode(array('status'=>$status));
     }
 
 }

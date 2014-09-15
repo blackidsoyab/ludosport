@@ -60,7 +60,7 @@
 		            <option value="accepted" <?php echo (isset($type) && !is_null($type) && $type == 'accepted') ? 'selected' : ''; ?>>Accepted</option>
 		            <option value="pending" <?php echo (isset($type) && !is_null($type) && $type == 'pending') ? 'selected' : ''; ?>>Pending</option>
 		            <option value="wins" <?php echo (isset($type) && !is_null($type) && $type == 'wins') ? 'selected' : ''; ?>>Wins</option>
-		            <option value="defetas" <?php echo (isset($type) && !is_null($type) && $type == 'defetas') ? 'selected' : ''; ?>>Defetas</option>
+		            <option value="defeats" <?php echo (isset($type) && !is_null($type) && $type == 'defeats') ? 'selected' : ''; ?>>Defetas</option>
 		        </select>
             </div>
             <div class="col-lg-4">
@@ -94,9 +94,9 @@
             <thead class="the-box dark full">
                 <tr align="left">
                     <th><?php echo $this->lang->line('full_name'); ?></th>
-					<th><?php echo $this->lang->line('score'); ?></th>
-					<th><?php echo $this->lang->line('status'); ?></th>
-					<th><?php echo $this->lang->line('time'); ?></th>
+					<th width="125"><?php echo $this->lang->line('score'); ?></th>
+					<th width="125"><?php echo $this->lang->line('status'); ?></th>
+					<th width="175"><?php echo $this->lang->line('time'); ?></th>
                     <th width="100"><?php echo $this->lang->line('actions'); ?></th>
                 </tr>
             </thead>

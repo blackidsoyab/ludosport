@@ -179,7 +179,6 @@ class Userdetail extends DataMapper {
 
     function getTotalTrailRequestByUser($user_id){
         $session = get_instance()->session->userdata('user_session');
-
         $this->db->_protect_identifiers = false;
         $this->db->select('count(*) as total');
         $this->db->from('users');
@@ -258,9 +257,14 @@ class Userdetail extends DataMapper {
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             $return = $res->result();
-            return $return[0];
+            $check = Challenge::isRequestedBefore($session->id, $return[0]->id);
+            if(!$check){
+                return $return[0];    
+            } else {
+                return $this->userForChallenge($user_id, $type);
+            }
         } else {
-            return $this->randomUserDetails();
+            return $this->userForChallenge($user_id, $type);
         }
     }
 
@@ -289,40 +293,6 @@ class Userdetail extends DataMapper {
         $this->db->join('userdetails', 'users.id=userdetails.student_master_id');
         $this->db->where('users.status', 'A');
         $this->db->where('users.id !=', $id);
-        $this->db->order_by('RAND()');
-        $this->db->limit($limit);
-        $res = $this->db->get();
-        if ($res->num_rows > 0) {
-            $return = $res->result();
-            return $return;
-        } else {
-            return false;
-        }
-    }
-
-    function studentVictories($limit){
-        $this->db->_protect_identifiers = false;
-        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, total_score');
-        $this->db->from('users');
-        $this->db->join('userdetails', 'users.id=userdetails.student_master_id');
-        $this->db->where('users.status', 'A');
-        $this->db->order_by('RAND()');
-        $this->db->limit($limit);
-        $res = $this->db->get();
-        if ($res->num_rows > 0) {
-            $return = $res->result();
-            return $return;
-        } else {
-            return false;
-        }
-    }
-
-    function studentDefeats($limit){
-        $this->db->_protect_identifiers = false;
-        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, total_score');
-        $this->db->from('users');
-        $this->db->join('userdetails', 'users.id=userdetails.student_master_id');
-        $this->db->where('users.status', 'A');
         $this->db->order_by('RAND()');
         $this->db->limit($limit);
         $res = $this->db->get();

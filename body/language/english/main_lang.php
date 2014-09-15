@@ -323,4 +323,5 @@ $lang['attachmments'] = 'Attachmment(s)';
 //Challenges
 $lang['duel_accept'] = 'Yes, I am ready';
 $lang['duel_reject'] = 'Right now, Not interested';
+$lang['duel_result'] = 'Finally, Result comes';
 ?>

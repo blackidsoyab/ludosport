@@ -253,25 +253,37 @@
 				<div id="challenges-rejected" class="collapse" style="height: 0px;">
 					<div class="panel-body">
 						<?php if($challenge_rejected != false) { ?>
-							<?php foreach ($challenge_rejected as $rejected_key => $rejected_value) { ?>
+							<?php foreach ($challenge_rejected as $rejected_key => $rejected_value) {
+		                    	if(($rejected_value->from_id == $session->id && $rejected_value->from_status == 'R') || $rejected_value->to_id == $session->id && $rejected_value->to_status == 'R') {
+	                    			$rejected_id = $rejected_value->from_id;
+									$rejected_name = $rejected_value->from_name;
+									$rejected_avtar = $rejected_value->from_avtar;
+									$rejected_total_score = $rejected_value->from_total_score;
+		                    	} else if(($rejected_value->from_id == $session->id && $rejected_value->to_status == 'R')|| ($rejected_value->to_id == $session->id && $rejected_value->from_status == 'R')) {
+		                    		$rejected_id = $rejected_value->to_id;
+									$rejected_name = $rejected_value->to_name;
+									$rejected_avtar = $rejected_value->to_avtar;
+									$rejected_total_score = $rejected_value->to_total_score;
+		                    	}
+								?>
 			                	<div class="the-box no-border margin-top-killer margin-bottom-killer padding-bottom-killer">
 			                		<div class="media">
 										<p class="pull-left">
-											<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$rejected_value->from_avtar; ?>" class="margin-top-killer margin-bottom-killer avatar avatar-60 img-circle">
+											<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$rejected_avtar; ?>" class="margin-top-killer margin-bottom-killer avatar avatar-60 img-circle">
 										</p>
 										<div class="media-body">
 											<div class="pull-left">
 												<h5 class="media-heading mar-bt-10">
-													<a href="<?php echo base_url() . 'profile/view/'. $rejected_value->from_id ?>" class="text-info">
-														<strong><?php echo $rejected_value->from_name; ?></strong>
+													<a href="<?php echo base_url() . 'profile/view/'. $rejected_id; ?>" class="text-info">
+														<strong><?php echo $rejected_name; ?></strong>
 													</a>
 												</h5>
-												<p class="small text-muted">Score : <?php echo @$rejected_value->from_total_score; ?></p>
+												<p class="small text-muted">Score : <?php echo @$rejected_total_score; ?></p>
 												<p class="small text-muted"><?php echo @time_elapsed_string($rejected_value->status_changed_on); ?></p>
 											</div>
 										
 											<div class="pull-right">
-												<a href="<?php echo base_url() .'duels/single/' . $received_value->id; ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="detail view" class="btn btn-info btn-xs"><i class="fa fa-share"></i></a>
+												<a href="<?php echo base_url() .'duels/single/' . $rejected_value->id; ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="detail view" class="btn btn-info btn-xs"><i class="fa fa-share"></i></a>
 											</div>
 										</div>
 									</div>
@@ -360,26 +372,43 @@
 		<div class="panel panel-success panel-square panel-no-border">
 			<div class="panel-heading">
 				<div class="right-content">
-					<button class="btn btn-success btn-sm to-collapse" data-toggle="collapse" data-target="#my_last_victories"><i class="fa fa-chevron-up"></i></button>
+					<button class="btn btn-success btn-sm to-collapse" data-toggle="collapse" data-target="#my_last_victories"><i class="fa <?php echo ($my_victories != false) ? 'fa-chevron-up' : 'fa-chevron-down'; ?>"></i></button>
 				</div>
 				<h4 class="panel-title"><i class="fa fa-arrow-circle-o-up"></i> MY LAST VICTORIES</h4>
 			</div>
-			<div id="my_last_victories" class="collapse in" style="height: auto;">
+			<div id="my_last_victories" class="collapse <?php echo ($my_victories != false) ? 'in' : ''; ?>" style="height: auto;">
 				<div class="panel-body">
+				<?php if($my_victories != false){ ?>
 					<ul class="media-list media-sm media-team">
-						<?php foreach ($my_victories as $victory_key => $victory_value) { ?>
+						<?php foreach ($my_victories as $victory_key => $victory_value) { 
+							if($victory_value->to_id == $session->id) {
+	                    			$victory_id = $victory_value->from_id;
+									$victory_name = $victory_value->from_name;
+									$victory_avtar = $victory_value->from_avtar;
+									$victory_total_score = $victory_value->from_total_score;
+		                    	} else {
+		                    		$victory_id = $victory_value->to_id;
+									$victory_name = $victory_value->to_name;
+									$victory_avtar = $victory_value->to_avtar;
+									$victory_total_score = $victory_value->to_total_score;
+		                    	}
+
+							?>
 							<li class="media">
 								<a class="pull-left" href="#fakelink">
-									<img class="media-object img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$victory_value->avtar; ?>" alt="Avatar">
+									<img class="media-object img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$victory_avtar; ?>" alt="Avatar">
 								</a>
 								<div class="media-body">
-									<h4 class="media-heading"><?php echo @$victory_value->name; ?></h4>
-									<p class="text-danger">Score: <strong><?php echo @$victory_value->total_score; ?></strong></p>
+									<a href="<?php echo base_url() .'profile/view' . $victory_id; ?>">
+										<h4 class="media-heading"><?php echo @$victory_name; ?></h4>
+									</a>
+									<p class="text-danger">Score: <strong><?php echo @$victory_total_score; ?></strong></p>
 								</div>
 							</li>
 						<?php } ?>
 					</ul>
 				<a href="<?php echo base_url() .'duels/view/wins'; ?>" class="btn btn-success btn-block"><?php echo $this->lang->line('see_all'); ?></a>
+				<?php } ?>
 				</div>
 			</div>
 		</div>
@@ -389,26 +418,42 @@
 		<div class="panel panel-danger panel-square panel-no-border">
 			<div class="panel-heading">
 				<div class="right-content">
-					<button class="btn btn-danger btn-sm to-collapse" data-toggle="collapse" data-target="#my_last_defeats"><i class="fa fa-chevron-up"></i></button>
+					<button class="btn btn-danger btn-sm to-collapse" data-toggle="collapse" data-target="#my_last_defeats"><i class="fa <?php echo ($my_defeats != false) ? 'fa-chevron-up' : 'fa-chevron-down'; ?>"></i></button>
 				</div>
 				<h4 class="panel-title"><i class="fa fa-arrow-circle-o-up"></i>  MY LAST DEFEATS</h4>
 			</div>
-			<div id="my_last_defeats" class="collapse in" style="height: auto;">
+			<div id="my_last_defeats" class="collapse <?php echo ($my_defeats != false) ? 'in' : ''; ?>" style="height: auto;">
 				<div class="panel-body">
+				<?php if($my_defeats != false){ ?>
 					<ul class="media-list media-sm media-team">
-						<?php foreach ($my_defeats as $defeat_key => $defeat_value) { ?>
+						<?php foreach ($my_defeats as $defeat_key => $defeat_value) {
+							if($defeat_value->to_id == $session->id) {
+	                    			$defeat_id = $defeat_value->from_id;
+									$defeat_name = $defeat_value->from_name;
+									$defeat_avtar = $defeat_value->from_avtar;
+									$defeat_total_score = $defeat_value->from_total_score;
+		                    	} else {
+		                    		$defeat_id = $defeat_value->to_id;
+									$defeat_name = $defeat_value->to_name;
+									$defeat_avtar = $defeat_value->to_avtar;
+									$defeat_total_score = $defeat_value->to_total_score;
+		                    	}
+						 ?>
 							<li class="media">
 								<a class="pull-left" href="#fakelink">
-									<img class="media-object img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$defeat_value->avtar; ?>" alt="Avatar">
+									<img class="media-object img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$defeat_avtar; ?>" alt="Avatar">
 								</a>
 								<div class="media-body">
-									<h4 class="media-heading"><?php echo @$defeat_value->name; ?></h4>
-									<p class="text-danger">Score: <strong><strong><?php echo @$defeat_value->total_score; ?></strong></strong></p>
+									<a href="<?php echo base_url() .'profile/view' . $defeat_id; ?>">
+										<h4 class="media-heading"><?php echo @$defeat_name; ?></h4>
+									</a>
+									<p class="text-danger">Score: <strong><strong><?php echo @$defeat_total_score; ?></strong></strong></p>
 								</div>
 							</li>
 						<?php } ?>
 					</ul>
-				<a href="<?php echo base_url() .'duels/view/defeats'; ?>" class="btn btn-danger btn-block"><?php echo $this->lang->line('see_all'); ?></a>
+					<a href="<?php echo base_url() .'duels/view/defeats'; ?>" class="btn btn-danger btn-block"><?php echo $this->lang->line('see_all'); ?></a>
+				<?php } ?>
 				</div>
 			</div>
 		</div>

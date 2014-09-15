@@ -176,6 +176,8 @@ $route['duels/view'] = "students/duelView";
 $route['duels/view/(:any)'] = "students/duelView/$1";
 $route['duels/single/(:num)'] = "students/duelSingleView/$1";
 $route['duels/single/(:num)/(:any)'] = "students/duelSingleView/$1/$2";
+$route['duels/declare_result_box/(:num)'] = "ajax/duelResultBox/$1";
+$route['duels/declare_result'] = "students/duelResult";
 
 //Pending Student
 $route['getclanonlocation/(:num)'] = "ajax/getClanDetails/$1";

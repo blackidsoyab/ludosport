@@ -891,6 +891,10 @@ class json extends CI_Controller {
             $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND (to_status ="A" OR from_status ="A")';
         } else if($type == 'pending'){
             $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND (to_status ="P" OR from_status ="P")';
+        } else if($type == 'wins'){
+            $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND (result='. $user_id .')';
+        } else if($type == 'defeats'){
+            $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND (result!='. $user_id .')';
         }
 
         $this->load->library('datatable');
@@ -928,13 +932,9 @@ class json extends CI_Controller {
                     $temp_arr[] = '<span class="label label-info-danger">'.$this->lang->line('rejected').'</span>';
                 }
             }
-
-            if($type == 'all') {
-                $type = $link_type;
-            }
         
-            $temp_arr[] = $aRow['from_id'].'-'.$aRow['to_id'].' : '.$user_id;
-            //date('d-m-Y', strtotime($aRow['made_on']));
+            $temp_arr[] = date('d-m-Y H:i a', strtotime($aRow['played_on']));
+            
             $temp_arr[] = '<a href="'. base_url() .'duels/single/' . $aRow['id'] .'" data-toggle="tooltip" data-placement="bottom" data-original-title="detail view" class="btn btn-default btn-xs"><i class="fa fa-share"></i></a>';
 
             $this->datatable->output['aaData'][] = $temp_arr;

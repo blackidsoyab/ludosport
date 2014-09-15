@@ -25,6 +25,10 @@ class profiles extends CI_Controller {
             $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
             redirect(base_url() . 'dashboard', 'refresh'); 
         }
+
+        if ($type == 'notification') {
+            Notification::updateNotification('user_register', $this->session_data->id, $id);
+        }
         
         if(in_array(6, explode(',',$data['profile']->role_id))){
             $userdetail = new Userdetail();
