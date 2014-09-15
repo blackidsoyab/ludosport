@@ -466,7 +466,7 @@ function checkMessage(last_id){
                     </li>
 
                     <li class="<?php echo ($page == 'events') ? 'active selected' : ''; ?>">
-                        <a href="<?php echo base_url(). 'events'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('events'); ?>">
+                        <a href="<?php echo base_url(). 'event'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('events'); ?>">
                             <i class="fa fa-calendar icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                             <?php echo $this->lang->line('events'); ?>
