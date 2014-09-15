@@ -133,7 +133,7 @@
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label"><?php echo $this->lang->line('pupil_since'), ' : '; ?></label>
                                     <div class="col-lg-8">
-                                        <p class="form-control-static"><?php echo date('Y', strtotime($userdetail->first_lesson_date)); ?></p>
+                                        <p class="form-control-static"><?php echo date('Y', strtotime($userdetail->timestamp)); ?></p>
                                     </div>
                                 </div>
                                 <?php } ?>

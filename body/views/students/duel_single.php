@@ -57,7 +57,7 @@ $(document).ready(function() {
 				<div class="form-group">
 	                <label class="col-lg-2 control-label"><?php echo ucwords($this->lang->line('from')), ' : '; ?></label>
 	                <div class="col-lg-8">
-	                    <p class="form-control-static"><a href="<?php echo base_url() .'profile/single/' .$challenge_user->id ; ?>"><?php echo $challenge_user->firstname .' ' . $challenge_user->lastname; ?></a></p>
+	                    <p class="form-control-static"><a href="<?php echo base_url() .'profile/view/' .$challenge_user->id ; ?>"><?php echo $challenge_user->firstname .' ' . $challenge_user->lastname; ?></a></p>
 	                </div>
 	            </div>
 
@@ -75,19 +75,23 @@ $(document).ready(function() {
 	                </div>
 	            </div>
 
-	            <div class="form-group">
-	                <label class="col-lg-2 control-label"><?php echo ucwords($this->lang->line('date')), ' : '; ?></label>
-	                <div class="col-lg-8">
-	                    <p class="form-control-static"><?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($single->played_on)) ?></p>
-	                </div>
-	            </div>
+	            <?php if(!is_null($single->played_on)) { ?>
+		            <div class="form-group">
+		                <label class="col-lg-2 control-label"><?php echo ucwords($this->lang->line('date')), ' : '; ?></label>
+		                <div class="col-lg-8">
+		                    <p class="form-control-static"><?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($single->played_on)) ?></p>
+		                </div>
+		            </div>
+	            <?php } ?>
 
-	            <div class="form-group">
-	                <label class="col-lg-2 control-label"><?php echo ucwords($this->lang->line('time')), ' : '; ?></label>
-	                <div class="col-lg-8">
-	                    <p class="form-control-static"><?php echo date('H:i A', strtotime($single->played_on)) ?></p>
-	                </div>
-	            </div>
+	            <?php if(!is_null($single->played_on)) { ?>
+		            <div class="form-group">
+		                <label class="col-lg-2 control-label"><?php echo ucwords($this->lang->line('time')), ' : '; ?></label>
+		                <div class="col-lg-8">
+		                    <p class="form-control-static"><?php echo date('H:i a', strtotime($single->played_on)) ?></p>
+		                </div>
+		            </div>
+	            <?php } ?>
 
 	            <?php if(!is_null($single->place)) { ?>
 	            	<div class="form-group">

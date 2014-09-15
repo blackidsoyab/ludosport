@@ -26,7 +26,7 @@
 		  ykeys: ['victories', 'defeats'],
 		  labels: ['Victories', 'Defeats'],
 		  resize: true,
-		  lineColors: ['#F6BB42', '#8CC152']
+		  lineColors: ['#8CC152', '#E9573F']
 		});
 
 		$('button[data-toggle~="modal"]').on('click', function(e) {
@@ -47,14 +47,15 @@
 	            $('.timepicker').timepicker({
 	                minuteStep: 5,
 	                showInputs: false,
-	                showMeridian : false
+	                showMeridian : false,
+	                defaultTime :false,
 	            });
 	        }
 
 			if ($('.datepicker').length > 0){
 		        $('.datepicker').datepicker({
 		            format: "dd-mm-yyyy",
-		            startDate: "<?php echo date('d-m-Y', strtotime(get_current_date_time()->get_date_for_db())); ?>",
+		            startDate: "<?php echo date('d-m-Y', strtotime('+2 day',  strtotime(get_current_date_time()->get_date_for_db()))); ?>",
 		            startView: 2,
 		            autoclose: true,
 		            todayHighlight: true
@@ -63,40 +64,39 @@
 		        });
 	    	}
 
-	        $('#duel_date_time').validate({
-	        	rules: {
-					date: {required: true},
-					time: {required: true}
-				},
-				messages: {
-					date: {required: '* Please select any Date'},
-					time: {required: '* Please select any time'}
-				}
-	        });
-
 	        $('#duel_date_time').submit(function(e) {
-				var post_data = {
-					'from_id' : $("input[name='from_id']").val(),
-					'to_id' : $("input[name='to_id']").val(),
-					'date' : $("input[name='date']").val(),
-					'time' : $("input[name='time']").val(),
-					'place' : $("input[name='place]").val(),
-				};
-				$.ajax({
-					type: "POST",
-					url: '<?php echo  base_url(). "duels/do_it"; ?>',
-					data: post_data,
-					dataType : 'JSON',
-					success: function(data) {
-						if(data.status == true){
-							$('.form-group').hide();
-							$('.message').show();
-						}
-						setTimeout(function() {
-                        	$('#do_duel_box').modal('hide');
-                    	}, 2500);
-					}	
-				});
+	        	if($("input[name='date']").val() != '' && $("input[name='time']").val() == ''){
+	        		$('#time_error').show();
+	        		$('#date_error').hide();
+	        	} else if($("input[name='date']").val() == '' && $("input[name='time']").val() != ''){
+	        		$('#time_error').hide();
+	        		$('#date_error').show();
+	        	} else{
+	        		$('#time_error').hide();
+	        		$('#date_error').hide();
+	        		var post_data = {
+						'from_id' : $("input[name='from_id']").val(),
+						'to_id' : $("input[name='to_id']").val(),
+						'date' : $("input[name='date']").val(),
+						'time' : $("input[name='time']").val(),
+						'place' : $("input[name='place]").val(),
+					};
+					$.ajax({
+						type: "POST",
+						url: '<?php echo  base_url(). "duels/do_it"; ?>',
+						data: post_data,
+						dataType : 'JSON',
+						success: function(data) {
+							if(data.status == true){
+								$('.form-group').hide();
+								$('.message').show();
+							}
+							setTimeout(function() {
+	                        	$('#do_duel_box').modal('hide');
+	                    	}, 2500);
+						}	
+					});
+	        	}
 				e.preventDefault();
 			});
 		});
@@ -305,25 +305,17 @@
 				<h4 class="text-white padding-killer">DUELS LOG</h4>
 				<hr>
 				<div id="tiles-slide-2" class="owl-carousel my-reminder">
-	                <div class="item full">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-						<p class="small">Wrote 1 days ago</p>
-				  	</div>
-
-				  	<div class="item full">
-						<p>Praesent id leo nec erat pharetra dapibus vel vel orci.</p>
-						<p class="small">Wrote 5 days ago</p>
-				  	</div>
-
-				  	<div class="item full">
-						<p>Donec mattis neque quis pulvinar pretium.</p>
-						<p class="small">Wrote 12 days ago</p>
-				  	</div>
-
-				  	<div class="item full">
-						<p>Fusce non neque et erat tincidunt gravida.</p>
-						<p class="small">Wrote 20 days ago</p>
-				  	</div>
+					<?php if($duel_logs != false){ ?>
+						<?php foreach ($duel_logs as $log_key => $log_value) { ?>
+							<div class="item full">
+								<p><?php echo '<a class="bolded text-white padding-killer" href="'.base_url() .'profile/view/'. $log_value->from_id.'">' , $log_value->from_name, '</a> has challenged <a class="bolded text-white padding-killer" href="'.base_url() .'profile/view/'. $log_value->to_id.'">', $log_value->to_name, '</a>'; ?></p>
+								<?php if(!is_null($log_value->winner_id)) {
+								 echo '<p>The winner is <a class="bolded text-white padding-killer" href="'.base_url() .'profile/view/'. $log_value->winner_id.'">' , $log_value->winner_name, '</a></p>';
+								 } ?>
+								<p class="small"><?php echo @time_elapsed_string($log_value->made_on); ?></p>
+						  	</div>
+						<?php } ?>
+					<?php } ?>
 	            </div>
 			</div>
 		</div>
@@ -361,7 +353,7 @@
 	                    </p>
 	                <?php } ?>
 	            </div>
-	            <button class="btn btn-warning btn-block btn-lg btn-square">Score : 1843</button>
+	            <button class="btn btn-warning btn-block btn-lg btn-square">Score : <?php echo @$topper_userdetail->total_score; ?></button>
 	        </div>
 	    </div>
 	</div>
@@ -543,7 +535,13 @@
 		                	<?php echo ucwords($this->lang->line('date')); ?>
 		                </label>
 		                <div class="col-lg-5">
-		                    <input type="text" class="form-control datepicker required" name="date" value="<?php echo date('d-m-Y', strtotime(get_current_date_time()->get_date_for_db())); ?>">
+		                    <input type="text" class="form-control datepicker" name="date" placeholder="Date" readonly="readonly">
+		                </div>
+		            </div>
+	            	<div class="form-group" id="date_error" style="display:none">
+		                <label class="col-lg-3 control-label">&nbsp;</label>
+		                <div class="col-lg-5">
+		                    <label for="date" class="error text-white padding-killer"> * Date is required.</label>
 		                </div>
 		            </div>
 		            <div class="form-group">
@@ -551,7 +549,13 @@
 		                	<?php echo ucwords($this->lang->line('time')); ?>
 		                </label>
 		                <div class="col-lg-5">
-		                    <input type="text" class="form-control timepicker required" name="time">
+		                    <input type="text" class="form-control timepicker" name="time" placeholder="Time" readonly="readonly">
+		                </div>
+		            </div>
+		            <div class="form-group" id="time_error" style="display:none">
+		                <label class="col-lg-3 control-label">&nbsp;</label>
+		                <div class="col-lg-5">
+		                    <label for="date" class="error text-white padding-killer"> * Time is required.</label>
 		                </div>
 		            </div>
 		            <div class="form-group">

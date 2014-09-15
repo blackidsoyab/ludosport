@@ -36,29 +36,31 @@
     </div>
 
     <div class="the-box no-border">
-        <div class="the-box no-border bg-info full">
-            <div id="tiles-slide-3" class="owl-carousel tiles-carousel-color">
-                <?php  foreach ($challenge_users as $challenge_user) { ?>
-                    <div class="item full">
-                        <div class="avatar-wrap">
-                            <div class="media">
-                                <a class="pull-left" href="#fakelink">
-                                <img src="<?php echo IMG_URL . 'user_avtar/100X100/' . $challenge_user->avtar; ?>" class="avatar img-circle has-white-shadow media-object" alt="avatar">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading"><?php echo $challenge_user->name; ?></h4>
+        <?php  if($challenge_received != false) { ?>
+            <div class="the-box no-border bg-info full">
+                <div id="tiles-slide-3" class="owl-carousel tiles-carousel-color">
+                    <?php  foreach ($challenge_received as $received) { ?>
+                        <div class="item full">
+                            <div class="avatar-wrap">
+                                <div class="media">
+                                    <a class="pull-left" href="#fakelink">
+                                    <img src="<?php echo IMG_URL . 'user_avtar/100X100/' . $received->from_avtar; ?>" class="avatar img-circle has-white-shadow media-object" alt="avatar">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><?php echo $received->from_name; ?></h4>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="des">
+                                <h4 class="bolded"><a href="#fakelink">Challenged you!</a></h4>
+                                <p class="small">Pick the gauntlet up and prepare to fight.</p>
+                                <a href="<?php echo base_url() .'duels/single/' . $received->id; ?>" class="btn btn-warning btn-sm">Accept the duel</a>
+                            </div>
                         </div>
-                        <div class="des">
-                            <h4 class="bolded"><a href="#fakelink">Challenged you!</a></h4>
-                            <p class="small">Pick the gauntlet up and prepare to fight.</p>
-                            <a href="<?php echo base_url() .'profile/view/' . $challenge_user->id; ?>" class="btn btn-warning btn-sm">Accept the duel</a>
-                        </div>
-                    </div>
-                <?php } ?>
+                    <?php } ?>
+                </div>
             </div>
-        </div>
+        <?php } ?>
 
         <div class="row">
             <div class="col-lg-6">
@@ -134,7 +136,7 @@
                     </p>
                 <?php } ?>
             </div>
-            <button class="btn btn-warning btn-block btn-lg btn-square">Pts. 1843</button>
+            <button class="btn btn-warning btn-block btn-lg btn-square">Score. <?php echo $userdetail->total_score; ?></button>
         </div>
     </div>
 </div>
