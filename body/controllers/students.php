@@ -135,6 +135,7 @@ class students extends CI_Controller {
     function viewHistory(){
         $this->layout->setField('page_title', $this->lang->line('history'));
 
+        //Right Hand side Batches Images
         $batch = new Batch();
         $data['student_degrees'] = $batch->where('type', 'D')->get(4);
 
@@ -146,7 +147,33 @@ class students extends CI_Controller {
 
         $batch = new Batch();
         $data['student_securities'] = $batch->where('type', 'S')->get(4);
-
+        
+        //For Histroy Data
+        $user_detail = new Userdetail();
+        $data['user_detail'] = $user_detail->where('student_master_id', $this->session_data->id)->get();
+        
+        $challenge = new Challenge();
+        
+        //Total Challenge
+        $total_win_defeats = (int)$challenge->countVictories($this->session_data->id) + (int)$challenge->countDefeats($this->session_data->id);
+        $data['total_victories'] = (int)$challenge->countVictories($this->session_data->id);
+        $data['total_defeats'] = (int)$challenge->countDefeats($this->session_data->id);
+        if($total_win_defeats != 0){
+            $data['victories_percentage'] = ($data['total_victories'] * 100 ) / $total_win_defeats;
+            $data['defeats_percentage'] = ($data['total_defeats'] * 100 ) / $total_win_defeats;
+        }
+        
+        $total_challenges = (int)$challenge->CountChallenges($this->session_data->id);
+        $data['total_made'] = (int)$challenge->CountChallenges($this->session_data->id, 'made');
+        $data['total_received'] = (int)$challenge->CountChallenges($this->session_data->id, 'received');
+        $data['total_rejected'] = (int)$challenge->CountChallenges($this->session_data->id, 'received', 'R');
+        if($total_challenges != 0){
+            $data['made_percentage'] = ($data['total_made'] * 100 ) / $total_challenges;
+            $data['received_percentage'] = ($data['total_received'] * 100 ) / $total_challenges;
+            $data['rejected_percentage'] = ($data['total_rejected'] * 100 ) / $total_challenges;
+        }
+        
+        //For Timeline 
         $obj = new Notification();
         $obj->where('to_id', $this->session_data->id);
         $obj->or_where('from_id', $this->session_data->id);

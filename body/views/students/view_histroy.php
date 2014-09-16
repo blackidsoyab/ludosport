@@ -13,15 +13,15 @@
             <div class="blog-detail-image">
                 <img src="assets/img/Z1.png" class="img-blog" alt="Blog image">
             </div>
-            <div id="panel-chart-widget-1" class="collapse">
+            <div id="panel-chart-widget-1" class="collapse in">
                 <div class="the-box no-border">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="row">
                                 <div class="col-xs-6 text-center">
                                     <h4 class="small-heading">VICTORIES / DEFEATS</h4>
-                                    <span class="chart chart-widget-pie widget-easy-pie-1" data-percent="45">
-                                        <span class="percent">45</span>
+                                    <span class="chart chart-widget-pie widget-easy-pie-1" data-percent="<?php echo @$victories_percentage; ?>">
+                                        <span class="percent"><?php echo @$victories_percentage; ?></span>
                                         <canvas height="110" width="110"></canvas></span>
                                 </div>
                                 <div class="col-xs-6 text-center">
@@ -32,33 +32,33 @@
                                 </div>
                             </div>
                             <hr>
-                            <button class="btn btn-block btn-danger"><i class="fa fa-cogs"></i> -Score: 1843&nbsp;- </button>
+                            <button class="btn btn-block btn-danger"><i class="fa fa-cogs"></i>Score: <?php echo $user_detail->total_score; ?></button>
                         </div>
                         <div class="col-sm-6">
                             <h4 class="small-heading">MY DUELS </h4>
-                            <p class="small">Victories - 61</p>
+                            <p class="small">Victories - <?php echo @$total_victories; ?></p>
                             <div class="progress no-rounded progress-xs">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 61%">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$victories_percentage, '%'; ?>">
                                 </div>
                             </div>
-                            <p class="small">Defeats - 19</p>
+                            <p class="small">Defeats - <?php echo @$total_defeats; ?></p>
                             <div class="progress no-rounded progress-xs">
-                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 19%">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$defeats_percentage, '%'; ?>">
                                 </div>
                             </div>
-                            <p class="small">Challenges made - 80</p>
+                            <p class="small">Challenges made - <?php echo @$total_made; ?></p>
                             <div class="progress no-rounded progress-xs">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$made_percentage, '%'; ?>">
                                 </div>
                             </div>
-                            <p class="small">Challenges received - 112</p>
+                            <p class="small">Challenges received - <?php echo @$total_received; ?></p>
                             <div class="progress no-rounded progress-xs">
-                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$received_percentage, '%'; ?>">
                                 </div>
                             </div>
-                            <p class="small">Challenges rejected - 32</p>
+                            <p class="small">Challenges rejected - <?php echo @$total_rejected; ?></p>
                             <div class="progress no-rounded progress-xs">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$rejected_percentage, '%'; ?>">
                                 </div>
                             </div>
                         </div>
@@ -175,9 +175,7 @@
             <div class="the-box no-border">
                 <?php foreach ($student_degrees as $degree) { ?>
                     <div class="media user-card-sm">
-                        <a class="pull-left" href="#">
-                            <img class="media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $degree->image; ?>" alt="<?php echo $degree->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $degree->{$session->language . '_name'}; ?>">
-                        </a>
+                            <img class="pull-left media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $degree->image; ?>" alt="<?php echo $degree->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $degree->{$session->language . '_name'}; ?>">
                         <div class="media-body">
                             <h4 class="text-desl"><?php echo $degree->{$session->language . '_name'}; ?></h4>
                         </div>
@@ -193,9 +191,7 @@
             <div class="the-box no-border">
                 <?php foreach ($student_honours as $honour) { ?>
                     <div class="media user-card-sm">
-                        <a class="pull-left" href="#">
-                            <img class="media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $honour->image; ?>" alt="<?php echo $honour->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $honour->{$session->language . '_name'}; ?>">
-                        </a>
+                        <img class="pull-left media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $honour->image; ?>" alt="<?php echo $honour->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $honour->{$session->language . '_name'}; ?>">
                         <div class="media-body">
                             <h4 class="text-desl"><?php echo $honour->{$session->language . '_name'}; ?></h4>
                         </div>
@@ -211,9 +207,7 @@
             <div class="the-box no-border">
                 <?php foreach ($student_qualifications as $qualification) { ?>
                     <div class="media user-card-sm">
-                        <a class="pull-left" href="#">
-                            <img class="media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $qualification->image; ?>" alt="<?php echo $qualification->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $qualification->{$session->language . '_name'}; ?>">
-                        </a>
+                       <img class="pull-left media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $qualification->image; ?>" alt="<?php echo $qualification->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $qualification->{$session->language . '_name'}; ?>">
                         <div class="media-body">
                             <h4 class="text-desl"><?php echo $qualification->{$session->language . '_name'}; ?></h4>
                         </div>
@@ -229,9 +223,7 @@
             <div class="the-box no-border">
                 <?php foreach ($student_securities as $security) { ?>
                     <div class="media user-card-sm">
-                        <a class="pull-left" href="#">
-                            <img class="media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $security->image; ?>" alt="<?php echo $security->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $security->{$session->language . '_name'}; ?>">
-                        </a>
+                        <img class="pull-left media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $security->image; ?>" alt="<?php echo $security->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $security->{$session->language . '_name'}; ?>">
                         <div class="media-body">
                             <h4 class="text-desl"><?php echo $security->{$session->language . '_name'}; ?></h4>
                         </div>
