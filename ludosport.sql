@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 15, 2014 at 06:11 PM
+-- Generation Time: Sep 16, 2014 at 06:30 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.13
 
@@ -72,7 +72,14 @@ CREATE TABLE IF NOT EXISTS `attendances` (
   `attendance` tinyint(1) NOT NULL DEFAULT '1',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `attendances`
+--
+
+INSERT INTO `attendances` (`id`, `clan_date`, `student_id`, `attendance`, `user_id`, `timestamp`) VALUES
+(1, '2014-09-17', 20, 0, 20, '2014-09-16 06:39:24');
 
 -- --------------------------------------------------------
 
@@ -177,14 +184,15 @@ CREATE TABLE IF NOT EXISTS `challenges` (
   `result_status` enum('MP','MNP','SP') NOT NULL DEFAULT 'MNP',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `challenges`
 --
 
 INSERT INTO `challenges` (`id`, `from_id`, `from_status`, `to_id`, `to_status`, `made_on`, `status_changed_on`, `played_on`, `place`, `result`, `result_status`, `user_id`, `timestamp`) VALUES
-(1, 25, 'A', 20, 'P', '2014-09-15 14:58:56', '2014-09-15 18:07:10', '2014-09-15 18:06:25', 'Hanging garden', 0, 'SP', 25, '2014-09-15 09:28:56');
+(1, 25, 'A', 20, 'A', '2014-09-15 14:58:56', '2014-09-15 18:07:10', '2014-09-15 18:06:25', 'Hanging garden', 20, 'MP', 25, '2014-09-15 09:28:56'),
+(2, 20, 'A', 14, 'P', '2014-09-16 17:34:07', NULL, NULL, '0', 0, 'MNP', 20, '2014-09-16 12:04:07');
 
 -- --------------------------------------------------------
 
@@ -235,7 +243,7 @@ CREATE TABLE IF NOT EXISTS `clandates` (
 --
 
 INSERT INTO `clandates` (`id`, `type`, `clan_id`, `clan_date`, `clan_shift_from`, `description`, `history`, `user_id`, `timestamp`) VALUES
-(5, 'S', 1, '2014-12-17', '2014-09-17', '', NULL, 3, '2014-09-10 09:46:41');
+(5, 'S', 6, '2014-09-20', '2014-09-17', '', NULL, 3, '2014-09-10 09:46:41');
 
 -- --------------------------------------------------------
 
@@ -603,17 +611,56 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `data` longtext,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=60 ;
 
 --
 -- Dumping data for table `notifications`
 --
 
 INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `object_id`, `data`, `status`, `timestamp`) VALUES
-(1, 'N', 'challenge_made', 25, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
-(8, 'N', 'challenge_accepted', 20, 25, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";s:2:"25";s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"A";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";s:19:"2014-09-15 15:12:36";s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";s:1:"0";s:6:"result";s:2:"25";s:13:"result_status";s:3:"MNP";s:7:"user_id";s:2:"25";s:9:"timestamp";s:19:"2014-09-15 14:58:56";}', 1, '2014-09-15 09:42:36'),
-(15, 'N', 'challenge_winner', 20, 25, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";s:2:"25";s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"A";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";s:19:"2014-09-15 15:15:54";s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";s:14:"Hanging garden";s:6:"result";s:2:"20";s:13:"result_status";s:2:"MP";s:7:"user_id";s:2:"25";s:9:"timestamp";s:19:"2014-09-15 14:58:56";}', 1, '2014-09-15 09:52:35'),
-(16, 'N', 'challenge_winner', 25, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";s:2:"25";s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"A";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";s:19:"2014-09-15 15:15:54";s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";s:14:"Hanging garden";s:6:"result";s:2:"25";s:13:"result_status";s:2:"MP";s:7:"user_id";s:2:"25";s:9:"timestamp";s:19:"2014-09-15 14:58:56";}', 0, '2014-09-15 11:37:43');
+(1, 'N', 'challenge_made', 25, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2010-09-09 09:28:56'),
+(2, 'N', 'challenge_accepted', 20, 25, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";s:2:"25";s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"A";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";s:19:"2014-09-15 15:12:36";s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";s:1:"0";s:6:"result";s:2:"25";s:13:"result_status";s:3:"MNP";s:7:"user_id";s:2:"25";s:9:"timestamp";s:19:"2014-09-15 14:58:56";}', 1, '2010-09-15 09:42:36'),
+(3, 'N', 'challenge_winner', 20, 25, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";s:2:"25";s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"A";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";s:19:"2014-09-15 18:07:10";s:9:"played_on";s:19:"2014-09-15 18:06:25";s:5:"place";s:14:"Hanging garden";s:6:"result";s:2:"25";s:13:"result_status";s:2:"MP";s:7:"user_id";s:2:"25";s:9:"timestamp";s:19:"2014-09-15 14:58:56";}', 1, '2011-09-16 04:17:48'),
+(4, 'N', 'student_absent', 20, 3, 1, 'a:1:{s:12:"absence_date";s:10:"2014-09-17";}', 1, '2011-09-16 06:39:24'),
+(5, 'N', 'challenge_made', 25, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2012-09-02 09:28:56'),
+(6, 'N', 'challenge_made', 25, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2013-01-09 09:28:56'),
+(7, 'N', 'challenge_made', 25, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2013-05-21 09:28:56'),
+(8, 'N', 'challenge_made', 25, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2013-07-15 09:28:56'),
+(9, 'N', 'challenge_made', 25, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2013-09-15 09:28:56'),
+(10, 'N', 'challenge_made', 25, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(11, 'N', 'challenge_made', 25, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(12, 'N', 'challenge_made', 25, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(13, 'N', 'challenge_made', 25, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(14, 'N', 'challenge_made', 25, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(15, 'N', 'challenge_made', 25, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(16, 'N', 'challenge_made', 28, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(17, 'N', 'challenge_made', 27, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(18, 'N', 'challenge_made', 23, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(19, 'N', 'challenge_made', 21, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(20, 'N', 'challenge_made', 17, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(21, 'N', 'challenge_made', 16, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(22, 'N', 'challenge_made', 15, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(23, 'N', 'challenge_made', 14, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(24, 'N', 'challenge_made', 13, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(25, 'N', 'challenge_made', 12, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-15 14:58:56";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-20 15:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-15 09:28:56'),
+(42, 'N', 'teacher_absent', 3, 4, 3, 'a:4:{s:6:"action";s:15:"confirm_absence";s:7:"clan_id";s:1:"6";s:12:"from_message";s:0:"";s:4:"date";s:10:"2014-09-17";}', 1, '2014-09-16 11:04:42'),
+(43, 'N', 'holiday_approved', 4, 3, 3, 'a:11:{s:2:"id";i:3;s:9:"clan_date";s:10:"2014-09-17";s:7:"clan_id";s:1:"6";s:10:"teacher_id";s:1:"3";s:10:"attendance";s:1:"0";s:16:"recovery_teacher";s:1:"0";s:12:"from_message";N;s:10:"to_message";N;s:6:"status";s:1:"A";s:7:"user_id";s:1:"3";s:9:"timestamp";s:19:"2014-09-16 16:34:42";}', 0, '2014-09-16 11:05:54'),
+(44, 'N', 'change_clan_date', 3, 4, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 0, '2014-09-16 11:09:36'),
+(45, 'N', 'change_clan_date', 3, 5, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 0, '2014-09-16 11:10:18'),
+(46, 'N', 'change_clan_date', 3, 13, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 0, '2014-09-16 11:10:39'),
+(47, 'N', 'change_clan_date', 3, 14, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 0, '2014-09-16 11:11:09'),
+(48, 'N', 'change_clan_date', 3, 15, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 0, '2014-09-16 11:11:49'),
+(49, 'N', 'change_clan_date', 3, 16, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 0, '2014-09-16 11:11:57'),
+(50, 'N', 'change_clan_date', 3, 17, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 0, '2014-09-16 11:12:27'),
+(51, 'N', 'change_clan_date', 3, 20, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 1, '2014-09-16 11:12:59'),
+(52, 'N', 'change_clan_date', 3, 21, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 0, '2014-09-16 11:13:11'),
+(53, 'N', 'change_clan_date', 3, 23, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 0, '2014-09-16 11:13:31'),
+(54, 'N', 'change_clan_date', 3, 25, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 1, '2014-09-16 11:14:01'),
+(55, 'N', 'change_clan_date', 3, 27, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 0, '2014-09-16 11:14:13'),
+(56, 'N', 'change_clan_date', 3, 31, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 0, '2014-09-16 11:14:19'),
+(57, 'N', 'change_clan_date', 3, 33, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 0, '2014-09-16 11:14:39'),
+(58, 'N', 'change_clan_date', 3, 34, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 0, '2014-09-16 11:15:00'),
+(59, 'N', 'challenge_made', 20, 14, 2, 'a:13:{s:2:"id";i:2;s:7:"from_id";i:20;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"14";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-16 17:34:07";s:17:"status_changed_on";N;s:9:"played_on";N;s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:20;s:9:"timestamp";N;}', 0, '2014-09-16 12:04:07');
 
 -- --------------------------------------------------------
 
@@ -785,7 +832,7 @@ INSERT INTO `systemsettings` (`id`, `type`, `sequence`, `sys_key`, `sys_value`, 
 --
 
 CREATE TABLE IF NOT EXISTS `teacher_attendances` (
-  `id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
   `clan_date` date NOT NULL,
   `clan_id` int(11) NOT NULL,
   `teacher_id` int(11) NOT NULL,
@@ -796,7 +843,14 @@ CREATE TABLE IF NOT EXISTS `teacher_attendances` (
   `status` enum('A','P','U') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `teacher_attendances`
+--
+
+INSERT INTO `teacher_attendances` (`id`, `clan_date`, `clan_id`, `teacher_id`, `attendance`, `recovery_teacher`, `from_message`, `to_message`, `status`, `user_id`, `timestamp`) VALUES
+(3, '2014-09-17', 6, 3, 0, 0, NULL, NULL, 'A', 3, '2014-09-16 11:04:42');
 
 -- --------------------------------------------------------
 
@@ -823,7 +877,7 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   `status` enum('A','P','U','P2') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `userdetails`
@@ -844,7 +898,10 @@ INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `batch_id`, `co
 (19, 33, '4', 6, 6, 0, 0, 0, 10, '2014-09-30', 8, NULL, NULL, NULL, NULL, 'A', 33, '2014-09-05 13:05:45'),
 (20, 34, '1', 6, 6, 0, 0, 0, 10, '2014-09-23', 8, NULL, NULL, NULL, NULL, 'A', 34, '2014-09-05 13:18:57'),
 (21, 23, '6', 6, 6, 0, 0, 0, 10, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:02'),
-(25, 12, '0', 0, 6, 0, 0, 0, 10, NULL, 0, 'Vadodara', 390016, 610093, 'B -ve', 'P2', 12, '2014-09-11 05:49:27');
+(25, 12, '0', 0, 6, 0, 0, 0, 10, NULL, 0, 'Vadodara', 390016, 610093, 'B -ve', 'P2', 12, '2014-09-11 05:49:27'),
+(26, 0, '0', 0, 1, 0, 0, 0, 0, '2014-09-20', 0, NULL, NULL, NULL, NULL, 'P', 0, '2014-09-16 11:09:36'),
+(27, 0, '0', 0, 1, 0, 0, 0, 0, '2014-09-20', 0, NULL, NULL, NULL, NULL, 'P', 0, '2014-09-16 11:09:36'),
+(28, 0, '0', 0, 1, 0, 0, 0, 0, '2014-09-20', 0, NULL, NULL, NULL, NULL, 'P', 0, '2014-09-16 11:09:36');
 
 -- --------------------------------------------------------
 
@@ -902,7 +959,7 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `last
 (23, '6', 'iqbal', '202cb962ac59075b964b07152d234b70', 'Iqbal', 'Hussain', 'iqbal@blackid.com', 318060000, 2, 1, 1, NULL, NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, 'A', 0, '2014-08-27 10:20:39'),
 (25, '6', 'karl', '202cb962ac59075b964b07152d234b70', 'Karl', 'Marks', 'ranasoyab@yopmail.com', 421871400, 1, 1, 1, 'Vadodara', NULL, 'a605553a927ca37136936eaf13836cae.jpg', 'Baroda', '91987654321', '91987654321', 'Let us always meet each other with smile, as the smile is the beginning of love.', '<p><br></p>', 'A', 25, '2014-08-28 11:48:19'),
 (27, '6', 'Fede', '202cb962ac59075b964b07152d234b70', 'Federico', 'De Medici', 'ranasoyab@yopmail.com', 752565600, 5, 4, 2, NULL, NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, 'A', 0, '2014-09-04 15:20:52'),
-(28, '6', '123', '202cb962ac59075b964b07152d234b70', 'Carmelo2', 'Samperi1', 'ranasoyab@yopmail.com', 635061600, 5, 4, 2, NULL, NULL, 'e920884e47d4e84f51c262df3cd36583.jpg', NULL, NULL, NULL, NULL, NULL, 'P', 28, '2014-09-05 07:18:30'),
+(28, '6', '123', '202cb962ac59075b964b07152d234b70', 'Carmelo2', 'Samperi1', 'ranasoyab@yopmail.com', 635061600, 5, 4, 2, NULL, NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, 'P', 28, '2014-09-05 07:18:30'),
 (30, '6', '1234', '81dc9bdb52d04dc20036dbd8313ed055', 'Pietro', 'Rossi', 'ranasoyab@yopmail.com', 1239685200, 5, 4, 2, 'Pietro', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, 'P', 0, '2014-09-05 11:04:54'),
 (31, '6', 'eu', '202cb962ac59075b964b07152d234b70', 'Eugenio', 'Di Fraia', 'ranasoyab@yopmail.com', 317973600, 5, 4, 2, 'Cassina de Pecchi', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, 'P', 0, '2014-09-05 11:32:37'),
 (33, '6', 'bart', '202cb962ac59075b964b07152d234b70', 'Bart', 'Simpson', 'ranasoyab@yopmail.com', 633938400, 5, 4, 2, 'e', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, 'P', 33, '2014-09-05 13:00:47'),
@@ -1057,6 +1114,12 @@ ALTER TABLE `systemsettings`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `teacher_attendances`
+--
+ALTER TABLE `teacher_attendances`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `userdetails`
 --
 ALTER TABLE `userdetails`
@@ -1081,7 +1144,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `attendance_recovers`
 --
@@ -1096,7 +1159,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
 -- AUTO_INCREMENT for table `challenges`
 --
 ALTER TABLE `challenges`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `cities`
 --
@@ -1166,7 +1229,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=60;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
@@ -1193,10 +1256,15 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 ALTER TABLE `systemsettings`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
+-- AUTO_INCREMENT for table `teacher_attendances`
+--
+ALTER TABLE `teacher_attendances`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `userdetails`
 --
 ALTER TABLE `userdetails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `users`
 --
