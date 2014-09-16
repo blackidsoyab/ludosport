@@ -122,3 +122,53 @@ box-shadow: none;
 .duel-single .bg-success{
     background-color: #8CC152;
 }
+
+/* Timeline Setting */
+ul.timeline li.centering-line {
+    background: rgba(1,1,15,.2);
+}
+
+ul.timeline li.center-timeline-cat .inner {
+    background: #ffbf3f;
+}
+
+ul.timeline li.item-timeline .buletan {
+    border: 2px solid #f1c15c !important;
+}
+/*
+    ul.timeline li:nth-child(even).item-timeline{
+        float: right;
+        clear: right;
+    }
+
+    ul.timeline li:nth-child(odd).item-timeline{
+        float: left;
+        clear: left;
+    }
+
+    ul.timeline li:nth-child(even).item-timeline .buletan{
+        right: 0px;
+        left: -6px;
+        top: 60px;
+    }
+
+    ul.timeline li:nth-child(odd).item-timeline .buletan{
+        left : 330px;
+        top: 40px;
+    }
+
+    ul.timeline li.item-timeline:nth-child(odd):before {
+        top: 35px;
+        left: 314px;
+        border-left: 12px solid #fff;
+        border-right: 0px solid #fff;
+    }
+
+    ul.timeline li.item-timeline:nth-child(even):before {
+        top: 55px;
+        right: 314px;
+        border-right: 12px solid #fff;
+        border-left: 0px solid #fff;
+    }
+*/
+/* ******************************** */

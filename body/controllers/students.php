@@ -134,7 +134,26 @@ class students extends CI_Controller {
 
     function viewHistory(){
         $this->layout->setField('page_title', $this->lang->line('history'));
-        $this->layout->view('students/view_histroy');
+
+        $batch = new Batch();
+        $data['student_degrees'] = $batch->where('type', 'D')->get(4);
+
+        $batch = new Batch();
+        $data['student_honours'] = $batch->where('type', 'H')->get(4);
+
+        $batch = new Batch();
+        $data['student_qualifications'] = $batch->where('type', 'Q')->get(4);
+
+        $batch = new Batch();
+        $data['student_securities'] = $batch->where('type', 'S')->get(4);
+
+        $obj = new Notification();
+        $obj->where('to_id', $this->session_data->id);
+        $obj->or_where('from_id', $this->session_data->id);
+        $obj->get();
+        $data['per_page'] = ceil($obj->result_count() / 1);
+
+        $this->layout->view('students/view_histroy', $data);
     }
 
     function viewTopRating(){

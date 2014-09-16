@@ -166,6 +166,7 @@ $route['teacher/school_related_teacher/(:num)'] = "teachers/teachersReleatedScho
 $route['student_mark_absence'] = "students/markAbsence";
 $route['student/clan/(:num)/(:any)'] = "dashboard/studentClan/$1/$2";
 $route['history'] = "students/viewHistory";
+$route['history/load_more_timeline/(:num)'] = "ajax/timelinePanigate/$1";
 $route['rating'] = "students/viewTopRating";
 $route['rating_list'] = "students/viewRatingList";
 $route['duels'] = "students/viewDuels";

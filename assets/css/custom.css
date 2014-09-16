@@ -47,6 +47,16 @@ body.login{
     color: #000 !important;
 }
 
+a.text-black{
+    color: #000 !important;
+    text-decoration: none !important;
+}
+
+a.text-black:hover{
+    color: #37BC9B !important;
+    text-decoration: none !important;
+}
+
 .text-white{
     color: #fff !important;
 }

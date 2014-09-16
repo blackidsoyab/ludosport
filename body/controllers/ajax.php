@@ -62,7 +62,7 @@ class ajax extends CI_Controller {
             $array['notification'] = 'true';
             $temp = array();
             $temp['type'] = 'success';
-            $temp['message'] = getMessageTemplate($options);
+            $temp['message'] = getNotificationTemplate($options);
             $temp['notification'] = getSingleNotification($notify->id);
             $last_id = $notify->id;
             $array[] = $temp;
@@ -88,10 +88,10 @@ class ajax extends CI_Controller {
 
     function checkMessage($message_id) {
         $obj_message = new Message();
-        $getmessage =  $obj_message->getMessages($this->session_data->id, $message_id);
+        $getmessage = $obj_message->getMessages($this->session_data->id, $message_id);
         $array = array();
         $array['message'] = 'false';
-        if($getmessage){
+        if ($getmessage) {
             foreach ($getmessage as $message) {
                 $array['message'] = 'true';
                 $temp = array();
@@ -114,7 +114,7 @@ class ajax extends CI_Controller {
         echo json_encode($array);
     }
 
-    function markAllMessageRead(){
+    function markAllMessageRead() {
         $obj_message = new Message();
         $obj_message->where(array('to_id' => $this->session_data->id, 'to_status' => 'U'))->get();
         $obj_message->update_all('to_status', 'R');
@@ -123,12 +123,11 @@ class ajax extends CI_Controller {
         $obj_messagestatus->where(array('to_id' => $this->session_data->id, 'status' => 'U'))->get();
         $obj_messagestatus->update_all('status', 'R');
 
-        return true;   
+        return true;
     }
 
     function notificationPanigate($group_number) {
         $items_per_group = 5;
-        //$group_number = filter_var($this->input->post("group_no"), FILTER_SANITIZE_NUMBER_INT, FILTER_FLAG_STRIP_HIGH);
         $position = ($group_number * $items_per_group);
 
         $obj = new Notification();
@@ -147,10 +146,10 @@ class ajax extends CI_Controller {
 
                 if ($notify->type == 'N') {
                     $user_info = userNameAvtar($notify->from_id);
-                    $message = getMessageTemplate($options, true);
+                    $message = getNotificationTemplate($options, true);
                     $img = '<img src="' . $user_info['avtar'] . '" class="media-object img-circle" alt="Avatar">';
                 } else {
-                    $message = getMessageTemplate($options);
+                    $message = getNotificationTemplate($options);
                     $img = '<i class="fa fa-3x fa-info-circle"></i>';
                 }
 
@@ -171,7 +170,93 @@ class ajax extends CI_Controller {
         exit;
     }
 
-    function getClanDetails($city_id){
+    function timelinePanigate($group_number) {
+        $items_per_group = 10;
+        $position = ($group_number * $items_per_group);
+
+        $obj = new Notification();
+        $results = $obj->notificationLogs($this->session_data->id, $items_per_group, $position);
+        $str = Null;
+        $count = 0;
+
+        if ($results != false) {
+            foreach ($results as $notify) {
+                $options['id'] = $notify->id;
+                $options['notify_type'] = $notify->notify_type;
+                $options['object_id'] = $notify->object_id;
+                $options['from_id'] = $notify->from_id;
+                $options['data'] = unserialize($notify->data);
+
+                if ($notify->type == 'N') {
+                    if ($notify->from_id == $this->session_data->id) {
+                        $user_name = 'You';
+                    } else {
+                        $user_name = '<a href="' . base_url() . 'profile/view/' . $notify->from_id . '">' . $notify->from_name . '</a>';
+                    }
+                    $message = getTimelineTemplate($options);
+                    $img = '<img src="' . IMG_URL . 'user_avtar/100X100/' . $notify->from_avtar . '" class="avatar">';
+                } else {
+                    $user_name = 'System';
+                    $message = getTimelineTemplate($options);
+                    $img = '<i class="fa fa-3x fa-info-circle"></i>';
+                }
+                $current_date = get_current_date_time()->get_date_for_db();
+                $notifiy_date = date('d-m-Y', strtotime($notify->timestamp));
+                $notifiy_time = date('H:i', strtotime($notify->timestamp));
+                
+                $display = false;
+                
+                $month_year = $this->session->userdata('month_year');                
+                if (empty($month_year)) {
+                    $this->session->set_userdata('month_year', date('Y-m',strtotime(get_current_date_time()->get_date_for_db())));
+                    $display = true;
+                }
+                
+                if($group_number == 0 && $count == 0){
+                    $display = true;
+                    $count++;
+                }
+                
+                if(strtotime($month_year) != strtotime(date('Y-m',strtotime($notify->timestamp)))){
+                    $this->session->set_userdata('month_year', date('Y-m',strtotime($notify->timestamp)));
+                    $display = true;
+                }
+                
+                if($display){
+                    $str .= '<li class="center-timeline-cat">';
+                    $str .= '<div class="inner">';
+                    $str .=   date('F-Y',strtotime($this->session->userdata('month_year')));
+                    $str .= '</div></li>';
+                }
+                
+                $str .= '<li class="item-timeline">' . "\n";
+                $str .= '<div class="buletan"></div>' . "\n";
+                $str .= '<div class="inner-content">' . "\n";
+                $str .= '<div class="heading-timeline">' . "\n";
+                $str .= $img . "\n";
+                $str .= '<div class="user-timeline-info">' . "\n";
+                $str .= '<p>' . $user_name . "\n";
+                if (strtotime($current_date) == strtotime($notifiy_date)) {
+                    $str .= '<small>' . time_elapsed_string($notify->timestamp) . '</small></p>' . "\n";
+                } else {
+                    $str .= '<small>' . $notifiy_date . ' at ' . $notifiy_time . '</small></p>' . "\n";
+                }
+
+                $str .= '</div>' . "\n";
+                $str .= '</div>' . "\n";
+                $str .= '<p>'.@$message.'</p>'."\n";
+                $str .= '</div>' . "\n";
+                $str .= '</li>' . "\n";
+            }
+            echo $str;
+        } else {
+            echo FALSE;
+        }
+
+        exit;
+    }
+
+    function getClanDetails($city_id) {
         $user = New User();
         //Get Current Login User details
         $user->where('id', $this->session_data->id)->get();
@@ -198,9 +283,9 @@ class ajax extends CI_Controller {
             $str = NULL;
             foreach ($clan as $clan_detail) {
                 $str .= '<div class="col-lg-4 col-xs-4 clan">';
-                $str .= '<div class="the-box rounded text-center padding-killer margin-bottom-killer" data-clan="'.$clan_detail->id.'">';
-                $str .= '<input type="radio" value="'.$clan_detail->id.'" name="clan_id" />';
-                $str .= '<h4 class="light">'. $clan_detail->{$this->session_data->language . '_class_name'} .'</h4>';
+                $str .= '<div class="the-box rounded text-center padding-killer margin-bottom-killer" data-clan="' . $clan_detail->id . '">';
+                $str .= '<input type="radio" value="' . $clan_detail->id . '" name="clan_id" />';
+                $str .= '<h4 class="light">' . $clan_detail->{$this->session_data->language . '_class_name'} . '</h4>';
                 $str .= '</div>';
                 $str .= '</div>';
                 $str .= "\n";
@@ -223,10 +308,10 @@ class ajax extends CI_Controller {
 
         foreach ($temp_dates as $date) {
             $obj_clan_date = new Clandate();
-            $obj_clan_date->where(array('clan_id'=>$clan_id, 'clan_shift_from' => $date))->get();
-            if($obj_clan_date->result_count() == 1){
+            $obj_clan_date->where(array('clan_id' => $clan_id, 'clan_shift_from' => $date))->get();
+            if ($obj_clan_date->result_count() == 1) {
                 $dates[] = $obj_clan_date->clan_date;
-            }else{
+            } else {
                 $dates[] = $date;
             }
         }
@@ -236,43 +321,43 @@ class ajax extends CI_Controller {
             $str .= '<div class="col-lg-4 col-xs-4 clan-date">';
             $str .= '<div class="the-box rounded text-center padding-killer mar-bt-10" data-clan-date="' . $date . '">';
             $str .= '<input type="radio" value="' . $date . '" name="date" />';
-            $str .= '<h4 class="light">' . date('l', strtotime($date)). '<br />' . date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date)) . '</h4>';
+            $str .= '<h4 class="light">' . date('l', strtotime($date)) . '<br />' . date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date)) . '</h4>';
             $str .= '</div></div>';
             $str .= "\n";
         }
         echo $str;
     }
 
-    function generateCalendatDates($year, $month){
+    function generateCalendatDates($year, $month) {
         $month = $month + 1;
-        $current_date = get_current_date_time()->get_date_for_db();        
+        $current_date = get_current_date_time()->get_date_for_db();
         $return = array();
         $total_days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-        for($i=1;$i<=$total_days;$i++){
-            $date = date('Y-m-d', strtotime($year .'-'. $month .'-'. $i));
+        for ($i = 1; $i <= $total_days; $i++) {
+            $date = date('Y-m-d', strtotime($year . '-' . $month . '-' . $i));
             $day_numeric = date('N', strtotime($date));
             $clans = New Clan();
-            $details = $clans->getClansByDay($day_numeric);  
+            $details = $clans->getClansByDay($day_numeric);
 
-            if($details){
-               foreach ($details as $value) {
-                    if(strtotime($date) >= strtotime($value->clan_from) && strtotime($date) <= strtotime($value->clan_to)){  
+            if ($details) {
+                foreach ($details as $value) {
+                    if (strtotime($date) >= strtotime($value->clan_from) && strtotime($date) <= strtotime($value->clan_to)) {
                         $obj_clan_date = new Clandate();
-                        $check = $obj_clan_date->isClanShifted($value->id, $date);                    
+                        $check = $obj_clan_date->isClanShifted($value->id, $date);
 
-                        if($check != false){
-                            if($check->clan_date == $date){
+                        if ($check != false) {
+                            if ($check->clan_date == $date) {
                                 $temp = array();
                                 $temp['title'] = $value->clan;
                                 $temp['start'] = $check->clan_date;
-                                $temp['tooltip'] = 'clan shifted of ' . date('d-m-Y', strtotime($check->clan_shift_from)) . ' ' . $value->school .', '. $value->academy;
-                                if($this->session_data->role == 1 || $this->session_data->role == 2 || $this->session_data->role == 5) {
-                                    $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                                $temp['tooltip'] = 'clan shifted of ' . date('d-m-Y', strtotime($check->clan_shift_from)) . ' ' . $value->school . ', ' . $value->academy;
+                                if ($this->session_data->role == 1 || $this->session_data->role == 2 || $this->session_data->role == 5) {
+                                    $temp['url'] = base_url() . 'clan/clan_attendance/' . $value->id . '/' . $date;
                                 }
-                                if(strtotime($date) < strtotime($current_date)){
+                                if (strtotime($date) < strtotime($current_date)) {
                                     $temp['type'] = 'past';
                                     $temp['class'] = 'badge badge-warning-info';
-                                }else if(strtotime($date) == strtotime($current_date)){
+                                } else if (strtotime($date) == strtotime($current_date)) {
                                     $temp['type'] = 'present';
                                     $temp['class'] = 'badge badge-warning-success';
                                 } else {
@@ -282,54 +367,54 @@ class ajax extends CI_Controller {
                                 $return[] = $temp;
                             }
 
-                            if($check->clan_shift_from == $date){
+                            if ($check->clan_shift_from == $date) {
                                 $temp = array();
                                 $temp['title'] = $value->clan;
                                 $temp['start'] = $date;
-                                $temp['tooltip'] = 'clan shifted on ' . date('d-m-Y', strtotime($check->clan_date)) . ' ' . $value->school .', '. $value->academy;
-                                if(strtotime($date) < strtotime($current_date)){
-                                    $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                                $temp['tooltip'] = 'clan shifted on ' . date('d-m-Y', strtotime($check->clan_date)) . ' ' . $value->school . ', ' . $value->academy;
+                                if (strtotime($date) < strtotime($current_date)) {
+                                    $temp['url'] = base_url() . 'clan/clan_attendance/' . $value->id . '/' . $date;
                                     $temp['type'] = 'past';
                                     $temp['class'] = 'badge badge-info-danger';
-                                }else if(strtotime($date) == strtotime($current_date)){
-                                    $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                                } else if (strtotime($date) == strtotime($current_date)) {
+                                    $temp['url'] = base_url() . 'clan/clan_attendance/' . $value->id . '/' . $date;
                                     $temp['type'] = 'present';
                                     $temp['class'] = 'badge badge-success-danger';
                                 } else {
-                                    $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                                    $temp['url'] = base_url() . 'clan/clan_attendance/' . $value->id . '/' . $date;
                                     $temp['type'] = 'future';
                                     $temp['class'] = 'badge badge-inverse-danger';
                                 }
-                                $return[] = $temp;   
+                                $return[] = $temp;
                             }
-                        }else{
+                        } else {
                             $temp = array();
                             $temp['title'] = $value->clan;
                             $temp['start'] = $date;
-                            $temp['tooltip'] = $value->school .', '. $value->academy;
-                            if(strtotime($date) < strtotime($current_date)){
-                                $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                            $temp['tooltip'] = $value->school . ', ' . $value->academy;
+                            if (strtotime($date) < strtotime($current_date)) {
+                                $temp['url'] = base_url() . 'clan/clan_attendance/' . $value->id . '/' . $date;
                                 $temp['type'] = 'past';
                                 $temp['class'] = 'badge badge-info';
-                            }else if(strtotime($date) == strtotime($current_date)){
-                                $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                            } else if (strtotime($date) == strtotime($current_date)) {
+                                $temp['url'] = base_url() . 'clan/clan_attendance/' . $value->id . '/' . $date;
                                 $temp['type'] = 'present';
                                 $temp['class'] = 'badge badge-success';
                             } else {
-                                $temp['url'] = base_url() .'clan/clan_attendance/' . $value->id .'/'. $date;
+                                $temp['url'] = base_url() . 'clan/clan_attendance/' . $value->id . '/' . $date;
                                 $temp['type'] = 'future';
                                 $temp['class'] = 'badge badge-inverse';
                             }
                             $return[] = $temp;
-                        }         
+                        }
                     }
                 }
             }
         }
 
-        if(count($return) == 0){
+        if (count($return) == 0) {
             $temp = array();
-            $temp['start'] = date('Y-m-d', strtotime($year .'-'.$month.'-01'));
+            $temp['start'] = date('Y-m-d', strtotime($year . '-' . $month . '-01'));
             $return[] = $temp;
         }
 
@@ -522,85 +607,88 @@ class ajax extends CI_Controller {
      *                   START
      * ------------------------------------------
      */
-        function gerUserByRoleID($role_id){
-            $users = new User();
-            $data = $users->getUsersByRole($role_id);
 
-            echo '<option value="">'. $this->lang->line('select'), ' ', $this->lang->line('manager') .'</option>'; 
-            
-            foreach ($data as $value) {
-                echo '<option value="'.$value->id.'">'. $value->firstname .' ' . $value->lastname .'</option>'; 
-            }
+    function gerUserByRoleID($role_id) {
+        $users = new User();
+        $data = $users->getUsersByRole($role_id);
+
+        echo '<option value="">' . $this->lang->line('select'), ' ', $this->lang->line('manager') . '</option>';
+
+        foreach ($data as $value) {
+            echo '<option value="' . $value->id . '">' . $value->firstname . ' ' . $value->lastname . '</option>';
         }
-     /*
+    }
+
+    /*
      * ------------------------------------------
      * ------------------- END ------------------
      * ------------------------------------------
      */
 
-     /*
+    /*
      * ------------------------------------------
      *           Methos for the Message
      *                   START
      * ------------------------------------------
      */
 
-     function downloadAttachment($attachment_id) {
+    function downloadAttachment($attachment_id) {
         $obj = new Messageattachment();
         $obj->where('id', $attachment_id)->get();
-        if($obj->result_count() == 1){
+        if ($obj->result_count() == 1) {
             if (file_exists('assets/message_attachments/' . $obj->file_name)) {
                 $path = './assets/message_attachments/' . $obj->file_name;
                 downloadFile($path, $obj->original_name);
-            }    
+            }
         }
     }
 
-     /*
+    /*
      * ------------------------------------------
      * ------------------- END ------------------
      * ------------------------------------------
      */
 
-     /*
+    /*
      * ------------------------------------------
      *           Methos for the Message
      *                   START
      * ------------------------------------------
      */
 
-     function downloadRegistrationPdf($file) {
+    function downloadRegistrationPdf($file) {
         if (file_exists('assets/registration_attachments/' . $file)) {
             $path = './assets/registration_attachments/' . $file;
             downloadFile($path, $file);
-        }    
+        }
     }
 
-     /*
+    /*
      * ------------------------------------------
      * ------------------- END ------------------
      * ------------------------------------------
      */
 
-    function duelResultBox($id){
+    function duelResultBox($id) {
         $challenge = new Challenge();
         $single = $challenge->getSingleChallengeDetails($id);
-        if($single != false && $single[0]->result_status == 'MNP' && ($single[0]->from_id == $this->session_data->id || $single[0]->to_id == $this->session_data->id)) {
+        if ($single != false && $single[0]->result_status == 'MNP' && ($single[0]->from_id == $this->session_data->id || $single[0]->to_id == $this->session_data->id)) {
             $str = '<div class="form-group">';
-                $str .= '<div class="col-lg-12 text-center">'; 
-                    $str .= '<label class="radio-inline padding-killer" for="radios-0">';
-                        $str .= '<input type="radio" name="winner" id="radios-0" value="'.$single[0]->from_id.'">';
-                        $str .= '<span class="pad-lt-10">' .$single[0]->from_name .'</span>';
-                    $str .= '</label>';
-                    $str .= '<label class="radio-inline padding-killer" for="radios-1">';
-                        $str .= '<input type="radio" name="winner" id="radios-1" value="'.$single[0]->to_id.'">';
-                        $str .= '<span class="pad-lt-10">' .$single[0]->to_name .'</span>';
-                    $str .= '</label>';
-                $str .= '</div>';
+            $str .= '<div class="col-lg-12 text-center">';
+            $str .= '<label class="radio-inline padding-killer" for="radios-0">';
+            $str .= '<input type="radio" name="winner" id="radios-0" value="' . $single[0]->from_id . '">';
+            $str .= '<span class="pad-lt-10">' . $single[0]->from_name . '</span>';
+            $str .= '</label>';
+            $str .= '<label class="radio-inline padding-killer" for="radios-1">';
+            $str .= '<input type="radio" name="winner" id="radios-1" value="' . $single[0]->to_id . '">';
+            $str .= '<span class="pad-lt-10">' . $single[0]->to_name . '</span>';
+            $str .= '</label>';
+            $str .= '</div>';
             $str .= '</div>';
             echo $str;
         } else {
             echo 'Something Went Wrong !!';
         }
     }
+
 }

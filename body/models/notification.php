@@ -17,6 +17,25 @@ class Notification extends DataMapper {
         return true;        
     }
 
+    function notificationLogs($user_id, $limit = null, $offset = null){
+    $this->db->_protect_identifiers = false;
+    $this->db->select('from_user.id AS from_id, CONCAT(from_user.firstname," ",from_user.lastname) AS from_name, from_user.avtar AS from_avtar, to_user.id AS to_id, CONCAT(to_user.firstname," ",to_user.lastname) as to_name, to_user.avtar AS to_avtar, notifications.*');
+    $this->db->from('notifications');
+    $this->db->join('users from_user', 'from_user.id= notifications.from_id');
+    $this->db->join('users to_user', 'to_user.id = notifications.to_id');
+    $this->db->where('(from_id='.$user_id.' OR to_id='.$user_id.')');
+    $this->db->order_by('notifications.timestamp ', 'DESC');
+    if(!is_null($limit) && !is_null($offset)){
+        $this->db->limit($limit, $offset);
+    }
+    $res = $this->db->get();
+    if ($res->num_rows > 0) {
+      return $res->result();
+    } else {
+        return false;
+    }
+  }
+
 }
 
 ?>
