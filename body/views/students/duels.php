@@ -34,6 +34,10 @@
 			var modal = $(target_modal);
 			modal.on('show.bs.modal', function () {
 				$("input[name='to_id']").val($(e.currentTarget).data('userid'));
+				$('.form-group').show();
+		    	$('.animation_image').hide();
+		    	$('#time_error').hide();
+        		$('#date_error').hide();
 			}).modal({
 				backdrop: 'static',
 				keyboard: false
@@ -42,7 +46,6 @@
 		});
 
 		$('#do_duel_box').on('shown.bs.modal', function(){
-
 			if ($('.timepicker').length > 0){
 	            $('.timepicker').timepicker({
 	                minuteStep: 5,
@@ -68,12 +71,19 @@
 	        	if($("input[name='date']").val() != '' && $("input[name='time']").val() == ''){
 	        		$('#time_error').show();
 	        		$('#date_error').hide();
+	        		$('.animation_image').hide();
+	        		$('.message').hide();
 	        	} else if($("input[name='date']").val() == '' && $("input[name='time']").val() != ''){
 	        		$('#time_error').hide();
 	        		$('#date_error').show();
+	        		$('.animation_image').hide();
+	        		$('.message').hide();
 	        	} else{
 	        		$('#time_error').hide();
 	        		$('#date_error').hide();
+	        		$('.animation_image').show();
+	        		$('.form-group').hide();
+	        		$('.message').hide();
 	        		var post_data = {
 						'from_id' : $("input[name='from_id']").val(),
 						'to_id' : $("input[name='to_id']").val(),
@@ -89,6 +99,9 @@
 						success: function(data) {
 							if(data.status == true){
 								$('.form-group').hide();
+								$('.animation_image').hide();
+								$('#time_error').hide();
+    							$('#date_error').hide();
 								$('.message').show();
 							}
 							setTimeout(function() {
@@ -103,7 +116,10 @@
 
 		$('#do_duel_box').on('hidden.bs.modal', function(){
 		    $('.form-group').show();
-		    $('.message').hide();
+		    $('.animation_image').hide();
+		    $('#time_error').hide();
+    		$('#date_error').hide();
+    		$('.message').hide();
 		});
     });
 </script>
@@ -114,11 +130,11 @@
 	<div class="col-lg-4">
 		<div class="the-box no-border card-info text-center">
 			<h4 class="bolded">Duel Suggested</h4>
-			<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$recommended_user->avtar; ?>" class="social-avatar has-margin has-dark-shadow img-circle" alt="Avatar">
-	  		<h3 class="bolded padding-killer"><?php echo @$recommended_user->name; ?></h3>
+			<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$suggested_user->avtar; ?>" class="social-avatar has-margin has-dark-shadow img-circle" alt="Avatar">
+	  		<h3 class="bolded padding-killer"><?php echo @$suggested_user->name; ?></h3>
 			<div class="row">
 				<div class="col-xs-6">
-					<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $recommended_user->id; ?>"><i class="fa fa-user"></i>Challenge!</button>
+					<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $suggested_user->id; ?>"><i class="fa fa-user"></i>Challenge!</button>
 				</div>
 				<div class="col-xs-6">
 					<button class="btn btn-warning btn-block"><i class="fa fa-envelope"></i>Message</button>
@@ -127,15 +143,15 @@
 		</div>
 
 		<div class="the-box no-border card-info text-center">
-			<h4 class="bolded">Challenge to a duel</h4>
-			<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$suggested_user->avtar; ?>" class="social-avatar has-margin has-dark-shadow img-circle" alt="Avatar">
-	  		<h3 class="bolded padding-killer"><?php echo @$suggested_user->name; ?></h3>
+			<h4 class="bolded">Duel Recommended</h4>
+			<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$recommended_user->avtar; ?>" class="social-avatar has-margin has-dark-shadow img-circle" alt="Avatar">
+	  		<h3 class="bolded padding-killer"><?php echo @$recommended_user->name; ?></h3>
 			<div class="row">
 				<div class="col-xs-6">
 					<button class="btn btn-warning btn-block"><i class="fa fa-list icon-sidebar"></i> View Rating</button>
 				</div>
 				<div class="col-xs-6">
-					<button class="btn btn-warning btn-block" data-userid="<?php echo $suggested_user->id; ?>" data-toggle="modal" data-target="#do_duel_box"><i class="fa fa-user"></i>Blind</button>
+					<button class="btn btn-warning btn-block" data-userid="<?php echo $recommended_user->id; ?>" data-toggle="modal" data-target="#do_duel_box"><i class="fa fa-user"></i>Blind</button>
 				</div>
 			</div>
 		</div>
@@ -497,21 +513,23 @@
 				<div id="top-five-users" class="collapse in">
                 	<?php foreach ($top_five_users as $top_five_key => $top_five_value) { ?>
 	                	<div class="the-box no-border margin-bottom-killer padding-bottom-killer">
-	                		<div class="media">
-								<p class="pull-left">
-									<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$top_five_value->avtar; ?>" class="top-user-image img-circle">
-								</p>
-								<div class="media-body">
-									<h5 class="media-heading">
+							<div class="media user-card-sm">
+		                        <img class="pull-left media-object img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$top_five_value->avtar; ?>">
+		                        <div class="media-body">
+		                            <h5 class="media-heading">
 										<a href="<?php echo base_url() . 'profile/view/'. $top_five_value->id ?>">
 											<strong><?php echo $top_five_value->name; ?></strong>
 										</a>
 									</h5>
 									<p class="small text-muted margin-killer">Score : <?php echo @$top_five_value->total_score; ?></p>
 									<p class="small text-muted margin-killer"><?php echo @$top_five_value->academy; ?></p>
-								</div>
-							</div>
+		                        </div>
+		                        <div class="right-button">
+		                            <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $top_five_value->id; ?>">Challenge!</button>
+		                        </div>
+                    		</div>
 						</div>
+						<p></p>
 						<hr class="margin-killer"/>
                 	<?php } ?>
 				</div>
@@ -569,6 +587,9 @@
 		            <div class="alert alert-success message" style="display:none;">
 		            	Prepare for the fight the Challenge made Sucessfully !!
 		            </div>
+		            <div class="animation_image" style="display:none" align="center">
+                    	<i class="fa fa-cog fa-spin fa-2x text-white padding-killer"></i>
+                	</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Just kidding</button>

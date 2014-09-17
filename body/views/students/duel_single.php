@@ -93,7 +93,7 @@ $(document).ready(function() {
 		            </div>
 	            <?php } ?>
 
-	            <?php if(!is_null($single->place)) { ?>
+	            <?php if(!is_null($single->place) && $single->place != 0) { ?>
 	            	<div class="form-group">
 		                <label class="col-lg-2 control-label"><?php echo ucwords($this->lang->line('place')), ' : '; ?></label>
 		                <div class="col-lg-8">

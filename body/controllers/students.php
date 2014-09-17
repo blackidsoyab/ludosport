@@ -429,12 +429,12 @@ class students extends CI_Controller {
                 }
 
                 if($this->input->post('action') == 'A'){
-                    //$this->_sendNotificationEmail('challenge_accepted', $challenge->stored, $challenge->id);
+                    $this->_sendNotificationEmail('challenge_accepted', $challenge->stored, $challenge->id);
                     $message = 'Challenge accepted Successfully';
                 }
 
                 if($this->input->post('action') == 'R'){
-                    //$this->_sendNotificationEmail('challenge_rejected', $challenge->stored, $challenge->id);
+                    $this->_sendNotificationEmail('challenge_rejected', $challenge->stored, $challenge->id);
                     $message = 'Challenge rejected Successfully';
                 }
 
