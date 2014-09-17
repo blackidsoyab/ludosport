@@ -209,4 +209,42 @@ class profiles extends CI_Controller {
         }
     }
 
+    function changeEmailPrivacy(){
+        if ($this->input->post() !== false) {
+            
+            $user_details = new User($this->session_data->id);
+            $user_details->email_privacy = serialize($this->input->post());
+            $user_details->save();
+
+            $this->session->set_flashdata('success', $this->lang->line('change_email_privacy'));
+            redirect(base_url() . 'change_email_privacy', 'refresh');
+        } else {
+            $this->layout->setField('page_title', $this->lang->line('email_privacy'));
+            
+            $temp = array();
+            foreach ($this->session_data->all_roles as $role) {
+                $temp[$role] = emailPrivacyArray($role);
+            }
+            $temp[$this->session_data->role] = emailPrivacyArray($this->session_data->role);
+            asort($temp);
+            $single_dimensional_array = array();
+            foreach ($temp as $val) {
+                if (is_array($val)) {
+                    foreach ($val as $key => $val2) {
+                        $single_dimensional_array[$key] = $val2;
+                    }
+                }
+            }
+
+            $data['emails'] = $single_dimensional_array;
+
+            $user_details = new User($this->session_data->id);
+
+            $data['email_privacy'] = unserialize($user_details->email_privacy);
+            
+            $this->layout->view('profiles/email_privacy', $data);
+        }
+
+    }
+
 }

@@ -30,7 +30,7 @@ $lang['details'] = 'details';
 $lang['loading'] = 'Loading';
 $lang['browse_file'] = 'Browse File';
 $lang['no'] = 'No';
-$lang['yes'] = 'Yes';
+$lang['yes'] = 'Sì';
 
 //Operation's Messages
 $lang['add_data_success'] = 'Data added successfully';

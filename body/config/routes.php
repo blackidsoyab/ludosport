@@ -92,6 +92,7 @@ $route['checkNotification/(:num)'] = "ajax/checkNotification/$1";
 $route['checkMessage/(:num)'] = "ajax/checkMessage/$1";
 $route['load_more_notification/(:num)'] = "ajax/notificationPanigate/$1";
 $route['class_details/(:num)/(:num)'] = "ajax/generateCalendatDates/$1/$2";
+$route['change_email_privacy'] = "profiles/changeEmailPrivacy";
 
 //Dashboard
 $route['dashboard'] = "dashboard/index";

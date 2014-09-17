@@ -233,6 +233,10 @@ function checkMessage(last_id){
                                         <li><a href="<?php echo base_url() . 'profile'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('profile'); ?>"><?php echo $this->lang->line('profile'); ?></a></li>
                                         <?php } ?>
 
+                                        <?php if (hasPermission('profiles', 'changeEmailPrivacy')) { ?>
+                                        <li><a href="<?php echo base_url() . 'change_email_privacy'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('change_email_privacy'); ?>"><?php echo $this->lang->line('change_email_privacy'); ?></a></li>
+                                        <?php } ?>
+
                                         <?php if (hasPermission('profiles', 'changePassword')) { ?>
                                         <li><a href="<?php echo base_url() . 'change_password'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('change_password'); ?>"><?php echo $this->lang->line('change_password'); ?></a></li>
                                         <?php } ?> 

@@ -1236,7 +1236,7 @@ class clans extends CI_Controller {
 
         if(count($final_ids) > 0){
             $user = new User();
-            //Fecth all the Admin, Rector, Dean, Teacher details
+            //Fecth all the Rector, Dean, Teacher details
             $user->where_in('id', $final_ids);
 
             //Compose message for Trial Lesson Request and replace  necessary things

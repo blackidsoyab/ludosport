@@ -43,6 +43,7 @@ class students extends CI_Controller {
             $notification->data = serialize($this->input->post());
             $notification->save();
 
+            $teacher_email = userNameEmail($clan->teacher_id);
             $email = new Email();
             $email->where('type', 'student_absent')->get();
             $message = $email->message;
@@ -52,7 +53,7 @@ class students extends CI_Controller {
             $message = str_replace('#date', date('d-m-Y', strtotime($this->input->post('absence_date'))), $message);
 
             $option = array();
-            $option['tomailid'] = $this->session_data->email;
+            $option['tomailid'] = $teacher_email->email;
             $option['subject'] = $email->subject;
             $option['message'] = $message;
             if (!is_null($email->attachment)) {
@@ -91,8 +92,9 @@ class students extends CI_Controller {
                 $message = str_replace('#recover_clan', $recover_clan->en_class_name, $message);
                 $message = str_replace('#date', date('d-m-Y', strtotime($this->input->post('date'))), $message);
 
+                $recover_teacher_email = userNameEmail($recover_clan->teacher_id);
                 $option = array();
-                $option['tomailid'] = $this->session_data->email;
+                $option['tomailid'] = $recover_teacher_email->email;
                 $option['subject'] = $email->subject;
                 $option['message'] = $message;
                 if (!is_null($email->attachment)) {
