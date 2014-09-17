@@ -169,6 +169,7 @@ $route['history'] = "students/viewHistory";
 $route['history/load_more_timeline/(:num)'] = "ajax/timelinePanigate/$1";
 $route['rating'] = "students/viewTopRating";
 $route['rating_list'] = "students/viewRatingList";
+$route['rating_list/(:any)'] = "students/viewRatingList/$1";
 $route['duels'] = "students/viewDuels";
 $route['duels/do_it'] = "students/challengeStudent";
 $route['duels/json_data/(:num)/(:any)'] = "json/getDuelJsonData/$1/$2";
@@ -179,6 +180,8 @@ $route['duels/single/(:num)'] = "students/duelSingleView/$1";
 $route['duels/single/(:num)/(:any)'] = "students/duelSingleView/$1/$2";
 $route['duels/declare_result_box/(:num)'] = "ajax/duelResultBox/$1";
 $route['duels/declare_result'] = "students/duelResult";
+$route['student/rating_list_json'] = "json/getRattingListJsonData";
+$route['student/rating_list_json/(:any)'] = "json/getRattingListJsonData/$1";
 
 //Pending Student
 $route['getclanonlocation/(:num)'] = "ajax/getClanDetails/$1";

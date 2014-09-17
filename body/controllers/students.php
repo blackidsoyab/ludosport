@@ -185,22 +185,55 @@ class students extends CI_Controller {
 
     function viewTopRating(){
         $this->layout->setField('page_title', $this->lang->line('top_10_rating'));
-        $this->layout->view('students/top_ten_rating');
+
+        $userdetail = new Userdetail();
+
+        //Top 10 XPR User
+        $data['top_ten_xpr'] = $userdetail->topStudents('xpr',null,10);
+
+        //Top 10 WAR User
+        $data['top_ten_war'] = $userdetail->topStudents('war',null,10);
+
+        //Top 10 XPR User
+        $data['top_ten_sty'] = $userdetail->topStudents('sty',null,10);
+
+        //Top 10 XPR User
+        $data['top_ten_academy'] = $userdetail->topStudents('xpr','academy',10);
+        
+        //Top 10 WAR User
+        $data['top_ten_school'] = $userdetail->topStudents('war','school',10);
+
+        //Top 10 XPR User
+        $data['top_ten_clan'] = $userdetail->topStudents('sty','clan',10);
+
+        //Top Ten Users
+        $data['top_ten_users'] = $userdetail->topStudents(null,null,10);
+
+        $this->layout->view('students/top_ten_rating', $data);
     }
 
-    function viewRatingList(){
+    function viewRatingList($type = null){
         $this->layout->setField('page_title', $this->lang->line('rating_list'));
-        $this->layout->view('students/rating_list');
+
+        $avaialbe_types = array('all','xp', 'war', 'style');
+
+        if(!is_null($type) && !in_array($type, $avaialbe_types)){
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'dashboard', 'refresh'); 
+        }
+
+        $data['type'] = $type;
+        $this->layout->view('students/rating_list', $data);
     }
 
     function viewDuels(){
         $this->layout->setField('page_title', $this->lang->line('duels'));
 
         //No 1 User Details
-        $user = new User();
-        $data['topper'] = $user->where('id', $this->session_data->id)->get();
         $userdetail = new Userdetail();
-        $data['topper_userdetail'] = $userdetail->where('student_master_id', $this->session_data->id)->get();
+        $topper = $userdetail->topStudents(null,null,1);
+        $data['topper'] = $topper[0];
+        $data['topper_userdetail'] = $userdetail->where('student_master_id', $topper[0]->id)->get();
         $data['topper_batch_detail'] = $userdetail->Batch;
         $data['topper_batch_image'] = IMG_URL .'batches/'. $data['topper_batch_detail']->image;
         $clan = new Clan($data['topper_userdetail']->clan_id);
@@ -257,7 +290,7 @@ class students extends CI_Controller {
         $data['statistics_challenge'] = json_encode($graph_data);
 
         //Top Five Users
-        $data['top_five_users'] = $userdetail->topStudents(5);
+        $data['top_five_users'] = $userdetail->topStudents(null,null,5);
 
         $this->layout->view('students/duels', $data);
     }

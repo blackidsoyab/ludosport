@@ -78,36 +78,41 @@
         </a>
     </div>
 
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="the-box no-border">
-                <h4 class="small-heading more-margin-bottom text-center">The best <?php echo count($challenge_users)?></h4>
-                <div id="store-item-carousel-1" class="owl-carousel shop-carousel owl-theme">
-                <?php  foreach ($challenge_users as $challenge_user) { ?>
-                    <div class="item">
-                        <div class="media">
-                            <a class="pull-left" href="#fakelink">
-                                <img class="lazyOwl media-object sm img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . $challenge_user->avtar; ?>" alt="Image">
-                            </a>
-                            <div class="media-body">
-                                <h4 class="media-heading nowrap overflow-hidden overflow-text-dot">
-                                    <a href="<?php echo base_url() .'profile/view/' . $challenge_user->id; ?>" data-toggle="tooltip" data-original-title="<?php echo $challenge_user->name; ?>"><?php echo $challenge_user->name; ?></a>
-                                </h4>
-                                <p class="price text-danger"><strong>1</strong></p>
+    <?php if($top_ten_users != false){ ?>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="the-box no-border">
+                    <h4 class="small-heading more-margin-bottom text-black text-center">The best <?php echo count($top_ten_users)?></h4>
+                    <div id="store-item-carousel-1" class="owl-carousel shop-carousel owl-theme">
+                    <?php 
+                        $count = 0;
+                        foreach ($top_ten_users as $ten_users) { 
+                    ?>
+                        <div class="item">
+                            <div class="media">
+                                <a class="pull-left" href="#fakelink">
+                                    <img class="lazyOwl media-object sm img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . $ten_users->avtar; ?>" alt="Image">
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading nowrap overflow-hidden overflow-text-dot">
+                                        <a href="<?php echo base_url() .'profile/view/' . $ten_users->id; ?>" data-toggle="tooltip" data-original-title="<?php echo $ten_users->name; ?>"><?php echo $ten_users->name; ?></a>
+                                    </h4>
+                                    <p class="price text-danger"><strong><?php echo ++$count; ?></strong></p>
+                                </div>
                             </div>
                         </div>
+                    <?php } ?>
                     </div>
-                <?php } ?>
                 </div>
             </div>
         </div>
-    </div>
+    <?php } ?>
 </div>
 
 <div class="col-lg-4">
     <div class="panel panel-warning panel-square panel-no-border">
         <div class="panel-heading">
-            <span class="bolded"><a class="text-white padding-killer" href="<?php echo base_url() . 'profile/view/' . $user->id; ?>"><?php echo $user->firstname .' ' . $user->lastname; ?></a></span>
+            <span class="bolded"><a class="text-white padding-killer" href="<?php echo base_url() . 'profile/view/' . $user->id; ?>"><?php echo $user->name; ?></a></span>
         </div>
 
         <div class="the-box no-border full card-info">

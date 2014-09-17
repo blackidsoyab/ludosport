@@ -152,11 +152,11 @@ class dashboard extends CI_Controller {
     }
 
     function getActiveStudentDashboard() {
-        $user = new User();
-        $data['user'] = $user->where('id', $this->session_data->id)->get();
 
         $userdetail = new Userdetail();
-        $data['userdetail'] = $userdetail->where('student_master_id', $this->session_data->id)->get();
+        $user = $userdetail->topStudents(null,null,1);
+        $data['user'] = $user[0];
+        $data['userdetail'] = $userdetail->where('student_master_id', $user[0]->id)->get();
         $data['batch_detail'] = $userdetail->Batch;
         if(!is_null($data['batch_detail']->cover_image)){
             $data['cover_image'] = IMG_URL .'batches/cover_image/'. $data['batch_detail']->cover_image;
@@ -172,8 +172,7 @@ class dashboard extends CI_Controller {
         $challenge = new Challenge();
         $data['challenge_received'] = $challenge->getChallengeDetails($this->session_data->id, 'received', 'P', 3);
 
-        $challenge_user = new Userdetail();
-        $data['challenge_users'] = $challenge_user->topStudents(10);
+        $data['top_ten_users'] = $userdetail->topStudents(null,null,10);
 
         $this->layout->view('dashboard/student', $data);
     }

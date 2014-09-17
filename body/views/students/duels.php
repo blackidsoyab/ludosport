@@ -340,7 +340,7 @@
 	<div class="col-lg-4">
 		<div class="panel panel-warning panel-square panel-no-border">
 	        <div class="panel-heading">
-            	<span class="bolded"><a class="text-white padding-killer" href="<?php echo base_url() . 'profile/view/' . $topper->id; ?>"><?php echo $topper->firstname .' ' . $topper->lastname; ?></a></span>
+            	<span class="bolded"><a class="text-white padding-killer" href="<?php echo base_url() . 'profile/view/' . $topper->id; ?>"><?php echo $topper->name; ?></a></span>
 	        </div>
 
 	        <div class="the-box no-border full card-info">
@@ -525,7 +525,11 @@
 									<p class="small text-muted margin-killer"><?php echo @$top_five_value->academy; ?></p>
 		                        </div>
 		                        <div class="right-button">
-		                            <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $top_five_value->id; ?>">Challenge!</button>
+		                        	<?php $check = Challenge::isRequestedBefore($session->id, $top_five_value->id);
+		                        		if(!$check){
+		                        	?>
+		                            	<button class="btn btn-warning" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $top_five_value->id; ?>">Challenge!</button>
+		                            <?php } ?>
 		                        </div>
                     		</div>
 						</div>

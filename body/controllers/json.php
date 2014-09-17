@@ -943,4 +943,44 @@ class json extends CI_Controller {
         exit();
     }
 
+    function getRattingListJsonData($type = null){
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) as name','userdetails.total_score', 'en_academy_name as academy', 'schools.en_school_name as school', 'clans.en_class_name as clan');
+        $this->datatable->eColumns = array('users.id','avtar', 'userdetails.xpr', 'userdetails.war', 'userdetails.sty');
+        $this->datatable->sIndexColumn = "users.id";
+        $this->datatable->sTable = "userdetails";
+        $this->datatable->myWhere = 'JOIN users ON users.id=userdetails.student_master_id JOIN clans ON clans.id=userdetails.clan_id JOIN schools ON schools.id=clans.school_id JOIN academies ON academies.id=schools.academy_id WHERE users.status="A"';
+
+        if(is_null($type) || $type == 'all'){
+            $this->datatable->sOrder = " ORDER BY userdetails.total_score DESC, CONCAT(firstname, ' ', lastname) ASC";
+        } else if(!is_null($type) && $type == 'xpr'){
+            $this->datatable->sOrder = " ORDER BY userdetails.xpr DESC, CONCAT(firstname, ' ', lastname) ASC";
+        } else if(!is_null($type) && $type == 'war'){
+            $this->datatable->sOrder = " ORDER BY userdetails.war DESC, CONCAT(firstname, ' ', lastname) ASC";
+        } else if(!is_null($type) && $type == 'sty'){
+            $this->datatable->sOrder = " ORDER BY userdetails.sty DESC, CONCAT(firstname, ' ', lastname) ASC";  
+        }
+
+        $this->datatable->datatable_process();
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();       
+            $temp_arr[] = '<img src="' . IMG_URL .'user_avtar/40X40/' . $aRow['avtar'].'" class="avatar img-circle" alt="avatar"><a href="' . base_url() . 'profile/view/' . $aRow['id'] . '" class="text-black">' . $aRow['name'] . '</a>';
+            $temp_arr[] = '<span  data-toggle="tooltip" data-original-title="XPR: '.$aRow['xpr'].', WAR: '.$aRow['war'].', STY: '.$aRow['sty'].'">'.$aRow['total_score'] .'</span>';
+            $temp_arr[] = $aRow['academy'];
+            $temp_arr[] = $aRow['school'];
+            $temp_arr[] = $aRow['clan'];
+            $check = Challenge::isRequestedBefore($this->session_data->id, $aRow['id']);
+            if(!$check){
+                $temp_arr[] = '<button class="btn btn-warning" data-toggle="modal" data-target="#do_duel_box" data-userid="'. $aRow['id'] .'">Challenge!</button>';
+            } else {
+                $temp_arr[] = '&nbsp';
+            }
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
 }
