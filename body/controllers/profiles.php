@@ -93,7 +93,11 @@ class profiles extends CI_Controller {
                 if(in_array(6, explode(',',$user->role_id))){ 
                     $userdetail = new Userdetail();
                     $userdetail->where('student_master_id', $id)->get();
-                    $userdetail->color_of_blade = $this->input->post('color_of_blade');
+                    $userdetail->color_of_blade = @$this->input->post('color_of_blade');
+                    $userdetail->palce_of_birth = @$this->input->post('palce_of_birth');
+                    $userdetail->zip_code = @$this->input->post('zip_code');
+                    $userdetail->tax_code = @$this->input->post('tax_code');
+                    $userdetail->blood_group = @$this->input->post('blood_group');
                     $userdetail->save();
                 }
 

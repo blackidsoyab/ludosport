@@ -141,6 +141,47 @@
                     </select>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label for="question" class="col-lg-3 control-label">
+                    <?php echo $this->lang->line('palce_of_birth'); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-lg-8">
+                    <input type="text" name="palce_of_birth"  class=" form-control" placeholder="<?php echo $this->lang->line('palce_of_birth'); ?>" value="<?php echo $userdetail->palce_of_birth; ?>"/>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="question" class="col-lg-3 control-label">
+                    <?php echo $this->lang->line('city_of_residence'), ' ', $this->lang->line('by'), ' ',$this->lang->line('zip_code'); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-lg-8">
+                    <input type="text" name="zip_code"  class=" form-control" placeholder="<?php echo $this->lang->line('zip_code'); ?>" value="<?php echo $userdetail->zip_code; ?>"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="question" class="col-lg-3 control-label">
+                    <?php echo $this->lang->line('city_of_residence'), ' ', $this->lang->line('by'), ' ',$this->lang->line('tax_code'); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-lg-8">
+                    <input type="text" name="tax_code"  class=" form-control" placeholder="<?php echo $this->lang->line('tax_code'); ?>" value="<?php echo $userdetail->tax_code; ?>"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="question" class="col-lg-3 control-label">
+                    <?php echo $this->lang->line('blood_group'); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-lg-8">
+                    <input type="text" name="blood_group"  class=" form-control" placeholder="<?php echo $this->lang->line('blood_group'); ?>" value="<?php echo $userdetail->blood_group; ?>"/>
+                </div>
+            </div>
+
         <?php } ?>
 
         <div class="form-group">
