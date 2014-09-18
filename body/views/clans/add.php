@@ -14,7 +14,7 @@
         });
         
         $('#academy_id').change(function(){
-            $.ajax({
+             $.ajax({
                 type: 'GET',
                 url: '<?php echo base_url(); ?>clan/getschools/' + $('#academy_id').val(),
                 success: function(data)

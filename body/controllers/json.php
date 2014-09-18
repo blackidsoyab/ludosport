@@ -306,8 +306,8 @@ class json extends CI_Controller {
 
     public function getAcademiesJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('academies.' . $this->session_data->language . '_academy_name AS academy_name', 'states.' . $this->session_data->language . '_name AS states', 'cities.' . $this->session_data->language . '_name AS city', '(SELECT count(*) from schools where schools.academy_id=academies.id) AS total_schools', '(SELECT count(*) from userdetails, clans, schools, academies temp_ac, users where schools.academy_id=academies.id AND userdetails.clan_id=clans.id AND schools.id=clans.school_id AND users.id=userdetails.student_master_id AND temp_ac.id=academies.id) AS total_students', '(SELECT GROUP_CONCAT(CONCAT(users.firstname," ", users.lastname)) FROM academies temp_ac_1, users where FIND_IN_SET(users.id, temp_ac_1.rector_id) >0 AND temp_ac_1.id=academies.id group by academies.id) AS rector_name', 'fee1', 'fee2');
-        $this->datatable->eColumns = array('academies.id');
+        $this->datatable->aColumns = array('academies.' . $this->session_data->language . '_academy_name AS academy_name', 'states.' . $this->session_data->language . '_name AS states', 'cities.' . $this->session_data->language . '_name AS city', '(SELECT count(*) from schools where schools.academy_id=academies.id) AS total_schools', '(SELECT count(*) from userdetails, clans, schools, academies temp_ac, users where schools.academy_id=academies.id AND userdetails.clan_id=clans.id AND schools.id=clans.school_id AND users.id=userdetails.student_master_id AND temp_ac.id=academies.id) AS total_students', 'fee1', 'fee2');
+        $this->datatable->eColumns = array('academies.id', 'academies.rector_id');
         $this->datatable->sIndexColumn = "distinct(academies.id)";
         $this->datatable->groupBy = ' GROUP BY academies.id';
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
@@ -329,7 +329,20 @@ class json extends CI_Controller {
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
             $temp_arr[] = '<a href="' . base_url() . 'academy/view/' . $aRow['id'] . '" class="text-black" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $this->lang->line('view') . ' ' . $this->lang->line('academy') . '">' . $aRow['academy_name'] . '</a>';
-            $temp_arr[] = $aRow['rector_name'];
+
+            $str = null;
+            $cnt = 0;
+            foreach (explode(',', $aRow['rector_id']) as $rector_id) {
+                $temp = userNameEmail($rector_id, true);
+                if($cnt == 0){
+                    $str .=  $temp['name'];
+                }else{
+                    $str .=  ',<br />' . $temp['name'];    
+                }
+                $cnt++;
+            }
+
+            $temp_arr[] = $str;
             $temp_arr[] = $aRow['city'] . ',' . $aRow['states'];
             $temp_arr[] = $aRow['total_schools'];
 
@@ -361,7 +374,7 @@ class json extends CI_Controller {
         $where = Null;
 
         if ($academy_id != 0) {
-            $where = ' AND academy_id = ' . $academy_id;
+            $where = ' AND schools.academy_id = ' . $academy_id;
         }
 
         $this->load->library('datatable');
@@ -382,6 +395,7 @@ class json extends CI_Controller {
             $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', teacher_id) > 0' . $where;
         }
 
+        $this->datatable->groupBy = ' GROUP BY schools.id';
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -434,6 +448,7 @@ class json extends CI_Controller {
             $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', teacher_id) > 0' . $where;
         }
 
+        $this->datatable->groupBy = ' GROUP BY clans.id';
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -486,8 +501,8 @@ class json extends CI_Controller {
         }
 
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'CONCAT(firstname," ", lastname) AS teacher_name', 'avtar');
-        $this->datatable->eColumns = array('academies.id', 'clans.teacher_id');
+        $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'CONCAT(firstname," ", lastname) AS teacher_name');
+        $this->datatable->eColumns = array('academies.id', 'clans.teacher_id', 'avtar');
         $this->datatable->sIndexColumn = "academies.id";
         $this->datatable->sTable = " clans, users, schools, academies";
 
@@ -532,8 +547,8 @@ class json extends CI_Controller {
         }
 
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS student_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'clans.' . $this->session_data->language . '_class_name AS class_name','avtar', $this->session_data->language.'_name AS batch_name', 'batches.image');
-        $this->datatable->eColumns = array('users.id');
+        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS student_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'clans.' . $this->session_data->language . '_class_name AS class_name');
+        $this->datatable->eColumns = array('users.id','avtar', $this->session_data->language.'_name AS batch_name', 'batches.image');
         $this->datatable->sIndexColumn = "users.id";
         $this->datatable->sTable = " clans, users, schools, academies, userdetails, batches";
 
@@ -630,17 +645,17 @@ class json extends CI_Controller {
 
     public function getTrialLessonRequestJsonData($clan_id = null) {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('CONCAT(users.firstname," ", users.lastname) AS student_name', 'userdetails.first_lesson_date', 'userdetails.status');
+        $this->datatable->aColumns = array('CONCAT(users.firstname," ", users.lastname) AS student_name', 'userdetails.first_lesson_date', 'userdetails.status', 'clans.' . $this->session_data->language . '_class_name AS class_name');
         $this->datatable->eColumns = array('userdetails.id', 'student_master_id', 'clan_id');
         $this->datatable->sIndexColumn = "userdetails.id";
             
         if(!is_null($clan_id)){
-            $this->datatable->sTable = " clans, users, userdetails";
+            $this->datatable->sTable = "clans, users, userdetails";
             $this->datatable->myWhere = 'WHERE userdetails.clan_id=clans.id AND userdetails.student_master_id=users.id AND users.status= "P" AND clans.id=' . $clan_id;
         }else{
             if($this->session_data->role == 1 || $this->session_data->role == 2){
-                $this->datatable->sTable = " users, userdetails";
-                $this->datatable->myWhere = 'WHERE userdetails.student_master_id=users.id AND users.status= "P"';
+                $this->datatable->sTable = " clans, users, userdetails";
+                $this->datatable->myWhere = 'WHERE userdetails.clan_id=clans.id AND userdetails.student_master_id=users.id AND users.status= "P"';
             } else if($this->session_data->role == 3){
                 $this->datatable->sTable = " users, userdetails, academies, schools, clans";
                 $this->datatable->myWhere = 'WHERE userdetails.student_master_id=users.id AND users.status= "P" AND academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.id=userdetails.clan_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0';
@@ -658,6 +673,7 @@ class json extends CI_Controller {
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
             $temp_arr[] = $aRow['student_name'];
+            $temp_arr[] = $aRow['class_name'];
             $temp_arr[] = date('d-m-Y', strtotime($aRow['first_lesson_date']));
             if ($aRow['status'] == 'A') {
                 $temp_arr[] = '<label class="label label-success">' . $this->lang->line('approved') . '</label>';

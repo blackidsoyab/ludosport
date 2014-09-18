@@ -16,7 +16,7 @@ if(!is_null($clan_details)){
             'iDisplayLength': 10,
             "bServerSide" : true,
             "aoColumns": [
-                {"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center", "bSortable": false},{"sClass": "text-center", "bSortable": false}
+                {"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center", "bSortable": false},{"sClass": "text-center", "bSortable": false}
             ],
             "sAjaxSource": "<?php echo $url; ?>"
         });
@@ -36,6 +36,7 @@ if(!is_null($clan_details)){
             <thead class="the-box dark full">
                 <tr align="left">
                     <th><?php echo $this->lang->line('student'), ' ', $this->lang->line('name'); ?></th>
+                    <th width="200"><?php echo $this->lang->line('clan'); ?></th>
                     <th width="150"><?php echo $this->lang->line('date'); ?></th>
                     <th width="100"><?php echo $this->lang->line('status'); ?></th>
                     <th width="100"><?php echo $this->lang->line('actions'); ?></th>
@@ -43,7 +44,7 @@ if(!is_null($clan_details)){
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="4"><i>Loading...</i></td>
+                    <td colspan="5"><i>Loading...</i></td>
                 </tr>
             </tbody>
         </table>

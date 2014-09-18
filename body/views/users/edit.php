@@ -161,17 +161,14 @@
 
         <div class="form-group">
             <label for="question" class="col-lg-3 control-label">
-                <?php echo $this->lang->line('select'), ' ', $this->lang->line('city'); ?>
+                <?php echo $this->lang->line('select'), ' ', $this->lang->line('clan'), ' ', $this->lang->line('city'); ?>
                 <span class="text-danger">*</span>
             </label>
             <div class="col-lg-5">
-                <?php
-                $field = $session->language . '_name';
-                ?>
                 <select id="city_id" name="city_id" class="form-control required">
-                    <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('city'); ?></option>
+                    <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('clan'), ' ', $this->lang->line('city'); ?></option>
                     <?php foreach ($cities as $city) { ?>
-                        <option value="<?php echo $city->id; ?>" <?php echo ($city->id == $user->city_id) ? 'selected' : ''; ?>><?php echo $city->$field ?></option>
+                        <option value="<?php echo $city->id; ?>" <?php echo ($city->id == $user->city_id) ? 'selected' : ''; ?>><?php echo $city->{$session->language . '_name'} ?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -181,7 +178,7 @@
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('academy'); ?> <span class="text-danger">*</span></label>
             <div class="col-lg-5">
                 <select class="form-control required" name="academy_id" id="academy_id">
-                    <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('academy'); ?></option> 
+                    <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('academy'); ?></option> 
                     <?php
                     $academy_name = $session->language . '_academy_name';
                     foreach ($academies as $academy) {
@@ -196,7 +193,7 @@
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('school'); ?> <span class="text-danger">*</span></label>
             <div class="col-lg-5">
                 <select class="form-control required" name="school_id" id="school_id">
-                    <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('school'); ?></option> 
+                    <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('school'); ?></option> 
                     <?php
                     foreach ($schools as $school) {
                         ?>
@@ -210,7 +207,7 @@
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('clan'); ?> <span class="text-danger">*</span></label>
             <div class="col-lg-5">
                 <select class="form-control required" name="class_id" id="class_id">
-                    <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('clan'); ?></option> 
+                    <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('clan'); ?></option> 
                     <?php
                     foreach ($classes as $c) {
                         ?>

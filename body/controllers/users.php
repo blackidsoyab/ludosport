@@ -200,7 +200,6 @@ class users extends CI_Controller {
                         $data['academies'] = NULL;
                     }
 
-
                     $this->layout->view('users/edit', $data);
                 }
             }

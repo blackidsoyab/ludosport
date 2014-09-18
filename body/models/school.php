@@ -39,7 +39,7 @@ class School extends DataMapper {
     }
 
     function getSchoolOfDean($dean_id) {
-        $this->db->select('*');
+        $this->db->select('schools.*');
         $this->db->from('schools');
         $this->db->where('FIND_IN_SET(' . $dean_id . ', schools.dean_id) > 0');
         $this->db->group_by("schools.id"); 
@@ -78,7 +78,7 @@ class School extends DataMapper {
         }
 
         $this->db->_protect_identifiers = false;
-        $this->db->select('*');
+        $this->db->select('schools.*');
         $this->db->from('schools');
         $this->db->join('clans', 'schools.id=clans.school_id');
         $this->db->join('userdetails', 'clans.id=userdetails.clan_id');
@@ -255,6 +255,27 @@ class School extends DataMapper {
         } else {
             return false;
         }
+    }
+
+    function getSchoolforAjax($academy_id) {
+        $session = get_instance()->session->userdata('user_session');
+        $this->db->_protect_identifiers = false;
+        $this->db->select('schools.*');
+        $this->db->from('schools');
+        
+        if($session->role == 3){
+            $this->db->join('academies', 'academies.id=schools.academy_id');
+            $this->db->where('FIND_IN_SET(' . $session->id . ', academies.rector_id) > 0');
+        } else if($session->role == 4){
+            $this->db->where('FIND_IN_SET(' . $session->id . ', schools.dean_id) > 0');
+        } else if($session->role == 5){
+            $this->db->join('clans', 'schools.id=clans.school_id');
+            $this->db->where('FIND_IN_SET(' . $session->id . ', clans.teacher_id) > 0');
+        }
+        $this->db->where('schools.academy_id', $academy_id);
+        $this->db->group_by("schools.id"); 
+        $res = $this->db->get()->result();
+        return $res;
     }
 
 }

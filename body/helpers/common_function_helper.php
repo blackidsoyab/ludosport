@@ -54,10 +54,14 @@ if (!function_exists('userNameAvtar')) {
 
 if (!function_exists('userNameEmail')) {
 
-    function userNameEmail($user_id) {
+    function userNameEmail($user_id, $link = false) {
         $user = new User();
         $user->where('id', $user_id)->limit(1)->get();
-        $return['name'] = $user->firstname . ' ' . $user->lastname;
+        if($link){
+            $return['name'] = '<a href="'.base_url() .'profile/view/'. $user_id .'" class="user-extra-link">' . $user->firstname . ' ' . $user->lastname .'</a>';
+        }else{
+            $return['name'] = $user->firstname . ' ' . $user->lastname;
+        }
         $return['email'] = $user->email;
         unset($user);
         return $return;

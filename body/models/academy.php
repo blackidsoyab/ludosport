@@ -67,7 +67,7 @@ class Academy extends DataMapper {
         }
 
         $this->db->_protect_identifiers = false;
-        $this->db->select('*');
+        $this->db->select('academies.*');
         $this->db->from('academies');
         $this->db->where(substr($where, 4));
         $this->db->group_by("academies.id"); 
@@ -90,7 +90,7 @@ class Academy extends DataMapper {
         }
 
         $this->db->_protect_identifiers = false;
-        $this->db->select('*');
+        $this->db->select('academies.*');
         $this->db->from('academies');
         $this->db->join('schools', 'academies.id=schools.academy_id');
         $this->db->where(substr($where, 4));
@@ -115,7 +115,7 @@ class Academy extends DataMapper {
 
         $this->db->_protect_identifiers = false;
         
-        $this->db->select('*');
+        $this->db->select('academies.*');
         $this->db->from('academies');
         $this->db->join('schools', 'academies.id=schools.academy_id');
         $this->db->join('clans', 'schools.id=clans.school_id');
@@ -140,7 +140,7 @@ class Academy extends DataMapper {
         }
 
         $this->db->_protect_identifiers = false;
-        $this->db->select('*');
+        $this->db->select('academies.*');
         $this->db->from('academies');
         $this->db->join('schools', 'academies.id=schools.academy_id');
         $this->db->join('clans', 'schools.id=clans.school_id');

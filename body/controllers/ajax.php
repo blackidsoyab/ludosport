@@ -521,23 +521,23 @@ class ajax extends CI_Controller {
         }
     }
 
-    function getSchoolsOptionFromAcademy($academy_id) {
+   function getSchoolsOptionFromAcademy($academy_id) {
         $session = $this->session->userdata('user_session');
-        $schools = New School();
-        $schools->Where('academy_id', $academy_id);
+        $obj = New School();
+        $schools = $obj->getSchoolforAjax($academy_id);
         echo '<option value="0">', $this->lang->line('all'), ' ', $this->lang->line('school'), '</option>';
-        foreach ($schools->get() as $school) {
-            echo '<option value="' . $school->id . '">' . $school->{$session->language . '_school_name'} . '</option>';
+        foreach ($schools as $sc) {
+            echo '<option value="' . $sc->id . '">' . $sc->{$session->language . '_school_name'} . '</option>';
         }
     }
 
     function getClassesOptionFromSchool($school_id) {
         $session = $this->session->userdata('user_session');
         $obj = New Clan();
-        $obj->Where('school_id', $school_id);
+        $clans = $obj->getClanforAjax($school_id);
         echo '<option value="0">', $this->lang->line('all'), ' ', $this->lang->line('clan'), '</option>';
-        foreach ($obj->get() as $class) {
-            echo '<option value="' . $class->id . '">' . $class->{$session->language . '_class_name'} . '</option>';
+        foreach ($clans as $clan) {
+            echo '<option value="' . $clan->id . '">' . $clan->{$session->language . '_class_name'} . '</option>';
         }
     }
 

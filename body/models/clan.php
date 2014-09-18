@@ -171,7 +171,7 @@ class Clan extends DataMapper
         }
         
         $this->db->_protect_identifiers = false;
-        $this->db->select('*');
+        $this->db->select('clans.*');
         $this->db->from('clans');
         $this->db->where(substr($where, 4));
         $this->db->group_by("clans.id");
@@ -194,7 +194,7 @@ class Clan extends DataMapper
         }
         
         $this->db->_protect_identifiers = false;
-        $this->db->select('*');
+        $this->db->select('clans.*');
         $this->db->from('clans');
         $this->db->join('userdetails', 'clans.id=userdetails.clan_id');
         $this->db->where(substr($where, 4), null, false);
@@ -455,7 +455,7 @@ class Clan extends DataMapper
     
     function getClansByStudentAndDay($student_id, $day = '1') {
         $this->db->_protect_identifiers = false;
-        $this->db->select('*');
+        $this->db->select('clans.*');
         $this->db->from('clans');
         $this->db->join('userdetails', 'clans.id=userdetails.clan_id');
         $this->db->where('student_master_id', $student_id);
@@ -468,12 +468,11 @@ class Clan extends DataMapper
         }
     }
     
-    function getClansDetailsByTeacherAndDay($clan_id, $teacher_id, $day = '1') {
+    function getClansDetailsByIdAndDay($clan_id, $day = '1') {
         $this->db->_protect_identifiers = false;
-        $this->db->select('*');
+        $this->db->select('clans.*');
         $this->db->from('clans');
         $this->db->where('id', $clan_id);
-        $this->db->where('teacher_id', $teacher_id);
         $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0");
         $res = $this->db->get();
         if ($res->num_rows > 0) {
@@ -485,7 +484,7 @@ class Clan extends DataMapper
     
     function getClansDetailsByDay($clan_id, $day = '1') {
         $this->db->_protect_identifiers = false;
-        $this->db->select('*');
+        $this->db->select('clans.*');
         $this->db->from('clans');
         $this->db->where('id', $clan_id);
         $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0");
@@ -568,6 +567,29 @@ class Clan extends DataMapper
         } else {
             return false;
         }
+    }
+
+    function getClanforAjax($school_id) {
+        $session = get_instance()->session->userdata('user_session');
+        $this->db->_protect_identifiers = false;
+        $this->db->select('clans.*');
+        $this->db->from('clans');
+        
+        if($session->role == 3){
+            $this->db->join('schools', 'schools.id=clans.school_id');
+            $this->db->join('academies', 'academies.id=schools.academy_id');
+            $this->db->where('FIND_IN_SET(' . $session->id . ', academies.rector_id) > 0');
+        } else if($session->role == 4){
+            $this->db->join('schools', 'schools.id=clans.school_id');
+            $this->db->where('FIND_IN_SET(' . $session->id . ', schools.dean_id) > 0');
+        } else if($session->role == 5){
+            $this->db->where('FIND_IN_SET(' . $session->id . ', clans.teacher_id) > 0');
+        }
+
+        $this->db->where('clans.school_id', $school_id);
+        $this->db->group_by("clans.id"); 
+        $res = $this->db->get()->result();
+        return $res;
     }
 }
 ?>
