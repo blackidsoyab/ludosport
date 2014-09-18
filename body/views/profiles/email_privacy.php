@@ -11,13 +11,13 @@
 	            <div class="col-lg-5">
 	                <div class="radio pull-left margin-killer padding-left-killer padding-top-killer">
 						<label>
-							<input type="radio" value="1" class="i-grey-square" name="<?php echo $email_key; ?>" <?php echo (!isset($email_privacy[$email_key]) || $email_privacy[$email_key] == 1) ? 'checked' : ''; ?>>
+							<input type="radio" value="1" class="i-grey-square" name="<?php echo $email_key; ?>" <?php echo (!isset($session->email_privacy[$email_key]) || $session->email_privacy[$email_key] == 1) ? 'checked' : ''; ?>>
 							<?php echo $this->lang->line('yes'); ?>
 						</label>
 					</div>
 					<div class="radio pull-left margin-killer padding-top-killer">
 						<label>
-							<input type="radio" value="0" class="i-grey-square" name="<?php echo $email_key; ?>" <?php echo (isset($email_privacy[$email_key]) && $email_privacy[$email_key] == 0) ? 'checked' : ''; ?>>
+							<input type="radio" value="0" class="i-grey-square" name="<?php echo $email_key; ?>" <?php echo (isset($session->email_privacy[$email_key]) && $session->email_privacy[$email_key] == 0) ? 'checked' : ''; ?>>
 							<?php echo $this->lang->line('No'); ?>
 						</label>
 					</div>

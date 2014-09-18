@@ -216,6 +216,11 @@ class profiles extends CI_Controller {
             $user_details->email_privacy = serialize($this->input->post());
             $user_details->save();
 
+            $session = $this->session->userdata('user_session');
+            $session->email_privacy = $this->input->post();
+            $newdata = array('user_session' => $session);
+            $this->session->set_userdata($newdata);
+
             $this->session->set_flashdata('success', $this->lang->line('change_email_privacy'));
             redirect(base_url() . 'change_email_privacy', 'refresh');
         } else {
@@ -228,19 +233,15 @@ class profiles extends CI_Controller {
             $temp[$this->session_data->role] = emailPrivacyArray($this->session_data->role);
             asort($temp);
             $single_dimensional_array = array();
-            foreach ($temp as $val) {
-                if (is_array($val)) {
-                    foreach ($val as $key => $val2) {
-                        $single_dimensional_array[$key] = $val2;
+            foreach ($temp as $key_1 => $val_1) {
+                if (is_array($val_1)) {
+                    foreach ($val_1 as $key_2 => $val_2) {
+                        $single_dimensional_array[$key_2] = $val_2;
                     }
                 }
             }
 
             $data['emails'] = $single_dimensional_array;
-
-            $user_details = new User($this->session_data->id);
-
-            $data['email_privacy'] = unserialize($user_details->email_privacy);
             
             $this->layout->view('profiles/email_privacy', $data);
         }

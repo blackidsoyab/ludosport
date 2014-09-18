@@ -83,21 +83,6 @@ class User extends DataMapper {
         return array_unique($array);
     }
 
-    function afterSave($options = array()) {
-        if ($options->user_id != 1 || $options->user_id != 2) {
-            /* foreach (explode(',', $options->rector_id) as $rector) {
-              $notify = new Notification();
-              $notify->notify_type = 'rector_assign_academy';
-              $notify->from_id = $options->user_id;
-              $notify->to_id = $rector;
-              $notify->object_id = $options->id;
-              $notify->save();
-              } */
-        }
-
-        return true;
-    }
-
     function getUserBelowRole($user_role_id) {
         $this->db->_protect_identifiers = false;
         $this->db->select('users.id, firstname, lastname');

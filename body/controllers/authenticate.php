@@ -42,6 +42,7 @@ class authenticate extends CI_Controller {
         $user_data->all_roles = $roles;
         $user_data->email = $user->email;
         $user_data->status = $user->status;
+        $user_data->email_privacy = unserialize($user->email_privacy);
         $newdata = array('user_session' => $user_data);
         $this->session->set_userdata($newdata);
         $this->_setLastNotification($user->id);
