@@ -171,8 +171,14 @@ if (!function_exists('printPermission')) {
                     }
                 }
 
+                if($type == 'checkbox'){
+                    $class = 'class="icheckbox_square-grey"';
+                } else {
+                    $class = 'class="iradio_square-grey"';
+                }
 
-                return '<li><input type="' . $type . '" value="' . $key . '"' . $name . $str . '/><span>' . $v . '</span>';
+
+                return '<li><input type="' . $type . '" value="' . $key . '"' . $name . $str . $class . '/><span>' . $v . '</span>';
             } else {
                 break;
             }

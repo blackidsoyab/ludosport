@@ -39,7 +39,9 @@
             }
         });
         
-        $('#permission_tree div').tree();
+        $('#permission_tree div').tree({
+            dnd : false
+        });
         
         $('#permission_tree-checkAll').click(function(){
             $('#permission_tree div').tree('checkAll');

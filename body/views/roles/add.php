@@ -39,7 +39,9 @@
             }
         });
         
-        $('#permission_tree div').tree();
+        $('#permission_tree div').tree({
+            dnd : false
+        });
         
         $('#permission_tree-checkAll').click(function(){
             $('#permission_tree div').tree('checkAll');
@@ -89,7 +91,7 @@
                 <?php echo $this->lang->line('permission'); ?>
                 <span class="text-danger">&nbsp;</span>
             </label>
-            <div class="col-lg-5">
+            <div class="col-lg-9">
                 <div id="permission_tree">
                     <div>
                         <ul>
@@ -103,7 +105,7 @@
 
         <div class="form-group">
             <label class="col-lg-3 control-label">&nbsp;</label>
-            <div class="col-lg-5">
+            <div class="col-lg-9">
                 <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('save'); ?>"><?php echo $this->lang->line('save'); ?></button>
                 <a href="<?php echo base_url() . 'role' ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('cancel'); ?>"><?php echo $this->lang->line('cancel'); ?></a>
             </div>
@@ -111,7 +113,7 @@
 
         <div class="form-group">
             <label class="col-lg-3 control-label">&nbsp;</label>
-            <div class="col-lg-5">
+            <div class="col-lg-9">
                 <?php echo $this->lang->line('compulsory_note'); ?>
             </div>
         </div>
