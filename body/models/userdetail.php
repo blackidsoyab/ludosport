@@ -268,32 +268,52 @@ class Userdetail extends DataMapper {
         }
     }
 
-    function beforeMeUserDetails($id, $limit){
-        $this->db->_protect_identifiers = false;
-        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, total_score');
-        $this->db->from('users');
-        $this->db->join('userdetails', 'users.id=userdetails.student_master_id');
-        $this->db->where('users.status', 'A');
-        $this->db->where('users.id !=', $id);
-        $this->db->order_by('RAND()');
-        $this->db->limit($limit);
-        $res = $this->db->get();
-        if ($res->num_rows > 0) {
-            $return = $res->result();
-            return $return;
-        } else {
-            return false;
-        }
-    }
 
-    function afterMeUserDetails($id, $limit){
+    function userDetailsBeforeAfterMe($id, $type, $type_2 =null ,$limit =null){
         $this->db->_protect_identifiers = false;
-        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, total_score');
-        $this->db->from('users');
-        $this->db->join('userdetails', 'users.id=userdetails.student_master_id');
+        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, userdetails.total_score');
+        $this->db->from('userdetails');
+        
+        if(is_null($type_2)){
+            $this->db->join('users', 'users.id=userdetails.student_master_id');
+            $this->db->join('userdetails s2', 'users.id=s2.student_master_id');
+        } else if(!is_null($type_2) && $type_2 == 'academy'){
+            $this->db->join('users', 'users.id=userdetails.student_master_id');
+            $this->db->join('clans', 'clans.id=userdetails.clan_id');
+            $this->db->join('schools', 'schools.id=clans.school_id');
+            $this->db->join('academies', 'academies.id=schools.academy_id');
+            $this->db->join('schools sc2', 'academies.id=sc2.academy_id');
+            $this->db->join('clans c2', 'sc2.id=c2.school_id');
+            $this->db->join('userdetails s2', 'c2.id=s2.clan_id');
+            $this->db->where('s2.student_master_id ', $id);
+        } else if(!is_null($type_2) && $type_2 == 'school'){
+            $this->db->join('users', 'users.id=userdetails.student_master_id');
+            $this->db->join('clans', 'clans.id=userdetails.clan_id');
+            $this->db->join('schools', 'schools.id=clans.school_id');
+             $this->db->join('academies', 'academies.id=schools.academy_id');
+            $this->db->join('clans c2', 'schools.id=c2.school_id');
+            $this->db->join('userdetails s2', 'c2.id=s2.clan_id');
+            $this->db->where('s2.student_master_id ', $id);
+        } if(!is_null($type_2) && $type_2 == 'clan'){
+            $this->db->join('users', 'users.id=userdetails.student_master_id');
+            $this->db->join('clans', 'clans.id=userdetails.clan_id');
+            $this->db->join('schools', 'schools.id=clans.school_id');
+            $this->db->join('academies', 'academies.id=schools.academy_id');
+            $this->db->join('userdetails s2', 'clans.id=s2.clan_id');
+            $this->db->where('s2.student_master_id ', $id);
+        }
+
         $this->db->where('users.status', 'A');
         $this->db->where('users.id !=', $id);
-        $this->db->order_by('RAND()');
+        
+        if(!is_null($type) && $type == 'before'){
+            $this->db->where('userdetails.total_score > s2.total_score');
+            $this->db->order_by('userdetails.total_score', 'ASC');
+        } else if(!is_null($type) && $type == 'after'){
+            $this->db->where('userdetails.total_score < s2.total_score');
+            $this->db->order_by('userdetails.total_score', 'ASC');
+        }
+
         $this->db->limit($limit);
         $res = $this->db->get();
         if ($res->num_rows > 0) {

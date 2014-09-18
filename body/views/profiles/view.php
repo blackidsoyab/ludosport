@@ -33,7 +33,7 @@
             <img src="<?php echo IMG_URL . 'user_avtar/100X100/' . $profile->avtar; ?>" class="avatar" alt="Avatar">
             <div class="profile-info">
                 <p class="user-name"><?php echo $profile->firstname . ' ' . $profile->lastname; ?></p>
-                <p class="text-muted">Gegio: <?php echo @$ac_sc_clan_name; ?></a></p>
+                <p class="text-muted"><?php echo @$ac_sc_clan_name; ?></a></p>
                 <p class="text-muted"><?php echo @$batch_detail->{$session->language.'_name'}; ?></p>
                 <p class="right-button">
                     <?php if ($profile->id == $session->id) { ?>

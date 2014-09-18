@@ -149,7 +149,7 @@ $(document).ready(function() {
             	<div class="the-box no-border text-center no-margin">
 	                <img src="<?php echo IMG_URL . 'user_avtar/70X70/' . $challenge_user->avtar; ?>" class="social-avatar has-margin has-light-shadow img-circle" alt="Avatar">
 	                <p class="text-info"><?php echo @$challenge_user_batch_detail->{$session->language.'_name'}; ?></p>
-	                <p class="text-muted bordered">Gegio: <?php echo @$challenge_user_ac_sc_clan_name; ?></p>
+	                <p class="text-muted bordered"><?php echo @$challenge_user_ac_sc_clan_name; ?></p>
 
 	                <?php if(!is_null($challenge_user->quote) && !empty($challenge_user->quote)) { ?>
 	                    <p class="text-muted">

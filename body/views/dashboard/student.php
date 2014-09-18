@@ -119,7 +119,7 @@
             <div class="the-box no-border text-center no-margin">
                 <img src="<?php echo IMG_URL . 'user_avtar/70X70/' . $session->avtar; ?>" class="social-avatar has-margin has-light-shadow img-circle" alt="Avatar">
                 <p class="text-info"><?php echo @$batch_detail->{$session->language.'_name'}; ?></p>
-                <p class="text-muted">Gegio: <?php echo @$ac_sc_clan_name; ?></p>
+                <p class="text-muted"><?php echo @$ac_sc_clan_name; ?></p>
                 <p class="text-muted bordered">
                 <?php
                     $role_name = NULL;

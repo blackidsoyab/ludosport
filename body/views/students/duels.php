@@ -347,7 +347,7 @@
             	<div class="the-box no-border text-center no-margin">
 	                <img src="<?php echo IMG_URL . 'user_avtar/70X70/' . $topper->avtar; ?>" class="social-avatar has-margin has-light-shadow img-circle" alt="Avatar">
 	                <p class="text-info"><?php echo @$topper_batch_detail->{$session->language.'_name'}; ?></p>
-	                <p class="text-muted">Gegio: <?php echo @$topper_ac_sc_clan_name; ?></p>
+	                <p class="text-muted"><?php echo @$topper_ac_sc_clan_name; ?></p>
 	                <p class="text-muted bordered">
 	                <?php
 		                $role_name = NULL;
@@ -380,11 +380,11 @@
 		<div class="panel panel-success panel-square panel-no-border">
 			<div class="panel-heading">
 				<div class="right-content">
-					<button class="btn btn-success btn-sm to-collapse" data-toggle="collapse" data-target="#my_last_victories"><i class="fa <?php echo ($my_victories != false) ? 'fa-chevron-up' : 'fa-chevron-down'; ?>"></i></button>
+					<button class="btn btn-success btn-sm to-collapse" data-toggle="collapse" data-target="#my_last_victories"><i class="fa fa-chevron-up"></i></button>
 				</div>
 				<h4 class="panel-title"><i class="fa fa-arrow-circle-o-up"></i> MY LAST VICTORIES</h4>
 			</div>
-			<div id="my_last_victories" class="collapse <?php echo ($my_victories != false) ? 'in' : ''; ?>" style="height: auto;">
+			<div id="my_last_victories" class="collapse in" style="height: auto;">
 				<div class="panel-body">
 				<?php if($my_victories != false){ ?>
 					<ul class="media-list media-sm media-team">
@@ -416,7 +416,7 @@
 						<?php } ?>
 					</ul>
 				<a href="<?php echo base_url() .'duels/view/wins'; ?>" class="btn btn-success btn-block"><?php echo $this->lang->line('see_all'); ?></a>
-				<?php } ?>
+				<?php } else { echo "No Victories"; }?>
 				</div>
 			</div>
 		</div>
@@ -426,11 +426,11 @@
 		<div class="panel panel-danger panel-square panel-no-border">
 			<div class="panel-heading">
 				<div class="right-content">
-					<button class="btn btn-danger btn-sm to-collapse" data-toggle="collapse" data-target="#my_last_defeats"><i class="fa <?php echo ($my_defeats != false) ? 'fa-chevron-up' : 'fa-chevron-down'; ?>"></i></button>
+					<button class="btn btn-danger btn-sm to-collapse" data-toggle="collapse" data-target="#my_last_defeats"><i class="fa fa-chevron-up"></i></button>
 				</div>
 				<h4 class="panel-title"><i class="fa fa-arrow-circle-o-up"></i>  MY LAST DEFEATS</h4>
 			</div>
-			<div id="my_last_defeats" class="collapse <?php echo ($my_defeats != false) ? 'in' : ''; ?>" style="height: auto;">
+			<div id="my_last_defeats" class="collapse in" style="height: auto;">
 				<div class="panel-body">
 				<?php if($my_defeats != false){ ?>
 					<ul class="media-list media-sm media-team">
@@ -461,7 +461,7 @@
 						<?php } ?>
 					</ul>
 					<a href="<?php echo base_url() .'duels/view/defeats'; ?>" class="btn btn-danger btn-block"><?php echo $this->lang->line('see_all'); ?></a>
-				<?php } ?>
+				<?php } else { echo "No Defeats"; }?>
 				</div>
 			</div>
 		</div>
@@ -477,7 +477,7 @@
 							<p><a href="<?php echo base_url() . 'profile/view/'. $before_value->id ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $before_value->name; ?>"><img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$before_value->avtar; ?>" class="img-responsive img-circle" alt="Avatar"></a></p>
 						</div>
 					<?php } ?>
-				<?php } ?>
+				<?php } else { echo 'You are First, Congrulations'; } ?>
 			</div>	
 			<h4 class="text-white padding-killer">The four after me</h4><br>
 			<div class="row">
@@ -487,7 +487,7 @@
 							<p><a href="<?php echo base_url() . 'profile/view/'. $after_value->id ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $after_value->name; ?>"><img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$after_value->avtar; ?>" class="img-responsive img-circle" alt="Avatar"></a></p>
 						</div>
 					<?php } ?>
-				<?php } ?>
+				<?php } else { echo 'Sorry but you are last'; } ?>
 			</div>
 		</div>
 	</div>
