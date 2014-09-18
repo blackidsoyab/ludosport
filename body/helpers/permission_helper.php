@@ -496,7 +496,6 @@ if (!function_exists('emailPrivacyArray')) {
             'student_absent',
             'change_clan_date',
             'recovery_student',
-            'teacher_recovery_student_for_student',
             'teacher_recovery_student_for_teacher',
             'recovery_teacher',
             'holiday_approved',
@@ -505,6 +504,7 @@ if (!function_exists('emailPrivacyArray')) {
 
         //PUPIL
         $email_role[6] = array(
+            'teacher_recovery_student_for_student',
             'event_invitation',
             'change_clan_date',
             'challenge_made',

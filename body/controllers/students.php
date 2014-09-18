@@ -43,23 +43,26 @@ class students extends CI_Controller {
             $notification->data = serialize($this->input->post());
             $notification->save();
 
-            $teacher_email = userNameEmail($clan->teacher_id);
-            $email = new Email();
-            $email->where('type', 'student_absent')->get();
-            $message = $email->message;
-            $message = str_replace('#firstname', $obj_user->firstname, $message);
-            $message = str_replace('#lastname', $obj_user->lastname, $message);
-            $message = str_replace('#clan_name', $clan->en_class_name, $message);
-            $message = str_replace('#date', date('d-m-Y', strtotime($this->input->post('absence_date'))), $message);
+            $check_privacy = unserialize($this->session_data->email_privacy);
+            if(is_null($check_privacy) || $check_privacy['student_absent'] == 1){
+                $teacher_email = userNameEmail($clan->teacher_id);
+                $email = new Email();
+                $email->where('type', 'student_absent')->get();
+                $message = $email->message;
+                $message = str_replace('#firstname', $obj_user->firstname, $message);
+                $message = str_replace('#lastname', $obj_user->lastname, $message);
+                $message = str_replace('#clan_name', $clan->en_class_name, $message);
+                $message = str_replace('#date', date('d-m-Y', strtotime($this->input->post('absence_date'))), $message);
 
-            $option = array();
-            $option['tomailid'] = $teacher_email->email;
-            $option['subject'] = $email->subject;
-            $option['message'] = $message;
-            if (!is_null($email->attachment)) {
-                $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                $option = array();
+                $option['tomailid'] = $teacher_email->email;
+                $option['subject'] = $email->subject;
+                $option['message'] = $message;
+                if (!is_null($email->attachment)) {
+                    $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                }
+                send_mail($option);
             }
-            send_mail($option);
 
             if($this->input->post('date') != false){
                 $recover = new Attendancerecover();
@@ -83,24 +86,28 @@ class students extends CI_Controller {
                 $notification->data = serialize($this->input->post());
                 $notification->save();
 
-                $email = new Email();
-                $email->where('type', 'recovery_student')->get();
-                $message = $email->message;
-                $message = str_replace('#firstname', $obj_user->firstname, $message);
-                $message = str_replace('#lastname', $obj_user->lastname, $message);
-                $message = str_replace('#student_clan', $clan->en_class_name, $message);
-                $message = str_replace('#recover_clan', $recover_clan->en_class_name, $message);
-                $message = str_replace('#date', date('d-m-Y', strtotime($this->input->post('date'))), $message);
-
                 $recover_teacher_email = userNameEmail($recover_clan->teacher_id);
-                $option = array();
-                $option['tomailid'] = $recover_teacher_email->email;
-                $option['subject'] = $email->subject;
-                $option['message'] = $message;
-                if (!is_null($email->attachment)) {
-                    $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                $check_privacy = unserialize($recover_teacher_email['email_privacy']);
+                if(is_null($check_privacy) || $check_privacy['recovery_student'] == 1){
+                    $email = new Email();
+                    $email->where('type', 'recovery_student')->get();
+                    $message = $email->message;
+                    $message = str_replace('#firstname', $obj_user->firstname, $message);
+                    $message = str_replace('#lastname', $obj_user->lastname, $message);
+                    $message = str_replace('#student_clan', $clan->en_class_name, $message);
+                    $message = str_replace('#recover_clan', $recover_clan->en_class_name, $message);
+                    $message = str_replace('#date', date('d-m-Y', strtotime($this->input->post('date'))), $message);
+
+                    
+                    $option = array();
+                    $option['tomailid'] = $recover_teacher_email->email;
+                    $option['subject'] = $email->subject;
+                    $option['message'] = $message;
+                    if (!is_null($email->attachment)) {
+                        $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                    }
+                    send_mail($option);
                 }
-                send_mail($option);
             }
 
             $this->session->set_flashdata('success', $this->lang->line('communitate_absence_success'));
@@ -336,6 +343,7 @@ class students extends CI_Controller {
         $notification->data = serialize(objectToArray($post));
         $notification->save();
    
+
         //get email details
         $email = new Email();
         $email->where('type', $type)->get();
@@ -344,20 +352,6 @@ class students extends CI_Controller {
         $user = new User();
         //replace necessary details
         if($type == 'challenge_made'){
-            //25 K -> 20 D
-            if($post->from_id == $this->session_data->id){
-                $user->where('id', $post->to_id)->get();    
-            } else {
-                $user->where('id', $post->from_id)->get();    
-            }
-            $message = str_replace('#to_name', $user->firstname.' '.$user->lastname , $message);
-            $message = str_replace('#from_name', $this->session_data->name, $message);
-            $message = str_replace('#on_date', date('d-m-Y', strtotime($post->played_on)), $message);
-            $message = str_replace('#on_time', date('H:i a', strtotime($post->played_on)), $message);
-        }
-
-        if($type == 'challenge_made'){
-            //25 K -> 20 D
             if($post->from_id == $this->session_data->id){
                 $user->where('id', $post->to_id)->get();    
             } else {
@@ -374,7 +368,6 @@ class students extends CI_Controller {
         }
 
         if($type == 'challenge_rejected'){
-            //25 K -> 20 D
             if($post->from_id == $this->session_data->id){
                 $user->where('id', $post->to_id)->get();
             } else {
@@ -385,7 +378,6 @@ class students extends CI_Controller {
         }
 
         if($type == 'challenge_winner'){
-            //25 K -> 20 D
             if($post->from_id == $this->session_data->id){
                 $user->where('id', $post->to_id)->get();
             } else {
@@ -405,15 +397,18 @@ class students extends CI_Controller {
             $message = str_replace('#on_time', '', $message);
         }
 
-        //set option for sending mail
-        $option = array();
-        $option['tomailid'] = $user->email;
-        $option['subject'] = $email->subject;
-        $option['message'] = $message;
-        if (!is_null($email->attachment)) {
-            $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+        $check_privacy = unserialize($user->email_privacy);
+        if(is_null($check_privacy) || $check_privacy[$type] == 1){
+            //set option for sending mail
+            $option = array();
+            $option['tomailid'] = $user->email;
+            $option['subject'] = $email->subject;
+            $option['message'] = $message;
+            if (!is_null($email->attachment)) {
+                $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+            }
+            send_mail($option);
         }
-        send_mail($option);
 
         return true;
     }

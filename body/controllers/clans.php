@@ -526,15 +526,6 @@ class clans extends CI_Controller {
                         $attadence->where(array('student_id' => $student_master_id, 'clan_date' => $userdetail->first_lesson_date))->get();
                         //Delete that record
                         $attadence->delete();
-                    } else if ($this->input->post('status') == 'AS') {
-                        $user = new User();
-                        //get user details update record
-                        $user->where(array('id' => $student_master_id))->update('status', 'A');
-
-                        //Set notification type
-                        $notification_type = 'accept_as_student';
-                        //Set email type
-                        $email_type = 'accepted_as_student';
                     }
 
                     //Send notification to student
@@ -566,8 +557,6 @@ class clans extends CI_Controller {
                         $message = str_replace('#lesson_date', date('d-m-Y', strtotime($userdetail->first_lesson_date)), $message);
                         $message = str_replace('#apply_date', date('d-m-Y', strtotime($userdetail->timestamp)), $message);
                         $message = str_replace('#reject_date', date('d-m-Y', strtotime(get_current_date_time()->get_date_time_for_db())), $message);
-                    } if($email_type == 'accepted_as_student'){
-                        $message = str_replace('#accept_date', date('d-m-Y', strtotime(get_current_date_time()->get_date_time_for_db())), $message);
                     }
 
                     //get all the ids who's role is ADMIN
@@ -600,14 +589,17 @@ class clans extends CI_Controller {
                             $notification->save();
 
                             //Send Email
-                            $option = array();
-                            $option['tomailid'] = $value->email;
-                            $option['subject'] = $email->subject;
-                            $option['message'] = $message;
-                            if (!is_null($email->attachment)) {
-                                $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                            $check_privacy = unserialize($value->email_privacy);
+                            if(is_null($check_privacy) || $check_privacy[$email_type] == 1){
+                                $option = array();
+                                $option['tomailid'] = $value->email;
+                                $option['subject'] = $email->subject;
+                                $option['message'] = $message;
+                                if (!is_null($email->attachment)) {
+                                    $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                                }
+                                send_mail($option);
                             }
-                            send_mail($option);
                         }
                     }
 
@@ -1086,26 +1078,29 @@ class clans extends CI_Controller {
         $user = new User();
         $user->where('id', $this->input->post('student_id'))->get();
 
-        //get email details
-        $email = new Email();
-        $email->where('type', 'teacher_recovery_student_for_student')->get();
-        $message = $email->message;
+        $check_privacy = unserialize($user->email_privacy);
+        if(is_null($check_privacy) || $check_privacy['teacher_recovery_student_for_student'] == 1){
+            //get email details
+            $email = new Email();
+            $email->where('type', 'teacher_recovery_student_for_student')->get();
+            $message = $email->message;
 
-        //replace newcessary details
-        $message = str_replace('#student_name', $user->firstname .' ' . $user->lastname , $message);
-        $message = str_replace('#teacher_name', $this->session_data->name, $message);
-        $message = str_replace('#recover_clan', $clan->en_class_name, $message);
-        $message = str_replace('#date', date('d-m-Y', strtotime($this->input->post('date'))), $message);
+            //replace newcessary details
+            $message = str_replace('#student_name', $user->firstname .' ' . $user->lastname , $message);
+            $message = str_replace('#teacher_name', $this->session_data->name, $message);
+            $message = str_replace('#recover_clan', $clan->en_class_name, $message);
+            $message = str_replace('#date', date('d-m-Y', strtotime($this->input->post('date'))), $message);
 
-        //set option for sending mail
-        $option = array();
-        $option['tomailid'] = $user->email;
-        $option['subject'] = $email->subject;
-        $option['message'] = $message;
-        if (!is_null($email->attachment)) {
-            $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+            //set option for sending mail
+            $option = array();
+            $option['tomailid'] = $user->email;
+            $option['subject'] = $email->subject;
+            $option['message'] = $message;
+            if (!is_null($email->attachment)) {
+                $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+            }
+            send_mail($option);
         }
-        send_mail($option);
 
         /*
         * Send Recover Clan Teacher Notification and Email about schedule change...
@@ -1123,27 +1118,30 @@ class clans extends CI_Controller {
         $teacher = new User();
         $teacher->where('id', $clan->teacher_id)->get();
 
-         //get email details
-        $email = new Email();
-        $email->where('type', 'teacher_recovery_student_for_teacher')->get();
-        $message = $email->message;
+         $check_privacy = unserialize($teacher->email_privacy);
+        if(is_null($check_privacy) || $check_privacy['teacher_recovery_student_for_teacher'] == 1){
+            //get email details
+            $email = new Email();
+            $email->where('type', 'teacher_recovery_student_for_teacher')->get();
+            $message = $email->message;
 
-        //replace newcessary details
-        $message = str_replace('#student_name', $user->firstname .' ' . $user->lastname , $message);
-        $message = str_replace('#receiver_teacher', $teacher->firstname .' ' . $teacher->lastname, $message);
-        $message = str_replace('#sender_teacher', $this->session_data->name, $message);
-        $message = str_replace('#recover_clan', $clan->en_class_name, $message);
-        $message = str_replace('#date', date('d-m-Y', strtotime($this->input->post('date'))), $message);
+            //replace newcessary details
+            $message = str_replace('#student_name', $user->firstname .' ' . $user->lastname , $message);
+            $message = str_replace('#receiver_teacher', $teacher->firstname .' ' . $teacher->lastname, $message);
+            $message = str_replace('#sender_teacher', $this->session_data->name, $message);
+            $message = str_replace('#recover_clan', $clan->en_class_name, $message);
+            $message = str_replace('#date', date('d-m-Y', strtotime($this->input->post('date'))), $message);
 
-        //set option for sending mail
-        $option = array();
-        $option['tomailid'] = $teacher->email;
-        $option['subject'] = $email->subject;
-        $option['message'] = $message;
-        if (!is_null($email->attachment)) {
-            $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+            //set option for sending mail
+            $option = array();
+            $option['tomailid'] = $teacher->email;
+            $option['subject'] = $email->subject;
+            $option['message'] = $message;
+            if (!is_null($email->attachment)) {
+                $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+            }
+            send_mail($option);
         }
-        send_mail($option);
 
         echo json_encode(array('status'=>true,'student_id'=>$this->input->post('student_id')));
     }
@@ -1264,25 +1262,28 @@ class clans extends CI_Controller {
                 $notification->data = serialize($post);
                 $notification->save();
 
-                //Send Email
-                $option = array();
-                $message = NULL;
-                $message = $email->message;
-                $message = str_replace('#user_name', $value->firstname.' '.$value->lastname, $message);
-                $message = str_replace('#clan_name', $clan->en_class_name, $message);
-                $message = str_replace('#school_name', $clan->school->en_school_name, $message);
-                $message = str_replace('#academy_name', $clan->school->academy->en_academy_name, $message);
-                $message = str_replace('#from_date', date('d-m-Y', strtotime($post['clan_shift_from'])), $message);
-                $message = str_replace('#to_date', date('d-m-Y', strtotime($post['clan_date'])), $message);
-                $message = str_replace('#authorized_user_name', $this->session_data->name, $message);
-                
-                $option['tomailid'] = $value->email;
-                $option['subject'] = $email->subject;
-                $option['message'] = $message;
-                if (!is_null($email->attachment)) {
-                    $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                $check_privacy = unserialize($value->email_privacy);
+                if(is_null($check_privacy) || $check_privacy['change_clan_date'] == 1){
+                    //Send Email
+                    $option = array();
+                    $message = NULL;
+                    $message = $email->message;
+                    $message = str_replace('#user_name', $value->firstname.' '.$value->lastname, $message);
+                    $message = str_replace('#clan_name', $clan->en_class_name, $message);
+                    $message = str_replace('#school_name', $clan->school->en_school_name, $message);
+                    $message = str_replace('#academy_name', $clan->school->academy->en_academy_name, $message);
+                    $message = str_replace('#from_date', date('d-m-Y', strtotime($post['clan_shift_from'])), $message);
+                    $message = str_replace('#to_date', date('d-m-Y', strtotime($post['clan_date'])), $message);
+                    $message = str_replace('#authorized_user_name', $this->session_data->name, $message);
+                    
+                    $option['tomailid'] = $value->email;
+                    $option['subject'] = $email->subject;
+                    $option['message'] = $message;
+                    if (!is_null($email->attachment)) {
+                        $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                    }
+                    send_mail($option);
                 }
-                send_mail($option);
             }
         }
 

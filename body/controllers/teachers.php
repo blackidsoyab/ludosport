@@ -62,19 +62,21 @@ class teachers extends CI_Controller
                 $notification->object_id = $attadence->id;
                 $notification->data = serialize($this->input->post());
                 $notification->save();
+                
+                $user_details = userNameEmail($dean);
+                $check_privacy = unserialize($user_details['email_privacy']);
+                if(is_null($check_privacy) || $check_privacy['teacher_absent'] == 1){
+                    $message = str_replace('#user_name', $user_details['name'], $message);
 
-                $user_details = new User();
-                $user_details->where('id', $dean)->get();
-                $message = str_replace('#user_name', $user_details->firstname.' '.$user_details->lastname , $message);
-
-                $option = array();
-                $option['tomailid'] = $user_details->email;
-                $option['subject'] = $email->subject;
-                $option['message'] = $message;
-                if (!is_null($email->attachment)) {
-                    $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                    $option = array();
+                    $option['tomailid'] = $user_details->email;
+                    $option['subject'] = $email->subject;
+                    $option['message'] = $message;
+                    if (!is_null($email->attachment)) {
+                        $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                    }
+                    send_mail($option);
                 }
-                send_mail($option);
             }
 
             $this->session->set_flashdata('success', $this->lang->line('communitate_absence_success'));

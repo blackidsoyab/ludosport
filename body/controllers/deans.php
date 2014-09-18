@@ -56,25 +56,28 @@ class deans extends CI_Controller
                 $notification->data = serialize(objectToArray($attendance->stored));
                 $notification->save();
 
-                $email = new Email();
-                //get the mail templates
-                $email->where('type', $notify_type)->get();
-                $message = $email->message;
-
-                //replace appropriate varaibles
                 $teacher_details = userNameEmail($attendance->teacher_id);
-                $message = str_replace('#user_name', $teacher_details['name'], $message);
-                $message = str_replace('#date', date('d-m-Y', strtotime($attendance->clan_date)), $message);
-                $message = str_replace('#authorized_user_name',$this->session_data->name, $message);
+                $check_privacy = unserialize($user_details['email_privacy']);
+                if(is_null($check_privacy) || $check_privacy[$notify_type] == 1){
+                    $email = new Email();
+                    //get the mail templates
+                    $email->where('type', $notify_type)->get();
+                    $message = $email->message;
 
-                $option = array();
-                $option['tomailid'] = $teacher_details['email'];
-                $option['subject'] = $email->subject;
-                $option['message'] = $message;
-                if (!is_null($email->attachment)) {
-                    $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                    //replace appropriate varaibles
+                    $message = str_replace('#user_name', $teacher_details['name'], $message);
+                    $message = str_replace('#date', date('d-m-Y', strtotime($attendance->clan_date)), $message);
+                    $message = str_replace('#authorized_user_name',$this->session_data->name, $message);
+
+                    $option = array();
+                    $option['tomailid'] = $teacher_details['email'];
+                    $option['subject'] = $email->subject;
+                    $option['message'] = $message;
+                    if (!is_null($email->attachment)) {
+                        $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                    }
+                    send_mail($option);
                 }
-                send_mail($option);
 
                 //To Recovery Teacher
                 if($this->input->post('status') == 'A' && $attendance->recovery_teacher != 0){
@@ -89,30 +92,33 @@ class deans extends CI_Controller
 
                     unset($email);
                     unset($message);
-                    $email = new Email();
-                    //get the mail templates
-                    $email->where('type', 'recovery_teacher')->get();
-                    $message = $email->message;
-
                     //replace appropriate varaibles
                     $recovery_teacher_details = userNameEmail($attendance->recovery_teacher);
-                    $message = str_replace('#user_name', $recovery_teacher_details['name'], $message);
-                    $message = str_replace('#teacher_name', $teacher_details['name'], $message);
-                    $message = str_replace('#clan_date', date('d-m-Y', strtotime($attendance->clan_date)), $message);
-                    $message = str_replace('#approved_user_name', $this->session_data->name, $message);
+                    $check_privacy = unserialize($recovery_teacher_details['email_privacy']);
+                    if(is_null($check_privacy) || $check_privacy['recovery_teacher'] == 1){
+                        $email = new Email();
+                        //get the mail templates
+                        $email->where('type', 'recovery_teacher')->get();
+                        $message = $email->message;
 
-                    $clan = new Clan();
-                    $clan->where('id', $attendance->clan_id)->get();
-                    $message = str_replace('#clan_name',$ckan->en_class_name, $message);
+                        $message = str_replace('#user_name', $recovery_teacher_details['name'], $message);
+                        $message = str_replace('#teacher_name', $teacher_details['name'], $message);
+                        $message = str_replace('#clan_date', date('d-m-Y', strtotime($attendance->clan_date)), $message);
+                        $message = str_replace('#approved_user_name', $this->session_data->name, $message);
 
-                    $option = array();
-                    $option['tomailid'] = $recovery_teacher_details['email'];
-                    $option['subject'] = $email->subject;
-                    $option['message'] = $message;
-                    if (!is_null($email->attachment)) {
-                        $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                        $clan = new Clan();
+                        $clan->where('id', $attendance->clan_id)->get();
+                        $message = str_replace('#clan_name',$ckan->en_class_name, $message);
+
+                        $option = array();
+                        $option['tomailid'] = $recovery_teacher_details['email'];
+                        $option['subject'] = $email->subject;
+                        $option['message'] = $message;
+                        if (!is_null($email->attachment)) {
+                            $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                        }
+                        send_mail($option);
                     }
-                    send_mail($option);
                 }
             }
             

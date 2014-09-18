@@ -328,9 +328,6 @@ class events extends CI_Controller {
                     if(!empty($event_detail->image)){
                         $path= 'assets/img/event_images/' . $event_detail->image;
                         if(file_exists($path)){
-                            //$type = pathinfo($path, PATHINFO_EXTENSION);
-                            //$data = file_get_contents($path);
-                            //$base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
                             $base64 = base_url() . $path;
                             $image = '<img src="'.$base64.'" style="width:25%"/>';
                         } else {
@@ -358,11 +355,7 @@ class events extends CI_Controller {
                     sort($user_ids);
 
                     //loop through each user
-                    foreach ($user_ids as $user) {
-                        //get the User details
-                        $user_details = new User();
-                        $user_details->where('id', $user)->get();                        
-
+                    foreach ($user_ids as $user) {                   
                         //Save - Update the Invitation
                         $invitations = new Eventinvitation();
                         $invitations->where(array('event_id'=>$event_id, 'from_id'=>$this->session_data->id, 'to_id'=>$user))->get();
@@ -384,18 +377,22 @@ class events extends CI_Controller {
                             $notification->data = serialize(array_merge(objectToArray($event_detail->stored), $this->input->post()));
                             $notification->save();
 
-                            //Send Mail to user
-                            $message = str_replace('#user', $user_details->firstname .' '. $user_details->lastname, $message);
+                            $user_details = userNameEmail($user);
+                            $check_privacy = unserialize($user_details['email_privacy']);
+                            if(is_null($check_privacy) || $check_privacy['event_invitation'] == 1){
+                                //Send Mail to user
+                                $message = str_replace('#user', $user_details['name'], $message);
 
-                            //Send Email
-                            $option = array();
-                            $option['tomailid'] = $user_details->email;
-                            $option['subject'] = $email->subject;
-                            $option['message'] = $message;
-                            if (!is_null($email->attachment)) {
-                                $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                                //Send Email
+                                $option = array();
+                                $option['tomailid'] = $user_details['email'];
+                                $option['subject'] = $email->subject;
+                                $option['message'] = $message;
+                                if (!is_null($email->attachment)) {
+                                    $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                                }
+                                send_mail($option);
                             }
-                            send_mail($option);
                         }
                     }
 

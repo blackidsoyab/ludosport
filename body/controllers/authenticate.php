@@ -192,16 +192,19 @@ class authenticate extends CI_Controller {
                 $notification->data = serialize($this->input->post());
                 $notification->save();
 
-                $option = null;
-                $option = array();
-                $option['tomailid'] = $value->email;
-                $option['subject'] = $email->subject;
-                $option['message'] = $message;
-                if (!is_null($email->attachment)) {
-                    $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
-                }
+                $check_privacy = unserialize($value->email_privacy);
+                if(is_null($check_privacy) || $check_privacy['user_registration_notification'] == 1){
+                    $option = null;
+                    $option = array();
+                    $option['tomailid'] = $value->email;
+                    $option['subject'] = $email->subject;
+                    $option['message'] = $message;
+                    if (!is_null($email->attachment)) {
+                        $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                    }
 
-                send_mail($option);
+                    send_mail($option);
+                }
             }
 
             unset($obj_user);

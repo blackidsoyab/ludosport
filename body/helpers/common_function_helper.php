@@ -63,6 +63,7 @@ if (!function_exists('userNameEmail')) {
             $return['name'] = $user->firstname . ' ' . $user->lastname;
         }
         $return['email'] = $user->email;
+        $return['email_privacy'] = $user->email_privacy;
         unset($user);
         return $return;
     }

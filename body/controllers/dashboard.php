@@ -348,14 +348,17 @@ class dashboard extends CI_Controller {
             $notification->save();
 
             //Send Email
-            $option = array();
-            $option['tomailid'] = $value->email;
-            $option['subject'] = $email->subject;
-            $option['message'] = $message;
-            if (!is_null($email->attachment)) {
-                $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+            $check_privacy = unserialize($value->email_privacy);
+            if(is_null($check_privacy) || $check_privacy['apply_trial_lesson'] == 1){
+                $option = array();
+                $option['tomailid'] = $value->email;
+                $option['subject'] = $email->subject;
+                $option['message'] = $message;
+                if (!is_null($email->attachment)) {
+                    $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                }
+                send_mail($option);
             }
-            send_mail($option);
         }
 
         redirect(base_url(), 'refresh');
