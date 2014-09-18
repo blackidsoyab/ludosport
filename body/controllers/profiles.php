@@ -221,7 +221,7 @@ class profiles extends CI_Controller {
             $newdata = array('user_session' => $session);
             $this->session->set_userdata($newdata);
 
-            $this->session->set_flashdata('success', $this->lang->line('change_email_privacy'));
+            $this->session->set_flashdata('success', $this->lang->line('email_privacy_success'));
             redirect(base_url() . 'change_email_privacy', 'refresh');
         } else {
             $this->layout->setField('page_title', $this->lang->line('email_privacy'));

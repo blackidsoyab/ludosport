@@ -12,7 +12,7 @@ class deans extends CI_Controller
         $this->session_data = $this->session->userdata('user_session');
         
         if ($this->session_data->role != 4) {
-            $this->session->set_flashdata('error', 'You dont have permission to see it :-/ Please contact Admin');
+            $this->session->set_flashdata('error', $this->lang->line('permisson_error'));
             redirect(base_url() . 'denied', 'refresh');
         }
     }
@@ -116,7 +116,7 @@ class deans extends CI_Controller
                 }
             }
             
-            $this->session->set_flashdata('success', 'Communicate Absence Successfully');
+            $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
             redirect(base_url() . 'dashboard', 'refresh');
         } else {
             $this->layout->setField('page_title', $this->lang->line('communicate_absence'));

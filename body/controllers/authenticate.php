@@ -20,7 +20,7 @@ class authenticate extends CI_Controller {
     public function index() {
         $session = $this->session->userdata('user_session');
         if (!empty($session)) {
-            $this->session->set_flashdata('info', 'You are already logged in :)');
+            $this->session->set_flashdata('info', $this->lang->line('you_logged_in'));
             redirect(base_url() . 'dashboard', 'refresh');
         } else {
             $this->layout->view('authenticate/login');
@@ -59,14 +59,14 @@ class authenticate extends CI_Controller {
 
         if ($user->result_count() === 1) {
             if ($user->status == 'D') {
-                $this->session->set_flashdata('info', 'You are not an active member. <br /> Contact Admin.');
+                $this->session->set_flashdata('info', $this->lang->line('not_active_member'));
                 redirect(base_url() . 'login', 'refresh');
             } else {
                 $this->_setSessionData($user);
                 redirect(base_url() . 'dashboard', 'refresh');
             }
         } else {
-            $this->session->set_flashdata('error', 'Invalid Username or Password');
+            $this->session->set_flashdata('error', $this->lang->line('invalid_user'));
             redirect(base_url() . 'login', 'refresh');
         }
     }
@@ -209,10 +209,10 @@ class authenticate extends CI_Controller {
             $obj_user->where('id', $new_user->id)->get();
 
             $this->_setSessionData($obj_user);
-            $this->session->set_flashdata('success', 'Registration is successful');
+            $this->session->set_flashdata('success', $this->lang->line('register_success'));
             redirect(base_url() . 'dashboard', 'refresh');
         } else {
-            $this->session->set_flashdata('error', 'Please try after Sometime');
+            $this->session->set_flashdata('error', $this->lang->line('try_after_sometime'));
             redirect(base_url() . 'register', 'refresh');
         }
     }
@@ -246,12 +246,12 @@ class authenticate extends CI_Controller {
             }
             
             if (send_mail($option)) {
-                $this->session->set_flashdata('success', 'Check your Mail Address.');
+                $this->session->set_flashdata('success', $this->lang->line('check_mail_address'));
             } else {
-                $this->session->set_flashdata('error', 'Unable to send mail. please try again');
+                $this->session->set_flashdata('error', $this->lang->line('mail_failed'));
             }
         } else {
-            $this->session->set_flashdata('error', 'Email Address does not exit');
+            $this->session->set_flashdata('error', $this->lang->line('email_addres_not_extis'));
         }
         redirect(base_url() . 'forgot_password', 'refresh');
     }
@@ -263,10 +263,10 @@ class authenticate extends CI_Controller {
             if ($user->result_count() == 1) {
                 $user->password = md5($this->input->post('new_password'));
                 $user->save();
-                $this->session->set_flashdata('success', 'Login with new password');
+                $this->session->set_flashdata('success', $this->lang->line('login_with_new_password'));
                 redirect(base_url() . 'login', 'refresh');
             } else {
-                $this->session->set_flashdata('error', 'unable to reset password');
+                $this->session->set_flashdata('error', $this->lang->line('error_reset_password'));
                 redirect(base_url() . 'reset_password/' . $random_string, 'refresh');
             }
         } else {

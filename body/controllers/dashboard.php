@@ -146,7 +146,7 @@ class dashboard extends CI_Controller {
         } else if ($this->session_data->status === 'A') {
             $this->getActiveStudentDashboard();
         } else {
-            $this->session->set_flashdata('error', 'Your Status is Neighter ACTIVE nor PENDING. Please Contact Admin.');
+            $this->session->set_flashdata('error', $this->lang->line('status_error'));
             redirect(base_url() . 'denied', 'refresh');
         }
     }

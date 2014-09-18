@@ -33,6 +33,18 @@ $lang['no'] = 'No';
 $lang['yes'] = 'Yes';
 
 //Operation's Messages
+$lang['you_logged_in'] = 'You are already logged in :)';
+$lang['not_active_member'] = 'You are not an active member. <br /> Contact Admin.';
+$lang['invalid_user'] = 'Invalid Username or Password';
+$lang['register_success'] = 'Registration is successful';
+$lang['try_after_sometime'] = 'Please try after Sometime';
+$lang['check_mail_address'] = 'Check your Mail Address.';
+$lang['mail_failed'] = 'Unable to send mail. please try again';
+$lang['email_addres_not_extis'] = 'Email Address does not exit';
+$lang['login_with_new_password'] = 'Login with new password';
+$lang['error_reset_password'] = 'unable to reset password';
+$lang['status_error'] = 'Your Status is Neighter ACTIVE nor PENDING. Please Contact Admin.';
+$lang['permisson_error'] = 'You dont have permission to see it :-/ Please contact Admin';
 $lang['add_data_success'] = 'Data added successfully';
 $lang['add_data_error'] = 'Not able to add data';
 $lang['edit_data_success'] = 'Data updated successfully';
@@ -46,9 +58,13 @@ $lang['message_reply_error'] = 'Error in replying Mail';
 $lang['unauthorize_access'] = 'Unauthorize Access';
 $lang['no_data_exit'] = 'No Data Exits';
 $lang['no_student_exit'] = 'No Student Exits';
-$lang['invitation_send_successfully'] = 'Invitation Send Successfully';
+$lang['invitation_send_successfully'] = 'Invitation Sent Successfully';
 $lang['attendance_next_week_done'] = 'Attendance for next week done';
 $lang['attendance_save_successfully'] = 'Attendance Saved Successfully';
+$lang['attachment_removed'] = 'Attachment removed successfully';
+$lang['communitate_absence_success'] = 'Communicate Absence Successfully';
+$lang['email_privacy_success'] = 'Email privacy changed successfully';
+$lang['no_student_in_clan'] = 'No Student is there in your Clan';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';
@@ -252,7 +268,6 @@ $lang['attendance_sheet'] = 'Attendance Sheet';
 $lang['next_class'] = 'Next Clan';
 $lang['attendance'] = 'Attendance';
 $lang['recovery'] = 'Recovery';
-$lang['no_student_in_clan'] = 'No Student is there in your Clan';
 $lang['absenece_recovery_student'] = 'Absense Recovery Student';
 $lang['assign_recovery_clan'] = 'Assign Recovery Clan';
 
@@ -267,7 +282,6 @@ $lang['attachment'] = 'Attachment';
 $lang['show'] = 'Show';
 $lang['remove'] = 'Remove';
 $lang['pre_format'] = 'Pre Format';
-$lang['attachment_removed'] = 'Attachment removed successfully';
 
 //Event Category
 $lang['eventcategory'] = 'Event Category';

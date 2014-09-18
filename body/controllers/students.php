@@ -13,7 +13,7 @@ class students extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
 
         if($this->session_data->role != 6){
-            $this->session->set_flashdata('error', 'You dont have permission to see it :-/ Please contact Admin');
+            $this->session->set_flashdata('error', $this->lang->line('permisson_error'));
             redirect(base_url() . 'denied', 'refresh');
         }
     }
@@ -103,7 +103,7 @@ class students extends CI_Controller {
                 send_mail($option);
             }
 
-            $this->session->set_flashdata('success', 'Absence Mark Successfully');
+            $this->session->set_flashdata('success', $this->lang->line('communitate_absence_success'));
             redirect(base_url() . 'dashboard', 'refresh');
         }else{
             $user_detail = new Userdetail();

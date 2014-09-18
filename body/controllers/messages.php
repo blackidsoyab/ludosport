@@ -13,7 +13,7 @@ class messages extends CI_Controller {
         $this->session_data = $this->session->userdata('user_session');
 
         if ($this->session_data->status == 'P') {
-            $this->session->set_flashdata('error', 'You dont have permission!! :-/ Please contact Admin');
+            $this->session->set_flashdata('error', $this->lang->line('permisson_error'));
             redirect(base_url() . 'denied', 'refresh');
         }
     }
