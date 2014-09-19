@@ -251,7 +251,8 @@ class students extends CI_Controller {
         
         $data['topper'] = $topper[0];
         $data['topper_userdetail'] = $userdetail->where('student_master_id', $topper[0]->id)->get();
-        $data['topper_batch_detail'] = $userdetail->Batch;
+        $batch = new Batch();
+        $data['topper_batch_detail'] = $batch->where('id', $userdetail->degree_id)->get();
         $data['topper_batch_image'] = IMG_URL .'batches/'. $data['topper_batch_detail']->image;
         $clan = new Clan($data['topper_userdetail']->clan_id);
         $data['topper_ac_sc_clan_name'] = $clan->School->Academy->{$this->session_data->language.'_academy_name'} .'<br />'. $clan->School->{$this->session_data->language.'_school_name'} .'<br />'. $clan->{$this->session_data->language.'_class_name'};

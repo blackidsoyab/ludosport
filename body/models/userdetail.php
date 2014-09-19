@@ -5,7 +5,6 @@ class Userdetail extends DataMapper {
     public $table = 'userdetails';
     public $has_one = array(
         'clan',
-        'batch',
         'user' => array(
             'join_other_as' => 'user',
             'join_self_as' => 'id'

@@ -1,3 +1,4 @@
+<?php $session = $this->session->userdata('user_session'); ?>
 <script>
     //<![CDATA[
     $(document).ready(function() {
@@ -18,8 +19,9 @@
                 }
             },
             errorPlacement: function(error, element) {
-                if (element.attr('type') === 'radio' || element.attr('type') === 'checkbox') {
-                    error.appendTo(element.parent());
+                if (element.attr('type') == 'radio' || element.attr('type') == 'checkbox') {
+                    error.appendTo(element.parent().parent().parent().parent());
+                    $(error).css('width', '100%');
                 } else if(element.attr('type') == 'file'){
                     error.appendTo(element.parent().parent().parent().parent());
                 } else {
@@ -89,6 +91,20 @@
                 </div>
             </div>
         <?php } ?>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label"><?php echo $this->lang->line('who_can_assign'); ?> <span class="text-danger">*</span></label>
+            <div class="col-lg-8">
+                <?php foreach ($roles as $role) { ?>
+                    <span class="checkbox pull-left padding-left-killer pad-rt-10">
+                        <label>
+                            <input type="checkbox" value="<?php echo $role->id; ?>" class="required i-grey-flat" name="assign_role[]">
+                            <?php echo $role->{$session->language.'_role_name'}; ?>
+                        </label>
+                    </span>
+                <?php } ?>
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('image'); ?>&nbsp;<span class="text-danger">*</span></label>

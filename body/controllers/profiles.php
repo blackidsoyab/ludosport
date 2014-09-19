@@ -33,7 +33,8 @@ class profiles extends CI_Controller {
         if(in_array(6, explode(',',$data['profile']->role_id))){
             $userdetail = new Userdetail();
             $data['userdetail'] = $userdetail->where('student_master_id', $id)->get();
-            $data['batch_detail'] = $userdetail->Batch;
+            $batch = new Batch();
+            $data['batch_detail'] = $batch->where('id', $userdetail->degree_id)->get();
             if(!is_null($data['batch_detail']->cover_image)){
                 $data['cover_image'] = IMG_URL .'batches/cover_image/'. $data['batch_detail']->cover_image;
             } else {

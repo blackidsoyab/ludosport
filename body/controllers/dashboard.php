@@ -164,7 +164,8 @@ class dashboard extends CI_Controller {
         
         $data['user'] = $user[0];
         $data['userdetail'] = $userdetail->where('student_master_id', $user[0]->id)->get();
-        $data['batch_detail'] = $userdetail->Batch;
+        $batch = new Batch();
+        $data['batch_detail'] = $batch->where('id', $userdetail->degree_id)->get();
         if(!is_null($data['batch_detail']->cover_image)){
             $data['cover_image'] = IMG_URL .'batches/cover_image/'. $data['batch_detail']->cover_image;
             $data['batch_image'] = IMG_URL .'batches/'. $data['batch_detail']->image;
@@ -379,7 +380,7 @@ class dashboard extends CI_Controller {
 
             //save the data
             $user_details->student_master_id= $this->session_data->id;
-            $user_details->batch_id= $this->config->item('pupil_basic_level');
+            $user_details->degree_id= $this->config->item('pupil_basic_level');
             $user_details->palce_of_birth = $this->input->post('palce_of_birth');
             $user_details->first_lesson_date = get_current_date_time()->get_date_for_db();
             $user_details->zip_code = $this->input->post('zip_code');
@@ -411,16 +412,5 @@ class dashboard extends CI_Controller {
             $this->layout->view('authenticate/register_step_2', $data);
         }
     }
-
-    function mailtesting() {
-        $option = array();
-        $option['tomailid'] = 'soyab@blackidsolutions.com';
-        $option['subject'] = 'Hello';
-        $option['message'] = 'Hi Testing mail';
-        echo '<pre>';
-        print_r(send_mail($option));
-        echo '</pre>';
-        exit();
-    }
-
+    
 }

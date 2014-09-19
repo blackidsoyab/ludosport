@@ -57,6 +57,7 @@ class batches extends CI_Controller {
             }
 
             $batch->type = $this->input->post('type');
+            $batch->assign_role = implode(',', $this->input->post('assign_role'));
             $batch->description = $this->input->post('description');
             $batch->user_id = $this->session_data->id;
             $batch->save();
@@ -64,7 +65,11 @@ class batches extends CI_Controller {
             redirect(base_url() . 'batch', 'refresh');
         } else {
             $this->layout->setField('page_title', $this->lang->line('add') . ' ' . $this->lang->line('batch'));
-            $this->layout->view('batches/add');
+
+            $role = new Role();
+            $data['roles'] = $role->where('id >', 1)->get();
+
+            $this->layout->view('batches/add', $data);
         }
     }
 
@@ -112,6 +117,7 @@ class batches extends CI_Controller {
                 }
 
                 $batch->type = $this->input->post('type');
+                $batch->assign_role = implode(',', $this->input->post('assign_role'));
                 $batch->description = $this->input->post('description');
                 $batch->user_id = $this->session_data->id;
                 $batch->save();
@@ -121,6 +127,10 @@ class batches extends CI_Controller {
                 $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('batch'));
                 $batch = new Batch();
                 $data['batch'] = $batch->where('id', $id)->get();
+
+                $role = new Role();
+                $data['roles'] = $role->where('id >', 1)->get();
+
                 $this->layout->view('batches/edit', $data);
             }
         } else {

@@ -553,13 +553,13 @@ class json extends CI_Controller {
         $this->datatable->sTable = " clans, users, schools, academies, userdetails, batches";
 
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.batch_id ' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.degree_id ' . $where;
         } else if ($this->session_data->role == '3') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.batch_id ' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.degree_id ' . $where;
         } else if ($this->session_data->role == '4') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.batch_id ' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.degree_id ' . $where;
         } else if ($this->session_data->role == '5') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.batch_id ' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.degree_id ' . $where;
         }
         $this->datatable->datatable_process();
 

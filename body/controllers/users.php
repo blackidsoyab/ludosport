@@ -15,7 +15,6 @@ class users extends CI_Controller {
 
     function viewUser($id = null, $type = null) {
         $role = new Role();
-        
         $data['roles'] = $role->where('id >', $this->session_data->role)->get();    
 
         if (is_null($id)) {
@@ -59,7 +58,7 @@ class users extends CI_Controller {
             if (in_array('6', $this->input->post('role_id'))) {
                 $user_details = new Userdetail();
                 $user_details->student_master_id = $user->id;
-                $user_details->batch_id= $this->config->item('pupil_basic_level');
+                $user_details->degree_id= $this->config->item('pupil_basic_level');
                 $user_details->clan_id = $this->input->post('class_id');
                 $user_details->first_lesson_date = get_current_date_time()->get_date_for_db();
                 $user_details->status = $this->input->post('status');
@@ -137,7 +136,7 @@ class users extends CI_Controller {
                     $user_details = new Userdetail();
                     $user_details->where('student_master_id', $id)->get();
                     $user_details->student_master_id = $user->id;
-                    $user_details->batch_id= $this->config->item('pupil_basic_level');
+                    $user_details->degree_id= $this->config->item('pupil_basic_level');
                     $user_details->clan_id = $this->input->post('class_id');
                     $user_details->first_lesson_date = get_current_date_time()->get_date_for_db();
                     $user_details->user_id = $this->session_data->id;
