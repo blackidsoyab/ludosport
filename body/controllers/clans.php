@@ -197,10 +197,17 @@ class clans extends CI_Controller {
             $academy = New Academy();
             if ($this->session_data->role == '1' || $this->session_data->role == '2') {
                 $data['academies'] = $academy->get();
-            } else {
+            } else if ($this->session_data->role == '3'){
                 $data['academies'] = $academy->getAcademyOfRector($this->session_data->id);
+            } else if ($this->session_data->role == '4'){
+                $data['academies'] = $academy->getAcademyOfDean($this->session_data->id);
+            } else if ($this->session_data->role == '5'){
+                $data['academies'] = $academy->getAcademyOfTeacher($this->session_data->id);
+            } else if ($this->session_data->role == '6'){
+                $data['academies'] = $academy->getAcademyOfStudent($this->session_data->id);
+            } else {
+                $data['academies'] = NULL;
             }
-
 
             $this->layout->view('clans/add', $data);
         }
