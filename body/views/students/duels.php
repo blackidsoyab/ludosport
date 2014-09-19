@@ -468,28 +468,32 @@
 	</div>
 
 	<div class="col-lg-4">
-		<div class="the-box bg-dark no-border text-center more-padding">
-			<h4 class="text-white padding-killer">The four before me</h4><br>
-			<div class="row">
-				<?php if($four_before_me_users != false){ ?>
-					<?php foreach ($four_before_me_users as $before_key => $before_value) { ?>
-						<div class="col-xs-3">
-							<p><a href="<?php echo base_url() . 'profile/view/'. $before_value->id ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $before_value->name; ?>"><img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$before_value->avtar; ?>" class="img-responsive img-circle" alt="Avatar"></a></p>
-						</div>
-					<?php } ?>
-				<?php } else { echo 'You are First, Congrulations'; } ?>
-			</div>	
-			<h4 class="text-white padding-killer">The four after me</h4><br>
-			<div class="row">
-				<?php if($four_after_me_users != false){ ?>
-					<?php foreach ($four_after_me_users as $after_key => $after_value) { ?>
-						<div class="col-xs-3">
-							<p><a href="<?php echo base_url() . 'profile/view/'. $after_value->id ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $after_value->name; ?>"><img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$after_value->avtar; ?>" class="img-responsive img-circle" alt="Avatar"></a></p>
-						</div>
-					<?php } ?>
-				<?php } else { echo 'Sorry but you are last'; } ?>
+		<?php if($four_before_me_users != false || $four_after_me_users != false) { ?>
+			<div class="the-box bg-dark no-border text-center more-padding">
+				<?php if($four_before_me_users != false){ 
+					krsort($four_before_me_users);
+				?>
+					<h4 class="text-white padding-killer">The <?php echo strtolower(convertNumber2Words(count($four_before_me_users))); ?> before me</h4><br />
+					<div class="row">
+						<?php foreach ($four_before_me_users as $before_key => $before_value) { ?>
+							<div class="col-xs-3">
+								<p><a href="<?php echo base_url() . 'profile/view/'. $before_value->id ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $before_value->name; ?>"><img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$before_value->avtar; ?>" class="img-responsive img-circle" alt="Avatar"></a></p>
+							</div>
+						<?php } ?>
+					</div>
+				<?php } else { /*echo '<h4 class="text-white margin-killer">You are First, Congrulations</h4>';*/ } ?>
+				<?php if($four_after_me_users != false){ ?>	
+					<h4 class="text-white padding-killer">The <?php echo strtolower(convertNumber2Words(count($four_after_me_users))); ?> after me</h4><br />
+					<div class="row">
+						<?php foreach ($four_after_me_users as $after_key => $after_value) { ?>
+							<div class="col-xs-3">
+								<p><a href="<?php echo base_url() . 'profile/view/'. $after_value->id ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $after_value->name; ?>"><img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$after_value->avtar; ?>" class="img-responsive img-circle" alt="Avatar"></a></p>
+							</div>
+						<?php } ?>
+					</div>
+				<?php } else { /*echo '<h4 class="text-white margin-killer">Sorry but you are last</h4>';*/ } ?>
 			</div>
-		</div>
+		<?php } ?>
 	</div>
 </div>
 
@@ -512,7 +516,7 @@
 				</div>
 				<div id="top-five-users" class="collapse in">
                 	<?php foreach ($top_five_users as $top_five_key => $top_five_value) { ?>
-	                	<div class="the-box no-border margin-bottom-killer padding-bottom-killer">
+	                	<div class="the-box no-border margin-bottom-killer padding-bottom-killer padding-right-killer">
 							<div class="media user-card-sm">
 		                        <img class="pull-left media-object img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$top_five_value->avtar; ?>">
 		                        <div class="media-body">
@@ -528,7 +532,7 @@
 		                        	<?php $check = Challenge::isRequestedBefore($session->id, $top_five_value->id);
 		                        		if(!$check){
 		                        	?>
-		                            	<button class="btn btn-warning" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $top_five_value->id; ?>">Challenge!</button>
+		                            	<button class="btn btn-warning btn-block border-tp-bt-left-radius" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $top_five_value->id; ?>">&nbsp;Challenge!&nbsp;</button>
 		                            <?php } ?>
 		                        </div>
                     		</div>

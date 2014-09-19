@@ -246,7 +246,7 @@ class students extends CI_Controller {
         $data['topper_batch_detail'] = $userdetail->Batch;
         $data['topper_batch_image'] = IMG_URL .'batches/'. $data['topper_batch_detail']->image;
         $clan = new Clan($data['topper_userdetail']->clan_id);
-        $data['topper_ac_sc_clan_name'] = $clan->School->Academy->{$this->session_data->language.'_academy_name'} .', '. $clan->School->{$this->session_data->language.'_school_name'} .', '. $clan->{$this->session_data->language.'_class_name'};
+        $data['topper_ac_sc_clan_name'] = $clan->School->Academy->{$this->session_data->language.'_academy_name'} .'<br />'. $clan->School->{$this->session_data->language.'_school_name'} .'<br />'. $clan->{$this->session_data->language.'_class_name'};
 
         $challenge = new Challenge();
 
@@ -274,11 +274,14 @@ class students extends CI_Controller {
         //Defeats User
         $data['my_defeats'] = $challenge->studentDefeats($this->session_data->id,3);
 
-        //Four Before Me
-        $data['four_before_me_users'] = $userdetail->beforeMeUserDetails($this->session_data->id, 4);
+        $userdetail = new Userdetail();
+        $userdetail->where('student_master_id', $this->session_data->id)->get();
 
+        //Four Before Me
+        $data['four_before_me_users'] = $userdetail->userDetailsBeforeAfterMe($userdetail->student_master_id, $userdetail->total_score, 'before', null, 4);
+       
         //Four After Me
-        $data['four_after_me_users'] = $userdetail->afterMeUserDetails($this->session_data->id, 4);
+        $data['four_after_me_users'] = $userdetail->userDetailsBeforeAfterMe($userdetail->student_master_id, $userdetail->total_score, 'after', null, 4);
 
         //Statistics Challenge
         unset($challenge);
@@ -544,7 +547,7 @@ class students extends CI_Controller {
             $data['challenge_user_batch_detail'] = $userdetail->Batch;
             $data['challenge_user_batch_image'] = IMG_URL .'batches/'. $data['challenge_user_batch_detail']->image;
             $clan = new Clan($data['challenge_userdetail']->clan_id);
-            $data['challenge_user_ac_sc_clan_name'] =  $clan->{$this->session_data->language.'_class_name'}.', '. $clan->School->{$this->session_data->language.'_school_name'}.', '. $clan->School->Academy->{$this->session_data->language.'_academy_name'}; 
+            $data['challenge_user_ac_sc_clan_name'] =  $clan->School->Academy->{$this->session_data->language.'_academy_name'}.'<br />'. $clan->School->{$this->session_data->language.'_school_name'}.'<br />'. $clan->{$this->session_data->language.'_class_name'}; 
 
             $this->layout->view('students/duel_single', $data);
         }

@@ -67,7 +67,7 @@ $autoload['libraries'] = array('form_validation', 'database', 'session', 'encryp
   |	$autoload['helper'] = array('url', 'file');
  */
 
-$autoload['helper'] = array('form', 'url', 'file', 'date', 'date_time', 'sending_mail', 'common_function', 'text', 'smiley', 'notification', 'inflector', 'permission', 'message', 'security');
+$autoload['helper'] = array('form', 'url', 'file', 'date', 'date_time', 'sending_mail', 'common_function', 'text', 'smiley', 'notification', 'inflector', 'permission', 'message', 'security','amount_in_words');
 
 
 /*

@@ -269,7 +269,7 @@ class Userdetail extends DataMapper {
     }
 
 
-    function userDetailsBeforeAfterMe($id, $type, $type_2 =null ,$limit =null){
+    function userDetailsBeforeAfterMe($id, $score, $type, $type_2 =null ,$limit =null){
         $this->db->_protect_identifiers = false;
         $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, userdetails.total_score');
         $this->db->from('userdetails');
@@ -307,14 +307,19 @@ class Userdetail extends DataMapper {
         $this->db->where('users.id !=', $id);
         
         if(!is_null($type) && $type == 'before'){
-            $this->db->where('userdetails.total_score > s2.total_score');
+            $this->db->where('userdetails.total_score > ', $score, null, false);
             $this->db->order_by('userdetails.total_score', 'ASC');
         } else if(!is_null($type) && $type == 'after'){
-            $this->db->where('userdetails.total_score < s2.total_score');
-            $this->db->order_by('userdetails.total_score', 'ASC');
+            $this->db->where('userdetails.total_score < ', $score, null, false);
+            $this->db->order_by('userdetails.total_score', 'DESC');
         }
 
-        $this->db->limit($limit);
+        
+
+        if(!is_null($limit)){
+            $this->db->limit($limit);
+        }
+
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             $return = $res->result();
