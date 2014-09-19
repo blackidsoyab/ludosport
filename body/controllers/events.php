@@ -21,8 +21,34 @@ class events extends CI_Controller {
     */
     function viewEvent($id = null, $type = null) {
         if (is_null($id)) {
+
             $event = new Event();
-            $data['events'] = $event->get();
+            $data['events_for_all'] = $event->where('event_for', 'ALL')->get();
+            unset($event);
+
+            
+            $schools = new School();
+            if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+                $schools->select('id');
+                $school = $schools->get();
+            } else if ($this->session_data->role == '3'){
+                $school = $schools->getSchoolOfRector($this->session_data->id);
+            } else if ($this->session_data->role == '4'){
+                $school = $schools->getSchoolOfDean($this->session_data->id);
+            } else if ($this->session_data->role == '5'){
+                $school = $schools->getSchoolOfTeacher($this->session_data->id);
+            } else if ($this->session_data->role == '6'){
+                $school = $schools->getSchoolOfStudent($this->session_data->id);
+            }
+
+            $temp = array();
+            foreach ($school as $value) {
+                $temp[] = $value->id;
+            }
+
+            $event = new Event();
+            $data['events_for_school'] = $event->getEventsBySchool($temp);
+
             $this->layout->view('events/view', $data);
         } else {
             if ($type == 'notification') {
@@ -99,15 +125,35 @@ class events extends CI_Controller {
             $city->get();
             $data['cities'] = $city;
 
-            $academy = new Academy();
-            $academy->order_by($this->session_data->language . '_academy_name', 'ASC');
-            $academy->get();
-            $data['academies'] = $academy;
+            $academy = New Academy();
+            if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+                $data['academies'] = $academy->get();
+            } else if ($this->session_data->role == '3'){
+                $data['academies'] = $academy->getAcademyOfRector($this->session_data->id);
+            } else if ($this->session_data->role == '4'){
+                $data['academies'] = $academy->getAcademyOfDean($this->session_data->id);
+            } else if ($this->session_data->role == '5'){
+                $data['academies'] = $academy->getAcademyOfTeacher($this->session_data->id);
+            } else if ($this->session_data->role == '6'){
+                $data['academies'] = $academy->getAcademyOfStudent($this->session_data->id);
+            } else {
+                $data['academies'] = NULL;
+            }
 
             $school = new School();
-            $school->order_by($this->session_data->language . '_school_name', 'ASC');
-            $school->get();
-            $data['schools'] = $school;
+            if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+                $data['schools'] = $school->get();
+            } else if ($this->session_data->role == '3'){
+                $data['schools'] = $school->getSchoolOfRector($this->session_data->id);
+            } else if ($this->session_data->role == '4'){
+                $data['schools'] = $school->getSchoolOfDean($this->session_data->id);
+            } else if ($this->session_data->role == '5'){
+                $data['schools'] = $school->getSchoolOfTeacher($this->session_data->id);
+            } else if ($this->session_data->role == '6'){
+                $data['schools'] = $school->getSchoolOfStudent($this->session_data->id);
+            } else {
+                $data['schools'] = NULL;
+            }
 
             $role = new Role();
             $data['roles'] = $role->where('is_manager', 1)->get();
