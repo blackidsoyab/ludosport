@@ -516,7 +516,7 @@
 				</div>
 				<div id="top-five-users" class="collapse in">
                 	<?php foreach ($top_five_users as $top_five_key => $top_five_value) { ?>
-	                	<div class="the-box no-border margin-bottom-killer padding-bottom-killer padding-right-killer">
+	                	<div class="the-box no-border margin-bottom-killer padding-bottom-killer">
 							<div class="media user-card-sm">
 		                        <img class="pull-left media-object img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$top_five_value->avtar; ?>">
 		                        <div class="media-body">
@@ -532,7 +532,7 @@
 		                        	<?php $check = Challenge::isRequestedBefore($session->id, $top_five_value->id);
 		                        		if(!$check){
 		                        	?>
-		                            	<button class="btn btn-warning btn-block border-tp-bt-left-radius" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $top_five_value->id; ?>">&nbsp;Challenge!&nbsp;</button>
+		                            	<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $top_five_value->id; ?>">&nbsp;Challenge!&nbsp;</button>
 		                            <?php } ?>
 		                        </div>
                     		</div>

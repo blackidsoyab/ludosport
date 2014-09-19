@@ -240,7 +240,15 @@ class students extends CI_Controller {
 
         //No 1 User Details
         $userdetail = new Userdetail();
-        $topper = $userdetail->topStudents(null,null,1);
+
+        //Logged In User
+        $users = new User();
+        $topper[0] = $users->where('id', $this->session_data->id)->get();
+        $topper[0]->name = $topper[0]->firstname .' '. $topper[0]->lastname;
+        
+        //Top student
+        //$topper = $userdetail->topStudents(null,null,1);
+        
         $data['topper'] = $topper[0];
         $data['topper_userdetail'] = $userdetail->where('student_master_id', $topper[0]->id)->get();
         $data['topper_batch_detail'] = $userdetail->Batch;

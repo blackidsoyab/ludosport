@@ -152,9 +152,16 @@ class dashboard extends CI_Controller {
     }
 
     function getActiveStudentDashboard() {
-
         $userdetail = new Userdetail();
-        $user = $userdetail->topStudents(null,null,1);
+        
+        //Logged In User
+        $users = new User();
+        $user[0] = $users->where('id', $this->session_data->id)->get();
+        $user[0]->name = $user[0]->firstname .' '. $user[0]->lastname;
+        
+        //Top student
+        //$user = $userdetail->topStudents(null,null,1);
+        
         $data['user'] = $user[0];
         $data['userdetail'] = $userdetail->where('student_master_id', $user[0]->id)->get();
         $data['batch_detail'] = $userdetail->Batch;
