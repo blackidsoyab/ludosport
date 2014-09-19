@@ -17,35 +17,34 @@
 </script>
 <h1 class="page-heading">
     <?php
-    if ($profile->id != $session->id) {
-        echo $profile->firstname, ' ', $profile->lastname, ' ', $this->lang->line('profile');
-    } else {
-        echo $this->lang->line('my_profile');
-    }
+        if ($profile->id != $session->id) {
+            echo $profile->firstname, ' ', $profile->lastname, ' ', $this->lang->line('profile');
+        } else {
+            echo $this->lang->line('my_profile');
+        }
     ?>
-
 </h1>
 
 <div class="row">
-    <div class="<?php echo(in_array(6, explode(',',$profile->role_id)))? 'col-md-8' : 'col-md-12'; ?>">
+    <div class="custom-profile-view <?php echo(in_array(6, explode(',',$profile->role_id)))? 'col-md-8' : 'col-md-12'; ?>">
         <div class="the-box transparent full margin-killer profile-heading">
             <img src="<?php echo $cover_image; ?>" class="bg-cover" alt="Image">
             <img src="<?php echo IMG_URL . 'user_avtar/100X100/' . $profile->avtar; ?>" class="avatar" alt="Avatar">
             <div class="profile-info">
                 <p class="user-name"><?php echo $profile->firstname . ' ' . $profile->lastname; ?></p>
-                <p class="text-muted"><?php echo @$ac_sc_clan_name; ?></a></p>
-                <p class="text-muted"><?php echo @$batch_detail->{$session->language.'_name'}; ?></p>
+                <p class="text-custom-primary"><?php echo @$ac_sc_clan_name; ?></a></p>
+                <p class="text-custom-primary"><?php echo @$batch_detail->{$session->language.'_name'}; ?></p>
                 <p class="right-button">
                     <?php if ($profile->id == $session->id) { ?>
                     <?php if (hasPermission('profiles', 'editProfile')) { ?>
-                    <a href="<?php echo base_url() . 'profile/edit/' . $session->id; ?>" class="btn btn-primary btn-sm"><?php echo $this->lang->line('edit'), ' ', $this->lang->line('profile'); ?></a>
+                    <a href="<?php echo base_url() . 'profile/edit/' . $session->id; ?>" class="btn btn-warning btn-sm"><?php echo $this->lang->line('edit'), ' ', $this->lang->line('profile'); ?></a>
                     <?php } ?>
                     <?php } ?>
                 </p>
             </div><!-- /.profile-info -->
         </div>
 
-        <div class="panel with-nav-tabs panel-primary panel-square panel-no-border">
+        <div class="panel with-nav-tabs panel-custom panel-square panel-no-border">
             <div class="panel-heading">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#panel-about" data-toggle="tab"><i class="fa fa-user"></i></a></li>
@@ -190,93 +189,74 @@
         </div>
     </div>
 
-<?php if(in_array(6, explode(',',$profile->role_id))){ ?>
-    <div class="col-md-4">
-        <div class="the-box no-border full transparent">
-            <div id="tiles-slide-2" class="owl-carousel tiles-carousel">
-                <div class="item full">
-                    <img src="<?php echo IMG_URL . 'color_of_blades/' .  colorOfBlades($userdetail->color_of_blade, 'image'); ?>" />
+    <?php if(in_array(6, explode(',',$profile->role_id))){ ?>
+        <div class="col-md-4">
+            <div class="the-box no-border full transparent">
+                <div id="tiles-slide-2" class="owl-carousel tiles-carousel">
+                    <div class="item full">
+                        <img src="<?php echo IMG_URL . 'color_of_blades/' .  colorOfBlades($userdetail->color_of_blade, 'image'); ?>" />
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="the-box">
+            <div class="the-box">
+                <div class="row">
+                    <div class="col-xs-6 text-center">
+                        <h4 class="small-heading" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('wins'), '/', $this->lang->line('defeat'); ?>"><?php echo $this->lang->line('wins'), '/', $this->lang->line('defeat'); ?></h4>
+                        <span class="chart chart-widget-pie widget-easy-pie-1" data-percent="80">
+                            <span class="percent"></span>
+                        </span>
+                    </div>
+                    <div class="col-xs-6 text-center">
+                        <h4 class="small-heading overflow-hidden overflow-text-dot" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('attendance'), '/', $this->lang->line('absence'); ?>"><?php echo $this->lang->line('attendance'), '/', $this->lang->line('absence'); ?></h4>
+                        <span class="chart chart-widget-pie widget-easy-pie-2" data-percent="96">
+                            <span class="percent"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        
             <div class="row">
-                <div class="col-xs-6 text-center">
-                    <h4 class="small-heading" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('wins'), '/', $this->lang->line('defeat'); ?>"><?php echo $this->lang->line('wins'), '/', $this->lang->line('defeat'); ?></h4>
-                    <span class="chart chart-widget-pie widget-easy-pie-1" data-percent="80">
-                        <span class="percent"></span>
-                    </span>
+                <div class="col-sm-3 col-xs-6 col-md-6">
+                    <div class="tiles dribbble-tile text-center">
+                        <i class="fa fa-dribbble icon-lg-size"></i>
+                        <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('wins'); ?>"><?php echo $this->lang->line('wins'); ?></a></h4>
+                    </div>
                 </div>
-                <div class="col-xs-6 text-center">
-                    <h4 class="small-heading overflow-hidden overflow-text-dot" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('attendance'), '/', $this->lang->line('absence'); ?>"><?php echo $this->lang->line('attendance'), '/', $this->lang->line('absence'); ?></h4>
-                    <span class="chart chart-widget-pie widget-easy-pie-2" data-percent="96">
-                        <span class="percent"></span>
-                    </span>
+                <div class="col-sm-3 col-xs-6 col-md-6">
+                    <div class="tiles dribbble-tile text-center">
+                        <i class="fa fa-dribbble icon-lg-size"></i>
+                        <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('defeat'); ?>"><?php echo $this->lang->line('defeat'); ?></a></h4>
+                    </div>
                 </div>
-            </div>
-        </div>
-    
-        <div class="row">
-            <div class="col-sm-3 col-xs-6 col-md-6">
-                <div class="tiles dribbble-tile text-center">
-                    <i class="fa fa-dribbble icon-lg-size"></i>
-                    <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('wins'); ?>"><?php echo $this->lang->line('wins'); ?></a></h4>
+                <div class="col-sm-3 col-xs-6 col-md-6">
+                    <div class="tiles dribbble-tile text-center">
+                        <i class="fa fa-dribbble icon-lg-size"></i>
+                        <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_of'); ?>"><?php echo $this->lang->line('challenges_of'); ?></a></h4>
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-3 col-xs-6 col-md-6">
-                <div class="tiles dribbble-tile text-center">
-                    <i class="fa fa-dribbble icon-lg-size"></i>
-                    <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('defeat'); ?>"><?php echo $this->lang->line('defeat'); ?></a></h4>
+                <div class="col-sm-3 col-xs-6 col-md-6">
+                    <div class="tiles dribbble-tile text-center">
+                        <i class="fa fa-dribbble icon-lg-size"></i>
+                        <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_recevied'); ?>"><?php echo $this->lang->line('challenges_recevied'); ?></a></h4>
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-3 col-xs-6 col-md-6">
-                <div class="tiles dribbble-tile text-center">
-                    <i class="fa fa-dribbble icon-lg-size"></i>
-                    <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_of'); ?>"><?php echo $this->lang->line('challenges_of'); ?></a></h4>
+                <div class="col-sm-3 col-xs-6 col-md-6">
+                    <div class="tiles dribbble-tile text-center">
+                        <i class="fa fa-dribbble icon-lg-size"></i>
+                        <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('tournaments'); ?>"><?php echo $this->lang->line('tournaments'); ?></a></h4>
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-3 col-xs-6 col-md-6">
-                <div class="tiles dribbble-tile text-center">
-                    <i class="fa fa-dribbble icon-lg-size"></i>
-                    <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_recevied'); ?>"><?php echo $this->lang->line('challenges_recevied'); ?></a></h4>
-                </div>
-            </div>
-            <div class="col-sm-3 col-xs-6 col-md-6">
-                <div class="tiles dribbble-tile text-center">
-                    <i class="fa fa-dribbble icon-lg-size"></i>
-                    <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('tournaments'); ?>"><?php echo $this->lang->line('tournaments'); ?></a></h4>
-                </div>
-            </div>
-            <div class="col-sm-3 col-xs-6 col-md-6">
-                <div class="tiles dribbble-tile text-center">
-                    <i class="fa fa-dribbble icon-lg-size"></i>
-                    <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('year_course'); ?>"><?php echo $this->lang->line('year_course'); ?></a></h4>
+                <div class="col-sm-3 col-xs-6 col-md-6">
+                    <div class="tiles dribbble-tile text-center">
+                        <i class="fa fa-dribbble icon-lg-size"></i>
+                        <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('year_course'); ?>"><?php echo $this->lang->line('year_course'); ?></a></h4>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-<?php } ?>
+    <?php } ?>
 </div>
 
 <script src="<?php echo PLUGIN_URL; ?>easypie-chart/easypiechart.min.js"></script>
 <script src="<?php echo PLUGIN_URL; ?>easypie-chart/jquery.easypiechart.min.js"></script>
-
-<!--
-<div class="form-group">
-    <label class="col-lg-3 control-label"><?php echo $this->lang->line('role'), ' : '; ?></label>
-    <div class="col-lg-8">
-        <p class="form-control-static">
-            <?php
-                $role_name = NULL;
-                
-                foreach (explode(',', $profile->role_id) as $role) {
-                    $role_name .= ', ' . getRoleName($role);
-                }
-
-                echo substr($role_name, 2);
-            ?>
-        </p>
-    </div>
-</div>
--->

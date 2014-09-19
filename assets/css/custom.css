@@ -474,10 +474,6 @@ footer{
     min-width: 226px;
 }
 
-.profile-heading .profile-info .text-muted {
-    width: 80%;
-}
-
 .avatar-60{
     width: 60px;
     height: 60px;
@@ -543,4 +539,35 @@ footer{
 .border-tp-bt-right-radius {
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
+}
+
+.custom-profile-view .profile-heading .profile-info{
+    bottom: 0px;
+    background: transparent;
+}
+
+.custom-profile-view .profile-heading img.avatar {
+    -webkit-box-shadow: 7px 7px 5px 0px rgba(237, 139, 0, 0.5);
+    -moz-box-shadow: 7px 7px 5px 0px rgba(237, 139, 0, 0.5);
+    box-shadow: 7px 7px 5px 0px rgba(237, 139, 0, 0.5);
+}
+
+.profile-heading .profile-info .text-custom-primary {
+    width: 80%;
+}
+
+.text-custom-primary{
+    color: #ed8b00;
+}
+
+.panel-custom .panel-heading{
+    background-color: #ed8b00;
+}
+
+.panel-custom .panel-heading li a{
+    color: #fff;
+}
+
+.panel-custom .panel-heading li.active a{
+    color: #555;
 }
