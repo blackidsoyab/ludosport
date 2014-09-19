@@ -452,6 +452,19 @@ class Clan extends DataMapper
             return false;
         }
     }
+
+    function getClansByDayForCronJob($day = '1') {
+        $this->db->_protect_identifiers = false;
+        $this->db->select('clans.id, clans.clan_from, clans.clan_to, teacher_id');
+        $this->db->from('clans');
+        $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0"); 
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
     
     function getClansByStudentAndDay($student_id, $day = '1') {
         $this->db->_protect_identifiers = false;

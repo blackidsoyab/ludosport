@@ -65,7 +65,7 @@ class clans extends CI_Controller {
             $data['academy'] = $obj->School->Academy->get();
             $data['teacher'] = userNameAvtar($obj->teacher_id);
             $obj_clan_dates = new Clandate();
-            $data['clan_dates'] = $obj_clan_dates->where('clan_id', $id)->get();
+            $data['clan_dates'] = $obj_clan_dates->where('clan_id', $id)->order_by('clan_date', 'desc')->get();
 
             $present = 0;
             $absence = 0;

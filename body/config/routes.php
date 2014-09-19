@@ -67,6 +67,8 @@ $route['404_override'] = 'authenticate/error_404';
 
 //Cron Jobs
 $route['send_regular_mail'] = "cronjobs/sendRegularMail";
+$route['save_clan_date'] = "cronjobs/clanDate";
+$route['save_teacher_attendance'] = "cronjobs/teacherAttendance";
 
 //Authenticate
 $route['login'] = "authenticate/index";

@@ -22,7 +22,7 @@ class Authentication extends CI_Controller {
     }
 
     function checkLogin() {
-        $array = array('authenticate', 'ajax');
+        $array = array('authenticate', 'ajax','cronjobs');
 
         if (!in_array($this->router->class, $array)) {
             $session = $this->session->userdata('user_session');

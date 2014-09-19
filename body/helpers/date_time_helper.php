@@ -214,3 +214,12 @@ function getDateByDay($day, $start_date, $end_date) {
     }
     return $dates;
 }
+
+function generateDates($start_date, $end_date) {
+    $end_date = strtotime($end_date);
+    $dates = array();
+    for ($i = strtotime($start_date); $i <= $end_date; $i = strtotime('+1 day', $i)) {
+        $dates[] = date('Y-m-d', $i);
+    }
+    return $dates;
+}

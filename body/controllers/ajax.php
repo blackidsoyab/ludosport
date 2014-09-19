@@ -410,6 +410,36 @@ class ajax extends CI_Controller {
                     }
                 }
             }
+
+            unset($obj_clan_date);
+            $obj_clan_date = new Clandate();
+            $check = $obj_clan_date->where(array('type'=>'S', 'clan_date'=>$date))->get();
+            if($check->result_count()> 0){
+                foreach ($check as $value) {
+                    $clan = new Clan();
+                    $clan->where('id', $value->clan_id)->get();
+                    if ($value->clan_date == $date) {
+                        $temp = array();
+                        $temp['title'] = $clan->{$this->session_data->language .'_class_name'};
+                        $temp['start'] = $value->clan_date;
+                        $temp['tooltip'] = 'clan shifted of ' . date('d-m-Y', strtotime($value->clan_shift_from)) .' ' .$clan->School->{$this->session_data->language .'_school_name'} .', '. $clan->School->Academy->{$this->session_data->language .'_academy_name'};
+                        if ($this->session_data->role == 1 || $this->session_data->role == 2 || $this->session_data->role == 5) {
+                            $temp['url'] = base_url() . 'clan/clan_attendance/' . $clan->id . '/' . $date;
+                        }
+                        if (strtotime($date) < strtotime($current_date)) {
+                            $temp['type'] = 'past';
+                            $temp['class'] = 'badge badge-warning-info';
+                        } else if (strtotime($date) == strtotime($current_date)) {
+                            $temp['type'] = 'present';
+                            $temp['class'] = 'badge badge-warning-success';
+                        } else {
+                            $temp['type'] = 'future';
+                            $temp['class'] = 'badge badge-warning-inverse';
+                        }
+                        $return[] = $temp;
+                    }
+                }
+            }
         }
 
         if (count($return) == 0) {
