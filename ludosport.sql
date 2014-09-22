@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 19, 2014 at 06:13 PM
+-- Generation Time: Sep 22, 2014 at 06:21 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.13
 
@@ -72,14 +72,42 @@ CREATE TABLE IF NOT EXISTS `attendances` (
   `attendance` tinyint(1) NOT NULL DEFAULT '1',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `attendances`
 --
 
 INSERT INTO `attendances` (`id`, `clan_date`, `student_id`, `attendance`, `user_id`, `timestamp`) VALUES
-(1, '2014-09-17', 20, 0, 20, '2014-09-16 06:39:24');
+(1, '2014-09-23', 31, 1, 0, '2014-09-22 07:04:57'),
+(2, '2014-09-23', 34, 1, 0, '2014-09-22 07:04:57'),
+(3, '2014-09-23', 14, 1, 0, '2014-09-22 07:04:57'),
+(4, '2014-09-23', 27, 1, 0, '2014-09-22 07:04:57'),
+(5, '2014-09-23', 36, 1, 0, '2014-09-22 07:04:57'),
+(6, '2014-09-24', 31, 1, 0, '2014-09-22 07:04:57'),
+(7, '2014-09-24', 34, 1, 0, '2014-09-22 07:04:57'),
+(8, '2014-09-24', 15, 1, 0, '2014-09-22 07:04:57'),
+(9, '2014-09-24', 16, 1, 0, '2014-09-22 07:04:57'),
+(10, '2014-09-24', 20, 1, 0, '2014-09-22 07:04:57'),
+(11, '2014-09-24', 21, 1, 0, '2014-09-22 07:04:57'),
+(12, '2014-09-24', 25, 1, 0, '2014-09-22 07:04:57'),
+(13, '2014-09-24', 23, 1, 0, '2014-09-22 07:04:57'),
+(14, '2014-09-25', 15, 1, 0, '2014-09-22 07:04:57'),
+(15, '2014-09-25', 16, 1, 0, '2014-09-22 07:04:57'),
+(16, '2014-09-25', 14, 1, 0, '2014-09-22 07:04:57'),
+(17, '2014-09-26', 14, 1, 0, '2014-09-22 07:04:57'),
+(18, '2014-09-26', 17, 1, 0, '2014-09-22 07:04:58'),
+(19, '2014-09-26', 13, 1, 0, '2014-09-22 07:04:58'),
+(20, '2014-09-27', 17, 1, 0, '2014-09-22 07:04:58'),
+(21, '2014-09-27', 13, 1, 0, '2014-09-22 07:04:58'),
+(22, '2014-09-28', 20, 1, 0, '2014-09-22 07:04:58'),
+(23, '2014-09-28', 21, 1, 0, '2014-09-22 07:04:58'),
+(24, '2014-09-28', 25, 1, 0, '2014-09-22 07:04:58'),
+(25, '2014-09-28', 23, 1, 0, '2014-09-22 07:04:58'),
+(26, '2014-09-29', 20, 1, 0, '2014-09-22 07:04:58'),
+(27, '2014-09-29', 21, 1, 0, '2014-09-22 07:04:58'),
+(28, '2014-09-29', 25, 0, 0, '2014-09-22 07:04:58'),
+(29, '2014-09-29', 23, 1, 0, '2014-09-22 07:04:58');
 
 -- --------------------------------------------------------
 
@@ -124,46 +152,46 @@ CREATE TABLE IF NOT EXISTS `batches` (
 
 INSERT INTO `batches` (`id`, `type`, `assign_role`, `en_name`, `it_name`, `image`, `cover_image`, `description`, `user_id`, `timestamp`) VALUES
 (1, 'D', '2,5', 'Youngling', 'Iniziato', '3f91ec69cb3035cab7b855464d2aa51c.png', '5f0afb8adf11f69e3468186752635b41.jpg', '<p><br></p>', 1, '2014-08-06 08:29:35'),
-(4, 'D', '0', 'Founding Master', 'Maestro Fondatore', 'f4480b0d05c4b2f1010f166fc7ebfbac.png', '3a58fdd896f74a07c7c9eabcac095a29.jpg', '<p><br></p>', 1, '2014-08-06 08:58:29'),
-(6, 'D', '0', 'Jedi', 'Jedi', '375c268b5e786fe15bf5ca8f9bb5d5d3.png', '9118714695310a9f610e670241490409.jpg', '<p><br></p>', 1, '2014-08-06 08:59:16'),
-(7, 'D', '0', 'Sith Lord', 'Maestro Sith', '89e990cb1cff363dadf0cf17faae2205.png', NULL, '<p><br></p>', 2, '2014-08-06 08:59:35'),
-(8, 'D', '0', 'Jedi Knight', 'Cavaliere Jedi', 'd9564d57165b2e8d21b1b8c959409216.png', NULL, '<p><br></p>', 2, '2014-08-06 09:00:03'),
-(9, 'D', '0', 'Jedi Master', 'Maestro Jedi', '586eef00da8faf942266c6e0564e7e76.png', NULL, '<p><br></p>', 2, '2014-08-06 09:00:17'),
-(10, 'D', '0', 'Padawan', 'Padawan', '05be81d032899191a04476ce132aebfb.png', NULL, '<p><br></p>', 2, '2014-08-06 09:00:37'),
-(11, 'D', '0', 'Sith', 'Sith', 'd8c40faf9d4a4cc931a71406d830726c.png', NULL, '<p><br></p>', 2, '2014-08-06 09:09:49'),
-(12, 'D', '0', 'Sith Knight', 'Cavaliere Sith', 'f29c72aad0c31c87d6f0b4184eb7f8a9.png', NULL, '<p><br></p>', 2, '2014-08-06 09:10:01'),
-(13, 'H', '0', 'Style Keeper', 'Custode delle Tradizioni', '26343a7d74b1cd4e83c3832e11e9c15e.png', NULL, '<p><br></p>', 2, '2014-08-06 09:11:26'),
-(14, 'H', '0', 'Shadow Master', 'Maestro d''Ombra', 'c659b7d7d9eeeda61e8eac8572d6b6bd.png', NULL, '<p><br></p>', 2, '2014-08-06 09:11:41'),
-(15, 'Q', '0', 'Training Instructor', 'Allievo Istruttore', 'c3f47e4d7892badb6143c0ca8dfdb9ea.png', NULL, '<p><br></p>', 2, '2014-08-06 09:12:01'),
-(16, 'Q', '0', 'Dean', 'Preside', '8e1186446122de0125950eaa1876b6c7.png', NULL, '<p><br></p>', 2, '2014-08-06 09:12:24'),
-(17, 'S', '0', 'Guardian', 'Guardiano', 'd96588d37881627e7d15bb08aa5f5894.png', NULL, '<p><br></p>', 2, '2014-08-06 09:12:54'),
-(18, 'S', '0', 'Sentinel', 'Sentinella', 'f21947ce2c9749ef24d3163c281a3bb0.png', NULL, '<p><br></p>', 2, '2014-08-06 09:13:13'),
-(19, 'H', '0', 'Quartermaster', 'Quartiermastro', '791c2c9790d4b4cfb379225986fa15e9.png', NULL, '<p><br></p>', 2, '2014-09-04 14:09:26'),
-(20, 'H', '0', 'Prophet', 'Profeta', 'ad6b6aa3371010529116611c74cc4750.png', NULL, '<p><br></p>', 2, '2014-09-04 14:09:49'),
-(21, 'H', '0', 'Shadow', 'Ombra', '163a5839d263031de7f9d0ec7ebe474b.png', NULL, '<p><br></p>', 2, '2014-09-04 14:10:09'),
-(22, 'H', '0', 'Master Sabersmith', 'Mastro di Spada', 'd673d00cb663bf587f3d206d0e2972e1.png', NULL, '<p><br></p>', 2, '2014-09-04 14:10:38'),
-(23, 'H', '0', 'Researcher', 'Ricercatore', '10998295a9776fb243d542302339f63a.png', NULL, '<p><br></p>', 2, '2014-09-04 14:11:02'),
-(24, 'Q', '0', 'Instructor level 1', 'Istruttore livello 1', '802e292ed5e1e18b41eacb4c62c7f7e2.png', NULL, '<p><br></p>', 2, '2014-09-04 14:12:39'),
-(25, 'Q', '0', 'Instructor level 2', 'Istruttore livello 2', '74e0c7ae2ffa57b2f6edaf218515d5b1.png', NULL, '<p><br></p>', 2, '2014-09-04 14:12:59'),
-(26, 'Q', '0', 'Instructor level 3', 'Istruttore livello 3', '3b69f92034caa56c01b0dc557cfa18b0.png', NULL, '<p><br></p>', 2, '2014-09-04 14:13:21'),
-(27, 'Q', '0', 'Instructor level 4', 'Istruttore livello 4', 'e5794f064d8771b73cbc726d92cec792.png', NULL, '<p><br></p>', 2, '2014-09-04 14:13:38'),
-(28, 'Q', '0', 'Instructor level 5', 'Istruttore livello 5', 'ee9fca9261bfc36aa75520acab20a6c4.png', NULL, '<p><br></p>', 2, '2014-09-04 14:13:55'),
-(29, 'Q', '0', 'Instructor level 6', 'Istruttore livello 6', 'e5a69a7cdadbe9d3c7920778063a181d.png', NULL, '<p><br></p>', 2, '2014-09-04 14:14:12'),
-(30, 'Q', '0', 'Instructor level 7', 'Istruttore livello 7', '34decadb79339ec2331e068fb92ab08c.png', NULL, '<p><br></p>', 2, '2014-09-04 14:14:31'),
-(31, 'Q', '0', 'Rector', 'Rector', 'd8cd960df43cb57e12d52298430214c6.png', NULL, '<p><br></p>', 2, '2014-09-04 14:14:45'),
-(32, 'S', '0', 'Consul', 'Console', '816090c955dcd98b6350f24c68d29c38.png', NULL, '<p><br></p>', 2, '2014-09-04 14:16:20'),
-(33, 'S', '0', 'Style Keeper', 'Custode di Stile', '919209a9005701114a358b640fbaea6f.png', NULL, '<p><br></p>', 2, '2014-09-04 14:16:53'),
-(34, 'S', '0', 'Ambassador', 'Ambasciatore', '42d6aa2ab1605c76a017a0cf4028128d.png', NULL, '<p><br></p>', 2, '2014-09-04 14:17:09'),
-(35, 'S', '0', 'Master of Arms', 'Maestro d''Armi', '150cc6ac0be492e802de192db5baafb9.png', NULL, '<p><br></p>', 2, '2014-09-04 14:17:29'),
-(36, 'S', '0', 'Battle Master', 'Maestro di Battaglia', '1fc7d4aae6bc3e19390e348c09acf33a.png', NULL, '<p><br></p>', 2, '2014-09-04 14:18:18'),
-(37, 'S', '0', 'Academy Master', 'Maestro d''Accademia', '1a40f32897f546631e7a96a1f6c8d82c.png', 'bdecaae2cd195d70bce20a2967a0a4fe.jpg', '<p><br></p>', 1, '2014-09-04 14:18:40'),
-(38, 'S', '0', 'Style Master in Shii-Cho', 'Maestro di Shii-Cho', '2656d4016b1874c18d229c5ff9485850.png', NULL, '<p><br></p>', 2, '2014-09-04 14:19:14'),
-(39, 'S', '0', 'Style Master in Makashi', 'Maestro di Makashi', '03c0e2e2b6050bdeac592090aa063e8f.png', NULL, '<p><br></p>', 2, '2014-09-04 14:19:53'),
-(40, 'S', '0', 'Style Master in Soresu', 'Maestro di Soresu', '66055d8882da9f8f9e5a9f8ec8a591d5.png', NULL, '<p><br></p>', 2, '2014-09-04 14:20:11'),
-(41, 'S', '0', 'Style Master in Ataru', 'Maestro di Ataru', '49155d58d16f378639ee78ed4589d5be.png', NULL, '<p><br></p>', 2, '2014-09-04 14:20:29'),
-(42, 'S', '0', 'Style Master in Djem-So', 'Maestro di Djem-So', '6198824741d2cef9be0fff724cf4f777.png', NULL, '<p><br></p>', 2, '2014-09-04 14:20:51'),
-(43, 'S', '0', 'Style Master in Niman', 'Maestro di Niman', '31bf67508bc6ab370e6913dbb0f9dbe1.png', NULL, '<p><br></p>', 2, '2014-09-04 14:21:08'),
-(44, 'S', '0', 'Style Master in Vaapad', 'Maestro di Vaapad', '2e622daab8de916330cf3d1d06e27a59.png', NULL, '<p><br></p>', 2, '2014-09-04 14:21:24');
+(4, 'D', '2,5', 'Founding Master', 'Maestro Fondatore', 'f4480b0d05c4b2f1010f166fc7ebfbac.png', '3a58fdd896f74a07c7c9eabcac095a29.jpg', '<p><br></p>', 1, '2014-08-06 08:58:29'),
+(6, 'D', '2,5', 'Jedi', 'Jedi', '375c268b5e786fe15bf5ca8f9bb5d5d3.png', '9118714695310a9f610e670241490409.jpg', '<p><br></p>', 1, '2014-08-06 08:59:16'),
+(7, 'D', '2,5', 'Sith Lord', 'Maestro Sith', '89e990cb1cff363dadf0cf17faae2205.png', NULL, '<p><br></p>', 2, '2014-08-06 08:59:35'),
+(8, 'D', '2,5', 'Jedi Knight', 'Cavaliere Jedi', 'd9564d57165b2e8d21b1b8c959409216.png', 'd4e27a9f223078ba32fa03aca78fc0bc.jpg', '<p><br></p>', 1, '2014-08-06 09:00:03'),
+(9, 'D', '2,5', 'Jedi Master', 'Maestro Jedi', '586eef00da8faf942266c6e0564e7e76.png', NULL, '<p><br></p>', 2, '2014-08-06 09:00:17'),
+(10, 'D', '2,5', 'Padawan', 'Padawan', '05be81d032899191a04476ce132aebfb.png', NULL, '<p><br></p>', 2, '2014-08-06 09:00:37'),
+(11, 'D', '2,5', 'Sith', 'Sith', 'd8c40faf9d4a4cc931a71406d830726c.png', NULL, '<p><br></p>', 2, '2014-08-06 09:09:49'),
+(12, 'D', '2,5', 'Sith Knight', 'Cavaliere Sith', 'f29c72aad0c31c87d6f0b4184eb7f8a9.png', NULL, '<p><br></p>', 2, '2014-08-06 09:10:01'),
+(13, 'H', '2,3', 'Style Keeper', 'Custode delle Tradizioni', '26343a7d74b1cd4e83c3832e11e9c15e.png', NULL, '<p><br></p>', 2, '2014-08-06 09:11:26'),
+(14, 'H', '2,3', 'Shadow Master', 'Maestro d''Ombra', 'c659b7d7d9eeeda61e8eac8572d6b6bd.png', NULL, '<p><br></p>', 2, '2014-08-06 09:11:41'),
+(15, 'Q', '3', 'Training Instructor', 'Allievo Istruttore', 'c3f47e4d7892badb6143c0ca8dfdb9ea.png', NULL, '<p><br></p>', 2, '2014-08-06 09:12:01'),
+(16, 'Q', '3', 'Dean', 'Preside', '8e1186446122de0125950eaa1876b6c7.png', NULL, '<p><br></p>', 2, '2014-08-06 09:12:24'),
+(17, 'S', '4', 'Guardian', 'Guardiano', 'd96588d37881627e7d15bb08aa5f5894.png', NULL, '<p><br></p>', 2, '2014-08-06 09:12:54'),
+(18, 'S', '4', 'Sentinel', 'Sentinella', 'f21947ce2c9749ef24d3163c281a3bb0.png', NULL, '<p><br></p>', 2, '2014-08-06 09:13:13'),
+(19, 'H', '2,3', 'Quartermaster', 'Quartiermastro', '791c2c9790d4b4cfb379225986fa15e9.png', NULL, '<p><br></p>', 2, '2014-09-04 14:09:26'),
+(20, 'H', '2,3', 'Prophet', 'Profeta', 'ad6b6aa3371010529116611c74cc4750.png', NULL, '<p><br></p>', 2, '2014-09-04 14:09:49'),
+(21, 'H', '2,3', 'Shadow', 'Ombra', '163a5839d263031de7f9d0ec7ebe474b.png', NULL, '<p><br></p>', 2, '2014-09-04 14:10:09'),
+(22, 'H', '2,3', 'Master Sabersmith', 'Mastro di Spada', 'd673d00cb663bf587f3d206d0e2972e1.png', NULL, '<p><br></p>', 2, '2014-09-04 14:10:38'),
+(23, 'H', '2,3', 'Researcher', 'Ricercatore', '10998295a9776fb243d542302339f63a.png', NULL, '<p><br></p>', 2, '2014-09-04 14:11:02'),
+(24, 'Q', '3', 'Instructor level 1', 'Istruttore livello 1', '802e292ed5e1e18b41eacb4c62c7f7e2.png', NULL, '<p><br></p>', 2, '2014-09-04 14:12:39'),
+(25, 'Q', '3', 'Instructor level 2', 'Istruttore livello 2', '74e0c7ae2ffa57b2f6edaf218515d5b1.png', NULL, '<p><br></p>', 2, '2014-09-04 14:12:59'),
+(26, 'Q', '3', 'Instructor level 3', 'Istruttore livello 3', '3b69f92034caa56c01b0dc557cfa18b0.png', NULL, '<p><br></p>', 2, '2014-09-04 14:13:21'),
+(27, 'Q', '3', 'Instructor level 4', 'Istruttore livello 4', 'e5794f064d8771b73cbc726d92cec792.png', NULL, '<p><br></p>', 2, '2014-09-04 14:13:38'),
+(28, 'Q', '3', 'Instructor level 5', 'Istruttore livello 5', 'ee9fca9261bfc36aa75520acab20a6c4.png', NULL, '<p><br></p>', 2, '2014-09-04 14:13:55'),
+(29, 'Q', '3', 'Instructor level 6', 'Istruttore livello 6', 'e5a69a7cdadbe9d3c7920778063a181d.png', NULL, '<p><br></p>', 2, '2014-09-04 14:14:12'),
+(30, 'Q', '3', 'Instructor level 7', 'Istruttore livello 7', '34decadb79339ec2331e068fb92ab08c.png', NULL, '<p><br></p>', 2, '2014-09-04 14:14:31'),
+(31, 'Q', '3', 'Rector', 'Rector', 'd8cd960df43cb57e12d52298430214c6.png', NULL, '<p><br></p>', 2, '2014-09-04 14:14:45'),
+(32, 'S', '4', 'Consul', 'Console', '816090c955dcd98b6350f24c68d29c38.png', NULL, '<p><br></p>', 2, '2014-09-04 14:16:20'),
+(33, 'S', '4', 'Style Keeper', 'Custode di Stile', '919209a9005701114a358b640fbaea6f.png', NULL, '<p><br></p>', 2, '2014-09-04 14:16:53'),
+(34, 'S', '4', 'Ambassador', 'Ambasciatore', '42d6aa2ab1605c76a017a0cf4028128d.png', NULL, '<p><br></p>', 2, '2014-09-04 14:17:09'),
+(35, 'S', '4', 'Master of Arms', 'Maestro d''Armi', '150cc6ac0be492e802de192db5baafb9.png', NULL, '<p><br></p>', 2, '2014-09-04 14:17:29'),
+(36, 'S', '4', 'Battle Master', 'Maestro di Battaglia', '1fc7d4aae6bc3e19390e348c09acf33a.png', NULL, '<p><br></p>', 2, '2014-09-04 14:18:18'),
+(37, 'S', '4', 'Academy Master', 'Maestro d''Accademia', '1a40f32897f546631e7a96a1f6c8d82c.png', 'bdecaae2cd195d70bce20a2967a0a4fe.jpg', '<p><br></p>', 1, '2014-09-04 14:18:40'),
+(38, 'S', '4', 'Style Master in Shii-Cho', 'Maestro di Shii-Cho', '2656d4016b1874c18d229c5ff9485850.png', NULL, '<p><br></p>', 2, '2014-09-04 14:19:14'),
+(39, 'S', '4', 'Style Master in Makashi', 'Maestro di Makashi', '03c0e2e2b6050bdeac592090aa063e8f.png', NULL, '<p><br></p>', 2, '2014-09-04 14:19:53'),
+(40, 'S', '4', 'Style Master in Soresu', 'Maestro di Soresu', '66055d8882da9f8f9e5a9f8ec8a591d5.png', NULL, '<p><br></p>', 2, '2014-09-04 14:20:11'),
+(41, 'S', '4', 'Style Master in Ataru', 'Maestro di Ataru', '49155d58d16f378639ee78ed4589d5be.png', NULL, '<p><br></p>', 2, '2014-09-04 14:20:29'),
+(42, 'S', '4', 'Style Master in Djem-So', 'Maestro di Djem-So', '6198824741d2cef9be0fff724cf4f777.png', NULL, '<p><br></p>', 2, '2014-09-04 14:20:51'),
+(43, 'S', '4', 'Style Master in Niman', 'Maestro di Niman', '31bf67508bc6ab370e6913dbb0f9dbe1.png', NULL, '<p><br></p>', 2, '2014-09-04 14:21:08'),
+(44, 'S', '4', 'Style Master in Vaapad', 'Maestro di Vaapad', '2e622daab8de916330cf3d1d06e27a59.png', NULL, '<p><br></p>', 2, '2014-09-04 14:21:24');
 
 -- --------------------------------------------------------
 
@@ -185,14 +213,16 @@ CREATE TABLE IF NOT EXISTS `challenges` (
   `result_status` enum('MP','MNP','SP') NOT NULL DEFAULT 'MNP',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `challenges`
 --
 
 INSERT INTO `challenges` (`id`, `from_id`, `from_status`, `to_id`, `to_status`, `made_on`, `status_changed_on`, `played_on`, `place`, `result`, `result_status`, `user_id`, `timestamp`) VALUES
-(1, 25, 'A', 20, 'A', '2014-09-18 17:09:15', '2014-09-18 17:09:33', '2014-09-18 17:09:33', '0', 25, 'MNP', 25, '2014-09-18 11:39:15');
+(1, 25, 'A', 20, 'A', '2014-09-18 17:09:15', '2014-09-18 17:09:33', '2014-09-18 17:09:33', '0', 25, 'MP', 25, '2014-09-18 11:39:15'),
+(2, 23, 'A', 25, 'P', '2014-09-18 17:09:15', '2014-09-18 17:09:33', '2014-09-18 17:09:33', '0', 0, 'MNP', 25, '2014-09-18 11:39:15'),
+(3, 18, 'A', 25, 'A', '2014-09-18 17:09:15', '2014-09-18 17:09:33', '2014-09-18 17:09:33', '0', 18, 'MP', 18, '2014-09-18 11:39:15');
 
 -- --------------------------------------------------------
 
@@ -236,26 +266,26 @@ CREATE TABLE IF NOT EXISTS `clandates` (
   `history` text,
   `user_id` int(11) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `clandates`
 --
 
 INSERT INTO `clandates` (`id`, `type`, `clan_id`, `clan_date`, `clan_shift_from`, `description`, `history`, `user_id`, `timestamp`) VALUES
-(1, 'S', 6, '2014-09-30', '2014-09-21', NULL, NULL, 0, '2014-09-19 06:27:43'),
-(5, 'S', 3, '2014-09-28', '2014-09-23', NULL, NULL, 0, '2014-09-19 06:41:27'),
-(14, 'R', 5, '2014-09-20', NULL, NULL, NULL, 0, '2014-09-19 06:50:24'),
-(15, 'R', 6, '2014-09-22', NULL, NULL, NULL, 0, '2014-09-19 06:50:25'),
-(16, 'R', 1, '2014-09-23', NULL, NULL, NULL, 0, '2014-09-19 06:50:25'),
-(17, 'R', 4, '2014-09-23', NULL, NULL, NULL, 0, '2014-09-19 06:50:25'),
-(18, 'R', 1, '2014-09-24', NULL, NULL, NULL, 0, '2014-09-19 06:50:25'),
-(19, 'R', 2, '2014-09-24', NULL, NULL, NULL, 0, '2014-09-19 06:50:25'),
-(20, 'R', 6, '2014-09-24', NULL, NULL, NULL, 0, '2014-09-19 06:50:25'),
-(21, 'R', 2, '2014-09-25', NULL, NULL, NULL, 0, '2014-09-19 06:50:25'),
-(22, 'R', 3, '2014-09-25', NULL, NULL, NULL, 0, '2014-09-19 06:50:25'),
-(23, 'R', 5, '2014-09-26', NULL, NULL, NULL, 0, '2014-09-19 06:50:25'),
-(24, 'R', 3, '2014-09-26', NULL, NULL, NULL, 0, '2014-09-19 06:50:25');
+(1, 'R', 1, '2014-09-23', NULL, NULL, NULL, 0, '2014-09-22 07:04:56'),
+(2, 'R', 3, '2014-09-23', NULL, NULL, NULL, 0, '2014-09-22 07:04:56'),
+(3, 'R', 4, '2014-09-23', NULL, NULL, NULL, 0, '2014-09-22 07:04:56'),
+(4, 'R', 1, '2014-09-24', NULL, NULL, NULL, 0, '2014-09-22 07:04:56'),
+(5, 'R', 2, '2014-09-24', NULL, NULL, NULL, 0, '2014-09-22 07:04:56'),
+(6, 'R', 6, '2014-09-24', NULL, NULL, NULL, 0, '2014-09-22 07:04:56'),
+(7, 'R', 2, '2014-09-25', NULL, NULL, NULL, 0, '2014-09-22 07:04:56'),
+(8, 'R', 3, '2014-09-25', NULL, NULL, NULL, 0, '2014-09-22 07:04:56'),
+(9, 'R', 3, '2014-09-26', NULL, NULL, NULL, 0, '2014-09-22 07:04:56'),
+(10, 'R', 5, '2014-09-26', NULL, NULL, NULL, 0, '2014-09-22 07:04:56'),
+(11, 'R', 5, '2014-09-27', NULL, NULL, NULL, 0, '2014-09-22 07:04:56'),
+(12, 'R', 6, '2014-09-28', NULL, NULL, NULL, 0, '2014-09-22 07:04:56'),
+(13, 'R', 6, '2014-09-29', NULL, NULL, NULL, 0, '2014-09-22 07:04:56');
 
 -- --------------------------------------------------------
 
@@ -623,7 +653,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `data` longtext,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=66 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=71 ;
 
 --
 -- Dumping data for table `notifications`
@@ -649,7 +679,12 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (57, 'N', 'change_clan_date', 3, 33, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 0, '2014-09-16 11:14:39'),
 (58, 'N', 'change_clan_date', 3, 34, 5, 'a:5:{s:7:"clan_id";s:1:"6";s:15:"clan_shift_from";s:10:"2014-09-17";s:9:"clan_date";s:10:"20-09-2014";s:11:"description";s:0:"";s:6:"notify";s:1:"1";}', 0, '2014-09-16 11:15:00'),
 (64, 'N', 'challenge_made', 25, 20, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-18 17:09:15";s:17:"status_changed_on";N;s:9:"played_on";N;s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-18 11:39:16'),
-(65, 'N', 'challenge_accepted', 20, 25, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";s:2:"25";s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"A";s:7:"made_on";s:19:"2014-09-18 17:09:15";s:17:"status_changed_on";s:19:"2014-09-18 17:09:33";s:9:"played_on";s:19:"2014-09-18 17:09:33";s:5:"place";s:1:"0";s:6:"result";s:2:"25";s:13:"result_status";s:3:"MNP";s:7:"user_id";s:2:"25";s:9:"timestamp";s:19:"2014-09-18 17:09:15";}', 0, '2014-09-18 11:39:33');
+(65, 'N', 'challenge_accepted', 20, 25, 1, 'a:13:{s:2:"id";i:1;s:7:"from_id";s:2:"25";s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"20";s:9:"to_status";s:1:"A";s:7:"made_on";s:19:"2014-09-18 17:09:15";s:17:"status_changed_on";s:19:"2014-09-18 17:09:33";s:9:"played_on";s:19:"2014-09-18 17:09:33";s:5:"place";s:1:"0";s:6:"result";s:2:"25";s:13:"result_status";s:3:"MNP";s:7:"user_id";s:2:"25";s:9:"timestamp";s:19:"2014-09-18 17:09:15";}', 0, '2014-09-18 11:39:33'),
+(66, 'N', 'teacher_absent', 7, 3, 7, 'a:4:{s:6:"action";s:15:"confirm_absence";s:7:"clan_id";s:1:"2";s:12:"from_message";s:8:"Personal";s:4:"date";s:10:"2014-09-25";}', 1, '2014-09-22 07:09:14'),
+(67, 'N', 'holiday_upapproved', 3, 7, 7, 'a:11:{s:2:"id";i:7;s:9:"clan_date";s:10:"2014-09-25";s:7:"clan_id";s:1:"2";s:10:"teacher_id";s:1:"7";s:10:"attendance";s:1:"1";s:16:"recovery_teacher";s:1:"0";s:12:"from_message";s:8:"Personal";s:10:"to_message";s:5:"Sorry";s:6:"status";s:1:"U";s:7:"user_id";s:1:"7";s:9:"timestamp";s:19:"2014-09-22 12:34:57";}', 1, '2014-09-22 07:10:38'),
+(68, 'N', 'holiday_approved', 3, 7, 7, 'a:11:{s:2:"id";i:7;s:9:"clan_date";s:10:"2014-09-25";s:7:"clan_id";s:1:"2";s:10:"teacher_id";s:1:"7";s:10:"attendance";s:1:"1";s:16:"recovery_teacher";s:1:"0";s:12:"from_message";s:8:"Personal";s:10:"to_message";s:5:"Sorry";s:6:"status";s:1:"A";s:7:"user_id";s:1:"7";s:9:"timestamp";s:19:"2014-09-22 12:34:57";}', 0, '2014-09-22 07:15:52'),
+(69, 'N', 'holiday_approved', 3, 7, 7, 'a:11:{s:2:"id";i:7;s:9:"clan_date";s:10:"2014-09-25";s:7:"clan_id";s:1:"2";s:10:"teacher_id";s:1:"7";s:10:"attendance";s:1:"0";s:16:"recovery_teacher";s:1:"0";s:12:"from_message";s:8:"Personal";s:10:"to_message";s:5:"Sorry";s:6:"status";s:1:"A";s:7:"user_id";s:1:"7";s:9:"timestamp";s:19:"2014-09-22 12:34:57";}', 0, '2014-09-22 07:20:27'),
+(70, 'N', 'holiday_approved', 3, 7, 7, 'a:11:{s:2:"id";i:7;s:9:"clan_date";s:10:"2014-09-25";s:7:"clan_id";s:1:"2";s:10:"teacher_id";s:1:"7";s:10:"attendance";s:1:"0";s:16:"recovery_teacher";s:1:"0";s:12:"from_message";s:8:"Personal";s:10:"to_message";s:5:"Sorry";s:6:"status";s:1:"A";s:7:"user_id";s:1:"7";s:9:"timestamp";s:19:"2014-09-22 12:34:57";}', 0, '2014-09-22 07:29:50');
 
 -- --------------------------------------------------------
 
@@ -832,27 +867,26 @@ CREATE TABLE IF NOT EXISTS `teacher_attendances` (
   `status` enum('A','P','U') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `teacher_attendances`
 --
 
 INSERT INTO `teacher_attendances` (`id`, `clan_date`, `clan_id`, `teacher_id`, `attendance`, `recovery_teacher`, `from_message`, `to_message`, `status`, `user_id`, `timestamp`) VALUES
-(3, '2014-09-17', 6, 3, 0, 0, NULL, NULL, 'A', 3, '2014-09-16 11:04:42'),
-(4, '2014-09-20', 5, 7, 1, 0, NULL, NULL, 'P', 0, '2014-09-19 07:07:38'),
-(5, '2014-09-21', 6, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-19 07:07:38'),
-(6, '2014-09-22', 6, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-19 07:07:38'),
-(7, '2014-09-23', 1, 5, 1, 0, NULL, NULL, 'P', 0, '2014-09-19 07:07:38'),
-(8, '2014-09-23', 3, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-19 07:07:38'),
-(9, '2014-09-23', 4, 8, 1, 0, NULL, NULL, 'P', 0, '2014-09-19 07:07:38'),
-(10, '2014-09-24', 1, 5, 1, 0, NULL, NULL, 'P', 0, '2014-09-19 07:07:38'),
-(11, '2014-09-24', 2, 7, 1, 0, NULL, NULL, 'P', 0, '2014-09-19 07:07:38'),
-(12, '2014-09-24', 6, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-19 07:07:38'),
-(13, '2014-09-25', 2, 7, 1, 0, NULL, NULL, 'P', 0, '2014-09-19 07:07:38'),
-(14, '2014-09-25', 3, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-19 07:07:38'),
-(15, '2014-09-26', 3, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-19 07:07:39'),
-(16, '2014-09-26', 5, 7, 1, 0, NULL, NULL, 'P', 0, '2014-09-19 07:07:39');
+(1, '2014-09-23', 1, 5, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:56'),
+(2, '2014-09-23', 3, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:56'),
+(3, '2014-09-23', 4, 8, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:56'),
+(4, '2014-09-24', 1, 5, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:57'),
+(5, '2014-09-24', 2, 7, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:57'),
+(6, '2014-09-24', 6, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:57'),
+(7, '2014-09-25', 2, 7, 0, 0, 'Personal', 'Sorry', 'A', 7, '2014-09-22 07:04:57'),
+(8, '2014-09-25', 3, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:57'),
+(9, '2014-09-26', 3, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:57'),
+(10, '2014-09-26', 5, 7, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:57'),
+(11, '2014-09-27', 5, 7, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:57'),
+(12, '2014-09-28', 6, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:57'),
+(13, '2014-09-29', 6, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:57');
 
 -- --------------------------------------------------------
 
@@ -882,28 +916,29 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   `status` enum('A','P','U','P2') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `userdetails`
 --
 
 INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `degree_id`, `honor_id`, `qualification_id`, `security_id`, `color_of_blade`, `xpr`, `war`, `sty`, `total_score`, `first_lesson_date`, `approved_by`, `palce_of_birth`, `zip_code`, `tax_code`, `blood_group`, `status`, `user_id`, `timestamp`) VALUES
-(1, 14, '3', 4, 0, 0, 0, 6, 130, 101, 89, 320, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:02'),
-(2, 15, '2', 1, 0, 0, 0, 6, 188, 117, 128, 433, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
+(1, 14, '3', 6, 0, 0, 0, 6, 130, 101, 89, 320, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:02'),
+(2, 15, '2', 6, 0, 0, 0, 6, 188, 117, 128, 433, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
 (3, 16, '2', 6, 0, 0, 0, 6, 205, 117, 119, 441, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
 (4, 17, '5', 6, 0, 0, 0, 6, 237, 111, 162, 510, '2014-08-11', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-05 00:09:27'),
 (5, 20, '6', 6, 0, 0, 0, 6, 282, 102, 158, 542, '2014-08-28', 2, '', 390016, 963852, 'B-ve ', 'A', 20, '2009-08-21 01:37:12'),
 (6, 13, '5', 6, 0, 0, 0, 6, 292, 118, 129, 539, '2014-08-30', 3, NULL, NULL, NULL, NULL, 'A', 13, '2014-08-25 05:27:01'),
 (7, 21, '6', 6, 0, 0, 0, 6, 328, 118, 167, 613, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2014-08-25 05:52:04'),
-(8, 25, '6', 6, 0, 0, 0, 6, 354, 113, 124, 591, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2010-08-25 05:52:04'),
+(8, 25, '6', 8, 14, 0, 0, 6, 354, 113, 124, 591, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2010-08-25 05:52:04'),
 (9, 27, '4', 6, 0, 0, 0, 6, 379, 89, 94, 562, '2014-09-09', 8, 'roma', 0, 0, 'ah+', 'A', 27, '2014-09-04 15:25:53'),
 (10, 28, '4', 6, 0, 0, 0, 6, 425, 96, 135, 656, '2014-09-16', 0, NULL, NULL, NULL, NULL, 'P', 28, '2014-09-05 08:45:20'),
 (11, 31, '1', 6, 0, 0, 0, 6, 460, 131, 96, 687, '2014-09-16', 8, NULL, NULL, NULL, NULL, 'A', 31, '2014-09-05 11:33:36'),
 (12, 33, '4', 6, 0, 0, 0, 6, 497, 113, 140, 750, '2014-09-30', 8, NULL, NULL, NULL, NULL, 'A', 33, '2014-09-05 13:05:45'),
 (13, 34, '1', 6, 0, 0, 0, 6, 514, 114, 127, 755, '2014-09-23', 8, NULL, NULL, NULL, NULL, 'A', 34, '2014-09-05 13:18:57'),
-(14, 23, '6', 6, 0, 0, 0, 6, 548, 101, 127, 776, '2014-08-04', 2, 'Milan', 20162, 610093, 'O +ve', 'A', 2, '2014-08-04 00:09:02'),
-(15, 12, '0', 0, 0, 0, 0, 6, 0, 0, 0, 0, NULL, 0, 'Vadodara', 390016, 610093, 'B -ve', 'P2', 12, '2014-09-11 05:49:27');
+(14, 23, '6', 6, 14, 0, 0, 6, 548, 101, 127, 776, '2014-08-04', 2, 'Milan', 20162, 610093, 'O +ve', 'A', 2, '2014-08-04 00:09:02'),
+(15, 12, '0', 6, 0, 0, 0, 6, 0, 0, 0, 0, NULL, 0, 'Vadodara', 390016, 610093, 'B -ve', 'P2', 12, '2014-09-11 05:49:27'),
+(16, 36, '4', 6, 13, 0, 0, 1, 0, 0, 0, 0, '2014-09-22', 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-09-22 06:02:11');
 
 -- --------------------------------------------------------
 
@@ -935,7 +970,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `status` enum('A','D','P','U') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
 
 --
 -- Dumping data for table `users`
@@ -966,7 +1001,8 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `last
 (30, '6', '1234', '81dc9bdb52d04dc20036dbd8313ed055', 'Pietro', 'Rossi', 'ranasoyab@yopmail.com', 1239685200, 5, 4, 2, 'Pietro', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'P', 0, '2014-09-05 11:04:54'),
 (31, '6', 'eu', '202cb962ac59075b964b07152d234b70', 'Eugenio', 'Di Fraia', 'ranasoyab@yopmail.com', 317973600, 1, 1, 1, 'Cassina de Pecchi', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'P', 0, '2014-09-05 11:32:37'),
 (33, '6', 'bart', '202cb962ac59075b964b07152d234b70', 'Bart', 'Simpson', 'ranasoyab@yopmail.com', 633938400, 5, 4, 2, 'e', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'P', 33, '2014-09-05 13:00:47'),
-(34, '6', 'merge', '202cb962ac59075b964b07152d234b70', 'Merge', 'Simpson', 'ranasoyab@yopmail.com', 633852000, 1, 1, 1, 's', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'P', 0, '2014-09-05 13:17:44');
+(34, '6', 'merge', '202cb962ac59075b964b07152d234b70', 'Merge', 'Simpson', 'ranasoyab@yopmail.com', 633852000, 1, 1, 1, 's', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'P', 0, '2014-09-05 13:17:44'),
+(36, '6', 'spyker', '202cb962ac59075b964b07152d234b70', 'Spyker', 'Jeans', 'soyab@yopmail.com', 525724200, 1, 1, 1, 'Vadodara', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'A', 2, '2014-09-22 06:02:11');
 
 -- --------------------------------------------------------
 
@@ -977,30 +1013,33 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `last
 CREATE TABLE IF NOT EXISTS `user_batches_histories` (
 `id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
+  `batch_type` enum('D','H','Q','S') NOT NULL,
   `batch_id` int(11) NOT NULL,
   `assign_date` date NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `user_batches_histories`
 --
 
-INSERT INTO `user_batches_histories` (`id`, `student_id`, `batch_id`, `assign_date`, `user_id`, `timestamp`) VALUES
-(1, 14, 6, '2014-08-04', 0, '2014-09-19 12:10:21'),
-(2, 15, 6, '2014-08-04', 0, '2014-09-19 12:10:21'),
-(3, 16, 6, '2014-08-04', 0, '2014-09-19 12:10:21'),
-(4, 17, 6, '2014-08-05', 0, '2014-09-19 12:10:21'),
-(5, 20, 6, '2009-08-21', 0, '2014-09-19 12:10:21'),
-(6, 13, 6, '2014-08-25', 0, '2014-09-19 12:10:21'),
-(7, 21, 6, '2014-08-25', 0, '2014-09-19 12:10:21'),
-(8, 25, 6, '2010-08-25', 0, '2014-09-19 12:10:21'),
-(9, 27, 6, '2014-09-04', 0, '2014-09-19 12:10:21'),
-(10, 31, 6, '2014-09-05', 0, '2014-09-19 12:10:21'),
-(11, 33, 6, '2014-09-05', 0, '2014-09-19 12:10:21'),
-(12, 34, 6, '2014-09-05', 0, '2014-09-19 12:10:21'),
-(13, 23, 6, '2014-08-04', 0, '2014-09-19 12:10:21');
+INSERT INTO `user_batches_histories` (`id`, `student_id`, `batch_type`, `batch_id`, `assign_date`, `user_id`, `timestamp`) VALUES
+(1, 14, 'D', 6, '2014-08-04', 0, '2014-09-19 12:10:21'),
+(2, 15, 'D', 6, '2014-08-04', 0, '2014-09-19 12:10:21'),
+(3, 16, 'D', 6, '2014-08-04', 0, '2014-09-19 12:10:21'),
+(4, 17, 'D', 6, '2014-08-05', 0, '2014-09-19 12:10:21'),
+(5, 20, 'D', 6, '2009-08-21', 0, '2014-09-19 12:10:21'),
+(6, 13, 'D', 6, '2014-08-25', 0, '2014-09-19 12:10:21'),
+(7, 21, 'D', 6, '2014-08-25', 0, '2014-09-19 12:10:21'),
+(8, 25, 'D', 6, '2010-08-25', 0, '2014-09-19 12:10:21'),
+(9, 27, 'D', 6, '2014-09-04', 0, '2014-09-19 12:10:21'),
+(10, 31, 'D', 6, '2014-09-05', 0, '2014-09-19 12:10:21'),
+(11, 33, 'D', 6, '2014-09-05', 0, '2014-09-19 12:10:21'),
+(12, 34, 'D', 6, '2014-09-05', 0, '2014-09-19 12:10:21'),
+(13, 23, 'D', 6, '2014-08-04', 0, '2014-09-19 12:10:21'),
+(14, 36, 'D', 6, '2014-09-22', 2, '2014-09-22 06:02:11'),
+(15, 36, 'Q', 13, '2014-09-22', 2, '2014-09-22 06:03:45');
 
 --
 -- Indexes for dumped tables
@@ -1187,7 +1226,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `attendance_recovers`
 --
@@ -1202,7 +1241,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
 -- AUTO_INCREMENT for table `challenges`
 --
 ALTER TABLE `challenges`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `cities`
 --
@@ -1212,7 +1251,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `clandates`
 --
 ALTER TABLE `clandates`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `clans`
 --
@@ -1272,7 +1311,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=66;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=71;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
@@ -1302,22 +1341,22 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 -- AUTO_INCREMENT for table `teacher_attendances`
 --
 ALTER TABLE `teacher_attendances`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `userdetails`
 --
 ALTER TABLE `userdetails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `user_batches_histories`
 --
 ALTER TABLE `user_batches_histories`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
