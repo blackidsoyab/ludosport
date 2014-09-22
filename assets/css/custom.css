@@ -571,3 +571,7 @@ footer{
 .panel-custom .panel-heading li.active a{
     color: #555;
 }
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    border: 0px solid #6EB1DE !important;
+}

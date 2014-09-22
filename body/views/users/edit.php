@@ -1,15 +1,16 @@
-<script>
+<script type="text/javascript">
     //<![CDATA[
     $(document).ready(function() {
-<?php if (in_array('6', explode(',', $user->role_id))) { ?>
-            $('#academy_list').show();
-            $('#school_list').show();
-            $('#class_list').show();
-<?php } else { ?>
-            $('#academy_list').hide();
-            $('#school_list').hide();
-            $('#class_list').hide();
-<?php } ?>    
+        <?php if (in_array('6', explode(',', $user->role_id))) { ?>
+                    $('#academy_list').show();
+                    $('#school_list').show();
+                    $('#class_list').show();
+        <?php } else { ?>
+                    $('#academy_list').hide();
+                    $('#school_list').hide();
+                    $('#class_list').hide();
+        <?php } ?>
+
         $("#add").validate({
             rules: {
                 new_cpassword: {equalTo: '#new_password'},
@@ -30,11 +31,11 @@
                 }
             }
         });
-        
+
         $('.datepicker').datepicker().on('changeDate', function (ev) {
             $(this).datepicker('hide');
         });
-        
+
         $('#role_id').change(function(){
             var check = false;
             $("#role_id option:selected").each(function() {
@@ -52,7 +53,7 @@
                 $('#class_list').hide();
             }
         });
-        
+
         $('#academy_id').change(function(){
             $.ajax({
                 type: 'GET',
@@ -68,7 +69,7 @@
                 }
             });
         });
-        
+
         $('#school_id').change(function(){
             $.ajax({
                 type: 'GET',
@@ -87,7 +88,9 @@
     });
     //]]>
 </script>
+
 <h1 class="page-heading"><?php echo $this->lang->line('edit'), ' ', $this->lang->line('user'); ?></h1>
+
 <div class="the-box">
     <form id="add" method="post" class="form-horizontal" action="<?php echo base_url() . 'user/edit/' . $user->id; ?>">
         <h4 class="small-title"><?php echo $this->lang->line('basic'), ' ', $this->lang->line('information'); ?></h4>
@@ -161,7 +164,11 @@
 
         <div class="form-group">
             <label for="question" class="col-lg-3 control-label">
+            <?php if(in_array(6, explode(',',$user->role_id))){ ?>
                 <?php echo $this->lang->line('select'), ' ', $this->lang->line('clan'), ' ', $this->lang->line('city'); ?>
+            <?php } else { ?>
+                <?php echo $this->lang->line('select'), ' ', $this->lang->line('city'); ?>
+            <?php } ?>
                 <span class="text-danger">*</span>
             </label>
             <div class="col-lg-5">
@@ -216,6 +223,70 @@
                 </select>
             </div>
         </div>
+
+        <?php if(in_array(6, explode(',',$user->role_id))){ ?>
+            <?php if(isset($degree_batches) && !is_null($degree_batches)) { ?>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('degree'); ?></label>
+                    <div class="col-lg-5">
+                        <select class="form-control" name="degree_id">
+                            <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('degree'); ?></option> 
+                            <?php
+                            foreach ($degree_batches as $degree) {
+                                ?>
+                                <option value="<?php echo $degree->id; ?>" <?php echo ($degree->id == $userdetail->degree_id) ? 'selected' : ''; ?>><?php echo $degree->{$session->language . '_name'}; ?></option>
+                            <?php } ?>  
+                        </select>
+                    </div>
+                </div>
+            <?php } ?>
+
+            <?php if(isset($honour_batches) && !is_null($honour_batches)) { ?>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('honour'); ?></label>
+                    <div class="col-lg-5">
+                        <select class="form-control" name="honor_id">
+                            <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('honour'); ?></option> 
+                            <?php
+                            foreach ($honour_batches as $honour) {
+                                ?>
+                                <option value="<?php echo $honour->id; ?>" <?php echo ($honour->id == $userdetail->honor_id) ? 'selected' : ''; ?>><?php echo $honour->{$session->language . '_name'}; ?></option>
+                            <?php } ?>  
+                        </select>
+                    </div>
+                </div>
+            <?php } ?>
+            
+            <?php if(isset($qualification_batches) && !is_null($qualification_batches)) { ?>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('qualification'); ?></label>
+                    <div class="col-lg-5">
+                        <select class="form-control" name="qualification_id">
+                            <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('qualification'); ?></option> 
+                            <?php
+                            foreach ($qualification_batches as $qualification) {
+                                ?>
+                                <option value="<?php echo $qualification->id; ?>" <?php echo ($qualification->id == $userdetail->qualification_id) ? 'selected' : ''; ?>><?php echo $qualification->{$session->language . '_name'}; ?></option>
+                            <?php } ?>  
+                        </select>
+                    </div>
+                </div>
+            <?php } ?>
+
+            <?php if(isset($security_batches) && !is_null($security_batches)) { ?>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('security'); ?></label>
+                    <div class="col-lg-5">
+                        <select class="form-control" name="security_id">
+                            <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('security'); ?></option> 
+                            <?php foreach ($security_batches as $security) { ?>
+                                <option value="<?php echo $security->id; ?>" <?php echo ($security->id == $userdetail->security_id) ? 'selected' : ''; ?>><?php echo $security->{$session->language . '_name'}; ?></option>
+                            <?php } ?>  
+                        </select>
+                    </div>
+                </div>
+            <?php } ?>
+        <?php } ?>
 
         <div class="form-group">
             <label class="col-lg-3 control-label" for="radios"><?php echo $this->lang->line('change_status'); ?></label>
