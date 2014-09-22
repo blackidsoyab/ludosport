@@ -181,6 +181,8 @@
             </div>
         </div>
 
+        <h4 class="small-title"><?php echo $this->lang->line('extra'), ' ', $this->lang->line('information'); ?></h4>
+        
         <div class="form-group" id="academy_list">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('academy'); ?> <span class="text-danger">*</span></label>
             <div class="col-lg-5">

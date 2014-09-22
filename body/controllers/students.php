@@ -145,17 +145,17 @@ class students extends CI_Controller {
         $this->layout->setField('page_title', $this->lang->line('history'));
 
         //Right Hand side Batches Images
-        $batch = new Batch();
-        $data['student_degrees'] = $batch->where('type', 'D')->get(4);
+        $obj_batch_history = new Userbatcheshistory();
+        $data['student_degrees'] = $obj_batch_history->getStudentBatchHistory('D',$this->session_data->id);
 
-        $batch = new Batch();
-        $data['student_honours'] = $batch->where('type', 'H')->get(4);
+        $obj_batch_history = new Userbatcheshistory();
+        $data['student_honours'] = $obj_batch_history->getStudentBatchHistory('H',$this->session_data->id);
 
-        $batch = new Batch();
-        $data['student_qualifications'] = $batch->where('type', 'Q')->get(4);
+        $obj_batch_history = new Userbatcheshistory();
+        $data['student_qualifications'] = $obj_batch_history->getStudentBatchHistory('Q',$this->session_data->id);
 
-        $batch = new Batch();
-        $data['student_securities'] = $batch->where('type', 'S')->get(4);
+        $obj_batch_history = new Userbatcheshistory();
+        $data['student_securities'] = $obj_batch_history->getStudentBatchHistory('S',$this->session_data->id);
         
         //For Histroy Data
         $user_detail = new Userdetail();

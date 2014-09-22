@@ -177,7 +177,8 @@
                     <div class="media user-card-sm">
                             <img class="pull-left media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $degree->image; ?>" alt="<?php echo $degree->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $degree->{$session->language . '_name'}; ?>">
                         <div class="media-body">
-                            <h4 class="text-desl"><?php echo $degree->{$session->language . '_name'}; ?></h4>
+                            <h4><?php echo $degree->{$session->language . '_name'}; ?></h4>
+                            <p class="text-danger"><?php echo date('d/m/Y', strtotime($degree->assign_date)); ?></p>
                         </div>
                         <div class="right-button">
                             <button class="btn btn-danger"><i class="fa fa-info"></i></button>
@@ -193,7 +194,8 @@
                     <div class="media user-card-sm">
                         <img class="pull-left media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $honour->image; ?>" alt="<?php echo $honour->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $honour->{$session->language . '_name'}; ?>">
                         <div class="media-body">
-                            <h4 class="text-desl"><?php echo $honour->{$session->language . '_name'}; ?></h4>
+                            <h4><?php echo $honour->{$session->language . '_name'}; ?></h4>
+                            <p class="text-danger"><?php echo date('d/m/Y', strtotime($honour->assign_date)); ?></p>
                         </div>
                         <div class="right-button">
                             <button class="btn btn-danger"><i class="fa fa-info"></i></button>
@@ -209,7 +211,8 @@
                     <div class="media user-card-sm">
                        <img class="pull-left media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $qualification->image; ?>" alt="<?php echo $qualification->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $qualification->{$session->language . '_name'}; ?>">
                         <div class="media-body">
-                            <h4 class="text-desl"><?php echo $qualification->{$session->language . '_name'}; ?></h4>
+                            <h4><?php echo $qualification->{$session->language . '_name'}; ?></h4>
+                            <p class="text-danger"><?php echo date('d/m/Y', strtotime($qualification->assign_date)); ?></p>
                         </div>
                         <div class="right-button">
                             <button class="btn btn-danger"><i class="fa fa-info"></i></button>
@@ -225,7 +228,8 @@
                     <div class="media user-card-sm">
                         <img class="pull-left media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $security->image; ?>" alt="<?php echo $security->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $security->{$session->language . '_name'}; ?>">
                         <div class="media-body">
-                            <h4 class="text-desl"><?php echo $security->{$session->language . '_name'}; ?></h4>
+                            <h4><?php echo $security->{$session->language . '_name'}; ?></h4>
+                            <p class="text-danger"><?php echo date('d/m/Y', strtotime($security->assign_date)); ?></p>
                         </div>
                         <div class="right-button">
                             <button class="btn btn-danger"><i class="fa fa-info"></i></button>
