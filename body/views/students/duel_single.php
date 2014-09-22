@@ -40,7 +40,7 @@ $(document).ready(function() {
 });
 //]]>
 </script>
-<h1 class="page-heading"><?php echo 'Challenge : ' . $type; ?></h1>
+<h1 class="page-heading"><?php echo $this->lang->line('challenge') . $type; ?></h1>
 <div class="row">
 	<div class="col-lg-8">
 		<div class="the-box duel-single">
@@ -109,9 +109,9 @@ $(document).ready(function() {
 		                    <p class="form-control-static">
 		                    	<?php
 		                    	if(($single->from_id == $session->id && $single->from_status == 'R') || $single->to_id == $session->id && $single->to_status == 'R') {
-	                    			echo 'You';
+	                    			echo $this->lang->line('challenge_you');
 		                    	} else if(($single->from_id == $session->id && $single->to_status == 'R')|| ($single->to_id == $session->id && $single->from_status == 'R')) {
-		                    		echo 'Opponent';
+		                    		echo $this->lang->line('challenge_opponent');
 		                    	}
 		                    	?>
 		                    </p>
@@ -157,9 +157,11 @@ $(document).ready(function() {
 	                    </p>
 	                <?php } ?>
 
-	                <?php if(!is_null($challenge_user_batch_image)) { ?>
+                 	<?php if(!is_null($batch_image)) { ?>
 	                    <p class="social-icon">
-	                        <img src="<?php echo $challenge_user_batch_image; ?>" width="40" height="40" alt="<?php echo $challenge_user_batch_detail->{$session->language.'_name'}; ?>" data-toggle="tooltip" data-original-title="<?php echo $challenge_user_batch_detail->{$session->language.'_name'}; ?>">
+	                        <?php foreach ($batch_image as $image) { ?>
+	                            <img src="<?php echo $image['image']; ?>" width="40" height="40" alt="<?php echo $image['name']; ?>" data-toggle="tooltip" data-original-title="<?php echo $image['name']; ?>">
+	                        <?php } ?>
 	                    </p>
 	                <?php } ?>
 	            </div>
@@ -173,7 +175,7 @@ $(document).ready(function() {
 	<div class="modal-dialog">
 		<div class="modal-content modal-no-shadow modal-no-border">
 			<div class="modal-header">
-				<h4 class="modal-title">Result of the fight !</h4>
+				<h4 class="modal-title"><?php echo $this->lang->line('result_of_fight'); ?></h4>
 			</div>
 			<form id="duel_result" method="post" class="form-horizontal" action="<?php echo  base_url(). "duels/declare_result"; ?>">
 				<input type="hidden" name="id" value="0">

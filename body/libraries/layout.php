@@ -30,10 +30,10 @@ class layout {
     function view($view, $data = null, $return = false) {
 
         $loadedData = array();
-        if (empty($this->page_title)) {
-            $loadedData['page_title'] = 'Trad English';
-        } else {
+        if (!empty($this->page_title)) {
             $loadedData['page_title'] = $this->page_title;
+        }else{
+            $loadedData['page_title'] = NULL;
         }
         $loadedData['page_name'] = $this->page_name;
         $loadedData['is_index'] = $this->is_index;

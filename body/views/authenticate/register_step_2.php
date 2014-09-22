@@ -66,7 +66,7 @@
         <div class="col-lg-6">
             <ul class="list-group">
                 <?php foreach ($download_pdfs as $pdf_value) {
-                            echo '<li class="list-group-item">' . $pdf_value[$session->language] .'<a href="'.base_url() .'register_step_2/download/'. $pdf_value['file'] .'" class="pull-right">Download</a></li>';
+                            echo '<li class="list-group-item">' . $pdf_value[$session->language] .'<a href="'.base_url() .'register_step_2/download/'. $pdf_value['file'] .'" class="pull-right">'.$this->lang->line('download').'</a></li>';
                         }
                     ?>
             </ul>

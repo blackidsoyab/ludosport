@@ -436,19 +436,19 @@ function UpdateClanDate(ele, notify){
 						<h4><?php echo $teacher['name'], '\'s  ', $this->lang->line('attendance'); ?></h4>
 						<?php if(!is_null($teacher_attendance)) { ?>
 							<div class="the-box no-border tags-cloud margin-killer padding-killer">
-								<span class="label label-primary">Total </span><span class="badge badge-primary"><?php echo count($teacher_attendance); ?></span>
-								<span class="label label-default">Holiday approval Pending</span>
-								<span class="label label-success">Present </span><span class="badge badge-success"><?php echo $present; ?></span>
-								<span class="label label-danger">Absence</span> <span class="badge badge-danger"><?php echo $absence; ?></span>
-								<span class="label label-danger-warning">Absence + Recovery Teacher Assign</span>
-								<span class="label label-success-danger">Holiday Unapproved</span>
+								<span class="label label-primary"><?php echo $this->lang->line('total'); ?> </span><span class="badge badge-primary"><?php echo count($teacher_attendance); ?></span>
+								<span class="label label-default"><?php echo $this->lang->line('holiday_aproval_pending'); ?></span>
+								<span class="label label-success"><?php echo $this->lang->line('present'); ?></span><span class="badge badge-success"><?php echo $present; ?></span>
+								<span class="label label-danger"><?php echo $this->lang->line('absence'); ?></span> <span class="badge badge-danger"><?php echo $absence; ?></span>
+								<span class="label label-danger-warning"><?php echo $this->lang->line('absence_recover_teacher'); ?></span>
+								<span class="label label-success-danger"><?php echo $this->lang->line('holiday_unapproved'); ?></span>
 								<p class="help-block margin-killer pull-left">
 									<span class="label label-danger-warning">&nbsp;</span>
-									Mouser hover on date to see Recovery teacher name
+									<?php echo $this->lang->line('note_mouseover_recovery_teacher_name'); ?>
 								</p>
 								<p class="help-block margin-killer">
 									<span class="label label-success-danger">&nbsp;</span>
-									Mouser hover on date to see Unapproval reason
+									<?php echo $this->lang->line('note_mouseover_unapproval_reason'); ?>
 								</p>
 							</div>
 							<hr class="mar-tp-10 mar-bt-10" />

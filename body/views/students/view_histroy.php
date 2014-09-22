@@ -1,5 +1,5 @@
 <?php $session = $this->session->userdata('user_session'); ?>
-<h1 class="page-heading h1"><?php echo $this->lang->line('histroy'); ?></h1>
+<h1 class="page-heading h1"><?php echo $this->lang->line('history'); ?></h1>
 
 <div class="row" id="history">
     <div class="col-lg-8">
@@ -8,7 +8,7 @@
                 <div class="right-content">
                     <button class="btn btn-success to-collapse collapsed" data-toggle="collapse" data-target="#panel-chart-widget-1"><i class="fa fa-chevron-down"></i></button>
                 </div>
-                <h3 class="panel-title"><strong>MY PERSONAL DATA</strong></h3>
+                <h3 class="panel-title"><strong><?php echo $this->lang->line('my_personal_data'); ?></strong></h3>
             </div>
             <div class="blog-detail-image">
                 <img src="assets/img/Z1.png" class="img-blog" alt="Blog image">
@@ -19,44 +19,44 @@
                         <div class="col-sm-6">
                             <div class="row">
                                 <div class="col-xs-6 text-center">
-                                    <h4 class="small-heading">VICTORIES / DEFEATS</h4>
+                                    <h4 class="small-heading"><?php echo $this->lang->line('wins'), ' / ', $this->lang->line('defeat'); ?></h4></h4>
                                     <span class="chart chart-widget-pie widget-easy-pie-1" data-percent="<?php echo @$victories_percentage; ?>">
                                         <span class="percent"><?php echo @$victories_percentage; ?></span>
                                         <canvas height="110" width="110"></canvas></span>
                                 </div>
                                 <div class="col-xs-6 text-center">
-                                    <h4 class="small-heading">ATTENDANCE / ABSENCE</h4>
+                                    <h4 class="small-heading"><?php echo $this->lang->line('attendance'), ' / ', $this->lang->line('absence'); ?></h4>
                                     <span class="chart chart-widget-pie widget-easy-pie-2" data-percent="<?php echo @$attendance_percentage; ?>">
                                         <span class="percent"><?php echo @$attendance_percentage; ?></span>
                                         <canvas height="110" width="110"></canvas></span>
                                 </div>
                             </div>
                             <hr>
-                            <button class="btn btn-block btn-danger"><i class="fa fa-cogs"></i>Score: <?php echo $user_detail->total_score; ?></button>
+                            <button class="btn btn-block btn-danger"><i class="fa fa-cogs"></i><?php echo $this->lang->line('score'); ?>: <?php echo $user_detail->total_score; ?></button>
                         </div>
                         <div class="col-sm-6">
-                            <h4 class="small-heading">MY DUELS </h4>
-                            <p class="small">Victories - <?php echo @$total_victories; ?></p>
+                            <h4 class="small-heading"><?php echo $this->lang->line('my_duels'); ?></h4>
+                            <p class="small"><?php echo $this->lang->line('victories'); ?> - <?php echo @$total_victories; ?></p>
                             <div class="progress no-rounded progress-xs">
                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$victories_percentage, '%'; ?>">
                                 </div>
                             </div>
-                            <p class="small">Defeats - <?php echo @$total_defeats; ?></p>
+                            <p class="small"><?php echo $this->lang->line('defeats'); ?> - <?php echo @$total_defeats; ?></p>
                             <div class="progress no-rounded progress-xs">
                                 <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$defeats_percentage, '%'; ?>">
                                 </div>
                             </div>
-                            <p class="small">Challenges made - <?php echo @$total_made; ?></p>
+                            <p class="small"><?php echo $this->lang->line('challenge_made'); ?> - <?php echo @$total_made; ?></p>
                             <div class="progress no-rounded progress-xs">
                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$made_percentage, '%'; ?>">
                                 </div>
                             </div>
-                            <p class="small">Challenges received - <?php echo @$total_received; ?></p>
+                            <p class="small"><?php echo $this->lang->line('challenge_received'); ?> - <?php echo @$total_received; ?></p>
                             <div class="progress no-rounded progress-xs">
                                 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$received_percentage, '%'; ?>">
                                 </div>
                             </div>
-                            <p class="small">Challenges rejected - <?php echo @$total_rejected; ?></p>
+                            <p class="small"><?php echo $this->lang->line('challenge_rejected'); ?> - <?php echo @$total_rejected; ?></p>
                             <div class="progress no-rounded progress-xs">
                                 <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$rejected_percentage, '%'; ?>">
                                 </div>
@@ -65,38 +65,38 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <h4 class="small-heading">CLASSES LOG </h4>
-                            <p class="small">Attended - <span class="text-success"><?php echo @$attendance_percentage; ?>%</span></p>
+                            <h4 class="small-heading"><?php echo $this->lang->line('clan_logs'); ?></h4>
+                            <p class="small"><?php echo $this->lang->line('attended'); ?> - <span class="text-success"><?php echo @$attendance_percentage; ?>%</span></p>
                             <div class="progress no-rounded progress-xs">
                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php echo @$attendance_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$attendance_percentage; ?>%">
                                 </div>
                             </div>
-                            <p class="small">Missed - <span class="text-danger"><?php echo @$missed_percentage; ?>%</span></p>
+                            <p class="small"><?php echo $this->lang->line('missed'); ?> - <span class="text-danger"><?php echo @$missed_percentage; ?>%</span></p>
                             <div class="progress no-rounded progress-xs">
                                 <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<?php echo @$missed_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$missed_percentage; ?>%">
                                 </div>
                             </div>
-                            <p class="small">Catch-ups - <span class="text-warning"><?php echo @$recover_percentage; ?>%</span></p>
+                            <p class="small"><?php echo $this->lang->line('catch_up'); ?> - <span class="text-warning"><?php echo @$recover_percentage; ?>%</span></p>
                             <div class="progress no-rounded progress-xs">
                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<?php echo @$recover_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$recover_percentage; ?>%">
                                 </div>
                             </div>
-                            <p class="small">Years of practice - <span class="text-info">70%</span></p>
+                            <p class="small"><?php echo $this->lang->line('year_of_practice'); ?> - <span class="text-info">0%</span></p>
                             <div class="progress no-rounded progress-xs">
-                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <h4 class="small-heading">TOURNAMENTS </h4>
-                            <p class="small">  Attended - <span class="text-danger">80%</span></p>
+                            <h4 class="small-heading"><?php echo $this->lang->line('tournaments'); ?> </h4>
+                            <p class="small"><?php echo $this->lang->line('attended'); ?> - <span class="text-success">0%</span></p>
                             <div class="progress no-rounded progress-xs">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                                 </div>
                             </div>
-                            <p class="small">Missed- <span class="text-warning">20%</span></p>
+                            <p class="small"><?php echo $this->lang->line('missed'); ?>- <span class="text-danger">0%</span></p>
                             <div class="progress no-rounded progress-xs">
-                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
                                 </div>
                             </div>
                             <div class="row">
@@ -122,7 +122,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="panel-title text-white padding-top-killer padding-left-killer"><strong>MY COMBAT STYLES</strong></h3>
+                <h3 class="panel-title text-white padding-top-killer padding-left-killer"><strong><?php echo $this->lang->line('my_combat_style'); ?></strong></h3>
                 <div class="the-box">
                     <div class="row">
                         <div class="col-xs-2">
@@ -158,7 +158,7 @@
             </div>
 
             <div class="col-lg-12">
-                <h3 class="panel-title text-white padding-top-killer padding-left-killer"><strong>TIMELINE</strong></h3>
+                <h3 class="panel-title text-white padding-top-killer padding-left-killer"><strong><?php echo $this->lang->line('timeline'); ?></strong></h3>
                 <ul class="timeline">
                     <li class="centering-line"></li>
                     <div id="timeline-data">

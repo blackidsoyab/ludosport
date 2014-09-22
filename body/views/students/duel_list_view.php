@@ -1,6 +1,6 @@
 <?php $session = $this->session->userdata('user_session'); ?>
 
-<h1 class="page-heading"><?php echo 'Challenge history', (is_null($type)) ? '' : ' : ' . $type ; ?></h1>
+<h1 class="page-heading"><?php echo $this->lang->line('challenge_history'), (is_null($type)) ? '' : ' : ' . $type ; ?></h1>
 
 <script type="text/javascript" >
     $(document).ready(function() {
@@ -9,9 +9,9 @@
         $('#type-wise-2').hide();
         $('#type-wise').change(function(){
         	if($('#type-wise').val() == 'all'){
-        		$('.page-heading').html('Challenge history');
+        		$('.page-heading').html("<?php echo $this->lang->line('challenge_history'); ?>");
         	}else{
-        		$('.page-heading').html('Challenge history : ' + $('#type-wise').val());
+        		$('.page-heading').html("<?php echo $this->lang->line('challenge_history') .' : '; ?>" + $('#type-wise').val());
         	}
         	
             loadDatable();
@@ -53,35 +53,34 @@
         <div class="form-group margin-killer">
             <div class="col-lg-4">
                 <select class="form-control required" id="type-wise">
-		            <option value="all">All</option>
-		            <option value="made" <?php echo (isset($type) && !is_null($type) && $type == 'made') ? 'selected' : ''; ?>>Made</option>
-		            <option value="received" <?php echo (isset($type) && !is_null($type) && $type == 'received') ? 'selected' : ''; ?>>Received</option>
-		            <option value="rejected" <?php echo (isset($type) && !is_null($type) && $type == 'rejected') ? 'selected' : ''; ?>>Rejected</option>
-		            <option value="accepted" <?php echo (isset($type) && !is_null($type) && $type == 'accepted') ? 'selected' : ''; ?>>Accepted</option>
-		            <option value="pending" <?php echo (isset($type) && !is_null($type) && $type == 'pending') ? 'selected' : ''; ?>>Pending</option>
-		            <option value="wins" <?php echo (isset($type) && !is_null($type) && $type == 'wins') ? 'selected' : ''; ?>>Wins</option>
-		            <option value="defeats" <?php echo (isset($type) && !is_null($type) && $type == 'defeats') ? 'selected' : ''; ?>>Defetas</option>
+		            <option value="all"><?php echo $this->lang->line('all'); ?></option>
+		            <option value="made" <?php echo (isset($type) && !is_null($type) && $type == 'made') ? 'selected' : ''; ?>><?php echo $this->lang->line('made'); ?></option>
+		            <option value="received" <?php echo (isset($type) && !is_null($type) && $type == 'received') ? 'selected' : ''; ?>><?php echo $this->lang->line('received'); ?></option>
+		            <option value="rejected" <?php echo (isset($type) && !is_null($type) && $type == 'rejected') ? 'selected' : ''; ?>><?php echo $this->lang->line('rejected'); ?></option>
+		            <option value="accepted" <?php echo (isset($type) && !is_null($type) && $type == 'accepted') ? 'selected' : ''; ?>><?php echo $this->lang->line('accepted'); ?></option>
+		            <option value="pending" <?php echo (isset($type) && !is_null($type) && $type == 'pending') ? 'selected' : ''; ?>><?php echo $this->lang->line('pending'); ?></option>
+		            <option value="wins" <?php echo (isset($type) && !is_null($type) && $type == 'wins') ? 'selected' : ''; ?>><?php echo $this->lang->line('wins'); ?></option>
+		            <option value="defeats" <?php echo (isset($type) && !is_null($type) && $type == 'defeats') ? 'selected' : ''; ?>><?php echo $this->lang->line('defetas'); ?></option>
 		        </select>
             </div>
             <div class="col-lg-4">
                 <select class="form-control required" id="type-wise-2">
-		            <option value="null">All</option>
-		            <option value="P">Pending</option>
-		            <option value="A">Accepted</option>
-		            <option value="R">Rejected</option>
-		            
+		            <option value="null"><?php echo $this->lang->line('all'); ?></option>
+		            <option value="P"><?php echo $this->lang->line('pending'); ?></option>
+		            <option value="A"><?php echo $this->lang->line('accepted'); ?></option>
+		            <option value="R"><?php echo $this->lang->line('rejected'); ?></option>
 		        </select>
             </div>
 
             <div class="col-lg-4 text-right">
             	<p>
-            		<span class="label label-default">Challenge Made</span>
-            		<span class="label label-info">Challenge Received</span>
+            		<span class="label label-default"><?php echo $this->lang->line('challenge_made'); ?></span>
+            		<span class="label label-info"><?php echo $this->lang->line('challenge_received'); ?></span>
             	</p>
             	<p>
-            		<span class="label label-warning">Pending</span>
-            		<span class="label label-success">Accepted</span>
-            		<span class="label label-danger">Rejected</span>
+            		<span class="label label-warning"><?php echo $this->lang->line('pending'); ?></span>
+            		<span class="label label-success"><?php echo $this->lang->line('accepted'); ?></span>
+            		<span class="label label-danger"><?php echo $this->lang->line('rejected'); ?></span>
             	</p>
             </div> 
         </div>

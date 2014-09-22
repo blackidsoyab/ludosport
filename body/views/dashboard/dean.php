@@ -113,15 +113,15 @@
         </div>
 
         <div class="the-box no-margin no-border padding-bottom-killer">
-            <span class="label badge-info">Past Clan</span>
-            <span class="label badge-info-danger">Past Shifted Clan on</span>
-            <span class="label badge-warning-info">Past Shifted Clan of</span>
-            <span class="label badge-success">Present Clan</span>
-            <span class="label badge-success-danger">Present Shifted Clan on</span>
-            <span class="label badge-warning-success">Present Shifted Clan of</span>
-            <span class="label badge-inverse">Future Clan</span>
-            <span class="label badge-inverse-danger">Future Shifted Clan on</span>
-            <span class="label badge-warning-inverse">Future Shifted Clan of</span>
+            <span class="label badge-info"><?php echo $this->lang->line('clan_past'); ?></span>
+            <span class="label badge-info-danger"><?php echo $this->lang->line('clan_past_shif_on'); ?></span>
+            <span class="label badge-warning-info"><?php echo $this->lang->line('clan_past_shif_of'); ?></span>
+            <span class="label badge-success"><?php echo $this->lang->line('clan_present'); ?></span>
+            <span class="label badge-success-danger"><?php echo $this->lang->line('clan_present_shif_on'); ?></span>
+            <span class="label badge-warning-success"><?php echo $this->lang->line('clan_present_shif_of'); ?></span>
+            <span class="label badge-inverse"><?php echo $this->lang->line('clan_future'); ?></span>
+            <span class="label badge-inverse-danger"><?php echo $this->lang->line('clan_future_shif_on'); ?></span>
+            <span class="label badge-warning-inverse"><?php echo $this->lang->line('clan_future_shif_of'); ?></span>
         </div>
     
         <div class="the-box no-margin no-border">

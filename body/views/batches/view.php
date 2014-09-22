@@ -79,10 +79,10 @@ echo $lengths[0]; ?>,
             <div class=" col-lg-4">
                 <select class="form-control" name="batch_type" id="batch_type" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('list'), ' ', $this->lang->line('batch'); ?>">
                     <option value="all"><?php echo $this->lang->line('all'), ' ', $this->lang->line('batch'); ?></option>    
-                    <option value="D"><?php echo $this->lang->line('degrees'); ?></option>
-                    <option value="H"><?php echo $this->lang->line('honors'); ?></option>
-                    <option value="Q"><?php echo $this->lang->line('qualifications'); ?></option>
-                    <option value="S"><?php echo $this->lang->line('securities'); ?></option> 
+                    <option value="D"><?php echo $this->lang->line('degree'); ?></option>
+                    <option value="H"><?php echo $this->lang->line('honor'); ?></option>
+                    <option value="Q"><?php echo $this->lang->line('qualification'); ?></option>
+                    <option value="S"><?php echo $this->lang->line('security'); ?></option> 
                 </select>
             </div>
         </div>

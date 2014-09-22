@@ -129,7 +129,7 @@
     }
 </script>
 
-<h1 class="page-heading h1"><?php echo $this->lang->line('ratting_list'); ?></h1>
+<h1 class="page-heading h1"><?php echo $this->lang->line('rating_list'); ?></h1>
 <div class="the-box">
     <div class="form-horizontal">
         <div class="form-group margin-killer">
@@ -150,12 +150,12 @@
         <table class="table table-striped table-hover" id="list_data">
             <thead class="the-box dark full">
 				<tr align="left">
-					<th>Full name</th>
-					<th width="10%">Score</th>
-					<th width="15%">Academy</th>
-					<th width="15%">School</th>
-					<th width="15%">Clan</th>
-					<th width="10%">Challenge!</th>
+					<th><?php echo $this->lang->line('name'); ?></th>
+					<th width="10%"><?php echo $this->lang->line('score'); ?></th>
+					<th width="15%"><?php echo $this->lang->line('academy'); ?></th>
+					<th width="15%"><?php echo $this->lang->line('school'); ?></th>
+					<th width="15%"><?php echo $this->lang->line('clan'); ?></th>
+					<th width="10%"><?php echo $this->lang->line('challenge'); ?></th>
 				</tr>
             </thead>
             <tbody>
@@ -171,7 +171,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content modal-no-shadow modal-no-border bg-danger">
 			<div class="modal-header">
-				<h4 class="modal-title text-white padding-killer">Prepare to fight!</h4>
+				<h4 class="modal-title text-white padding-killer"><?php echo $this->lang->line('prepare_to_fight'); ?></h4>
 			</div>
 			<form id="duel_date_time" method="post" class="form-horizontal" action="<?php echo  base_url(). "duels/do_it"; ?>">
 				<input type="hidden" name="from_id" value="<?php echo $session->id; ?>">
@@ -188,7 +188,7 @@
 	            	<div class="form-group" id="date_error" style="display:none">
 		                <label class="col-lg-3 control-label">&nbsp;</label>
 		                <div class="col-lg-5">
-		                    <label for="date" class="error text-white padding-killer"> * Date is required.</label>
+		                    <label for="date" class="error text-white padding-killer"><?php echo $this->lang->line('date_required'); ?></label>
 		                </div>
 		            </div>
 		            <div class="form-group">
@@ -202,7 +202,7 @@
 		            <div class="form-group" id="time_error" style="display:none">
 		                <label class="col-lg-3 control-label">&nbsp;</label>
 		                <div class="col-lg-5">
-		                    <label for="date" class="error text-white padding-killer"> * Time is required.</label>
+		                    <label for="date" class="error text-white padding-killer"><?php echo $this->lang->line('time_required'); ?></label>
 		                </div>
 		            </div>
 		            <div class="form-group">
@@ -214,15 +214,15 @@
 		                </div>
 		            </div>
 		            <div class="alert alert-success message" style="display:none;">
-		            	Prepare for the fight the Challenge made Sucessfully !!
+		            	<?php echo $this->lang->line('challenge_success_message'); ?>
 		            </div>
 		            <div class="animation_image" style="display:none" align="center">
                     	<i class="fa fa-cog fa-spin fa-2x text-white padding-killer"></i>
                 	</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Just kidding</button>
-					<button type="submit" class="btn btn-danger">Do it!</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('just_kidding'); ?></button>
+					<button type="submit" class="btn btn-danger"><?php echo $this->lang->line('do_it'); ?></button>
 				</div>
 			</form>
 		</div>

@@ -4,7 +4,7 @@
     <?php $session = $this->session->userdata('user_session'); ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title><?php echo @$page_title . ' |MYLUDOSPORT'; ?></title>
+    <title><?php echo @$page_title . ' |' . $this->config->item('app_name'); ?></title>
 
     <!-- Main CSS -->
     <link href="<?php echo CSS_URL; ?>bootstrap.min.css" rel="stylesheet">
@@ -426,10 +426,10 @@ function checkMessage(last_id){
                     <?php } ?>
                     <?php } else if($session->status == 'A' && $session->role ==6) { ?>
                     <li class="<?php echo ($page == 'history') ? 'active selected' : ''; ?>">
-                        <a href="<?php echo base_url(). 'history'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('histroy'); ?>">
+                        <a href="<?php echo base_url(). 'history'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('history'); ?>">
                             <i class="fa fa-graduation-cap icon-sidebar"></i>
                             <i class="fa fa-angle-right chevron-icon-sidebar"></i>
-                            <?php echo $this->lang->line('histroy'); ?>
+                            <?php echo $this->lang->line('history'); ?>
                         </a>
                     </li>
 

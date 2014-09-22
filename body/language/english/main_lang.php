@@ -31,6 +31,7 @@ $lang['loading'] = 'Loading';
 $lang['browse_file'] = 'Browse File';
 $lang['no'] = 'No';
 $lang['yes'] = 'Yes';
+$lang['download'] = 'Download';
 
 //Operation's Messages
 $lang['you_logged_in'] = 'You are already logged in :)';
@@ -65,6 +66,7 @@ $lang['attachment_removed'] = 'Attachment removed successfully';
 $lang['communitate_absence_success'] = 'Communicate Absence Successfully';
 $lang['email_privacy_success'] = 'Email privacy changed successfully';
 $lang['no_student_in_clan'] = 'No Student is there in your Clan';
+$lang['back_to_home'] = 'Back to Home';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';
@@ -84,9 +86,10 @@ $lang['clan'] = 'Clan';
 $lang['level'] = 'Level';
 $lang['email_template'] = 'Email Template';
 $lang['setting'] = 'Setting';
+$lang['events'] = 'Events';
 
 //Student Menu
-$lang['histroy'] = 'History';
+$lang['history'] = 'History';
 $lang['rating'] = 'Rating';
 $lang['top_10'] = 'Top 10';
 $lang['journal'] = 'Journal';
@@ -110,6 +113,15 @@ $lang['students'] = 'Students';
 $lang['languages'] = 'Languages';
 $lang['notifications'] = 'Notifications';
 $lang['today'] = 'Today';
+$lang['clan_past'] = 'Past Clan';
+$lang['clan_past_shif_on'] = 'Past Shifted Clan on';
+$lang['clan_past_shif_of'] = 'Past Shifted Clan of';
+$lang['clan_present'] = 'Present Clan';
+$lang['clan_present_shif_on'] = 'Present Shifted Clan on';
+$lang['clan_present_shif_of'] = 'Present Shifted Clan of';
+$lang['clan_future'] = 'Future Clan';
+$lang['clan_future_shif_on'] = 'Future Shifted Clan on';
+$lang['clan_future_shif_of'] = 'Future Shifted Clan of';
 
 //Pending Student
 $lang['request_for_trail_lesson'] = 'Request for Trail Lesson';
@@ -128,6 +140,10 @@ $lang['select_date_of_absence'] = 'Select date of Absence';
 $lang['recover_absence'] = 'Recover Absence';
 $lang['confirm_absence'] = 'Confirm Absence';
 $lang['select_date_for_recover'] = 'Select Date for Recover';
+$lang['degree'] = 'Degree';
+$lang['honour'] = 'Honour';
+$lang['qualification'] = 'Qualifications';
+$lang['security'] = 'Security';
 
 //Teacher Dashboard
 $lang['replace_teacher'] = 'Replace Teacher';
@@ -173,7 +189,9 @@ $lang['re_enter'] = 'Re-enter';
 $lang['full_name'] = 'Full Name';
 $lang['avtar'] = 'Avatar';
 $lang['hometown'] = 'Hometown';
-$lang['change_cover'] = 'Change Cover';
+$lang['pupil_since'] = 'Pupil Since';
+$lang['quote'] = 'Quote';
+$lang['about_me'] = 'About me';
 
 //Register
 $lang['firstname'] = 'Firstname';
@@ -260,6 +278,16 @@ $lang['filter'] = 'Filter';
 $lang['accept_as_student'] = 'Accept as Student';
 $lang['no_clan'] = 'No Clan';
 $lang['no_student'] = 'No Student';
+$lang['total'] = 'Total';
+$lang['holiday_aproval_pending'] = 'Holiday approval Pending';
+$lang['present'] = 'Present';
+$lang['absence'] = 'Absence';
+$lang['absence_recover_teacher'] = 'Absence + Recovery Teacher Assign';
+$lang['holiday_unapproved'] = 'Holiday Unapproved';
+$lang['note_mouseover_recovery_teacher_name'] = 'Mouser hover on date to see Recovery teacher name';
+$lang['note_mouseover_unapproval_reason'] = 'Mouser hover on date to see Unapproval reason';
+$lang['recover_teacher'] = 'Recovery Teacher';
+$lang['reason'] = 'Reason';
 
 //Clan Attadence
 $lang['present'] = 'Present';
@@ -314,10 +342,6 @@ $lang['select_any_student'] = 'Select any Student';
 //Batches
 $lang['batch'] = 'Badge';
 $lang['image'] = 'Image';
-$lang['degrees'] = 'Degrees';
-$lang['honors'] = 'Honors';
-$lang['qualifications'] = 'Qualifications';
-$lang['securities'] = 'Securities';
 
 //Message System
 $lang['message'] = 'Message';
@@ -334,8 +358,79 @@ $lang['discard'] = 'Discard';
 $lang['leave_group'] = 'Leave Group';
 $lang['attachmments'] = 'Attachmment(s)';
 
-//Challenges
+//Students History
+$lang['my_personal_data'] = 'MY PERSONAL DATA';
+$lang['my_duels'] = 'MY DUELS';
+$lang['clan_logs'] = 'CALN LOG';
+$lang['attended'] = 'Attended';
+$lang['missed'] = 'Missed';
+$lang['catch_up'] = 'Catch-ups';
+$lang['year_of_practice'] = 'Years of practice';
+$lang['tournaments'] = 'TOURNAMENTS';
+$lang['my_combat_style'] = 'MY COMBAT STYLES';
+$lang['timeline'] = 'TIMELINE';
+
+//Ratting
+$lang['top_10_rating'] = 'Top 10 Rating';
+$lang['rating_list'] = 'Rating List';
+$lang['xpr'] = 'XPR';
+$lang['war'] = 'WAR';
+$lang['sty'] = 'STY';
+$lang['my_academy'] = 'My Academy';
+$lang['my_school'] = 'My School';
+$lang['my_clan'] = 'My Clan';
+
+
+//Students Challenges
+$lang['challenge'] = 'Challenge';
+$lang['duel'] = 'Duel';
+$lang['duels_list'] = 'Duels List';
+$lang['duel_suggested'] = 'Duel Suggested';
+$lang['duel_recommended'] = 'Duel Recommended';
+$lang['score'] = 'Score';
+$lang['the_best'] = 'The Best';
 $lang['duel_accept'] = 'Yes, I am ready';
 $lang['duel_reject'] = 'Right now, Not interested';
 $lang['duel_result'] = 'Finally, Result comes';
+$lang['challenged_you'] = 'Challenged you';
+$lang['challenge_encourage_message'] = 'Pick the gauntlet up and prepare to fight.';
+$lang['challenge_to_duel'] = 'CHALLENGE TO A DUEL';
+$lang['write_message'] = 'WRITE MESSAGE';
+$lang['challenge_history'] = 'Challenge History';
+$lang['all'] = 'All';
+$lang['made'] = 'Made';
+$lang['received'] = 'Received';
+$lang['rejected'] = 'Rejected';
+$lang['accepted'] = 'Accepted';
+$lang['pending'] = 'Pending';
+$lang['challenge_made'] = 'Challenge Made';
+$lang['no_challenge_made'] = 'No Challenge Made';
+$lang['challenge_received'] = 'Challenge Received';
+$lang['no_challenge_received'] = 'No Challenge Received';
+$lang['challenge_rejected'] = 'Challenge Rejected';
+$lang['no_challenge_rejected'] = 'No Challenge Rejected';
+$lang['challenge_you'] = 'You';
+$lang['challenge_opponent'] = 'Opponent';
+$lang['winner'] = 'Winner';
+$lang['result_of_fight'] = 'Result of fight';
+$lang['blind'] = 'Blind';
+$lang['duel_logs'] = 'Duel Logs';
+$lang['victories'] = 'Victories';
+$lang['my_last_victoreis'] = 'MY LAST VICTORIES';
+$lang['no_victories'] = 'No Victories';
+$lang['defeats'] = 'Defeats';
+$lang['my_last_defeats'] = 'MY LAST DEFEATS';
+$lang['no_defeats'] = 'No Defeats';
+$lang['before_me'] = 'before me';
+$lang['after_me'] = 'after me';
+$lang['statistics'] = 'STATISTICS';
+$lang['top'] = 'Top';
+$lang['prepare_to_fight'] = 'Prepare to fight!';
+$lang['date_required'] = ' * Date is required.';
+$lang['time_required'] = ' * Time is required.';
+$lang['challenge_success_message'] = 'Prepare for the fight the Challenge made Sucessfully !!';
+$lang['just_kidding'] = 'Just kidding';
+$lang['do_it'] = 'Do it!';
+$lang['time'] = 'Time';
+$lang['place'] = 'Place';
 ?>

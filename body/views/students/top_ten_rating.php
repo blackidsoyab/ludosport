@@ -20,9 +20,9 @@
 			<div class="panel with-nav-tabs panel-warning">
 				<div class="panel-heading">
 					<ul class="nav nav-tabs">
-						<li class="active"><a href="#tab-xp" data-toggle="tab">XP</a></li>
-						<li><a href="#tab-war" data-toggle="tab">WAR</a></li>
-						<li><a href="#tab-style" data-toggle="tab">STYLE</a></li>
+						<li class="active"><a href="#tab-xp" data-toggle="tab"><?php echo $this->lang->line('xpr'); ?></a></li>
+						<li><a href="#tab-war" data-toggle="tab"><?php echo $this->lang->line('war'); ?></a></li>
+						<li><a href="#tab-style" data-toggle="tab"><?php echo $this->lang->line('sty'); ?></a></li>
 
 					</ul>
 				</div>
@@ -34,11 +34,11 @@
 									<table class="table table-th-block margin-bottom-killer">
 										<thead>
 											<tr>
-												<th width="5%">No</th>
-												<th width="55%">Full name</th>
-												<th width="15%">Score</th>
-												<th width="15%">Academy</th>
-												<th width="15%">School</th>
+												<th width="5%"><?php echo $this->lang->line('no'); ?></th>
+												<th width="55%"><?php echo $this->lang->line('name'); ?></th>
+												<th width="15%"><?php echo $this->lang->line('score'); ?></th>
+												<th width="15%"><?php echo $this->lang->line('academy'); ?></th>
+												<th width="15%"><?php echo $this->lang->line('school'); ?></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -64,11 +64,11 @@
 									<table class="table table-th-block margin-bottom-killer">
 										<thead>
 											<tr>
-												<th width="5%">No</th>
-												<th width="55%">Full name</th>
-												<th width="15%">Score</th>
-												<th width="15%">Academy</th>
-												<th width="15%">School</th>
+												<th width="5%"><?php echo $this->lang->line('no'); ?></th>
+												<th width="55%"><?php echo $this->lang->line('name'); ?></th>
+												<th width="15%"><?php echo $this->lang->line('score'); ?></th>
+												<th width="15%"><?php echo $this->lang->line('academy'); ?></th>
+												<th width="15%"><?php echo $this->lang->line('school'); ?></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -94,11 +94,11 @@
 									<table class="table table-th-block margin-bottom-killer">
 										<thead>
 											<tr>
-												<th width="5%">No</th>
-												<th width="55%">Full name</th>
-												<th width="15%">Score</th>
-												<th width="15%">Academy</th>
-												<th width="15%">School</th>
+												<th width="5%"><?php echo $this->lang->line('no'); ?></th>
+												<th width="55%"><?php echo $this->lang->line('name'); ?></th>
+												<th width="15%"><?php echo $this->lang->line('score'); ?></th>
+												<th width="15%"><?php echo $this->lang->line('academy'); ?></th>
+												<th width="15%"><?php echo $this->lang->line('school'); ?></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -120,7 +120,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="panel-footer">More</div>
+					<div class="panel-footer"><?php echo $this->lang->line('see_all'); ?></div>
 				</div>
 			</div>
 		</div>
@@ -129,9 +129,9 @@
 			<div class="panel with-nav-tabs panel-warning">
 				<div class="panel-heading">
 					<ul class="nav nav-tabs">
-						<li class="active"><a href="#tab-my-academy" data-toggle="tab">MY ACADEMY</a></li>
-						<li><a href="#tab-my-school" data-toggle="tab">MY SCHOOL</a></li>
-						<li><a href="#tab-my-clan" data-toggle="tab">MY CLAN</a></li>
+						<li class="active"><a href="#tab-my-academy" data-toggle="tab"><?php echo $this->lang->line('my_academy'); ?></a></li>
+						<li><a href="#tab-my-school" data-toggle="tab"><?php echo $this->lang->line('my_school'); ?></a></li>
+						<li><a href="#tab-my-clan" data-toggle="tab"><?php echo $this->lang->line('my_clan'); ?></a></li>
 
 					</ul>
 				</div>
@@ -143,11 +143,11 @@
 									<table class="table table-th-block margin-bottom-killer">
 										<thead>
 											<tr>
-												<th width="5%">No</th>
-												<th width="55%">Full name</th>
-												<th width="15%">Score</th>
-												<th width="15%">School</th>
-												<th width="15%">Clan</th>
+												<th width="5%"><?php echo $this->lang->line('no'); ?></th>
+												<th><?php echo $this->lang->line('name'); ?></th>
+												<th width="15%"><?php echo $this->lang->line('score'); ?></th>
+												<th width="15%"><?php echo $this->lang->line('school'); ?></th>
+												<th width="15%"><?php echo $this->lang->line('clan'); ?></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -173,10 +173,10 @@
 									<table class="table table-th-block margin-bottom-killer">
 										<thead>
 											<tr>
-												<th width="5%">No</th>
-												<th>Full name</th>
-												<th width="15%">Score</th>
-												<th width="15%">Clan</th>
+												<th width="5%"><?php echo $this->lang->line('no'); ?></th>
+												<th><?php echo $this->lang->line('name'); ?></th>
+												<th width="20%"><?php echo $this->lang->line('score'); ?></th>
+												<th width="20%"><?php echo $this->lang->line('clan'); ?></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -201,9 +201,9 @@
 									<table class="table table-th-block margin-bottom-killer">
 										<thead>
 											<tr>
-												<th width="5%">No</th>
-												<th>Full name</th>
-												<th width="15%">Score</th>
+												<th width="5%"><?php echo $this->lang->line('no'); ?></th>
+												<th><?php echo $this->lang->line('name'); ?></th>
+												<th width="15%"><?php echo $this->lang->line('score'); ?></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -223,7 +223,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="panel-footer">More</div>
+					<div class="panel-footer"><?php echo $this->lang->line('see_all'); ?></div>
 				</div>
 			</div>
 		</div>
@@ -231,7 +231,7 @@
 		<?php if($top_ten_users != false){ ?>
             <div class="col-lg-12">
                 <div class="the-box no-border">
-                    <h4 class="small-heading more-margin-bottom text-black text-center">The best <?php echo count($top_ten_users)?></h4>
+                    <h4 class="small-heading more-margin-bottom text-black text-center"><?php echo $this->lang->line('the_best'),' ',count($top_ten_users)?></h4>
                     <div id="store-item-carousel-1" class="owl-carousel shop-carousel owl-theme">
                     <?php 
                         $count = 0;

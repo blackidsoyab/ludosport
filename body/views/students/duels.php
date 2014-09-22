@@ -1,9 +1,12 @@
 <?php $session = $this->session->userdata('user_session'); ?>
+
 <link href="<?php echo PLUGIN_URL .'morris-chart/morris.min.css'; ?>" rel="stylesheet">
+
 <style>
 	.datepicker{z-index:9999 !important;}
 	.bootstrap-timepicker-widget{z-index:9999 !important;}
 </style>
+
 <script type="text/javascript">
     $(document).ready(function(){
         if ($('#tiles-slide-2').length > 0){
@@ -24,7 +27,7 @@
 		  data: <?php echo $statistics_challenge; ?>,
 		  xkey: "year",
 		  ykeys: ['victories', 'defeats'],
-		  labels: ['Victories', 'Defeats'],
+		  labels: ["<?php echo $this->lang->line('victories'); ?>","<?php echo $this->lang->line('defeats'); ?>"],
 		  resize: true,
 		  lineColors: ['#8CC152', '#E9573F']
 		});
@@ -124,34 +127,34 @@
     });
 </script>
 
-<h1 class="page-heading h1"><?php echo $this->lang->line('duels'); ?></h1>
+<h1 class="page-heading h1"><?php echo $this->lang->line('duel'); ?></h1>
 
 <div class="row">
 	<div class="col-lg-4">
 		<div class="the-box no-border card-info text-center">
-			<h4 class="bolded">Duel Suggested</h4>
+			<h4 class="bolded"><?php echo $this->lang->line('duel_suggested'); ?></h4>
 			<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$suggested_user->avtar; ?>" class="social-avatar has-margin has-dark-shadow img-circle" alt="Avatar">
 	  		<h3 class="bolded padding-killer"><?php echo @$suggested_user->name; ?></h3>
 			<div class="row">
 				<div class="col-xs-6">
-					<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $suggested_user->id; ?>"><i class="fa fa-user"></i>Challenge!</button>
+					<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $suggested_user->id; ?>"><i class="fa fa-user"></i><?php echo $this->lang->line('challenge'); ?></button>
 				</div>
 				<div class="col-xs-6">
-					<button class="btn btn-warning btn-block"><i class="fa fa-envelope"></i>Message</button>
+					<button class="btn btn-warning btn-block"><i class="fa fa-envelope"></i><?php echo $this->lang->line('message'); ?></button>
 				</div>
 			</div>
 		</div>
 
 		<div class="the-box no-border card-info text-center">
-			<h4 class="bolded">Duel Recommended</h4>
+			<h4 class="bolded"><?php echo $this->lang->line('duel_recommended'); ?></h4>
 			<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$recommended_user->avtar; ?>" class="social-avatar has-margin has-dark-shadow img-circle" alt="Avatar">
 	  		<h3 class="bolded padding-killer"><?php echo @$recommended_user->name; ?></h3>
 			<div class="row">
 				<div class="col-xs-6">
-					<button class="btn btn-warning btn-block"><i class="fa fa-list icon-sidebar"></i> View Rating</button>
+					<button class="btn btn-warning btn-block"><i class="fa fa-list icon-sidebar"></i> <?php echo $this->lang->line('view'),' ', $this->lang->line('ratting'); ?></button>
 				</div>
 				<div class="col-xs-6">
-					<button class="btn btn-warning btn-block" data-userid="<?php echo $recommended_user->id; ?>" data-toggle="modal" data-target="#do_duel_box"><i class="fa fa-user"></i>Blind</button>
+					<button class="btn btn-warning btn-block" data-userid="<?php echo $recommended_user->id; ?>" data-toggle="modal" data-target="#do_duel_box"><i class="fa fa-user"></i><?php echo $this->lang->line('blind'); ?></button>
 				</div>
 			</div>
 		</div>
@@ -163,7 +166,7 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<a class="block-collapse collapsed" data-parent="#challenges" data-toggle="collapse" href="#challenges-recived">
-							Challenges recieved
+							<?php echo $this->lang->line('challenge_received'); ?>
 							<span class="right-content">
 							<span class="right-icon"><i class="glyphicon glyphicon-plus icon-collapse"></i></span>
 							</span>
@@ -198,7 +201,7 @@
 								</div>
 								<hr class="margin-killer"/>
 		                	<?php } ?>
-	                	<?php } else { echo '<strong>No Challenges recieved</strong>'; } ?>
+	                	<?php } else { echo '<strong>'. $this->lang->line('no_challenge_received') .'</strong>'; } ?>
 					</div>
 
 					<div class="panel-footer no-border padding-killer">
@@ -211,7 +214,7 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<a class="block-collapse collapsed" data-parent="#challenges" data-toggle="collapse" href="#challenges-made">
-							Challenges made
+							<?php echo $this->lang->line('challenge_made'); ?>
 							<span class="right-content">
 							<span class="right-icon"><i class="glyphicon glyphicon-plus icon-collapse"></i></span>
 							</span>
@@ -246,7 +249,7 @@
 								</div>
 								<hr class="margin-killer"/>
 		                	<?php } ?>
-		                <?php } else { echo '<strong>No Challenges made</strong>'; } ?>
+		                <?php } else { echo '<strong>'. $this->lang->line('no_challenge_made') .'</strong>'; } ?>
 					</div>
 
 					<div class="panel-footer no-border padding-killer">
@@ -259,7 +262,7 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<a class="block-collapse collapsed" data-parent="#challenges" data-toggle="collapse" href="#challenges-rejected">
-							Challenges rejected
+							<?php echo $this->lang->line('challenge_rejected'); ?>
 							<span class="right-content">
 							<span class="right-icon"><i class="glyphicon glyphicon-plus icon-collapse"></i></span>
 							</span>
@@ -306,7 +309,7 @@
 								</div>
 								<hr class="margin-killer"/>
 		                	<?php } ?>
-		                <?php } else { echo '<strong>No Challenges rejected</strong>'; } ?>
+		                <?php } else { echo '<strong>'. $this->lang->line('no_challenge_rejected') .'</strong>'; } ?>
 					</div>
 
 					<div class="panel-footer no-border padding-killer">
@@ -318,7 +321,7 @@
 
 		<div class="the-box no-border full">
 			<div class="the-box no-border bg-danger no-margin">
-				<h4 class="text-white padding-killer">DUELS LOG</h4>
+				<h4 class="text-white padding-killer"><?php echo $this->lang->line('duel_logs'); ?></h4>
 				<hr>
 				<div id="tiles-slide-2" class="owl-carousel my-reminder">
 					<?php if($duel_logs != false){ ?>
@@ -363,13 +366,15 @@
 	                    </p>
 	                <?php } ?>
 
-	                <?php if(!is_null($topper_batch_image)) { ?>
+	                <?php if(!is_null($batch_image)) { ?>
 	                    <p class="social-icon">
-	                        <img src="<?php echo $topper_batch_image; ?>" width="40" height="40" alt="<?php echo $topper_batch_detail->{$session->language.'_name'}; ?>" data-toggle="tooltip" data-original-title="<?php echo $topper_batch_detail->{$session->language.'_name'}; ?>">
+	                        <?php foreach ($batch_image as $image) { ?>
+	                            <img src="<?php echo $image['image']; ?>" width="40" height="40" alt="<?php echo $image['name']; ?>" data-toggle="tooltip" data-original-title="<?php echo $image['name']; ?>">
+	                        <?php } ?>
 	                    </p>
 	                <?php } ?>
 	            </div>
-	            <button class="btn btn-warning btn-block btn-lg btn-square">Score : <?php echo @$topper_userdetail->total_score; ?></button>
+	            <button class="btn btn-warning btn-block btn-lg btn-square"><?php echo $this->lang->line('score'); ?> : <?php echo @$topper_userdetail->total_score; ?></button>
 	        </div>
 	    </div>
 	</div>
@@ -382,7 +387,7 @@
 				<div class="right-content">
 					<button class="btn btn-success btn-sm to-collapse" data-toggle="collapse" data-target="#my_last_victories"><i class="fa fa-chevron-up"></i></button>
 				</div>
-				<h4 class="panel-title"><i class="fa fa-arrow-circle-o-up"></i> MY LAST VICTORIES</h4>
+				<h4 class="panel-title"><i class="fa fa-arrow-circle-o-up"></i> <?php echo $this->lang->line('my_last_victoreis'); ?></h4>
 			</div>
 			<div id="my_last_victories" class="collapse in" style="height: auto;">
 				<div class="panel-body">
@@ -410,13 +415,13 @@
 									<a href="<?php echo base_url() .'profile/view' . $victory_id; ?>">
 										<h4 class="media-heading"><?php echo @$victory_name; ?></h4>
 									</a>
-									<p class="text-danger">Score: <strong><?php echo @$victory_total_score; ?></strong></p>
+									<p class="text-danger"><?php echo $this->lang->line('score'); ?>: <strong><?php echo @$victory_total_score; ?></strong></p>
 								</div>
 							</li>
 						<?php } ?>
 					</ul>
 				<a href="<?php echo base_url() .'duels/view/wins'; ?>" class="btn btn-success btn-block"><?php echo $this->lang->line('see_all'); ?></a>
-				<?php } else { echo "No Victories"; }?>
+				<?php } else { echo  $this->lang->line('no_victories') ; }?>
 				</div>
 			</div>
 		</div>
@@ -428,7 +433,7 @@
 				<div class="right-content">
 					<button class="btn btn-danger btn-sm to-collapse" data-toggle="collapse" data-target="#my_last_defeats"><i class="fa fa-chevron-up"></i></button>
 				</div>
-				<h4 class="panel-title"><i class="fa fa-arrow-circle-o-up"></i>  MY LAST DEFEATS</h4>
+				<h4 class="panel-title"><i class="fa fa-arrow-circle-o-up"></i> <?php echo $this->lang->line('my_last_defeats'); ?></h4>
 			</div>
 			<div id="my_last_defeats" class="collapse in" style="height: auto;">
 				<div class="panel-body">
@@ -455,37 +460,37 @@
 									<a href="<?php echo base_url() .'profile/view' . $defeat_id; ?>">
 										<h4 class="media-heading"><?php echo @$defeat_name; ?></h4>
 									</a>
-									<p class="text-danger">Score: <strong><strong><?php echo @$defeat_total_score; ?></strong></strong></p>
+									<p class="text-danger"><?php echo $this->lang->line('score'); ?>: <strong><strong><?php echo @$defeat_total_score; ?></strong></strong></p>
 								</div>
 							</li>
 						<?php } ?>
 					</ul>
 					<a href="<?php echo base_url() .'duels/view/defeats'; ?>" class="btn btn-danger btn-block"><?php echo $this->lang->line('see_all'); ?></a>
-				<?php } else { echo "No Defeats"; }?>
+				<?php } else { echo  $this->lang->line('no_defeats') ; }?>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="col-lg-4">
-		<?php if($four_before_me_users != false || $four_after_me_users != false) { ?>
+		<?php if($before_me_users != false || $after_me_users != false) { ?>
 			<div class="the-box bg-dark no-border text-center more-padding">
-				<?php if($four_before_me_users != false){ 
-					krsort($four_before_me_users);
+				<?php if($before_me_users != false){ 
+					krsort($before_me_users);
 				?>
-					<h4 class="text-white padding-killer">The <?php echo strtolower(convertNumber2Words(count($four_before_me_users))); ?> before me</h4><br />
+					<h4 class="text-white padding-killer"><?php echo ucwords(convertNumber2Words(count($before_me_users))),' ', $this->lang->line('before_me')  ?></h4><br />
 					<div class="row">
-						<?php foreach ($four_before_me_users as $before_key => $before_value) { ?>
+						<?php foreach ($before_me_users as $before_key => $before_value) { ?>
 							<div class="col-xs-3">
 								<p><a href="<?php echo base_url() . 'profile/view/'. $before_value->id ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $before_value->name; ?>"><img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$before_value->avtar; ?>" class="img-responsive img-circle" alt="Avatar"></a></p>
 							</div>
 						<?php } ?>
 					</div>
 				<?php } else { /*echo '<h4 class="text-white margin-killer">You are First, Congrulations</h4>';*/ } ?>
-				<?php if($four_after_me_users != false){ ?>	
-					<h4 class="text-white padding-killer">The <?php echo strtolower(convertNumber2Words(count($four_after_me_users))); ?> after me</h4><br />
+				<?php if($after_me_users != false){ ?>	
+					<h4 class="text-white padding-killer"><?php echo ucwords(convertNumber2Words(count($after_me_users))),' ', $this->lang->line('after_me')  ?></h4><br />
 					<div class="row">
-						<?php foreach ($four_after_me_users as $after_key => $after_value) { ?>
+						<?php foreach ($after_me_users as $after_key => $after_value) { ?>
 							<div class="col-xs-3">
 								<p><a href="<?php echo base_url() . 'profile/view/'. $after_value->id ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $after_value->name; ?>"><img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$after_value->avtar; ?>" class="img-responsive img-circle" alt="Avatar"></a></p>
 							</div>
@@ -500,7 +505,7 @@
 <div class="row">
 	<div class="col-lg-8">
 		<div class="the-box">
-			<h4 class="small-title">STATISTICS</h4>
+			<h4 class="small-title"><?php echo $this->lang->line('statistics'); ?></h4>
 			<div id="statistics-challenge"></div>
 		</div>
 	</div>
@@ -512,7 +517,7 @@
 					<div class="right-content">
 						<button class="btn btn-success btn-sm to-collapse" data-toggle="collapse" data-target="#top-five-users"><i class="fa fa-chevron-up"></i></button>
 					</div>
-					<h4 class="panel-title"><i class="fa fa-users"></i> Top 5</h4>
+					<h4 class="panel-title"><i class="fa fa-users"></i> <?php echo $this->lang->line('top'); ?> 5</h4>
 				</div>
 				<div id="top-five-users" class="collapse in">
                 	<?php foreach ($top_five_users as $top_five_key => $top_five_value) { ?>
@@ -525,14 +530,14 @@
 											<strong><?php echo $top_five_value->name; ?></strong>
 										</a>
 									</h5>
-									<p class="small text-muted margin-killer">Score : <?php echo @$top_five_value->total_score; ?></p>
+									<p class="small text-muted margin-killer"><?php echo $this->lang->line('score'); ?> : <?php echo @$top_five_value->total_score; ?></p>
 									<p class="small text-muted margin-killer"><?php echo @$top_five_value->academy; ?></p>
 		                        </div>
 		                        <div class="right-button">
 		                        	<?php $check = Challenge::isRequestedBefore($session->id, $top_five_value->id);
 		                        		if(!$check){
 		                        	?>
-		                            	<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $top_five_value->id; ?>">&nbsp;Challenge!&nbsp;</button>
+		                            	<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $top_five_value->id; ?>">&nbsp;<?php echo $this->lang->line('challenge'); ?>&nbsp;</button>
 		                            <?php } ?>
 		                        </div>
                     		</div>
@@ -550,7 +555,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content modal-no-shadow modal-no-border bg-danger">
 			<div class="modal-header">
-				<h4 class="modal-title text-white padding-killer">Prepare to fight!</h4>
+				<h4 class="modal-title text-white padding-killer"><?php echo $this->lang->line('prepare_to_fight'); ?></h4>
 			</div>
 			<form id="duel_date_time" method="post" class="form-horizontal" action="<?php echo  base_url(). "duels/do_it"; ?>">
 				<input type="hidden" name="from_id" value="<?php echo $session->id; ?>">
@@ -567,7 +572,7 @@
 	            	<div class="form-group" id="date_error" style="display:none">
 		                <label class="col-lg-3 control-label">&nbsp;</label>
 		                <div class="col-lg-5">
-		                    <label for="date" class="error text-white padding-killer"> * Date is required.</label>
+		                    <label for="date" class="error text-white padding-killer"><?php echo $this->lang->line('date_required'); ?></label>
 		                </div>
 		            </div>
 		            <div class="form-group">
@@ -581,7 +586,7 @@
 		            <div class="form-group" id="time_error" style="display:none">
 		                <label class="col-lg-3 control-label">&nbsp;</label>
 		                <div class="col-lg-5">
-		                    <label for="date" class="error text-white padding-killer"> * Time is required.</label>
+		                    <label for="date" class="error text-white padding-killer"><?php echo $this->lang->line('time_required'); ?></label>
 		                </div>
 		            </div>
 		            <div class="form-group">
@@ -593,15 +598,15 @@
 		                </div>
 		            </div>
 		            <div class="alert alert-success message" style="display:none;">
-		            	Prepare for the fight the Challenge made Sucessfully !!
+		            	<?php echo $this->lang->line('challenge_success_message'); ?>
 		            </div>
 		            <div class="animation_image" style="display:none" align="center">
                     	<i class="fa fa-cog fa-spin fa-2x text-white padding-killer"></i>
                 	</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Just kidding</button>
-					<button type="submit" class="btn btn-danger">Do it!</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('just_kidding'); ?></button>
+					<button type="submit" class="btn btn-danger"><?php echo $this->lang->line('do_it'); ?></button>
 				</div>
 			</form>
 		</div>

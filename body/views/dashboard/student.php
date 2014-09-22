@@ -51,9 +51,9 @@
                                 </div>
                             </div>
                             <div class="des">
-                                <h4 class="bolded"><a href="#fakelink">Challenged you!</a></h4>
-                                <p class="small">Pick the gauntlet up and prepare to fight.</p>
-                                <a href="<?php echo base_url() .'duels/single/' . $received->id; ?>" class="btn btn-warning btn-sm">Accept the duel</a>
+                                <h4 class="bolded"><a href="#fakelink"><?php echo $this->lang->line('challenged_you'); ?></a></h4>
+                                <p class="small"><?php echo $this->lang->line('challenge_encourage_message'); ?></p>
+                                <a href="<?php echo base_url() .'duels/single/' . $received->id; ?>" class="btn btn-warning btn-sm"><?php echo $this->lang->line('view'), ' ', $this->lang->line('duel'); ?></a>
                             </div>
                         </div>
                     <?php } ?>
@@ -63,10 +63,10 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <a href="<?php echo base_url() .'duels'; ?>" class="btn btn-block btn-danger"><i class="fa fa-cogs"></i> -CHALLENGE TO A DUEL!- </a>
+                <a href="<?php echo base_url() .'duels'; ?>" class="btn btn-block btn-danger"><i class="fa fa-cogs"></i><?php echo $this->lang->line('challenge_to_duel'); ?></a>
             </div>
             <div class="col-sm-6">
-                <a href="<?php echo base_url() .'message/compose'; ?>" class="btn btn-block btn-info"><i class="fa fa-cogs"></i> -WRITE MESSAGE- </a>
+                <a href="<?php echo base_url() .'message/compose'; ?>" class="btn btn-block btn-info"><i class="fa fa-cogs"></i><?php echo $this->lang->line('write_message'); ?></a>
             </div>
         </div>
     </div>
@@ -81,7 +81,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="the-box no-border">
-                    <h4 class="small-heading more-margin-bottom text-black text-center">The best <?php echo count($top_ten_users)?></h4>
+                    <h4 class="small-heading more-margin-bottom text-black text-center"><?php echo $this->lang->line('the_best'),' ',count($top_ten_users)?></h4>
                     <div id="store-item-carousel-1" class="owl-carousel shop-carousel owl-theme">
                     <?php 
                         $count = 0;
@@ -142,7 +142,7 @@
                     </p>
                 <?php } ?>
             </div>
-            <button class="btn btn-warning btn-block btn-lg btn-square">Score. <?php echo $userdetail->total_score; ?></button>
+            <button class="btn btn-warning btn-block btn-lg btn-square"><?php echo $this->lang->line('score'); ?>. <?php echo $userdetail->total_score; ?></button>
         </div>
     </div>
 </div>

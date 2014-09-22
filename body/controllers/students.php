@@ -9,7 +9,7 @@ class students extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->layout->setField('page_title', $this->lang->line('duel'));
+        $this->layout->setField('page_title', $this->config->item('app_name'));
         $this->session_data = $this->session->userdata('user_session');
 
         if($this->session_data->role != 6){
@@ -265,9 +265,43 @@ class students extends CI_Controller {
         
         $data['topper'] = $topper[0];
         $data['topper_userdetail'] = $userdetail->where('student_master_id', $topper[0]->id)->get();
-        $batch = new Batch();
-        $data['topper_batch_detail'] = $batch->where('id', $userdetail->degree_id)->get();
-        $data['topper_batch_image'] = IMG_URL .'batches/'. $data['topper_batch_detail']->image;
+
+        if($data['topper_userdetail']->degree_id != 0) {
+            $degree_batch = new Batch();
+            $degree_batch->where('id', $data['topper_userdetail']->degree_id)->get();
+            $temp = array();
+            $temp['image'] = IMG_URL .'batches/'. $degree_batch->image;
+            $temp['name'] = $degree_batch->{$this->session_data->language.'_name'};
+            $data['batch_image'][] = $temp;
+        }
+
+        if($data['topper_userdetail']->honor_id != 0) {
+            $honor_batch = new Batch();
+            $honor_batch->where('id', $data['topper_userdetail']->honor_id)->get();
+            $temp = array();
+            $temp['image'] = IMG_URL .'batches/'. $honor_batch->image;
+            $temp['name'] = $honor_batch->{$this->session_data->language.'_name'};
+            $data['batch_image'][] = $temp;
+        }
+
+        if($data['topper_userdetail']->qualification_id != 0) {
+            $qualification_batch = new Batch();
+            $qualification_batch->where('id', $data['topper_userdetail']->qualification_id)->get();
+            $temp = array();
+            $temp['image'] = IMG_URL .'batches/'. $qualification_batch->image;
+            $temp['name'] = $qualification_batch->{$this->session_data->language.'_name'};
+            $data['batch_image'][] = $temp;
+        }
+
+        if($data['topper_userdetail']->security_id != 0) {
+            $security_batch = new Batch();
+            $security_batch->where('id', $data['topper_userdetail']->security_id)->get();
+            $temp = array();
+            $temp['image'] = IMG_URL .'batches/'. $security_batch->image;
+            $temp['name'] = $security_batch->{$this->session_data->language.'_name'};
+            $data['batch_image'][] = $temp;
+        }
+
         $clan = new Clan($data['topper_userdetail']->clan_id);
         $data['topper_ac_sc_clan_name'] = $clan->School->Academy->{$this->session_data->language.'_academy_name'} .'<br />'. $clan->School->{$this->session_data->language.'_school_name'} .'<br />'. $clan->{$this->session_data->language.'_class_name'};
 
@@ -300,11 +334,11 @@ class students extends CI_Controller {
         $userdetail = new Userdetail();
         $userdetail->where('student_master_id', $this->session_data->id)->get();
 
-        //Four Before Me
-        $data['four_before_me_users'] = $userdetail->userDetailsBeforeAfterMe($userdetail->student_master_id, $userdetail->total_score, 'before', null, 4);
+        //Before Me
+        $data['before_me_users'] = $userdetail->userDetailsBeforeAfterMe($userdetail->student_master_id, $userdetail->total_score, 'before', null, 4);
        
-        //Four After Me
-        $data['four_after_me_users'] = $userdetail->userDetailsBeforeAfterMe($userdetail->student_master_id, $userdetail->total_score, 'after', null, 4);
+        //After Me
+        $data['after_me_users'] = $userdetail->userDetailsBeforeAfterMe($userdetail->student_master_id, $userdetail->total_score, 'after', null, 4);
 
         //Statistics Challenge
         unset($challenge);
@@ -501,6 +535,8 @@ class students extends CI_Controller {
             redirect(base_url(). 'duels/single/' . $id, 'refresh');
         }
         else{
+            $this->layout->setField('page_title', $this->lang->line('duel'));
+
             $challenge = new Challenge();
             $single = $challenge->getSingleChallengeDetails($id);
 
@@ -553,9 +589,9 @@ class students extends CI_Controller {
                 }
             } else if($single[0]->result_status == 'MP'){
                 if($single[0]->result == $this->session_data->id) {
-                    $winner = 'You';
+                    $winner = $this->lang->line('challenge_you');
                 }else{
-                    $winner = 'Opponent';
+                    $winner = $this->lang->line('challenge_opponent');
                 }
                 $data['status'] = '<h2 class="text-white text-center bg-success">'.$this->lang->line('winner') .' : '. $winner .'</h2>';
             } else {
@@ -567,10 +603,47 @@ class students extends CI_Controller {
             $data['challenge_user'] = $challenge_user->where('id', $user_id)->get();
             $userdetail = new Userdetail();
             $data['challenge_userdetail'] = $userdetail->where('student_master_id', $user_id)->get();
-            $data['challenge_user_batch_detail'] = $userdetail->Batch;
-            $data['challenge_user_batch_image'] = IMG_URL .'batches/'. $data['challenge_user_batch_detail']->image;
+
+            if($userdetail->degree_id != 0) {
+                $degree_batch = new Batch();
+                $degree_batch->where('id', $userdetail->degree_id)->get();
+                $temp = array();
+                $temp['image'] = IMG_URL .'batches/'. $degree_batch->image;
+                $temp['name'] = $degree_batch->{$this->session_data->language.'_name'};
+                $data['batch_image'][] = $temp;
+            }
+
+            if($userdetail->honor_id != 0) {
+                $honor_batch = new Batch();
+                $honor_batch->where('id', $userdetail->honor_id)->get();
+                $temp = array();
+                $temp['image'] = IMG_URL .'batches/'. $honor_batch->image;
+                $temp['name'] = $honor_batch->{$this->session_data->language.'_name'};
+                $data['batch_image'][] = $temp;
+            }
+
+            if($userdetail->qualification_id != 0) {
+                $qualification_batch = new Batch();
+                $qualification_batch->where('id', $userdetail->qualification_id)->get();
+                $temp = array();
+                $temp['image'] = IMG_URL .'batches/'. $qualification_batch->image;
+                $temp['name'] = $qualification_batch->{$this->session_data->language.'_name'};
+                $data['batch_image'][] = $temp;
+            }
+
+            if($userdetail->security_id != 0) {
+                $security_batch = new Batch();
+                $security_batch->where('id', $userdetail->security_id)->get();
+                $temp = array();
+                $temp['image'] = IMG_URL .'batches/'. $security_batch->image;
+                $temp['name'] = $security_batch->{$this->session_data->language.'_name'};
+                $data['batch_image'][] = $temp;
+            }
+
+            $batch = new Batch();
+            $data['challenge_user_batch_image'] = $batch->where('id', $userdetail->degree_id)->get();
             $clan = new Clan($data['challenge_userdetail']->clan_id);
-            $data['challenge_user_ac_sc_clan_name'] =  $clan->School->Academy->{$this->session_data->language.'_academy_name'}.'<br />'. $clan->School->{$this->session_data->language.'_school_name'}.'<br />'. $clan->{$this->session_data->language.'_class_name'}; 
+            $data['challenge_user_ac_sc_clan_name'] =  $clan->School->Academy->{$this->session_data->language.'_academy_name'}.'<br />'. $clan->School->{$this->session_data->language.'_school_name'}.'<br />'. $clan->{$this->session_data->language.'_class_name'};
 
             $this->layout->view('students/duel_single', $data);
         }

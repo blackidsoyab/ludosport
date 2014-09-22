@@ -774,19 +774,19 @@ class json extends CI_Controller {
             $temp_arr[] = ucwords($aRow[$this->session_data->language . '_name']);
 
             if ($aRow['type'] == 'D') {
-                $temp_arr[] = '<span class="label label-info">' . $this->lang->line('degrees') . '</span>';
+                $temp_arr[] = '<span class="label label-info">' . $this->lang->line('degree') . '</span>';
             }
 
             if ($aRow['type'] == 'H') {
-                $temp_arr[] = '<span class="label label-success">' . $this->lang->line('honors') . '</span>';
+                $temp_arr[] = '<span class="label label-success">' . $this->lang->line('honor') . '</span>';
             }
 
             if ($aRow['type'] == 'Q') {
-                $temp_arr[] = '<span class="label label-warning">' . $this->lang->line('qualifications') . '</span>';
+                $temp_arr[] = '<span class="label label-warning">' . $this->lang->line('qualification') . '</span>';
             }
 
             if ($aRow['type'] == 'S') {
-                $temp_arr[] = '<span class="label label-danger">' . $this->lang->line('securities') . '</span>';
+                $temp_arr[] = '<span class="label label-danger">' . $this->lang->line('security') . '</span>';
             }
 
             $temp_arr[] = '<img src="' . IMG_URL . 'batches/' . $aRow['image'] . '" class="avatar" alt="Batch">';

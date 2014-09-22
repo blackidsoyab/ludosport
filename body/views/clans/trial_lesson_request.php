@@ -44,7 +44,7 @@ if(!is_null($clan_details)){
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="5"><i>Loading...</i></td>
+                    <td colspan="5"><i><?php echo $this->lang->line('loading'); ?>...</i></td>
                 </tr>
             </tbody>
         </table>
