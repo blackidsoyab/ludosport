@@ -47,7 +47,25 @@ class profiles extends CI_Controller {
                 $data['ac_sc_clan_name'] = $clan->School->Academy->{$this->session_data->language.'_academy_name'} .', '. $clan->School->{$this->session_data->language.'_school_name'} .', '. $clan->{$this->session_data->language.'_class_name'};
             }else{
                 $data['ac_sc_clan_name'] = null;
-            }   
+            }
+
+            $challenge = new Challenge();
+            $total_win_defeats = (int)$challenge->countVictories($this->session_data->id) + (int)$challenge->countDefeats($this->session_data->id);
+            $data['total_victories'] = (int)$challenge->countVictories($id);
+            if($total_win_defeats != 0){
+                $data['victories_percentage'] = round(($data['total_victories'] * 100 ) / $total_win_defeats, 2);
+            }
+            $data['total_defeats'] = (int)$challenge->countDefeats($id);
+            $data['total_made'] = (int)$challenge->CountChallenges($id, 'made');
+            $data['total_received'] = (int)$challenge->CountChallenges($id, 'received');
+
+            //Student Attendance
+        $obj_attendance = new Attendance();
+        $total_attendance = (int)$obj_attendance->getTotalAttendance($this->session_data->id);
+        if($total_attendance != 0){
+            $data['attendance_percentage'] = round(((int)$obj_attendance->getTotalAttendance($this->session_data->id, 'present') * 100 ) / $total_attendance, 2);
+        }
+
         } else {
             $data['ac_sc_clan_name'] = null;
             $data['batch_detail'] = null;

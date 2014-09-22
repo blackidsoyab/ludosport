@@ -27,7 +27,6 @@
 
 <h1 class="page-heading"><?php echo $this->lang->line('dashboard'); ?></h1>
  
-
 <div class="col-lg-8">
     <div class="the-box">
         <div class="blog-detail-image">
@@ -137,7 +136,9 @@
 
                 <?php if(!is_null($batch_image)) { ?>
                     <p class="social-icon">
-                        <img src="<?php echo $batch_image; ?>" width="40" height="40" alt="<?php echo $batch_detail->{$session->language.'_name'}; ?>" data-toggle="tooltip" data-original-title="<?php echo $batch_detail->{$session->language.'_name'}; ?>">
+                        <?php foreach ($batch_image as $image) { ?>
+                            <img src="<?php echo $image['image']; ?>" width="40" height="40" alt="<?php echo $image['name']; ?>" data-toggle="tooltip" data-original-title="<?php echo $image['name']; ?>">
+                        <?php } ?>
                     </p>
                 <?php } ?>
             </div>

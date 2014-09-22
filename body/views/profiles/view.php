@@ -203,14 +203,14 @@
                 <div class="row">
                     <div class="col-xs-6 text-center">
                         <h4 class="small-heading" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('wins'), '/', $this->lang->line('defeat'); ?>"><?php echo $this->lang->line('wins'), '/', $this->lang->line('defeat'); ?></h4>
-                        <span class="chart chart-widget-pie widget-easy-pie-1" data-percent="80">
-                            <span class="percent"></span>
+                        <span class="chart chart-widget-pie widget-easy-pie-1" data-percent="<?php echo @$victories_percentage; ?>">
+                            <span class="percent"><?php echo @$victories_percentage; ?></span>
                         </span>
                     </div>
                     <div class="col-xs-6 text-center">
                         <h4 class="small-heading overflow-hidden overflow-text-dot" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('attendance'), '/', $this->lang->line('absence'); ?>"><?php echo $this->lang->line('attendance'), '/', $this->lang->line('absence'); ?></h4>
-                        <span class="chart chart-widget-pie widget-easy-pie-2" data-percent="96">
-                            <span class="percent"></span>
+                        <span class="chart chart-widget-pie widget-easy-pie-2" data-percent="<?php echo @$attendance_percentage; ?>">
+                            <span class="percent"><?php echo @$attendance_percentage; ?></span>
                         </span>
                     </div>
                 </div>
@@ -219,26 +219,26 @@
             <div class="row">
                 <div class="col-sm-3 col-xs-6 col-md-6">
                     <div class="tiles dribbble-tile text-center">
-                        <i class="fa fa-dribbble icon-lg-size"></i>
-                        <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('wins'); ?>"><?php echo $this->lang->line('wins'); ?></a></h4>
+                        <h1 class="bolded less-distance" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('wins'); ?>"><?php echo $total_victories; ?></h1>
+                        <h4 class="overflow-hidden nowrap overflow-text-dot" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('wins'); ?>"><?php echo $this->lang->line('wins'); ?></h4>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 col-md-6">
                     <div class="tiles dribbble-tile text-center">
-                        <i class="fa fa-dribbble icon-lg-size"></i>
-                        <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('defeat'); ?>"><?php echo $this->lang->line('defeat'); ?></a></h4>
+                        <h1 class="bolded less-distance" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('defeat'); ?>"><?php echo $total_defeats; ?></h1>
+                        <h4 class="overflow-hidden nowrap overflow-text-dot" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('defeat'); ?>"><?php echo $this->lang->line('defeat'); ?></h4>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 col-md-6">
                     <div class="tiles dribbble-tile text-center">
-                        <i class="fa fa-dribbble icon-lg-size"></i>
-                        <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_of'); ?>"><?php echo $this->lang->line('challenges_of'); ?></a></h4>
+                        <h1 class="bolded less-distance" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_made'); ?>"><?php echo $total_made; ?></h1>
+                        <h4 class="overflow-hidden nowrap overflow-text-dot" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_made'); ?>"><?php echo $this->lang->line('challenges_made'); ?></h4>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 col-md-6">
                     <div class="tiles dribbble-tile text-center">
-                        <i class="fa fa-dribbble icon-lg-size"></i>
-                        <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_recevied'); ?>"><?php echo $this->lang->line('challenges_recevied'); ?></a></h4>
+                        <h1 class="bolded less-distance" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_recevied'); ?>"><?php echo $total_received; ?></h1>
+                        <h4 class="overflow-hidden nowrap overflow-text-dot" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_recevied'); ?>"><?php echo $this->lang->line('challenges_recevied'); ?></h4>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 col-md-6">

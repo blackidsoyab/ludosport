@@ -164,14 +164,49 @@ class dashboard extends CI_Controller {
         
         $data['user'] = $user[0];
         $data['userdetail'] = $userdetail->where('student_master_id', $user[0]->id)->get();
+
+        if($userdetail->degree_id != 0) {
+            $degree_batch = new Batch();
+            $degree_batch->where('id', $userdetail->degree_id)->get();
+            $temp = array();
+            $temp['image'] = IMG_URL .'batches/'. $degree_batch->image;
+            $temp['name'] = $degree_batch->{$this->session_data->language.'_name'};
+            $data['batch_image'][] = $temp;
+        }
+
+        if($userdetail->honor_id != 0) {
+            $honor_batch = new Batch();
+            $honor_batch->where('id', $userdetail->honor_id)->get();
+            $temp = array();
+            $temp['image'] = IMG_URL .'batches/'. $honor_batch->image;
+            $temp['name'] = $honor_batch->{$this->session_data->language.'_name'};
+            $data['batch_image'][] = $temp;
+        }
+
+        if($userdetail->qualification_id != 0) {
+            $qualification_batch = new Batch();
+            $qualification_batch->where('id', $userdetail->qualification_id)->get();
+            $temp = array();
+            $temp['image'] = IMG_URL .'batches/'. $qualification_batch->image;
+            $temp['name'] = $qualification_batch->{$this->session_data->language.'_name'};
+            $data['batch_image'][] = $temp;
+        }
+
+        if($userdetail->security_id != 0) {
+            $security_batch = new Batch();
+            $security_batch->where('id', $userdetail->security_id)->get();
+            $temp = array();
+            $temp['image'] = IMG_URL .'batches/'. $security_batch->image;
+            $temp['name'] = $security_batch->{$this->session_data->language.'_name'};
+            $data['batch_image'][] = $temp;
+        }
+
         $batch = new Batch();
         $data['batch_detail'] = $batch->where('id', $userdetail->degree_id)->get();
         if(!is_null($data['batch_detail']->cover_image)){
             $data['cover_image'] = IMG_URL .'batches/cover_image/'. $data['batch_detail']->cover_image;
-            $data['batch_image'] = IMG_URL .'batches/'. $data['batch_detail']->image;
         } else {
             $data['cover_image'] = IMG_URL .'banner.png';
-            $data['batch_image'] = null;
         }
 
         $clan = new Clan($data['userdetail']->clan_id);

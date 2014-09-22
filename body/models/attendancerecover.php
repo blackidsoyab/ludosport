@@ -18,6 +18,21 @@ class Attendancerecover extends DataMapper {
         return $query[0]->total;
     }
 
+    function getTotalAttendance($student_id, $type = null){
+        $this->db->select('count(*) as total');
+        $this->db->from('attendance_recovers');
+        $this->db->where('student_id', $student_id, null);
+
+        if(!is_null($type) && $type == 'present'){
+            $this->db->where('attendance_recovers.attendance', 1, null);
+        } else if(!is_null($type) && $type == 'absent'){
+            $this->db->where('attendance_recovers.attendance', 0, null);
+        }
+        
+        $query = $this->db->get()->result();
+        return $query[0]->total;
+    }
+
 }
 
 ?>

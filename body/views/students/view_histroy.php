@@ -26,8 +26,8 @@
                                 </div>
                                 <div class="col-xs-6 text-center">
                                     <h4 class="small-heading">ATTENDANCE / ABSENCE</h4>
-                                    <span class="chart chart-widget-pie widget-easy-pie-2" data-percent="85">
-                                        <span class="percent">85</span>
+                                    <span class="chart chart-widget-pie widget-easy-pie-2" data-percent="<?php echo @$attendance_percentage; ?>">
+                                        <span class="percent"><?php echo @$attendance_percentage; ?></span>
                                         <canvas height="110" width="110"></canvas></span>
                                 </div>
                             </div>
@@ -66,19 +66,19 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <h4 class="small-heading">CLASSES LOG </h4>
-                            <p class="small">  Attended - <span class="text-danger">80%</span></p>
+                            <p class="small">Attended - <span class="text-success"><?php echo @$attendance_percentage; ?>%</span></p>
                             <div class="progress no-rounded progress-xs">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                </div><
-                            </div>
-                            <p class="small">Missed - <span class="text-warning">65%</span></p>
-                            <div class="progress no-rounded progress-xs">
-                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php echo @$attendance_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$attendance_percentage; ?>%">
                                 </div>
                             </div>
-                            <p class="small"> Catch-ups - <span class="text-success">40%</span></p>
+                            <p class="small">Missed - <span class="text-danger"><?php echo @$missed_percentage; ?>%</span></p>
                             <div class="progress no-rounded progress-xs">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<?php echo @$missed_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$missed_percentage; ?>%">
+                                </div>
+                            </div>
+                            <p class="small">Catch-ups - <span class="text-warning"><?php echo @$recover_percentage; ?>%</span></p>
+                            <div class="progress no-rounded progress-xs">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="<?php echo @$recover_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$recover_percentage; ?>%">
                                 </div>
                             </div>
                             <p class="small">Years of practice - <span class="text-info">70%</span></p>

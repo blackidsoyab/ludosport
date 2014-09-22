@@ -168,8 +168,8 @@ class students extends CI_Controller {
         $data['total_victories'] = (int)$challenge->countVictories($this->session_data->id);
         $data['total_defeats'] = (int)$challenge->countDefeats($this->session_data->id);
         if($total_win_defeats != 0){
-            $data['victories_percentage'] = ($data['total_victories'] * 100 ) / $total_win_defeats;
-            $data['defeats_percentage'] = ($data['total_defeats'] * 100 ) / $total_win_defeats;
+            $data['victories_percentage'] = round(($data['total_victories'] * 100 ) / $total_win_defeats, 2);
+            $data['defeats_percentage'] = round(($data['total_defeats'] * 100 ) / $total_win_defeats, 2);
         }
         
         $total_challenges = (int)$challenge->CountChallenges($this->session_data->id);
@@ -177,9 +177,23 @@ class students extends CI_Controller {
         $data['total_received'] = (int)$challenge->CountChallenges($this->session_data->id, 'received');
         $data['total_rejected'] = (int)$challenge->CountChallenges($this->session_data->id, 'received', 'R');
         if($total_challenges != 0){
-            $data['made_percentage'] = ($data['total_made'] * 100 ) / $total_challenges;
-            $data['received_percentage'] = ($data['total_received'] * 100 ) / $total_challenges;
-            $data['rejected_percentage'] = ($data['total_rejected'] * 100 ) / $total_challenges;
+            $data['made_percentage'] = round(($data['total_made'] * 100 ) / $total_challenges, 2);
+            $data['received_percentage'] = round(($data['total_received'] * 100 ) / $total_challenges, 2);
+            $data['rejected_percentage'] = round(($data['total_rejected'] * 100 ) / $total_challenges, 2);
+        }
+
+        //Student Attendance
+        $obj_attendance = new Attendance();
+        $total_attendance = (int)$obj_attendance->getTotalAttendance($this->session_data->id);
+        $data['total_present'] = (int)$obj_attendance->getTotalAttendance($this->session_data->id, 'present');
+        $data['total_absent'] = (int)$obj_attendance->getTotalAttendance($this->session_data->id, 'absent');
+
+        $obj_recover = new Attendancerecover();
+        $data['total_recover'] = (int)$obj_recover->getTotalAttendance($this->session_data->id, 'present');
+        if($total_attendance != 0){
+            $data['attendance_percentage'] = round(($data['total_present'] * 100 ) / $total_attendance, 2);
+            $data['missed_percentage'] = round(($data['total_absent'] * 100 ) / $total_attendance, 2);
+            $data['recover_percentage'] = round(($data['total_recover'] * 100 ) / $total_attendance, 2);
         }
         
         //For Timeline 
@@ -187,7 +201,7 @@ class students extends CI_Controller {
         $obj->where('to_id', $this->session_data->id);
         $obj->or_where('from_id', $this->session_data->id);
         $obj->get();
-        $data['per_page'] = ceil($obj->result_count() / 1);
+        $data['per_page'] = ceil($obj->result_count() / 10);
 
         $this->layout->view('students/view_histroy', $data);
     }
