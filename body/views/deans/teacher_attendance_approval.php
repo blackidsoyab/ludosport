@@ -144,7 +144,7 @@ $(document).ready(function() {
 	            <label class="col-lg-2 control-label">&nbsp;</label>
 	            <div class="col-lg-5">
 	                <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('save'); ?>"><?php echo $this->lang->line('save'); ?></button>
-	                <a href="<?php echo base_url() . 'academy' ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('cancel'); ?>"><?php echo $this->lang->line('cancel'); ?></a>
+	                <a href="<?php echo base_url() . 'clan/view/'. $attendance->clan_id; ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('cancel'); ?>"><?php echo $this->lang->line('cancel'); ?></a>
 	            </div>
 	        </div>
 			</div>

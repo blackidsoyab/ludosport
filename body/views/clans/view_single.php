@@ -453,22 +453,25 @@ function UpdateClanDate(ele, notify){
 							</div>
 							<hr class="mar-tp-10 mar-bt-10" />
 							<div class="the-box no-border tags-cloud padding-killer">
-								<?php foreach($teacher_attendance as $date) {
-									if($date['status'] == 'P'){
-								?>
-									<a href="<?php echo base_url(). 'dean/absence_approval/'. $date['id'] ; ?>">
-										<span class="<?php echo $date['type']; ?>"  data-toggle="tooltip" data-original-title="<?php echo @$date['recover_teacher']['name']; ?>">
-											<?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date['date'])); ?>
-										</span>	
-									</a>
+								<?php foreach($teacher_attendance as $date) { ?>
+									<?php if($date['status'] == 'P'){ ?>
+										<a href="<?php echo base_url(). 'dean/absence_approval/'. $date['id'] ; ?>">
+											<span class="<?php echo $date['type']; ?>"  data-toggle="tooltip" data-original-title="<?php echo @$date['recover_teacher']['name']; ?>">
+												<?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date['date'])); ?>
+											</span>	
+										</a>
 									<?php } else if($date['status'] == 'U') { ?>
-									<span class="<?php echo $date['type']; ?>" data-toggle="tooltip" data-original-title="<?php echo @$date['unapproved_reason']; ?>">
-										<?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date['date'])); ?>
-									</span>
+										<a href="<?php echo base_url(). 'dean/absence_approval/'. $date['id'] ; ?>">
+											<span class="<?php echo $date['type']; ?>" data-toggle="tooltip" data-original-title="<?php echo @$date['unapproved_reason']; ?>">
+												<?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date['date'])); ?>
+											</span>
+										</a>
 									<?php } else { ?>
-									<span class="<?php echo $date['type']; ?>" data-toggle="tooltip" data-original-title="<?php echo @$date['recover_teacher']['name']; ?>">
-										<?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date['date'])); ?>
-									</span>
+										<a href="<?php echo base_url(). 'dean/absence_approval/'. $date['id'] ; ?>">
+											<span class="<?php echo $date['type']; ?>" data-toggle="tooltip" data-original-title="<?php echo @$date['recover_teacher']['name']; ?>">
+												<?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date['date'])); ?>
+											</span>
+										</a>
 									<?php } ?>
 								<?php } ?>
 							</div>	

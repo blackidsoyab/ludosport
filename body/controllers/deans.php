@@ -123,7 +123,7 @@ class deans extends CI_Controller
             }
             
             $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
-            redirect(base_url() . 'dashboard', 'refresh');
+            redirect(base_url() . 'clan/view/'. $attendance->clan_id, 'refresh');
         } else {
             $this->layout->setField('page_title', $this->lang->line('communicate_absence'));
 
