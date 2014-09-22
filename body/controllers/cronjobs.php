@@ -61,9 +61,18 @@ class cronjobs extends CI_Controller {
         }
     }
 
-    //Save Clan Dates
+    //Save All
+    public function saveAll(){
+        $date_1 = date('Y-m-d', strtotime('+1 day', strtotime(get_current_date_time()->get_date_for_db())));
+        $date_2 = date('Y-m-d', strtotime('+1 week', strtotime(get_current_date_time()->get_date_for_db())));
+        $dates = generateDates($date_1, $date_2);
+        $this->_getAndSaveClanDate($dates);
+        $this->_getAndSaveTeacherAttendance($dates);
+        $this->_getAndSaveStudentAttendance($dates);
+    }
+
+    //Clan Dates
     public function clanDate(){
-        
         $date_1 = date('Y-m-d', strtotime('+1 day', strtotime(get_current_date_time()->get_date_for_db())));
         $date_2 = date('Y-m-d', strtotime('+1 week', strtotime(get_current_date_time()->get_date_for_db())));
         $dates = generateDates($date_1, $date_2);
@@ -71,7 +80,7 @@ class cronjobs extends CI_Controller {
     }
 
     /*
-    *   Save the Clan Dates
+    *   Get & Save the Clan Dates
     *   Param1 (Date-required) : Date
     */
     private function _getAndSaveClanDate($dates){
@@ -85,14 +94,17 @@ class cronjobs extends CI_Controller {
                     foreach ($details as $value) {
                         if(strtotime($date)>= strtotime($value->clan_from) && strtotime($date)<=strtotime($value->clan_to)){
                             $obj_clan_date = new Clandate();
-                            $check = $obj_clan_date->where(array('clan_id'=>$value->id, 'clan_shift_from'=>$date))->get();
-
-                            if ($check->result_count() == 0) {
-                                $obj_clan_date->type = 'R';
-                                $obj_clan_date->clan_id = $value->id;
-                                $obj_clan_date->clan_date = $date;
-                                $obj_clan_date->user_id = 0;
-                                $obj_clan_date->save();
+                            $check_point_1 = $obj_clan_date->where(array('clan_id'=>$value->id, 'clan_shift_from'=>$date))->get();
+                            if ($check_point_1->result_count() == 0) {
+                                $obj_clan_date = new Clandate();
+                                $check_point_2 = $obj_clan_date->where(array('clan_id'=>$value->id, 'clan_date'=>$date))->get();
+                                if ($check_point_2->result_count() == 0) {
+                                    $obj_clan_date->type = 'R';
+                                    $obj_clan_date->clan_id = $value->id;
+                                    $obj_clan_date->clan_date = $date;
+                                    $obj_clan_date->user_id = 0;
+                                    $obj_clan_date->save();
+                                }
                             }
                         }
                     }
@@ -101,7 +113,7 @@ class cronjobs extends CI_Controller {
         }
     }
 
-    //Save Clan Dates
+    //Teacher Attendance
     public function teacherAttendance(){
         $date_1 = date('Y-m-d', strtotime('+1 day', strtotime(get_current_date_time()->get_date_for_db())));
         $date_2 = date('Y-m-d', strtotime('+1 week', strtotime(get_current_date_time()->get_date_for_db())));
@@ -110,7 +122,7 @@ class cronjobs extends CI_Controller {
     }
 
     /*
-    *   Save the Clan Dates
+    *   Get & Save the Teacher Attendance
     *   Param1 (Date-required) : Date
     */
     private function _getAndSaveTeacherAttendance($dates){
@@ -124,7 +136,7 @@ class cronjobs extends CI_Controller {
                     foreach ($details as $value) {
                         if(strtotime($date)>= strtotime($value->clan_from) && strtotime($date)<=strtotime($value->clan_to)){
                             $attadence = new Teacherattendance();
-                            $attadence->where(array('clan_id' => $value->id, 'clan_date' =>$date))->get();
+                            $attadence->where(array('clan_id' => $value->id, 'clan_date' =>$date, 'teacher_id'=>$value->teacher_id))->get();
                             if ($attadence->result_count() == 0) {
                                 $attadence->clan_date = $date;
                                 $attadence->clan_id = $value->id;
@@ -132,6 +144,56 @@ class cronjobs extends CI_Controller {
                                 $attadence->attendance = 1;
                                 $attadence->user_id = 0;
                                 $attadence->save();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Student Attendance
+    public function studentAttendance(){
+        $date_1 = date('Y-m-d', strtotime('+1 day', strtotime(get_current_date_time()->get_date_for_db())));
+        $date_2 = date('Y-m-d', strtotime('+1 week', strtotime(get_current_date_time()->get_date_for_db())));
+        $dates = generateDates($date_1, $date_2);
+        $this->_getAndSaveStudentAttendance($dates);
+    }
+
+    /*
+    *   Get & Save the Student Attendance
+    *   Param1 (Date-required) : Date
+    */
+    private function _getAndSaveStudentAttendance($dates){
+        if(!is_null($dates) && count($dates) > 0){
+            foreach ($dates as $date) {
+                $day_numeric = date('N', strtotime($date));
+                $clans = New Clan();
+                $details = $clans->getClansByDayForCronJob($day_numeric);
+
+                if ($details) {
+                    foreach ($details as $value) {
+                        if(strtotime($date)>= strtotime($value->clan_from) && strtotime($date)<=strtotime($value->clan_to)){
+                            $obj_student = new Userdetail();
+                            $obj_student->where(array('clan_id'=>$value->id, 'status'=>'A'))->get();
+
+                            foreach ($obj_student as $student) {
+                                if(strtotime($student->first_lesson_date) > strtotime($date)){
+                                    continue;
+                                } else {
+                                    $attadence = new Attendance();
+                                    //Check any record exit for date and student
+                                    $attadence->where(array('clan_date'=>$date, 'student_id'=>$student->student_master_id))->get();
+                                    if($attadence->result_count() == 1){
+                                        $attadence->attendance = $attadence->attendance;
+                                    }else{
+                                        $attadence->attendance = 1;
+                                    }
+                                    $attadence->clan_date = $date;
+                                    $attadence->student_id = $student->student_master_id;
+                                    $attadence->user_id = 0;
+                                    $attadence->save();  
+                                }
                             }
                         }
                     }
