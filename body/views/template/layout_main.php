@@ -366,6 +366,8 @@ function checkMessage(last_id){
                     <li class="<?php echo ($page == 'event') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'event'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('event'); ?>"><i class="fa fa-calendar icon-sidebar"></i><?php echo $this->lang->line('event'); ?></a></li>
                     <?php } ?>
 
+                    <li class="<?php echo ($page == 'studentlist') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'clan/studentlist'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('student_list'); ?>"><i class="fa fa-users icon-sidebar"></i><?php echo $this->lang->line('pupil'); ?></a></li>
+
                     <li class="static"><i class="fa fa-table icon-sidebar"></i>&nbsp;<?php echo $this->lang->line('setting'); ?></li>
 
                     <?php if (hasPermission('levels', 'viewLevel')) { ?>   
