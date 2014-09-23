@@ -35,8 +35,8 @@ class profiles extends CI_Controller {
             $data['userdetail'] = $userdetail->where('student_master_id', $id)->get();
             $batch = new Batch();
             $data['batch_detail'] = $batch->where('id', $userdetail->degree_id)->get();
-            if(!is_null($data['batch_detail']->cover_image)){
-                $data['cover_image'] = IMG_URL .'batches/cover_image/'. $data['batch_detail']->cover_image;
+            if(!is_null($data['batch_detail']->profile_cover)){
+                $data['cover_image'] = IMG_URL .'batches/profile_cover/'. $data['batch_detail']->profile_cover;
             } else {
                 $data['cover_image'] = IMG_URL .'banner.png';
             }

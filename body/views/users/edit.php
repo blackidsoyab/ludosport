@@ -258,6 +258,22 @@
                     </div>
                 </div>
             <?php } ?>
+
+            <?php if(isset($master_batches) && !is_null($master_batches)) { ?>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('master'); ?></label>
+                    <div class="col-lg-5">
+                        <select class="form-control" name="master_id">
+                            <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('master'); ?></option> 
+                            <?php
+                            foreach ($master_batches as $master) {
+                                ?>
+                                <option value="<?php echo $master->id; ?>" <?php echo ($master->id == $userdetail->master_id) ? 'selected' : ''; ?>><?php echo $master->{$session->language . '_name'}; ?></option>
+                            <?php } ?>  
+                        </select>
+                    </div>
+                </div>
+            <?php } ?>
             
             <?php if(isset($qualification_batches) && !is_null($qualification_batches)) { ?>
                 <div class="form-group">

@@ -781,6 +781,10 @@ class json extends CI_Controller {
                 $temp_arr[] = '<span class="label label-success">' . $this->lang->line('honor') . '</span>';
             }
 
+            if ($aRow['type'] == 'M') {
+                $temp_arr[] = '<span class="label label-default">' . $this->lang->line('master') . '</span>';
+            }
+
             if ($aRow['type'] == 'Q') {
                 $temp_arr[] = '<span class="label label-warning">' . $this->lang->line('qualification') . '</span>';
             }

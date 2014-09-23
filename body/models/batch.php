@@ -24,11 +24,15 @@ class Batch extends DataMapper {
     }
 
     function getBatchAssignmentByRole($type, $role_id){
+        $session = get_instance()->session->userdata('user_session');
     	$this->db->_protect_identifiers = false;
         $this->db->select('*');
         $this->db->from($this->table);
         $this->db->where('type', $type);
-        $this->db->where('FIND_IN_SET(' . $role_id . ', assign_role)');
+        if($role_id != 1){
+            $this->db->where('FIND_IN_SET(' . $role_id . ', assign_role)');
+        }
+        $this->db->order_by($session->language.'_name', 'ASC');
         $res = $this->db->get();
         if ($res->num_rows > 0) {
         	return $res->result();
@@ -43,7 +47,9 @@ class Batch extends DataMapper {
         $this->db->from($this->table);
         $this->db->where('id', $batch_id);
         $this->db->where('type', $type);
-        $this->db->where('FIND_IN_SET(' . $role_id . ', assign_role)');
+        if($role_id != 1){
+            $this->db->where('FIND_IN_SET(' . $role_id . ', assign_role)');
+        }
         $res = $this->db->get();
         if ($res->num_rows > 0) {
         	return true;

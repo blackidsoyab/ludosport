@@ -163,8 +163,12 @@ class users extends CI_Controller {
                 $data['academies'] = NULL;
             }
 
-            $obj_batch = new Batch();
-            $assignments = $obj_batch->getBatchTypeAssignmentByRole($this->session_data->role);
+            if($this->session_data->role == 1){
+                $assignments = array('D','H','M','Q','S');
+            }else{
+                $obj_batch = new Batch();
+                $assignments = $obj_batch->getBatchTypeAssignmentByRole($this->session_data->role);
+            }
             
             if(in_array('D', $assignments)){
                 $obj_batch = new Batch();
@@ -174,6 +178,11 @@ class users extends CI_Controller {
             if(in_array('H', $assignments)){
                 $obj_batch = new Batch();
                 $data['honour_batches'] = $obj_batch->getBatchAssignmentByRole('H',$this->session_data->role);
+            }
+
+            if(in_array('M', $assignments)){
+                $obj_batch = new Batch();
+                $data['master_batches'] = $obj_batch->getBatchAssignmentByRole('M',$this->session_data->role);
             }
 
             if(in_array('Q', $assignments)){
@@ -364,9 +373,13 @@ class users extends CI_Controller {
                     }
 
                     if(in_array(6, explode(',',$user->role_id))){
-                        $obj_batch = new Batch();
-                        $assignments = $obj_batch->getBatchTypeAssignmentByRole($this->session_data->role);
-                        
+                        if($this->session_data->role == 1){
+                            $assignments = array('D','H','M','Q','S');
+                        }else{
+                            $obj_batch = new Batch();
+                            $assignments = $obj_batch->getBatchTypeAssignmentByRole($this->session_data->role);
+                        }
+
                         if(in_array('D', $assignments)){
                             $obj_batch = new Batch();
                             $data['degree_batches'] = $obj_batch->getBatchAssignmentByRole('D',$this->session_data->role);
@@ -375,6 +388,11 @@ class users extends CI_Controller {
                         if(in_array('H', $assignments)){
                             $obj_batch = new Batch();
                             $data['honour_batches'] = $obj_batch->getBatchAssignmentByRole('H',$this->session_data->role);
+                        }
+
+                        if(in_array('M', $assignments)){
+                            $obj_batch = new Batch();
+                            $data['master_batches'] = $obj_batch->getBatchAssignmentByRole('M',$this->session_data->role);
                         }
 
                         if(in_array('Q', $assignments)){

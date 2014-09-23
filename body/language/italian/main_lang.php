@@ -140,10 +140,11 @@ $lang['select_date_of_absence'] = 'Select date of Absence';
 $lang['recover_absence'] = 'Recover Absence';
 $lang['confirm_absence'] = 'Confirm Absence';
 $lang['select_date_for_recover'] = 'Select Date for Recover';
-$lang['degree'] = 'Degree';
-$lang['honour'] = 'Honour';
-$lang['qualification'] = 'Qualifications';
-$lang['security'] = 'Security';
+$lang['degree'] = 'Grado';
+$lang['honour'] = 'Onore';
+$lang['master'] = 'Master';
+$lang['qualification'] = 'Qualifiche';
+$lang['security'] = 'Sicurezza';
 
 //Teacher Dashboard
 $lang['replace_teacher'] = 'Replace Teacher';
@@ -342,6 +343,8 @@ $lang['select_any_student'] = 'Select any Student';
 //Batches
 $lang['batch'] = 'Badge';
 $lang['image'] = 'Image';
+$lang['badge_120_width_image'] = "If image width is greater than 120px, the result will be good";
+$lang['badge_750_width_image'] = "If image width is greater than 750px, the result will be good";
 
 //Message System
 $lang['message'] = 'Message';

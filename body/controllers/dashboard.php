@@ -203,8 +203,8 @@ class dashboard extends CI_Controller {
 
         $batch = new Batch();
         $data['batch_detail'] = $batch->where('id', $userdetail->degree_id)->get();
-        if(!is_null($data['batch_detail']->cover_image)){
-            $data['cover_image'] = IMG_URL .'batches/cover_image/'. $data['batch_detail']->cover_image;
+        if(!is_null($data['batch_detail']->dashboard_cover)){
+            $data['cover_image'] = IMG_URL .'batches/dashboard_cover/'. $data['batch_detail']->dashboard_cover;
         } else {
             $data['cover_image'] = IMG_URL .'banner.png';
         }
