@@ -415,7 +415,21 @@ class dashboard extends CI_Controller {
 
             //save the data
             $user_details->student_master_id= $this->session_data->id;
-            $user_details->degree_id= $this->config->item('pupil_basic_level');
+            $user_details->clan_id = $this->input->post('clan_id');
+            $user = New User();
+            //Get Current Login User details
+            $user->where('id', $this->session_data->id)->get();
+
+            //Calculate Age
+            $age = explode(' ', time_elapsed_string(date('Y-m-d H:i:s', $user->date_of_birth)));
+
+            //Under 16 or not
+            if ($age[1] == 'year' && $age[0] < 16) {
+                $user_details->degree_id= $this->config->item('basic_level_under_16');
+            } else {
+                $user_details->degree_id= $this->config->item('basic_level_above_16');
+            }
+            
             $user_details->palce_of_birth = $this->input->post('palce_of_birth');
             $user_details->first_lesson_date = get_current_date_time()->get_date_for_db();
             $user_details->zip_code = $this->input->post('zip_code');
@@ -427,21 +441,32 @@ class dashboard extends CI_Controller {
 
             redirect(base_url() .'dashboard', 'refresh');
         }else {
-            $user_details = new Userdetail();
-            $data['user_details'] = $user_details->where('student_master_id', $this->session_data->id)->get();
+            $user = new User($this->session_data->id);
 
-            if($data['user_details']->status == 'P2'){
-                $user = new User($this->session_data->id);
+            $user_details = new Userdetail();
+            $user_details->where('student_master_id', $this->session_data->id)->get();
+
+            if($user_details->result_count() == 1 && $user_details->status == 'P2'){
+                $data['user_details'] = $user_details;
+
+                $clan = new Clan();
+                $data['clan_details'] = $clan->where('id', $user_details->clan_id)->get();
                 //Calculate Age
                 $age = explode(' ', time_elapsed_string(date('Y-m-d H:i:s', $user->date_of_birth)));
                 if ($age[1] == 'year' && $age[0] != 0) {
-                    $data['download_pdfs'] = attributionCards($age);
+                    $data['download_pdfs'] = attributionCards($age[0]);
                 } else {
                     $data['download_pdfs'] = false;
                 }    
             }else {
                 $data['download_pdfs'] = false;
+                $data['user_details'] = false;
             }
+
+            $schools = new School();
+            $schools->where('city_id', $user->city_id)->get();
+            $data['schools'] = $schools;
+
             
             $this->layout->setField('page_title', 'Registration Step 2');
             $this->layout->view('authenticate/register_step_2', $data);

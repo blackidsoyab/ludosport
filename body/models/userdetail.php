@@ -23,8 +23,10 @@ class Userdetail extends DataMapper {
 
     public static function getAssignStudentIdsByCaln($clan_id) {
         $obj = new Userdetail();
-        $obj->where('clan_id', $clan_id)->get();
-        $obj->where('status', 'A')->get();
+        $obj->where('clan_id', $clan_id);
+        $obj->where('status', 'A');
+        $obj->get();
+        
         $array = array();
         foreach ($obj as $value) {
             $array[] = $value->student_master_id;

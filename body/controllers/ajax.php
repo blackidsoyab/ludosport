@@ -571,6 +571,87 @@ class ajax extends CI_Controller {
         }
     }
 
+    function getClassesFromSchoolForRegistrationStep2($school_id) {
+        $user = New User();
+        //Get Current Login User details
+        $user->where('id', $this->session_data->id)->get();
+
+        //Calculate Age
+        $age = explode(' ', time_elapsed_string(date('Y-m-d H:i:s', $user->date_of_birth)));
+
+        //Under 16 or not
+        if ($age[1] == 'year' && $age[0] < 16) {
+            $under_sixteen = 1;
+        } else {
+            $under_sixteen = 0;
+        }
+
+        $session = $this->session->userdata('user_session');
+        $user_details = new Userdetail();
+        $user_details->where('student_master_id', $this->session_data->id)->get();
+
+        $obj = New Clan();
+        $clans = $obj->getAviableClanForSchool($school_id, $under_sixteen);
+
+        $str = null;
+        $str .= '<h4 class="margin-killer">Clan Selection</h4>' . "\n";
+        $str .= '<hr class="mar-10 margin-left-killer margin-right-killer" />'. "\n";
+        if($clans != false){
+            foreach ($clans as $clan) {
+                $total_student = count(Userdetail::getAssignStudentIdsByCaln($clan->id));
+                
+                if($total_student >= 20){
+                    continue;
+                }
+
+                $checked = ($clan->id == @$user_details->clan_id) ? 'checked="checked"' : '';
+                $str .= '<div class="radio padding-left-killer">' . "\n";
+                    $str .= '<label>' . "\n";
+                        $str .= '<input type="radio"'. @$checked .'value="'. $clan->id .'" name="clan_id"/>&nbsp;'.$clan->{$session->language.'_class_name'} . "\n";
+                    $str .= '</label>' . "\n";
+                    $str .= '<a href="#clan_detail_'.$clan->id.'" data-effect="mfp-zoom-in" class="pull-right">Check Details</a>' ."\n";
+                $str .= '</div>' . "\n";
+                $str .= '<hr class="margin-killer" />'. "\n";
+
+                $str .= '<div id="clan_detail_'.$clan->id .'" class="white-popup mfp-with-anim mfp-hide">'. "\n";
+                    $str .= '<div class="table-responsive">'. "\n";
+                        $str .= '<h3>Detail of '. $clan->{$session->language.'_class_name'} .'</h3>'. "\n";
+                        $str .= '<table class="table">'. "\n";
+                            $str .= '<tbody>' . "\n";
+                                $str .= '<tr>' . "\n";
+                                    $str .= '<td>'.$this->lang->line('address').':</td>' . "\n";
+                                    $str .= '<td>'.$clan->address.'</td>' . "\n";
+                                $str .= '</tr>' . "\n";
+                                $str .= '<tr>' . "\n";
+                                    $str .= '<td>'.$this->lang->line('postal_code').':</td>' . "\n";
+                                    $str .= '<td>'.$clan->postal_code.'</td>' . "\n";
+                                $str .= '</tr>' . "\n";
+                                $str .= '<tr>' . "\n";
+                                    $str .= '<td>'.$this->lang->line('location').':</td>' . "\n";
+                                    $str .= '<td>'.getLocationName($clan->city_id, 'City').', '. getLocationName($clan->state_id, 'State').', '.getLocationName($clan->country_id, 'Country').'</td>' . "\n";
+                                $str .= '</tr>' . "\n";
+                                $str .= '<tr>' . "\n";
+                                    $str .= '<td>'.$this->lang->line('phone_number').'#1 :</td>' . "\n";
+                                    $str .= '<td>'.$clan->phone_1.'</td>' . "\n";
+                                $str .= '</tr>' . "\n";
+                                $str .= '<tr>' . "\n";
+                                    $str .= '<td>'.$this->lang->line('phone_number').'#2 :</td>' . "\n";
+                                    $str .= '<td>'.$clan->phone_2.'</td>' . "\n";
+                                $str .= '</tr>' . "\n";
+                                $str .= '<tr>' . "\n";
+                                    $str .= '<td>'.$this->lang->line('email').':</td>' . "\n";
+                                    $str .= '<td>'.$clan->email.'</td>' . "\n";
+                                $str .= '</tr>' . "\n";
+                            $str .= '</tbody>' . "\n";
+                        $str .= '</table>' . "\n";
+                    $str .= '</div>' . "\n";
+                $str .= '</div>' . "\n";
+            }
+        }
+
+        echo $str;
+    }
+
     /*
      * ------------------------------------------
      *           Methos for the Edit User

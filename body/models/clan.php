@@ -242,6 +242,24 @@ class Clan extends DataMapper
             }
         }
     }
+
+    function getAviableClanForSchool($school_id, $under_sixteen) {
+        $session = get_instance()->session->userdata('user_session');
+        $this->db->_protect_identifiers = false;
+        $this->db->select('clans.*');
+        $this->db->from('clans');
+        $this->db->where('school_id', $school_id, null);
+        $this->db->join('levels', 'levels.id=clans.level_id');
+        $this->db->where('is_basic', "'0'", null);
+        $this->db->where('under_sixteen', "$under_sixteen");
+        $this->db->order_by($session->language.'_class_name', 'ASC');
+        $query = $this->db->get();
+        if ($query->num_rows > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+    }
     
     function getSameLevelClan($city_id, $level_id, $class_limit = 3) {
         static $counter = 0;
