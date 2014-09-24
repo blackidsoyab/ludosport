@@ -94,6 +94,7 @@ if (!function_exists('validAcess')) {
                 return in_array($id, $ids);
             }
         }
+
     }
 }
 
@@ -115,7 +116,7 @@ if (!function_exists('getPermmissionID')) {
 if (!function_exists('hasPermission')) {
     function hasPermission($controller, $method) {
         $data = get_instance()->session->userdata('user_session');
-        if ($data->id == 1) {
+        if ($data->role == 1) {
             return TRUE;
         } else {
             $permissions= get_instance()->config->item('user_premission');
@@ -219,6 +220,12 @@ if (!function_exists('createPermissionArray')) {
                     'addUser' => array('name' => 'Add'),
                     'editUser' => array('name' => 'Edit'),
                     'deleteUser' => array('name' => 'Delete'),
+                    )),
+            'studentratings' => array(
+                'name' => 'Student Rating (Merit/Demerit)',
+                'hasChild' => array(
+                    'viewStudentrating' => array('name' => 'List'),
+                    'editStudentrating' => array('name' => 'Edit'),
                     )),
             'academies' => array(
                 'name' => 'Academy',

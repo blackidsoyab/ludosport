@@ -1003,4 +1003,56 @@ class json extends CI_Controller {
         exit();
     }
 
+      public function getStudentRattingJsonData($academy_id = 0, $school_id = 0, $clan_id = 0) {
+        $where = NULL;
+
+        if ($academy_id != 0) {
+            $where .= ' AND academies.id=' . $academy_id;
+        }
+
+        if ($school_id != 0) {
+            $where .= ' AND schools.id=' . $school_id;
+        }
+
+        if ($clan_id != 0) {
+            $where .= ' AND clans.id=' . $clan_id;
+        }
+
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS student_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'clans.' . $this->session_data->language . '_class_name AS class_name', 'total_score');
+        $this->datatable->eColumns = array('users.id', 'avtar');
+        $this->datatable->sIndexColumn = "users.id";
+        $this->datatable->sTable = " clans, users, schools, academies, userdetails";
+
+        if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id ' . $where;
+        } else if ($this->session_data->role == '3') {
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id ' . $where;
+        } else if ($this->session_data->role == '4') {
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id ' . $where;
+        } else if ($this->session_data->role == '5') {
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id ' . $where;
+        }
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = '<img src="' . IMG_URL .'user_avtar/40X40/' . $aRow['avtar'].'" class="avatar img-circle" alt="avatar"><a href="' . base_url() . 'profile/view/' . $aRow['id'] . '" class="text-black">' . $aRow['student_name'] . '</a>';
+            $temp_arr[] = $aRow['total_score'];
+            $temp_arr[] = $aRow['class_name'];
+            $temp_arr[] = $aRow['school_name'];
+            $temp_arr[] = $aRow['academy_name'];
+
+            if (hasPermission('studentratings', 'editStudentrating')) {
+                $temp_arr[] = '<a href="' . base_url() . 'studentrating/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            } else{
+                $temp_arr[] = '&nbsp;';
+            }
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
 }

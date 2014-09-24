@@ -342,6 +342,10 @@ function checkMessage(last_id){
 
                     <li class="static"><i class="fa fa-asterisk icon-sidebar"></i>&nbsp;<?php echo $this->lang->line('activity'); ?></li>
 
+                    <?php if (hasPermission('studentratings', 'viewStudentrating')) { ?>
+                    <li class="<?php echo ($page == 'ratting') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'studentrating'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('rating'); ?>"><i class="fa fa-star icon-sidebar"></i><?php echo $this->lang->line('rating'); ?></a></li>
+                    <?php } ?>
+
                     <?php if (hasPermission('academies', 'viewAcademy')) { ?>
                     <li class="<?php echo ($page == 'academy') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'academy'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('academy'); ?>"><i class="fa fa-font icon-sidebar"></i><?php echo $this->lang->line('academy'); ?></a></li>
                     <?php } ?>

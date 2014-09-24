@@ -147,8 +147,11 @@ $route['clan/studentjson/(:any)/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$
 $route['clan/change_date/(:num)'] = "clans/changeClanDate/$1";
 $route['clan/delete_date/(:num)'] = "clans/deleteClanDate/$1";
 
-//Admin Dashboard
-
+//Student Rating Json
+$route['studentrating/studentjson'] = "json/getStudentRattingJsonData";
+$route['studentrating/studentjson/(:any)'] = "json/getStudentRattingJsonData/$1";
+$route['studentrating/studentjson/(:any)/(:any)'] = "json/getStudentRattingJsonData/$1/$2";
+$route['studentrating/studentjson/(:any)/(:any)/(:any)'] = "json/getStudentRattingJsonData/$1/$2/$3";
 
 //Dean Dashboard
 $route['dean/absence_approval/(:num)'] = "deans/teacherAbsenceApproval/$1";
