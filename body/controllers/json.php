@@ -433,19 +433,19 @@ class json extends CI_Controller {
         }
 
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', '(SELECT count(*) from userdetails, clans temp_clan where  userdetails.clan_id=temp_clan.id AND temp_clan.id=clans.id) AS total_students', 'CONCAT(users.firstname," ", users.lastname) AS instructor', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name');
+        $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', '(SELECT count(*) from userdetails, clans temp_clan where  userdetails.clan_id=temp_clan.id AND temp_clan.id=clans.id) AS total_students', 'CONCAT(users.firstname," ", users.lastname) AS instructor', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name','levels.' . $this->session_data->language . '_level_name AS level');
         $this->datatable->eColumns = array('clans.id');
         $this->datatable->sIndexColumn = "clans.id";
-        $this->datatable->sTable = " clans, users, schools, academies";
+        $this->datatable->sTable = " clans, users, schools, academies, levels";
 
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND clans.level_id=levels.id' . $where;
         } else if ($this->session_data->role == '3') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 AND clans.level_id=levels.id' . $where;
         } else if ($this->session_data->role == '4') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', dean_id) > 0' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', dean_id) > 0 AND clans.level_id=levels.id' . $where;
         } else if ($this->session_data->role == '5') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', teacher_id) > 0' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', teacher_id) > 0 AND clans.level_id=levels.id' . $where;
         }
 
         $this->datatable->groupBy = ' GROUP BY clans.id';
@@ -456,6 +456,7 @@ class json extends CI_Controller {
             $temp_arr[] = '<a href="' . base_url() . 'clan/view/' . $aRow['id'] . '" class="text-black" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $this->lang->line('view_') . ' ' . $this->lang->line('clan') . '">' . $aRow['class_name'] . '</a>';
 
             $temp_arr[] = $aRow['instructor'];
+            $temp_arr[] = $aRow['level'];
             $temp_arr[] = $aRow['school_name'] . ', ' . $aRow['academy_name'];
             if ($aRow['total_students'] > 0) {
                 $temp_arr[] = '<a href="' . base_url() . 'clan/studentlist/' . $aRow['id'] . '/clan" class="text-black" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $this->lang->line('view_all') . ' ' . $this->lang->line('student') . '">' . $aRow['total_students'] . '</a>';
@@ -651,20 +652,20 @@ class json extends CI_Controller {
             
         if(!is_null($clan_id)){
             $this->datatable->sTable = "clans, users, userdetails";
-            $this->datatable->myWhere = 'WHERE userdetails.clan_id=clans.id AND userdetails.student_master_id=users.id AND users.status= "P" AND clans.id=' . $clan_id;
+            $this->datatable->myWhere = 'WHERE userdetails.clan_id=clans.id AND userdetails.student_master_id=users.id AND users.status= "P" AND userdetails.status!="P2" AND clans.id=' . $clan_id;
         }else{
             if($this->session_data->role == 1 || $this->session_data->role == 2){
                 $this->datatable->sTable = " clans, users, userdetails";
-                $this->datatable->myWhere = 'WHERE userdetails.clan_id=clans.id AND userdetails.student_master_id=users.id AND users.status= "P"';
+                $this->datatable->myWhere = 'WHERE userdetails.clan_id=clans.id AND userdetails.student_master_id=users.id AND users.status= "P" AND userdetails.status!="P2" ';
             } else if($this->session_data->role == 3){
                 $this->datatable->sTable = " users, userdetails, academies, schools, clans";
-                $this->datatable->myWhere = 'WHERE userdetails.student_master_id=users.id AND users.status= "P" AND academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.id=userdetails.clan_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0';
+                $this->datatable->myWhere = 'WHERE userdetails.student_master_id=users.id AND users.status= "P" AND userdetails.status!="P2" AND academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.id=userdetails.clan_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0';
             } else if($this->session_data->role == 4){
                 $this->datatable->sTable = " users, userdetails, schools, clans";
-                $this->datatable->myWhere = 'WHERE userdetails.student_master_id=users.id AND users.status= "P" AND  schools.id=clans.school_id AND clans.id=userdetails.clan_id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0';
+                $this->datatable->myWhere = 'WHERE userdetails.student_master_id=users.id AND users.status= "P" AND userdetails.status!="P2" AND  schools.id=clans.school_id AND clans.id=userdetails.clan_id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0';
             } else if($this->session_data->role == 5){
                 $this->datatable->sTable = " users, userdetails, clans";
-                $this->datatable->myWhere = 'WHERE userdetails.student_master_id=users.id AND users.status= "P" AND   clans.id=userdetails.clan_id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0';
+                $this->datatable->myWhere = 'WHERE userdetails.student_master_id=users.id AND users.status= "P" AND userdetails.status!="P2" AND   clans.id=userdetails.clan_id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0';
             }
         }
         
@@ -681,6 +682,8 @@ class json extends CI_Controller {
                 $temp_arr[] = '<label class="label label-danger">' . $this->lang->line('unapproved') . '</label>';
             } else if ($aRow['status'] == 'P') {
                 $temp_arr[] = '<label class="label label-warning">' . $this->lang->line('pending') . '</label>';
+            }else {
+                $temp_arr[] = null;
             }
             if (hasPermission('clans', 'changeStatusTrialStudent')) {
                 $temp_arr[] = '<a href="' . base_url() . 'clan/change_status_trial_student/' . $aRow['clan_id'] . '/' . $aRow['student_master_id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('change_status') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';

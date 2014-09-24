@@ -19,7 +19,7 @@ echo $lengths[0]; ?>,
             "bServerSide" : true,
             "aaSorting": [[ 0, "asc" ]],
             "aoColumns": [
-                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center", "bSortable": false},{"sClass": "text-center", "bSortable": false}
+                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center"},{"sClass": "text-center", "bSortable": false},{"sClass": "text-center", "bSortable": false}
             ],
             "sAjaxSource": "<?php echo base_url() . "clan/getjson/"; ?>" +  $('#school_id').val(),
             "fnInitComplete": function (oSettings, json) {
@@ -96,6 +96,7 @@ echo $lengths[0]; ?>,
                 <tr align="left">
                     <th><?php echo $this->lang->line('clan'), ' ', $this->lang->line('name'); ?></th>
                     <th><?php echo $this->lang->line('instructor'), ' ', $this->lang->line('name'); ?></th>
+                    <th><?php echo $this->lang->line('level'); ?></th>
                     <th><?php echo $this->lang->line('school'), ' ', $this->lang->line('name'); ?></th>
                     <th><?php echo $this->lang->line('total'), ' ', $this->lang->line('student'); ?></th>
                     <th><?php echo $this->lang->line('trial_lesson'); ?></th>
@@ -104,7 +105,7 @@ echo $lengths[0]; ?>,
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="6"><i><?php echo $this->lang->line('loading'); ?>...</i></td>
+                    <td colspan="7"><i><?php echo $this->lang->line('loading'); ?>...</i></td>
                 </tr>
             </tbody>
         </table>
