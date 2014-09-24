@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 22, 2014 at 06:21 PM
+-- Generation Time: Sep 24, 2014 at 06:34 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.13
 
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `attendances` (
   `attendance` tinyint(1) NOT NULL DEFAULT '1',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
 
 --
 -- Dumping data for table `attendances`
@@ -107,7 +107,13 @@ INSERT INTO `attendances` (`id`, `clan_date`, `student_id`, `attendance`, `user_
 (26, '2014-09-29', 20, 1, 0, '2014-09-22 07:04:58'),
 (27, '2014-09-29', 21, 1, 0, '2014-09-22 07:04:58'),
 (28, '2014-09-29', 25, 0, 0, '2014-09-22 07:04:58'),
-(29, '2014-09-29', 23, 1, 0, '2014-09-22 07:04:58');
+(29, '2014-09-29', 23, 1, 0, '2014-09-22 07:04:58'),
+(30, '2014-09-30', 31, 1, 0, '2014-09-23 05:33:39'),
+(31, '2014-09-30', 34, 1, 0, '2014-09-23 05:33:39'),
+(32, '2014-09-30', 14, 1, 0, '2014-09-23 05:33:39'),
+(33, '2014-09-30', 27, 1, 0, '2014-09-23 05:33:39'),
+(34, '2014-09-30', 33, 1, 0, '2014-09-23 05:33:39'),
+(35, '2014-09-30', 36, 1, 0, '2014-09-23 05:33:39');
 
 -- --------------------------------------------------------
 
@@ -135,63 +141,89 @@ CREATE TABLE IF NOT EXISTS `attendance_recovers` (
 
 CREATE TABLE IF NOT EXISTS `batches` (
 `id` int(11) NOT NULL,
-  `type` enum('D','H','Q','S') NOT NULL,
+  `type` enum('D','H','M','Q','S') NOT NULL,
   `assign_role` varchar(20) NOT NULL DEFAULT '0',
   `en_name` varchar(65) NOT NULL,
   `it_name` varchar(65) NOT NULL,
+  `has_point` tinyint(1) NOT NULL DEFAULT '0',
+  `xpr` bigint(11) NOT NULL DEFAULT '0',
+  `war` bigint(11) NOT NULL DEFAULT '0',
+  `sty` bigint(11) NOT NULL DEFAULT '0',
   `image` varchar(150) NOT NULL,
-  `cover_image` varchar(150) DEFAULT 'no_cover.jpg',
+  `dashboard_cover` varchar(255) DEFAULT NULL,
+  `profile_cover` varchar(255) DEFAULT NULL,
   `description` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=63 ;
 
 --
 -- Dumping data for table `batches`
 --
 
-INSERT INTO `batches` (`id`, `type`, `assign_role`, `en_name`, `it_name`, `image`, `cover_image`, `description`, `user_id`, `timestamp`) VALUES
-(1, 'D', '2,5', 'Youngling', 'Iniziato', '3f91ec69cb3035cab7b855464d2aa51c.png', '5f0afb8adf11f69e3468186752635b41.jpg', '<p><br></p>', 1, '2014-08-06 08:29:35'),
-(4, 'D', '2,5', 'Founding Master', 'Maestro Fondatore', 'f4480b0d05c4b2f1010f166fc7ebfbac.png', '3a58fdd896f74a07c7c9eabcac095a29.jpg', '<p><br></p>', 1, '2014-08-06 08:58:29'),
-(6, 'D', '2,5', 'Jedi', 'Jedi', '375c268b5e786fe15bf5ca8f9bb5d5d3.png', '9118714695310a9f610e670241490409.jpg', '<p><br></p>', 1, '2014-08-06 08:59:16'),
-(7, 'D', '2,5', 'Sith Lord', 'Maestro Sith', '89e990cb1cff363dadf0cf17faae2205.png', NULL, '<p><br></p>', 2, '2014-08-06 08:59:35'),
-(8, 'D', '2,5', 'Jedi Knight', 'Cavaliere Jedi', 'd9564d57165b2e8d21b1b8c959409216.png', 'd4e27a9f223078ba32fa03aca78fc0bc.jpg', '<p><br></p>', 1, '2014-08-06 09:00:03'),
-(9, 'D', '2,5', 'Jedi Master', 'Maestro Jedi', '586eef00da8faf942266c6e0564e7e76.png', NULL, '<p><br></p>', 2, '2014-08-06 09:00:17'),
-(10, 'D', '2,5', 'Padawan', 'Padawan', '05be81d032899191a04476ce132aebfb.png', NULL, '<p><br></p>', 2, '2014-08-06 09:00:37'),
-(11, 'D', '2,5', 'Sith', 'Sith', 'd8c40faf9d4a4cc931a71406d830726c.png', NULL, '<p><br></p>', 2, '2014-08-06 09:09:49'),
-(12, 'D', '2,5', 'Sith Knight', 'Cavaliere Sith', 'f29c72aad0c31c87d6f0b4184eb7f8a9.png', NULL, '<p><br></p>', 2, '2014-08-06 09:10:01'),
-(13, 'H', '2,3', 'Style Keeper', 'Custode delle Tradizioni', '26343a7d74b1cd4e83c3832e11e9c15e.png', NULL, '<p><br></p>', 2, '2014-08-06 09:11:26'),
-(14, 'H', '2,3', 'Shadow Master', 'Maestro d''Ombra', 'c659b7d7d9eeeda61e8eac8572d6b6bd.png', NULL, '<p><br></p>', 2, '2014-08-06 09:11:41'),
-(15, 'Q', '3', 'Training Instructor', 'Allievo Istruttore', 'c3f47e4d7892badb6143c0ca8dfdb9ea.png', NULL, '<p><br></p>', 2, '2014-08-06 09:12:01'),
-(16, 'Q', '3', 'Dean', 'Preside', '8e1186446122de0125950eaa1876b6c7.png', NULL, '<p><br></p>', 2, '2014-08-06 09:12:24'),
-(17, 'S', '4', 'Guardian', 'Guardiano', 'd96588d37881627e7d15bb08aa5f5894.png', NULL, '<p><br></p>', 2, '2014-08-06 09:12:54'),
-(18, 'S', '4', 'Sentinel', 'Sentinella', 'f21947ce2c9749ef24d3163c281a3bb0.png', NULL, '<p><br></p>', 2, '2014-08-06 09:13:13'),
-(19, 'H', '2,3', 'Quartermaster', 'Quartiermastro', '791c2c9790d4b4cfb379225986fa15e9.png', NULL, '<p><br></p>', 2, '2014-09-04 14:09:26'),
-(20, 'H', '2,3', 'Prophet', 'Profeta', 'ad6b6aa3371010529116611c74cc4750.png', NULL, '<p><br></p>', 2, '2014-09-04 14:09:49'),
-(21, 'H', '2,3', 'Shadow', 'Ombra', '163a5839d263031de7f9d0ec7ebe474b.png', NULL, '<p><br></p>', 2, '2014-09-04 14:10:09'),
-(22, 'H', '2,3', 'Master Sabersmith', 'Mastro di Spada', 'd673d00cb663bf587f3d206d0e2972e1.png', NULL, '<p><br></p>', 2, '2014-09-04 14:10:38'),
-(23, 'H', '2,3', 'Researcher', 'Ricercatore', '10998295a9776fb243d542302339f63a.png', NULL, '<p><br></p>', 2, '2014-09-04 14:11:02'),
-(24, 'Q', '3', 'Instructor level 1', 'Istruttore livello 1', '802e292ed5e1e18b41eacb4c62c7f7e2.png', NULL, '<p><br></p>', 2, '2014-09-04 14:12:39'),
-(25, 'Q', '3', 'Instructor level 2', 'Istruttore livello 2', '74e0c7ae2ffa57b2f6edaf218515d5b1.png', NULL, '<p><br></p>', 2, '2014-09-04 14:12:59'),
-(26, 'Q', '3', 'Instructor level 3', 'Istruttore livello 3', '3b69f92034caa56c01b0dc557cfa18b0.png', NULL, '<p><br></p>', 2, '2014-09-04 14:13:21'),
-(27, 'Q', '3', 'Instructor level 4', 'Istruttore livello 4', 'e5794f064d8771b73cbc726d92cec792.png', NULL, '<p><br></p>', 2, '2014-09-04 14:13:38'),
-(28, 'Q', '3', 'Instructor level 5', 'Istruttore livello 5', 'ee9fca9261bfc36aa75520acab20a6c4.png', NULL, '<p><br></p>', 2, '2014-09-04 14:13:55'),
-(29, 'Q', '3', 'Instructor level 6', 'Istruttore livello 6', 'e5a69a7cdadbe9d3c7920778063a181d.png', NULL, '<p><br></p>', 2, '2014-09-04 14:14:12'),
-(30, 'Q', '3', 'Instructor level 7', 'Istruttore livello 7', '34decadb79339ec2331e068fb92ab08c.png', NULL, '<p><br></p>', 2, '2014-09-04 14:14:31'),
-(31, 'Q', '3', 'Rector', 'Rector', 'd8cd960df43cb57e12d52298430214c6.png', NULL, '<p><br></p>', 2, '2014-09-04 14:14:45'),
-(32, 'S', '4', 'Consul', 'Console', '816090c955dcd98b6350f24c68d29c38.png', NULL, '<p><br></p>', 2, '2014-09-04 14:16:20'),
-(33, 'S', '4', 'Style Keeper', 'Custode di Stile', '919209a9005701114a358b640fbaea6f.png', NULL, '<p><br></p>', 2, '2014-09-04 14:16:53'),
-(34, 'S', '4', 'Ambassador', 'Ambasciatore', '42d6aa2ab1605c76a017a0cf4028128d.png', NULL, '<p><br></p>', 2, '2014-09-04 14:17:09'),
-(35, 'S', '4', 'Master of Arms', 'Maestro d''Armi', '150cc6ac0be492e802de192db5baafb9.png', NULL, '<p><br></p>', 2, '2014-09-04 14:17:29'),
-(36, 'S', '4', 'Battle Master', 'Maestro di Battaglia', '1fc7d4aae6bc3e19390e348c09acf33a.png', NULL, '<p><br></p>', 2, '2014-09-04 14:18:18'),
-(37, 'S', '4', 'Academy Master', 'Maestro d''Accademia', '1a40f32897f546631e7a96a1f6c8d82c.png', 'bdecaae2cd195d70bce20a2967a0a4fe.jpg', '<p><br></p>', 1, '2014-09-04 14:18:40'),
-(38, 'S', '4', 'Style Master in Shii-Cho', 'Maestro di Shii-Cho', '2656d4016b1874c18d229c5ff9485850.png', NULL, '<p><br></p>', 2, '2014-09-04 14:19:14'),
-(39, 'S', '4', 'Style Master in Makashi', 'Maestro di Makashi', '03c0e2e2b6050bdeac592090aa063e8f.png', NULL, '<p><br></p>', 2, '2014-09-04 14:19:53'),
-(40, 'S', '4', 'Style Master in Soresu', 'Maestro di Soresu', '66055d8882da9f8f9e5a9f8ec8a591d5.png', NULL, '<p><br></p>', 2, '2014-09-04 14:20:11'),
-(41, 'S', '4', 'Style Master in Ataru', 'Maestro di Ataru', '49155d58d16f378639ee78ed4589d5be.png', NULL, '<p><br></p>', 2, '2014-09-04 14:20:29'),
-(42, 'S', '4', 'Style Master in Djem-So', 'Maestro di Djem-So', '6198824741d2cef9be0fff724cf4f777.png', NULL, '<p><br></p>', 2, '2014-09-04 14:20:51'),
-(43, 'S', '4', 'Style Master in Niman', 'Maestro di Niman', '31bf67508bc6ab370e6913dbb0f9dbe1.png', NULL, '<p><br></p>', 2, '2014-09-04 14:21:08'),
-(44, 'S', '4', 'Style Master in Vaapad', 'Maestro di Vaapad', '2e622daab8de916330cf3d1d06e27a59.png', NULL, '<p><br></p>', 2, '2014-09-04 14:21:24');
+INSERT INTO `batches` (`id`, `type`, `assign_role`, `en_name`, `it_name`, `has_point`, `xpr`, `war`, `sty`, `image`, `dashboard_cover`, `profile_cover`, `description`, `user_id`, `timestamp`) VALUES
+(1, 'D', '2,5', 'Youngling', 'Iniziato', 0, 0, 0, 0, '3f91ec69cb3035cab7b855464d2aa51c.png', NULL, NULL, '<p><br></p>', 1, '2014-08-06 08:29:35'),
+(2, 'D', '2,5', 'Founding Master', 'Maestro Fondatore', 0, 0, 0, 0, 'f4480b0d05c4b2f1010f166fc7ebfbac.png', NULL, NULL, '<p><br></p>', 1, '2014-08-06 08:58:29'),
+(3, 'D', '2,5', 'Jedi', 'Jedi', 1, 300, 0, 0, '375c268b5e786fe15bf5ca8f9bb5d5d3.png', 'd4e27a9f223078ba32fa03aca78fc0bc.jpg', NULL, '<p><br></p>', 1, '2014-08-06 08:59:16'),
+(4, 'D', '2,5', 'Sith Lord', 'Maestro Sith', 0, 0, 0, 0, '89e990cb1cff363dadf0cf17faae2205.png', NULL, NULL, '<p><br></p>', 2, '2014-08-06 08:59:35'),
+(5, 'D', '2,5', 'Jedi Knight', 'Cavaliere Jedi', 0, 0, 0, 0, 'd9564d57165b2e8d21b1b8c959409216.png', NULL, NULL, '<p><br></p>', 1, '2014-08-06 09:00:03'),
+(6, 'D', '2,5', 'Jedi Master', 'Maestro Jedi', 0, 0, 0, 0, '586eef00da8faf942266c6e0564e7e76.png', NULL, NULL, '<p><br></p>', 2, '2014-08-06 09:00:17'),
+(7, 'D', '2,5', 'Padawan', 'Padawan', 0, 0, 0, 0, '05be81d032899191a04476ce132aebfb.png', NULL, NULL, '<p><br></p>', 2, '2014-08-06 09:00:37'),
+(8, 'D', '2,5', 'Sith', 'Sith', 0, 0, 0, 0, 'd8c40faf9d4a4cc931a71406d830726c.png', NULL, NULL, '<p><br></p>', 2, '2014-08-06 09:09:49'),
+(9, 'D', '2,5', 'Sith Knight', 'Cavaliere Sith', 0, 0, 0, 0, 'f29c72aad0c31c87d6f0b4184eb7f8a9.png', NULL, NULL, '<p><br></p>', 2, '2014-08-06 09:10:01'),
+(10, 'H', '2,3', 'Style Keeper', 'Custode delle Tradizioni', 0, 0, 0, 0, '26343a7d74b1cd4e83c3832e11e9c15e.png', NULL, NULL, '<p><br></p>', 2, '2014-08-06 09:11:26'),
+(11, 'H', '2,3', 'Shadow Master', 'Maestro d''Ombra', 0, 0, 0, 0, 'c659b7d7d9eeeda61e8eac8572d6b6bd.png', NULL, NULL, '<p><br></p>', 2, '2014-08-06 09:11:41'),
+(12, 'Q', '3', 'Training Instructor', 'Allievo Istruttore', 0, 0, 0, 0, 'c3f47e4d7892badb6143c0ca8dfdb9ea.png', NULL, NULL, '<p><br></p>', 2, '2014-08-06 09:12:01'),
+(13, 'Q', '3', 'Dean', 'Preside', 0, 0, 0, 0, '8e1186446122de0125950eaa1876b6c7.png', NULL, NULL, '<p><br></p>', 2, '2014-08-06 09:12:24'),
+(14, 'S', '4', 'Guardian', 'Guardiano', 0, 0, 0, 0, 'd96588d37881627e7d15bb08aa5f5894.png', NULL, NULL, '<p><br></p>', 2, '2014-08-06 09:12:54'),
+(15, 'S', '4', 'Sentinel', 'Sentinella', 0, 0, 0, 0, 'f21947ce2c9749ef24d3163c281a3bb0.png', NULL, NULL, '<p><br></p>', 2, '2014-08-06 09:13:13'),
+(16, 'H', '2,3', 'Quartermaster', 'Quartiermastro', 0, 0, 0, 0, '791c2c9790d4b4cfb379225986fa15e9.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:09:26'),
+(17, 'H', '2,3', 'Prophet', 'Profeta', 0, 0, 0, 0, 'ad6b6aa3371010529116611c74cc4750.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:09:49'),
+(18, 'H', '2,3', 'Shadow', 'Ombra', 0, 0, 0, 0, '163a5839d263031de7f9d0ec7ebe474b.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:10:09'),
+(19, 'H', '2,3', 'Master Sabersmith', 'Mastro di Spada', 0, 0, 0, 0, 'd673d00cb663bf587f3d206d0e2972e1.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:10:38'),
+(20, 'H', '2,3', 'Researcher', 'Ricercatore', 0, 0, 0, 0, '10998295a9776fb243d542302339f63a.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:11:02'),
+(21, 'Q', '3', 'Instructor level 1', 'Istruttore livello 1', 0, 0, 0, 0, '802e292ed5e1e18b41eacb4c62c7f7e2.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:12:39'),
+(22, 'Q', '3', 'Instructor level 2', 'Istruttore livello 2', 0, 0, 0, 0, '74e0c7ae2ffa57b2f6edaf218515d5b1.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:12:59'),
+(23, 'Q', '3', 'Instructor level 3', 'Istruttore livello 3', 0, 0, 0, 0, '3b69f92034caa56c01b0dc557cfa18b0.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:13:21'),
+(24, 'Q', '3', 'Instructor level 4', 'Istruttore livello 4', 0, 0, 0, 0, 'e5794f064d8771b73cbc726d92cec792.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:13:38'),
+(25, 'Q', '3', 'Instructor level 5', 'Istruttore livello 5', 0, 0, 0, 0, 'ee9fca9261bfc36aa75520acab20a6c4.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:13:55'),
+(26, 'Q', '3', 'Instructor level 6', 'Istruttore livello 6', 0, 0, 0, 0, 'e5a69a7cdadbe9d3c7920778063a181d.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:14:12'),
+(27, 'Q', '3', 'Instructor level 7', 'Istruttore livello 7', 0, 0, 0, 0, '34decadb79339ec2331e068fb92ab08c.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:14:31'),
+(28, 'Q', '3', 'Rector', 'Rector', 0, 0, 0, 0, 'd8cd960df43cb57e12d52298430214c6.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:14:45'),
+(29, 'S', '4', 'Consul', 'Console', 0, 0, 0, 0, '816090c955dcd98b6350f24c68d29c38.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:16:20'),
+(30, 'S', '4', 'Style Keeper', 'Custode di Stile', 0, 0, 0, 0, '919209a9005701114a358b640fbaea6f.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:16:53'),
+(31, 'S', '4', 'Ambassador', 'Ambasciatore', 0, 0, 0, 0, '42d6aa2ab1605c76a017a0cf4028128d.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:17:09'),
+(32, 'S', '4', 'Master of Arms', 'Maestro d''Armi', 0, 0, 0, 0, '150cc6ac0be492e802de192db5baafb9.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:17:29'),
+(33, 'S', '4', 'Battle Master', 'Maestro di Battaglia', 0, 0, 0, 0, '1fc7d4aae6bc3e19390e348c09acf33a.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:18:18'),
+(34, 'S', '4', 'Academy Master', 'Maestro d''Accademia', 1, 100, 200, 300, '1a40f32897f546631e7a96a1f6c8d82c.png', NULL, NULL, '<p><br></p>', 1, '2014-09-04 14:18:40'),
+(35, 'S', '4', 'Style Master in Shii-Cho', 'Maestro di Shii-Cho', 0, 0, 0, 0, '2656d4016b1874c18d229c5ff9485850.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:19:14'),
+(36, 'S', '4', 'Style Master in Makashi', 'Maestro di Makashi', 0, 0, 0, 0, '03c0e2e2b6050bdeac592090aa063e8f.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:19:53'),
+(37, 'S', '4', 'Style Master in Soresu', 'Maestro di Soresu', 0, 0, 0, 0, '66055d8882da9f8f9e5a9f8ec8a591d5.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:20:11'),
+(38, 'S', '4', 'Style Master in Ataru', 'Maestro di Ataru', 0, 0, 0, 0, '49155d58d16f378639ee78ed4589d5be.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:20:29'),
+(39, 'S', '4', 'Style Master in Djem-So', 'Maestro di Djem-So', 0, 0, 0, 0, '6198824741d2cef9be0fff724cf4f777.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:20:51'),
+(40, 'S', '4', 'Style Master in Niman', 'Maestro di Niman', 0, 0, 0, 0, '31bf67508bc6ab370e6913dbb0f9dbe1.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:21:08'),
+(41, 'S', '4', 'Style Master in Vaapad', 'Maestro di Vaapad', 0, 0, 0, 0, '2e622daab8de916330cf3d1d06e27a59.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:21:24'),
+(42, 'M', '2', 'Shiicho Base', 'Shiicho Base', 1, 100, 100, 100, '38ba6730de95ec899844c793fc364180.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:20:32'),
+(43, 'M', '2', 'Shiicho Esamemaster', 'Shiicho Esamemaster', 1, 100, 100, 100, 'ad8c7802525dabae92ade43b5930ab4e.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:21:03'),
+(44, 'M', '2', 'Shiicho Esamestile', 'Shiicho Esamestile', 1, 100, 100, 100, 'dfef5b13aafdc537552ea7c68c547cd2.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:21:25'),
+(45, 'M', '2', 'Makashi Base', 'Makashi Base', 1, 100, 100, 100, 'd71a5627e4f62f58a224dcc24ac0aebf.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:53:07'),
+(46, 'M', '2', 'Makashi Esamemaster', 'Makashi Esamemaster', 1, 100, 100, 100, 'ca46d46c9d88eaeeec1127acfebc68a3.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:54:50'),
+(47, 'M', '2', 'Makashi Esamestile', 'Makashi Esamestile', 1, 100, 100, 100, 'a1f593156e245ea2ff56aeca24a92130.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:55:25'),
+(48, 'M', '2', 'Soresu Base', 'Soresu Base', 1, 100, 100, 100, '81b6288853dbcbf73a8ec7cc0391682f.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:58:31'),
+(49, 'M', '2', 'Soresu Esamemaster', 'Soresu Esamemaster', 1, 100, 100, 100, '03805e555913f8484456ad7be16caed1.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:59:12'),
+(50, 'M', '2', 'Soresu Esamestile', 'Soresu Esamestile', 1, 100, 100, 100, 'fcd98042017e76ab556f7b6bd8546ffb.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:59:34'),
+(51, 'M', '2', 'Ataru Base', 'Ataru Base', 1, 100, 100, 100, '4d54f2c5e63d94547fb68f4427a4c967.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:00:21'),
+(52, 'M', '2', 'Ataru Esamemaster', 'Ataru Esamemaster', 1, 100, 100, 100, '5bf6283590d1e8c48eda6088681de327.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:00:44'),
+(53, 'M', '2', 'Ataru Esamestile', 'Ataru Esamestile', 1, 100, 100, 100, 'fa9d57dac2485a1b814a2f02f1569481.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:01:20'),
+(54, 'M', '2', 'Djemso Base', 'Djemso Base', 1, 100, 100, 100, '3fead9713c4902147eeb411d640ac2be.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:02:49'),
+(55, 'M', '2', 'Djemso Esamemaster', 'Djemso Esamemaster', 1, 100, 100, 100, '4ca24ffe9bdb4a1971d8665079b55057.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:03:09'),
+(56, 'M', '2', 'Djemso Esamestile', 'Djemso Esamestile', 1, 100, 100, 100, 'd2cb9682fa19fdcbafb9cd8c64e47d52.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:04:01'),
+(57, 'M', '2', 'Niman Base', 'Niman Base', 1, 100, 100, 100, '636487ed289f5b63bb8974ff9e509839.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:07:19'),
+(58, 'M', '2', 'Niman Esamemaster', 'Niman Esamemaster', 1, 100, 100, 100, '2d93afb3745fa5facfdaeb15a657e82c.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:07:32'),
+(59, 'M', '2', 'Niman Esamestile', 'Niman Esamestile', 1, 100, 100, 100, '3ada0c5703d755e5bd859524b96cbb15.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:07:51'),
+(60, 'M', '2', 'Vaapad Base', 'Vaapad Base', 1, 100, 100, 100, '8aa42a40ff99be2c731699ee7c30b954.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:08:25'),
+(61, 'M', '2', 'Vaapad Esamemaster', 'Vaapad Esamemaster', 1, 100, 100, 100, 'd5889686847364a8c7ee2e58ad9d2a52.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:09:50'),
+(62, 'M', '2', 'Vaapad Esamestile', 'Vaapad Esamestile', 1, 100, 100, 100, 'd83e5cdff9a168d0ba77cd39a31723b9.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:10:11');
 
 -- --------------------------------------------------------
 
@@ -266,7 +298,7 @@ CREATE TABLE IF NOT EXISTS `clandates` (
   `history` text,
   `user_id` int(11) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `clandates`
@@ -285,7 +317,10 @@ INSERT INTO `clandates` (`id`, `type`, `clan_id`, `clan_date`, `clan_shift_from`
 (10, 'R', 5, '2014-09-26', NULL, NULL, NULL, 0, '2014-09-22 07:04:56'),
 (11, 'R', 5, '2014-09-27', NULL, NULL, NULL, 0, '2014-09-22 07:04:56'),
 (12, 'R', 6, '2014-09-28', NULL, NULL, NULL, 0, '2014-09-22 07:04:56'),
-(13, 'R', 6, '2014-09-29', NULL, NULL, NULL, 0, '2014-09-22 07:04:56');
+(13, 'S', 6, '2014-09-30', '2014-09-29', NULL, NULL, 0, '2014-09-22 07:04:56'),
+(14, 'R', 1, '2014-09-30', NULL, NULL, NULL, 0, '2014-09-23 05:33:38'),
+(15, 'R', 3, '2014-09-30', NULL, NULL, NULL, 0, '2014-09-23 05:33:38'),
+(16, 'R', 4, '2014-09-30', NULL, NULL, NULL, 0, '2014-09-23 05:33:38');
 
 -- --------------------------------------------------------
 
@@ -488,7 +523,7 @@ CREATE TABLE IF NOT EXISTS `levels` (
 --
 
 INSERT INTO `levels` (`id`, `en_level_name`, `it_level_name`, `is_basic`, `under_sixteen`) VALUES
-(1, '1st Jedi', 'Prima Jedi', '1', '0'),
+(1, '1st Jedi', 'Prima Jedi', '0', '0'),
 (2, '2st Jedi', 'Seconda Jedi', '1', '0'),
 (3, '1st Youngling', 'Prima Youngling', '0', '1'),
 (4, '2nd Youngling', 'Seconda Youngling', '0', '1'),
@@ -746,8 +781,8 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 INSERT INTO `roles` (`id`, `en_role_name`, `it_role_name`, `is_manager`, `permission`, `is_delete`, `user_id`, `timestamp`) VALUES
 (1, 'Super Admin', 'Super Amministratore', 0, NULL, '0', 0, '2014-07-17 07:04:55'),
-(2, 'Admin', 'Admin', 0, 'a:15:{s:5:"roles";a:2:{i:0;s:8:"viewRole";i:1;s:8:"editRole";}s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:4:{i:0;s:11:"viewAcademy";i:1;s:10:"addAcademy";i:2;s:11:"editAcademy";i:3;s:13:"deleteAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:6:"levels";a:4:{i:0;s:9:"viewLevel";i:1;s:8:"addLevel";i:2;s:9:"editLevel";i:3;s:11:"deleteLevel";}s:5:"clans";a:9:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:22:"listTrialLessonRequest";i:7;s:24:"changeStatusTrialStudent";i:8;s:14:"changeClanDate";}s:15:"eventcategories";a:4:{i:0;s:17:"viewEventcategory";i:1;s:16:"addEventcategory";i:2;s:17:"editEventcategory";i:3;s:19:"deleteEventcategory";}s:6:"events";a:4:{i:0;s:9:"viewEvent";i:1;s:8:"addEvent";i:2;s:9:"editEvent";i:3;s:11:"deleteEvent";}s:7:"batches";a:3:{i:0;s:9:"viewBatch";i:1;s:9:"editBatch";i:2;s:11:"deleteBatch";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:6:"emails";a:2:{i:0;s:9:"viewEmail";i:1;s:9:"editEmail";}s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:9:"viewState";i:1;s:8:"addState";i:2;s:9:"editState";i:3;s:11:"deleteState";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"3";i:4;s:1:"4";i:5;s:1:"5";i:6;s:1:"6";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"3";i:4;s:1:"4";i:5;s:1:"5";i:6;s:1:"6";s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 07:27:03'),
-(3, 'Rector', 'Rettore', 1, 'a:6:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:8:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:22:"listTrialLessonRequest";i:7;s:14:"changeClanDate";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:1:{s:13:"group_message";a:1:{s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 10:13:22'),
+(2, 'Admin', 'Admin', 0, 'a:16:{s:5:"roles";a:2:{i:0;s:8:"viewRole";i:1;s:8:"editRole";}s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:9:"academies";a:4:{i:0;s:11:"viewAcademy";i:1;s:10:"addAcademy";i:2;s:11:"editAcademy";i:3;s:13:"deleteAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:6:"levels";a:4:{i:0;s:9:"viewLevel";i:1;s:8:"addLevel";i:2;s:9:"editLevel";i:3;s:11:"deleteLevel";}s:5:"clans";a:9:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:22:"listTrialLessonRequest";i:7;s:24:"changeStatusTrialStudent";i:8;s:14:"changeClanDate";}s:15:"eventcategories";a:4:{i:0;s:17:"viewEventcategory";i:1;s:16:"addEventcategory";i:2;s:17:"editEventcategory";i:3;s:19:"deleteEventcategory";}s:6:"events";a:4:{i:0;s:9:"viewEvent";i:1;s:8:"addEvent";i:2;s:9:"editEvent";i:3;s:11:"deleteEvent";}s:7:"batches";a:3:{i:0;s:9:"viewBatch";i:1;s:9:"editBatch";i:2;s:11:"deleteBatch";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:6:"emails";a:2:{i:0;s:9:"viewEmail";i:1;s:9:"editEmail";}s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:9:"viewState";i:1;s:8:"addState";i:2;s:9:"editState";i:3;s:11:"deleteState";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"3";i:4;s:1:"4";i:5;s:1:"5";i:6;s:1:"6";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"3";i:4;s:1:"4";i:5;s:1:"5";i:6;s:1:"6";s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 07:27:03'),
+(3, 'Rector', 'Rettore', 1, 'a:7:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:14:"studentratings";a:1:{i:0;s:17:"viewStudentrating";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:8:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:22:"listTrialLessonRequest";i:7;s:14:"changeClanDate";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:1:{s:13:"group_message";a:1:{s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 10:13:22'),
 (4, 'Dean', 'Preside', 0, 'a:7:{s:5:"roles";a:1:{i:0;s:8:"viewRole";}s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:4:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:22:"listTrialLessonRequest";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:1:{s:13:"group_message";a:1:{s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 10:13:43'),
 (5, 'Teacher', 'Insegnante', 1, 'a:6:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:5:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:22:"listTrialLessonRequest";i:4;s:24:"changeStatusTrialStudent";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:1:{s:13:"group_message";a:1:{s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 10:16:50'),
 (6, 'Pupil', 'Pupil', 0, 'a:5:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:6:"events";a:1:{i:0;s:9:"viewEvent";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}}', '0', 1, '2014-07-17 10:17:08');
@@ -790,6 +825,35 @@ INSERT INTO `schools` (`id`, `academy_id`, `dean_id`, `en_school_name`, `it_scho
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `score_histories`
+--
+
+CREATE TABLE IF NOT EXISTS `score_histories` (
+`id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `oper` enum('M','D') NOT NULL DEFAULT 'M',
+  `score_type` enum('XPR','WAR','STY') NOT NULL,
+  `score` int(11) NOT NULL DEFAULT '0',
+  `score_date` date NOT NULL,
+  `description` text,
+  `user_id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `score_histories`
+--
+
+INSERT INTO `score_histories` (`id`, `student_id`, `oper`, `score_type`, `score`, `score_date`, `description`, `user_id`, `timestamp`) VALUES
+(1, 14, 'M', 'XPR', 100, '2014-09-24', 'Hello', 1, '2014-09-24 05:21:43'),
+(2, 14, 'D', 'WAR', 125, '2014-09-24', 'Hi', 1, '2014-09-24 05:21:43'),
+(3, 14, 'D', 'STY', 250, '2014-09-24', 'How are you', 1, '2014-09-24 05:21:43'),
+(4, 14, 'M', 'WAR', 5, '2014-09-24', 'Good work', 1, '2014-09-24 05:49:27'),
+(5, 14, 'D', 'STY', 2, '2014-09-24', 'Test', 1, '2014-09-24 05:49:27');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `states`
 --
 
@@ -826,7 +890,7 @@ CREATE TABLE IF NOT EXISTS `systemsettings` (
   `sys_value` text NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `systemsettings`
@@ -845,9 +909,9 @@ INSERT INTO `systemsettings` (`id`, `type`, `sequence`, `sys_key`, `sys_value`, 
 (10, 'mail', 5, 'smtp_pass', 'soyabsoyab', 1, '2014-08-07 03:31:10'),
 (11, 'general', 8, 'data_table_length', '10,15,20,25,50,75,100', 1, '2014-08-07 03:31:10'),
 (12, 'mail', 3, 'smtp_port', '465', 1, '2014-08-07 03:31:10'),
-(13, 'general', 9, 'terms_conditions', '<p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus scelerisque tincidunt porttitor. Aliquam mollis nulla felis, eget maximus ipsum posuere ut. Duis bibendum sagittis metus, sed mattis ex sagittis sed. Vivamus facilisis justo arcu, id bibendum nulla ultrices vitae. Donec vitae ex ultricies, aliquet magna vitae, elementum nunc. Vivamus nulla nisl, ultricies a rhoncus quis, lobortis quis neque. Integer nisi ex, rhoncus vitae vehicula et, scelerisque non dui. Morbi porta, est sit amet egestas scelerisque, leo sem molestie diam, eget sagittis metus risus eget nisi. Aliquam erat volutpat. Vestibulum ac libero tellus. Cras imperdiet nunc eu tincidunt venenatis.</span></p><p><span>Phasellus condimentum, lorem vitae gravida gravida, ipsum felis facilisis massa, eget elementum risus lorem vel est. Fusce augue justo, facilisis non ligula in, feugiat porta sem. Praesent nec augue turpis. Nulla consectetur porta est vel efficitur. Vestibulum condimentum, libero sed tincidunt lobortis, eros lorem efficitur sapien, et interdum dui purus id justo. Vivamus porttitor felis sed purus sodales finibus. Maecenas convallis in ligula a hendrerit. Vivamus dapibus dapibus dictum. Integer iaculis leo purus, at lobortis mi eleifend sed. Maecenas vitae gravida nulla, vel luctus nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam efficitur mauris at tortor maximus, ut placerat elit tempus. Nunc pretium blandit efficitur.</span></p><p><span>Duis convallis lobortis leo quis faucibus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum et tempor est, scelerisque consequat nunc. Nam sit amet tempus ipsum. Nunc porta convallis arcu. In vehicula ligula felis, non dapibus mauris congue eget. Donec elit lorem, molestie nec pharetra euismod, sagittis eget tellus. Sed justo dolor, rutrum ut magna posuere, egestas maximus dui. Praesent erat magna, ornare molestie ultrices ut, porta at erat. Sed tempor elit sit amet libero imperdiet cursus.</span></p>', 2, '2014-09-03 04:14:42'),
 (14, 'general', 7, 'reset_app_day_month', '31-12', 2, '2014-09-03 04:14:42'),
-(15, 'general', 8, 'pupil_basic_level', '6', 2, '2014-09-08 12:09:30');
+(15, 'general', 8, 'basic_level_under_16', '3', 2, '2014-09-08 12:09:30'),
+(16, 'general', 9, 'basic_level_above_16', '6', 2, '2014-09-08 12:09:30');
 
 -- --------------------------------------------------------
 
@@ -867,7 +931,7 @@ CREATE TABLE IF NOT EXISTS `teacher_attendances` (
   `status` enum('A','P','U') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `teacher_attendances`
@@ -886,7 +950,10 @@ INSERT INTO `teacher_attendances` (`id`, `clan_date`, `clan_id`, `teacher_id`, `
 (10, '2014-09-26', 5, 7, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:57'),
 (11, '2014-09-27', 5, 7, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:57'),
 (12, '2014-09-28', 6, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:57'),
-(13, '2014-09-29', 6, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:57');
+(13, '2014-09-29', 6, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-22 07:04:57'),
+(14, '2014-09-30', 1, 5, 1, 0, NULL, NULL, 'P', 0, '2014-09-23 05:33:38'),
+(15, '2014-09-30', 3, 3, 1, 0, NULL, NULL, 'P', 0, '2014-09-23 05:33:38'),
+(16, '2014-09-30', 4, 8, 1, 0, NULL, NULL, 'P', 0, '2014-09-23 05:33:38');
 
 -- --------------------------------------------------------
 
@@ -900,6 +967,7 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   `clan_id` varchar(11) NOT NULL DEFAULT '0',
   `degree_id` int(11) NOT NULL DEFAULT '0',
   `honor_id` int(11) NOT NULL DEFAULT '0',
+  `master_id` int(11) NOT NULL DEFAULT '0',
   `qualification_id` int(11) NOT NULL DEFAULT '0',
   `security_id` int(11) NOT NULL DEFAULT '0',
   `color_of_blade` int(11) NOT NULL DEFAULT '1',
@@ -916,29 +984,28 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   `status` enum('A','P','U','P2') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `userdetails`
 --
 
-INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `degree_id`, `honor_id`, `qualification_id`, `security_id`, `color_of_blade`, `xpr`, `war`, `sty`, `total_score`, `first_lesson_date`, `approved_by`, `palce_of_birth`, `zip_code`, `tax_code`, `blood_group`, `status`, `user_id`, `timestamp`) VALUES
-(1, 14, '3', 6, 0, 0, 0, 6, 130, 101, 89, 320, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:02'),
-(2, 15, '2', 6, 0, 0, 0, 6, 188, 117, 128, 433, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
-(3, 16, '2', 6, 0, 0, 0, 6, 205, 117, 119, 441, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
-(4, 17, '5', 6, 0, 0, 0, 6, 237, 111, 162, 510, '2014-08-11', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-05 00:09:27'),
-(5, 20, '6', 6, 0, 0, 0, 6, 282, 102, 158, 542, '2014-08-28', 2, '', 390016, 963852, 'B-ve ', 'A', 20, '2009-08-21 01:37:12'),
-(6, 13, '5', 6, 0, 0, 0, 6, 292, 118, 129, 539, '2014-08-30', 3, NULL, NULL, NULL, NULL, 'A', 13, '2014-08-25 05:27:01'),
-(7, 21, '6', 6, 0, 0, 0, 6, 328, 118, 167, 613, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2014-08-25 05:52:04'),
-(8, 25, '6', 8, 14, 0, 0, 6, 354, 113, 124, 591, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2010-08-25 05:52:04'),
-(9, 27, '4', 6, 0, 0, 0, 6, 379, 89, 94, 562, '2014-09-09', 8, 'roma', 0, 0, 'ah+', 'A', 27, '2014-09-04 15:25:53'),
-(10, 28, '4', 6, 0, 0, 0, 6, 425, 96, 135, 656, '2014-09-16', 0, NULL, NULL, NULL, NULL, 'P', 28, '2014-09-05 08:45:20'),
-(11, 31, '1', 6, 0, 0, 0, 6, 460, 131, 96, 687, '2014-09-16', 8, NULL, NULL, NULL, NULL, 'A', 31, '2014-09-05 11:33:36'),
-(12, 33, '4', 6, 0, 0, 0, 6, 497, 113, 140, 750, '2014-09-30', 8, NULL, NULL, NULL, NULL, 'A', 33, '2014-09-05 13:05:45'),
-(13, 34, '1', 6, 0, 0, 0, 6, 514, 114, 127, 755, '2014-09-23', 8, NULL, NULL, NULL, NULL, 'A', 34, '2014-09-05 13:18:57'),
-(14, 23, '6', 6, 14, 0, 0, 6, 548, 101, 127, 776, '2014-08-04', 2, 'Milan', 20162, 610093, 'O +ve', 'A', 2, '2014-08-04 00:09:02'),
-(15, 12, '0', 6, 0, 0, 0, 6, 0, 0, 0, 0, NULL, 0, 'Vadodara', 390016, 610093, 'B -ve', 'P2', 12, '2014-09-11 05:49:27'),
-(16, 36, '4', 6, 13, 0, 0, 1, 0, 0, 0, 0, '2014-09-22', 0, NULL, NULL, NULL, NULL, 'A', 2, '2014-09-22 06:02:11');
+INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `degree_id`, `honor_id`, `master_id`, `qualification_id`, `security_id`, `color_of_blade`, `xpr`, `war`, `sty`, `total_score`, `first_lesson_date`, `approved_by`, `palce_of_birth`, `zip_code`, `tax_code`, `blood_group`, `status`, `user_id`, `timestamp`) VALUES
+(1, 14, '3', 3, 0, 0, 0, 0, 6, 230, 65, 158, 453, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:02'),
+(2, 15, '2', 3, 0, 0, 0, 0, 6, 188, 117, 128, 433, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
+(3, 16, '2', 3, 0, 0, 0, 0, 6, 205, 117, 119, 441, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
+(4, 17, '5', 3, 0, 0, 0, 0, 6, 237, 111, 162, 510, '2014-08-11', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-05 00:09:27'),
+(5, 20, '6', 3, 0, 0, 0, 0, 6, 282, 102, 158, 542, '2014-08-28', 2, '', 390016, 963852, 'B-ve ', 'A', 20, '2009-08-21 01:37:12'),
+(6, 13, '5', 3, 0, 0, 0, 0, 6, 292, 118, 129, 539, '2014-08-30', 3, NULL, NULL, NULL, NULL, 'A', 13, '2014-08-25 05:27:01'),
+(7, 21, '6', 3, 0, 0, 0, 0, 6, 328, 118, 167, 613, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2014-08-25 05:52:04'),
+(8, 25, '6', 3, 0, 0, 0, 0, 6, 360, 113, 124, 591, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2010-08-25 05:52:04'),
+(9, 27, '4', 3, 0, 0, 0, 0, 6, 379, 89, 94, 562, '2014-09-09', 8, 'roma', 0, 0, 'ah+', 'A', 27, '2014-09-04 15:25:53'),
+(10, 28, '4', 3, 0, 0, 0, 0, 6, 425, 96, 135, 656, '2014-09-16', 0, NULL, NULL, NULL, NULL, 'P', 28, '2014-09-05 08:45:20'),
+(11, 31, '1', 3, 0, 0, 0, 0, 6, 460, 131, 96, 687, '2014-09-16', 8, NULL, NULL, NULL, NULL, 'A', 31, '2014-09-05 11:33:36'),
+(12, 33, '4', 3, 0, 0, 0, 0, 6, 497, 113, 140, 750, '2014-09-30', 8, NULL, NULL, NULL, NULL, 'A', 33, '2014-09-05 13:05:45'),
+(13, 34, '1', 3, 0, 0, 0, 0, 6, 514, 114, 127, 755, '2014-09-23', 8, NULL, NULL, NULL, NULL, 'A', 34, '2014-09-05 13:18:57'),
+(14, 23, '6', 3, 0, 0, 0, 0, 6, 548, 101, 127, 776, '2014-08-04', 2, 'Milan', 20162, 610093, 'O +ve', 'A', 2, '2014-08-04 00:09:02'),
+(18, 36, '5', 3, 0, 0, 0, 0, 1, 0, 0, 0, 0, '2014-09-24', 0, 'Q', 12, 12, '1', 'P2', 36, '2014-09-24 11:24:04');
 
 -- --------------------------------------------------------
 
@@ -1002,7 +1069,7 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `last
 (31, '6', 'eu', '202cb962ac59075b964b07152d234b70', 'Eugenio', 'Di Fraia', 'ranasoyab@yopmail.com', 317973600, 1, 1, 1, 'Cassina de Pecchi', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'P', 0, '2014-09-05 11:32:37'),
 (33, '6', 'bart', '202cb962ac59075b964b07152d234b70', 'Bart', 'Simpson', 'ranasoyab@yopmail.com', 633938400, 5, 4, 2, 'e', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'P', 33, '2014-09-05 13:00:47'),
 (34, '6', 'merge', '202cb962ac59075b964b07152d234b70', 'Merge', 'Simpson', 'ranasoyab@yopmail.com', 633852000, 1, 1, 1, 's', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'P', 0, '2014-09-05 13:17:44'),
-(36, '6', 'spyker', '202cb962ac59075b964b07152d234b70', 'Spyker', 'Jeans', 'soyab@yopmail.com', 525724200, 1, 1, 1, 'Vadodara', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'A', 2, '2014-09-22 06:02:11');
+(36, '6', 'spyker', '202cb962ac59075b964b07152d234b70', 'Spyker', 'Jeans', 'soyab@yopmail.com', 525724200, 1, 1, 1, 'Vadodara', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'P', 2, '2014-09-22 06:02:11');
 
 -- --------------------------------------------------------
 
@@ -1013,33 +1080,34 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `last
 CREATE TABLE IF NOT EXISTS `user_batches_histories` (
 `id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
-  `batch_type` enum('D','H','Q','S') NOT NULL,
+  `batch_type` enum('D','H','M','Q','S') NOT NULL,
   `batch_id` int(11) NOT NULL,
   `assign_date` date NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `user_batches_histories`
 --
 
 INSERT INTO `user_batches_histories` (`id`, `student_id`, `batch_type`, `batch_id`, `assign_date`, `user_id`, `timestamp`) VALUES
-(1, 14, 'D', 6, '2014-08-04', 0, '2014-09-19 12:10:21'),
-(2, 15, 'D', 6, '2014-08-04', 0, '2014-09-19 12:10:21'),
-(3, 16, 'D', 6, '2014-08-04', 0, '2014-09-19 12:10:21'),
-(4, 17, 'D', 6, '2014-08-05', 0, '2014-09-19 12:10:21'),
-(5, 20, 'D', 6, '2009-08-21', 0, '2014-09-19 12:10:21'),
-(6, 13, 'D', 6, '2014-08-25', 0, '2014-09-19 12:10:21'),
-(7, 21, 'D', 6, '2014-08-25', 0, '2014-09-19 12:10:21'),
-(8, 25, 'D', 6, '2010-08-25', 0, '2014-09-19 12:10:21'),
-(9, 27, 'D', 6, '2014-09-04', 0, '2014-09-19 12:10:21'),
-(10, 31, 'D', 6, '2014-09-05', 0, '2014-09-19 12:10:21'),
-(11, 33, 'D', 6, '2014-09-05', 0, '2014-09-19 12:10:21'),
-(12, 34, 'D', 6, '2014-09-05', 0, '2014-09-19 12:10:21'),
-(13, 23, 'D', 6, '2014-08-04', 0, '2014-09-19 12:10:21'),
-(14, 36, 'D', 6, '2014-09-22', 2, '2014-09-22 06:02:11'),
-(15, 36, 'Q', 13, '2014-09-22', 2, '2014-09-22 06:03:45');
+(1, 14, 'D', 3, '2014-08-04', 0, '2014-09-19 12:10:21'),
+(2, 15, 'D', 3, '2014-08-04', 0, '2014-09-19 12:10:21'),
+(3, 16, 'D', 3, '2014-08-04', 0, '2014-09-19 12:10:21'),
+(4, 17, 'D', 3, '2014-08-05', 0, '2014-09-19 12:10:21'),
+(5, 20, 'D', 3, '2009-08-21', 0, '2014-09-19 12:10:21'),
+(6, 13, 'D', 3, '2014-08-25', 0, '2014-09-19 12:10:21'),
+(7, 21, 'D', 3, '2014-08-25', 0, '2014-09-19 12:10:21'),
+(8, 25, 'D', 3, '2010-08-25', 0, '2014-09-19 12:10:21'),
+(9, 27, 'D', 3, '2014-09-04', 0, '2014-09-19 12:10:21'),
+(10, 31, 'D', 3, '2014-09-05', 0, '2014-09-19 12:10:21'),
+(11, 33, 'D', 3, '2014-09-05', 0, '2014-09-19 12:10:21'),
+(12, 34, 'D', 3, '2014-09-05', 0, '2014-09-19 12:10:21'),
+(13, 23, 'D', 3, '2014-08-04', 0, '2014-09-19 12:10:21'),
+(14, 36, 'D', 3, '2014-09-22', 2, '2014-09-22 06:02:11'),
+(15, 36, 'D', 3, '2014-09-22', 2, '2014-09-22 06:03:45'),
+(16, 25, 'D', 6, '2010-05-01', 0, '2014-09-19 12:10:21');
 
 --
 -- Indexes for dumped tables
@@ -1178,6 +1246,12 @@ ALTER TABLE `schools`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `score_histories`
+--
+ALTER TABLE `score_histories`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `states`
 --
 ALTER TABLE `states`
@@ -1226,7 +1300,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT for table `attendance_recovers`
 --
@@ -1236,7 +1310,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `batches`
 --
 ALTER TABLE `batches`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=63;
 --
 -- AUTO_INCREMENT for table `challenges`
 --
@@ -1251,7 +1325,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `clandates`
 --
 ALTER TABLE `clandates`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `clans`
 --
@@ -1328,6 +1402,11 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 ALTER TABLE `schools`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
+-- AUTO_INCREMENT for table `score_histories`
+--
+ALTER TABLE `score_histories`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
 -- AUTO_INCREMENT for table `states`
 --
 ALTER TABLE `states`
@@ -1336,17 +1415,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `systemsettings`
 --
 ALTER TABLE `systemsettings`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `teacher_attendances`
 --
 ALTER TABLE `teacher_attendances`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `userdetails`
 --
 ALTER TABLE `userdetails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -1356,7 +1435,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
 -- AUTO_INCREMENT for table `user_batches_histories`
 --
 ALTER TABLE `user_batches_histories`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
