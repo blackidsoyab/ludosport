@@ -78,8 +78,7 @@ if (!function_exists('getLocationName')) {
         $session = $ci->session->userdata('user_session');
         $obj = new $type();
         $obj->where('id', $id)->limit(1)->get();
-        $field = $session->language . '_name';
-        return $obj->$field;
+        return ucwords($obj->{$session->language . '_name'});
     }
 
 }
