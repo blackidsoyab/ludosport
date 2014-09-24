@@ -126,7 +126,7 @@
                 <h4 class="modal-title" style="color: #000 !important;"><?php echo $this->lang->line('terms_conditions'); ?></h4>
             </div>
             <div class="modal-body">
-                <?php echo $this->config->item('terms_conditions'); ?>
+                <?php echo $this->lang->line('text_terms_conditions'); ?>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

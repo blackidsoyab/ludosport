@@ -204,6 +204,7 @@ $lang['re_enter_password'] = 'Re-enter password';
 $lang['enter'] = 'Enter';
 $lang['i_accept'] = 'I accept';
 $lang['terms_conditions'] = 'Terms and conditions';
+$lang['text_terms_conditions'] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in ligula aliquam, ullamcorper tortor mattis, hendrerit neque. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam posuere venenatis nisl eu aliquam. Vestibulum tristique justo sit amet sapien pulvinar scelerisque. Integer id nunc tincidunt, dignissim turpis eu, dapibus erat. Sed aliquam tortor nec nisi ultrices dignissim. Sed non ligula velit. Aenean quis laoreet arcu, a scelerisque ipsum. In gravida, nisi in mattis consectetur, erat augue vestibulum mauris, quis porttitor tellus ligula in turpis. Vestibulum eleifend, nisi at vulputate sagittis, est est semper turpis, ut pretium nibh arcu sit amet mi. Proin eu commodo diam. Donec fermentum eget lacus sit amet mollis. Morbi tempus lorem sit amet urna luctus semper.';
 $lang['register'] = 'Register';
 $lang['step'] = 'Step';
 $lang['palce_of_birth'] = 'Place of Birth';

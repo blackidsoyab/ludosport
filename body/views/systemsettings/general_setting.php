@@ -11,10 +11,6 @@
             }).on('changeDate', function (ev) {
                 $(this).datepicker('hide');
             });
-
-            $('textarea[name="terms_conditions"]').summernote({
-                height : 200
-            });
     });
     //]]>
 </script>
@@ -64,7 +60,7 @@
                         </select>
                     </div>
                 </div>
-            <?php } else if ($value->sys_key == 'pupil_basic_level') { ?>
+            <?php } else if ($value->sys_key == 'basic_level_under_16' || $value->sys_key == 'basic_level_above_16') { ?>
                 <div class="form-group">
                     <label class="col-lg-3 control-label"><?php echo ucfirst(str_replace('_', ' ', $value->sys_key)); ?> <span class="text-danger">*</span></label>
                     <div class="col-lg-8">
@@ -84,19 +80,12 @@
                     </div>
                 </div>
             <?php } else if ($value->sys_key == 'reset_app_day_month') { ?>
-            <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo ucfirst(str_replace('_', ' ', $value->sys_key)); ?> <span class="text-danger">*</span></label>
-                <div class="col-lg-8">
-                    <input type="text" name="<?php echo $value->sys_key; ?>"  class="form-control required datepicker" value="<?php echo $value->sys_value; ?>"/>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><?php echo ucfirst(str_replace('_', ' ', $value->sys_key)); ?> <span class="text-danger">*</span></label>
+                    <div class="col-lg-8">
+                        <input type="text" name="<?php echo $value->sys_key; ?>"  class="form-control required datepicker" value="<?php echo $value->sys_value; ?>"/>
+                    </div>
                 </div>
-            </div>
-            <?php } else if ($value->sys_key == 'terms_conditions') { ?>
-            <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo ucfirst(str_replace('_', ' ', $value->sys_key)); ?> <span class="text-danger">*</span></label>
-                <div class="col-lg-8">
-                    <textarea class="required summernote-sm" name="<?php echo $value->sys_key; ?>"><?php echo $value->sys_value; ?></textarea>
-                </div>
-            </div>
             <?php } else { ?>
                 <div class="form-group">
                     <label for="question" class="col-lg-3 control-label"><?php echo ucfirst(str_replace('_', ' ', $value->sys_key)); ?> <span class="text-danger">*</span></label>

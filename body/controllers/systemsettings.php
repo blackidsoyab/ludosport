@@ -15,7 +15,8 @@ class systemsettings extends CI_Controller {
 
     function viewSystemSetting($type) {
         if (is_null($type) || is_integer($type)) {
-            redirect(base_url(), 'refresh');
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'dashboard', 'refresh'); 
         }
 
         $setting = new Systemsetting();
@@ -25,12 +26,12 @@ class systemsettings extends CI_Controller {
             $data['roles'] = $role->where('id >', '1')->get();
 
             $batch = new Batch();
-            $data['batches'] = $batch->get();
+            $data['batches'] = $batch->where('type', 'D')->get();
             $this->layout->view('systemsettings/general_setting', $data);
         }
 
         if ($type == 'update_general') {
-            $this->UpdateGeneralSetting();
+            $this->_updateGeneralSetting();
             redirect(base_url() . 'system_setting/general', 'refresh');
         }
 
@@ -39,19 +40,19 @@ class systemsettings extends CI_Controller {
         }
 
         if ($type == 'update_mail') {
-            $this->UpdateMailSetting();
+            $this->_updateMailSetting();
             redirect(base_url() . 'system_setting/mail', 'refresh');
         }
     }
 
-    function UpdateGeneralSetting() {
+    private function _updateGeneralSetting() {
         $setting = new Systemsetting();
         $setting->where('type', 'general')->get();
         foreach ($setting as $value) {
 
             if ($value->sys_key == 'login_logo' || $value->sys_key == 'main_logo') {
                 if ($_FILES[$value->sys_key]['name'] != '') {
-                    $avtar = $this->uploadAvtar($value->sys_key);
+                    $avtar = $this->_uploadAvtar($value->sys_key);
                     $setting->where('sys_key', $value->sys_key)->update('sys_value', $avtar['file_name']);
                 }
             } else {
@@ -61,7 +62,7 @@ class systemsettings extends CI_Controller {
         return TRUE;
     }
 
-    function UpdateMailSetting() {
+    private function _updateMailSetting() {
         $setting = new Systemsetting();
         $setting->where('type', 'mail')->get();
         foreach ($setting as $value) {
@@ -71,7 +72,7 @@ class systemsettings extends CI_Controller {
         return TRUE;
     }
 
-    function uploadAvtar($sys_key) {
+    private function _uploadAvtar($sys_key) {
         $this->upload->initialize(array(
             'upload_path'   => "./assets/img",
             'allowed_types' => 'jpg|jpeg|gif|png|bmp',
