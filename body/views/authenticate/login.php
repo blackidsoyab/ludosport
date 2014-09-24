@@ -18,13 +18,6 @@
         <span class="fa fa-unlock-alt form-control-feedback"></span>
     </div>
     <div class="form-group">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" class="i-yellow-flat" title="<?php echo $this->lang->line('remember_me'); ?>"><?php echo $this->lang->line('remember_me'); ?>
-            </label>
-        </div>
-    </div>
-    <div class="form-group">
         <button type="submit" class="btn btn-warning btn-lg btn-perspective btn-block" title="<?php echo $this->lang->line('login'); ?>"><?php echo $this->lang->line('login'); ?></button>
     </div>
 </form>
