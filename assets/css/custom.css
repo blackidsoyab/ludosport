@@ -571,3 +571,7 @@ footer{
 .panel-custom .panel-heading li.active a{
     color: #555;
 }
+
+.opacity-5{
+    opacity: 0.5;
+}

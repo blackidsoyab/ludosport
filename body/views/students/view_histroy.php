@@ -175,44 +175,10 @@
             <div class="the-box no-border">
                 <?php foreach ($student_degrees as $degree) { ?>
                     <div class="media user-card-sm">
-                            <img class="pull-left media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $degree->image; ?>" alt="<?php echo $degree->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $degree->{$session->language . '_name'}; ?>">
+                            <img class="pull-left media-object img-circle <?php echo ($user_detail->degree_id != $degree->id) ? 'opacity-5' : ''; ?>" src="<?php echo IMG_URL . 'batches/' . $degree->image; ?>" alt="<?php echo $degree->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $degree->{$session->language . '_name'}; ?>">
                         <div class="media-body">
-                            <h4><?php echo $degree->{$session->language . '_name'}; ?></h4>
-                            <p class="text-danger"><?php echo date('d/m/Y', strtotime($degree->assign_date)); ?></p>
-                        </div>
-                        <div class="right-button">
-                            <button class="btn btn-danger"><i class="fa fa-info"></i></button>
-                        </div>
-                    </div>
-                <?php } ?>
-            </div>
-        <?php } ?>
-
-        <?php if ($student_honours != false) { ?>
-            <div class="the-box no-border">
-                <?php foreach ($student_honours as $honour) { ?>
-                    <div class="media user-card-sm">
-                        <img class="pull-left media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $honour->image; ?>" alt="<?php echo $honour->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $honour->{$session->language . '_name'}; ?>">
-                        <div class="media-body">
-                            <h4><?php echo $honour->{$session->language . '_name'}; ?></h4>
-                            <p class="text-danger"><?php echo date('d/m/Y', strtotime($honour->assign_date)); ?></p>
-                        </div>
-                        <div class="right-button">
-                            <button class="btn btn-danger"><i class="fa fa-info"></i></button>
-                        </div>
-                    </div>
-                <?php } ?>
-            </div>
-        <?php } ?>
-
-        <?php if ($student_qualifications != false) { ?>
-            <div class="the-box no-border">
-                <?php foreach ($student_qualifications as $qualification) { ?>
-                    <div class="media user-card-sm">
-                       <img class="pull-left media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $qualification->image; ?>" alt="<?php echo $qualification->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $qualification->{$session->language . '_name'}; ?>">
-                        <div class="media-body">
-                            <h4><?php echo $qualification->{$session->language . '_name'}; ?></h4>
-                            <p class="text-danger"><?php echo date('d/m/Y', strtotime($qualification->assign_date)); ?></p>
+                            <h4 class="<?php echo ($user_detail->degree_id != $degree->id) ? 'text-muted' : ''; ?>"><?php echo $degree->{$session->language . '_name'}; ?></h4>
+                            <p class="text-danger"><?php echo (!is_null($degree->assign_date)) ? date('d/m/Y', strtotime($degree->assign_date)) : ''; ?></p>
                         </div>
                         <div class="right-button">
                             <button class="btn btn-danger"><i class="fa fa-info"></i></button>
@@ -226,10 +192,10 @@
             <div class="the-box no-border">
                 <?php foreach ($student_securities as $security) { ?>
                     <div class="media user-card-sm">
-                        <img class="pull-left media-object img-circle" src="<?php echo IMG_URL . 'batches/' . $security->image; ?>" alt="<?php echo $security->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $security->{$session->language . '_name'}; ?>">
+                        <img class="pull-left media-object img-circle <?php echo ($user_detail->security_id != $security->id) ? 'opacity-5' : ''; ?>" src="<?php echo IMG_URL . 'batches/' . $security->image; ?>" alt="<?php echo $security->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $security->{$session->language . '_name'}; ?>">
                         <div class="media-body">
-                            <h4><?php echo $security->{$session->language . '_name'}; ?></h4>
-                            <p class="text-danger"><?php echo date('d/m/Y', strtotime($security->assign_date)); ?></p>
+                            <h4 class="<?php echo ($user_detail->security_id != $security->id) ? 'text-muted' : ''; ?>"><?php echo $security->{$session->language . '_name'}; ?></h4>
+                            <p class="text-danger"><?php echo (!is_null($security->assign_date)) ? date('d/m/Y', strtotime($security->assign_date)) : ''; ?></p>
                         </div>
                         <div class="right-button">
                             <button class="btn btn-danger"><i class="fa fa-info"></i></button>
@@ -237,7 +203,41 @@
                     </div>
                 <?php } ?>
             </div>
-        <?php } ?>		
+        <?php } ?>
+
+        <?php if ($student_qualifications != false) { ?>
+            <div class="the-box no-border">
+                <?php foreach ($student_qualifications as $qualification) { ?>
+                    <div class="media user-card-sm">
+                       <img class="pull-left media-object img-circle <?php echo ($user_detail->qualification_id != $qualification->id) ? 'opacity-5' : ''; ?>" src="<?php echo IMG_URL . 'batches/' . $qualification->image; ?>" alt="<?php echo $qualification->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $qualification->{$session->language . '_name'}; ?>">
+                        <div class="media-body">
+                            <h4 class="<?php echo ($user_detail->qualification_id != $qualification->id) ? 'text-muted' : ''; ?>"><?php echo $qualification->{$session->language . '_name'}; ?></h4>
+                            <p class="text-danger"><?php echo (!is_null($qualification->assign_date)) ? date('d/m/Y', strtotime($qualification->assign_date)) : ''; ?></p>
+                        </div>
+                        <div class="right-button">
+                            <button class="btn btn-danger"><i class="fa fa-info"></i></button>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
+
+        <?php if ($student_honours != false) { ?>
+            <div class="the-box no-border">
+                <?php foreach ($student_honours as $honour) { ?>
+                    <div class="media user-card-sm">
+                        <img class="pull-left media-object img-circle <?php echo ($user_detail->honor_id != $honour->id) ? 'opacity-5' : ''; ?>" src="<?php echo IMG_URL . 'batches/' . $honour->image; ?>" alt="<?php echo $honour->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $honour->{$session->language . '_name'}; ?>">
+                        <div class="media-body">
+                            <h4 class="<?php echo ($user_detail->honor_id != $honour->id) ? 'text-muted' : ''; ?>"><?php echo $honour->{$session->language . '_name'}; ?></h4>
+                            <p class="text-danger"><?php echo (!is_null($honour->assign_date)) ? date('d/m/Y', strtotime($honour->assign_date)) : ''; ?></p>
+                        </div>
+                        <div class="right-button">
+                            <button class="btn btn-danger"><i class="fa fa-info"></i></button>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>     
     </div>
 </div>
 
