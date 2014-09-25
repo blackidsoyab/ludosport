@@ -1022,7 +1022,7 @@ class json extends CI_Controller {
         }
 
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS student_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'clans.' . $this->session_data->language . '_class_name AS class_name', 'total_score');
+        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS student_name', 'total_score', 'clans.' . $this->session_data->language . '_class_name AS class_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name');
         $this->datatable->eColumns = array('users.id', 'avtar');
         $this->datatable->sIndexColumn = "users.id";
         $this->datatable->sTable = " clans, users, schools, academies, userdetails";

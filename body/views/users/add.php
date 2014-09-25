@@ -3,10 +3,7 @@
     //<![CDATA[
     $(document).ready(function() {
         
-        $('#academy_list').hide();
-        $('#school_list').hide();
-        $('#class_list').hide();
-        $('#batch_assignment').hide();
+        $('#role_pupil').hide();
                 
         $("#add").validate({
             rules: {
@@ -41,17 +38,9 @@
                 }
             });
             if(check == true){
-                $('#academy_list').show();
-                $('#school_list').show();
-                $('#class_list').show();
-                $('#batch_assignment').show();
+                $('#role_pupil').show();
             }else{
-                $('#school_list').empty();
-                $('#class_list').empty();
-                $('#academy_list').hide()
-                $('#school_list').hide();
-                $('#class_list').hide();
-                $('#batch_assignment').hide();
+                $('#role_pupil').hide()
             }
         });
         
@@ -175,42 +164,56 @@
             </div>
         </div>
 
-        <h4 class="small-title"><?php echo $this->lang->line('extra'), ' ', $this->lang->line('information'); ?></h4>
+        <div id="role_pupil1">
+            <h4 class="small-title"><?php echo $this->lang->line('extra'), ' ', $this->lang->line('information'); ?></h4>
 
-        <div class="form-group" id="academy_list">
-            <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('academy'); ?> <span class="text-danger">*</span></label>
-            <div class="col-lg-5">
-                <select class="form-control required" name="academy_id" id="academy_id">
-                    <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('academy'); ?></option> 
-                    <?php
-                    $academy_name = $session->language . '_academy_name';
-                    foreach ($academies as $academy) {
-                        ?>
-                        <option value="<?php echo $academy->id; ?>"><?php echo $academy->$academy_name; ?></option>
-                    <?php } ?>     
-                </select>
+            <div class="form-group" id="academy_list">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('academy'); ?> <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <select class="form-control required" name="academy_id" id="academy_id">
+                        <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('academy'); ?></option> 
+                        <?php
+                        $academy_name = $session->language . '_academy_name';
+                        foreach ($academies as $academy) {
+                            ?>
+                            <option value="<?php echo $academy->id; ?>"><?php echo $academy->$academy_name; ?></option>
+                        <?php } ?>     
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group" id="school_list">
-            <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('school'); ?> <span class="text-danger">*</span></label>
-            <div class="col-lg-5">
-                <select class="form-control required" name="school_id" id="school_id">
-                    <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('school'); ?></option>
-                </select>
+            <div class="form-group" id="school_list">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('school'); ?> <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <select class="form-control required" name="school_id" id="school_id">
+                        <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('school'); ?></option>
+                    </select>
+                </div>
             </div>
-        </div>
-        
-        <div class="form-group" id="class_list">
-            <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('clan'); ?> <span class="text-danger">*</span></label>
-            <div class="col-lg-5">
-                <select class="form-control required" name="class_id" id="class_id">
-                    <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('clan'); ?></option> 
-                </select>
+            
+            <div class="form-group" id="class_list">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('clan'); ?> <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <select class="form-control required" name="class_id" id="class_id">
+                        <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('clan'); ?></option> 
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div id="batch_assignment">
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('affect_score'); ?> <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <label class="radio-inline" for="radios-yes">
+                        <input type="radio" name="affect_score" id="radios-yes" value="Y" checked="checked">
+                        <?php echo $this->lang->line('yes'); ?>
+                    </label> 
+                    <label class="radio-inline" for="radios-no">
+                        <input type="radio" name="affect_score" id="radios-no" value="N">
+                        <?php echo $this->lang->line('no'); ?>
+                    </label> 
+                </div>
+            </div>
+
             <?php if(isset($degree_batches) && !is_null($degree_batches)) { ?>
                 <div class="form-group">
                     <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('degree'); ?></label>

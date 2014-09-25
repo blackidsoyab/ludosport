@@ -41,18 +41,20 @@ class Batch extends DataMapper {
         }
     }
 
-    function canAssignThisBatch($batch_id, $type, $role_id){
+    function getAssignBatchIds($role_id){
     	$this->db->_protect_identifiers = false;
-        $this->db->select('*');
+        $this->db->select('id,has_point,xpr,war,sty');
         $this->db->from($this->table);
-        $this->db->where('id', $batch_id);
-        $this->db->where('type', $type);
         if($role_id != 1){
             $this->db->where('FIND_IN_SET(' . $role_id . ', assign_role)');
         }
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-        	return true;
+            $return = array();
+            foreach ($res->result_array() as $key => $value) {
+                $return[$value['id']] = $value;
+            }
+        	return $return;
         } else {
             return false;
         }

@@ -59,84 +59,84 @@ class users extends CI_Controller {
                 $user_details = new Userdetail();
                 $user_details->student_master_id = $user->id;
 
-                if($this->input->post('degree_id') != 0){
-                    $obj_batch = new Batch();
-                    $check = $obj_batch->canAssignThisBatch($this->input->post('degree_id'), 'D', $this->session_data->role);
-                    if($check) {
-                        $obj_batch_history = new Userbatcheshistory();
-                        $obj_batch_history->student_id = $user->id;
-                        $obj_batch_history->batch_type = 'D';
-                        $obj_batch_history->batch_id = $this->input->post('degree_id');
-                        $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
-                        $obj_batch_history->user_id = $this->session_data->id;
-                        $obj_batch_history->save();
+                $obj_batch = new Batch();
+                $batches_details = $obj_batch->getAssignBatchIds($this->session_data->role);
+                $batches_ids = array_column($batches_details, 'id');
 
+                $xpr = 0;
+                $war = 0;
+                $sty = 0;
+
+                if($this->input->post('degree_id') != 0){
+                    if(in_array($this->input->post('degree_id'), $batches_ids)) {
+                        $obj_batch_history = new Userbatcheshistory();
+                        $obj_batch_history->saveStudentBatchHistory($user->id, 'D', $this->input->post('degree_id'));
                         $user_details->degree_id= $this->input->post('degree_id');
+                        if($batches_details[$this->input->post('degree_id')]['has_point'] == 1){
+                            $xpr = $xpr + $batches_details[$this->input->post('degree_id')]['xpr'];
+                            $war = $war + $batches_details[$this->input->post('degree_id')]['war'];
+                            $sty = $sty + $batches_details[$this->input->post('degree_id')]['sty'];
+                        }
                     }
                 }
 
                 if($this->input->post('honour_id') != 0){
-                    $obj_batch = new Batch();
-                    $check = $obj_batch->canAssignThisBatch($this->input->post('honour_id'), 'H', $this->session_data->role);
-                    if($check) {
+                    if(in_array($this->input->post('honour_id'), $batches_ids)) {
                         $obj_batch_history = new Userbatcheshistory();
-                        $obj_batch_history->student_id = $user->id;
-                        $obj_batch_history->batch_type = 'H';
-                        $obj_batch_history->batch_id = $this->input->post('honour_id');
-                        $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
-                        $obj_batch_history->user_id = $this->session_data->id;
-                        $obj_batch_history->save();
-
+                        $obj_batch_history->saveStudentBatchHistory($user->id, 'H', $this->input->post('honour_id'));
                         $user_details->honour_id= $this->input->post('honour_id');
+                        if($batches_details[$this->input->post('honour_id')]['has_point'] == 1){
+                            $xpr = $xpr + $batches_details[$this->input->post('honour_id')]['xpr'];
+                            $war = $war + $batches_details[$this->input->post('honour_id')]['war'];
+                            $sty = $sty + $batches_details[$this->input->post('honour_id')]['sty'];
+                        }
                     }
                 }
                 
                 if($this->input->post('qualification_id') != 0){
-                    $obj_batch = new Batch();
-                    $check = $obj_batch->canAssignThisBatch($this->input->post('qualification_id'), 'Q', $this->session_data->role);
-                    if($check) {
+                    if(in_array($this->input->post('qualification_id'), $batches_ids)) {
                         $obj_batch_history = new Userbatcheshistory();
-                        $obj_batch_history->student_id = $user->id;
-                        $obj_batch_history->batch_type = 'Q';
-                        $obj_batch_history->batch_id = $this->input->post('qualification_id');
-                        $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
-                        $obj_batch_history->user_id = $this->session_data->id;
-                        $obj_batch_history->save();
-
+                        $obj_batch_history->saveStudentBatchHistory($user->id,'Q',$this->input->post('qualification_id'));
                         $user_details->qualification_id= $this->input->post('qualification_id');
+                        if($batches_details[$this->input->post('qualification_id')]['has_point'] == 1){
+                            $xpr = $xpr + $batches_details[$this->input->post('qualification_id')]['xpr'];
+                            $war = $war + $batches_details[$this->input->post('qualification_id')]['war'];
+                            $sty = $sty + $batches_details[$this->input->post('qualification_id')]['sty'];
+                        }
                     }
                 }
                 
                 if($this->input->post('security_id') != 0){
-                    $obj_batch = new Batch();
-                    $check = $obj_batch->canAssignThisBatch($this->input->post('security_id'), 'S', $this->session_data->role);
-                    if($check) {
+                    if(in_array($this->input->post('security_id'), $batches_ids)) {
                         $obj_batch_history = new Userbatcheshistory();
-                        $obj_batch_history->student_id = $user->id;
-                        $obj_batch_history->batch_type = 'S';
-                        $obj_batch_history->batch_id = $this->input->post('security_id');
-                        $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
-                        $obj_batch_history->user_id = $this->session_data->id;
-                        $obj_batch_history->save();
-
+                        $obj_batch_history->saveStudentBatchHistory($user->id,'S',$this->input->post('security_id'));
                         $user_details->security_id= $this->input->post('security_id');
+                        if($batches_details[$this->input->post('security_id')]['has_point'] == 1){
+                            $xpr = $xpr + $batches_details[$this->input->post('security_id')]['xpr'];
+                            $war = $war + $batches_details[$this->input->post('security_id')]['war'];
+                            $sty = $sty + $batches_details[$this->input->post('security_id')]['sty'];
+                        }
                     }
                 }
 
                 if($this->input->post('master_id') != 0){
-                    $obj_batch = new Batch();
-                    $check = $obj_batch->canAssignThisBatch($this->input->post('master_id'), 'M', $this->session_data->role);
-                    if($check) {
+                    if(in_array($this->input->post('master_id'), $batches_ids)) {
                         $obj_batch_history = new Userbatcheshistory();
-                        $obj_batch_history->student_id = $user->id;
-                        $obj_batch_history->batch_type = 'M';
-                        $obj_batch_history->batch_id = $this->input->post('master_id');
-                        $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
-                        $obj_batch_history->user_id = $this->session_data->id;
-                        $obj_batch_history->save();
-
+                        $obj_batch_history->saveStudentBatchHistory($user->id,'M',$this->input->post('master_id'));
                         $user_details->master_id= $this->input->post('master_id');
+                        if($batches_details[$this->input->post('master_id')]['has_point'] == 1){
+                            $xpr = $xpr + $batches_details[$this->input->post('master_id')]['xpr'];
+                            $war = $war + $batches_details[$this->input->post('master_id')]['war'];
+                            $sty = $sty + $batches_details[$this->input->post('master_id')]['sty'];
+                        }
                     }
+                }
+
+                if($this->input->post('affect_score') === 'Y'){
+                    $user_details->xpr = $user_details->xpr + $xpr;
+                    $user_details->war = $user_details->war + $war;
+                    $user_details->sty = $user_details->sty + $sty;
+                    $user_details->total_score = $user_details->total_score + ($xpr + $war + $sty);
                 }
                 
                 $user_details->clan_id = $this->input->post('class_id');
@@ -218,6 +218,7 @@ class users extends CI_Controller {
     function editUser($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
+
                 $user = new User();
                 $user->where('id', $id)->get();
 
@@ -250,96 +251,84 @@ class users extends CI_Controller {
                     $user_details->where('student_master_id', $id)->get();
                     $user_details->student_master_id = $user->id;
 
+                    $obj_batch = new Batch();
+                    $batches_details = $obj_batch->getAssignBatchIds($this->session_data->role);
+                    $batches_ids = array_column($batches_details, 'id');
+
+                    $xpr = 0;
+                    $war = 0;
+                    $sty = 0;
+
                     if($this->input->post('degree_id') != 0 && $user_details->degree_id != $this->input->post('degree_id')){
-                        $obj_batch = new Batch();
-                        $check = $obj_batch->canAssignThisBatch($this->input->post('degree_id'), 'D', $this->session_data->role);
-                        if($check) {
+                        if(in_array($this->input->post('degree_id'), $batches_ids)) {
                             $obj_batch_history = new Userbatcheshistory();
-                            $obj_batch_history->where(array('batch_type'=>'D', 'student_id'=>$user->id, 'batch_id'=>$this->input->post('degree_id')))->get();
-                            if($obj_batch_history->result_count() == 0){
-                                $obj_batch_history->student_id = $user->id;
-                                $obj_batch_history->batch_type = 'D';
-                                $obj_batch_history->batch_id = $this->input->post('degree_id');
-                                $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
-                                $obj_batch_history->user_id = $this->session_data->id;
-                                $obj_batch_history->save();
-
-                                $user_details->degree_id= $this->input->post('degree_id');
+                            $obj_batch_history->saveStudentBatchHistory($user->id, 'D', $this->input->post('degree_id'));
+                            $user_details->degree_id= $this->input->post('degree_id');
+                            if($batches_details[$this->input->post('degree_id')]['has_point'] == 1){
+                                $xpr = $xpr + $batches_details[$this->input->post('degree_id')]['xpr'];
+                                $war = $war + $batches_details[$this->input->post('degree_id')]['war'];
+                                $sty = $sty + $batches_details[$this->input->post('degree_id')]['sty'];
                             }
                         }
                     }
 
-                    if($this->input->post('honour_id') != 0 && $user_details->honour_id != $this->input->post('degree_id')){
-                        $obj_batch = new Batch();
-                        $check = $obj_batch->canAssignThisBatch($this->input->post('honour_id'), 'H', $this->session_data->role);
-                        if($check) {
+                    if($this->input->post('honour_id') != 0 && $user_details->honour_id != $this->input->post('honour_id')){
+                        if(in_array($this->input->post('honour_id'), $batches_ids)) {
                             $obj_batch_history = new Userbatcheshistory();
-                            $obj_batch_history->where(array('batch_type'=>'H', 'student_id'=>$user->id, 'batch_id'=>$this->input->post('honour_id')))->get();
-                            if($obj_batch_history->result_count() == 0){
-                                $obj_batch_history->student_id = $user->id;
-                                $obj_batch_history->batch_type = 'H';
-                                $obj_batch_history->batch_id = $this->input->post('honour_id');
-                                $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
-                                $obj_batch_history->user_id = $this->session_data->id;
-                                $obj_batch_history->save();
-
-                                $user_details->honour_id= $this->input->post('honour_id');
+                            $obj_batch_history->saveStudentBatchHistory($user->id, 'H', $this->input->post('honour_id'));
+                            $user_details->honour_id= $this->input->post('honour_id');
+                            if($batches_details[$this->input->post('honour_id')]['has_point'] == 1){
+                                $xpr = $xpr + $batches_details[$this->input->post('honour_id')]['xpr'];
+                                $war = $war + $batches_details[$this->input->post('honour_id')]['war'];
+                                $sty = $sty + $batches_details[$this->input->post('honour_id')]['sty'];
                             }
                         }
                     }
-                    
+
                     if($this->input->post('qualification_id') != 0 && $user_details->qualification_id != $this->input->post('qualification_id')){
-                        $obj_batch = new Batch();
-                        $check = $obj_batch->canAssignThisBatch($this->input->post('qualification_id'), 'Q', $this->session_data->role);
-                        if($check) {
+                        if(in_array($this->input->post('qualification_id'), $batches_ids)) {
                             $obj_batch_history = new Userbatcheshistory();
-                            $obj_batch_history->where(array('batch_type'=>'Q', 'student_id'=>$user->id, 'batch_id'=>$this->input->post('qualification_id')))->get();
-                            if($obj_batch_history->result_count() == 0){
-                                $obj_batch_history->student_id = $user->id;
-                                $obj_batch_history->batch_type = 'Q';
-                                $obj_batch_history->batch_id = $this->input->post('qualification_id');
-                                $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
-                                $obj_batch_history->user_id = $this->session_data->id;
-                                $obj_batch_history->save();
-
-                                $user_details->qualification_id= $this->input->post('qualification_id');
+                            $obj_batch_history->saveStudentBatchHistory($user->id, 'Q', $this->input->post('qualification_id'));
+                            $user_details->qualification_id= $this->input->post('qualification_id');
+                            if($batches_details[$this->input->post('qualification_id')]['has_point'] == 1){
+                                $xpr = $xpr + $batches_details[$this->input->post('qualification_id')]['xpr'];
+                                $war = $war + $batches_details[$this->input->post('qualification_id')]['war'];
+                                $sty = $sty + $batches_details[$this->input->post('qualification_id')]['sty'];
                             }
                         }
                     }
-                    
-                    if($this->input->post('security_id') != 0 && $user_details->security_id != $this->input->post('security_id')){
-                        $obj_batch = new Batch();
-                        $check = $obj_batch->canAssignThisBatch($this->input->post('security_id'), 'S', $this->session_data->role);
-                        if($check) {
-                            $obj_batch_history = new Userbatcheshistory();
-                            $obj_batch_history->where(array('batch_type'=>'S', 'student_id'=>$user->id, 'batch_id'=>$this->input->post('security_id')))->get();
-                            if($obj_batch_history->result_count() == 0){
-                                $obj_batch_history->student_id = $user->id;
-                                $obj_batch_history->batch_type = 'S';
-                                $obj_batch_history->batch_id = $this->input->post('security_id');
-                                $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
-                                $obj_batch_history->user_id = $this->session_data->id;
-                                $obj_batch_history->save();
 
-                                $user_details->security_id= $this->input->post('security_id');
+                    if($this->input->post('security_id') != 0 && $user_details->security_id != $this->input->post('security_id')){
+                        if(in_array($this->input->post('security_id'), $batches_ids)) {
+                            $obj_batch_history = new Userbatcheshistory();
+                            $obj_batch_history->saveStudentBatchHistory($user->id, 'S', $this->input->post('security_id'));
+                            $user_details->security_id= $this->input->post('security_id');
+                            if($batches_details[$this->input->post('security_id')]['has_point'] == 1){
+                                $xpr = $xpr + $batches_details[$this->input->post('security_id')]['xpr'];
+                                $war = $war + $batches_details[$this->input->post('security_id')]['war'];
+                                $sty = $sty + $batches_details[$this->input->post('security_id')]['sty'];
                             }
                         }
                     }
 
                     if($this->input->post('master_id') != 0 && $user_details->master_id != $this->input->post('master_id')){
-                        $obj_batch = new Batch();
-                        $check = $obj_batch->canAssignThisBatch($this->input->post('master_id'), 'M', $this->session_data->role);
-                        if($check) {
+                        if(in_array($this->input->post('master_id'), $batches_ids)) {
                             $obj_batch_history = new Userbatcheshistory();
-                            $obj_batch_history->student_id = $user->id;
-                            $obj_batch_history->batch_type = 'M';
-                            $obj_batch_history->batch_id = $this->input->post('master_id');
-                            $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
-                            $obj_batch_history->user_id = $this->session_data->id;
-                            $obj_batch_history->save();
-
+                            $obj_batch_history->saveStudentBatchHistory($user->id, 'M', $this->input->post('master_id'));
                             $user_details->master_id= $this->input->post('master_id');
+                            if($batches_details[$this->input->post('master_id')]['has_point'] == 1){
+                                $xpr = $xpr + $batches_details[$this->input->post('master_id')]['xpr'];
+                                $war = $war + $batches_details[$this->input->post('master_id')]['war'];
+                                $sty = $sty + $batches_details[$this->input->post('master_id')]['sty'];
+                            }
                         }
+                    }
+
+                    if($this->input->post('affect_score') === 'Y'){
+                        $user_details->xpr = $user_details->xpr + $xpr;
+                        $user_details->war = $user_details->war + $war;
+                        $user_details->sty = $user_details->sty + $sty;
+                        $user_details->total_score = $user_details->total_score + ($xpr + $war + $sty);
                     }
 
                     $user_details->clan_id = $this->input->post('class_id');

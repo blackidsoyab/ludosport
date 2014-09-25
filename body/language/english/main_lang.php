@@ -241,6 +241,7 @@ $lang['basic'] = 'Basic';
 $lang['access_control'] = 'Access Controls';
 $lang['change_status'] = 'Change Status';
 $lang['extra_permission'] = 'Extra Permission';
+$lang['affect_score'] = 'Reflect Score';
 
 //Academy
 $lang['main'] = 'Main';
