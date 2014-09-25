@@ -825,11 +825,17 @@ class clans extends CI_Controller {
                         $attadence = new Attendance();
                         //get the attendance record 
                         $attadence->where(array('clan_date'=>$this->input->post('date'), 'student_id'=>$regular_key))->get();
+                        if($attadence->user_id == 0 && $regular_value == 1){
+                            $rating_point = systemRatingScore('lesson');
+                            
+                            $obj_score = new Scorehistory();
+                            $obj_score->meritStudentScore($regular_key, $rating_point['type'], $rating_point['score']);    
+                        }
                         //update the value
                         $attadence->clan_date = $this->input->post('date');
                         $attadence->student_id = $regular_key;
                         $attadence->attendance = $regular_value;
-                        //$attadence->user_id = $this->session_data->id;
+                        $attadence->user_id = $this->session_data->id;
                         $attadence->save();
                     }
                 }

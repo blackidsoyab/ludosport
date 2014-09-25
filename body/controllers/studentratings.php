@@ -77,7 +77,7 @@ class studentratings extends CI_Controller {
                         $obj_score = new Scorehistory();
                         $obj_score->student_id = $id;
                         $obj_score->oper = $oper['xpr'];
-                        $obj_score->score_type = 'XPR';
+                        $obj_score->score_type = 'xpr';
                         $obj_score->score = $score['xpr'];
                         $obj_score->score_date = get_current_date_time()->get_date_for_db();
                         $obj_score->description = $description['xpr'];
@@ -106,7 +106,7 @@ class studentratings extends CI_Controller {
                         $obj_score = new Scorehistory();
                         $obj_score->student_id = $id;
                         $obj_score->oper = $oper['war'];
-                        $obj_score->score_type = 'WAR';
+                        $obj_score->score_type = 'war';
                         $obj_score->score = $score['war'];
                         $obj_score->score_date = get_current_date_time()->get_date_for_db();
                         $obj_score->description = $description['war'];
@@ -135,7 +135,7 @@ class studentratings extends CI_Controller {
                         $obj_score = new Scorehistory();
                         $obj_score->student_id = $id;
                         $obj_score->oper = $oper['sty'];
-                        $obj_score->score_type = 'STY';
+                        $obj_score->score_type = 'sty';
                         $obj_score->score = $score['sty'];
                         $obj_score->score_date = get_current_date_time()->get_date_for_db();
                         $obj_score->description = $description['sty'];

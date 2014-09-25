@@ -399,90 +399,6 @@ class students extends CI_Controller {
         echo json_encode(array('status'=>$return));
     }
 
-    function _sendNotificationEmail($type, $post, $object_id){
-        $notification = new Notification();
-        $notification->type = 'N';
-        $notification->notify_type = $type;
-        $notification->from_id = $this->session_data->id;
-        if($post->from_id == $this->session_data->id){
-            $notification->to_id = $post->to_id;
-        } else {
-            $notification->to_id = $post->from_id; 
-        }
-        $notification->object_id = $object_id;
-        $notification->data = serialize(objectToArray($post));
-        $notification->save();
-   
-
-        //get email details
-        $email = new Email();
-        $email->where('type', $type)->get();
-        $message = $email->message;
-
-        $user = new User();
-        //replace necessary details
-        if($type == 'challenge_made'){
-            if($post->from_id == $this->session_data->id){
-                $user->where('id', $post->to_id)->get();    
-            } else {
-                $user->where('id', $post->from_id)->get();    
-            }
-            $message = str_replace('#to_name', $user->firstname.' '.$user->lastname , $message);
-            $message = str_replace('#from_name', $this->session_data->name, $message);
-        }
-
-        if($type == 'challenge_accepted'){
-            $user->where('id', $post->from_id)->get();  
-            $message = str_replace('#from_name', $user->firstname.' '.$user->lastname , $message);
-            $message = str_replace('#to_name', $this->session_data->name, $message);
-        }
-
-        if($type == 'challenge_rejected'){
-            if($post->from_id == $this->session_data->id){
-                $user->where('id', $post->to_id)->get();
-            } else {
-                $user->where('id', $post->from_id)->get();
-            }
-            $message = str_replace('#from_name', $user->firstname.' '.$user->lastname , $message);
-            $message = str_replace('#to_name', $this->session_data->name, $message);
-        }
-
-        if($type == 'challenge_winner'){
-            if($post->from_id == $this->session_data->id){
-                $user->where('id', $post->to_id)->get();
-            } else {
-                $user->where('id', $post->from_id)->get();
-            }
-            $message = str_replace('#user_name', $user->firstname.' '.$user->lastname , $message);
-            $message = str_replace('#opponent_name', $this->session_data->name, $message);
-            $winner = userNameAvtar($post->result);
-            $message = str_replace('#winner', $winner['name'], $message);
-        }
-
-        if(!is_null($post->played_on)){
-            $message = str_replace('#on_date', date('d-m-Y', strtotime($post->played_on)), $message);
-            $message = str_replace('#on_time', date('H:i a', strtotime($post->played_on)), $message);
-        } else{
-            $message = str_replace('#on_date', ' not yet decided', $message);
-            $message = str_replace('#on_time', '', $message);
-        }
-
-        $check_privacy = unserialize($user->email_privacy);
-        if(is_null($check_privacy) || $check_privacy[$type] == 1){
-            //set option for sending mail
-            $option = array();
-            $option['tomailid'] = $user->email;
-            $option['subject'] = $email->subject;
-            $option['message'] = $message;
-            if (!is_null($email->attachment)) {
-                $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
-            }
-            send_mail($option);
-        }
-
-        return true;
-    }
-
     function duelView($type = null){
         $this->layout->setField('page_title', $this->lang->line('duels_list'));
         $avaialbe_types = array('all','made', 'received', 'rejected', 'accepted', 'wins', 'defeats');
@@ -669,6 +585,28 @@ class students extends CI_Controller {
                 $obj->result_status = 'MP';
                 $obj->save();
 
+                if($single[0]->type == 'R'){
+                    $winner_rating_point = systemRatingScore('regular_challenge_win');
+                    $defeat_rating_point = systemRatingScore('regular_challenge_defeat');
+                } else if($single[0]->type == 'B'){
+                    $winner_rating_point = systemRatingScore('blind_challenge_win');
+                    $defeat_rating_point = systemRatingScore('blind_challenge_defeat');
+                }
+
+                if($single[0]->from_id == $this->input->post('winner')){
+                    $obj_score = new Scorehistory();
+                    $obj_score->meritStudentScore($single[0]->from_id, $winner_rating_point['type'], $winner_rating_point['score']);                    
+
+                    $obj_score = new Scorehistory();
+                    $obj_score->meritStudentScore($single[0]->to_id, $defeat_rating_point['type'], $defeat_rating_point['score']);
+                } else{
+                    $obj_score = new Scorehistory();
+                    $obj_score->meritStudentScore($single[0]->to_id, $winner_rating_point['type'], $winner_rating_point['score']);                    
+
+                    $obj_score = new Scorehistory();
+                    $obj_score->meritStudentScore($single[0]->from_id, $defeat_rating_point['type'], $defeat_rating_point['score']);
+                }
+
                 $this->_sendNotificationEmail('challenge_winner', $obj->stored, $obj->id);
             }
             $status = true;
@@ -677,6 +615,90 @@ class students extends CI_Controller {
         }
 
         echo json_encode(array('status'=>$status));
+    }
+
+    function _sendNotificationEmail($type, $post, $object_id){
+        $notification = new Notification();
+        $notification->type = 'N';
+        $notification->notify_type = $type;
+        $notification->from_id = $this->session_data->id;
+        if($post->from_id == $this->session_data->id){
+            $notification->to_id = $post->to_id;
+        } else {
+            $notification->to_id = $post->from_id; 
+        }
+        $notification->object_id = $object_id;
+        $notification->data = serialize(objectToArray($post));
+        $notification->save();
+   
+
+        //get email details
+        $email = new Email();
+        $email->where('type', $type)->get();
+        $message = $email->message;
+
+        $user = new User();
+        //replace necessary details
+        if($type == 'challenge_made'){
+            if($post->from_id == $this->session_data->id){
+                $user->where('id', $post->to_id)->get();    
+            } else {
+                $user->where('id', $post->from_id)->get();    
+            }
+            $message = str_replace('#to_name', $user->firstname.' '.$user->lastname , $message);
+            $message = str_replace('#from_name', $this->session_data->name, $message);
+        }
+
+        if($type == 'challenge_accepted'){
+            $user->where('id', $post->from_id)->get();  
+            $message = str_replace('#from_name', $user->firstname.' '.$user->lastname , $message);
+            $message = str_replace('#to_name', $this->session_data->name, $message);
+        }
+
+        if($type == 'challenge_rejected'){
+            if($post->from_id == $this->session_data->id){
+                $user->where('id', $post->to_id)->get();
+            } else {
+                $user->where('id', $post->from_id)->get();
+            }
+            $message = str_replace('#from_name', $user->firstname.' '.$user->lastname , $message);
+            $message = str_replace('#to_name', $this->session_data->name, $message);
+        }
+
+        if($type == 'challenge_winner'){
+            if($post->from_id == $this->session_data->id){
+                $user->where('id', $post->to_id)->get();
+            } else {
+                $user->where('id', $post->from_id)->get();
+            }
+            $message = str_replace('#user_name', $user->firstname.' '.$user->lastname , $message);
+            $message = str_replace('#opponent_name', $this->session_data->name, $message);
+            $winner = userNameAvtar($post->result);
+            $message = str_replace('#winner', $winner['name'], $message);
+        }
+
+        if(!is_null($post->played_on)){
+            $message = str_replace('#on_date', date('d-m-Y', strtotime($post->played_on)), $message);
+            $message = str_replace('#on_time', date('H:i a', strtotime($post->played_on)), $message);
+        } else{
+            $message = str_replace('#on_date', ' not yet decided', $message);
+            $message = str_replace('#on_time', '', $message);
+        }
+
+        $check_privacy = unserialize($user->email_privacy);
+        if(is_null($check_privacy) || $check_privacy[$type] == 1){
+            //set option for sending mail
+            $option = array();
+            $option['tomailid'] = $user->email;
+            $option['subject'] = $email->subject;
+            $option['message'] = $message;
+            if (!is_null($email->attachment)) {
+                $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+            }
+            send_mail($option);
+        }
+
+        return true;
     }
 
 }
