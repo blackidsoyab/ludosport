@@ -122,6 +122,22 @@ class users extends CI_Controller {
                         $user_details->security_id= $this->input->post('security_id');
                     }
                 }
+
+                if($this->input->post('master_id') != 0){
+                    $obj_batch = new Batch();
+                    $check = $obj_batch->canAssignThisBatch($this->input->post('master_id'), 'M', $this->session_data->role);
+                    if($check) {
+                        $obj_batch_history = new Userbatcheshistory();
+                        $obj_batch_history->student_id = $user->id;
+                        $obj_batch_history->batch_type = 'M';
+                        $obj_batch_history->batch_id = $this->input->post('master_id');
+                        $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
+                        $obj_batch_history->user_id = $this->session_data->id;
+                        $obj_batch_history->save();
+
+                        $user_details->master_id= $this->input->post('master_id');
+                    }
+                }
                 
                 $user_details->clan_id = $this->input->post('class_id');
                 $user_details->first_lesson_date = get_current_date_time()->get_date_for_db();
@@ -307,6 +323,22 @@ class users extends CI_Controller {
 
                                 $user_details->security_id= $this->input->post('security_id');
                             }
+                        }
+                    }
+
+                    if($this->input->post('master_id') != 0){
+                        $obj_batch = new Batch();
+                        $check = $obj_batch->canAssignThisBatch($this->input->post('master_id'), 'M', $this->session_data->role);
+                        if($check) {
+                            $obj_batch_history = new Userbatcheshistory();
+                            $obj_batch_history->student_id = $user->id;
+                            $obj_batch_history->batch_type = 'M';
+                            $obj_batch_history->batch_id = $this->input->post('master_id');
+                            $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
+                            $obj_batch_history->user_id = $this->session_data->id;
+                            $obj_batch_history->save();
+
+                            $user_details->master_id= $this->input->post('master_id');
                         }
                     }
 
