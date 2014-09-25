@@ -61,28 +61,28 @@ $(document).ready(function() {
         <fieldset>
             <legend><?php echo $this->lang->line('score'), ' ', $this->lang->line('details'); ?></legend>
             <div class="form-group">
-                <label class="col-lg-3 control-label">XPR</label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('xpr'); ?></label>
                 <div class="col-lg-5">
                     <input type="text" class="form-control" disabled="disabled" value="<?php echo $userdetails->xpr; ?>">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label">WAR</label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('war'); ?></label>
                 <div class="col-lg-5">
                     <input type="text" class="form-control" disabled="disabled" value="<?php echo $userdetails->war; ?>">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label">STY</label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('sty'); ?></label>
                 <div class="col-lg-5">
                     <input type="text" class="form-control" disabled="disabled" value="<?php echo $userdetails->sty; ?>">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label">TOTAL</label>
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('total'); ?></label>
                 <div class="col-lg-5">
                     <input type="text" class="form-control" disabled="disabled" value="<?php echo $userdetails->total_score; ?>">
                 </div>
@@ -91,9 +91,9 @@ $(document).ready(function() {
 
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                <legend>XPR</legend>
+                <legend><?php echo $this->lang->line('xpr'); ?></legend>
                 <div class="form-group">
-                    <label class="col-lg-4 control-label">Opertaion</label>
+                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('opertaion'); ?></label>
                     <div class="col-lg-8">
                         <label class="radio" for="radio-0">
                             <input type="radio" id="radio-0" value="N" name="oper[xpr]" checked="checked">
@@ -113,7 +113,7 @@ $(document).ready(function() {
                 </div>
 
                 <div class="form-group" style="display:none">
-                    <label class="col-lg-4 control-label">Score <span class="text-danger">*</span></label>
+                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('score'); ?> <span class="text-danger">*</span></label>
                     <div class="col-lg-8">
                         <input type="number" name="score[xpr]" class="form-control required" min="0" placeholder="Score">
                     </div>
@@ -128,9 +128,9 @@ $(document).ready(function() {
             </div>
 
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                <legend>WAR</legend>
+                <legend><?php echo $this->lang->line('war'); ?></legend>
                 <div class="form-group">
-                    <label class="col-lg-4 control-label">Opertaion</label>
+                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('opertaion'); ?></label>
                     <div class="col-lg-8">
                         <label class="radio" for="radio-3">
                             <input type="radio" id="radio-3" value="N" name="oper[war]" checked="checked">
@@ -150,7 +150,7 @@ $(document).ready(function() {
                 </div>
 
                 <div class="form-group" style="display:none">
-                    <label class="col-lg-4 control-label">Score <span class="text-danger">*</span></label>
+                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('score'); ?> <span class="text-danger">*</span></label>
                     <div class="col-lg-8">
                         <input type="number" name="score[war]" class="form-control required" min="0" placeholder="Score">
                     </div>
@@ -165,9 +165,9 @@ $(document).ready(function() {
             </div>
             
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                <legend>STY</legend>
+                <legend><?php echo $this->lang->line('sty'); ?></legend>
                 <div class="form-group">
-                    <label class="col-lg-4 control-label">Opertaion</label>
+                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('opertaion'); ?></label>
                     <div class="col-lg-8">
                         <label class="radio" for="radio-6">
                             <input type="radio" id="radio-6" value="N" name="oper[sty]" checked="checked">
@@ -187,7 +187,7 @@ $(document).ready(function() {
                 </div>
 
                 <div class="form-group" style="display:none">
-                    <label class="col-lg-4 control-label">Score <span class="text-danger">*</span></label>
+                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('score'); ?> <span class="text-danger">*</span></label>
                     <div class="col-lg-8">
                         <input type="number" name="score[sty]" class="form-control required" min="0" placeholder="Score">
                     </div>

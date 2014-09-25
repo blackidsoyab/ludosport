@@ -284,7 +284,6 @@ $lang['filter'] = 'Filter';
 $lang['accept_as_student'] = 'Accept as Student';
 $lang['no_clan'] = 'No Clan';
 $lang['no_student'] = 'No Student';
-$lang['total'] = 'Total';
 $lang['holiday_aproval_pending'] = 'Holiday approval Pending';
 $lang['present'] = 'Present';
 $lang['absence'] = 'Absence';
@@ -388,6 +387,8 @@ $lang['my_academy'] = 'My Academy';
 $lang['my_school'] = 'My School';
 $lang['my_clan'] = 'My Clan';
 
+//Studnet Rating
+$lang['operation'] = 'Operation';
 
 //Students Challenges
 $lang['challenge'] = 'Challenge';

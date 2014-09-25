@@ -49,7 +49,7 @@
 											<tr>
 												<td><?php echo ++$count; ?></td>
 												<td><?php echo ucwords($xpr->name); ?></td>
-												<td><span  data-toggle="tooltip" data-original-title="<?php echo 'XPR:',$xpr->xpr,', WAR:',$xpr->war,', STY:',$xpr->sty; ?>"><?php echo $xpr->total_score; ?></span></td>
+												<td><span  data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('xpr'),':',$xpr->xpr,',', $this->lang->line('war'),':',$xpr->war,',', $this->lang->line('sty'),':',$xpr->sty; ?>"><?php echo $xpr->total_score; ?></span></td>
 												<td><?php echo @$xpr->academy; ?></td>
 												<td><?php echo @$xpr->school; ?></td>
 											</tr>
@@ -79,7 +79,7 @@
 											<tr>
 												<td><?php echo ++$count; ?></td>
 												<td><?php echo ucwords($war->name); ?></td>
-												<td><span  data-toggle="tooltip" data-original-title="<?php echo 'XPR:',$war->xpr,', WAR:',$war->war,', STY:',$war->sty; ?>"><?php echo $war->total_score; ?></span></td>
+												<td><span  data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('xpr'),':',$war->xpr,',', $this->lang->line('war'),':',$war->war,',', $this->lang->line('sty'),':',$war->sty; ?>"><?php echo $war->total_score; ?></span></td>
 												<td><?php echo @$war->academy; ?></td>
 												<td><?php echo @$war->school; ?></td>
 											</tr>
@@ -109,7 +109,7 @@
 											<tr>
 												<td><?php echo ++$count; ?></td>
 												<td><?php echo ucwords($sty->name); ?></td>
-												<td><span  data-toggle="tooltip" data-original-title="<?php echo 'XPR:',$sty->xpr,', WAR:',$sty->war,', STY:',$sty->sty; ?>"><?php echo $sty->total_score; ?></span></td>
+												<td><span  data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('xpr'),':',$sty->xpr,',', $this->lang->line('war'),':',$sty->war,',', $this->lang->line('sty'),':',$sty->sty; ?>"><?php echo $sty->total_score; ?></span></td>
 												<td><?php echo @$sty->academy; ?></td>
 												<td><?php echo @$sty->school; ?></td>
 											</tr>
@@ -158,7 +158,7 @@
 											<tr>
 												<td><?php echo ++$count; ?></td>
 												<td><?php echo ucwords($academy->name); ?></td>
-												<td><span  data-toggle="tooltip" data-original-title="<?php echo 'XPR:',$academy->xpr,', WAR:',$academy->war,', STY:',$academy->sty; ?>"><?php echo $academy->total_score; ?></span></td>
+												<td><span  data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('xpr'),':',$academy->xpr,',', $this->lang->line('war'),':',$academy->war,',', $this->lang->line('sty'),':',$academy->sty; ?>"><?php echo $academy->total_score; ?></span></td>
 												<td><?php echo @$academy->school; ?></td>
 												<td><?php echo @$academy->clan; ?></td>
 											</tr>
@@ -187,7 +187,7 @@
 											<tr>
 												<td><?php echo ++$count; ?></td>
 												<td><?php echo ucwords($school->name); ?></td>
-												<td><span  data-toggle="tooltip" data-original-title="<?php echo 'XPR:',$school->xpr,', WAR:',$school->war,', STY:',$school->sty; ?>"><?php echo $school->total_score; ?></span></td>
+												<td><span  data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('xpr'),':',$school->xpr,',', $this->lang->line('war'),':',$school->war,',', $this->lang->line('sty'),':',$school->sty; ?>"><?php echo $school->total_score; ?></span></td>
 												<td><?php echo @$school->clan; ?></td>
 											</tr>
 											<?php } ?>
@@ -214,7 +214,7 @@
 											<tr>
 												<td><?php echo ++$count; ?></td>
 												<td><?php echo ucwords($clan->name); ?></td>
-												<td><span  data-toggle="tooltip" data-original-title="<?php echo 'XPR:',$clan->xpr,', WAR:',$clan->war,', STY:',$clan->sty; ?>"><?php echo $clan->total_score; ?></span></td>
+												<td><span  data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('xpr'),':',$clan->xpr,',', $this->lang->line('war'),':',$clan->war,',', $this->lang->line('sty'),':',$clan->sty; ?>"><?php echo $clan->total_score; ?></span></td>
 											</tr>
 											<?php } ?>
 										</tbody>

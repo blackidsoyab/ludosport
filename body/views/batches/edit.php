@@ -83,21 +83,21 @@ $(document).ready(function() {
 
         <div id="ratting_points" style="display: <?php echo ($batch->has_point == 1) ? 'block' : 'none'; ?>">
             <div class="form-group">
-                <label for="question" class="col-lg-3 control-label">XPR</label>
+                <label for="question" class="col-lg-3 control-label"><?php echo $this->lang->line('xpr'); ?></label>
                 <div class="col-lg-5">
                     <input type="number" min="0" name="xpr" class="form-control" value="<?php echo $batch->xpr; ?>"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="question" class="col-lg-3 control-label">WAR</label>
+                <label for="question" class="col-lg-3 control-label"><?php echo $this->lang->line('war'); ?></label>
                 <div class="col-lg-5">
                     <input type="number" min="0" name="war" class="form-control" value="<?php echo $batch->war; ?>"/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="question" class="col-lg-3 control-label">STY</label>
+                <label for="question" class="col-lg-3 control-label"><?php echo $this->lang->line('sty'); ?></label>
                 <div class="col-lg-5">
                     <input type="number" min="0" name="sty" class="form-control" value="<?php echo $batch->sty; ?>"/>
                 </div>

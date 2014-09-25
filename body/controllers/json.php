@@ -988,7 +988,7 @@ class json extends CI_Controller {
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();       
             $temp_arr[] = '<img src="' . IMG_URL .'user_avtar/40X40/' . $aRow['avtar'].'" class="avatar img-circle" alt="avatar"><a href="' . base_url() . 'profile/view/' . $aRow['id'] . '" class="text-black">' . $aRow['name'] . '</a>';
-            $temp_arr[] = '<span  data-toggle="tooltip" data-original-title="XPR: '.$aRow['xpr'].', WAR: '.$aRow['war'].', STY: '.$aRow['sty'].'">'.$aRow['total_score'] .'</span>';
+            $temp_arr[] = '<span  data-toggle="tooltip" data-original-title="'.$this->lang->line('xpr').': '.$aRow['xpr'].', '.$this->lang->line('war').': '.$aRow['war'].', '.$this->lang->line('sty').': '.$aRow['sty'].'">'.$aRow['total_score'] .'</span>';
             $temp_arr[] = $aRow['academy'];
             $temp_arr[] = $aRow['school'];
             $temp_arr[] = $aRow['clan'];
