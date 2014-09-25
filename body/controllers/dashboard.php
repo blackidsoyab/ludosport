@@ -412,7 +412,9 @@ class dashboard extends CI_Controller {
             $user_details = new Userdetail();
             //Get Current login Student Extra Detail
             $user_details->where('student_master_id', $this->session_data->id)->get();
-
+            if($user_details->result_count() == 0){
+                $this->session->set_flashdata('success', $this->lang->line('register_step2_success'));
+            }
             //save the data
             $user_details->student_master_id= $this->session_data->id;
             $user_details->clan_id = $this->input->post('clan_id');
@@ -439,7 +441,7 @@ class dashboard extends CI_Controller {
             $user_details->user_id = $this->session_data->id;
             $user_details->save();
 
-            redirect(base_url() .'dashboard', 'refresh');
+            redirect(base_url() .'register/step_2', 'refresh');
         }else {
             $user = new User($this->session_data->id);
 

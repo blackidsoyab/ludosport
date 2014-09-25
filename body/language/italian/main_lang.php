@@ -38,6 +38,7 @@ $lang['you_logged_in'] = 'You are already logged in :)';
 $lang['not_active_member'] = 'You are not an active member. <br /> Contact Admin.';
 $lang['invalid_user'] = 'Invalid Username or Password';
 $lang['register_success'] = 'Registration is successful';
+$lang['register_step2_success'] = 'Congratulations, you have joined Myludosport!! We are considering your request.';
 $lang['try_after_sometime'] = 'Please try after Sometime';
 $lang['check_mail_address'] = 'Check your Mail Address.';
 $lang['mail_failed'] = 'Unable to send mail. please try again';
