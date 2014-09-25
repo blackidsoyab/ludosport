@@ -231,7 +231,7 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('honour'); ?></label>
                     <div class="col-lg-5">
-                        <select class="form-control" name="honor_id">
+                        <select class="form-control" name="honour_id">
                             <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('honour'); ?></option> 
                             <?php
                             foreach ($honour_batches as $honour) {

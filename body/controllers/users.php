@@ -75,19 +75,19 @@ class users extends CI_Controller {
                     }
                 }
 
-                if($this->input->post('honor_id') != 0){
+                if($this->input->post('honour_id') != 0){
                     $obj_batch = new Batch();
-                    $check = $obj_batch->canAssignThisBatch($this->input->post('honor_id'), 'H', $this->session_data->role);
+                    $check = $obj_batch->canAssignThisBatch($this->input->post('honour_id'), 'H', $this->session_data->role);
                     if($check) {
                         $obj_batch_history = new Userbatcheshistory();
                         $obj_batch_history->student_id = $user->id;
                         $obj_batch_history->batch_type = 'H';
-                        $obj_batch_history->batch_id = $this->input->post('honor_id');
+                        $obj_batch_history->batch_id = $this->input->post('honour_id');
                         $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
                         $obj_batch_history->user_id = $this->session_data->id;
                         $obj_batch_history->save();
 
-                        $user_details->honor_id= $this->input->post('honor_id');
+                        $user_details->honour_id= $this->input->post('honour_id');
                     }
                 }
                 
@@ -250,7 +250,7 @@ class users extends CI_Controller {
                     $user_details->where('student_master_id', $id)->get();
                     $user_details->student_master_id = $user->id;
 
-                    if($this->input->post('degree_id') != 0){
+                    if($this->input->post('degree_id') != 0 && $user_details->degree_id != $this->input->post('degree_id')){
                         $obj_batch = new Batch();
                         $check = $obj_batch->canAssignThisBatch($this->input->post('degree_id'), 'D', $this->session_data->role);
                         if($check) {
@@ -258,7 +258,7 @@ class users extends CI_Controller {
                             $obj_batch_history->where(array('batch_type'=>'D', 'student_id'=>$user->id, 'batch_id'=>$this->input->post('degree_id')))->get();
                             if($obj_batch_history->result_count() == 0){
                                 $obj_batch_history->student_id = $user->id;
-                                $obj_batch_history->batch_type = 'Q';
+                                $obj_batch_history->batch_type = 'D';
                                 $obj_batch_history->batch_id = $this->input->post('degree_id');
                                 $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
                                 $obj_batch_history->user_id = $this->session_data->id;
@@ -269,26 +269,26 @@ class users extends CI_Controller {
                         }
                     }
 
-                    if($this->input->post('honor_id') != 0){
+                    if($this->input->post('honour_id') != 0 && $user_details->honour_id != $this->input->post('degree_id')){
                         $obj_batch = new Batch();
-                        $check = $obj_batch->canAssignThisBatch($this->input->post('honor_id'), 'H', $this->session_data->role);
+                        $check = $obj_batch->canAssignThisBatch($this->input->post('honour_id'), 'H', $this->session_data->role);
                         if($check) {
                             $obj_batch_history = new Userbatcheshistory();
-                            $obj_batch_history->where(array('batch_type'=>'H', 'student_id'=>$user->id, 'batch_id'=>$this->input->post('honor_id')))->get();
+                            $obj_batch_history->where(array('batch_type'=>'H', 'student_id'=>$user->id, 'batch_id'=>$this->input->post('honour_id')))->get();
                             if($obj_batch_history->result_count() == 0){
                                 $obj_batch_history->student_id = $user->id;
-                                $obj_batch_history->batch_type = 'Q';
-                                $obj_batch_history->batch_id = $this->input->post('honor_id');
+                                $obj_batch_history->batch_type = 'H';
+                                $obj_batch_history->batch_id = $this->input->post('honour_id');
                                 $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
                                 $obj_batch_history->user_id = $this->session_data->id;
                                 $obj_batch_history->save();
 
-                                $user_details->honor_id= $this->input->post('honor_id');
+                                $user_details->honour_id= $this->input->post('honour_id');
                             }
                         }
                     }
                     
-                    if($this->input->post('qualification_id') != 0){
+                    if($this->input->post('qualification_id') != 0 && $user_details->qualification_id != $this->input->post('qualification_id')){
                         $obj_batch = new Batch();
                         $check = $obj_batch->canAssignThisBatch($this->input->post('qualification_id'), 'Q', $this->session_data->role);
                         if($check) {
@@ -307,7 +307,7 @@ class users extends CI_Controller {
                         }
                     }
                     
-                    if($this->input->post('security_id') != 0){
+                    if($this->input->post('security_id') != 0 && $user_details->security_id != $this->input->post('security_id')){
                         $obj_batch = new Batch();
                         $check = $obj_batch->canAssignThisBatch($this->input->post('security_id'), 'S', $this->session_data->role);
                         if($check) {
@@ -326,7 +326,7 @@ class users extends CI_Controller {
                         }
                     }
 
-                    if($this->input->post('master_id') != 0){
+                    if($this->input->post('master_id') != 0 && $user_details->master_id != $this->input->post('master_id')){
                         $obj_batch = new Batch();
                         $check = $obj_batch->canAssignThisBatch($this->input->post('master_id'), 'M', $this->session_data->role);
                         if($check) {

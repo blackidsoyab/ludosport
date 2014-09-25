@@ -174,9 +174,9 @@ class dashboard extends CI_Controller {
             $data['batch_image'][] = $temp;
         }
 
-        if($userdetail->honor_id != 0) {
+        if($userdetail->honour_id != 0) {
             $honor_batch = new Batch();
-            $honor_batch->where('id', $userdetail->honor_id)->get();
+            $honor_batch->where('id', $userdetail->honour_id)->get();
             $temp = array();
             $temp['image'] = IMG_URL .'batches/'. $honor_batch->image;
             $temp['name'] = $honor_batch->{$this->session_data->language.'_name'};
