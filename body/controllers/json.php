@@ -267,7 +267,7 @@ class json extends CI_Controller {
         $this->datatable->eColumns = array('users.id', 'role_id');
         $this->datatable->sIndexColumn = "users.id";
         $this->datatable->sTable = " users";
-        $this->datatable->myWhere = 'WHERE user_id != 1 ' .  $where;
+        $this->datatable->myWhere = 'WHERE id != 1 ' .  $where;
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
