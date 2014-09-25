@@ -379,6 +379,7 @@ class students extends CI_Controller {
         $return = false;
 
         if($challenge->result_count() == 0){
+            $challenge->type = $this->input->post('challenge_type');
             $challenge->from_id = $this->session_data->id;
             $challenge->from_status = 'A';
             $challenge->to_id = $this->input->post('to_id');

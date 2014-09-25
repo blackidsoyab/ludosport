@@ -65,6 +65,7 @@
 	        		$('.form-group').hide();
 	        		$('.message').hide();
 	        		var post_data = {
+	        			'challenge_type' : $("input[name='challenge_type']").val(),
 						'from_id' : $("input[name='from_id']").val(),
 						'to_id' : $("input[name='to_id']").val(),
 						'date' : $("input[name='date']").val(),
@@ -176,6 +177,7 @@
 			<form id="duel_date_time" method="post" class="form-horizontal" action="<?php echo  base_url(). "duels/do_it"; ?>">
 				<input type="hidden" name="from_id" value="<?php echo $session->id; ?>">
 				<input type="hidden" name="to_id" value="0">
+				<input type="hidden" name="challenge_type" value="R">
 				<div class="modal-body padding-bottom-killer">
 					<div class="form-group">
 		                <label class="col-lg-3 control-label">

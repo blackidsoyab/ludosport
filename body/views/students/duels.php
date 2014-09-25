@@ -37,6 +37,7 @@
 			var modal = $(target_modal);
 			modal.on('show.bs.modal', function () {
 				$("input[name='to_id']").val($(e.currentTarget).data('userid'));
+				$("input[name='challenge_type']").val($(e.currentTarget).data('challenge-type'));
 				$('.form-group').show();
 		    	$('.animation_image').hide();
 		    	$('#time_error').hide();
@@ -88,6 +89,7 @@
 	        		$('.form-group').hide();
 	        		$('.message').hide();
 	        		var post_data = {
+	        			'challenge_type' : $("input[name='challenge_type']").val(),
 						'from_id' : $("input[name='from_id']").val(),
 						'to_id' : $("input[name='to_id']").val(),
 						'date' : $("input[name='date']").val(),
@@ -137,7 +139,7 @@
 	  		<h3 class="bolded padding-killer"><?php echo @$suggested_user->name; ?></h3>
 			<div class="row">
 				<div class="col-xs-6">
-					<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $suggested_user->id; ?>"><i class="fa fa-user"></i><?php echo $this->lang->line('challenge'); ?></button>
+					<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $suggested_user->id; ?>" data-challenge-type="R"><i class="fa fa-user"></i><?php echo $this->lang->line('challenge'); ?></button>
 				</div>
 				<div class="col-xs-6">
 					<button class="btn btn-warning btn-block"><i class="fa fa-envelope"></i><?php echo $this->lang->line('message'); ?></button>
@@ -154,7 +156,7 @@
 					<button class="btn btn-warning btn-block"><i class="fa fa-list icon-sidebar"></i> <?php echo $this->lang->line('view'),' ', $this->lang->line('ratting'); ?></button>
 				</div>
 				<div class="col-xs-6">
-					<button class="btn btn-warning btn-block" data-userid="<?php echo $recommended_user->id; ?>" data-toggle="modal" data-target="#do_duel_box"><i class="fa fa-user"></i><?php echo $this->lang->line('blind'); ?></button>
+					<button class="btn btn-warning btn-block" data-userid="<?php echo $recommended_user->id; ?>" data-toggle="modal" data-target="#do_duel_box" data-challenge-type="B"><i class="fa fa-user"></i><?php echo $this->lang->line('blind'); ?></button>
 				</div>
 			</div>
 		</div>
@@ -560,6 +562,7 @@
 			<form id="duel_date_time" method="post" class="form-horizontal" action="<?php echo  base_url(). "duels/do_it"; ?>">
 				<input type="hidden" name="from_id" value="<?php echo $session->id; ?>">
 				<input type="hidden" name="to_id" value="0">
+				<input type="hidden" name="challenge_type" value="R">
 				<div class="modal-body padding-bottom-killer">
 					<div class="form-group">
 		                <label class="col-lg-3 control-label">
