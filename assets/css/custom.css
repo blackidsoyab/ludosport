@@ -580,3 +580,7 @@ footer{
     opacity: 0.7;
 }
 
+h1.page-heading a{
+    color: #656D78;
+    font-weight: 1000;
+}

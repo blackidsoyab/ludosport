@@ -16,7 +16,7 @@ $(document).ready(function() {
 //]]>
 </script>
 
-<h1 class="page-heading"><?php echo $this->lang->line('edit'), ' ', $this->lang->line('batch'); ?></h1>
+<h1 class="page-heading h1"><?php echo $this->lang->line('edit'), ' ', $this->lang->line('batch_history'); ?> : <a href="<?php echo base_url() .'profile/view/' . $user->id; ?>"><?php echo $user->firstname, ' ', $user->lastname; ?></a></h1>
 
 <div class="the-box">
     <form id="add" method="post" class="form-horizontal" action="<?php echo base_url() . 'user_student/badge_history/edit/' . $batch_history->id; ?>">

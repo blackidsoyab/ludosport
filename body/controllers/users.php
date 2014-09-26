@@ -450,7 +450,7 @@ class users extends CI_Controller {
     }
 
     function listStudentBatches($id){
-        $data['student_id'] = $id;
+        $data['user'] = new User($id);
         $this->layout->view('users/student_batch_history_view', $data);
     }
 
@@ -467,12 +467,21 @@ class users extends CI_Controller {
                $obj_batch_history = new Userbatcheshistory($id); 
                $data['batch_history'] = $obj_batch_history;
 
-               $obj_batch = new Batch($obj_batch_history->batch_id);
-               $data['batch'] = $obj_batch;
+                $can_perform_action = false;
+                if($obj_batch_history->user_id == $this->session_data->id || $this->session_data->role == 1 || $this->session_data->role == 2){
+                    $can_perform_action = true;
+                }
 
-               $data['assing_user'] = userNameAvtar($obj_batch_history->user_id);
-
-               $this->layout->view('users/student_batch_history_edit', $data);
+                if($can_perform_action){
+                    $obj_batch = new Batch($obj_batch_history->batch_id);
+                    $data['batch'] = $obj_batch;
+                    $data['user'] = new User($obj_batch_history->student_id);
+                    $data['assing_user'] = userNameAvtar($obj_batch_history->user_id);
+                    $this->layout->view('users/student_batch_history_edit', $data);
+                } else{
+                    $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                    redirect(base_url() . 'dashboard', 'refresh'); 
+                }
             }
         }else{
             $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
@@ -482,7 +491,12 @@ class users extends CI_Controller {
 
     function deleteStudentBatches($id){
         $obj_batch_history = new Userbatcheshistory($id);
-        if($obj_batch_history->result_count() == 1 && $obj_batch_history->user_id == $this->session_data->id){
+        $can_perform_action = false;
+        if($obj_batch_history->user_id == $this->session_data->id || $this->session_data->role == 1 || $this->session_data->role == 2){
+            $can_perform_action = true;
+        }
+
+        if($obj_batch_history->result_count() == 1 && $can_perform_action){
             $obj_batch = new Batch();
             $batches_details = $obj_batch->getAssignBatchIds($this->session_data->role);
             $batches_ids = array_column($batches_details, 'id');

@@ -19,7 +19,7 @@ echo $lengths[0]; ?>,
             "aoColumns": [
                 {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-right","bSortable": false}
             ],
-            "sAjaxSource": "<?php echo base_url() . 'user_student/badge_history/get_json_batch_history/'. $student_id .'/'; ?>" + $('#batch_type').val(),
+            "sAjaxSource": "<?php echo base_url() . 'user_student/badge_history/get_json_batch_history/'. $user->id .'/'; ?>" + $('#batch_type').val(),
             "fnInitComplete": function (oSettings, json) {
                 PositionFooter();     
             }
@@ -59,7 +59,7 @@ echo $lengths[0]; ?>,
 <?php $session = $this->session->userdata('user_session'); ?>
 <div class="row">
     <div class="col-lg-6 col-xs-6">
-        <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('batch_history'); ?></h1>    
+        <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('batch_history'); ?> : <a href="<?php echo base_url() .'profile/view/' . $user->id; ?>"><?php echo $user->firstname, ' ', $user->lastname; ?></a></h1>    
     </div>
 </div>
 
