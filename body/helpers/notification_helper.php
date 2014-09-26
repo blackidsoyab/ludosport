@@ -447,7 +447,7 @@ function getTimelineTemplate($options, $user_name_link = false) {
 
     if ($options['notify_type'] == 'recovery_student') {
         $template_edit = true;
-        if($options['from_id'] == $this->session_data->id){
+        if($options['from_id'] == $session->id){
             $user_name['name'] = 'You';
         }else{
             $user_name = userNameAvtar($options['from_id'], $user_name_link);
@@ -470,7 +470,7 @@ function getTimelineTemplate($options, $user_name_link = false) {
         $recover_clan  = new Clan();
         $recover_clan->where('id',$options['data']['clan_id'])->get();
 
-        $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_name['name'],$recover_clan->{$session->language.'_class_name'}, date('d-m-Y', strtotime($options['data']['date'])));
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $recover_clan->{$session->language.'_class_name'}, date('d-m-Y', strtotime($options['data']['date'])));
     }
 
     if ($options['notify_type'] == 'recovery_assign_by_teacher_teacher') {
