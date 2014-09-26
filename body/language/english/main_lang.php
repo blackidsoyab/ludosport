@@ -354,6 +354,7 @@ $lang['batch'] = 'Badge';
 $lang['image'] = 'Image';
 $lang['badge_120_width_image'] = "If image width is greater than 120px, the result will be good";
 $lang['badge_750_width_image'] = "If image width is greater than 750px, the result will be good";
+$lang['badge_change_sequence_information'] = 'To change the sequence of BADGE, first select any type and then drag & drop the badge to change sequence';
 
 //Message System
 $lang['message'] = 'Message';

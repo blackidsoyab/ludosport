@@ -1,9 +1,21 @@
+<script src="<?php echo JS_URL; ?>jquery-ui.js"></script>
 <script type="text/javascript" >
     $(document).ready(function() {
         loadDatable();
         
          $('#batch_type').change(function(){
             loadDatable();
+
+            if($('#batch_type').val() != 'all'){
+                $("#list_data tbody").sortable({ opacity: 0.6, cursor: 'move', update: function() {
+                        var order = $(this).sortable("serialize");
+                        var url = "<?php echo base_url() . 'batches/sortable'; ?>";
+                        $.post(url, order, function(){
+                            loadDatable();
+                        });
+                    }                             
+                });
+            }
         });
     });
     
@@ -12,17 +24,22 @@
         
         dTable=$('#list_data').dataTable({
             "bProcessing": true,
-            "aLengthMenu": [ [<?php echo $this->config->item('data_table_length'); ?>], [<?php echo $this->config->item('data_table_length'); ?>] ],
-            'iDisplayLength': <?php $lengths = explode(',', $this->config->item('data_table_length'));
-echo $lengths[0]; ?>,
             "bServerSide" : true,
+            "bPaginate": false,
+            "bLengthChange": false,
             "aoColumns": [
-                {"sClass": "vetrical-middle"},{"sClass": "vetrical-middle text-center"},{"bSortable": false, "sClass": "text-center"},{"bSortable": false, "sClass": "vetrical-middle text-center"}
+                {"bSortable": false, "sClass": "vetrical-middle"},
+                {"bSortable": false, "sClass": "vetrical-middle text-center"},
+                {"bSortable": false, "sClass": "text-center"},
+                {"bSortable": false, "sClass": "vetrical-middle text-center"}
             ],
             "sAjaxSource": "<?php echo base_url() . "batch/getjson/"; ?>" + $('#batch_type').val(),
+            "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+                $(nRow).attr('id', aData[4]);
+            },
             "fnInitComplete": function (oSettings, json) {
                 PositionFooter();     
-            }  
+            }
         });
     }
 
@@ -85,6 +102,10 @@ echo $lengths[0]; ?>,
                     <option value="Q"><?php echo $this->lang->line('qualification'); ?></option>
                     <option value="S"><?php echo $this->lang->line('security'); ?></option> 
                 </select>
+            </div>
+
+            <div class="col-lg-8">
+                <p class="text-muted"><?php echo $this->lang->line('badge_change_sequence_information'); ?></p>
             </div>
         </div>
     </div>

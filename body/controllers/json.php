@@ -778,6 +778,7 @@ class json extends CI_Controller {
         if ($type != 'all') {
             $this->datatable->myWhere = ' WHERE type=\'' . strtoupper($type) . '\'';
         }
+        $this->datatable->sOrder = " ORDER BY batches.sequence ASC";
         $this->datatable->datatable_process();
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -816,6 +817,7 @@ class json extends CI_Controller {
             }
             $temp_arr[] = $str;
 
+            $temp_arr[] = 'batch_id_' . $aRow['type'] .'_' . $aRow['id'];
             $this->datatable->output['aaData'][] = $temp_arr;
         }
         echo json_encode($this->datatable->output);

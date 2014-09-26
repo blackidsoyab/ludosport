@@ -282,4 +282,19 @@ class batches extends CI_Controller {
         return $data;
     }
 
+     function sortable() {
+        $count = 1;
+        foreach ($this->input->post() as $batch_key => $batch_array) {
+            $type = explode('_', $batch_key);
+            foreach ($batch_array as $batch_id) {
+                $obj = new Batch();
+                $obj->where(array('id'=>$batch_id, 'type'=>$type[2]))->get();
+                $obj->sequence = $count;
+                $obj->save();
+                $count++;
+            }     
+        } 
+    }
+
+
 }
