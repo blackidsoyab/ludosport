@@ -204,7 +204,7 @@
             <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('phone_number'); ?> #2 <span class="text-danger">&nbsp;</span></label>
                 <div class="col-lg-5">
-                    <input type="text" class="form-control required" name="phone_2" value="<?php echo $academy->phone_2; ?>">
+                    <input type="text" class="form-control" name="phone_2" value="<?php echo $academy->phone_2; ?>">
                 </div>
             </div>
             <div class="form-group">
