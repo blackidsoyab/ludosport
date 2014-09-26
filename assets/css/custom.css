@@ -584,3 +584,25 @@ h1.page-heading a{
     color: #656D78;
     font-weight: 1000;
 }
+
+/* Student Role Histories Page */
+.panel-degree .panel-heading, .panel-security .panel-heading, .panel-qualification .panel-heading, .panel-honour .panel-heading{
+    color: #fff;
+}
+
+.btn-degree, .panel-degree{
+    background-color: #AEAEAE;
+}
+
+.btn-security, .panel-security{
+    background-color: #AF2F2C;
+}
+
+.btn-qualification, .panel-qualification{
+    background-color: #865A23;
+}
+
+.btn-honour, .panel-honour{
+    background-color: #005E98;
+}
+/* ************************** */

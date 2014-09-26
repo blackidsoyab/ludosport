@@ -172,10 +172,10 @@
     </div>
     <div class="col-lg-4">
         <?php if ($student_degrees != false) { ?>
-            <div class="panel panel-success panel-square panel-no-border">
+            <div class="panel panel-degree panel-square panel-no-border">
                 <div class="panel-heading">
                     <div class="right-content">
-                        <button class="btn btn-success to-collapse collapsed" data-toggle="collapse" data-target="#panel-student-degree"><i class="fa fa-chevron-up"></i></button>
+                        <button class="btn btn-degree to-collapse collapsed" data-toggle="collapse" data-target="#panel-student-degree"><i class="fa fa-chevron-up"></i></button>
                     </div>
                     <h3 class="panel-title"><strong><?php echo $this->lang->line('degree'); ?></strong></h3>
                 </div>
@@ -197,10 +197,10 @@
         <?php } ?>
 
         <?php if ($student_securities != false) { ?>
-            <div class="panel panel-danger panel-square panel-no-border">
+            <div class="panel panel-security panel-square panel-no-border">
                     <div class="panel-heading">
                         <div class="right-content">
-                            <button class="btn btn-danger to-collapse collapsed" data-toggle="collapse" data-target="#panel-student-security"><i class="fa fa-chevron-up"></i></button>
+                            <button class="btn btn-security to-collapse collapsed" data-toggle="collapse" data-target="#panel-student-security"><i class="fa fa-chevron-up"></i></button>
                         </div>
                         <h3 class="panel-title"><strong><?php echo $this->lang->line('security'); ?></strong></h3>
                     </div>
@@ -222,10 +222,10 @@
         <?php } ?>
 
         <?php if ($student_qualifications != false) { ?>
-            <div class="panel panel-warning panel-square panel-no-border">
+            <div class="panel panel-qualification panel-square panel-no-border">
                 <div class="panel-heading">
                     <div class="right-content">
-                        <button class="btn btn-warning to-collapse collapsed" data-toggle="collapse" data-target="#panel-student-qualification"><i class="fa fa-chevron-up"></i></button>
+                        <button class="btn btn-qualification to-collapse collapsed" data-toggle="collapse" data-target="#panel-student-qualification"><i class="fa fa-chevron-up"></i></button>
                     </div>
                     <h3 class="panel-title"><strong><?php echo $this->lang->line('qualification'); ?></strong></h3>
                 </div>
@@ -247,10 +247,10 @@
         <?php } ?>
 
         <?php if ($student_honours != false) { ?>
-            <div class="panel panel-info panel-square panel-no-border">
+            <div class="panel panel-honour panel-square panel-no-border">
                     <div class="panel-heading">
                         <div class="right-content">
-                            <button class="btn btn-info to-collapse collapsed" data-toggle="collapse" data-target="#panel-student-honour"><i class="fa fa-chevron-up"></i></button>
+                            <button class="btn btn-honour to-collapse collapsed" data-toggle="collapse" data-target="#panel-student-honour"><i class="fa fa-chevron-up"></i></button>
                         </div>
                         <h3 class="panel-title"><strong><?php echo $this->lang->line('honour'); ?></strong></h3>
                     </div>
