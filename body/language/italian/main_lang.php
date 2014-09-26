@@ -22,7 +22,7 @@ $lang['information'] = 'Informazioni';
 $lang['activity'] = 'Attività';
 $lang['users'] = 'Users';
 $lang['new'] = 'New';
-$lang['read_all'] = 'Read all';
+$lang['read_all'] = 'Mark all as read';
 $lang['see_all'] = 'See all';
 $lang['view_all'] = 'View all';
 $lang['compulsory_note'] = 'Campi contrassegnati con <span class="text-danger">*</span> sono obbligatori.';
@@ -314,6 +314,7 @@ $lang['under_sixteen'] = 'under 16';
 //Email Templates
 $lang['subject'] = 'Subject';
 $lang['message'] = 'Message';
+$lang['messages'] = 'Messages';
 $lang['attachment'] = 'Attachment';
 $lang['show'] = 'Show';
 $lang['remove'] = 'Remove';

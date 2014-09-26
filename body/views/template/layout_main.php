@@ -298,15 +298,15 @@ function checkMessage(last_id){
 
                                     <li class="dropdown">
                                         <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
-                                            <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('message'); ?>" id="message_count"></span>
+                                            <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('messages'); ?>" id="message_count"></span>
                                             <i class="fa fa-envelope"></i>
                                         </a>
                                         <ul class="dropdown-menu square with-triangle">
                                             <li>
                                                 <div class="nav-dropdown-heading">
-                                                    <?php echo $this->lang->line('message'); ?>
+                                                    <?php echo $this->lang->line('messages'); ?>
                                                     <div class="pull-right">
-                                                        <a href="javascript:;" onclick="allMessage()" class="pull-right"  data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('read_all'), ' ', $this->lang->line('message'); ?>"><?php echo $this->lang->line('read_all'); ?></a>
+                                                        <a href="javascript:;" onclick="allMessage()" class="pull-right"  data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('read_all'), ' ', $this->lang->line('messages'); ?>"><?php echo $this->lang->line('read_all'); ?></a>
                                                     </div>
 
                                                 </div>
@@ -315,7 +315,7 @@ function checkMessage(last_id){
                                                         <?php echo getMessages($session->id); ?>
                                                     </ul>
                                                 </div>
-                                                <a href="<?php echo base_url() . 'message' ?>" class="padding-killer"><button class="btn btn-primary btn-square btn-block"><?php echo $this->lang->line('see_all'), ' ', $this->lang->line('message'); ?></button></a>
+                                                <a href="<?php echo base_url() . 'message' ?>" class="padding-killer"><button class="btn btn-primary btn-square btn-block"><?php echo $this->lang->line('see_all'), ' ', $this->lang->line('messages'); ?></button></a>
                                             </li>
                                         </ul>
                                     </li>
