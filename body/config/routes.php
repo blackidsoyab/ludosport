@@ -110,33 +110,14 @@ $route['mark_all_message_read'] = "ajax/markAllMessageRead";
 $route['change_password'] = "profiles/changePassword";
 $route['check_current_password'] = "ajax/checkCurrentPassword";
 
-//System Setting
-$route['system_setting/(:any)'] = "systemsettings/viewSystemSetting/$1";
-
-//Permission
-$route['permission/getmethod/(:any)/(:any)'] = "ajax/getMethodsFromControllers/$1/$2";
-$route['permission/check/(:num)'] = "ajax/checkValidPermision/$1";
-
-//Role
-$route['role/check/(:num)'] = "ajax/checkValidRole/$1";
-
-//Classes
-$route['clan/getschools/(:num)'] = "ajax/getSchoolsOptionFromAcademy/$1";
-$route['clan/getclasses/(:num)'] = "ajax/getClassesOptionFromSchool/$1";
-$route['clan/trial_lesson_request'] = "clans/listTrialLessonRequest";
-$route['clan/trial_lesson_request/(:num)'] = "clans/listTrialLessonRequest/$1";
-$route['clan/listTrialLessonRequestJson'] = "json/getTrialLessonRequestJsonData";
-$route['clan/listTrialLessonRequestJson/(:num)'] = "json/getTrialLessonRequestJsonData/$1";
-$route['clan/change_status_trial_student/(:num)/(:num)'] = "clans/changeStatusTrialStudent/$1/$2";
-$route['clan/change_status_trial_student/(:num)/(:num)/(:any)'] = "clans/changeStatusTrialStudent/$1/$2/$3";
-
-//Teacher List => Admin , Rector, Dean, Teacher
+//Teacher List => Admin , Rector, Dean
 $route['clan/teacherlist'] = "clans/clanTeacherList";
 $route['clan/teacherlist/(:num)/(:any)'] = "clans/clanTeacherList/$1/$2";
 $route['clan/teacherjson'] = "json/getTeachersJsonData";
 $route['clan/teacherjson/(:any)'] = "json/getTeachersJsonData/$1";
 $route['clan/teacherjson/(:any)/(:any)'] = "json/getTeachersJsonData/$1/$2";
 $route['clan/teacherjson/(:any)/(:any)/(:any)'] = "json/getTeachersJsonData/$1/$2/$3";
+
 
 //Student List => Admin , Rector, Dean, Teacher
 $route['clan/studentlist'] = "clans/clanStudentList";
@@ -147,12 +128,6 @@ $route['clan/studentjson/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2";
 $route['clan/studentjson/(:any)/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2/$3";
 $route['clan/change_date/(:num)'] = "clans/changeClanDate/$1";
 $route['clan/delete_date/(:num)'] = "clans/deleteClanDate/$1";
-
-//Student Rating Json
-$route['studentrating/studentjson'] = "json/getStudentRattingJsonData";
-$route['studentrating/studentjson/(:any)'] = "json/getStudentRattingJsonData/$1";
-$route['studentrating/studentjson/(:any)/(:any)'] = "json/getStudentRattingJsonData/$1/$2";
-$route['studentrating/studentjson/(:any)/(:any)/(:any)'] = "json/getStudentRattingJsonData/$1/$2/$3";
 
 //Dean Dashboard
 $route['dean/absence_approval/(:num)'] = "deans/teacherAbsenceApproval/$1";
@@ -169,7 +144,6 @@ $route['clan/save_attendance/(:num)'] = "clans/saveClanAttendances/$1";
 $route['clan/next_week_attendance/(:num)'] = "clans/nextWeekAttendances/$1";
 $route['teacher_mark_absence'] = "teachers/markAbsence";
 $route['teacher/school_related_teacher/(:num)'] = "teachers/teachersReleatedSchool/$1";
-
 
 //Student Dashboard
 $route['student_mark_absence'] = "students/markAbsence";
@@ -192,14 +166,6 @@ $route['duels/declare_result'] = "students/duelResult";
 $route['student/rating_list_json'] = "json/getRattingListJsonData";
 $route['student/rating_list_json/(:any)'] = "json/getRattingListJsonData/$1";
 
-//Pending Student
-$route['getclanonlocation/(:num)'] = "ajax/getClanDetails/$1";
-$route['getclandates/(:num)'] = "ajax/getDateForClan/$1";
-$route['pending_student/save_trial_lesson'] = "dashboard/pendingStudnetSaveTrailLesson";
-
-//Email Templates
-$route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";
-
 //Message System
 $route['message/compose'] = "messages/composeMessage";
 $route['message/compose/(:any)'] = "messages/composeMessage/$1";
@@ -210,8 +176,45 @@ $route['message/reply/(:num)'] = "messages/replyMessage/$1";
 $route['message/delete'] = "messages/deleteMessage";
 $route['message/attachmment/download/(:num)'] = "ajax/downloadAttachment/$1";
 
+//Pending Student
+$route['getclanonlocation/(:num)'] = "ajax/getClanDetails/$1";
+$route['getclandates/(:num)'] = "ajax/getDateForClan/$1";
+$route['pending_student/save_trial_lesson'] = "dashboard/pendingStudnetSaveTrailLesson";
+
+//Student Rating Json
+$route['studentrating/studentjson'] = "json/getStudentRattingJsonData";
+$route['studentrating/studentjson/(:any)'] = "json/getStudentRattingJsonData/$1";
+$route['studentrating/studentjson/(:any)/(:any)'] = "json/getStudentRattingJsonData/$1/$2";
+$route['studentrating/studentjson/(:any)/(:any)/(:any)'] = "json/getStudentRattingJsonData/$1/$2/$3";
+
+//Classes
+$route['clan/getschools/(:num)'] = "ajax/getSchoolsOptionFromAcademy/$1";
+$route['clan/getclasses/(:num)'] = "ajax/getClassesOptionFromSchool/$1";
+$route['clan/trial_lesson_request'] = "clans/listTrialLessonRequest";
+$route['clan/trial_lesson_request/(:num)'] = "clans/listTrialLessonRequest/$1";
+$route['clan/listTrialLessonRequestJson'] = "json/getTrialLessonRequestJsonData";
+$route['clan/listTrialLessonRequestJson/(:num)'] = "json/getTrialLessonRequestJsonData/$1";
+$route['clan/change_status_trial_student/(:num)/(:num)'] = "clans/changeStatusTrialStudent/$1/$2";
+$route['clan/change_status_trial_student/(:num)/(:num)/(:any)'] = "clans/changeStatusTrialStudent/$1/$2/$3";
+
+//User
+$route['user_student/badge_history/(:num)'] = 'users/listStudentBatches/$1';
+$route['user_student/badge_history/list/(:num)'] = 'users/listStudentBatches/$1';
+$route['user_student/badge_history/view/(:num)'] = 'users/listStudentBatches/$1';
+$route['user_student/badge_history/edit/(:num)'] = 'users/editStudentBatches/$1';
+$route['user_student/badge_history/delete/(:num)'] = 'users/deleteStudentBatches/$1';
+$route['user_student/badge_history/get_json_batch_history/(:num)/(:any)'] = "json/getStudentBatchHistoryJsonData/$1/$2";
+
 //Events
 $route['event/invitation/(:num)'] = "events/sendEventInvitation/$1";
 
+//Role
+$route['role/check/(:num)'] = "ajax/checkValidRole/$1";
+
+//Email Templates
+$route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";
+
+//System Setting
+$route['system_setting/(:any)'] = "systemsettings/viewSystemSetting/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

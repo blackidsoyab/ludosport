@@ -2,17 +2,10 @@
     
     $(document).ready(function() {
         loadDatable();
-        $('#assigned_users').prop('disabled', true);
-        $('#role_id').change(function(){
+        $('#batch_type').change(function(){
             loadDatable();
-            if($('#role_id').val() != 0){
-                $('#assigned_users').prop('disabled', false);
-            }
         });
 
-        $('#assigned_users').change(function(){
-            loadDatable();
-        });
     });
     
     function loadDatable(){
@@ -24,34 +17,31 @@
 echo $lengths[0]; ?>,
             "bServerSide" : true,
             "aoColumns": [
-                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-right","bSortable": false}
+                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-right","bSortable": false}
             ],
-            "sAjaxSource": "<?php echo base_url() . "user/getjson/"; ?>" + $('#role_id').val(),
+            "sAjaxSource": "<?php echo base_url() . 'user_student/badge_history/get_json_batch_history/'. $student_id .'/'; ?>" + $('#batch_type').val(),
             "fnInitComplete": function (oSettings, json) {
                 PositionFooter();     
             }
         });
     }
 
-    function UpdateRow(ele) {
+    function deleteRow(ele) {
         var current_id = $(ele).attr('id');
         var parent = $(ele).parent().parent();
 
         $.confirm({
             'title': 'Manage User',
-            'message': 'Do you Want to Delete the User ?',
+            'message': 'Do you Want to Delete the Badge ?',
             'buttons': {
                 '<?php echo $this->lang->line("yes"); ?>': {'class': 'btn btn-danger',
                     'action': function() {
                         $.ajax({
                             type: 'POST',
-                            url: http_host_js + 'user/delete/' + current_id,
+                            url: http_host_js + 'user_student/badge_history/delete/' + current_id,
                             data: id = current_id,
                             success: function() {
                                 window.location.reload();
-                            },
-                            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                                alert('error');
                             }
                         });
                     }
@@ -69,14 +59,7 @@ echo $lengths[0]; ?>,
 <?php $session = $this->session->userdata('user_session'); ?>
 <div class="row">
     <div class="col-lg-6 col-xs-6">
-        <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('user'); ?></h1>    
-    </div>
-
-    <div class="col-lg-6 col-xs-6">
-        <?php if (hasPermission('users', 'addUser')) { ?>
-            <a href="<?php echo base_url() . 'user/add' ?>" class="btn btn-primary h1 pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?></a>
-<?php } ?>
-
+        <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('batch_history'); ?></h1>    
     </div>
 </div>
 
@@ -84,11 +67,13 @@ echo $lengths[0]; ?>,
     <div class="form-horizontal">
         <div class="form-group margin-killer">
             <div class=" col-lg-4">
-                <select class="form-control" id="role_id">
-                    <option value="0">Filter by Role</option>
-                    <?php foreach ($roles as $role) { ?>
-                        <option value="<?php echo $role->id; ?>" <?php echo (@$role_id == $role->id) ? 'selected' : ''; ?>><?php echo $role->{$session->language . '_role_name'}; ?></option>
-<?php } ?>    
+                <select class="form-control" name="batch_type" id="batch_type">
+                    <option value="all"><?php echo $this->lang->line('all'); ?></option>
+                    <option value="D"><?php echo $this->lang->line('degree'); ?></option>
+                    <option value="H"><?php echo $this->lang->line('honor'); ?></option>
+                    <option value="M"><?php echo $this->lang->line('master'); ?></option>
+                    <option value="Q"><?php echo $this->lang->line('qualification'); ?></option>
+                    <option value="S"><?php echo $this->lang->line('security'); ?></option> 
                 </select>
             </div>
         </div>
@@ -101,9 +86,9 @@ echo $lengths[0]; ?>,
             <thead class="the-box dark full">
                 <tr align="left">
                     <th><?php echo $this->lang->line('name'); ?></th>
-                    <th width="200"><?php echo $this->lang->line('nickname'); ?></th>
-                    <th width="100"><?php echo $this->lang->line('role'); ?></th>
-                    <th width="100"><?php echo $this->lang->line('status'); ?></th>
+                    <th width="150"><?php echo $this->lang->line('type'); ?></th>
+                    <th width="100"><?php echo $this->lang->line('assign_date'); ?></th>
+                    <th width="100"><?php echo $this->lang->line('assign_by'); ?></th>
                     <th width="150"><?php echo $this->lang->line('actions'); ?></th>
                 </tr>
             </thead>

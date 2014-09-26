@@ -289,6 +289,10 @@ class json extends CI_Controller {
             }
 
             $str = NULL;
+            if (in_array(6, explode(',', $aRow['role_id'])) && $aRow['status'] == 'A' && hasPermission('users', 'listStudentBatches')) {
+                $str .= '<a href="' . base_url() . 'user_student/badge_history/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('list_badge_history') . '"><i class="fa fa-star icon-circle icon-xs icon-warning"></i></a>';
+            }
+
             if (hasPermission('users', 'editUser')) {
                 $str .= '<a href="' . base_url() . 'user/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
             }
@@ -1006,7 +1010,7 @@ class json extends CI_Controller {
         exit();
     }
 
-      public function getStudentRattingJsonData($academy_id = 0, $school_id = 0, $clan_id = 0) {
+    public function getStudentRattingJsonData($academy_id = 0, $school_id = 0, $clan_id = 0) {
         $where = NULL;
 
         if ($academy_id != 0) {
@@ -1028,13 +1032,13 @@ class json extends CI_Controller {
         $this->datatable->sTable = " clans, users, schools, academies, userdetails";
 
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id ' . $where;
+            $this->datatable->myWhere = 'WHERE users.status="A" AND academies.id=schools.academy_id AND schools.id=clans.school_id AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id ' . $where;
         } else if ($this->session_data->role == '3') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id ' . $where;
+            $this->datatable->myWhere = 'WHERE users.status="A" AND academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id ' . $where;
         } else if ($this->session_data->role == '4') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id ' . $where;
+            $this->datatable->myWhere = 'WHERE users.status="A" AND academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id ' . $where;
         } else if ($this->session_data->role == '5') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id ' . $where;
+            $this->datatable->myWhere = 'WHERE users.status="A" AND academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id ' . $where;
         }
         $this->datatable->datatable_process();
 
@@ -1051,6 +1055,63 @@ class json extends CI_Controller {
             } else{
                 $temp_arr[] = '&nbsp;';
             }
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getStudentBatchHistoryJsonData($student_id, $type = 'all'){
+        $where = null;
+        if ($type != 'all') {
+            $where = ' AND batch_type=\'' . strtoupper($type) . '\'';
+        }
+
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array($this->session_data->language . '_name','batch_type', 'assign_date', 'CONCAT(firstname, " ", lastname) AS assign_user');
+        $this->datatable->eColumns = array('user_batches_histories.id', 'image', 'user_batches_histories.user_id');
+        $this->datatable->sIndexColumn = "user_batches_histories.id";
+        $this->datatable->sTable = " user_batches_histories, batches, users";
+        $this->datatable->myWhere = ' WHERE batches.id=user_batches_histories.batch_id AND user_batches_histories.user_id=users.id AND user_batches_histories.student_id = ' . $student_id . $where;
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+
+            $temp_arr[] = '<img src="' . IMG_URL .'batches/' . $aRow['image'].'" class="avatar img-circle" alt="avatar"><a href="#" class="text-black">' . ucwords($aRow[$this->session_data->language . '_name']) . '</a>';
+
+            if ($aRow['batch_type'] == 'D') {
+                $temp_arr[] = '<span class="label label-info">' . $this->lang->line('degree') . '</span>';
+            } else if ($aRow['batch_type'] == 'H') {
+                $temp_arr[] = '<span class="label label-success">' . $this->lang->line('honor') . '</span>';
+            } else if ($aRow['batch_type'] == 'M') {
+                $temp_arr[] = '<span class="label label-default">' . $this->lang->line('master') . '</span>';
+            } else if ($aRow['batch_type'] == 'Q') {
+                $temp_arr[] = '<span class="label label-warning">' . $this->lang->line('qualification') . '</span>';
+            } else if ($aRow['batch_type'] == 'S') {
+                $temp_arr[] = '<span class="label label-danger">' . $this->lang->line('security') . '</span>';
+            }else {
+                $temp_arr[] = '&nbsp;';
+            }
+
+            $temp_arr[] = date('d-m-Y', strtotime($aRow['assign_date']));
+            $temp_arr[] = $aRow['assign_user'];
+
+            $str = NULL;
+            $perform_action = false;
+
+            if($this->session_data->role == 1 || $this->session_data->role == 2 || $this->session_data->id == $aRow['user_id']){
+                $perform_action = true;
+            }
+            if ($perform_action && hasPermission('users', 'editStudentBatches')) {
+                $str .= '<a href="' . base_url() . 'user_student/badge_history/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+
+            if ($perform_action && hasPermission('users', 'deleteStudentBatches')) {
+                $str .= '<a href="javascript:;" onclick="deleteRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }

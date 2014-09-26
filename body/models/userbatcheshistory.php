@@ -11,6 +11,7 @@ class Userbatcheshistory extends DataMapper {
     function saveStudentBatchHistory($student_id, $type, $batch_id){
         $session = get_instance()->session->userdata('user_session');
         $obj_batch_history = new Userbatcheshistory();
+        $obj_batch_history->where(array('batch_type'=>$type, 'batch_id'=>$batch_id, 'student_id'=>$student_id))->get();
         $obj_batch_history->student_id = $student_id;
         $obj_batch_history->batch_type = $type;
         $obj_batch_history->batch_id = $batch_id;

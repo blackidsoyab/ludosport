@@ -133,10 +133,10 @@ class users extends CI_Controller {
                 }
 
                 if($this->input->post('affect_score') === 'Y'){
-                    $user_details->xpr = $user_details->xpr + $xpr;
-                    $user_details->war = $user_details->war + $war;
-                    $user_details->sty = $user_details->sty + $sty;
-                    $user_details->total_score = $user_details->total_score + ($xpr + $war + $sty);
+                    $obj_score_history = new Scorehistory();
+                    $obj_score_history->meritStudentScore($user->id, 'xpr', $xpr, 'Assign badge');
+                    $obj_score_history->meritStudentScore($user->id, 'war', $war, 'Assign badge');
+                    $obj_score_history->meritStudentScore($user->id, 'sty', $sty, 'Assign badge');
                 }
                 
                 $user_details->clan_id = $this->input->post('class_id');
@@ -325,10 +325,10 @@ class users extends CI_Controller {
                     }
 
                     if($this->input->post('affect_score') === 'Y'){
-                        $user_details->xpr = $user_details->xpr + $xpr;
-                        $user_details->war = $user_details->war + $war;
-                        $user_details->sty = $user_details->sty + $sty;
-                        $user_details->total_score = $user_details->total_score + ($xpr + $war + $sty);
+                        $obj_score_history = new Scorehistory();
+                        $obj_score_history->meritStudentScore($user->id, 'xpr', $xpr, 'Assign badge');
+                        $obj_score_history->meritStudentScore($user->id, 'war', $war, 'Assign badge');
+                        $obj_score_history->meritStudentScore($user->id, 'sty', $sty, 'Assign badge');
                     }
 
                     $user_details->clan_id = $this->input->post('class_id');
@@ -449,27 +449,52 @@ class users extends CI_Controller {
         }
     }
 
-    function extraPermissionUser($id) {
+    function listStudentBatches($id){
+        $data['student_id'] = $id;
+        $this->layout->view('users/student_batch_history_view', $data);
+    }
+
+    function editStudentBatches($id){
         if (!empty($id)) {
             if ($this->input->post() !== false) {
+                $obj_batch_history = new Userbatcheshistory($id);
+                $obj_batch_history->assign_date = date('Y-m-d', strtotime($this->input->post('date')));
+                $obj_batch_history->save();
 
-                $user = new User();
-                $user->where('id', $id)->update('permission', serialize($this->input->post('perm')));
-                $user->delete();
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
-                redirect(base_url() . 'user', 'refresh');
-            } else {
-                $user = new User();
-                $data['user'] = $user->where('id', $id)->get();
+                redirect(base_url() . 'user_student/badge_history/' . $obj_batch_history->student_id , 'refresh');
+            }else{
+               $obj_batch_history = new Userbatcheshistory($id); 
+               $data['batch_history'] = $obj_batch_history;
 
-                $role = new Role();
-                $data['role'] = $role->where('id', $data['user']->role_id)->get();
+               $obj_batch = new Batch($obj_batch_history->batch_id);
+               $data['batch'] = $obj_batch;
 
-                $this->layout->view('users/extra_permission', $data);
+               $data['assing_user'] = userNameAvtar($obj_batch_history->user_id);
+
+               $this->layout->view('users/student_batch_history_edit', $data);
             }
-        } else {
+        }else{
             $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
             redirect(base_url() . 'user', 'refresh');
+        }
+    }
+
+    function deleteStudentBatches($id){
+        $obj_batch_history = new Userbatcheshistory($id);
+        if($obj_batch_history->result_count() == 1 && $obj_batch_history->user_id == $this->session_data->id){
+            $obj_batch = new Batch();
+            $batches_details = $obj_batch->getAssignBatchIds($this->session_data->role);
+            $batches_ids = array_column($batches_details, 'id');
+            if(in_array($obj_batch_history->batch_id, $batches_ids)) {
+                if($batches_details[$obj_batch_history->batch_id]['has_point'] == 1){
+                    $obj_score_history = new Scorehistory();
+                    $obj_score_history->demeritStudentScore($obj_batch_history->student_id, 'xpr', $batches_details[$obj_batch_history->batch_id]['xpr'], 'Delete badge');
+                    $obj_score_history->demeritStudentScore($obj_batch_history->student_id, 'war', $batches_details[$obj_batch_history->batch_id]['war'], 'Delete badge');
+                    $obj_score_history->demeritStudentScore($obj_batch_history->student_id, 'sty', $batches_details[$obj_batch_history->batch_id]['sty'], 'Delete badge');
+                }
+                $obj_batch_history->delete();
+            }
         }
     }
 

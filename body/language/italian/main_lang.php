@@ -242,6 +242,9 @@ $lang['access_control'] = 'Controlli di accesso';
 $lang['change_status'] = 'Change Status';
 $lang['extra_permission'] = 'Extra Permission';
 $lang['affect_score'] = 'Reflect Score';
+$lang['batch_history'] = 'Batch History';
+$lang['assign_date'] = 'Assign on';
+$lang['assign_by'] = 'Assign by';
 
 //Academy
 $lang['main'] = 'Main';
