@@ -73,89 +73,33 @@ class studentratings extends CI_Controller {
                 $description = $this->input->post('description');
                
                 if($oper['xpr'] != 'N'){
-                    if($oper['xpr'] == 'M' || $oper['xpr'] == 'D'){ 
-                        $obj_score = new Scorehistory();
-                        $obj_score->student_id = $id;
-                        $obj_score->oper = $oper['xpr'];
-                        $obj_score->score_type = 'xpr';
-                        $obj_score->score = $score['xpr'];
-                        $obj_score->score_date = get_current_date_time()->get_date_for_db();
-                        $obj_score->description = $description['xpr'];
-                        $obj_score->user_id = $this->session_data->id;
-                        $obj_score->save();
+                    $obj_score = new Scorehistory();
+                    if($oper['xpr'] == 'M'){
+                        $obj_score->meritStudentScore($id,'xpr', $score['xpr'], $description['xpr']);     
+                    }
 
-                        $userdetails = new Userdetail();
-                        $userdetails->where('student_master_id', $id)->get();
-
-                        if($oper['xpr'] == 'M'){
-                            $userdetails->xpr = (int)$userdetails->xpr + (int)$score['xpr'];
-                            $userdetails->total_score = (int)$userdetails->total_score + (int)$score['xpr'];
-                        }
-
-                        if($oper['xpr'] == 'D'){
-                            $userdetails->xpr = (int)$userdetails->xpr - (int)$score['xpr'];
-                            $userdetails->total_score = (int)$userdetails->total_score - (int)$score['xpr'];
-                        }
-
-                        $userdetails->save();
+                    if($oper['xpr'] == 'D'){
+                       $obj_score->demeritStudentScore($id,'xpr', $score['xpr'], $description['xpr']);
                     }
                 }
 
                 if($oper['war'] != 'N'){
-                    if($oper['war'] == 'M' || $oper['war'] == 'D'){ 
-                        $obj_score = new Scorehistory();
-                        $obj_score->student_id = $id;
-                        $obj_score->oper = $oper['war'];
-                        $obj_score->score_type = 'war';
-                        $obj_score->score = $score['war'];
-                        $obj_score->score_date = get_current_date_time()->get_date_for_db();
-                        $obj_score->description = $description['war'];
-                        $obj_score->user_id = $this->session_data->id;
-                        $obj_score->save();
+                    if($oper['war'] == 'M'){
+                        $obj_score->meritStudentScore($id,'war', $score['war'], $description['war']);   
+                    }
 
-                        $userdetails = new Userdetail();
-                        $userdetails->where('student_master_id', $id)->get();
-
-                        if($oper['war'] == 'M'){
-                            $userdetails->war = (int)$userdetails->war + (int)$score['war'];
-                            $userdetails->total_score = (int)$userdetails->total_score + (int)$score['war'];
-                        }
-
-                        if($oper['war'] == 'D'){
-                            $userdetails->war = (int)$userdetails->war - (int)$score['war'];
-                            $userdetails->total_score = (int)$userdetails->total_score - (int)$score['war'];
-                        }
-
-                        $userdetails->save();
+                    if($oper['war'] == 'D'){
+                        $obj_score->demeritStudentScore($id,'war', $score['war'], $description['war']);   
                     }
                 }
 
                 if($oper['sty'] != 'N'){
-                    if($oper['sty'] == 'M' || $oper['sty'] == 'D'){ 
-                        $obj_score = new Scorehistory();
-                        $obj_score->student_id = $id;
-                        $obj_score->oper = $oper['sty'];
-                        $obj_score->score_type = 'sty';
-                        $obj_score->score = $score['sty'];
-                        $obj_score->score_date = get_current_date_time()->get_date_for_db();
-                        $obj_score->description = $description['sty'];
-                        $obj_score->user_id = $this->session_data->id;
-                        $obj_score->save();
+                    if($oper['sty'] == 'M'){
+                        $obj_score->meritStudentScore($id,'sty', $score['sty'], $description['sty']);   
+                    }
 
-                        $userdetails = new Userdetail();
-                        $userdetails->where('student_master_id', $id)->get();
-
-                        if($oper['sty'] == 'M'){
-                            $userdetails->sty = (int)$userdetails->sty + (int)$score['sty'];
-                            $userdetails->total_score = (int)$userdetails->total_score + (int)$score['sty'];
-                        }
-
-                        if($oper['sty'] == 'D'){
-                            $userdetails->sty = (int)$userdetails->sty - (int)$score['sty'];
-                            $userdetails->total_score = (int)$userdetails->total_score - (int)$score['sty'];
-                        }
-
-                        $userdetails->save();
+                    if($oper['sty'] == 'D'){
+                        $obj_score->demeritStudentScore($id,'sty', $score['sty'], $description['sty']);   
                     }
                 }
                 

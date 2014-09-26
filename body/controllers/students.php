@@ -595,16 +595,16 @@ class students extends CI_Controller {
 
                 if($single[0]->from_id == $this->input->post('winner')){
                     $obj_score = new Scorehistory();
-                    $obj_score->meritStudentScore($single[0]->from_id, $winner_rating_point['type'], $winner_rating_point['score']);                    
+                    $obj_score->meritStudentScore($single[0]->from_id, $winner_rating_point['type'], $winner_rating_point['score'], 'Challenge Winner');                    
 
                     $obj_score = new Scorehistory();
-                    $obj_score->meritStudentScore($single[0]->to_id, $defeat_rating_point['type'], $defeat_rating_point['score']);
+                    $obj_score->meritStudentScore($single[0]->to_id, $defeat_rating_point['type'], $defeat_rating_point['score'], 'Challenge Failure');
                 } else{
                     $obj_score = new Scorehistory();
-                    $obj_score->meritStudentScore($single[0]->to_id, $winner_rating_point['type'], $winner_rating_point['score']);                    
+                    $obj_score->meritStudentScore($single[0]->to_id, $winner_rating_point['type'], $winner_rating_point['score'], 'Challenge Winner');                    
 
                     $obj_score = new Scorehistory();
-                    $obj_score->meritStudentScore($single[0]->from_id, $defeat_rating_point['type'], $defeat_rating_point['score']);
+                    $obj_score->meritStudentScore($single[0]->from_id, $defeat_rating_point['type'], $defeat_rating_point['score'], 'Challenge Failure');
                 }
 
                 $this->_sendNotificationEmail('challenge_winner', $obj->stored, $obj->id);

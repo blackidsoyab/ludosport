@@ -829,7 +829,7 @@ class clans extends CI_Controller {
                             $rating_point = systemRatingScore('lesson');
                             
                             $obj_score = new Scorehistory();
-                            $obj_score->meritStudentScore($regular_key, $rating_point['type'], $rating_point['score']);    
+                            $obj_score->meritStudentScore($regular_key, $rating_point['type'], $rating_point['score'], 'Clan Attendance');    
                         }
                         //update the value
                         $attadence->clan_date = $this->input->post('date');
