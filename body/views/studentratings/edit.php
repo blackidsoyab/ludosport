@@ -120,9 +120,9 @@ $(document).ready(function() {
                 </div>
 
                 <div class="form-group" style="display:none">
-                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('reason'); ?> <span class="text-danger">*</span></label>
+                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('reason'); ?> <span class="text-danger">&nbsp;</span></label>
                     <div class="col-lg-8">
-                        <textarea name="description[xpr]" class="form-control bold-border required"></textarea>
+                        <textarea name="description[xpr]" class="form-control bold-border"></textarea>
                     </div>
                 </div>
             </div>
@@ -157,9 +157,9 @@ $(document).ready(function() {
                 </div>
 
                 <div class="form-group" style="display:none">
-                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('reason'); ?> <span class="text-danger">*</span></label>
+                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('reason'); ?> <span class="text-danger">&nbsp;</span></label>
                     <div class="col-lg-8">
-                        <textarea name="description[war]" class="form-control bold-border required"></textarea>
+                        <textarea name="description[war]" class="form-control bold-border"></textarea>
                     </div>
                 </div>
             </div>
@@ -194,9 +194,9 @@ $(document).ready(function() {
                 </div>
 
                 <div class="form-group" style="display:none">
-                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('reason'); ?> <span class="text-danger">*</span></label>
+                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('reason'); ?> <span class="text-danger">&nbsp;</span></label>
                     <div class="col-lg-8">
-                        <textarea name="description[sty]" class="form-control bold-border required"></textarea>
+                        <textarea name="description[sty]" class="form-control bold-border"></textarea>
                     </div>
                 </div>
             </div>
