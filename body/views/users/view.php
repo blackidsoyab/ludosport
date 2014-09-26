@@ -103,8 +103,8 @@ echo $lengths[0]; ?>,
                     <th><?php echo $this->lang->line('name'); ?></th>
                     <th width="200"><?php echo $this->lang->line('nickname'); ?></th>
                     <th width="100"><?php echo $this->lang->line('role'); ?></th>
-                    <th width="100"><?php echo $this->lang->line('status'); ?></th>
-                    <th width="150"><?php echo $this->lang->line('actions'); ?></th>
+                    <th width="75"><?php echo $this->lang->line('status'); ?></th>
+                    <th width="175"><?php echo $this->lang->line('actions'); ?></th>
                 </tr>
             </thead>
             <tbody>

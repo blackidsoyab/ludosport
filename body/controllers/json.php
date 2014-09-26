@@ -7,7 +7,7 @@ class json extends CI_Controller {
 
     var $session_data;
 
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->session_data = $this->session->userdata('user_session');
     }
@@ -289,8 +289,12 @@ class json extends CI_Controller {
             }
 
             $str = NULL;
+            if (in_array(6, explode(',', $aRow['role_id'])) && $aRow['status'] == 'A' && hasPermission('users', 'listStudentScore')) {
+                $str .= '<a href="' . base_url() . 'user_student/score_history/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('list_score_history') . '"><i class="fa fa-star icon-circle icon-xs icon-info"></i></a>';
+            }
+
             if (in_array(6, explode(',', $aRow['role_id'])) && $aRow['status'] == 'A' && hasPermission('users', 'listStudentBatches')) {
-                $str .= '<a href="' . base_url() . 'user_student/badge_history/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('list_badge_history') . '"><i class="fa fa-star icon-circle icon-xs icon-warning"></i></a>';
+                $str .= '<a href="' . base_url() . 'user_student/badge_history/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('list_badge_history') . '"><i class="fa fa-graduation-cap icon-circle icon-xs icon-warning"></i></a>';
             }
 
             if (hasPermission('users', 'editUser')) {
@@ -895,7 +899,7 @@ class json extends CI_Controller {
         exit();
     }
 
-    function getDuelJsonData($user_id, $type = 'all', $type_2 = null){
+    public function getDuelJsonData($user_id, $type = 'all', $type_2 = null){
         $where = null;
 
         if($type == 'all'){
@@ -970,7 +974,7 @@ class json extends CI_Controller {
         exit();
     }
 
-    function getRattingListJsonData($type = null){
+    public function getRattingListJsonData($type = null){
         $this->load->library('datatable');
         $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) as name','userdetails.total_score', 'en_academy_name as academy', 'schools.en_school_name as school', 'clans.en_class_name as clan');
         $this->datatable->eColumns = array('users.id','avtar', 'userdetails.xpr', 'userdetails.war', 'userdetails.sty');
@@ -1112,6 +1116,64 @@ class json extends CI_Controller {
                 $str .= '<a href="javascript:;" onclick="deleteRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
             }
             $temp_arr[] = $str;
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getStudentScoreHistroyJsonData($student_id, $type = 'all'){
+        $where = null;
+        if ($type != 'all') {
+            $where = ' AND score_type=\'' . strtolower($type) . '\'';
+        }
+
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('score_type','score','score_date','CONCAT(firstname, " ", lastname) AS assign_user','description');
+        $this->datatable->eColumns = array('score_histories.id', 'oper', 'score_histories.user_id');
+        $this->datatable->sIndexColumn = "score_histories.id";
+        $this->datatable->sTable = " score_histories, users";
+        $this->datatable->myWhere = ' WHERE score_histories.user_id=users.id AND score_histories.student_id = ' . $student_id . $where;
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+
+            if ($aRow['score_type'] == 'xpr') {
+                $temp_arr[] = '<span class="label label-info">' . $this->lang->line('xpr') . '</span>';
+            } else if ($aRow['score_type'] == 'war') {
+                $temp_arr[] = '<span class="label label-warning">' . $this->lang->line('war') . '</span>';
+            } else if ($aRow['score_type'] == 'sty') {
+                $temp_arr[] = '<span class="label label-default">' . $this->lang->line('sty') . '</span>';
+            }else {
+                $temp_arr[] = '&nbsp;';
+            }
+
+            if($aRow['oper'] == 'M'){
+                $temp_arr[] = '<span class="label label-success">' . $aRow['score'] . '</span>';
+            } else if($aRow['oper'] == 'D'){
+                $temp_arr[] = '<span class="label label-danger">' . $aRow['score'] . '</span>';
+            } else {
+                $temp_arr[] = '&nbsp;';
+            }
+
+
+            $temp_arr[] = date('d-m-Y', strtotime($aRow['score_date']));
+            $temp_arr[] = $aRow['assign_user'];
+            $temp_arr[] = @$aRow['description'];
+
+            $perform_action = false;
+
+            if($this->session_data->role == 1 || $this->session_data->role == 2 || $this->session_data->id == $aRow['user_id']){
+                $perform_action = true;
+            }
+
+            if ($perform_action && hasPermission('users', 'deleteStudentScore')) {
+                $temp_arr[] = '<a href="javascript:;" onclick="deleteRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            } else {
+                $temp_arr[] = null;
+            }
 
             $this->datatable->output['aaData'][] = $temp_arr;
         }

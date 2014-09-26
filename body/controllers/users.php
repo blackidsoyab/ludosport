@@ -512,4 +512,22 @@ class users extends CI_Controller {
         }
     }
 
+    function listStudentScore($id){
+        $data['user'] = new User($id);
+        $this->layout->view('users/student_score_history_view', $data);
+    }
+
+    function deleteStudentScore($id){
+        $obj_score_history = new Scorehistory($id);
+        $can_perform_action = false;
+        
+        if($obj_score_history->user_id == $this->session_data->id || $this->session_data->role == 1 || $this->session_data->role == 2){
+            $can_perform_action = true;
+        }
+
+        if($obj_score_history->result_count() == 1 && $can_perform_action){
+            $obj_score_history->delete();
+        }
+    }
+
 }

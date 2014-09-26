@@ -244,7 +244,8 @@ $lang['extra_permission'] = 'Extra Permission';
 $lang['batch_history'] = 'Batch History';
 $lang['assign_date'] = 'Assign on';
 $lang['assign_by'] = 'Assign by';
-
+$lang['list_score_history'] = 'List score history';
+$lang['list_badge_history'] = 'List badge history';
 
 //Academy
 $lang['main'] = 'Main';

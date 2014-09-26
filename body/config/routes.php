@@ -197,13 +197,21 @@ $route['clan/listTrialLessonRequestJson/(:num)'] = "json/getTrialLessonRequestJs
 $route['clan/change_status_trial_student/(:num)/(:num)'] = "clans/changeStatusTrialStudent/$1/$2";
 $route['clan/change_status_trial_student/(:num)/(:num)/(:any)'] = "clans/changeStatusTrialStudent/$1/$2/$3";
 
-//User
+//User Badge History
 $route['user_student/badge_history/(:num)'] = 'users/listStudentBatches/$1';
 $route['user_student/badge_history/list/(:num)'] = 'users/listStudentBatches/$1';
 $route['user_student/badge_history/view/(:num)'] = 'users/listStudentBatches/$1';
 $route['user_student/badge_history/edit/(:num)'] = 'users/editStudentBatches/$1';
 $route['user_student/badge_history/delete/(:num)'] = 'users/deleteStudentBatches/$1';
 $route['user_student/badge_history/get_json_batch_history/(:num)/(:any)'] = "json/getStudentBatchHistoryJsonData/$1/$2";
+
+//User Score History
+$route['user_student/score_history/(:num)'] = 'users/listStudentScore/$1';
+$route['user_student/score_history/list/(:num)'] = 'users/listStudentScore/$1';
+$route['user_student/score_history/view/(:num)'] = 'users/listStudentScore/$1';
+$route['user_student/score_history/delete/(:num)'] = 'users/deleteStudentScore/$1';
+$route['user_student/score_history/get_json_score_history/(:num)/(:any)'] = "json/getStudentScoreHistroyJsonData/$1/$2";
+
 
 //Events
 $route['event/invitation/(:num)'] = "events/sendEventInvitation/$1";
