@@ -216,7 +216,7 @@ class batchrequests extends CI_Controller {
                 $message = str_replace('#request_username', $details->request_user, $message);
 
                 $check_privacy = unserialize($dean_details['email_privacy']);
-                if(is_null($check_privacy) || $check_privacy == false || $check_privacy[$type] == 1){
+                if(is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) ||  $check_privacy[$type] == 1){
                     //set option for sending mail
                     $option = array();
                     $option['tomailid'] = $dean_details['email'];
@@ -250,7 +250,7 @@ class batchrequests extends CI_Controller {
                 $message = str_replace('#request_username', $details->request_user, $message);
 
                 $check_privacy = unserialize($rector_details['email_privacy']);
-                if(is_null($check_privacy) || $check_privacy == false || $check_privacy[$type] == 1){
+                if(is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) ||  $check_privacy[$type] == 1){
                     //set option for sending mail
                     $option = array();
                     $option['tomailid'] = $rector_details['email'];
@@ -283,7 +283,7 @@ class batchrequests extends CI_Controller {
                 $message = str_replace('#request_username', $details->request_user, $message);
 
                 $check_privacy = unserialize($admin_details['email_privacy']);
-                if(is_null($check_privacy) || $check_privacy == false || $check_privacy[$type] == 1){
+                if(is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) ||  $check_privacy[$type] == 1){
                     //set option for sending mail
                     $option = array();
                     $option['tomailid'] = $admin_details['email'];

@@ -65,7 +65,7 @@ class teachers extends CI_Controller
                 
                 $user_details = userNameEmail($dean);
                 $check_privacy = unserialize($user_details['email_privacy']);
-                if(is_null($check_privacy) || $check_privacy['teacher_absent'] == 1){
+                if(is_null($check_privacy) || $check_privacy == false  || !isset($check_privacy[$type]) || $check_privacy['teacher_absent'] == 1){
                     $message = str_replace('#user_name', $user_details['name'], $message);
 
                     $option = array();

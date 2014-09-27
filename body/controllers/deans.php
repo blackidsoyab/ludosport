@@ -58,7 +58,7 @@ class deans extends CI_Controller
 
                 $teacher_details = userNameEmail($attendance->teacher_id);
                 $check_privacy = unserialize($user_details['email_privacy']);
-                if(is_null($check_privacy) || $check_privacy[$notify_type] == 1){
+                if(is_null($check_privacy) || $check_privacy == false  || !isset($check_privacy[$type]) ||  $check_privacy[$notify_type] == 1){
                     $email = new Email();
                     //get the mail templates
                     $email->where('type', $notify_type)->get();
@@ -95,7 +95,7 @@ class deans extends CI_Controller
                     //replace appropriate varaibles
                     $recovery_teacher_details = userNameEmail($attendance->recovery_teacher);
                     $check_privacy = unserialize($recovery_teacher_details['email_privacy']);
-                    if(is_null($check_privacy) || $check_privacy['recovery_teacher'] == 1){
+                    if(is_null($check_privacy) || $check_privacy == false  || !isset($check_privacy[$type]) ||  $check_privacy['recovery_teacher'] == 1){
                         $email = new Email();
                         //get the mail templates
                         $email->where('type', 'recovery_teacher')->get();

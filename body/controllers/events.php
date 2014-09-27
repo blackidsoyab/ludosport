@@ -425,7 +425,7 @@ class events extends CI_Controller {
 
                             $user_details = userNameEmail($user);
                             $check_privacy = unserialize($user_details['email_privacy']);
-                            if(is_null($check_privacy) || $check_privacy['event_invitation'] == 1){
+                            if(is_null($check_privacy) || $check_privacy == false  || !isset($check_privacy[$type]) ||  $check_privacy['event_invitation'] == 1){
                                 //Send Mail to user
                                 $message = str_replace('#user', $user_details['name'], $message);
 

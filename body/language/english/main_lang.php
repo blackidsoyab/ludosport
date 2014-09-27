@@ -32,6 +32,7 @@ $lang['browse_file'] = 'Browse File';
 $lang['no'] = 'No';
 $lang['yes'] = 'Yes';
 $lang['download'] = 'Download';
+$lang['change_email_privacy'] = 'Change Email Privacy';
 
 //Operation's Messages
 $lang['you_logged_in'] = 'You are already logged in :)';
@@ -68,6 +69,8 @@ $lang['communitate_absence_success'] = 'Communicate Absence Successfully';
 $lang['email_privacy_success'] = 'Email privacy changed successfully';
 $lang['no_student_in_clan'] = 'No Student is there in your Clan';
 $lang['back_to_home'] = 'Back to Home';
+$lang['approved_success'] = 'Approved Successfully';
+$lang['unapproved_success'] = 'Unapproved Successfully';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';
@@ -352,6 +355,8 @@ $lang['select_any_student'] = 'Select any Student';
 //Batches
 $lang['batch'] = 'Badge';
 $lang['image'] = 'Image';
+$lang['who_can_assign'] = 'Who can ssign';
+$lang['has_rating'] = 'Has ratting';
 $lang['badge_120_width_image'] = "If image width is greater than 120px, the result will be good";
 $lang['badge_750_width_image'] = "If image width is greater than 750px, the result will be good";
 $lang['badge_change_sequence_information'] = 'To change the sequence of BADGE, first select any type and then drag & drop the badge to change sequence';
@@ -360,10 +365,13 @@ $lang['badge_change_sequence_information'] = 'To change the sequence of BADGE, f
 $lang['batch_request'] = 'Badge request';
 $lang['request_student_name'] = 'Pupil name';
 $lang['request_user_name'] = 'Request User';
+$lang['request_user'] = 'Request User';
 $lang['top_most_autority_cannot_request'] = 'You are top most authorities, you cannot request to anyone.';
 $lang['make_batch_request_to_dean'] = 'Make badge request to Dean';
 $lang['make_batch_request_to_rector'] = 'Make badge request to Rector';
 $lang['make_batch_request_to_admin'] = 'Make badge request to Admin';
+$lang['approve_batch_request'] = "Approve";
+$lang['unapprove_batch_request'] = "unapprove";
 
 //Message System
 $lang['message'] = 'Message';
@@ -404,6 +412,9 @@ $lang['my_clan'] = 'My Clan';
 
 //Studnet Rating
 $lang['operation'] = 'Operation';
+$lang['none'] = 'None';
+$lang['merit'] = 'Merit';
+$lang['demerit'] = 'Demerit';
 
 //Students Challenges
 $lang['challenge'] = 'Challenge';

@@ -44,7 +44,7 @@ class students extends CI_Controller {
             $notification->save();
 
             $check_privacy = unserialize($this->session_data->email_privacy);
-            if(is_null($check_privacy) || $check_privacy['student_absent'] == 1){
+            if(is_null($check_privacy) || $check_privacy == false  || !isset($check_privacy[$type]) ||  $check_privacy['student_absent'] == 1){
                 $teacher_email = userNameEmail($clan->teacher_id);
                 $email = new Email();
                 $email->where('type', 'student_absent')->get();
@@ -88,7 +88,7 @@ class students extends CI_Controller {
 
                 $recover_teacher_email = userNameEmail($recover_clan->teacher_id);
                 $check_privacy = unserialize($recover_teacher_email['email_privacy']);
-                if(is_null($check_privacy) || $check_privacy['recovery_student'] == 1){
+                if(is_null($check_privacy) || $check_privacy == false  || !isset($check_privacy[$type]) ||  $check_privacy['recovery_student'] == 1){
                     $email = new Email();
                     $email->where('type', 'recovery_student')->get();
                     $message = $email->message;
@@ -686,7 +686,7 @@ class students extends CI_Controller {
         }
 
         $check_privacy = unserialize($user->email_privacy);
-        if(is_null($check_privacy) || $check_privacy[$type] == 1){
+        if(is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy[$type] == 1){
             //set option for sending mail
             $option = array();
             $option['tomailid'] = $user->email;
