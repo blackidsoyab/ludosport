@@ -88,6 +88,7 @@ $lang['level'] = 'Level';
 $lang['email_template'] = 'Email Template';
 $lang['setting'] = 'Setting';
 $lang['events'] = 'Events';
+$lang['pupil'] = 'Pupil';
 
 //Student Menu
 $lang['history'] = 'STORIA';
@@ -356,6 +357,14 @@ $lang['image'] = 'Image';
 $lang['badge_120_width_image'] = "If image width is greater than 120px, the result will be good";
 $lang['badge_750_width_image'] = "If image width is greater than 750px, the result will be good";
 $lang['badge_change_sequence_information'] = 'To change the sequence of BADGE, first select any type and then drag & drop the badge to change sequence';
+
+//Batch Request
+$lang['batch_request'] = 'Badge request';
+$lang['request_student_name'] = 'Pupil name';
+$lang['request_user_name'] = 'Request User';
+$lang['make_batch_request_to_dean'] = 'Make badge request to Dean';
+$lang['make_batch_request_to_rector'] = 'Make badge request to Rector';
+$lang['make_batch_request_to_admin'] = 'Make badge request to Admin';
 
 //Message System
 $lang['message'] = 'Message';

@@ -119,19 +119,6 @@ class users extends CI_Controller {
                     }
                 }
 
-                if($this->input->post('master_id') != 0){
-                    if(in_array($this->input->post('master_id'), $batches_ids)) {
-                        $obj_batch_history = new Userbatcheshistory();
-                        $obj_batch_history->saveStudentBatchHistory($user->id,'M',$this->input->post('master_id'));
-                        $user_details->master_id= $this->input->post('master_id');
-                        if($batches_details[$this->input->post('master_id')]['has_point'] == 1){
-                            $xpr = $xpr + $batches_details[$this->input->post('master_id')]['xpr'];
-                            $war = $war + $batches_details[$this->input->post('master_id')]['war'];
-                            $sty = $sty + $batches_details[$this->input->post('master_id')]['sty'];
-                        }
-                    }
-                }
-
                 if($this->input->post('affect_score') === 'Y'){
                     $obj_score_history = new Scorehistory();
                     $obj_score_history->meritStudentScore($user->id, 'xpr', $xpr, 'Assign badge');
@@ -180,7 +167,7 @@ class users extends CI_Controller {
             }
 
             if($this->session_data->role == 1){
-                $assignments = array('D','H','M','Q','S');
+                $assignments = array('D','H','Q','S');
             }else{
                 $obj_batch = new Batch();
                 $assignments = $obj_batch->getBatchTypeAssignmentByRole($this->session_data->role);
@@ -194,11 +181,6 @@ class users extends CI_Controller {
             if(in_array('H', $assignments)){
                 $obj_batch = new Batch();
                 $data['honour_batches'] = $obj_batch->getBatchAssignmentByRole('H',$this->session_data->role);
-            }
-
-            if(in_array('M', $assignments)){
-                $obj_batch = new Batch();
-                $data['master_batches'] = $obj_batch->getBatchAssignmentByRole('M',$this->session_data->role);
             }
 
             if(in_array('Q', $assignments)){
@@ -311,19 +293,6 @@ class users extends CI_Controller {
                         }
                     }
 
-                    if($this->input->post('master_id') != 0 && $user_details->master_id != $this->input->post('master_id')){
-                        if(in_array($this->input->post('master_id'), $batches_ids)) {
-                            $obj_batch_history = new Userbatcheshistory();
-                            $obj_batch_history->saveStudentBatchHistory($user->id, 'M', $this->input->post('master_id'));
-                            $user_details->master_id= $this->input->post('master_id');
-                            if($batches_details[$this->input->post('master_id')]['has_point'] == 1){
-                                $xpr = $xpr + $batches_details[$this->input->post('master_id')]['xpr'];
-                                $war = $war + $batches_details[$this->input->post('master_id')]['war'];
-                                $sty = $sty + $batches_details[$this->input->post('master_id')]['sty'];
-                            }
-                        }
-                    }
-
                     if($this->input->post('affect_score') === 'Y'){
                         $obj_score_history = new Scorehistory();
                         $obj_score_history->meritStudentScore($user->id, 'xpr', $xpr, 'Assign badge');
@@ -395,7 +364,7 @@ class users extends CI_Controller {
 
                     if(in_array(6, explode(',',$user->role_id))){
                         if($this->session_data->role == 1){
-                            $assignments = array('D','H','M','Q','S');
+                            $assignments = array('D','H','Q','S');
                         }else{
                             $obj_batch = new Batch();
                             $assignments = $obj_batch->getBatchTypeAssignmentByRole($this->session_data->role);
@@ -409,11 +378,6 @@ class users extends CI_Controller {
                         if(in_array('H', $assignments)){
                             $obj_batch = new Batch();
                             $data['honour_batches'] = $obj_batch->getBatchAssignmentByRole('H',$this->session_data->role);
-                        }
-
-                        if(in_array('M', $assignments)){
-                            $obj_batch = new Batch();
-                            $data['master_batches'] = $obj_batch->getBatchAssignmentByRole('M',$this->session_data->role);
                         }
 
                         if(in_array('Q', $assignments)){

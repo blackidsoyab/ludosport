@@ -235,38 +235,20 @@
                     </div>
                 <?php } ?>
 
-                <?php if(isset($honour_batches) && !is_null($honour_batches)) { ?>
+                <?php if(isset($security_batches) && !is_null($security_batches)) { ?>
                     <div class="form-group">
-                        <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('honour'); ?></label>
+                        <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('security'); ?></label>
                         <div class="col-lg-5">
-                            <select class="form-control" name="honour_id">
-                                <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('honour'); ?></option> 
-                                <?php
-                                foreach ($honour_batches as $honour) {
-                                    ?>
-                                    <option value="<?php echo $honour->id; ?>" <?php echo ($honour->id == $userdetail->honour_id) ? 'selected' : ''; ?>><?php echo $honour->{$session->language . '_name'}; ?></option>
+                            <select class="form-control" name="security_id">
+                                <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('security'); ?></option> 
+                                <?php foreach ($security_batches as $security) { ?>
+                                    <option value="<?php echo $security->id; ?>" <?php echo ($security->id == $userdetail->security_id) ? 'selected' : ''; ?>><?php echo $security->{$session->language . '_name'}; ?></option>
                                 <?php } ?>  
                             </select>
                         </div>
                     </div>
                 <?php } ?>
 
-                <?php if(isset($master_batches) && !is_null($master_batches)) { ?>
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('master'); ?></label>
-                        <div class="col-lg-5">
-                            <select class="form-control" name="master_id">
-                                <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('master'); ?></option> 
-                                <?php
-                                foreach ($master_batches as $master) {
-                                    ?>
-                                    <option value="<?php echo $master->id; ?>" <?php echo ($master->id == $userdetail->master_id) ? 'selected' : ''; ?>><?php echo $master->{$session->language . '_name'}; ?></option>
-                                <?php } ?>  
-                            </select>
-                        </div>
-                    </div>
-                <?php } ?>
-                
                 <?php if(isset($qualification_batches) && !is_null($qualification_batches)) { ?>
                     <div class="form-group">
                         <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('qualification'); ?></label>
@@ -283,14 +265,16 @@
                     </div>
                 <?php } ?>
 
-                <?php if(isset($security_batches) && !is_null($security_batches)) { ?>
+                <?php if(isset($honour_batches) && !is_null($honour_batches)) { ?>
                     <div class="form-group">
-                        <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('security'); ?></label>
+                        <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('honour'); ?></label>
                         <div class="col-lg-5">
-                            <select class="form-control" name="security_id">
-                                <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('security'); ?></option> 
-                                <?php foreach ($security_batches as $security) { ?>
-                                    <option value="<?php echo $security->id; ?>" <?php echo ($security->id == $userdetail->security_id) ? 'selected' : ''; ?>><?php echo $security->{$session->language . '_name'}; ?></option>
+                            <select class="form-control" name="honour_id">
+                                <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('honour'); ?></option> 
+                                <?php
+                                foreach ($honour_batches as $honour) {
+                                    ?>
+                                    <option value="<?php echo $honour->id; ?>" <?php echo ($honour->id == $userdetail->honour_id) ? 'selected' : ''; ?>><?php echo $honour->{$session->language . '_name'}; ?></option>
                                 <?php } ?>  
                             </select>
                         </div>

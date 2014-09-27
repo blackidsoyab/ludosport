@@ -282,7 +282,7 @@ class batches extends CI_Controller {
         return $data;
     }
 
-     function sortable() {
+    function sortable() {
         $count = 1;
         foreach ($this->input->post() as $batch_key => $batch_array) {
             $type = explode('_', $batch_key);
@@ -294,6 +294,23 @@ class batches extends CI_Controller {
                 $count++;
             }     
         } 
+    }
+
+    function deleteType(){
+        $batch = new Batch();
+        $batch->where('type', 'M')->get();
+        foreach ($batch as $key => $value) {
+            if (file_exists('assets/img/batches/' . $value->image)) {
+                unlink('assets/img/batches/' . $value->image);
+            }
+            if (!is_null($value->dashboard_cover) && file_exists('assets/img/batches/dashboard_cover/' . $value->dashboard_cover)) {
+                unlink('assets/img/batches/dashboard_cover/' . $value->dashboard_cover);
+            }
+            if (!is_null($value->profile_cover) && file_exists('assets/img/batches/profile_cover/' . $value->profile_cover)) {
+                unlink('assets/img/batches/profile_cover/' . $value->profile_cover);
+            }
+            $value->delete();
+        }
     }
 
 

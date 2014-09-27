@@ -70,8 +70,7 @@ echo $lengths[0]; ?>,
                 <select class="form-control" name="batch_type" id="batch_type">
                     <option value="all"><?php echo $this->lang->line('all'); ?></option>
                     <option value="D"><?php echo $this->lang->line('degree'); ?></option>
-                    <option value="H"><?php echo $this->lang->line('honor'); ?></option>
-                    <option value="M"><?php echo $this->lang->line('master'); ?></option>
+                    <option value="H"><?php echo $this->lang->line('honour'); ?></option>
                     <option value="Q"><?php echo $this->lang->line('qualification'); ?></option>
                     <option value="S"><?php echo $this->lang->line('security'); ?></option> 
                 </select>

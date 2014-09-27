@@ -34,10 +34,9 @@ $(document).ready(function() {
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('type'); ?> <span class="text-danger">*</span></label>
             <div class="col-lg-5">
                 <select class="form-control required" name="type">
-                    <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('type'); ?></option> 
+                    <option value="all"><?php echo $this->lang->line('select'), ' ', $this->lang->line('type'); ?></option> 
                     <option value="D"><?php echo $this->lang->line('degree'); ?></option>
-                    <option value="H"><?php echo $this->lang->line('honor'); ?></option>
-                    <option value="M"><?php echo $this->lang->line('master'); ?></option>
+                    <option value="H"><?php echo $this->lang->line('honour'); ?></option>
                     <option value="Q"><?php echo $this->lang->line('qualification'); ?></option>
                     <option value="S"><?php echo $this->lang->line('security'); ?></option> 
                 </select>

@@ -790,11 +790,7 @@ class json extends CI_Controller {
             }
 
             if ($aRow['type'] == 'H') {
-                $temp_arr[] = '<span class="label label-success">' . $this->lang->line('honor') . '</span>';
-            }
-
-            if ($aRow['type'] == 'M') {
-                $temp_arr[] = '<span class="label label-default">' . $this->lang->line('master') . '</span>';
+                $temp_arr[] = '<span class="label label-success">' . $this->lang->line('honour') . '</span>';
             }
 
             if ($aRow['type'] == 'Q') {
@@ -818,6 +814,41 @@ class json extends CI_Controller {
             $temp_arr[] = $str;
 
             $temp_arr[] = 'batch_id_' . $aRow['type'] .'_' . $aRow['id'];
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getBatchrequestsJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('CONCAT(student.firstname," ",student.lastname) AS student', 'batches.' . $this->session_data->language.'_name AS batch_name', 'CONCAT(request_user.firstname," ",request_user.lastname) AS request_user','clans.' . $this->session_data->language.'_class_name AS clan_name');
+        $this->datatable->eColumns = array('batchrequests.id', 'batches.image AS batch_image', 'student.avtar AS student_image', 'request_user.avtar AS request_user_image', 'student_id', 'from_id');
+        $this->datatable->sIndexColumn = "batchrequests.id";
+        $this->datatable->sTable = " batchrequests, batches, users student, users request_user, userdetails, clans";
+        $this->datatable->myWhere = 'WHERE student.id=userdetails.student_master_id AND userdetails.clan_id=clans.id AND student.id=batchrequests.student_id AND batchrequests.from_id = request_user.id AND batchrequests.batch_id=batches.id';
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = '<img src="' . IMG_URL .'user_avtar/40X40/' . $aRow['student_image'].'" class="avatar img-circle margin-left-killer" alt="avatar"><a href="' . base_url() . 'profile/view/' . $aRow['student_id'] . '" class="text-black">' . $aRow['student'] . '</a>';
+
+            $temp_arr[] = '<img src="' . IMG_URL .'batches/' . $aRow['batch_image'].'" class="avatar img-circle margin-left-killer" alt="avatar" data-toggle="tooltip" data-original-title="'.$aRow['batch_name'].'">' . $aRow['batch_name'];
+
+            $temp_arr[] = '<a href="'.base_url().'profile/view/'.$aRow['from_id'].'" class="text-black">'.$aRow['request_user'].'</a>';
+
+             $temp_arr[] = $aRow['clan_name'];
+
+            $str = NULL;
+            if (hasPermission('batchrequests', 'editBatchrequest')) {
+                $str .= '<a href="' . base_url() . 'batchrequest/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+
+            if (hasPermission('batchrequests', 'deleteBatchrequest')) {
+                $str .= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
+
             $this->datatable->output['aaData'][] = $temp_arr;
         }
         echo json_encode($this->datatable->output);
@@ -1090,9 +1121,7 @@ class json extends CI_Controller {
             if ($aRow['batch_type'] == 'D') {
                 $temp_arr[] = '<span class="label label-info">' . $this->lang->line('degree') . '</span>';
             } else if ($aRow['batch_type'] == 'H') {
-                $temp_arr[] = '<span class="label label-success">' . $this->lang->line('honor') . '</span>';
-            } else if ($aRow['batch_type'] == 'M') {
-                $temp_arr[] = '<span class="label label-default">' . $this->lang->line('master') . '</span>';
+                $temp_arr[] = '<span class="label label-success">' . $this->lang->line('honour') . '</span>';
             } else if ($aRow['batch_type'] == 'Q') {
                 $temp_arr[] = '<span class="label label-warning">' . $this->lang->line('qualification') . '</span>';
             } else if ($aRow['batch_type'] == 'S') {

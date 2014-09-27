@@ -32,7 +32,7 @@ class Batch extends DataMapper {
         if($role_id != 1){
             $this->db->where('FIND_IN_SET(' . $role_id . ', assign_role)');
         }
-        $this->db->order_by($session->language.'_name', 'ASC');
+        $this->db->order_by('sequence', 'ASC');
         $res = $this->db->get();
         if ($res->num_rows > 0) {
         	return $res->result();

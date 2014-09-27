@@ -11,8 +11,7 @@
                 <select class="form-control required" name="type" disabled>
                     <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('type'); ?></option> 
                     <option value="D" <?php echo ($batch->type == 'D') ? 'selected' : '' ?>><?php echo $this->lang->line('degree'); ?></option>
-                    <option value="H" <?php echo ($batch->type == 'H') ? 'selected' : '' ?>><?php echo $this->lang->line('honor'); ?></option>
-                    <option value="M" <?php echo ($batch->type == 'M') ? 'selected' : '' ?>><?php echo $this->lang->line('master'); ?></option>
+                    <option value="H" <?php echo ($batch->type == 'H') ? 'selected' : '' ?>><?php echo $this->lang->line('honour'); ?></option>
                     <option value="Q" <?php echo ($batch->type == 'Q') ? 'selected' : '' ?>><?php echo $this->lang->line('qualification'); ?></option>
                     <option value="S" <?php echo ($batch->type == 'S') ? 'selected' : '' ?>><?php echo $this->lang->line('security'); ?></option> 
                 </select>
