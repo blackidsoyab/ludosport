@@ -93,7 +93,7 @@ $(document).ready(function() {
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <legend><?php echo $this->lang->line('xpr'); ?></legend>
                 <div class="form-group">
-                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('opertaion'); ?></label>
+                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('operation'); ?></label>
                     <div class="col-lg-8">
                         <label class="radio" for="radio-0">
                             <input type="radio" id="radio-0" value="N" name="oper[xpr]" checked="checked">
@@ -130,7 +130,7 @@ $(document).ready(function() {
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <legend><?php echo $this->lang->line('war'); ?></legend>
                 <div class="form-group">
-                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('opertaion'); ?></label>
+                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('operation'); ?></label>
                     <div class="col-lg-8">
                         <label class="radio" for="radio-3">
                             <input type="radio" id="radio-3" value="N" name="oper[war]" checked="checked">
@@ -167,7 +167,7 @@ $(document).ready(function() {
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                 <legend><?php echo $this->lang->line('sty'); ?></legend>
                 <div class="form-group">
-                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('opertaion'); ?></label>
+                    <label class="col-lg-4 control-label"><?php echo $this->lang->line('operation'); ?></label>
                     <div class="col-lg-8">
                         <label class="radio" for="radio-6">
                             <input type="radio" id="radio-6" value="N" name="oper[sty]" checked="checked">

@@ -161,7 +161,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="6"><i><?php echo $this->lang->line('loaing'); ?>...</i></td>
+                    <td colspan="6"><i><?php echo $this->lang->line('loading'); ?>...</i></td>
                 </tr>
             </tbody>
         </table>
