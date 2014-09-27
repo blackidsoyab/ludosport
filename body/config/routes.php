@@ -118,7 +118,6 @@ $route['clan/teacherjson/(:any)'] = "json/getTeachersJsonData/$1";
 $route['clan/teacherjson/(:any)/(:any)'] = "json/getTeachersJsonData/$1/$2";
 $route['clan/teacherjson/(:any)/(:any)/(:any)'] = "json/getTeachersJsonData/$1/$2/$3";
 
-
 //Student List => Admin , Rector, Dean, Teacher
 $route['clan/studentlist'] = "clans/clanStudentList";
 $route['clan/studentlist/(:num)/(:any)'] = "clans/clanStudentList/$1/$2";
@@ -212,7 +211,6 @@ $route['user_student/score_history/view/(:num)'] = 'users/listStudentScore/$1';
 $route['user_student/score_history/delete/(:num)'] = 'users/deleteStudentScore/$1';
 $route['user_student/score_history/get_json_score_history/(:num)/(:any)'] = "json/getStudentScoreHistroyJsonData/$1/$2";
 
-
 //Events
 $route['event/invitation/(:num)'] = "events/sendEventInvitation/$1";
 
@@ -224,5 +222,9 @@ $route['email/remove_attachment/(:num)'] = "emails/removeAttachment/$1";
 
 //System Setting
 $route['system_setting/(:any)'] = "systemsettings/viewSystemSetting/$1";
+
+//Student Batch Reqwuest
+$route['batchrequest/changestatus/(:num)'] = "batchrequests/changeStatusBatchrequest/$1";
+$route['batchrequest/changestatus/(:num)/(:any)'] = "batchrequests/changeStatusBatchrequest/$1/$2";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

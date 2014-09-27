@@ -134,6 +134,10 @@ function makeURL($options) {
         $url = base_url() . 'duels/single/' . $options['object_id'] . '/notification';
     }
 
+    if ($options['notify_type'] == 'batch_request') {
+        $url = base_url() . 'batchrequest/changestatus/' . $options['object_id'] . '/notification';
+    }
+
     return $url;
 }
 
@@ -300,6 +304,22 @@ function getNotificationTemplate($options, $user_name_link = false) {
         $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name']);
     }
 
+    if ($options['notify_type'] == 'batch_request') {
+        $template_edit = true;
+        $student = userNameEmail($options['data']['student_id']);
+        $obj_batch = new Batch($options['data']['batch_id']);
+        $batch = $obj_batch->{$session->language.'_name'};
+        $new_template = sprintf($templates[$options['notify_type']][$session->language],$batch, $student['name']);
+    }
+
+    if ($options['notify_type'] == 'batch_request_approved' || $options['notify_type'] == 'batch_request_unapproved') {
+        $template_edit = true;
+        $student = userNameEmail($options['data']['student_id']);
+        $obj_batch = new Batch($options['data']['batch_id']);
+        $batch = $obj_batch->{$session->language.'_name'};
+        $new_template = sprintf($templates[$options['notify_type']][$session->language],$batch, $student['name']);
+    }     
+
     if ($template_edit) {
         return $new_template;
     } else {
@@ -418,6 +438,21 @@ function seNotificationTemplate() {
         array(
             'en' => '<strong>%s</strong> has won the challenge.',
             'it' => '<strong>%s</strong> has won the challenge.',
+        ),
+        'batch_request' =>
+        array(
+            'en' => 'Request for a badge <strong>%s</strong> to %s.',
+            'it' => 'Request for a badge <strong>%s</strong> to %s.',
+        ),
+        'batch_request_approved' =>
+        array(
+            'en' => 'Your request for a badge <strong>%s</strong> to %s is approved.',
+            'it' => 'Your request for a badge <strong>%s</strong> to %s is approved.',
+        ),
+        'batch_request_unapproved' =>
+        array(
+            'en' => 'Your request for a badge <strong>%s</strong> to %s is unapproved.',
+            'it' => 'Your request for a badge <strong>%s</strong> to %s is unapproved.',
         )
     );
 
@@ -552,6 +587,22 @@ function getTimelineTemplate($options, $user_name_link = false) {
         $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name']);
     }
 
+    if ($options['notify_type'] == 'batch_request') {
+        $template_edit = true;
+        $student = userNameEmail($options['data']['student_id']);
+        $obj_batch = new Batch($options['data']['batch_id']);
+        $batch = $obj_batch->{$session->language.'_name'};
+        $new_template = sprintf($templates[$options['notify_type']][$session->language],$batch, $student['name']);
+    }
+
+    if ($options['notify_type'] == 'batch_request_approved' || $options['notify_type'] == 'batch_request_unapproved') {
+        $template_edit = true;
+        $student = userNameEmail($options['data']['student_id']);
+        $obj_batch = new Batch($options['data']['batch_id']);
+        $batch = $obj_batch->{$session->language.'_name'};
+        $new_template = sprintf($templates[$options['notify_type']][$session->language],$batch, $student['name']);
+    }   
+
     if ($template_edit) {
         return $new_template;
     } else {
@@ -670,6 +721,21 @@ function setTimelineTemplate() {
         array(
             'en' => '<strong>%s</strong> won the challenge.',
             'it' => '<strong>%s</strong> won the challenge.',
+        ),
+        'batch_request' =>
+        array(
+            'en' => 'Request for a badge <strong>%s</strong> to %s.',
+            'it' => 'Request for a badge <strong>%s</strong> to %s.',
+        ),
+        'batch_request_approved' =>
+        array(
+            'en' => 'Your request for a badge <strong>%s</strong> to %s is approved.',
+            'it' => 'Your request for a badge <strong>%s</strong> to %s is approved.',
+        ),
+        'batch_request_unapproved' =>
+        array(
+            'en' => 'Your request for a badge <strong>%s</strong> to %s is unapproved.',
+            'it' => 'Your request for a badge <strong>%s</strong> to %s is unapproved.',
         )
     );
 

@@ -232,6 +232,15 @@ if (!function_exists('createPermissionArray')) {
                     'viewStudentrating' => array('name' => 'List'),
                     'editStudentrating' => array('name' => 'Edit'),
                     )),
+            'batchrequests' => array(
+                'name' => 'Batch request',
+                'hasChild' => array(
+                    'viewBatchrequest' => array('name' => 'List'),
+                    'changeStatusBatchrequest' => array('name' => 'Approve / Unapprove Request'),
+                    'addBatchrequest' => array('name' => 'Add'),
+                    'editBatchrequest' => array('name' => 'Edit'),
+                    'deleteBatchrequest' => array('name' => 'Delete'),
+                    )),
             'academies' => array(
                 'name' => 'Academy',
                 'hasChild' => array(
@@ -471,10 +480,28 @@ if (!function_exists('emailPrivacyArray')) {
             'it'=>'Challenge Winner',
         );
 
+        $email_privacy['batch_request'] = array(
+            'en'=>'Badge Request',
+            'it'=>'Badge Request',
+        );
+
+        $email_privacy['batch_request_approved'] = array(
+            'en'=>'Badge Request Approved',
+            'it'=>'Badge Request Approved',
+        );
+
+        $email_privacy['batch_request_unapproved'] = array(
+            'en'=>'Badge Request Unapproved',
+            'it'=>'Badge Request Unapproved',
+        );
+
         //ADMIN
         $email_role[2] = array(
             'user_registration_notification',
-            'event_invitation'
+            'event_invitation',
+            'batch_request',
+            'batch_request_approved',
+            'batch_request_unapproved'
         );
 
         //RECTOR
@@ -484,7 +511,10 @@ if (!function_exists('emailPrivacyArray')) {
             'trial_lesson_accepted',
             'trial_lesson_rejected',
             'event_invitation',
-            'change_clan_date'
+            'change_clan_date',
+            'batch_request',
+            'batch_request_approved',
+            'batch_request_unapproved'
         );
 
         //DEAN
@@ -495,7 +525,10 @@ if (!function_exists('emailPrivacyArray')) {
             'trial_lesson_rejected',
             'event_invitation',
             'change_clan_date',
-            'teacher_absent'
+            'teacher_absent',
+            'batch_request',
+            'batch_request_approved',
+            'batch_request_unapproved'
         );
 
         //TEACHER
@@ -511,7 +544,10 @@ if (!function_exists('emailPrivacyArray')) {
             'teacher_recovery_student_for_teacher',
             'recovery_teacher',
             'holiday_approved',
-            'holiday_upapproved'
+            'holiday_upapproved',
+            'batch_request',
+            'batch_request_approved',
+            'batch_request_unapproved'
         );
 
         //PUPIL
