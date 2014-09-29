@@ -33,31 +33,38 @@
 		</div>
 	</div>
 
-	<?php if(!is_null($request_details->description)) { ?>
-		<div class="col-lg-12">
-			<div class="the-box no-border margin-killer">
+	<div class="col-lg-12">
+		<div class="the-box">
+			<?php if(!is_null($request_details->description)) { ?>
 				<p><?php echo  $this->lang->line('reason'), ' : ', $request_details->description?></p>
-			</div>
+			<?php } ?>
+
+			<?php if($request_details->status != 'P' && isset($request_status)) { ?>
+				<p><?php echo  $this->lang->line('status'), ' : ', $request_status; ?></p>
+			<?php } ?>
+
+			<?php if($request_details->status != 'P' && isset($request_status_changed_by)) { ?>
+				<p><?php echo  $this->lang->line('done_by'), ' : ', $request_status_changed_by['name']; ?></p>
+			<?php } ?>
+
+			<div class="text-center">
+				<?php if($show_approve_button || $show_unapprove_button) { ?>
+					<form action="<?php base_url() . 'batchrequest/changestatus/' . $request_details->id ?>" method="post" class="inline">
+						<input type="hidden" name="from_role" value="<?php echo $request_details->from_role; ?>" />
+						<input type="hidden" name="from_id" value="<?php echo $request_details->from_id; ?>" />
+						<input type="hidden" name="batch_id" value="<?php echo $request_details->batch_id; ?>" />
+						<input type="hidden" name="student_id" value="<?php echo $request_details->student_id; ?>" />
+						<?php if($show_approve_button) { ?>
+							<button type="submit" name="approved" value="A" class="btn btn-success"><?php echo $this->lang->line('approve_batch_request'); ?></button>
+						<?php } ?>
+
+						<?php if($show_unapprove_button) { ?>
+		                    <button type="submit" name="unapproved" value="U" class="btn btn-danger"><?php echo $this->lang->line('unapprove_batch_request'); ?></button>
+						<?php } ?>
+					</form>
+				<?php } ?>
+	            <a href="<?php echo base_url(). 'batchrequest'; ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('back'); ?>"><?php echo $this->lang->line('back'); ?></a>
+            </div>
 		</div>
-	<?php } ?>
-
-	<?php if($show_approve_button || $show_unapprove_button) { ?>
-		<form action="<?php base_url() . 'batchrequest/changestatus/' . $request_details->id ?>" method="post" class="inline">
-			<input type="hidden" name="from_role" value="<?php echo $request_details->from_role; ?>" />
-			<input type="hidden" name="from_id" value="<?php echo $request_details->from_id; ?>" />
-			<input type="hidden" name="batch_id" value="<?php echo $request_details->batch_id; ?>" />
-			<input type="hidden" name="student_id" value="<?php echo $request_details->student_id; ?>" />
-			<div class="col-lg-12 text-center">
-				<div class="the-box no-border margin-killer">
-					<?php if($show_approve_button) { ?>
-						<button type="submit" name="approved" value="A" class="btn btn-success"><?php echo $this->lang->line('approve_batch_request'); ?></button>
-					<?php } ?>
-
-					<?php if($show_unapprove_button) { ?>
-	                    <button type="submit" name="unapproved" value="U" class="btn btn-danger"><?php echo $this->lang->line('unapprove_batch_request'); ?></button>
-					<?php } ?>
-				</div>
-			</div>
-		</form>
-	<?php } ?>
+	</div>
 </div>

@@ -7,16 +7,60 @@ class batchrequests extends CI_Controller {
 
     var $session_data;
 
+    //Constructor
     function __construct() {
         parent::__construct();
         $this->layout->setField('page_title', $this->lang->line('batch_request'));
         $this->session_data = $this->session->userdata('user_session');
     }
 
-    function viewBatchrequest($id = null, $type = null) {
-        $this->layout->view('batchrequests/view');
+    //List all Badge Request
+    function viewBatchrequest($id = null, $type= null) {
+        if(is_null($id)){
+            $this->layout->view('batchrequests/view');
+        }else{
+            $obj_batch_request = new Batchrequest();
+            $details  = $obj_batch_request->getBatchRequest($id,'change_status');
+            $obj_batch = new Batch($details->batch_id);
+
+            if($details == false){
+                $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                redirect(base_url() . 'dashboard', 'refresh'); 
+            }
+
+            if ($type == 'notification') {
+                Notification::updateNotification('batch_request_approved', $this->session_data->id, $id);
+                Notification::updateNotification('batch_request_unapproved', $this->session_data->id, $id);
+            }
+
+            $data['show_approve_button'] = false;
+            $data['show_unapprove_button'] = false;
+                
+            if($details->type == 'D'){
+                $data['batch_type'] =  $this->lang->line('degree') ;
+            } else if($details->type == 'S'){
+                $data['batch_type'] =  $this->lang->line('security') ;
+            } else if($details->type == 'Q'){
+                $data['batch_type'] =  $this->lang->line('qualification') ;
+            } else if($details->type == 'H'){
+                $data['batch_type'] =  $this->lang->line('honour') ;
+            } else {
+                $data['batch_type'] = null;
+            }
+
+            if($details->status != 'P'){
+                $data['request_status'] = ($details->status == 'A') ? '<label class="label label-success">' . $this->lang->line('approved_batch_request') .'</label>' : $this->lang->line('unapproved_batch_request');
+                $data['request_status_changed_by'] = userNameAvtar($details->status_change_by, true);
+            }
+
+
+            $data['request_details'] =  $details;
+            $this->layout->view('batchrequests/view_single', $data);
+        }
+        
     }
 
+    //Add the Badge Request
     function addBatchrequest() {
         if ($this->input->post() !== false) {
             $obj_batch_request = new Batchrequest();
@@ -61,6 +105,10 @@ class batchrequests extends CI_Controller {
         }
     }
 
+    /*
+    *   Edit the Badge Request
+    *   Param1(required) : Badge request id
+    */
     function editBatchrequest($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
@@ -74,11 +122,6 @@ class batchrequests extends CI_Controller {
                 $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
                 redirect(base_url() . 'batchrequest', 'refresh');
             } else {
-                if($this->session_data->role == 1 || $this->session_data->role == 2){
-                    $this->session->set_flashdata('info', $this->lang->line('top_most_autority_cannot_request'));
-                    redirect(base_url() . 'batchrequest', 'refresh'); 
-                }
-
                 $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('batch_request'));
 
                 $obj_batch_request = new Batchrequest();
@@ -93,7 +136,10 @@ class batchrequests extends CI_Controller {
                 $userdetails = new Userdetail();
                 $obj_batch = new Batch();
                 
-                if($this->session_data->role == 3) {
+                if($this->session_data->role == 1 || $this->session_data->role == 2){
+                    $student_ids = $user_details = $userdetails->getRelatedStudentsByStudent($details->student_id);
+                    $data['batches'] = $obj_batch->where('type', $details->type)->order_by('sequence', 'ASC')->get();
+                } else if($this->session_data->role == 3) {
                     $student_ids = $user_details = $userdetails->getRelatedStudentsByRector($this->session_data->id);
                     $data['batches'] = $obj_batch->where('type', 'Q')->order_by('sequence', 'ASC')->get();
                 } else if($this->session_data->role == 4) {
@@ -115,6 +161,10 @@ class batchrequests extends CI_Controller {
         }
     }
 
+    /*
+    *   Delete the Badge Request
+    *   Param1(required) : Badge request id
+    */
     function deleteBatchrequest($id) {
         if (!empty($id)) {
             $obj_batch_request = new Batchrequest($id);
@@ -133,10 +183,17 @@ class batchrequests extends CI_Controller {
         }
     }
 
+    /*
+    *   Change the status Badge Request (Approve / Unapprove)
+    *   Param1(required) : Badge request id
+    *   Param2(optional) : string e.g. notification
+    */
     function changeStatusBatchrequest($id, $type= ''){
         $this->layout->setField('page_title', $this->lang->line('change_status') . ' ' . $this->lang->line('batch_request'));
         $obj_batch_request = new Batchrequest();
         $details  = $obj_batch_request->getBatchRequest($id,'change_status');
+        $obj_batch = new Batch($details->batch_id);
+
         if($details == false){
             $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
             redirect(base_url() . 'dashboard', 'refresh'); 
@@ -153,23 +210,117 @@ class batchrequests extends CI_Controller {
 
             if(isset($post['approved'])){
                 $obj_batch_request->status ='A';
+                $obj_batch_request->status_change_by = $this->session_data->id;
                 $obj_batch_request->save();
+
+                $obj_batch = new Batch($details->batch_id);
+                $obj_batch_history = new Userbatcheshistory();
+                $obj_userdetail = new Userdetail();
+                $obj_userdetail->where('student_master_id', $details->student_id)->get();
+                if($obj_batch->type == 'D'){
+                    $obj_batch_history->saveStudentBatchHistory($details->student_id, 'D', $details->batch_id);
+                    $obj_userdetail->degree_id = $details->batch_id;
+                }
+
+                if($obj_batch->type == 'H'){
+                    $obj_batch_history->saveStudentBatchHistory($details->student_id, 'H', $details->batch_id);
+                    $obj_userdetail->honour_id = $details->batch_id;
+                }
+
+                if($obj_batch->type == 'Q'){
+                    $obj_batch_history->saveStudentBatchHistory($details->student_id, 'Q', $details->batch_id);
+                    $obj_userdetail->qualification_id = $details->batch_id;
+                }
+
+                if($obj_batch->type == 'S'){
+                    $obj_batch_history->saveStudentBatchHistory($details->student_id, 'S', $details->batch_id);
+                    $obj_userdetail->qualification_id = $details->batch_id;
+                }
+
+                $obj_userdetail->save();
+
+                if($obj_batch->has_point == 1){
+                    $obj_score_history = new Scorehistory();
+                    $obj_score_history->meritStudentScore($details->student_id, $obj_batch->xpr, $xpr, 'Badge request approved');
+                    $obj_score_history->meritStudentScore($details->student_id, $obj_batch->war, $war, 'Badge request approved');
+                    $obj_score_history->meritStudentScore($details->student_id, $obj_batch->sty, $sty, 'Badge request approved');
+                }
+
                 $this->_sendNotificationAndEmail('batch_request_approved', $post, $id);
                 $this->session->set_flashdata('success', $this->lang->line('approved_success'));
             }
 
             if(isset($post['unapproved'])){
                 $obj_batch_request->status = 'U';
+                $obj_batch_request->status_change_by = $this->session_data->id;
                 $obj_batch_request->save();
+
+                if($details->status == 'A'){
+                    $new_batch_id = 0;
+                    $obj_batch = new Batch($details->batch_id);
+
+                    $obj_userdetail = new Userdetail();
+                    $obj_userdetail->where('student_master_id', $details->student_id)->get();
+
+                    $obj_batch_history = new Userbatcheshistory();                    
+                    $obj_batch_history->where(array('student_id'=>$details->student_id, 'batch_type'=>$obj_batch->type, 'batch_id'=>$details->batch_id))->get();
+                    if($obj_batch_history->result_count() == 1){
+                        $obj_batch_history->delete();
+
+                        unset($obj_batch_history);
+                        $obj_batch_history = new Userbatcheshistory();                    
+                        $obj_batch_history->where(array('student_id'=>$details->student_id, 'batch_type'=>$obj_batch->type))->order_by('timestamp', 'DESC')->get(1);
+                        if($obj_batch_history->result_count() == 1){
+                            $new_batch_id = $obj_batch_history->batch_id;
+                        }
+                    }
+
+                    if($obj_batch->type == 'D'){
+                        $obj_userdetail->degree_id = $new_batch_id;
+                    }
+
+                    if($obj_batch->type == 'H'){
+                        $obj_userdetail->honour_id = $new_batch_id;
+                    }
+
+                    if($obj_batch->type == 'Q'){
+                        $obj_userdetail->qualification_id = $new_batch_id;
+                    }
+
+                    if($obj_batch->type == 'S'){
+                        $obj_userdetail->qualification_id = $new_batch_id;
+                    }
+
+                    $obj_userdetail->save();
+
+                    if($obj_batch->has_point == 1){
+                        $obj_score_history = new Scorehistory();
+                        $obj_score_history->demeritStudentScore($details->student_id, $obj_batch->xpr, $xpr, 'Badge request unapproved after approved');
+                        $obj_score_history->demeritStudentScore($details->student_id, $obj_batch->war, $war, 'Badge request unapproved after approved');
+                        $obj_score_history->demeritStudentScore($details->student_id, $obj_batch->sty, $sty, 'Badge request unapproved after approved');
+                    }
+                }
+
                 $this->_sendNotificationAndEmail('batch_request_unapproved', $post, $id);
                 $this->session->set_flashdata('success', $this->lang->line('unapproved_success'));
             }
 
             redirect(base_url() . 'batchrequest', 'refresh');
         }else{
-            $data['show_approve_button'] = true;
-            $data['show_unapprove_button'] = true;
+            $data['show_approve_button'] = false;
+            $data['show_unapprove_button'] = false;        
 
+            if($this->session_data->role == 1 || $this->session_data->role == 2){
+                $data['show_approve_button'] = true;
+                $data['show_unapprove_button'] = true;
+            }else{
+                if($details->status == 'P' && $this->session_data->role < $details->from_role && hasPermission('batchrequests', 'changeStatusBatchrequest')){
+                    $data['show_approve_button'] = true;
+                    $data['show_unapprove_button'] = true;        
+                }
+            }
+            
+                
             if($details->type == 'D'){
                 $data['batch_type'] =  $this->lang->line('degree') ;
             } else if($details->type == 'S'){
@@ -182,11 +333,22 @@ class batchrequests extends CI_Controller {
                 $data['batch_type'] = null;
             }
 
+            if($details->status != 'P'){
+                $data['request_status'] = ($details->status == 'A') ? '<label class="label label-success">' . $this->lang->line('approved_batch_request') .'</label>' : $this->lang->line('unapproved_batch_request');
+                $data['request_status_changed_by'] = userNameAvtar($details->status_change_by, true);
+            }
+
             $data['request_details'] =  $details;
             $this->layout->view('batchrequests/view_single', $data);
         }
     }
 
+    /*
+    *   Send the Notification and Email to related Users
+    *   Param1(required) : type of notification and Email {batch_request, batch_request_approved, batch_request_unapproved}
+    *   Param2(required) : all the data that is post from the GUI
+    *   Param3(required) : Badge request id
+    */
     private function _sendNotificationAndEmail($type, $post, $object_id){
         $obj_batch_request = new Batchrequest();
         $details  = $obj_batch_request->getBatchRequest($object_id,'change_status');

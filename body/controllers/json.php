@@ -205,6 +205,9 @@ class json extends CI_Controller {
 
                 $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
                 
+                if(count($final_ids) == 0){
+                    $final_ids = array(0);
+                }
                 $where .= ' AND users.id IN (' . implode(',', $final_ids) .')';
             }else{
                 $where = ' AND FIND_IN_SET(' . $role_id . ', users.role_id) > 0';
@@ -224,6 +227,10 @@ class json extends CI_Controller {
                     $ids = $user_detail->getRelatedStudentsByRector($this->session_data->id);
                 }
 
+                if($ids === false){
+                    $ids = array(0);
+                }
+
                 $where .= ' AND users.id IN (' . implode(',', $ids) .')';
             }
         } else if($this->session_data->role == 4){
@@ -237,6 +244,10 @@ class json extends CI_Controller {
 
                 $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
                 
+                if(count($final_ids) == 0){
+                    $final_ids = array(0);
+                }
+
                 $where .= ' AND users.id IN (' . implode(',', $final_ids) .')';
             }else{
                 $where = ' AND FIND_IN_SET(' . $role_id . ', users.role_id) > 0';
@@ -251,20 +262,28 @@ class json extends CI_Controller {
                     $ids = $user_detail->getRelatedStudentsByDean($this->session_data->id);
                 }
 
+                if($ids === false){
+                    $ids = array(0);
+                }
+
                 $where .= ' AND users.id IN (' . implode(',', $ids) .')';
             }
         } else if($this->session_data->role == 5){
             if($role_id != 0){
                 $where = ' AND FIND_IN_SET(' . $role_id . ', users.role_id) > 0';
             }
+
             $user_detail = new Userdetail();
             $ids = $user_detail->getRelatedStudentsByTeacher($this->session_data->id);
+            if($ids === false){
+                $ids = array(0);
+            }   
             $where .= ' AND users.id IN (' . implode(',', $ids) .')';
         }
 
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('CONCAT(firstname," ", lastname) AS name', 'username', 'status', 'avtar');
-        $this->datatable->eColumns = array('users.id', 'role_id');
+        $this->datatable->aColumns = array('CONCAT(firstname," ", lastname) AS name', 'username', 'role_id', 'status');
+        $this->datatable->eColumns = array('users.id', 'avtar');
         $this->datatable->sIndexColumn = "users.id";
         $this->datatable->sTable = " users";
         $this->datatable->myWhere = 'WHERE id != 1 ' .  $where;
@@ -826,24 +845,33 @@ class json extends CI_Controller {
         if($this->session_data->role == 3){
             $user_detail = new Userdetail();
             $final_ids = $user_detail->getRelatedStudentsByRector($this->session_data->id);
+            if($final_ids == false){
+                $final_ids = array(0);
+            }
             $where .= ' AND batchrequests.student_id IN (' . implode(',', $final_ids) .') AND from_role IN (3,4)';  
         }
 
         if($this->session_data->role == 4){
             $user_detail = new Userdetail();
             $final_ids = $user_detail->getRelatedStudentsByDean($this->session_data->id);
+            if($final_ids == false){
+                $final_ids = array(0);
+            }
             $where .= ' AND batchrequests.student_id IN (' . implode(',', $final_ids) .') AND from_role IN (4,5)';  
         }
 
         if($this->session_data->role == 5){
             $user_detail = new Userdetail();
             $final_ids = $user_detail->getRelatedStudentsByTeacher($this->session_data->id);
+            if($final_ids == false){
+                $final_ids = array(0);
+            }
             $where .= ' AND batchrequests.student_id IN (' . implode(',', $final_ids) .') AND from_role=5';  
         }
 
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('CONCAT(student.firstname," ",student.lastname) AS student', 'batches.' . $this->session_data->language.'_name AS batch_name', 'CONCAT(request_user.firstname," ",request_user.lastname) AS request_user','clans.' . $this->session_data->language.'_class_name AS clan_name');
-        $this->datatable->eColumns = array('batchrequests.id', 'batches.image AS batch_image', 'student.avtar AS student_image', 'request_user.avtar AS request_user_image', 'student_id', 'from_id', 'batchrequests.status', 'from_role');
+        $this->datatable->aColumns = array('CONCAT(student.firstname," ",student.lastname) AS student', 'batches.' . $this->session_data->language.'_name AS batch_name', 'CONCAT(request_user.firstname," ",request_user.lastname) AS request_user','clans.' . $this->session_data->language.'_class_name AS clan_name', 'batchrequests.status');
+        $this->datatable->eColumns = array('batchrequests.id', 'batches.image AS batch_image', 'student.avtar AS student_image', 'request_user.avtar AS request_user_image', 'student_id', 'from_id', 'from_role');
         $this->datatable->sIndexColumn = "batchrequests.id";
         $this->datatable->sTable = " batchrequests, batches, users student, users request_user, userdetails, clans";
         $this->datatable->myWhere = 'WHERE student.id=userdetails.student_master_id AND userdetails.clan_id=clans.id AND student.id=batchrequests.student_id AND batchrequests.from_id = request_user.id AND batchrequests.batch_id=batches.id ' . $where;
@@ -851,7 +879,7 @@ class json extends CI_Controller {
 
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
-            $temp_arr[] = '<img src="' . IMG_URL .'user_avtar/40X40/' . $aRow['student_image'].'" class="avatar img-circle margin-left-killer" alt="avatar"><a href="' . base_url() . 'profile/view/' . $aRow['student_id'] . '" class="text-black">' . $aRow['student'] . '</a>';
+            $temp_arr[] = '<img src="' . IMG_URL .'user_avtar/100X100/' . $aRow['student_image'].'" class="avatar img-circle margin-left-killer" alt="avatar"><a href="' . base_url() . 'profile/view/' . $aRow['student_id'] . '" class="text-black">' . $aRow['student'] . '</a>';
 
             $temp_arr[] = '<img src="' . IMG_URL .'batches/' . $aRow['batch_image'].'" class="avatar img-circle margin-left-killer" alt="avatar" data-toggle="tooltip" data-original-title="'.$aRow['batch_name'].'">' . $aRow['batch_name'];
 
@@ -861,7 +889,15 @@ class json extends CI_Controller {
                 $temp_arr[] = '<a href="'.base_url().'profile/view/'.$aRow['from_id'].'" class="text-black">'.$aRow['request_user'].'</a>';
             }
 
-             $temp_arr[] = $aRow['clan_name'];
+            $temp_arr[] = $aRow['clan_name'];
+
+            if ($aRow['status'] == 'A') {
+                $temp_arr[] = '<lable class="label label-success">' . $this->lang->line('approved_batch_request') . '</label>';
+            } else if ($aRow['status'] == 'U') {
+                $temp_arr[] = '<lable class="label label-danger">' . $this->lang->line('unapproved_batch_request') . '</label>';
+            } else if ($aRow['status'] == 'P') {
+                $temp_arr[] = '<lable class="label label-warning">' . $this->lang->line('pending') . '</label>';
+            }
 
             $str = NULL;
 
@@ -871,7 +907,9 @@ class json extends CI_Controller {
             }
 
             if ($this->session_data->role < $aRow['from_role'] && hasPermission('batchrequests', 'changeStatusBatchrequest')) {
-                $str .= '<a href="' . base_url() . 'batchrequest/changestatus/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('change_status') . '"><i class="fa fa-info icon-circle icon-xs icon-primary"></i></a>';
+                $str .= '<a href="' . base_url() . 'batchrequest/changestatus/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('change_status') . '"><i class="fa fa-info icon-circle icon-xs icon-default"></i></a>';
+            }else{
+                $str .= '<a href="' . base_url() . 'batchrequest/view/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('view') . '"><i class="fa fa-info icon-circle icon-xs icon-default"></i></a>';
             }
 
             if ($perform_action && hasPermission('batchrequests', 'editBatchrequest')) {

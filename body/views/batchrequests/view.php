@@ -17,6 +17,7 @@
                 {"sClass": "vetrical-middle"},
                 {"sClass": "vetrical-middle"},
                 {"sClass": "vetrical-middle"},
+                {"sClass": "vetrical-middle"},
                 {"bSortable": false, "sClass": "vetrical-middle text-center"}
             ],
             "sAjaxSource": "<?php echo base_url() . 'batchrequest/getjson'; ?>",
@@ -79,15 +80,16 @@
             <thead class="the-box dark full">
                 <tr align="left">
                     <th><?php echo $this->lang->line('request_student_name'); ?></th>
-                    <th width="150"><?php echo $this->lang->line('batch_request'); ?></th>
-                    <th width="150"><?php echo $this->lang->line('request_user_name'); ?></th>
-                    <th width="150"><?php echo $this->lang->line('clan'); ?></th>
-                    <th width="150"><?php echo $this->lang->line('actions'); ?></th>
+                    <th width="20%"><?php echo $this->lang->line('batch_request'); ?></th>
+                    <th width="15%"><?php echo $this->lang->line('request_user_name'); ?></th>
+                    <th width="15%"><?php echo $this->lang->line('clan'); ?></th>
+                    <th width="10%"><?php echo $this->lang->line('status'); ?></th>
+                    <th width="17%"><?php echo $this->lang->line('actions'); ?></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="5"><i><?php echo $this->lang->line('loading'); ?>...</i></td>
+                    <td colspan="6"><i><?php echo $this->lang->line('loading'); ?>...</i></td>
                 </tr>
             </tbody>
         </table>

@@ -33,15 +33,19 @@ $(document).ready(function() {
 <h1 class="page-heading">
     <?php 
         if($session->role == 3) {
-            echo $this->lang->line('make_batch_request_to_admin'); 
+            echo $this->lang->line('edit_batch_request_to_admin'); 
         }
 
         if($session->role == 4) {
-            echo $this->lang->line('make_batch_request_to_rector'); 
+            echo $this->lang->line('edit_batch_request_to_rector'); 
         }
 
         if($session->role == 5) {
-            echo $this->lang->line('make_batch_request_to_dean'); 
+            echo $this->lang->line('edit_batch_request_to_dean'); 
+        }
+
+         if($session->role == 1 || $session->role == 2) {
+            echo $this->lang->line('edit'), ' ', $this->lang->line('batch_request'); 
         }
     ?>
 </h1>
