@@ -110,7 +110,7 @@ class School extends DataMapper {
         $this->db->from('schools');
         $this->db->where('academy_id', $academy_id);
         $res = $this->db->get();
-        return MultiArrayToSinlgeArray($res->result());
+        return MultiArrayToSinlgeArray($res->result_array());
     }
 
     public static function getAssignDeanIds() {
