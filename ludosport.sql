@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 26, 2014 at 06:09 PM
+-- Generation Time: Sep 29, 2014 at 04:50 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.13
 
@@ -156,14 +156,14 @@ CREATE TABLE IF NOT EXISTS `batches` (
   `description` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=63 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
 
 --
 -- Dumping data for table `batches`
 --
 
 INSERT INTO `batches` (`id`, `type`, `assign_role`, `sequence`, `en_name`, `it_name`, `has_point`, `xpr`, `war`, `sty`, `image`, `dashboard_cover`, `profile_cover`, `description`, `user_id`, `timestamp`) VALUES
-(1, 'D', '2,5', 1, 'Youngling', 'Iniziato', 0, 0, 0, 0, '3f91ec69cb3035cab7b855464d2aa51c.png', NULL, NULL, '<p><br></p>', 1, '2014-08-06 08:29:35'),
+(1, 'D', '2,5', 1, 'Youngling', 'Iniziato', 0, 0, 0, 0, '009e688e1c6e90c2720fed5b3fdb948b.png', NULL, NULL, '<p><br></p>', 1, '2014-08-06 02:59:35'),
 (2, 'D', '2,5', 9, 'Founding Master', 'Maestro Fondatore', 0, 0, 0, 0, 'f4480b0d05c4b2f1010f166fc7ebfbac.png', NULL, NULL, '<p><br></p>', 1, '2014-08-06 08:58:29'),
 (3, 'D', '2,5', 3, 'Jedi', 'Jedi', 1, 300, 0, 0, '375c268b5e786fe15bf5ca8f9bb5d5d3.png', 'd4e27a9f223078ba32fa03aca78fc0bc.jpg', NULL, '<p><br></p>', 1, '2014-08-06 08:59:16'),
 (4, 'D', '2,5', 8, 'Sith Lord', 'Maestro Sith', 0, 0, 0, 0, '89e990cb1cff363dadf0cf17faae2205.png', NULL, NULL, '<p><br></p>', 2, '2014-08-06 08:59:35'),
@@ -203,28 +203,26 @@ INSERT INTO `batches` (`id`, `type`, `assign_role`, `sequence`, `en_name`, `it_n
 (38, 'S', '4', 10, 'Style Master in Ataru', 'Maestro di Ataru', 0, 0, 0, 0, '49155d58d16f378639ee78ed4589d5be.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:20:29'),
 (39, 'S', '4', 11, 'Style Master in Djem-So', 'Maestro di Djem-So', 0, 0, 0, 0, '6198824741d2cef9be0fff724cf4f777.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:20:51'),
 (40, 'S', '4', 12, 'Style Master in Niman', 'Maestro di Niman', 0, 0, 0, 0, '31bf67508bc6ab370e6913dbb0f9dbe1.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:21:08'),
-(41, 'S', '4', 13, 'Style Master in Vaapad', 'Maestro di Vaapad', 0, 0, 0, 0, '2e622daab8de916330cf3d1d06e27a59.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:21:24'),
-(42, 'M', '2', 1, 'Shiicho Base', 'Shiicho Base', 1, 100, 100, 100, '38ba6730de95ec899844c793fc364180.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:20:32'),
-(43, 'M', '2', 2, 'Shiicho Esamemaster', 'Shiicho Esamemaster', 1, 100, 100, 100, 'ad8c7802525dabae92ade43b5930ab4e.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:21:03'),
-(44, 'M', '2', 3, 'Shiicho Esamestile', 'Shiicho Esamestile', 1, 100, 100, 100, 'dfef5b13aafdc537552ea7c68c547cd2.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:21:25'),
-(45, 'M', '2', 4, 'Makashi Base', 'Makashi Base', 1, 100, 100, 100, 'd71a5627e4f62f58a224dcc24ac0aebf.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:53:07'),
-(46, 'M', '2', 5, 'Makashi Esamemaster', 'Makashi Esamemaster', 1, 100, 100, 100, 'ca46d46c9d88eaeeec1127acfebc68a3.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:54:50'),
-(47, 'M', '2', 6, 'Makashi Esamestile', 'Makashi Esamestile', 1, 100, 100, 100, 'a1f593156e245ea2ff56aeca24a92130.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:55:25'),
-(48, 'M', '2', 7, 'Soresu Base', 'Soresu Base', 1, 100, 100, 100, '81b6288853dbcbf73a8ec7cc0391682f.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:58:31'),
-(49, 'M', '2', 8, 'Soresu Esamemaster', 'Soresu Esamemaster', 1, 100, 100, 100, '03805e555913f8484456ad7be16caed1.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:59:12'),
-(50, 'M', '2', 9, 'Soresu Esamestile', 'Soresu Esamestile', 1, 100, 100, 100, 'fcd98042017e76ab556f7b6bd8546ffb.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 06:59:34'),
-(51, 'M', '2', 10, 'Ataru Base', 'Ataru Base', 1, 100, 100, 100, '4d54f2c5e63d94547fb68f4427a4c967.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:00:21'),
-(52, 'M', '2', 11, 'Ataru Esamemaster', 'Ataru Esamemaster', 1, 100, 100, 100, '5bf6283590d1e8c48eda6088681de327.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:00:44'),
-(53, 'M', '2', 12, 'Ataru Esamestile', 'Ataru Esamestile', 1, 100, 100, 100, 'fa9d57dac2485a1b814a2f02f1569481.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:01:20'),
-(54, 'M', '2', 13, 'Djemso Base', 'Djemso Base', 1, 100, 100, 100, '3fead9713c4902147eeb411d640ac2be.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:02:49'),
-(55, 'M', '2', 14, 'Djemso Esamemaster', 'Djemso Esamemaster', 1, 100, 100, 100, '4ca24ffe9bdb4a1971d8665079b55057.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:03:09'),
-(56, 'M', '2', 15, 'Djemso Esamestile', 'Djemso Esamestile', 1, 100, 100, 100, 'd2cb9682fa19fdcbafb9cd8c64e47d52.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:04:01'),
-(57, 'M', '2', 16, 'Niman Base', 'Niman Base', 1, 100, 100, 100, '636487ed289f5b63bb8974ff9e509839.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:07:19'),
-(58, 'M', '2', 17, 'Niman Esamemaster', 'Niman Esamemaster', 1, 100, 100, 100, '2d93afb3745fa5facfdaeb15a657e82c.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:07:32'),
-(59, 'M', '2', 18, 'Niman Esamestile', 'Niman Esamestile', 1, 100, 100, 100, '3ada0c5703d755e5bd859524b96cbb15.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:07:51'),
-(60, 'M', '2', 19, 'Vaapad Base', 'Vaapad Base', 1, 100, 100, 100, '8aa42a40ff99be2c731699ee7c30b954.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:08:25'),
-(61, 'M', '2', 20, 'Vaapad Esamemaster', 'Vaapad Esamemaster', 1, 100, 100, 100, 'd5889686847364a8c7ee2e58ad9d2a52.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:09:50'),
-(62, 'M', '2', 21, 'Vaapad Esamestile', 'Vaapad Esamestile', 1, 100, 100, 100, 'd83e5cdff9a168d0ba77cd39a31723b9.png', NULL, NULL, '<p><br></p>', 1, '2014-09-23 07:10:11');
+(41, 'S', '4', 13, 'Style Master in Vaapad', 'Maestro di Vaapad', 0, 0, 0, 0, '2e622daab8de916330cf3d1d06e27a59.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:21:24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `batchrequests`
+--
+
+CREATE TABLE IF NOT EXISTS `batchrequests` (
+`id` int(11) NOT NULL,
+  `from_role` int(11) NOT NULL,
+  `from_id` int(11) NOT NULL,
+  `batch_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `description` text,
+  `status` enum('P','A','U') NOT NULL DEFAULT 'P',
+  `status_change_by` int(11) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -408,7 +406,7 @@ CREATE TABLE IF NOT EXISTS `emails` (
   `format_info` text CHARACTER SET utf8,
   `user_id` int(11) NOT NULL DEFAULT '1',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 --
 -- Dumping data for table `emails`
@@ -435,7 +433,26 @@ INSERT INTO `emails` (`id`, `type`, `subject`, `message`, `attachment`, `format_
 (18, 'challenge_made', 'Open Challenge | MyLudosport', '<div>Dear #to_name,</div><div><br></div><div>You have received challenge from #from_name on date : #on_date #on_time.</div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#to_name\r\n#from_name\r\n#on_date\r\n#to_time', 1, '2014-09-09 11:56:53'),
 (19, 'challenge_accepted', 'Challenge Accepted | MyLudosport', '<div>Dear #from_name,</div><div><br></div><div>#to_name has accepted your challenge on date : #on_date #on_time.</div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#to_name\r\n#from_name\r\n#on_date\r\n#to_time', 1, '2014-09-09 11:56:53'),
 (20, 'challenge_rejected', 'Challenge Rejected | MyLudosport', '<div>Dear #from_name,</div><div><br></div><div>#to_name has rejected your challenge on date : #on_date #on_time.</div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#to_name\r\n#from_name\r\n#on_date\r\n#to_time', 1, '2014-09-09 11:56:53'),
-(21, 'challenge_winner', 'Winner of Challenge | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>The result is declare of the match played between you and #opponent_name&nbsp;on date : #on_date #on_time.</div><div><br></div><div>The Winner is #winner .</div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name#opponent_name#on_date#to_time#winner', 1, '2014-09-09 11:56:53');
+(21, 'challenge_winner', 'Winner of Challenge | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>The result is declare of the match played between you and #opponent_name&nbsp;on date : #on_date #on_time.</div><div><br></div><div>The Winner is #winner .</div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name#opponent_name#on_date#to_time#winner', 1, '2014-09-09 11:56:53'),
+(22, 'batch_request', 'Badge Request | MyLudosport', '<div >Dear #user_name,</div><div ><br></div><div >#request_username has requested for Badge &nbsp;#batch_name for #student_name</div><div ><br></div><div >Thanks </div><div ><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#batch_name\r\n#student_name\r\n#request_username', 1, '2014-08-25 08:05:22'),
+(23, 'batch_request_approved', 'Badge Request Approved | MyLudosport', '<div><span>Dear #user_name,</span></div><div><br></div><div>Your request for Badge &nbsp;#batch_name for #student_name is approved</div><div><span>It is approved by #authorized_username</span><span>.</span><br></div><div><br></div><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#batch_name\r\n#student_name\r\n#request_username\r\n#authorized_username', 1, '2014-08-25 08:05:22'),
+(24, 'batch_request_unapproved', 'Badge Request unapproved | MyLudosport', '<div >Dear #user_name,</div><div ><br></div><div >Your request for Badge &nbsp;#batch_name for #student_name is unapproved</div><div >It is unapproved by #authorized_username.<br></div><div ><br></div><div >Thanks </div><div ><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#batch_name\r\n#student_name\r\n#request_username\r\n#authorized_username', 1, '2014-08-25 08:05:22');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `eventattendances`
+--
+
+CREATE TABLE IF NOT EXISTS `eventattendances` (
+`id` int(11) NOT NULL,
+  `event_id` int(11) NOT NULL,
+  `event_date` date NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `attendance` tinyint(1) NOT NULL DEFAULT '1',
+  `user_id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -447,6 +464,10 @@ CREATE TABLE IF NOT EXISTS `eventcategories` (
 `id` int(11) NOT NULL,
   `en_name` varchar(255) NOT NULL,
   `it_name` varchar(255) NOT NULL,
+  `has_point` tinyint(1) NOT NULL DEFAULT '0',
+  `xpr` int(11) NOT NULL DEFAULT '0',
+  `war` int(11) NOT NULL DEFAULT '0',
+  `sty` int(11) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
@@ -455,12 +476,12 @@ CREATE TABLE IF NOT EXISTS `eventcategories` (
 -- Dumping data for table `eventcategories`
 --
 
-INSERT INTO `eventcategories` (`id`, `en_name`, `it_name`, `user_id`, `timestamp`) VALUES
-(1, 'Tournament', 'Tournament', 1, '2014-08-05 12:27:51'),
-(2, 'Workshop', 'Workshop', 1, '2014-08-05 12:27:57'),
-(3, 'Seminar', 'Seminar', 1, '2014-08-05 12:28:01'),
-(4, 'Promo', 'Promo', 1, '2014-08-05 12:28:47'),
-(5, 'Gathering', 'Gathering', 1, '2014-08-05 12:28:54');
+INSERT INTO `eventcategories` (`id`, `en_name`, `it_name`, `has_point`, `xpr`, `war`, `sty`, `user_id`, `timestamp`) VALUES
+(1, 'Tournament', 'Tournament', 0, 0, 0, 0, 1, '2014-08-05 12:27:51'),
+(2, 'Workshop', 'Workshop', 1, 8, 0, 0, 1, '2014-08-05 12:27:57'),
+(3, 'Seminar', 'Seminar', 1, 0, 8, 0, 1, '2014-08-05 12:28:01'),
+(4, 'Promo', 'Promo', 0, 0, 0, 0, 1, '2014-08-05 12:28:47'),
+(5, 'Meeting', 'Adunanza', 1, 0, 8, 0, 1, '2014-08-05 12:28:54');
 
 -- --------------------------------------------------------
 
@@ -474,7 +495,39 @@ CREATE TABLE IF NOT EXISTS `eventinvitations` (
   `from_id` int(11) NOT NULL,
   `to_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+
+--
+-- Dumping data for table `eventinvitations`
+--
+
+INSERT INTO `eventinvitations` (`id`, `event_id`, `from_id`, `to_id`, `timestamp`) VALUES
+(1, 1, 1, 3, '2014-09-29 06:42:08'),
+(2, 1, 1, 4, '2014-09-29 06:42:20'),
+(3, 1, 1, 5, '2014-09-29 06:42:25'),
+(4, 1, 1, 6, '2014-09-29 06:42:32'),
+(5, 1, 1, 7, '2014-09-29 06:42:38'),
+(6, 1, 1, 8, '2014-09-29 06:42:44'),
+(7, 1, 1, 13, '2014-09-29 06:42:55'),
+(8, 1, 1, 14, '2014-09-29 06:43:00'),
+(9, 1, 1, 15, '2014-09-29 06:43:11'),
+(10, 1, 1, 16, '2014-09-29 06:43:22'),
+(11, 1, 1, 17, '2014-09-29 06:43:28'),
+(12, 1, 1, 20, '2014-09-29 06:43:44'),
+(13, 1, 1, 21, '2014-09-29 06:43:54'),
+(14, 1, 1, 23, '2014-09-29 06:44:00'),
+(15, 1, 1, 25, '2014-09-29 06:44:06'),
+(16, 1, 1, 27, '2014-09-29 06:44:16'),
+(17, 1, 1, 28, '2014-09-29 06:44:27'),
+(18, 1, 1, 31, '2014-09-29 06:44:33'),
+(19, 1, 1, 33, '2014-09-29 06:44:39'),
+(20, 1, 1, 34, '2014-09-29 06:44:44'),
+(21, 1, 1, 36, '2014-09-29 06:44:55'),
+(22, 1, 1, 37, '2014-09-29 06:45:01'),
+(23, 1, 3, 12, '2014-09-29 09:37:46'),
+(24, 1, 3, 13, '2014-09-29 09:37:52'),
+(25, 1, 3, 36, '2014-09-29 09:38:07'),
+(26, 1, 3, 37, '2014-09-29 09:38:19');
 
 -- --------------------------------------------------------
 
@@ -504,8 +557,8 @@ CREATE TABLE IF NOT EXISTS `events` (
 --
 
 INSERT INTO `events` (`id`, `eventcategory_id`, `event_for`, `school_id`, `en_name`, `it_name`, `city_id`, `date_from`, `date_to`, `manager`, `image`, `description`, `user_id`, `timestamp`) VALUES
-(1, 3, 'AC', '3,4', 'Seminar', 'Seminar', 4, '2014-08-21', '2014-08-27', '3', 'd2552d6693f9b2a2168255c13a1c6aa2.jpeg', '<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>', 5, '2014-08-20 12:10:15'),
-(2, 5, 'SC', '3', 'Gathering', 'Gathering', 5, '2014-08-21', '2014-08-28', '2', '817a148f94e40097cbe69e9f2992b359.jpg', '<p ><span >Donec quis dui et ex luctus ornare a sed quam. Integer tempor, arcu vel dictum tempus, eros diam pretium neque, at dapibus dui lorem et leo. Morbi fermentum aliquet elit quis tempor. Nulla tempus tortor in congue facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed non sem nisi. Suspendisse in nibh at nunc vulputate ornare. Etiam sit amet ante eu metus tempor lobortis a sed tortor.</span></p><p ><span >Aenean sed risus eget lorem condimentum lacinia. Nunc sed ultricies ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed bibendum elit dui, a scelerisque urna varius quis. Nam tincidunt erat et leo hendrerit, quis sollicitudin nulla lobortis. Pellentesque ut vehicula dui. Duis commodo tincidunt orci, non dignissim orci consequat ac.</span></p><p ><span >Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed blandit ut turpis ut consectetur. Praesent at mauris id erat condimentum mollis. Aliquam molestie commodo augue luctus suscipit. Proin porta lacinia orci, a rutrum nisl vestibulum in. Morbi sodales sodales facilisis. Aenean facilisis congue semper. Vivamus molestie, nibh nec egestas varius, magna ante sagittis libero, et gravida arcu orci in erat.</span></p>', 5, '2014-08-21 05:58:06');
+(1, 3, 'AC', '1,3', 'Seminar', 'Seminar', 3, '2014-09-28', '2014-09-30', '3', 'd2552d6693f9b2a2168255c13a1c6aa2.jpeg', '<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>', 5, '2014-08-20 12:10:15'),
+(2, 5, 'SC', '2', 'Gathering', 'Gathering', 5, '2014-09-30', '2014-09-30', '2', '817a148f94e40097cbe69e9f2992b359.jpg', '<p ><span >Donec quis dui et ex luctus ornare a sed quam. Integer tempor, arcu vel dictum tempus, eros diam pretium neque, at dapibus dui lorem et leo. Morbi fermentum aliquet elit quis tempor. Nulla tempus tortor in congue facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed non sem nisi. Suspendisse in nibh at nunc vulputate ornare. Etiam sit amet ante eu metus tempor lobortis a sed tortor.</span></p><p ><span >Aenean sed risus eget lorem condimentum lacinia. Nunc sed ultricies ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed bibendum elit dui, a scelerisque urna varius quis. Nam tincidunt erat et leo hendrerit, quis sollicitudin nulla lobortis. Pellentesque ut vehicula dui. Duis commodo tincidunt orci, non dignissim orci consequat ac.</span></p><p ><span >Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed blandit ut turpis ut consectetur. Praesent at mauris id erat condimentum mollis. Aliquam molestie commodo augue luctus suscipit. Proin porta lacinia orci, a rutrum nisl vestibulum in. Morbi sodales sodales facilisis. Aenean facilisis congue semper. Vivamus molestie, nibh nec egestas varius, magna ante sagittis libero, et gravida arcu orci in erat.</span></p>', 5, '2014-08-21 05:58:06');
 
 -- --------------------------------------------------------
 
@@ -691,7 +744,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `data` longtext,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=76 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=121 ;
 
 --
 -- Dumping data for table `notifications`
@@ -727,7 +780,39 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (72, 'N', 'challenge_made', 25, 13, 5, 'a:14:{s:2:"id";i:5;s:4:"type";s:1:"B";s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"13";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-25 11:29:54";s:17:"status_changed_on";N;s:9:"played_on";N;s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 0, '2014-09-25 05:59:54'),
 (73, 'N', 'challenge_made', 25, 14, 6, 'a:14:{s:2:"id";i:6;s:4:"type";s:1:"B";s:7:"from_id";i:25;s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"14";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-09-25 12:22:53";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-09-30 01:00:00";s:5:"place";b:0;s:6:"result";N;s:13:"result_status";N;s:7:"user_id";i:25;s:9:"timestamp";N;}', 1, '2014-09-25 06:52:53'),
 (74, 'N', 'challenge_accepted', 14, 25, 6, 'a:14:{s:2:"id";i:6;s:4:"type";s:1:"B";s:7:"from_id";s:2:"25";s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"14";s:9:"to_status";s:1:"A";s:7:"made_on";s:19:"2014-09-25 12:22:53";s:17:"status_changed_on";s:19:"2014-09-25 12:23:18";s:9:"played_on";s:19:"2014-09-30 01:00:00";s:5:"place";s:1:"0";s:6:"result";s:2:"25";s:13:"result_status";s:3:"MNP";s:7:"user_id";s:2:"25";s:9:"timestamp";s:19:"2014-09-25 12:22:53";}', 0, '2014-09-25 06:53:18'),
-(75, 'N', 'challenge_winner', 14, 25, 6, 'a:14:{s:2:"id";i:6;s:4:"type";s:1:"B";s:7:"from_id";s:2:"25";s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"14";s:9:"to_status";s:1:"A";s:7:"made_on";s:19:"2014-09-25 12:22:53";s:17:"status_changed_on";s:19:"2014-09-25 12:23:18";s:9:"played_on";s:19:"2014-09-30 01:00:00";s:5:"place";s:1:"0";s:6:"result";s:2:"14";s:13:"result_status";s:2:"MP";s:7:"user_id";s:2:"25";s:9:"timestamp";s:19:"2014-09-25 12:22:53";}', 0, '2014-09-25 06:55:08');
+(75, 'N', 'challenge_winner', 14, 25, 6, 'a:14:{s:2:"id";i:6;s:4:"type";s:1:"B";s:7:"from_id";s:2:"25";s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"14";s:9:"to_status";s:1:"A";s:7:"made_on";s:19:"2014-09-25 12:22:53";s:17:"status_changed_on";s:19:"2014-09-25 12:23:18";s:9:"played_on";s:19:"2014-09-30 01:00:00";s:5:"place";s:1:"0";s:6:"result";s:2:"14";s:13:"result_status";s:2:"MP";s:7:"user_id";s:2:"25";s:9:"timestamp";s:19:"2014-09-25 12:22:53";}', 0, '2014-09-25 06:55:08'),
+(82, 'N', 'batch_request', 3, 4, 1, 'a:3:{s:10:"student_id";s:2:"14";s:8:"batch_id";s:2:"10";s:11:"description";s:6:"sdsada";}', 1, '2014-09-27 12:28:31'),
+(90, 'N', 'batch_request_approved', 4, 3, 1, 'a:5:{s:9:"from_role";s:1:"5";s:7:"from_id";s:1:"3";s:8:"batch_id";s:2:"10";s:10:"student_id";s:2:"14";s:8:"approved";s:1:"A";}', 0, '2014-09-27 12:59:17'),
+(91, 'N', 'batch_request_unapproved', 4, 3, 1, 'a:5:{s:9:"from_role";s:1:"5";s:7:"from_id";s:1:"3";s:8:"batch_id";s:2:"10";s:10:"student_id";s:2:"14";s:10:"unapproved";s:1:"U";}', 0, '2014-09-27 13:00:09'),
+(92, 'N', 'batch_request_approved', 3, 7, 1, 'a:5:{s:9:"from_role";s:1:"5";s:7:"from_id";s:1:"7";s:8:"batch_id";s:2:"10";s:10:"student_id";s:2:"37";s:8:"approved";s:1:"A";}', 1, '2014-09-29 04:54:27'),
+(93, 'N', 'batch_request_unapproved', 1, 7, 1, 'a:5:{s:9:"from_role";s:1:"5";s:7:"from_id";s:1:"7";s:8:"batch_id";s:2:"11";s:10:"student_id";s:2:"37";s:10:"unapproved";s:1:"U";}', 0, '2014-09-29 05:37:50'),
+(94, 'N', 'batch_request_unapproved', 1, 7, 1, 'a:5:{s:9:"from_role";s:1:"5";s:7:"from_id";s:1:"7";s:8:"batch_id";s:2:"11";s:10:"student_id";s:2:"37";s:10:"unapproved";s:1:"U";}', 0, '2014-09-29 05:40:15'),
+(95, 'N', 'event_invitation', 1, 3, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:42:08'),
+(96, 'N', 'event_invitation', 1, 4, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:42:20'),
+(97, 'N', 'event_invitation', 1, 5, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:42:26'),
+(98, 'N', 'event_invitation', 1, 6, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:42:32'),
+(99, 'N', 'event_invitation', 1, 7, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:42:38'),
+(100, 'N', 'event_invitation', 1, 8, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:42:44'),
+(101, 'N', 'event_invitation', 1, 13, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:42:55'),
+(102, 'N', 'event_invitation', 1, 14, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:43:01'),
+(103, 'N', 'event_invitation', 1, 15, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:43:11'),
+(104, 'N', 'event_invitation', 1, 16, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:43:22'),
+(105, 'N', 'event_invitation', 1, 17, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:43:28'),
+(106, 'N', 'event_invitation', 1, 20, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:43:44'),
+(107, 'N', 'event_invitation', 1, 21, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:43:54'),
+(108, 'N', 'event_invitation', 1, 23, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:44:00'),
+(109, 'N', 'event_invitation', 1, 25, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:44:06'),
+(110, 'N', 'event_invitation', 1, 27, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:44:16'),
+(111, 'N', 'event_invitation', 1, 28, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:44:27'),
+(112, 'N', 'event_invitation', 1, 31, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:44:33'),
+(113, 'N', 'event_invitation', 1, 33, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:44:39'),
+(114, 'N', 'event_invitation', 1, 34, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:44:44'),
+(115, 'N', 'event_invitation', 1, 36, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:44:55'),
+(116, 'N', 'event_invitation', 1, 37, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"3,4";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-08-21";s:7:"date_to";s:10:"2014-08-27";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:12:"to_academies";a:3:{i:0;s:1:"1";i:1;s:1:"2";i:2;s:1:"3";}}', 0, '2014-09-29 06:45:01'),
+(117, 'N', 'event_invitation', 3, 12, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"1,3";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-09-28";s:7:"date_to";s:10:"2014-09-30";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:11:"to_students";a:4:{i:0;s:2:"12";i:1;s:2:"13";i:2;s:2:"36";i:3;s:2:"37";}}', 0, '2014-09-29 09:37:46'),
+(118, 'N', 'event_invitation', 3, 13, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"1,3";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-09-28";s:7:"date_to";s:10:"2014-09-30";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:11:"to_students";a:4:{i:0;s:2:"12";i:1;s:2:"13";i:2;s:2:"36";i:3;s:2:"37";}}', 0, '2014-09-29 09:37:52'),
+(119, 'N', 'event_invitation', 3, 36, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"1,3";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-09-28";s:7:"date_to";s:10:"2014-09-30";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:11:"to_students";a:4:{i:0;s:2:"12";i:1;s:2:"13";i:2;s:2:"36";i:3;s:2:"37";}}', 0, '2014-09-29 09:38:07'),
+(120, 'N', 'event_invitation', 3, 37, 1, 'a:15:{s:2:"id";i:1;s:16:"eventcategory_id";s:1:"3";s:9:"event_for";s:2:"AC";s:9:"school_id";s:3:"1,3";s:7:"en_name";s:7:"Seminar";s:7:"it_name";s:7:"Seminar";s:7:"city_id";s:1:"4";s:9:"date_from";s:10:"2014-09-28";s:7:"date_to";s:10:"2014-09-30";s:7:"manager";s:1:"3";s:5:"image";s:37:"d2552d6693f9b2a2168255c13a1c6aa2.jpeg";s:11:"description";s:931:"<p >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum feugiat nibh vel feugiat. Duis nec lobortis turpis. Phasellus vulputate odio magna, sed congue diam interdum eu. Proin euismod dictum leo, pharetra bibendum dui consectetur a. Integer congue lacus a libero placerat malesuada. Maecenas lorem nibh, pretium at porta eu, laoreet quis urna. Praesent ullamcorper, ipsum id tincidunt posuere, mi tortor pulvinar mi, at fermentum lorem lacus id lectus.</p><p >Curabitur faucibus tincidunt tortor nec porttitor. Vestibulum sit amet erat massa. Mauris ultrices quis enim vitae ullamcorper. Quisque laoreet pulvinar lectus nec dictum. Duis ut congue justo. Proin id tortor mi. Aenean vel justo mauris. Cras a velit nisi. Etiam vitae eleifend erat. Etiam in efficitur massa. Suspendisse at urna dignissim, hendrerit felis et, accumsan ante. Suspendisse nibh velit, tincidunt nec massa in, porta mollis sapien.</p>";s:7:"user_id";s:1:"5";s:9:"timestamp";s:19:"2014-08-20 17:40:15";s:11:"to_students";a:4:{i:0;s:2:"12";i:1;s:2:"13";i:2;s:2:"36";i:3;s:2:"37";}}', 0, '2014-09-29 09:38:19');
 
 -- --------------------------------------------------------
 
@@ -789,11 +874,11 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 INSERT INTO `roles` (`id`, `en_role_name`, `it_role_name`, `is_manager`, `permission`, `is_delete`, `user_id`, `timestamp`) VALUES
 (1, 'Super Admin', 'Super Amministratore', 0, NULL, '0', 0, '2014-07-17 07:04:55'),
-(2, 'Admin', 'Admin', 0, 'a:16:{s:5:"roles";a:2:{i:0;s:8:"viewRole";i:1;s:8:"editRole";}s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:9:"academies";a:4:{i:0;s:11:"viewAcademy";i:1;s:10:"addAcademy";i:2;s:11:"editAcademy";i:3;s:13:"deleteAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:6:"levels";a:4:{i:0;s:9:"viewLevel";i:1;s:8:"addLevel";i:2;s:9:"editLevel";i:3;s:11:"deleteLevel";}s:5:"clans";a:9:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:22:"listTrialLessonRequest";i:7;s:24:"changeStatusTrialStudent";i:8;s:14:"changeClanDate";}s:15:"eventcategories";a:4:{i:0;s:17:"viewEventcategory";i:1;s:16:"addEventcategory";i:2;s:17:"editEventcategory";i:3;s:19:"deleteEventcategory";}s:6:"events";a:4:{i:0;s:9:"viewEvent";i:1;s:8:"addEvent";i:2;s:9:"editEvent";i:3;s:11:"deleteEvent";}s:7:"batches";a:3:{i:0;s:9:"viewBatch";i:1;s:9:"editBatch";i:2;s:11:"deleteBatch";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:6:"emails";a:2:{i:0;s:9:"viewEmail";i:1;s:9:"editEmail";}s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:9:"viewState";i:1;s:8:"addState";i:2;s:9:"editState";i:3;s:11:"deleteState";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"3";i:4;s:1:"4";i:5;s:1:"5";i:6;s:1:"6";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"3";i:4;s:1:"4";i:5;s:1:"5";i:6;s:1:"6";s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 07:27:03'),
-(3, 'Rector', 'Rettore', 1, 'a:7:{s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:8:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:22:"listTrialLessonRequest";i:7;s:14:"changeClanDate";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:1:{s:13:"group_message";a:1:{s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 10:13:22'),
-(4, 'Dean', 'Preside', 0, 'a:8:{s:5:"roles";a:1:{i:0;s:8:"viewRole";}s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:4:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:22:"listTrialLessonRequest";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:1:{s:13:"group_message";a:1:{s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 10:13:43'),
-(5, 'Teacher', 'Insegnante', 1, 'a:7:{s:5:"users";a:7:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:5:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:22:"listTrialLessonRequest";i:4;s:24:"changeStatusTrialStudent";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:1:{s:13:"group_message";a:1:{s:5:"clans";s:1:"0";}}}', '0', 2, '2014-07-17 10:16:50'),
-(6, 'Pupil', 'Pupil', 0, 'a:5:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:6:"events";a:1:{i:0;s:9:"viewEvent";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}}', '0', 1, '2014-07-17 10:17:08');
+(2, 'Admin', 'Admin', 0, 'a:17:{s:5:"roles";a:2:{i:0;s:8:"viewRole";i:1;s:8:"editRole";}s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:4:{i:0;s:11:"viewAcademy";i:1;s:10:"addAcademy";i:2;s:11:"editAcademy";i:3;s:13:"deleteAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:6:"levels";a:4:{i:0;s:9:"viewLevel";i:1;s:8:"addLevel";i:2;s:9:"editLevel";i:3;s:11:"deleteLevel";}s:5:"clans";a:9:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:22:"listTrialLessonRequest";i:7;s:24:"changeStatusTrialStudent";i:8;s:14:"changeClanDate";}s:15:"eventcategories";a:4:{i:0;s:17:"viewEventcategory";i:1;s:16:"addEventcategory";i:2;s:17:"editEventcategory";i:3;s:19:"deleteEventcategory";}s:6:"events";a:6:{i:0;s:9:"viewEvent";i:1;s:8:"addEvent";i:2;s:9:"editEvent";i:3;s:11:"deleteEvent";i:4;s:19:"sendEventInvitation";i:5;s:19:"takeEventAttendance";}s:7:"batches";a:3:{i:0;s:9:"viewBatch";i:1;s:9:"editBatch";i:2;s:11:"deleteBatch";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:6:"emails";a:2:{i:0;s:9:"viewEmail";i:1;s:9:"editEmail";}s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:9:"viewState";i:1;s:8:"addState";i:2;s:9:"editState";i:3;s:11:"deleteState";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"3";i:4;s:1:"4";i:5;s:1:"5";i:6;s:1:"6";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"3";i:4;s:1:"4";i:5;s:1:"5";i:6;s:1:"6";s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 07:27:03'),
+(3, 'Rector', 'Rettore', 1, 'a:9:{s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:8:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:22:"listTrialLessonRequest";i:7;s:14:"changeClanDate";}s:6:"events";a:3:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"takeEventAttendance";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:1:{s:13:"group_message";a:1:{s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 10:13:22'),
+(4, 'Dean', 'Preside', 0, 'a:10:{s:5:"roles";a:1:{i:0;s:8:"viewRole";}s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:4:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:22:"listTrialLessonRequest";}s:6:"events";a:3:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"takeEventAttendance";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:1:{s:13:"group_message";a:1:{s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 10:13:43'),
+(5, 'Teacher', 'Insegnante', 1, 'a:9:{s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:5:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:22:"listTrialLessonRequest";i:4;s:24:"changeStatusTrialStudent";}s:6:"events";a:3:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"takeEventAttendance";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:1:{s:13:"group_message";a:1:{s:5:"clans";s:1:"0";}}}', '0', 1, '2014-07-17 10:16:50'),
+(6, 'Pupil', 'Pupil', 0, 'a:5:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:6:"events";a:3:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"takeEventAttendance";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}}', '0', 1, '2014-07-17 10:17:08');
 
 -- --------------------------------------------------------
 
@@ -846,7 +931,7 @@ CREATE TABLE IF NOT EXISTS `score_histories` (
   `description` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=55 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=86 ;
 
 --
 -- Dumping data for table `score_histories`
@@ -872,7 +957,36 @@ INSERT INTO `score_histories` (`id`, `student_id`, `oper`, `score_type`, `score`
 (49, 37, 'M', 'xpr', 300, '2014-09-26', 'Assign Badge', 1, '2014-09-26 04:52:15'),
 (52, 37, 'M', 'xpr', 150, '2014-09-26', 'Testing XPR', 1, '2014-09-26 09:48:30'),
 (53, 37, 'M', 'war', 250, '2014-09-26', 'Testing WAR', 1, '2014-09-26 09:48:30'),
-(54, 37, 'D', 'sty', 50, '2014-09-26', 'Testing STY', 1, '2014-09-26 09:48:30');
+(54, 37, 'D', 'sty', 50, '2014-09-26', 'Testing STY', 1, '2014-09-26 09:48:30'),
+(55, 13, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:40:01'),
+(56, 14, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:40:01'),
+(57, 15, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:40:01'),
+(58, 16, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:40:01'),
+(59, 17, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:40:01'),
+(60, 20, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:40:01'),
+(61, 21, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:40:01'),
+(62, 23, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:40:02'),
+(63, 25, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:40:02'),
+(64, 27, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:40:02'),
+(66, 13, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:41:59'),
+(67, 14, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:41:59'),
+(68, 15, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:41:59'),
+(69, 16, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:41:59'),
+(70, 17, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:41:59'),
+(71, 20, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:41:59'),
+(72, 21, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:42:00'),
+(73, 23, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:42:00'),
+(74, 25, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:42:00'),
+(75, 27, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:42:00'),
+(77, 13, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:55:43'),
+(78, 17, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:55:43'),
+(79, 21, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:55:43'),
+(80, 37, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:55:43'),
+(81, 13, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:55:54'),
+(82, 17, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:55:54'),
+(83, 21, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:55:54'),
+(84, 17, 'M', 'war', 8, '2014-09-29', 'Attending Event', 3, '2014-09-29 10:56:19'),
+(85, 37, 'M', 'sty', 100, '2014-09-26', 'Testing STY', 1, '2014-09-26 09:48:30');
 
 -- --------------------------------------------------------
 
@@ -1007,29 +1121,29 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   `status` enum('A','P','U','P2') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `userdetails`
 --
 
 INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `degree_id`, `honour_id`, `master_id`, `qualification_id`, `security_id`, `color_of_blade`, `xpr`, `war`, `sty`, `total_score`, `first_lesson_date`, `approved_by`, `palce_of_birth`, `zip_code`, `tax_code`, `blood_group`, `status`, `user_id`, `timestamp`) VALUES
-(1, 14, '3', 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-25', 2, NULL, NULL, NULL, NULL, 'A', 1, '2014-08-04 00:09:02'),
-(2, 15, '2', 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
-(3, 16, '2', 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
-(4, 17, '5', 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-08-11', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-05 00:09:27'),
-(5, 20, '6', 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-08-28', 2, '', 390016, 963852, 'B-ve ', 'A', 20, '2009-08-21 01:37:12'),
-(6, 13, '5', 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-08-30', 3, NULL, NULL, NULL, NULL, 'A', 13, '2014-08-25 05:27:01'),
-(7, 21, '6', 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2014-08-25 05:52:04'),
-(8, 25, '6', 3, 0, 0, 0, 0, 6, 1300, 0, 0, 1300, '2014-09-25', 3, NULL, NULL, NULL, NULL, 'A', 1, '2010-08-25 05:52:04'),
-(9, 27, '4', 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-09', 8, 'roma', 0, 0, 'ah+', 'A', 27, '2014-09-04 15:25:53'),
+(1, 14, '3', 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-09-25', 2, NULL, NULL, NULL, NULL, 'A', 1, '2014-08-04 00:09:02'),
+(2, 15, '2', 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
+(3, 16, '2', 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
+(4, 17, '5', 3, 0, 0, 0, 0, 6, 300, 40, 0, 340, '2014-08-11', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-05 00:09:27'),
+(5, 20, '6', 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-08-28', 2, '', 390016, 963852, 'B-ve ', 'A', 20, '2009-08-21 01:37:12'),
+(6, 13, '5', 3, 0, 0, 0, 0, 6, 300, 32, 0, 332, '2014-08-30', 3, NULL, NULL, NULL, NULL, 'A', 13, '2014-08-25 05:27:01'),
+(7, 21, '6', 3, 0, 0, 0, 0, 6, 300, 32, 0, 332, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2014-08-25 05:52:04'),
+(8, 25, '6', 3, 0, 0, 0, 0, 6, 1300, 16, 0, 1316, '2014-09-25', 3, NULL, NULL, NULL, NULL, 'A', 1, '2010-08-25 05:52:04'),
+(9, 27, '4', 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-09-09', 8, 'roma', 0, 0, 'ah+', 'A', 27, '2014-09-04 15:25:53'),
 (10, 28, '4', 3, 0, 0, 0, 0, 6, 0, 0, 0, 0, '2014-09-16', 0, NULL, NULL, NULL, NULL, 'P', 28, '2014-09-05 08:45:20'),
 (11, 31, '1', 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-16', 8, NULL, NULL, NULL, NULL, 'A', 31, '2014-09-05 11:33:36'),
 (12, 33, '4', 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-30', 8, NULL, NULL, NULL, NULL, 'A', 33, '2014-09-05 13:05:45'),
 (13, 34, '1', 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-23', 8, NULL, NULL, NULL, NULL, 'A', 34, '2014-09-05 13:18:57'),
-(14, 23, '6', 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-08-04', 2, 'Milan', 20162, 610093, 'O +ve', 'A', 2, '2014-08-04 00:09:02'),
+(14, 23, '6', 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-08-04', 2, 'Milan', 20162, 610093, 'O +ve', 'A', 2, '2014-08-04 00:09:02'),
 (15, 36, '5', 6, 0, 0, 0, 0, 1, 600, 0, 0, 600, '2014-09-25', 0, 'Vadodara', 390016, 963852, 'B -ve', 'P2', 36, '2014-09-25 05:04:29'),
-(16, 37, '2', 3, 10, 0, 0, 0, 1, 450, 250, -50, 650, '2014-09-25', 0, 'Vadodara', 390016, 610093, 'B -ve', 'A', 1, '2014-09-25 09:46:53');
+(16, 37, '2', 3, 10, 0, 0, 0, 1, 450, 258, 50, 758, '2014-09-25', 0, 'Vadodara', 390016, 610093, 'B -ve', 'A', 1, '2014-09-25 09:46:53');
 
 -- --------------------------------------------------------
 
@@ -1070,7 +1184,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `lastname`, `email`, `date_of_birth`, `city_id`, `state_id`, `country_id`, `city_of_residence`, `permission`, `avtar`, `address`, `phone_no_1`, `phone_no_2`, `quote`, `about_me`, `email_privacy`, `status`, `user_id`, `timestamp`) VALUES
 (1, '1', 'superadmin', '202cb962ac59075b964b07152d234b70', 'Super Admin', 'User', 'superadmin@yopmail.com', 653682600, 1, 1, 1, 'Temp', NULL, '94048c9c2c04baf3b871be491ef8ded2.jpg', 'Gorwa,Baroda', '9876543210', '1234567890', 'Only one thing is impossible for God: To find any sense in any copyright law on the planet', '<p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel sapien sapien. Duis dictum leo dui, nec blandit nisl imperdiet ut. Donec quis condimentum libero. In volutpat urna id feugiat porta. Suspendisse a sem augue. Curabitur sodales, odio ut tempor scelerisque, eros tellus lacinia elit, id euismod felis nulla id erat. Quisque porttitor velit in sollicitudin eleifend.</span></p><p><span>Etiam consequat nulla nec sapien blandit ullamcorper id at nisl. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce pellentesque elit quis lorem vulputate ornare. Proin turpis metus, convallis eget lectus at, volutpat molestie augue. Curabitur at ligula viverra ante rutrum euismod. Duis pulvinar rhoncus facilisis. Curabitur lobortis, ante at semper finibus, leo turpis sollicitudin libero, a congue magna neque vitae enim. Nunc vestibulum aliquam lacus, a tempus lorem vehicula et. Vivamus at arcu suscipit, cursus turpis et, egestas elit. Maecenas tincidunt, risus ac scelerisque consequat, ex sapien euismod turpis, egestas hendrerit eros augue at justo. Praesent scelerisque mi quis nulla feugiat scelerisque vel sit amet leo. Nulla efficitur mattis nisi, vitae dictum tortor placerat in. Quisque tempor, ex nec volutpat scelerisque, lorem urna luctus lectus, at posuere velit felis sit amet arcu.</span></p>', NULL, 'A', 1, '2014-07-17 07:05:53'),
 (2, '2', 'admin', '202cb962ac59075b964b07152d234b70', 'Carmelo', 'Samperi', 'ranasoyab@yopmail.com', 316809000, 5, 4, 2, 'Temp', NULL, '1adfa22db058e6383b4365cb7906590f.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'A', 2, '2014-07-17 07:28:01'),
-(3, '3,4,5', 'rector_1', '202cb962ac59075b964b07152d234b70', 'Rector', '1', 'ranasoyab@yopmail.com', 316895400, 1, 1, 1, NULL, NULL, '063fd00a3c30c83404faf36e32b2dada.jpg', NULL, NULL, NULL, NULL, NULL, 'a:14:{s:30:"user_registration_notification";s:1:"1";s:20:"trial_lesson_request";s:1:"0";s:21:"trial_lesson_accepted";s:1:"1";s:21:"trial_lesson_rejected";s:1:"0";s:16:"event_invitation";s:1:"1";s:16:"change_clan_date";s:1:"0";s:14:"teacher_absent";s:1:"1";s:14:"student_absent";s:1:"0";s:16:"recovery_student";s:1:"1";s:36:"teacher_recovery_student_for_student";s:1:"0";s:36:"teacher_recovery_student_for_teacher";s:1:"1";s:16:"recovery_teacher";s:1:"0";s:16:"holiday_approved";s:1:"1";s:18:"holiday_upapproved";s:1:"0";}', 'A', 3, '2014-07-17 07:28:01'),
+(3, '1,2,3,4,5', 'rector_1', '202cb962ac59075b964b07152d234b70', 'Rector', '1', 'ranasoyab@yopmail.com', 316895400, 1, 1, 1, NULL, NULL, '063fd00a3c30c83404faf36e32b2dada.jpg', NULL, NULL, NULL, NULL, NULL, 'a:14:{s:30:"user_registration_notification";s:1:"1";s:20:"trial_lesson_request";s:1:"0";s:21:"trial_lesson_accepted";s:1:"1";s:21:"trial_lesson_rejected";s:1:"0";s:16:"event_invitation";s:1:"1";s:16:"change_clan_date";s:1:"0";s:14:"teacher_absent";s:1:"1";s:14:"student_absent";s:1:"0";s:16:"recovery_student";s:1:"1";s:36:"teacher_recovery_student_for_student";s:1:"0";s:36:"teacher_recovery_student_for_teacher";s:1:"1";s:16:"recovery_teacher";s:1:"0";s:16:"holiday_approved";s:1:"1";s:18:"holiday_upapproved";s:1:"0";}', 'A', 3, '2014-07-17 07:28:01'),
 (4, '4', 'dean_1', '202cb962ac59075b964b07152d234b70', 'Dean', '1', 'ranasoyab@yopmail.com', 1277922600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'A', 0, '2014-07-17 07:28:01'),
 (5, '5,3', 'teacher_1', '202cb962ac59075b964b07152d234b70', 'Teacher', '1', 'ranasoyab@yopmail.com', 653682600, 2, 1, 1, NULL, NULL, '44999132c325dd575171618f58a0712a.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'A', 5, '2014-07-21 10:11:41'),
 (6, '3', 'rector_2', '202cb962ac59075b964b07152d234b70', 'Rector', '2', 'ranasoyab@yopmail.com', 1277922600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'A', 2, '2014-07-17 07:28:01'),
@@ -1110,7 +1224,7 @@ CREATE TABLE IF NOT EXISTS `user_batches_histories` (
   `assign_date` date NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `user_batches_histories`
@@ -1165,6 +1279,12 @@ ALTER TABLE `batches`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `batchrequests`
+--
+ALTER TABLE `batchrequests`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `challenges`
 --
 ALTER TABLE `challenges`
@@ -1198,6 +1318,12 @@ ALTER TABLE `countries`
 -- Indexes for table `emails`
 --
 ALTER TABLE `emails`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `eventattendances`
+--
+ALTER TABLE `eventattendances`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -1337,7 +1463,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `batches`
 --
 ALTER TABLE `batches`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=63;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
+--
+-- AUTO_INCREMENT for table `batchrequests`
+--
+ALTER TABLE `batchrequests`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `challenges`
 --
@@ -1367,7 +1498,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `emails`
 --
 ALTER TABLE `emails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+--
+-- AUTO_INCREMENT for table `eventattendances`
+--
+ALTER TABLE `eventattendances`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `eventcategories`
 --
@@ -1377,7 +1513,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `eventinvitations`
 --
 ALTER TABLE `eventinvitations`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `events`
 --
@@ -1412,7 +1548,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=76;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=121;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
@@ -1432,7 +1568,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `score_histories`
 --
 ALTER TABLE `score_histories`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=55;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=86;
 --
 -- AUTO_INCREMENT for table `states`
 --
@@ -1452,7 +1588,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 -- AUTO_INCREMENT for table `userdetails`
 --
 ALTER TABLE `userdetails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -1462,7 +1598,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
 -- AUTO_INCREMENT for table `user_batches_histories`
 --
 ALTER TABLE `user_batches_histories`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
