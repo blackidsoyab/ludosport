@@ -33,6 +33,7 @@
     <link href="<?php echo PLUGIN_URL; ?>validator/bootstrapValidator.css" />
     <link href="<?php echo PLUGIN_URL; ?>fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet">
     <link href="<?php echo PLUGIN_URL; ?>confirmbox/jquery.confirm.css" rel="stylesheet" />
+    <link href="<?php echo PLUGIN_URL; ?>salvattore/salvattore.css" rel="stylesheet" />
 
     <!-- Custom CSS -->
     <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">
@@ -620,6 +621,7 @@ function checkMessage(last_id){
         <script src="<?php echo PLUGIN_URL; ?>markdown/bootstrap-markdown.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>slider/bootstrap-slider.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>toastr/toastr.js"></script>
+        <script src="<?php echo PLUGIN_URL; ?>salvattore/salvattore.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>fullcalendar/lib/jquery-ui.custom.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>fullcalendar/fullcalendar/fullcalendar.js"></script>
         <script src="<?php echo JS_URL; ?>apps.js"></script>

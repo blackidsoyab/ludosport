@@ -1,4 +1,9 @@
 <?php $session = $this->session->userdata('user_session'); ?>
+<style type="text/css">
+.mason[data-columns]::before {
+    content: '3 .column.size-1of3';
+}
+</style>
 <div class="row">
     <div class="col-lg-6 col-xs-6">
         <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('event'); ?></h1>    
@@ -12,10 +17,10 @@
 </div>
 
 <?php if($events != false) { ?>
-    <div class="row">
+    <div class="mason" data-columns="2">
         <?php foreach ($events as $event) { ?>
-        <div class="col-sm-4">
-            <div class="the-box no-border full store-item text-center">
+        <div class="item">
+            <div class="the-box store-item text-center">
                 <img src="<?php echo IMG_URL .'event_images/300X200/' . $event->image; ?>" class="item-image" alt="Image">
                 <div class="the-box margin-killer no-border ">
                     <div class="row">
