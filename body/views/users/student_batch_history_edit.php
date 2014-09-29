@@ -21,7 +21,7 @@ $(document).ready(function() {
 <div class="the-box">
     <form id="add" method="post" class="form-horizontal" action="<?php echo base_url() . 'user_student/badge_history/edit/' . $batch_history->id; ?>">
         <div class="form-group">
-            <label class="col-lg-3 control-label"><?php echo $this->lang->line('title'); ?></label>
+            <label class="col-lg-3 control-label"><?php echo $this->lang->line('batch_title'); ?></label>
             <div class="col-lg-5">
                 <input type="text" class="form-control" disabled="disabled" value="<?php echo $batch->{$session->language.'_name'}; ?>">
             </div>

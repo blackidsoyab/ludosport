@@ -13,6 +13,7 @@ $lang['edit'] = 'Edit';
 $lang['update'] = 'Update';
 $lang['delete'] = 'Delete';
 $lang['cancel'] = 'Cancel';
+$lang['back'] = 'Back';
 $lang['actions'] = 'Actions';
 $lang['select'] = 'Select';
 $lang['selected'] = 'Selected';
@@ -197,6 +198,9 @@ $lang['hometown'] = 'Hometown';
 $lang['pupil_since'] = 'Pupil Since';
 $lang['quote'] = 'Quote';
 $lang['about_me'] = 'About me';
+$lang['phone_no_1'] = 'Phone #1';
+$lang['phone_no_2'] = 'Phone #2';
+$lang['color_of_blade'] = 'Colour of Blade';
 
 //Register
 $lang['firstname'] = 'Firstname';
@@ -249,6 +253,8 @@ $lang['assign_date'] = 'Assign on';
 $lang['assign_by'] = 'Assign by';
 $lang['list_score_history'] = 'List score history';
 $lang['list_badge_history'] = 'List badge history';
+$lang['affect_score'] = 'Reflect Score';
+$lang['batch_title'] = 'Badge title';
 
 //Academy
 $lang['main'] = 'Main';
@@ -357,6 +363,8 @@ $lang['batch'] = 'Badge';
 $lang['image'] = 'Image';
 $lang['who_can_assign'] = 'Who can ssign';
 $lang['has_rating'] = 'Has ratting';
+$lang['dashboard_cover'] = 'Dashboard Cover';
+$lang['profile_cover'] = 'Profile Cover';
 $lang['badge_120_width_image'] = "If image width is greater than 120px, the result will be good";
 $lang['badge_750_width_image'] = "If image width is greater than 750px, the result will be good";
 $lang['badge_change_sequence_information'] = 'To change the sequence of BADGE, first select any type and then drag & drop the badge to change sequence';
@@ -370,8 +378,14 @@ $lang['top_most_autority_cannot_request'] = 'You are top most authorities, you c
 $lang['make_batch_request_to_dean'] = 'Make badge request to Dean';
 $lang['make_batch_request_to_rector'] = 'Make badge request to Rector';
 $lang['make_batch_request_to_admin'] = 'Make badge request to Admin';
+$lang['edit_batch_request_to_dean'] = 'Edit badge request to Dean';
+$lang['edit_batch_request_to_rector'] = 'Edit badge request to Rector';
+$lang['edit_batch_request_to_admin'] = 'Edit badge request to Admin';
 $lang['approve_batch_request'] = "Approve";
 $lang['unapprove_batch_request'] = "unapprove";
+$lang['approved_batch_request'] = "Approved";
+$lang['unapproved_batch_request'] = "Rejected";
+$lang['done_by'] = "Done by";
 
 //Message System
 $lang['message'] = 'Message';
