@@ -48,8 +48,8 @@
             <div class="panel-heading">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#panel-about" data-toggle="tab"><i class="fa fa-user"></i></a></li>
-                    <?php if($profile->role_id == 6 && !empty($userdetail) && $userdetail->result_count() == 1) { ?>  
-                    <li><a href="#panel-extra-details" data-toggle="tab"><i class="fa fa-bell"></i></a></li>
+                    <?php if($profile->role_id == 6 && isset($userdetail) && !empty($userdetail)) { ?>  
+                        <li><a href="#panel-extra-details" data-toggle="tab"><i class="fa fa-bell"></i></a></li>
                     <?php } ?>
                 </ul>
             </div>
