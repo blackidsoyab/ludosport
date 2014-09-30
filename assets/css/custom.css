@@ -517,6 +517,22 @@ footer{
     background: linear-gradient(to right, #3BAFDA 60% , #E9573F 40%);
 }
 
+.special-icon-duel{
+    width: 85px;
+    height: 85px;
+    font-size: 60px;
+    padding: 15px 0;
+}
+
+.special-icon-default{
+    color: #E6E9ED;
+}
+
+.special-icon-duel.icon-bordered.special-icon-default {
+    -webkit-box-shadow: inset 0px 0px 0px 8px #E6E9ED; 
+    -moz-box-shadow: inset 0px 0px 0px 8px #E6E9ED;
+    box-shadow: inset 0px 0px 0px 8px #E6E9ED; 
+}
 /* ******* ------------- ******  */
 
 .user-extra-link{

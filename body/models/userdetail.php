@@ -390,6 +390,10 @@ class Userdetail extends DataMapper {
             return false;
         }
     }
+
+    function getCurrentBatches($student_id){
+        
+    }
 }
 
 

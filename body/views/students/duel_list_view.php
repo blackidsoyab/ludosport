@@ -54,13 +54,13 @@
             <div class="col-lg-4">
                 <select class="form-control required" id="type-wise">
 		            <option value="all"><?php echo $this->lang->line('all'); ?></option>
-		            <option value="made" <?php echo (isset($type) && !is_null($type) && $type == 'made') ? 'selected' : ''; ?>><?php echo $this->lang->line('made'); ?></option>
-		            <option value="received" <?php echo (isset($type) && !is_null($type) && $type == 'received') ? 'selected' : ''; ?>><?php echo $this->lang->line('received'); ?></option>
-		            <option value="rejected" <?php echo (isset($type) && !is_null($type) && $type == 'rejected') ? 'selected' : ''; ?>><?php echo $this->lang->line('rejected'); ?></option>
 		            <option value="accepted" <?php echo (isset($type) && !is_null($type) && $type == 'accepted') ? 'selected' : ''; ?>><?php echo $this->lang->line('accepted'); ?></option>
+		            <option value="received" <?php echo (isset($type) && !is_null($type) && $type == 'received') ? 'selected' : ''; ?>><?php echo $this->lang->line('received'); ?></option>
+		            <option value="submitted" <?php echo (isset($type) && !is_null($type) && $type == 'submitted') ? 'selected' : ''; ?>><?php echo $this->lang->line('submitted'); ?></option>
 		            <option value="pending" <?php echo (isset($type) && !is_null($type) && $type == 'pending') ? 'selected' : ''; ?>><?php echo $this->lang->line('pending'); ?></option>
+                    <option value="faliure" <?php echo (isset($type) && !is_null($type) && $type == 'faliure') ? 'selected' : ''; ?>><?php echo $this->lang->line('faliure'); ?></option>
 		            <option value="wins" <?php echo (isset($type) && !is_null($type) && $type == 'wins') ? 'selected' : ''; ?>><?php echo $this->lang->line('wins'); ?></option>
-		            <option value="defeats" <?php echo (isset($type) && !is_null($type) && $type == 'defeats') ? 'selected' : ''; ?>><?php echo $this->lang->line('defetas'); ?></option>
+		            <option value="defeats" <?php echo (isset($type) && !is_null($type) && $type == 'defeats') ? 'selected' : ''; ?>><?php echo $this->lang->line('defeats'); ?></option>
 		        </select>
             </div>
             <div class="col-lg-4">

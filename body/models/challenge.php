@@ -8,11 +8,12 @@ class Challenge extends DataMapper {
 
     static public function isRequestedBefore($from_id, $to_id) {
         $ci = & get_instance();
+        $reset_date =  date('Y-m-d', strtotime($ci->config->item('reset_app_day_month') .'-'. get_current_date_time()->year +1));
         $ci->db->_protect_identifiers = false;
         $ci->db->select('COUNT(*) AS total');
         $ci->db->from('challenges');
-        $ci->db->where('(from_id=' . $from_id . ' AND to_id=' . $to_id . ')');
-        $ci->db->or_where('(to_id=' . $from_id . ' AND from_id=' . $to_id . ')');
+        $ci->db->where('DATE(made_on) <=', $reset_date);
+        $ci->db->where('((from_id=' . $from_id . ' AND to_id=' . $to_id . ') OR (to_id=' . $from_id . ' AND from_id=' . $to_id . '))');
         $res = $ci->db->get()->result();
         if ($res[0]->total == 0) {
             return false;
@@ -34,6 +35,9 @@ class Challenge extends DataMapper {
         if ($type == 'made') {
             $this->db->where('from_id', $user_id);
             $this->db->where('from_status', 'A');
+            if (!is_null($type_2)) {
+                $this->db->where('to_status', $type_2);
+            }
         } else if ($type == 'received') {
             $this->db->where('to_id', $user_id);
             if (!is_null($type_2)) {
@@ -44,7 +48,7 @@ class Challenge extends DataMapper {
             $this->db->where("(from_status='R' OR to_status='R')");
         } else if ($type == 'accepted') {
             $this->db->where('(from_id=' . $user_id . ' OR to_id=' . $user_id . ')');
-            $this->db->where("(from_status='A' OR to_status='A')");
+            $this->db->where("(from_status='A' AND to_status='A')");
         } else if ($type == 'pending') {
             $this->db->where('(from_id=' . $user_id . ' OR to_id=' . $user_id . ')');
             $this->db->where("(from_status='P' OR to_status='P')");
@@ -62,7 +66,7 @@ class Challenge extends DataMapper {
         }
     }
 
-    function CountChallenges($user_id, $type = null, $type_2 = null) {
+    function countChallenges($user_id, $type = null, $type_2 = null) {
         $this->db->_protect_identifiers = false;
         $this->db->select('count(*) as total');
         $this->db->from('challenges');
@@ -79,7 +83,7 @@ class Challenge extends DataMapper {
             $this->db->where("(from_status='R' OR to_status='R')");
         } else if (!is_null($type) && $type == 'accepted') {
             $this->db->where('(from_id=' . $user_id . ' OR to_id=' . $user_id . ')');
-            $this->db->where("(from_status='A' OR to_status='A')");
+            $this->db->where("(from_status='A' AND to_status='A')");
         } else if (!is_null($type) && $type == 'pending') {
             $this->db->where('(from_id=' . $user_id . ' OR to_id=' . $user_id . ')');
             $this->db->where("(from_status='P' OR to_status='P')");
@@ -154,6 +158,45 @@ class Challenge extends DataMapper {
         }
     }
 
+    function studentDuelResult($user_id, $type= null, $limit = null) {
+        $this->db->_protect_identifiers = false;
+        $this->db->select('from_user.id AS from_id, CONCAT(from_user.firstname," ",from_user.lastname) AS from_name, from_user.avtar AS from_avtar, from_userdetail.total_score AS from_total_score, to_user.id AS to_id, CONCAT(to_user.firstname," ",to_user.lastname) as to_name, to_user.avtar AS to_avtar, to_userdetail.total_score AS to_total_score, challenges.*');
+        $this->db->from('challenges');
+        $this->db->join('users from_user', 'from_user.id= challenges.from_id');
+        $this->db->join('userdetails from_userdetail', 'from_userdetail.student_master_id=from_user.id');
+        $this->db->join('users to_user', 'to_user.id = challenges.to_id');
+        $this->db->join('userdetails to_userdetail', 'to_userdetail.student_master_id=to_user.id');
+
+        if(!is_null($type) && $type == 'winner'){
+            $this->db->where('(from_id=' . $user_id . ' OR to_id=' . $user_id . ')');
+            $this->db->where('(from_status="A" AND to_status="A")');
+            $this->db->where('result', $user_id);
+            $this->db->where('result_status', 'MP');
+        } else if(!is_null($type) && $type == 'defeat'){
+            $this->db->where('(from_id=' . $user_id . ' OR to_id=' . $user_id . ')');
+            $this->db->where('(from_status="A" AND to_status="A")');
+            $this->db->where('result !=', $user_id);
+            $this->db->where('result_status', 'MP');    
+        } else if(!is_null($type) && $type == 'failure'){
+            $this->db->where('from_status', 'A');
+            $this->db->where('to_status', 'A');
+            $this->db->where('result', 0);
+            $this->db->where('result_status', 'SP');
+            $this->db->where('(from_id=' . $user_id . ' OR to_id=' . $user_id . ')');
+        }
+
+        if (!is_null($limit)) {
+            $this->db->limit($limit);
+        }
+
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+
     function countVictories($user_id, $year = null) {
         $this->db->_protect_identifiers = false;
         $this->db->select('count(*) as total');
@@ -161,6 +204,7 @@ class Challenge extends DataMapper {
         if (!is_null($year)) {
             $this->db->where('YEAR(played_on)', $year);
         }
+        $this->db->where('(from_status="A" AND to_status="A")');
         $this->db->where('result_status', 'MP');
         $this->db->where('result', $user_id);
         $this->db->where('(from_id=' . $user_id . ' OR to_id=' . $user_id . ')');
@@ -175,6 +219,7 @@ class Challenge extends DataMapper {
         if (!is_null($year)) {
             $this->db->where('YEAR(played_on)', $year);
         }
+        $this->db->where('(from_status="A" AND to_status="A")');
         $this->db->where('result_status', 'MP');
         $this->db->where('result !=', $user_id);
         $this->db->where('(from_id=' . $user_id . ' OR to_id=' . $user_id . ')');

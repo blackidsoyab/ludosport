@@ -181,10 +181,10 @@ class students extends CI_Controller {
             $data['defeats_percentage'] = round(($data['total_defeats'] * 100 ) / $total_win_defeats, 2);
         }
         
-        $total_challenges = (int)$challenge->CountChallenges($this->session_data->id);
-        $data['total_made'] = (int)$challenge->CountChallenges($this->session_data->id, 'made');
-        $data['total_received'] = (int)$challenge->CountChallenges($this->session_data->id, 'received');
-        $data['total_rejected'] = (int)$challenge->CountChallenges($this->session_data->id, 'received', 'R');
+        $total_challenges = (int)$challenge->countChallenges($this->session_data->id);
+        $data['total_made'] = (int)$challenge->countChallenges($this->session_data->id, 'made');
+        $data['total_received'] = (int)$challenge->countChallenges($this->session_data->id, 'received');
+        $data['total_rejected'] = (int)$challenge->countChallenges($this->session_data->id, 'received', 'R');
         if($total_challenges != 0){
             $data['made_percentage'] = round(($data['total_made'] * 100 ) / $total_challenges, 2);
             $data['received_percentage'] = round(($data['total_received'] * 100 ) / $total_challenges, 2);
@@ -317,13 +317,13 @@ class students extends CI_Controller {
         $challenge = new Challenge();
 
         //Last 3 Challenge received
-        $data['challenge_received'] = $challenge->getChallengeDetails($this->session_data->id, 'received', null, 3);
+        $data['challenge_received'] = $challenge->getChallengeDetails($this->session_data->id, 'received', 'P', 3);
 
-        //Last 3 Challenge made
-        $data['challenge_made'] = $challenge->getChallengeDetails($this->session_data->id, 'made',null, 3);
+        //Last 3 Challenge accepted
+        $data['challenge_accepted'] = $challenge->getChallengeDetails($this->session_data->id, 'accepted',null, 3);
 
-        //Last 3 Challenge Rejected
-        $data['challenge_rejected'] = $challenge->getChallengeDetails($this->session_data->id, 'rejected', null,3);
+        //Last 3 Challenge Submitted
+        $data['challenge_submitted'] = $challenge->getChallengeDetails($this->session_data->id, 'made', 'P',3);
 
         //Recommended User
         $data['recommended_user'] = $userdetail->userForChallenge($this->session_data->id, 'academy');
@@ -331,14 +331,17 @@ class students extends CI_Controller {
         //Suggested User
         $data['suggested_user'] = $userdetail->userForChallenge($this->session_data->id, 'all');
 
-        //Victories User
-        $data['my_victories'] = $challenge->studentVictories($this->session_data->id,3);
-
         //Duels Logs
         $data['duel_logs'] = $challenge->challengeLogs($this->session_data->id,'academy');
 
+        //Victories User
+        $data['my_victories'] = $challenge->studentDuelResult($this->session_data->id,'winner',3);
+
         //Defeats User
-        $data['my_defeats'] = $challenge->studentDefeats($this->session_data->id,3);
+        $data['my_defeats'] = $challenge->studentDuelResult($this->session_data->id,'defeat',3);
+
+        //Failure User
+        $data['my_failures'] = $challenge->studentDuelResult($this->session_data->id,'failure',3);
 
         $userdetail = new Userdetail();
         $userdetail->where('student_master_id', $this->session_data->id)->get();
@@ -364,11 +367,19 @@ class students extends CI_Controller {
                 'defeats' => $challenge->countDefeats($this->session_data->id, $i),
                 );
         }
-        
+        unset($challenge);
+
         $data['statistics_challenge'] = json_encode($graph_data);
 
         //Top Five Users
         $data['top_five_users'] = $userdetail->topStudents(null,null,5);
+
+        $challenge = new Challenge();
+        $pending_challenge = $challenge->countChallenges($this->session_data->id, 'received', 'P');
+        $data['can_do_challege'] = false;
+        if($pending_challenge < 2){
+            $data['can_do_challege'] = true;
+        }
 
         $this->layout->view('students/duels', $data);
     }
@@ -401,7 +412,7 @@ class students extends CI_Controller {
 
     function duelView($type = null){
         $this->layout->setField('page_title', $this->lang->line('duels_list'));
-        $avaialbe_types = array('all','made', 'received', 'rejected', 'accepted', 'wins', 'defeats');
+        $avaialbe_types = array('all','submitted', 'received', 'rejected', 'accepted', 'wins', 'defeats', 'faliure');
 
         if(!is_null($type) && !in_array($type, $avaialbe_types)){
             $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));

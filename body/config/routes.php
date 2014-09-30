@@ -71,6 +71,8 @@ $route['save_clan_teacher_student'] = "cronjobs/saveAll";
 $route['save_clan_date'] = "cronjobs/clanDate";
 $route['save_teacher_attendance'] = "cronjobs/teacherAttendance";
 $route['save_student_attendance'] = "cronjobs/studentAttendance";
+$route['check_over_due_duel'] = "cronjobs/checkOverDueDuel";
+$route['check_over_due_duel/(:any)'] = "cronjobs/checkOverDueDuel/$1";
 
 //Authenticate
 $route['login'] = "authenticate/index";

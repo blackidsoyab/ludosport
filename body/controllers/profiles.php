@@ -56,8 +56,8 @@ class profiles extends CI_Controller {
                 $data['victories_percentage'] = round(($data['total_victories'] * 100 ) / $total_win_defeats, 2);
             }
             $data['total_defeats'] = (int)$challenge->countDefeats($id);
-            $data['total_made'] = (int)$challenge->CountChallenges($id, 'made');
-            $data['total_received'] = (int)$challenge->CountChallenges($id, 'received');
+            $data['total_made'] = (int)$challenge->countChallenges($id, 'made');
+            $data['total_received'] = (int)$challenge->countChallenges($id, 'received');
 
             //Student Attendance
         $obj_attendance = new Attendance();

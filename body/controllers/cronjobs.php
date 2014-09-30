@@ -23,7 +23,7 @@ class cronjobs extends CI_Controller {
     *   Get the Mails from DB and send it to users
     *   Param1(int-required) : Limit for sending mail at a time
     *   Param2(int-optional) : Set the Priority 0 => Urgent to 3 => Low
-    *   Param3(int)          : Self user for function.
+    *   Param3(int)          : Self use for function.
     */
     private function _getMails($limit, $priority = 0, $count = 0) {
         if (array_key_exists($priority, $this->mail_priority)) {
@@ -81,7 +81,7 @@ class cronjobs extends CI_Controller {
 
     /*
     *   Get & Save the Clan Dates
-    *   Param1 (Date-required) : Date
+    *   Param1(Date-required) : Date
     */
     private function _getAndSaveClanDate($dates){
         if(!is_null($dates) && count($dates) > 0){
@@ -123,7 +123,7 @@ class cronjobs extends CI_Controller {
 
     /*
     *   Get & Save the Teacher Attendance
-    *   Param1 (Date-required) : Date
+    *   Param1(Date-required) : Date
     */
     private function _getAndSaveTeacherAttendance($dates){
         if(!is_null($dates) && count($dates) > 0){
@@ -162,7 +162,7 @@ class cronjobs extends CI_Controller {
 
     /*
     *   Get & Save the Student Attendance
-    *   Param1 (Date-required) : Date
+    *   Param1(Date-required) : Date
     */
     private function _getAndSaveStudentAttendance($dates){
         if(!is_null($dates) && count($dates) > 0){
@@ -201,6 +201,34 @@ class cronjobs extends CI_Controller {
             }
         }
     }
+
+    /*
+    *   Check for the Challenge whos time is over.
+    *   Param1(Date-required) : current date
+    */
+    public function checkOverDueDuel($date = null){
+        if(is_null($date)){
+            $strtotime = strtotime(get_current_date_time()->get_date_for_db());
+        }else{
+            $strtotime = strtotime($date);
+        }
+
+        $obj_challenge = new Challenge();
+
+        //get all the challenges which accepted from both side and still not played
+        $obj_challenge->where(array('from_status'=>'A', 'to_status'=>'A', 'result_status'=> 'MNP'))->get();
+        if($obj_challenge->result_count() > 0){
+            foreach ($obj_challenge as $challenge) {
+                //get the date of matche is to being played and add 7 days to it.
+                $over_due_date = strtotime('+7 day', strtotime(date('Y-m-d', strtotime($challenge->played_on))));
+                if($strtotime >= $over_due_date){
+                    $challenge->result = 0;
+                    $challenge->result_status = 'SP';
+                    $challenge->save();
+                }
+            }
+        }
+    } 
 
 }
 

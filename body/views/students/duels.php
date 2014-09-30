@@ -36,12 +36,14 @@
 			var target_modal = $(e.currentTarget).data('target');
 			var modal = $(target_modal);
 			modal.on('show.bs.modal', function () {
-				$("input[name='to_id']").val($(e.currentTarget).data('userid'));
-				$("input[name='challenge_type']").val($(e.currentTarget).data('challenge-type'));
-				$('.form-group').show();
-		    	$('.animation_image').hide();
-		    	$('#time_error').hide();
-        		$('#date_error').hide();
+				if(target_modal == 'do_duel_box') {
+					$("input[name='to_id']").val($(e.currentTarget).data('userid'));
+					$("input[name='challenge_type']").val($(e.currentTarget).data('challenge-type'));
+					$('.form-group').show();
+			    	$('.animation_image').hide();
+			    	$('#time_error').hide();
+	        		$('#date_error').hide();
+				}
 			}).modal({
 				backdrop: 'static',
 				keyboard: false
@@ -139,24 +141,23 @@
 	  		<h3 class="bolded padding-killer"><?php echo @$suggested_user->name; ?></h3>
 			<div class="row">
 				<div class="col-xs-6">
-					<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $suggested_user->id; ?>" data-challenge-type="R"><i class="fa fa-user"></i><?php echo $this->lang->line('challenge'); ?></button>
+					<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#<?php echo ($can_do_challege) ? 'do_duel_box' : 'cannot_do_duel_box'; ?>" data-userid="<?php echo $suggested_user->id; ?>" data-challenge-type="R"><i class="fa fa-user"></i><?php echo $this->lang->line('challenge'); ?></button>
 				</div>
 				<div class="col-xs-6">
-					<button class="btn btn-warning btn-block"><i class="fa fa-envelope"></i><?php echo $this->lang->line('message'); ?></button>
+					<a href="<?php echo base_url() .'message/compose'; ?>" class="btn btn-warning btn-block"><i class="fa fa-envelope"></i><?php echo $this->lang->line('message'); ?></a>
 				</div>
 			</div>
 		</div>
 
 		<div class="the-box no-border card-info text-center">
 			<h4 class="bolded"><?php echo $this->lang->line('duel_recommended'); ?></h4>
-			<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$recommended_user->avtar; ?>" class="social-avatar has-margin has-dark-shadow img-circle" alt="Avatar">
-	  		<h3 class="bolded padding-killer"><?php echo @$recommended_user->name; ?></h3>
+			<i class="fa fa-question icon-circle special-icon-duel icon-bordered special-icon-default mar-bt-10"></i>
 			<div class="row">
-				<div class="col-xs-6">
-					<button class="btn btn-warning btn-block"><i class="fa fa-list icon-sidebar"></i> <?php echo $this->lang->line('view'),' ', $this->lang->line('ratting'); ?></button>
+				<div class="col-xs-7">
+					<a href="<?php echo base_url() .'rating_list'; ?>" class="btn btn-warning btn-block"><i class="fa fa-list icon-sidebar"></i> <?php echo $this->lang->line('choose_by_rating'); ?></a>
 				</div>
-				<div class="col-xs-6">
-					<button class="btn btn-warning btn-block" data-userid="<?php echo $recommended_user->id; ?>" data-toggle="modal" data-target="#do_duel_box" data-challenge-type="B"><i class="fa fa-user"></i><?php echo $this->lang->line('blind'); ?></button>
+				<div class="col-xs-5">
+					<button class="btn btn-warning btn-block" data-userid="<?php echo $recommended_user->id; ?>" data-toggle="modal" data-target="#<?php echo ($can_do_challege) ? 'do_duel_box' : 'cannot_do_duel_box'; ?>" data-challenge-type="B"><i class="fa fa-user"></i><?php echo $this->lang->line('blind'); ?></button>
 				</div>
 			</div>
 		</div>
@@ -164,6 +165,67 @@
 
 	<div class="col-lg-4">
 		<div class="panel-group" id="challenges">
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<a class="block-collapse collapsed" data-parent="#challenges" data-toggle="collapse" href="#challenges-made">
+							<?php echo $this->lang->line('challenge_accepted'); ?>
+							<span class="right-content">
+							<span class="right-icon"><i class="glyphicon glyphicon-plus icon-collapse"></i></span>
+							</span>
+						</a>
+					</h3>
+				</div>
+				<div id="challenges-made" class="collapse" style="height: 0px;">
+					<div class="panel-body">
+						<?php if($challenge_accepted != false) { ?>
+							<?php foreach ($challenge_accepted as $made_key => $made_value) { 
+								if($made_value->to_id == $session->id) {
+	                    			$made_id = $made_value->from_id;
+									$made_name = $made_value->from_name;
+									$made_avtar = $made_value->from_avtar;
+									$made_total_score = $made_value->from_total_score;
+		                    	} else {
+		                    		$made_id = $made_value->to_id;
+									$made_name = $made_value->to_name;
+									$made_avtar = $made_value->to_avtar;
+									$made_total_score = $made_value->to_total_score;
+		                    	}
+
+							?>
+			                	<div class="the-box no-border margin-top-killer margin-bottom-killer padding-bottom-killer">
+			                		<div class="media">
+										<p class="pull-left">
+											<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$made_avtar; ?>" class="margin-top-killer margin-bottom-killer avatar avatar-60 img-circle">
+										</p>
+										<div class="media-body">
+											<div class="pull-left">
+												<h5 class="media-heading mar-bt-10">
+													<a href="<?php echo base_url() . 'profile/view/'. $made_id ?>" class="text-success">
+														<strong><?php echo $made_name; ?></strong>
+													</a>
+												</h5>
+											<p class="small text-muted">Score : <?php echo @$made_total_score; ?></p>
+											<p class="small text-muted"><?php echo @time_elapsed_string($made_value->made_on); ?></p>
+										</div>
+									
+										<div class="pull-right">
+												<a href="<?php echo base_url() .'duels/single/' . $made_id; ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="detail view" class="btn btn-success btn-xs"><i class="fa fa-share"></i></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<hr class="margin-killer"/>
+		                	<?php } ?>
+		                <?php } else { echo '<strong>'. $this->lang->line('no_challenge_accepted') .'</strong>'; } ?>
+					</div>
+
+					<div class="panel-footer no-border padding-killer">
+						<a href="<?php echo base_url() .'duels/view/made'; ?>" class="btn btn-block btn-success "><?php echo $this->lang->line('see_all'); ?></a>
+					</div>
+				</div>
+			</div>
+
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">
@@ -212,59 +274,11 @@
 				</div>
 			</div>
 			
-			<div class="panel panel-success">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						<a class="block-collapse collapsed" data-parent="#challenges" data-toggle="collapse" href="#challenges-made">
-							<?php echo $this->lang->line('challenge_made'); ?>
-							<span class="right-content">
-							<span class="right-icon"><i class="glyphicon glyphicon-plus icon-collapse"></i></span>
-							</span>
-						</a>
-					</h3>
-				</div>
-				<div id="challenges-made" class="collapse" style="height: 0px;">
-					<div class="panel-body">
-						<?php if($challenge_made != false) { ?>
-							<?php foreach ($challenge_made as $made_key => $made_value) { ?>
-			                	<div class="the-box no-border margin-top-killer margin-bottom-killer padding-bottom-killer">
-			                		<div class="media">
-										<p class="pull-left">
-											<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$made_value->to_avtar; ?>" class="margin-top-killer margin-bottom-killer avatar avatar-60 img-circle">
-										</p>
-										<div class="media-body">
-											<div class="pull-left">
-												<h5 class="media-heading mar-bt-10">
-													<a href="<?php echo base_url() . 'profile/view/'. $made_value->to_id ?>" class="text-success">
-														<strong><?php echo $made_value->to_name; ?></strong>
-													</a>
-												</h5>
-											<p class="small text-muted">Score : <?php echo @$made_value->to_total_score; ?></p>
-											<p class="small text-muted"><?php echo @time_elapsed_string($made_value->made_on); ?></p>
-										</div>
-									
-										<div class="pull-right">
-												<a href="<?php echo base_url() .'duels/single/' . $made_value->id; ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="detail view" class="btn btn-success btn-xs"><i class="fa fa-share"></i></a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<hr class="margin-killer"/>
-		                	<?php } ?>
-		                <?php } else { echo '<strong>'. $this->lang->line('no_challenge_made') .'</strong>'; } ?>
-					</div>
-
-					<div class="panel-footer no-border padding-killer">
-						<a href="<?php echo base_url() .'duels/view/made'; ?>" class="btn btn-block btn-success "><?php echo $this->lang->line('see_all'); ?></a>
-					</div>
-				</div>
-			</div>
-
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<a class="block-collapse collapsed" data-parent="#challenges" data-toggle="collapse" href="#challenges-rejected">
-							<?php echo $this->lang->line('challenge_rejected'); ?>
+							<?php echo $this->lang->line('challenge_submitted'); ?>
 							<span class="right-content">
 							<span class="right-icon"><i class="glyphicon glyphicon-plus icon-collapse"></i></span>
 							</span>
@@ -273,49 +287,37 @@
 				</div>
 				<div id="challenges-rejected" class="collapse" style="height: 0px;">
 					<div class="panel-body">
-						<?php if($challenge_rejected != false) { ?>
-							<?php foreach ($challenge_rejected as $rejected_key => $rejected_value) {
-		                    	if(($rejected_value->from_id == $session->id && $rejected_value->from_status == 'R') || $rejected_value->to_id == $session->id && $rejected_value->to_status == 'R') {
-	                    			$rejected_id = $rejected_value->from_id;
-									$rejected_name = $rejected_value->from_name;
-									$rejected_avtar = $rejected_value->from_avtar;
-									$rejected_total_score = $rejected_value->from_total_score;
-		                    	} else if(($rejected_value->from_id == $session->id && $rejected_value->to_status == 'R')|| ($rejected_value->to_id == $session->id && $rejected_value->from_status == 'R')) {
-		                    		$rejected_id = $rejected_value->to_id;
-									$rejected_name = $rejected_value->to_name;
-									$rejected_avtar = $rejected_value->to_avtar;
-									$rejected_total_score = $rejected_value->to_total_score;
-		                    	}
-								?>
+						<?php if($challenge_submitted != false) { ?>
+							<?php foreach ($challenge_submitted as $submitted_key => $submitted_value) { ?>
 			                	<div class="the-box no-border margin-top-killer margin-bottom-killer padding-bottom-killer">
 			                		<div class="media">
 										<p class="pull-left">
-											<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$rejected_avtar; ?>" class="margin-top-killer margin-bottom-killer avatar avatar-60 img-circle">
+											<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$submitted_value->to_avtar; ?>" class="margin-top-killer margin-bottom-killer avatar avatar-60 img-circle">
 										</p>
 										<div class="media-body">
 											<div class="pull-left">
 												<h5 class="media-heading mar-bt-10">
-													<a href="<?php echo base_url() . 'profile/view/'. $rejected_id; ?>" class="text-info">
-														<strong><?php echo $rejected_name; ?></strong>
+													<a href="<?php echo base_url() . 'profile/view/'. $submitted_value->to_id ?>" class="text-primary">
+														<strong><?php echo $submitted_value->to_name; ?></strong>
 													</a>
 												</h5>
-												<p class="small text-muted">Score : <?php echo @$rejected_total_score; ?></p>
-												<p class="small text-muted"><?php echo @time_elapsed_string($rejected_value->status_changed_on); ?></p>
+												<p class="small text-muted">Score : <?php echo @$submitted_value->to_total_score; ?></p>
+												<p class="small text-muted"><?php echo @time_elapsed_string($submitted_value->made_on); ?></p>
 											</div>
-										
+											
 											<div class="pull-right">
-												<a href="<?php echo base_url() .'duels/single/' . $rejected_value->id; ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="detail view" class="btn btn-info btn-xs"><i class="fa fa-share"></i></a>
+												<a href="<?php echo base_url() .'duels/single/' . $submitted_value->id; ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="detail view" class="btn btn-primary btn-xs"><i class="fa fa-share"></i></a>
 											</div>
 										</div>
 									</div>
 								</div>
 								<hr class="margin-killer"/>
 		                	<?php } ?>
-		                <?php } else { echo '<strong>'. $this->lang->line('no_challenge_rejected') .'</strong>'; } ?>
+		                <?php } else { echo '<strong>'. $this->lang->line('no_challenge_submitted') .'</strong>'; } ?>
 					</div>
 
 					<div class="panel-footer no-border padding-killer">
-						<a href="<?php echo base_url() .'duels/view/rejected'; ?>" class="btn btn-block btn-info "><?php echo $this->lang->line('see_all'); ?></a>
+						<a href="<?php echo base_url() .'duels/view/submitted'; ?>" class="btn btn-block btn-info "><?php echo $this->lang->line('see_all'); ?></a>
 					</div>
 				</div>
 			</div>
@@ -383,7 +385,7 @@
 </div>
 
 <div class="row">
-	<div class="col-lg-4">
+	<div class="col-lg-3">
 		<div class="panel panel-success panel-square panel-no-border">
 			<div class="panel-heading">
 				<div class="right-content">
@@ -414,7 +416,7 @@
 									<img class="media-object img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$victory_avtar; ?>" alt="Avatar">
 								</a>
 								<div class="media-body">
-									<a href="<?php echo base_url() .'profile/view' . $victory_id; ?>">
+									<a href="<?php echo base_url() .'profile/view/' . $victory_id; ?>">
 										<h4 class="media-heading"><?php echo @$victory_name; ?></h4>
 									</a>
 									<p class="text-danger"><?php echo $this->lang->line('score'); ?>: <strong><?php echo @$victory_total_score; ?></strong></p>
@@ -429,7 +431,7 @@
 		</div>
 	</div>
 
-	<div class="col-lg-4">
+	<div class="col-lg-3">
 		<div class="panel panel-danger panel-square panel-no-border">
 			<div class="panel-heading">
 				<div class="right-content">
@@ -459,7 +461,7 @@
 									<img class="media-object img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$defeat_avtar; ?>" alt="Avatar">
 								</a>
 								<div class="media-body">
-									<a href="<?php echo base_url() .'profile/view' . $defeat_id; ?>">
+									<a href="<?php echo base_url() .'profile/view/' . $defeat_id; ?>">
 										<h4 class="media-heading"><?php echo @$defeat_name; ?></h4>
 									</a>
 									<p class="text-danger"><?php echo $this->lang->line('score'); ?>: <strong><strong><?php echo @$defeat_total_score; ?></strong></strong></p>
@@ -474,7 +476,52 @@
 		</div>
 	</div>
 
-	<div class="col-lg-4">
+	<div class="col-lg-3">
+		<div class="panel panel-info panel-square panel-no-border">
+			<div class="panel-heading">
+				<div class="right-content">
+					<button class="btn btn-info btn-sm to-collapse" data-toggle="collapse" data-target="#my_last_faliure"><i class="fa fa-chevron-up"></i></button>
+				</div>
+				<h4 class="panel-title"><i class="fa fa-arrow-circle-o-up"></i> <?php echo $this->lang->line('my_last_failure'); ?></h4>
+			</div>
+			<div id="my_last_faliure" class="collapse in" style="height: auto;">
+				<div class="panel-body">
+				<?php if($my_failures != false){ ?>
+					<ul class="media-list media-sm media-team">
+						<?php foreach ($my_failures as $failure_key => $failure_value) {
+							if($failure_value->to_id == $session->id) {
+	                    			$failure_id = $failure_value->from_id;
+									$failure_name = $failure_value->from_name;
+									$failure_avtar = $failure_value->from_avtar;
+									$failure_total_score = $failure_value->from_total_score;
+		                    	} else {
+		                    		$failure_id = $failure_value->to_id;
+									$failure_name = $failure_value->to_name;
+									$failure_avtar = $failure_value->to_avtar;
+									$failure_total_score = $failure_value->to_total_score;
+		                    	}
+						 ?>
+							<li class="media">
+								<a class="pull-left" href="#fakelink">
+									<img class="media-object img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$failure_avtar; ?>" alt="Avatar">
+								</a>
+								<div class="media-body">
+									<a href="<?php echo base_url() .'profile/view/' . $failure_id; ?>">
+										<h4 class="media-heading"><?php echo @$failure_name; ?></h4>
+									</a>
+									<p class="text-danger"><?php echo $this->lang->line('score'); ?>: <strong><strong><?php echo @$failure_total_score; ?></strong></strong></p>
+								</div>
+							</li>
+						<?php } ?>
+					</ul>
+					<a href="<?php echo base_url() .'duels/view/faliure'; ?>" class="btn btn-info btn-block"><?php echo $this->lang->line('see_all'); ?></a>
+				<?php } else { echo  $this->lang->line('no_failure') ; }?>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-3">
 		<?php if($before_me_users != false || $after_me_users != false) { ?>
 			<div class="the-box bg-dark no-border text-center more-padding">
 				<?php if($before_me_users != false){ 
@@ -539,7 +586,7 @@
 		                        	<?php $check = Challenge::isRequestedBefore($session->id, $top_five_value->id);
 		                        		if(!$check){
 		                        	?>
-		                            	<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#do_duel_box" data-userid="<?php echo $top_five_value->id; ?>">&nbsp;<?php echo $this->lang->line('challenge'); ?>&nbsp;</button>
+		                            	<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#<?php echo ($can_do_challege) ? 'do_duel_box' : 'cannot_do_duel_box'; ?>" data-userid="<?php echo $top_five_value->id; ?>">&nbsp;<?php echo $this->lang->line('challenge'); ?>&nbsp;</button>
 		                            <?php } ?>
 		                        </div>
                     		</div>
@@ -612,6 +659,22 @@
 					<button type="submit" class="btn btn-danger"><?php echo $this->lang->line('do_it'); ?></button>
 				</div>
 			</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="cannot_do_duel_box" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content modal-no-shadow modal-no-border bg-danger">
+			<div class="modal-header">
+				<h4 class="modal-title text-white padding-killer"><?php echo $this->lang->line('cannot_challenge'); ?></h4>
+			</div>
+			<div class="modal-body padding-bottom-killer">
+				<p><?php echo $this->lang->line('cannot_challenge_error'); ?></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('ok'); ?></button>
+			</div>
 		</div>
 	</div>
 </div>

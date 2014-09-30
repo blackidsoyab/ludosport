@@ -1024,13 +1024,17 @@ class json extends CI_Controller {
         } else if($type == 'rejected'){
             $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND (to_status ="R" OR from_status ="R")';
         } else if($type == 'accepted'){
-            $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND (to_status ="A" OR from_status ="A")';
+            $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND (to_status ="A" AND from_status ="A")';
         } else if($type == 'pending'){
             $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND (to_status ="P" OR from_status ="P")';
         } else if($type == 'wins'){
-            $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND (result='. $user_id .')';
+            $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND to_status ="A" AND from_status ="A" AND result_status="MP" AND result='. $user_id;
         } else if($type == 'defeats'){
-            $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND (result!='. $user_id .')';
+            $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND to_status ="A" AND from_status ="A" AND result_status="MP" AND result!='. $user_id;
+        } else if($type == 'submitted'){
+            $where = ' AND (from_id='. $user_id .') AND (to_status ="P")';
+        } else if($type == 'faliure'){
+             $where = ' AND (to_id=' . $user_id . ' OR from_id='. $user_id .') AND to_status ="A" AND from_status ="A" AND result=0 AND result_status="SP"';
         }
 
         $this->load->library('datatable');
