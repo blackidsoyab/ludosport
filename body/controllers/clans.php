@@ -19,7 +19,7 @@ class clans extends CI_Controller {
     *   Param1(optional) : clan id
     *   Param2(optional) : any text (e.g. : notification)
     */
-    function viewClan($id = null, $type = null) {
+    public function viewClan($id = null, $type = null) {
         $academy = New Academy();
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
             $academy->get();
@@ -131,7 +131,7 @@ class clans extends CI_Controller {
     }
 
     //Add the Clan
-    function addClan() {
+    public function addClan() {
         if ($this->input->post() !== false) {
             $obj = new Clan();
             foreach ($this->config->item('custom_languages') as $key => $value) {
@@ -217,7 +217,7 @@ class clans extends CI_Controller {
     *   Edit the Clan
     *   Param1(required) : Clan id
     */
-    function editClan($id) {
+    public function editClan($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
                 $obj = new Clan();
@@ -322,7 +322,7 @@ class clans extends CI_Controller {
     *   Delete the Clan
     *   Param1(required) : Clan id
     */
-    function deleteClan($id) {
+    public function deleteClan($id) {
         if (!empty($id)) {
             $clan = new Clan();
             $clan->where('id', $id)->get();
@@ -345,7 +345,7 @@ class clans extends CI_Controller {
     *   Param1(optional) : Clan id
     *   Param2(optional) : all, academy, school, clan
     */
-    function clanTeacherList($id = 0, $type = 'all') {
+    public function clanTeacherList($id = 0, $type = 'all') {
         $this->layout->setField('page_title', $this->lang->line('list') . ' ' . $this->lang->line('teachers'));
 
         $academy = new Academy();
@@ -403,7 +403,7 @@ class clans extends CI_Controller {
     *   Param1(optional) : Clan id
     *   Param2(optional) : all, academy, school, clan
     */
-    function clanStudentList($id = 0, $type = 'all') {
+    public function clanStudentList($id = 0, $type = 'all') {
         $this->layout->setField('page_title', $this->lang->line('list') . ' ' . $this->lang->line('student'));
 
         $academy = new Academy();
@@ -460,7 +460,7 @@ class clans extends CI_Controller {
     *   List the student who request for trial lesson
     *   Param1(required) : Clan id
     */
-    function listTrialLessonRequest($clan_id = null) {
+    public function listTrialLessonRequest($clan_id = null) {
         if(!is_null($clan_id)){
             if(!validAcess($clan_id, 'clan')){
                 $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
@@ -482,7 +482,7 @@ class clans extends CI_Controller {
     *   Param2(required) : Student id
     *   Param3(optional) : any text (e.g. : notification)
     */
-    function changeStatusTrialStudent($clan_id, $student_master_id, $type = null) {
+    public function changeStatusTrialStudent($clan_id, $student_master_id, $type = null) {
 
         //Update the Notifications
         if ($type == 'notification') {
@@ -652,7 +652,7 @@ class clans extends CI_Controller {
     *   Param1(required) : Clan id
     *   Param2(required) : Date
     */
-    function clanAttendances($clan_id, $date){
+    public function clanAttendances($clan_id, $date){
         if(!validAcess($clan_id, 'clan')){
             $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
             redirect(base_url() . 'dashboard', 'refresh'); 
@@ -813,7 +813,7 @@ class clans extends CI_Controller {
     *   Save the attendance for the clan 
     *   Param1(required) : Clan id
     */
-    function saveClanAttendances($clan_id){
+    public function saveClanAttendances($clan_id){
         //check that clan id is passed or not
         if (!empty($clan_id)) {
             //check that data is post or views is to be render
@@ -862,7 +862,7 @@ class clans extends CI_Controller {
     *   Make next week attendance of the clan 
     *   Param1(required) : Clan id
     */
-    function nextWeekAttendances($clan_id){
+    public function nextWeekAttendances($clan_id){
         //Check clan id is passed or not
         if(!empty($clan_id)){
             $clan = New Clan();
@@ -954,7 +954,7 @@ class clans extends CI_Controller {
     *   Used for the Recovery Class option
     *   Param1(required) : Clan id
     */
-    function getSameLevelClans($clan_id) {
+    public function getSameLevelClans($clan_id) {
         $obj_clan = new Clan();
         //get the details of the clan
         $obj_clan->where('id', $clan_id)->get();
@@ -1011,7 +1011,7 @@ class clans extends CI_Controller {
     *   Used for the Recovery Class option
     *   Param1(required) : Clan id
     */
-    function getDateOfClanForTeacher($clan_id) {
+    public function getDateOfClanForTeacher($clan_id) {
         $clan = new Clan();
         /*
         *   get the next dates for the clan 
@@ -1046,7 +1046,7 @@ class clans extends CI_Controller {
     }
 
     //save the recovery class for student set by teacher
-    function changeDateStudentByTeacher(){
+    public function changeDateStudentByTeacher(){
         $recover = new Attendancerecover();
         //check where attendance revoce exits
         $recover->where('attendance_id', $this->input->post('attendance_id'))->get();
@@ -1163,7 +1163,7 @@ class clans extends CI_Controller {
     *   Shift the Clan from one date to another
     *   Param1(required) : Clan id
     */
-    function changeClanDate($clan_id){
+    public function changeClanDate($clan_id){
         $obj_clan_date = new Clandate();
         $obj_clan_date->where('clan_id',$clan_id);
         $obj_clan_date->where('clan_date', $this->input->post('clan_shift_from'));
@@ -1198,12 +1198,20 @@ class clans extends CI_Controller {
         redirect(base_url().'clan/view/'. $clan_id, 'refresh');
     }
 
-    function deleteClanDate($id){
+    /*
+    *   Delete the clan date
+    *   Param1(required) : Clandate id
+    */
+    public function deleteClanDate($id){
         $obj_clan_date = new Clandate();
+
+        //check  that id extis
         $obj_clan_date->where('id', $id)->get();
         $return = false;
+        // check that clan is over or not not
         if(strtotime(get_current_date_time()->get_date_for_db()) < strtotime($obj_clan_date->clan_date) && $obj_clan_date->type == 'S'){
 
+            //make an array for notification & email purpose
             $arr = array();
             $arr['clan_id'] = $obj_clan_date->clan_id;
             $arr['clan_shift_from'] = $obj_clan_date->clan_date;
@@ -1211,6 +1219,7 @@ class clans extends CI_Controller {
             $arr['description'] = $obj_clan_date->description;
             $arr['notify'] = $this->input->post('notify');
 
+            //Make it regular clan fron shifted clan
             $obj_clan_date->type = 'R';
             $obj_clan_date->clan_date = $obj_clan_date->clan_shift_from;
             $obj_clan_date->clan_shift_from = null;
@@ -1218,6 +1227,7 @@ class clans extends CI_Controller {
             $obj_clan_date->save();
             $return = true;
 
+            //get all the trail lesson student ids of the clans
             $ids = Userdetail::getAssignStudentIdsByCaln($obj_clan_date->clan_id);
             $user = new User();
             $user->where_in('id', $ids);
@@ -1230,6 +1240,7 @@ class clans extends CI_Controller {
                 }
             }
 
+            //Should notifiy the Rector, dean, teacher & student 
             if($this->input->post('notify') == 1){
                 $this->_changeClanDateNofification($obj_clan_date->id, $obj_clan_date->clan_id, $arr);
             }
@@ -1238,12 +1249,18 @@ class clans extends CI_Controller {
         echo json_encode(array('return'=>$return));
     }
 
+    /*
+    *   Send Notification and email to Users
+    *   Param1(required) : object id
+    *   Param2(required) : Clan id
+    *   Param3(required) : Post Data
+    */
     private function _changeClanDateNofification($id, $clan_id, $post){
         $clan = new Clan();
         //For Email and Notification get Clan related Rectors, Deans, Teacher
-        $clan->where('id', $clan_id)->get();
+        $clan->where('id', $post['clan_id'])->get();
         $ids[] = array_unique(explode(',', $clan->school->academy->rector_id . ',' . $clan->school->dean_id . ',' . $clan->teacher_id));
-        $ids[] = Userdetail::getAssignStudentIdsByCaln($clan_id);
+        $ids[] = Userdetail::getAssignStudentIdsByCaln($post['clan_id']);
 
         //Make single array form all ids
         $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
@@ -1301,6 +1318,51 @@ class clans extends CI_Controller {
         }
 
         return true;
+    }
+
+    /*
+    * Get the Student Attendance for the clan
+    */
+    public function clanViewAttendance(){
+        $this->layout->view('clans/view_attendance');
+    }
+
+    public function viewClanAttendance($clan_id){
+        if(!validAcess($clan_id, 'clan') || !hasPermission('clans', 'clanViewAttendance')){
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'dashboard', 'refresh'); 
+        }
+
+        $data['clan_id'] = $clan_id;
+        $this->layout->view('clans/view_clan_attendance', $data);
+    }
+
+    public function viewStudentAttendance($student_id){
+        $not_valid = false;
+        $obj_user_details = new Userdetail();
+        if($this->session_data->role == 3){
+            $ids = $obj_user_details->getRelatedStudentsByRector($this->session_data->id); 
+        }
+
+        if($this->session_data->role == 4){
+            $ids = $obj_user_details->getRelatedStudentsByDean($this->session_data->id); 
+        }
+
+        if($this->session_data->role == 5){
+            $ids = $obj_user_details->getRelatedStudentsByTeacher($this->session_data->id); 
+        }
+
+        if($this->session_data->role > 2 && !in_array($student_id, $ids)){
+            $not_valid = true;
+        }
+
+        if($not_valid && !hasPermission('clans', 'clanViewAttendance')){
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'dashboard', 'refresh'); 
+        }
+
+        $data['student_id'] = $student_id;
+        $this->layout->view('clans/view_student_attendance', $data);
     }
 
 }

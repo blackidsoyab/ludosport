@@ -372,6 +372,10 @@ function checkMessage(last_id){
 
                         <li class="<?php echo ($page == 'studentlist') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'clan/studentlist'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('student_list'); ?>"><i class="fa fa-users icon-sidebar"></i><?php echo $this->lang->line('pupil'); ?></a></li>
 
+                        <?php if (hasPermission('clans', 'clanViewAttendance')) { ?>
+                        <li class="<?php echo ($page == 'view_attendance') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'clan/view_attendance'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('view_attendance'); ?>"><i class="fa fa-book icon-sidebar"></i><?php echo $this->lang->line('view_attendance'); ?></a></li>
+                        <?php } ?>
+
                         <?php if (hasPermission('batchrequests', 'viewBatchrequest')) { ?>
                         <li class="<?php echo ($page == 'batchrequest') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'batchrequest'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('batch_request'); ?>"><i class="fa fa-graduation-cap icon-sidebar"></i><?php echo $this->lang->line('batch_request'); ?></a></li>
                         <?php } ?>

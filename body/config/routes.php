@@ -129,6 +129,12 @@ $route['clan/studentjson/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2";
 $route['clan/studentjson/(:any)/(:any)/(:any)'] = "json/getStudentsJsonData/$1/$2/$3";
 $route['clan/change_date/(:num)'] = "clans/changeClanDate/$1";
 $route['clan/delete_date/(:num)'] = "clans/deleteClanDate/$1";
+$route['clan/view_attendance'] = "clans/clanViewAttendance";
+$route['clan/view_attendance_json'] = "json/getClanViewAttendanceJsonData";
+$route['clan/view_clan_attendance/(:num)'] = "clans/viewClanAttendance/$1";
+$route['clan/view_clan_attendance_json/(:num)'] = "json/getViewClanAttendanceJsonData/$1";
+$route['clan/view_student_attendance/(:num)'] = "clans/viewStudentAttendance/$1";
+$route['clan/view_student_attendance_json/(:num)'] = "json/getViewStudentAttendanceJsonData/$1";
 
 //Dean Dashboard
 $route['dean/absence_approval/(:num)'] = "deans/teacherAbsenceApproval/$1";

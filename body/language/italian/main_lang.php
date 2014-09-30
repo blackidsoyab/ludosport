@@ -500,4 +500,10 @@ $lang['time'] = 'Time';
 $lang['place'] = 'Place';
 $lang['cannot_challenge'] = 'You cannot challenge any one !!';
 $lang['cannot_challenge_error'] = 'You have more than 7 duel pending. Please accept any of them to make new duel';
+
+//Student Register
+$lang['view_attendance'] = 'Register';
+$lang['absence'] = 'Absence';
+$lang['presence'] = 'Presence';
+$lang['recovery'] = 'Recovery';
 ?>

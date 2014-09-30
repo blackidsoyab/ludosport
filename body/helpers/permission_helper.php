@@ -274,6 +274,7 @@ if (!function_exists('createPermissionArray')) {
                     'deleteClan' => array('name' => 'Delete'),
                     'clanTeacherList' => array('name' => 'Teacher List'),
                     'clanStudentList' => array('name' => 'Student List'),
+                    'clanViewAttendance' => array('name' => 'Student Attendance (Register)'),
                     'listTrialLessonRequest' => array('name' => 'List Trial Lesson Request'),
                     'changeStatusTrialStudent' => array('name' => 'Approve / Unapprove Request'),
                     'changeClanDate' => array('name' => 'Change Clan Dates'),
