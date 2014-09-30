@@ -22,15 +22,30 @@
             });
         }
 
-    	Morris.Line({
-		  element: 'statistics-challenge',
-		  data: <?php echo $statistics_challenge; ?>,
-		  xkey: "year",
-		  ykeys: ['victories', 'defeats'],
-		  labels: ["<?php echo $this->lang->line('victories'); ?>","<?php echo $this->lang->line('defeats'); ?>"],
-		  resize: true,
-		  lineColors: ['#8CC152', '#E9573F']
+        var statistics = Morris.Line({
+			element: 'statistics-challenge',
+			data: <?php echo $statistics_challenge; ?>,
+	        hideHover: 'auto',
+	        resize: true,
+			xkey: "year",
+			ykeys: ['victories', 'defeats'],
+			labels: ["<?php echo $this->lang->line('victories'); ?>","<?php echo $this->lang->line('defeats'); ?>"],
+			resize: true,
+			lineColors: ['#8CC152', '#E9573F']
 		});
+
+		var delay = (function() {
+			var timer = 0;
+			return function(callback, ms) {
+				clearTimeout(timer);
+				timer = setTimeout(callback, ms);
+			};
+		})();
+		$(window).resize(function() {
+			delay(function() {
+				statistics.redraw();
+			}, 500);
+		}).trigger('resize');
 
 		$('button[data-toggle~="modal"]').on('click', function(e) {
 			var target_modal = $(e.currentTarget).data('target');
