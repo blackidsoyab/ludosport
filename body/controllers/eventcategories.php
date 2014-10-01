@@ -29,6 +29,18 @@ class eventcategories extends CI_Controller {
                 }
             }
 
+            if($this->input->post('has_point') == 1){
+                $eventcategory->has_point = 1;
+                $eventcategory->xpr = $this->input->post('xpr');
+                $eventcategory->war = $this->input->post('war');
+                $eventcategory->sty = $this->input->post('sty');
+            }else{
+                $eventcategory->has_point = 0;
+                $eventcategory->xpr = 0;
+                $eventcategory->war = 0;
+                $eventcategory->sty = 0;
+            }
+
             $eventcategory->user_id = $this->session_data->id;
             $eventcategory->save();
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
@@ -52,6 +64,19 @@ class eventcategories extends CI_Controller {
                         $eventcategory->$temp = $this->input->post('en_name');
                     }
                 }
+
+                if($this->input->post('has_point') == 1){
+                    $eventcategory->has_point = 1;
+                    $eventcategory->xpr = $this->input->post('xpr');
+                    $eventcategory->war = $this->input->post('war');
+                    $eventcategory->sty = $this->input->post('sty');
+                }else{
+                    $eventcategory->has_point = 0;
+                    $eventcategory->xpr = 0;
+                    $eventcategory->war = 0;
+                    $eventcategory->sty = 0;
+                }
+                
                 $eventcategory->user_id = $this->session_data->id;
                 $eventcategory->save();
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));

@@ -11,6 +11,14 @@
                 }
             }
         });
+
+        $('input[name="has_point"]').on('ifChecked', function(event){
+            $('#ratting_points').show();
+        });
+
+        $('input[name="has_point"]').on('ifUnchecked', function(event){
+            $('#ratting_points').hide();
+        });
     });
     //]]>
 </script>
@@ -29,6 +37,40 @@
                 </div>
             </div>
         <?php } ?>
+
+        <div class="form-group">
+            <label class="col-lg-3 control-label"><?php echo $this->lang->line('has_rating'); ?></label>
+            <div class="col-lg-8">
+                <div class="checkbox padding-left-killer">
+                    <label>
+                        <input type="checkbox" value="1" class="i-grey-flat" name="has_point" <?php echo ($eventcategory->has_point == 1) ? 'checked' : ''; ?>>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div id="ratting_points" style="display: <?php echo ($eventcategory->has_point == 1) ? 'block' : 'none'; ?>">
+            <div class="form-group">
+                <label for="question" class="col-lg-3 control-label"><?php echo $this->lang->line('xpr'); ?></label>
+                <div class="col-lg-5">
+                    <input type="number" min="0" name="xpr" class="form-control" value="<?php echo $eventcategory->xpr; ?>"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="question" class="col-lg-3 control-label"><?php echo $this->lang->line('war'); ?></label>
+                <div class="col-lg-5">
+                    <input type="number" min="0" name="war" class="form-control" value="<?php echo $eventcategory->war; ?>"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="question" class="col-lg-3 control-label"><?php echo $this->lang->line('sty'); ?></label>
+                <div class="col-lg-5">
+                    <input type="number" min="0" name="sty" class="form-control" value="<?php echo $eventcategory->sty; ?>"/>
+                </div>
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="col-lg-3 control-label">&nbsp;</label>
