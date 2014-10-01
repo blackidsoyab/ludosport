@@ -563,7 +563,6 @@ class announcements extends CI_Controller {
                     *   loop through all the groups in permission after filter
                     *   array will like [role_id] => permission
                     */
-
                     foreach ($groups as $role_id => $value) {
                         if ($role_id != 'clans') {
                             $roles->where(array('id' => $role_id))->get();
@@ -575,74 +574,47 @@ class announcements extends CI_Controller {
                             //if value is 1 then get all clans if value is 2 get related clans
                             if ($value == 1) {
                                 $clan = new Clan();
-                                //get all clans
-                                foreach ($clan->get() as $value) {
-                                    $temp = new stdClass();
-                                    $temp->name = $value->{$this->session_data->language . '_class_name'};
-                                    $temp->id = 'clans_' . $value->id;
-                                    $array[] = $temp;
-                                }
+                                $clans = $clan->get();
                             } else if ($value == 2){
-
                                 //Role Student : Get related clans of Student
                                 if ($this->session_data->role == 6) {
                                     $user_details = new Userdetail();
                                     $user_details->where('student_master_id', $this->session_data->id)->get();
                                     $clan = new Clan();
                                     $clan->where('id', $user_details->clan_id)->get();
-                                    foreach ($clan as $value) {
-                                        $temp = new stdClass();
-                                        $temp->id = 'clans_' . $value->id;
-                                        $temp->name = $value->{$this->session_data->language . '_class_name'};
-                                        $array[] = $temp;
-                                    }
                                 }
 
                                 //Role Teacher : Get related clans of Teacher
                                 if ($this->session_data->role == 5) {
                                     $clan = new Clan();
                                     $clans = $clan->getClanOfTeacher($this->session_data->id);
-                                    foreach ($clans as $value) {
-                                        $temp = new stdClass();
-                                        $temp->id = 'clans_' . $value->id;
-                                        $temp->name = $value->{$this->session_data->language . '_class_name'};
-                                        $array[] = $temp;
-                                    }
                                 }
 
                                 //Role Dean : Get related clans of Dean
                                 if ($this->session_data->role == 4) {
                                     $clan = new Clan();
                                     $clans = $clan->getClanOfDean($this->session_data->id);
-                                    foreach ($clans as $value) {
-                                        $temp = new stdClass();
-                                        $temp->id = 'clans_' . $value->id;
-                                        $temp->name = $value->{$this->session_data->language . '_class_name'};
-                                        $array[] = $temp;
-                                    }
                                 }
 
                                 //Role Rector : Get related clans of Rector
                                 if ($this->session_data->role == 3) {
                                     $clan = new Clan();
                                     $clans = $clan->getClanOfRector($this->session_data->id);
-                                    foreach ($clans as $value) {
-                                        $temp = new stdClass();
-                                        $temp->id = 'clans_' . $value->id;
-                                        $temp->name = $value->{$this->session_data->language . '_class_name'};
-                                        $array[] = $temp;
-                                    }
                                 }
 
                                 //Role Admin : Get all clans
                                 if ($this->session_data->role == 2) {
                                     $clan = new Clan();
-                                    foreach ($clan->get() as $value) {
-                                        $temp = new stdClass();
-                                        $temp->id = 'clans_' . $value->id;
-                                        $temp->name = $value->{$this->session_data->language . '_class_name'};
-                                        $array[] = $temp;
-                                    }
+                                    $clans = $clan->get();
+                                }
+                            }
+
+                            if($clans){
+                                foreach ($clans as $value) {
+                                    $temp = new stdClass();
+                                    $temp->id = 'clans_' . $value->id;
+                                    $temp->name = $value->{$this->session_data->language . '_class_name'};
+                                    $array[] = $temp;
                                 }
                             }
                         }
