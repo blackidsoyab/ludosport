@@ -183,6 +183,14 @@ $route['message/reply/(:num)'] = "messages/replyMessage/$1";
 $route['message/delete'] = "messages/deleteMessage";
 $route['message/attachmment/download/(:num)'] = "ajax/downloadAttachment/$1";
 
+//Message System
+$route['announcement/compose'] = "announcements/composeAnnouncement";
+$route['announcement/compose/(:any)'] = "announcements/composeAnnouncement/$1";
+$route['announcement/read/(:num)'] = "announcements/readAnnouncement/$1";
+$route['announcement/read/(:num)/(:any)'] = "announcements/readAnnouncement/$1/$2";
+$route['announcement/sent'] = "announcements/sentAnnouncement";
+$route['announcement/delete'] = "announcements/deleteAnnouncement";
+
 //Pending Student
 $route['getclanonlocation/(:num)'] = "ajax/getClanDetails/$1";
 $route['getclandates/(:num)'] = "ajax/getDateForClan/$1";

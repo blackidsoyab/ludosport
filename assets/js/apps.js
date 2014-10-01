@@ -158,7 +158,7 @@ $(document).ready(function(){
 	$(function () {
 		"use strict";
 		$('.scroll-chat-widget').slimScroll({
-			height: '330px',
+			height: '420px',
 			position: 'right',
 			size: '4px',
 			railOpacity: 0.3,

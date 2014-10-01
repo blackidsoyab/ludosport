@@ -146,5 +146,31 @@
                 <button class="btn btn-warning btn-block btn-lg btn-square"><?php echo $this->lang->line('score'); ?>. <?php echo $userdetail->total_score; ?></button>
             </div>
         </div>
-    </div>
+
+        <?php if($last_five_announcements != false) { ?>
+            <div class="the-box no-border">
+                <h4 class="small-heading more-margin-bottom"><?php echo $this->lang->line('student_dashboard_announcement_title'); ?></h4>
+                <div class="chat-wrap scroll-chat-widget">
+                    <ul class="media-list media-xs media-dotted media-chat">
+                    <?php foreach ($last_five_announcements as $announcement) { ?>
+                         <li class="media">
+                            <a class="pull-left" href="<?php echo base_url().'profile/view/' . $announcement->from_id; ?>"><img class="media-object img-circle" src="<?php echo IMG_URL .'user_avtar/40X40/' . $announcement->from_avtar; ?>" alt="<?php echo $announcement->from_person; ?>"></a>
+                            <div class="media-body">
+                                <p class="name"><small><?php echo $announcement->from_person; ?></small></p>
+                                <?php
+                                    if(strlen($announcement->announcement) > 50){
+                                        echo character_limiter($announcement->announcement, 50);
+                                        echo '<a href="'. base_url() .'announcement/read/' .  $announcement->id .'">Read more</a>';
+                                    }else{
+                                        echo $announcement->announcement;
+                                    }
+                                ?>
+                                <p class="text-danger"><small><?php echo time_elapsed_string($announcement->timestamp); ?></small></p>
+                            </div>
+                        </li>
+                    <?php } ?>
+                    </ul>
+                </div>
+            </div>
+        <?php } ?>
 </div>

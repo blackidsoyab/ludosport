@@ -35,6 +35,22 @@ if (!function_exists('getRoleName')) {
 
 }
 
+if (!function_exists('getClanName')) {
+
+    function getClanName($id) {
+        $clan = new Clan();
+        $clan->where('id', $id)->get();
+        $ci = & get_instance();
+        $session = $ci->session->userdata('user_session');
+        if(!empty($session)) {
+            return $clan->{$session->language . '_class_name'};
+        } else {
+            return $clan->en_class_name;
+        }
+    }
+
+}
+
 if (!function_exists('userNameAvtar')) {
 
     function userNameAvtar($user_id, $link = false) {

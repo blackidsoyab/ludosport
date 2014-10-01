@@ -2,14 +2,13 @@
     $(document).ready(function() {
         loadDatatable();
 
-        
-        $('#delete_messages_button').click(function(){
-             var count = $('a.list-group-item input[name="message_id[]"]:checked').length;
+        $('#delete_announcements_button').click(function(e){
+            var count = $('a.list-group-item input[name="announcement_id[]"]:checked').length;
             if(count > 0){
-                $.ajax( {
-                    url : '<?php echo base_url() . 'message/delete'; ?>',
+                $.ajax({
+                    url : '<?php echo base_url() . "announcement/delete"; ?>',
                     type: "POST",
-                    data :  $('a.list-group-item input[name="message_id[]"]:checked').serializeArray(),
+                    data :  $('a.list-group-item input[name="announcement_id[]"]:checked').serializeArray(),
                     success:function(data, textStatus, jqXHR) {
                         loadDatatable();
                     }
@@ -19,24 +18,20 @@
             }
         });
         
-        $('#list_data_filter').parent().prev().remove();
-        $('#list_data_filter').parent().removeClass('col-sm-6').addClass('col-sm-12');
         $('#list_data_filter').find('label').addClass('form-group has-feedback no-label');
-        $('#list_data_filter').find(':input').attr("placeholder", "<?php echo $this->lang->line('search'), ' ', $this->lang->line('message'); ?>");
+        $('#list_data_filter').find(':input').attr("placeholder", "<?php echo $this->lang->line('search'), ' ', $this->lang->line('announcement'); ?>");
         $('#list_data_filter').find('label').append('<span class="fa fa-search form-control-feedback"></span>');
     });
     
     function loadDatatable(){
         if(typeof dTable!='undefined'){dTable.fnDestroy();}
         dTable=$('#list_data').dataTable({
-             "bProcessing": true,
+            "bProcessing": true,
             "bServerSide" : true,
-            "bLengthChange": false,
-            "bInfo": false,
             'iDisplayLength': <?php $lengths = explode(',', $this->config->item('data_table_length')); echo $lengths[0]; ?>,
             "oLanguage": { "sSearch": "" },
             "aoColumns": [ {"bSortable": false, "sClass": ""} ],
-            "sAjaxSource": "<?php echo base_url() . "message/getjson/" . $message_box; ?>",
+            "sAjaxSource": "<?php echo base_url() . 'announcement/getjson/' . $announcement_box; ?>",
             "fnDrawCallback": function ( oSettings ) {
                 $(oSettings.nTHead).hide();
             },

@@ -354,45 +354,60 @@ if (!function_exists('createPermissionArray')) {
                     'single' => array(
                         'name' => 'Single',
                         'key' => "['messages']['single_message']",
-                        'hasChild' => getRolesForMessage('single_message')
+                        'hasChild' => getRolesForMessage('messages','single_message')
                         ),
                     'group' => array(
                         'name' => 'Group',
                         'key' => "['messages']['group_message']",
-                        'hasChild' => getRolesForMessage('group_message')
+                        'hasChild' => getRolesForMessage('messages','group_message')
+                        )
+                    )
+                ),
+            'announcements' => array(
+                'name' => 'Announcement',
+                'hasChild' => array(
+                    'single' => array(
+                        'name' => 'Single',
+                        'key' => "['announcements']['single_announcement']",
+                        'hasChild' => getRolesForMessage('announcements','single_announcement')
+                        ),
+                    'group' => array(
+                        'name' => 'Group',
+                        'key' => "['announcements']['group_announcement']",
+                        'hasChild' => getRolesForMessage('announcements','group_announcement')
                         )
                     )
                 )
-            );
+        );
         return $permission;
     }
 }
 
 if (!function_exists('getRolesForMessage')) {
-    function getRolesForMessage($type) {
+    function getRolesForMessage($type_1, $type_2) {
         $data = get_instance()->session->userdata('user_session');
         $roles = new Role();
         $roles->where('id >', 1)->get();
         foreach ($roles as $value) {
             $temp[$value->id] = array(
                 'name' => $value->{$data->language . '_role_name'},
-                'key' => "['messages']['$type']['$value->id']",
+                'key' => "['$type_1']['$type_2']['$value->id']",
                 'hasChild' => array(
-                    '0' => array('name' => 'None', 'type' => 'radio', 'key' => "['messages']['$type']['$value->id']"),
-                    '1' => array('name' => 'All', 'type' => 'radio', 'key' => "['messages']['$type']['$value->id']"),
-                    '2' => array('name' => 'Releated', 'type' => 'radio', 'key' => "['messages']['$type']['$value->id']")
+                    '0' => array('name' => 'None', 'type' => 'radio', 'key' => "['$type_1']['$type_2']['$value->id']"),
+                    '1' => array('name' => 'All', 'type' => 'radio', 'key' => "['$type_1']['$type_2']['$value->id']"),
+                    '2' => array('name' => 'Releated', 'type' => 'radio', 'key' => "['$type_1']['$type_2']['$value->id']")
                     )
                 );
         }
 
-        if ($type == 'group_message') {
+        if ($type_2 == 'group_message' || $type_2 == 'group_announcement') {
             $temp['clans'] = array(
                 'name' => 'Clans',
-                'key' => "['messages']['$type']['clans']",
-                'hasChild' => array(
-                    '0' => array('name' => 'None', 'type' => 'radio', 'key' => "['messages']['$type']['clans']"),
-                    '1' => array('name' => 'All', 'type' => 'radio', 'key' => "['messages']['$type']['clans']"),
-                    '2' => array('name' => 'Releated', 'type' => 'radio', 'key' => "['messages']['$type']['clans']")
+                'key' => "['$type_1']['$type_2']['clans']",
+               'hasChild' => array(
+                    '0' => array('name' => 'None', 'type' => 'radio', 'key' => "['$type_1']['$type_2']['clans']"),
+                    '1' => array('name' => 'All', 'type' => 'radio', 'key' => "['$type_1']['$type_2']['clans']"),
+                    '2' => array('name' => 'Releated', 'type' => 'radio', 'key' => "['$type_1']['$type_2']['clans']")
                     )
                 );
         }
@@ -402,8 +417,8 @@ if (!function_exists('getRolesForMessage')) {
 }
 
 if (!function_exists('emailPrivacyArray')) {
-    function emailPrivacyArray($id){
-        if(is_null($id) || empty($id) || $id < 2 || $id > 6){
+    function emailPrivacyArray($role_id){
+        if(is_null($role_id) || empty($role_id) || $role_id < 2 || $role_id > 6){
             return false;
         }
 
@@ -497,13 +512,19 @@ if (!function_exists('emailPrivacyArray')) {
             'it'=>'Badge Request Unapproved',
         );
 
+        $email_privacy['new_announcement'] = array(
+            'en'=>'Announcements',
+            'it'=>'Announcements',
+        );
+
         //ADMIN
         $email_role[2] = array(
             'user_registration_notification',
             'event_invitation',
             'batch_request',
             'batch_request_approved',
-            'batch_request_unapproved'
+            'batch_request_unapproved',
+            'new_announcement'
         );
 
         //RECTOR
@@ -516,7 +537,8 @@ if (!function_exists('emailPrivacyArray')) {
             'change_clan_date',
             'batch_request',
             'batch_request_approved',
-            'batch_request_unapproved'
+            'batch_request_unapproved',
+            'new_announcement'
         );
 
         //DEAN
@@ -530,7 +552,8 @@ if (!function_exists('emailPrivacyArray')) {
             'teacher_absent',
             'batch_request',
             'batch_request_approved',
-            'batch_request_unapproved'
+            'batch_request_unapproved',
+            'new_announcement'
         );
 
         //TEACHER
@@ -549,7 +572,8 @@ if (!function_exists('emailPrivacyArray')) {
             'holiday_upapproved',
             'batch_request',
             'batch_request_approved',
-            'batch_request_unapproved'
+            'batch_request_unapproved',
+            'new_announcement'
         );
 
         //PUPIL
@@ -560,12 +584,13 @@ if (!function_exists('emailPrivacyArray')) {
             'challenge_made',
             'challenge_accepted',
             'challenge_rejected',
-            'challenge_winner'
+            'challenge_winner',
+            'new_announcement'
         );
 
         $return = array();
         $session = get_instance()->session->userdata('user_session'); 
-        foreach ($email_role[$id] as $value) {
+        foreach ($email_role[$role_id] as $value) {
             $return[$value] = $email_privacy[$value][$session->language];
         }
 

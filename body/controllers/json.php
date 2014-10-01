@@ -1381,4 +1381,66 @@ class json extends CI_Controller {
         echo json_encode($this->datatable->output);
         exit();
     }
+
+    public function getAnnouncementsJsonData($type = 'inbox') {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('subject');
+        $this->datatable->eColumns = array('id', 'from_id', 'to_id', 'timestamp', 'type', 'group_id');
+        $this->datatable->sIndexColumn = "id";
+        $this->datatable->sTable = " announcements";
+        if ($type == 'inbox') {
+            $this->datatable->myWhere = ' WHERE FIND_IN_SET(' . $this->session_data->id . ',to_id) >0';
+        } else if ($type == 'sent') {
+            $this->datatable->myWhere = ' WHERE from_id=' . $this->session_data->id;
+        }
+
+        $this->datatable->sOrder = " ORDER BY timestamp DESC";  
+
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+
+            if($type == 'inbox'){
+                $user_info = userNameAvtar($aRow['from_id']);
+            } else if($type == 'sent'){
+                $user_info = userNameAvtar($aRow['to_id']);
+            }
+
+            if ($aRow['type'] == 'single') {
+                //$type_label = '<span class="label label-info">Single</span>';
+                $delete_msg = $this->lang->line('delete');
+                $img = '<img src="' .$user_info['avtar'].'" class="avatar img-circle" alt="Avatar">';
+                $name =  ucwords($user_info['name']);
+            } else {
+                //$type_label = '<span class="label label-warning">Group</span>';
+                $delete_msg = $this->lang->line('leave_group');
+                $group = explode('_', $aRow['group_id']);
+                $img = '<i class="group-avtar-icon fa fa-users icon-circle icon-primary"></i>';
+                $name =  ucwords($group[0]);
+            }
+
+            $announcement_id = $aRow['id'];
+
+            if($type == 'sent'){
+                $delete = '<a class="list-group-item announcement-delete-checkbox pull-left" data-toggle="tooltip" data-placement="right" data-original-title="' . $delete_msg . '"><input type="checkbox" value="' . $announcement_id . '" name="announcement_id[]"></a>';
+            } else {
+                $delete = null;
+            }
+
+            if(strtotime(date('Y-m-d', strtotime($aRow['timestamp']))) == strtotime(get_current_date_time()->get_date_for_db())){
+                $time = date('h:i a', strtotime($aRow['timestamp']));
+            } else {
+                $time = date('d-m-Y', strtotime($aRow['timestamp']));
+            }
+            
+
+            $temp_arr[] =  $delete . '<a href="' . base_url() . 'announcement/read/' . $announcement_id . '" class="list-group-item mail-list">'.$img.'<span class="name">' .$name. '</span><span class="subject">' . character_limiter($aRow['subject'], 50) . '</span><span class="time">' . $time . '</span></a>';
+
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
 }

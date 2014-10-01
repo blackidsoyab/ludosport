@@ -302,6 +302,11 @@ a.list-group-item:hover, a.list-group-item:focus {
      background: none repeat scroll 0 0 #f5f7fa;
 }
 
+.announcement-delete-checkbox{
+    width: 1px;
+    padding: 20px 20px 20px 8px;
+}
+
 li.role-selection.open .chevron-icon-sidebar{
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
@@ -624,3 +629,15 @@ h1.page-heading a{
     width: 100px;
 }
 /* ************************** */
+
+.chat-wrap {
+    padding: 0px 10px;
+}
+
+.chat-wrap ul li.media:first-child {
+    padding: 0 0 20px;
+}
+
+.chat-wrap ul li.media:last-child {
+    padding: 20px 0 0;
+}

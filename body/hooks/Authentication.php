@@ -45,7 +45,8 @@ class Authentication extends CI_Controller {
             'messages',
             'students',
             'teachers',
-            'deans'
+            'deans',
+            'announcements'
         );
     }
 

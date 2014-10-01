@@ -138,6 +138,10 @@ function makeURL($options) {
         $url = base_url() . 'batchrequest/changestatus/' . $options['object_id'] . '/notification';
     }
 
+    if ($options['notify_type'] == 'new_announcement') {
+        $url = base_url() . 'announcement/read/' . $options['object_id'] . '/notification';
+    }
+
     return $url;
 }
 
@@ -318,6 +322,11 @@ function getNotificationTemplate($options, $user_name_link = false) {
         $obj_batch = new Batch($options['data']['batch_id']);
         $batch = $obj_batch->{$session->language.'_name'};
         $new_template = sprintf($templates[$options['notify_type']][$session->language],$batch, $student['name']);
+    }
+
+    if ($options['notify_type'] == 'new_announcement') {
+        $template_edit = true;
+        $new_template = sprintf($templates[$options['notify_type']][$session->language],$options['data']['subject']);
     }     
 
     if ($template_edit) {
@@ -453,6 +462,11 @@ function seNotificationTemplate() {
         array(
             'en' => 'Your request for a badge <strong>%s</strong> to %s is unapproved.',
             'it' => 'Your request for a badge <strong>%s</strong> to %s is unapproved.',
+        ),
+        'new_announcement' =>
+        array(
+            'en' => 'Announcement : %s',
+            'it' => 'Announcement : %s',
         )
     );
 

@@ -217,6 +217,9 @@ class dashboard extends CI_Controller {
 
         $data['top_ten_users'] = $userdetail->topStudents(null,null,10);
 
+        $obj_announcement = new Announcement();
+        $data['last_five_announcements'] = $obj_announcement->getAnnouncement($this->session_data->id, 5);
+
         $this->layout->view('dashboard/student', $data);
     }
 

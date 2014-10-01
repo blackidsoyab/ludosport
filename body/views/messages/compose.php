@@ -75,6 +75,14 @@
             $(data.element[0]).parent().parent().find('.addButton').hide();   
         }).find('[name="message"]').summernote({
             height: 200,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strike']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ], 
             onkeyup: function() {
                 validateEditor();
             },
