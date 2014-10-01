@@ -12,7 +12,6 @@
         <link href="<?php echo CSS_URL; ?>style-responsive.css" rel="stylesheet">
 
         <!-- Plugins CSS -->
-        <link href="<?php echo PLUGIN_URL; ?>weather-icon/css/weather-icons.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>prettify/prettify.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>magnific-popup/magnific-popup.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>owl-carousel/owl.carousel.min.css" rel="stylesheet">
@@ -23,26 +22,22 @@
         <link href="<?php echo PLUGIN_URL; ?>datepicker/datepicker.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>summernote/summernote.min.css" rel="stylesheet">
-        <link href="<?php echo PLUGIN_URL; ?>markdown/bootstrap-markdown.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>datatable/css/bootstrap.datatable.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>morris-chart/morris.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>c3-chart/c3.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>toastr/toastr.css" rel="stylesheet">
-        <link href="<?php echo PLUGIN_URL; ?>slider/slider.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>validator/bootstrapValidator.css" />
         <link href="<?php echo PLUGIN_URL; ?>fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet">
         <link href="<?php echo PLUGIN_URL; ?>confirmbox/jquery.confirm.css" rel="stylesheet" />
-        <link href="<?php echo PLUGIN_URL; ?>salvattore/salvattore.css" rel="stylesheet" />
 
         <!-- Custom CSS -->
         <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">
 
         <!-- Role CSS -->
         <?php if ($session->role > 0 && $session->role < 7) { ?>
-        <link href="<?php echo CSS_URL . $session->role . '.css'; ?>" rel="stylesheet">
+            <link href="<?php echo CSS_URL . $session->role . '.css'; ?>" rel="stylesheet">
         <?php } ?>
-
 
         <script src="<?php echo JS_URL; ?>jquery.min.js"></script>
         <script src="<?php echo JS_URL; ?>jquery.validate.js"></script>
@@ -610,8 +605,6 @@
         <script src="<?php echo PLUGIN_URL; ?>retina/retina.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>nicescroll/jquery.nicescroll.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>slimscroll/jquery.slimscroll.min.js"></script>
-        <script src="<?php echo PLUGIN_URL; ?>backstretch/jquery.backstretch.min.js"></script>
-        <script src="<?php echo PLUGIN_URL; ?>skycons/skycons.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>prettify/prettify.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>magnific-popup/jquery.magnific-popup.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>owl-carousel/owl.carousel.min.js"></script>
@@ -621,12 +614,7 @@
         <script src="<?php echo PLUGIN_URL; ?>timepicker/bootstrap-timepicker.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>mask/jquery.mask.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>summernote/summernote.min.js"></script>
-        <script src="<?php echo PLUGIN_URL; ?>markdown/markdown.js"></script>
-        <script src="<?php echo PLUGIN_URL; ?>markdown/to-markdown.js"></script>
-        <script src="<?php echo PLUGIN_URL; ?>markdown/bootstrap-markdown.js"></script>
-        <script src="<?php echo PLUGIN_URL; ?>slider/bootstrap-slider.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>toastr/toastr.js"></script>
-        <script src="<?php echo PLUGIN_URL; ?>salvattore/salvattore.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>fullcalendar/lib/jquery-ui.custom.min.js"></script>
         <script src="<?php echo PLUGIN_URL; ?>fullcalendar/fullcalendar/fullcalendar.js"></script>
         <script src="<?php echo JS_URL; ?>apps.js"></script>

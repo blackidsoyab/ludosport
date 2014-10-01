@@ -1,4 +1,5 @@
 <?php $session = $this->session->userdata('user_session'); ?>
+<link href="<?php echo PLUGIN_URL; ?>salvattore/salvattore.css" rel="stylesheet" />
 <style type="text/css">
 .mason[data-columns]::before {
     content: '3 .column.size-1of3';
@@ -64,3 +65,5 @@
         <?php } ?>
     </div>
 <?php } ?>
+
+<script src="<?php echo PLUGIN_URL; ?>salvattore/salvattore.min.js"></script>
