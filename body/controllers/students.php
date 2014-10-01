@@ -254,7 +254,7 @@ class students extends CI_Controller {
             redirect(base_url() . 'dashboard', 'refresh'); 
         }
 
-        $data['type'] = $type;
+        $data['type'] = $type;        
         $this->layout->view('students/rating_list', $data);
     }
 
@@ -377,7 +377,7 @@ class students extends CI_Controller {
         $challenge = new Challenge();
         $pending_challenge = $challenge->countChallenges($this->session_data->id, 'received', 'P');
         $data['can_do_challege'] = false;
-        if($pending_challenge < 2){
+        if($pending_challenge < 7){
             $data['can_do_challege'] = true;
         }
 

@@ -13,10 +13,13 @@
 			var target_modal = $(e.currentTarget).data('target');
 			var modal = $(target_modal);
 			modal.on('show.bs.modal', function () {
-				$("input[name='to_id']").val($(e.currentTarget).data('userid'));
-				$('.form-group').show();
-		    	$('.animation_image').hide();
-		    	$('#time_error').hide();
+				if(target_modal == 'do_duel_box') {
+					$("input[name='to_id']").val($(e.currentTarget).data('userid'));
+					$('.form-group').show();
+			    	$('.animation_image').hide();
+			    	$('#time_error').hide();
+	        		$('#date_error').hide();
+				}
         		$('#date_error').hide();
 			}).modal({
 				backdrop: 'static',
@@ -227,6 +230,22 @@
 					<button type="submit" class="btn btn-danger"><?php echo $this->lang->line('do_it'); ?></button>
 				</div>
 			</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="cannot_do_duel_box" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content modal-no-shadow modal-no-border bg-danger">
+			<div class="modal-header">
+				<h4 class="modal-title text-white padding-killer"><?php echo $this->lang->line('cannot_challenge'); ?></h4>
+			</div>
+			<div class="modal-body padding-bottom-killer">
+				<p><?php echo $this->lang->line('cannot_challenge_error'); ?></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('ok'); ?></button>
+			</div>
 		</div>
 	</div>
 </div>

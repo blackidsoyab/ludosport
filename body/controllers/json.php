@@ -1086,7 +1086,7 @@ class json extends CI_Controller {
     public function getRattingListJsonData($type = null){
         $this->load->library('datatable');
         $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) as name','userdetails.total_score', 'en_academy_name as academy', 'schools.en_school_name as school', 'clans.en_class_name as clan');
-        $this->datatable->eColumns = array('users.id','avtar', 'userdetails.xpr', 'userdetails.war', 'userdetails.sty');
+        $this->datatable->eColumns = array('users.id','avtar', 'userdetails.xpr', 'userdetails.war', 'userdetails.sty', '(SELECT COUNT(*) FROM challenges WHERE to_id='.$this->session_data->id.' AND to_status="P") AS total_pending_challenge');
         $this->datatable->sIndexColumn = "users.id";
         $this->datatable->sTable = "userdetails";
         $this->datatable->myWhere = 'JOIN users ON users.id=userdetails.student_master_id JOIN clans ON clans.id=userdetails.clan_id JOIN schools ON schools.id=clans.school_id JOIN academies ON academies.id=schools.academy_id WHERE users.status="A"';
@@ -1111,7 +1111,8 @@ class json extends CI_Controller {
             $temp_arr[] = $aRow['clan'];
             $check = Challenge::isRequestedBefore($this->session_data->id, $aRow['id']);
             if(!$check){
-                $temp_arr[] = '<button class="btn btn-warning" data-toggle="modal" data-target="#do_duel_box" data-userid="'. $aRow['id'] .'">Challenge!</button>';
+                $box_type = ($aRow['total_pending_challenge'] > 7) ? 'cannot_do_duel_box' : 'do_duel_box';
+                $temp_arr[] = '<button class="btn btn-warning" data-toggle="modal" data-target="#'. $box_type  .'" data-userid="'. $aRow['id'] .'">Challenge!</button>';
             } else {
                 $temp_arr[] = '&nbsp';
             }
@@ -1380,5 +1381,4 @@ class json extends CI_Controller {
         echo json_encode($this->datatable->output);
         exit();
     }
-
 }
