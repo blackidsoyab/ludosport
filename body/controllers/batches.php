@@ -265,7 +265,7 @@ class batches extends CI_Controller {
                 $this->load->helper('image_manipulation/image_manipulation');
                 include_lib_image_manipulation();
                 $magicianObj = new imageLib('./assets/img/batches/dashboard_cover/' . $image);
-                $magicianObj->resizeImage(675, 280, 'exact');
+                $magicianObj->resizeImage(1000, 400, 'exact');
                 $magicianObj->saveImage('./assets/img/batches/dashboard_cover/' . $image, 100);
             }
 
@@ -274,7 +274,7 @@ class batches extends CI_Controller {
                 $this->load->helper('image_manipulation/image_manipulation');
                 include_lib_image_manipulation();
                 $magicianObj = new imageLib('./assets/img/batches/profile_cover/' . $image);
-                $magicianObj->resizeImage(675, 280, 'exact');
+                $magicianObj->resizeImage(1000, 400, 'exact');
                 $magicianObj->saveImage('./assets/img/batches/profile_cover/' . $image, 100);
             }
         }
