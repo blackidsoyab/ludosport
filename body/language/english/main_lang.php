@@ -358,6 +358,12 @@ $lang['select_any_clan'] = 'Select any Clan';
 $lang['select_studetns'] = 'Select Students';
 $lang['select_any_student'] = 'Select any Student';
 
+//Event Attendance
+$lang['no_manager_attendance_error'] = 'You are not the authorized person to take attendance';
+$lang['event_take_attendance'] = 'Take Attendance';
+$lang['event_attendance_success'] = 'Attendance taken Successfully';
+$lang['event_attendance_error'] = 'Error in taking Attendance';
+
 //Batches
 $lang['batch'] = 'Badge';
 $lang['image'] = 'Image';
