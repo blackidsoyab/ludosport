@@ -615,6 +615,11 @@ function getTimelineTemplate($options, $user_name_link = false) {
         $obj_batch = new Batch($options['data']['batch_id']);
         $batch = $obj_batch->{$session->language.'_name'};
         $new_template = sprintf($templates[$options['notify_type']][$session->language],$batch, $student['name']);
+    }
+
+    if ($options['notify_type'] == 'new_announcement') {
+        $template_edit = true;
+        $new_template = sprintf($templates[$options['notify_type']][$session->language],$options['data']['subject'] .' '.$options['data']['announcement']);
     }   
 
     if ($template_edit) {
@@ -750,6 +755,11 @@ function setTimelineTemplate() {
         array(
             'en' => 'Your request for a badge <strong>%s</strong> to %s is unapproved.',
             'it' => 'Your request for a badge <strong>%s</strong> to %s is unapproved.',
+        ),
+        'new_announcement' =>
+        array(
+            'en' => 'Announcement : %s',
+            'it' => 'Announcement : %s',
         )
     );
 
