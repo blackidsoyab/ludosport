@@ -331,9 +331,11 @@
                             <a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('dashboard'); ?>"><i class="fa fa-dashboard icon-sidebar"></i><?php echo $this->lang->line('dashboard'); ?></a>
                         </li>
 
-                        <li class="<?php echo ($page == 'message') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'message'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('message'); ?>"><i class="fa fa-envelope icon-sidebar"></i><?php echo $this->lang->line('message'); ?></a></li>
+                        <?php if ($session->status == 'A') { ?>
+                            <li class="<?php echo ($page == 'message') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'message'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('message'); ?>"><i class="fa fa-envelope icon-sidebar"></i><?php echo $this->lang->line('message'); ?></a></li>
 
-                        <li class="<?php echo ($page == 'announcement') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'announcement'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('announcement'); ?>"><i class="fa fa-bullhorn icon-sidebar"></i><?php echo $this->lang->line('announcement'); ?></a></li>
+                            <li class="<?php echo ($page == 'announcement') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'announcement'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('announcement'); ?>"><i class="fa fa-bullhorn icon-sidebar"></i><?php echo $this->lang->line('announcement'); ?></a></li>
+                        <?php } ?>
 
                         <?php if ($session->status == 'A' && $session->role != 6) { ?>
                             <li class="static"><i class="fa fa-asterisk icon-sidebar"></i>&nbsp;<?php echo $this->lang->line('activity'); ?></li>
