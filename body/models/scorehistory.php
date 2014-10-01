@@ -46,7 +46,11 @@ class Scorehistory extends DataMapper {
 
             $user_details = new Userdetail();
             $user_details->where('student_master_id', $student_id)->get();
-            $user_details->$type = $user_details->$type - $score;
+            if($user_details->$type - $score > 0){
+                $user_details->$type = $user_details->$type - $score;
+            } else {
+                $user_details->$type = 0;
+            }
             $user_details->total_score = $user_details->total_score - $score;
             $user_details->save();
         }

@@ -294,6 +294,7 @@ if (!function_exists('createPermissionArray')) {
                     'editEvent' => array('name' => 'Edit'),
                     'deleteEvent' => array('name' => 'Delete'),
                     'sendEventInvitation' => array('name' => 'Send Invitation'),
+                    'takeEventAttendance' => array('name' => 'Take Event Attendances'),
                     )),
             'batches' => array(
                 'name' => 'Batches',

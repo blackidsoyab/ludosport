@@ -22,15 +22,9 @@ class events extends CI_Controller {
     function viewEvent($id = null, $type = null) {
         if (is_null($id)) {
 
-            $event = new Event();
-            $data['events_for_all'] = $event->where('event_for', 'ALL')->get();
-            unset($event);
-
-            
             $schools = new School();
             if ($this->session_data->role == '1' || $this->session_data->role == '2') {
-                $schools->select('id');
-                $school = $schools->get();
+                $school = null;
             } else if ($this->session_data->role == '3'){
                 $school = $schools->getSchoolOfRector($this->session_data->id);
             } else if ($this->session_data->role == '4'){
@@ -41,13 +35,21 @@ class events extends CI_Controller {
                 $school = $schools->getSchoolOfStudent($this->session_data->id);
             }
 
-            $temp = array();
-            foreach ($school as $value) {
-                $temp[] = $value->id;
+            if(!is_null($school)){
+                $temp = array();
+                foreach ($school as $value) {
+                    $temp[] = $value->id;
+                }
+            }else{
+                $temp = null;
             }
 
             $event = new Event();
-            $data['events_for_school'] = $event->getEventsBySchool($temp);
+            $event_details = $event->getEvents($temp);
+            $data['events'] = $event_details;
+
+            $data['running_events_ids'] = $event->getRunningEventIDS();
+            $data['manager_events_ids'] = $event->getRunningEventAsManager($this->session_data->id);
 
             $this->layout->view('events/view', $data);
         } else {
@@ -166,7 +168,6 @@ class events extends CI_Controller {
     *   Edit the event
     *   Param1(required) : event id
     */
-
     function editEvent($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
@@ -268,7 +269,6 @@ class events extends CI_Controller {
     *   Delete the event
     *   Param1(required) : event id
     */
-
     function deleteEvent($id) {
         if (!empty($id)) {
             $event = new Event();
@@ -319,10 +319,84 @@ class events extends CI_Controller {
     }
 
     /*
+    *   Take Attendance of the Students
+    *   Param1(required) : event id
+    */
+    function takeEventAttendance($event_id){
+        //check Event it is passed or not
+        if(!empty($event_id)){
+            $event_detail = new Event();
+            $event_detail->where('id', $event_id)->get();
+
+            $manager_events_ids = $event_detail->getRunningEventAsManager($this->session_data->id);
+
+            //Check data exits or not
+            if($event_detail->result_count() == 1){
+                if($this->session_data->role > 2){
+                    if(!in_array($event_id, $manager_events_ids) && !in_array($this->session_data->id, explode(',',  $event_detail->manager))){
+                        $this->session->set_flashdata('error', $this->lang->line('no_manager_attendance_error'));
+                        redirect(base_url() .'event', 'refresh');
+                    }
+                }
+                //Check where the data is post or render view
+                if($this->input->post() !== false){
+                    $data_post = $this->input->post();
+                    $obj_event_invitations = new Eventinvitation();
+                    $current_date = get_current_date_time()->get_date_for_db();
+                    $students = $obj_event_invitations->getStudentsForEvent($event_id, $current_date);
+                    $event_ratting_score = new Eventcategory($event_detail->eventcategory_id);
+
+                    foreach ($students as  $student) {
+                        if(is_null($student['attendance']) || $student['attendance'] == 0){
+                            if($event_ratting_score->has_point == 1){
+                                $obj_score_history = new Scorehistory();
+                                $obj_score_history->meritStudentScore($student['id'], 'xpr', $event_ratting_score->xpr, 'Attending Event');
+                                $obj_score_history->meritStudentScore($student['id'], 'war', $event_ratting_score->war, 'Attending Event');
+                                $obj_score_history->meritStudentScore($student['id'], 'sty', $event_ratting_score->sty, 'Attending Event');
+                            }
+                        }
+
+                        $obj_event_attendance = new Eventattendance();
+                        $obj_event_attendance->where(array('event_id' => $event_id, 'student_id'=>$student['id'], 'event_date'=>$current_date))->get();
+                        $obj_event_attendance->event_id = $event_id;
+                        $obj_event_attendance->student_id = $student['id'];
+                        $obj_event_attendance->event_date = $current_date;
+                        $obj_event_attendance->attendance = $data_post['student'][$student['id']];
+                        $obj_event_attendance->user_id = $this->session_data->id;
+                        $obj_event_attendance->save();
+                    }
+
+                    $this->session->set_flashdata('success', $this->lang->line('Attendance taken Successfully'));
+                    redirect(base_url() .'event/attendance/' . $event_id , 'refresh');
+                }else{
+                    //set array for view part
+                    $data['event_detail'] = $event_detail;
+
+                    $obj_event_invitations = new Eventinvitation();
+                    $current_date = get_current_date_time()->get_date_for_db();
+                    $data['event_students'] = $obj_event_invitations->getStudentsForEvent($event_id, $current_date);
+
+                    $data['show_save_button'] = false;
+                    $running_events_ids = $event_detail->getRunningEventIDS();
+                    if(in_array($event_id, $running_events_ids)){
+                        $data['show_save_button'] = true;
+                    }
+                    $this->layout->view('events/take_attendance', $data);
+                }
+            }else{
+                $this->session->set_flashdata('error', $this->lang->line('no_data_exit'));
+                redirect(base_url() .'event', 'refresh');
+            }
+        }else{
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() .'event', 'refresh');
+        }
+    }
+
+    /*
     *   Send invitations to Users
     *   Param1(required) : event id
     */
-
     function sendEventInvitation($event_id){
         //check Event it is passed or not
         if(!empty($event_id)){
@@ -701,13 +775,13 @@ class events extends CI_Controller {
         //Role Super Admin then get all students
         if($this->session_data->role == 1){
             $student = new User();
-            return $student->where('role_id', 6)->get();
+            return $student->where(array('role_id'=>6, 'status'=>'A'))->get();
         }
 
         //Role Admin then get all students
         if($this->session_data->role == 2){
             $student = new User();
-            return $student->where('role_id', 6)->get();
+            return $student->where(array('role_id'=>6, 'status'=>'A'))->get();
         }
 
         //Role Rector then get all students related to rector
@@ -753,7 +827,6 @@ class events extends CI_Controller {
     *   Param2(required) : academy_id   | school_id  | clan_id
     *   return : array of the user ids.
     */
-
     private function _getIds($type, $id){
         if($type == 'to_academies'){
             $array = array();

@@ -213,6 +213,7 @@ $route['user_student/score_history/get_json_score_history/(:num)/(:any)'] = "jso
 
 //Events
 $route['event/invitation/(:num)'] = "events/sendEventInvitation/$1";
+$route['event/attendance/(:num)'] = "events/takeEventAttendance/$1";
 
 //Role
 $route['role/check/(:num)'] = "ajax/checkValidRole/$1";
