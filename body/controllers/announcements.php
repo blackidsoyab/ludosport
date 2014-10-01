@@ -33,7 +33,7 @@ class announcements extends CI_Controller {
     public function readAnnouncement($id, $type = null) {
         $announcement = new Announcement();
         $result = $announcement->getAnnouncementForReading($id);
-        if ($result !== FALSE) {
+        if ($result !== false) {
             if ($type == 'notification') {
                 Notification::updateNotification('new_announcement', $this->session_data->id, $id);
             }
@@ -44,7 +44,7 @@ class announcements extends CI_Controller {
             $data['announcement_page_layout'] = $this->load->view('announcements/read', $data, true);
             $this->layout->view('announcements/sidebar', $data);
         } else {
-            $this->session->set_flashdata('error', $this->lang->line('announcement_read_error'));
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
             redirect(base_url() . 'announcement', 'refresh');
         }
     }

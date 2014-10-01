@@ -73,6 +73,9 @@ $lang['no_student_in_clan'] = 'No Student is there in your Clan';
 $lang['back_to_home'] = 'Back to Home';
 $lang['approved_success'] = 'Approved Successfully';
 $lang['unapproved_success'] = 'Unapproved Successfully';
+$lang['announcement_sent_success'] = 'Announcement Sent Successfully';
+$lang['announcement_read_error'] = 'Error in reading Announcement';
+$lang['announcement_reply_error'] = 'Error in replying Announcement';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';

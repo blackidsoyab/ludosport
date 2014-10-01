@@ -10,10 +10,12 @@ class Announcement extends DataMapper {
     }
 
     function getAnnouncementForReading($id) {
-        $sql = $this->db->query("SELECT announcements.id, type, group_id, from_id, to_id, subject, announcement, CONCAT(users.firstname,' ',users.lastname) AS from_person,CONCAT(u1.firstname,' ',u1.lastname) AS to_person, announcements.timestamp, users.avtar AS from_avtar, u1.avtar AS to_avtar FROM announcements, users, users u1 WHERE users.id=announcements.from_id AND u1.id=announcements.to_id AND announcements.id ='" . $id . "' AND (from_id ='" . $this->session_data->id . "' OR FIND_IN_SET(" . $this->session_data->id . ", to_id) >0)");
+        $sql = $this->db->query("SELECT announcements.id, type, group_id, from_id, to_id, subject, announcement, CONCAT(users.firstname,' ',users.lastname) AS from_person,CONCAT(u1.firstname,' ',u1.lastname) AS to_person, announcements.timestamp, users.avtar AS from_avtar, u1.avtar AS to_avtar FROM announcements, users, users u1 WHERE users.id=announcements.from_id AND u1.id=announcements.to_id AND announcements.id ='" . $id . "' AND FIND_IN_SET(" . $this->session_data->id . ", to_id) >0");
         if ($sql->num_rows() > 0) {
             $result = $sql->result();
             return $result[0];
+        }else{
+            return false;
         }
     }
 
@@ -26,6 +28,8 @@ class Announcement extends DataMapper {
         
         if ($sql->num_rows() > 0) {
             return $sql->result();
+        }else{
+            return false;
         }
     }
 
