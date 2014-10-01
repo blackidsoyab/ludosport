@@ -203,6 +203,15 @@ class users extends CI_Controller {
 
                 $user = new User();
                 $user->where('id', $id)->get();
+                $role_ids = explode(',',$user->role_id);
+
+                $temp_role = array();
+                foreach ($role_ids as $role) {
+                    if($this->session_data->role >= $role){
+                        $temp_role[] = $role;
+                    }
+                }
+                $new_roles = array_unique(array_merge($temp_role, $this->input->post('role_id')));
 
                 $user->firstname = $this->input->post('firstname');
                 $user->lastname = $this->input->post('lastname');
@@ -214,7 +223,7 @@ class users extends CI_Controller {
                 $user->state_id = $city->state->id;
                 $user->country_id = $city->state->country->id;
                 $user->city_of_residence = $this->input->post('city_of_residence');
-                $user->role_id = implode(',', $this->input->post('role_id'));
+                $user->role_id = implode(',', $new_roles);
 
                 if ($this->input->post('username') != '') {
                     $user->username = $this->input->post('username');
