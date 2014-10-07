@@ -1,22 +1,21 @@
 <?php
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
-
-class cities extends CI_Controller {
-
+class cities extends CI_Controller
+{
+    
     var $session_data;
-
+    
     function __construct() {
         parent::__construct();
         $this->layout->setField('page_title', $this->lang->line('city'));
         $this->session_data = $this->session->userdata('user_session');
     }
-
+    
     function viewCity() {
         $this->layout->view('cities/view');
     }
-
+    
     function addCity() {
         if ($this->input->post() !== false) {
             $c = new City();
@@ -40,7 +39,7 @@ class cities extends CI_Controller {
             $this->layout->view('cities/add', $data);
         }
     }
-
+    
     function editCity($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
@@ -63,10 +62,10 @@ class cities extends CI_Controller {
                 $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('city'));
                 $city = new City();
                 $data['city'] = $city->where('id', $id)->get();
-
+                
                 $states = new State();
                 $data['states'] = $states->get();
-
+                
                 $this->layout->view('cities/edit', $data);
             }
         } else {
@@ -74,7 +73,7 @@ class cities extends CI_Controller {
             redirect(base_url() . 'city', 'refresh');
         }
     }
-
+    
     function deleteCity($id) {
         if (!empty($id)) {
             $c = new City();
@@ -87,5 +86,4 @@ class cities extends CI_Controller {
             redirect(base_url() . 'city', 'refresh');
         }
     }
-
 }

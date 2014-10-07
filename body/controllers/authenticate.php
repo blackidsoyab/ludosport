@@ -1,22 +1,21 @@
 <?php
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
-
-class authenticate extends CI_Controller {
-
+class authenticate extends CI_Controller
+{
+    
     function __construct() {
         parent::__construct();
         $this->layout->setLayout('template/layout_login');
         $this->layout->setField('page_title', 'User Login');
-
+        
         setLanguage();
     }
-
-    function phpinfo(){
+    
+    function phpinfo() {
         phpinfo();
     }
-
+    
     public function index() {
         $session = $this->session->userdata('user_session');
         if (!empty($session)) {
@@ -26,8 +25,8 @@ class authenticate extends CI_Controller {
             $this->layout->view('authenticate/login');
         }
     }
-
-    private function _setSessionData($user){
+    
+    private function _setSessionData($user) {
         $user_data = new stdClass();
         $user_data->id = $user->id;
         $user_data->logged_in_name = $user->firstname;
@@ -47,16 +46,16 @@ class authenticate extends CI_Controller {
         $this->session->set_userdata($newdata);
         $this->_setLastNotification($user->id);
         $this->_setLastmessage($user->id);
-
+        
         return true;
     }
-
+    
     function validateUser() {
         $user = new User();
         $user->where('username', $this->input->post('username'));
         $user->where('password', md5($this->input->post('password')));
         $user->get();
-
+        
         if ($user->result_count() === 1) {
             if ($user->status == 'D') {
                 $this->session->set_flashdata('info', $this->lang->line('not_active_member'));
@@ -70,7 +69,7 @@ class authenticate extends CI_Controller {
             redirect(base_url() . 'login', 'refresh');
         }
     }
-
+    
     private function _setLastNotification($user_id) {
         $notification = new Notification();
         $notification->where(array('to_id' => $user_id, 'status' => 0));
@@ -83,7 +82,7 @@ class authenticate extends CI_Controller {
             $this->session->set_userdata('last_notification_id', '0');
         }
     }
-
+    
     private function _setLastMessage($user_id) {
         $obj_message = new Message();
         $id = $obj_message->getLastMessageID($user_id);
@@ -93,30 +92,30 @@ class authenticate extends CI_Controller {
             $this->session->set_userdata('last_message_id', '0');
         }
     }
-
+    
     function logout() {
         $this->session->unset_userdata('user_session');
         $this->session->sess_destroy();
-
+        
         redirect(base_url() . 'login', 'refresh');
     }
-
+    
     function permission() {
         $this->layout->setLayout('template/layout_permission');
         $this->layout->setField('page_title', 'Permission Denied');
         $this->layout->view('authenticate/permission');
     }
-
+    
     function register() {
         $this->layout->setField('page_title', 'Registration');
         $clan = new Clan();
         $cities_ids = $clan->getCitiesofClans();
-
+        
         $city = new City();
         $data['cities'] = $city->where_in('id', $cities_ids)->get();
         $this->layout->view('authenticate/register', $data);
     }
-
+    
     function saveUser() {
         $new_user = new User();
         $new_user->role_id = 6;
@@ -133,18 +132,19 @@ class authenticate extends CI_Controller {
         $new_user->email = $this->input->post('email');
         $new_user->password = md5($this->input->post('password'));
         if ($new_user->save()) {
+            
             //Mail Template for registration thanks
             $email = new Email();
             $email->where('type', 'user_registration')->get();
             $message = $email->message;
             $message = str_replace('#firstname', $new_user->firstname, $message);
             $message = str_replace('#lastname', $new_user->lastname, $message);
-            $location = $city->en_name. ', ' . $city->state->en_name. ', ' . $city->state->country->en_name;
+            $location = $city->en_name . ', ' . $city->state->en_name . ', ' . $city->state->country->en_name;
             $message = str_replace('#location', $location, $message);
             $message = str_replace('#dob', $this->input->post('date_of_birth'), $message);
             $message = str_replace('#nickname', $this->input->post('username'), $message);
             $message = str_replace('#password', $this->input->post('password'), $message);
-
+            
             $option = null;
             $option = array();
             $option['tomailid'] = $new_user->email;
@@ -153,35 +153,35 @@ class authenticate extends CI_Controller {
             if (!is_null($email->attachment)) {
                 $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
             }
-
+            
             send_mail($option);
-
+            
             //Get all the Admins, Rectors, Deans, Teachers
             $ids = array();
             $ids[] = User::getAdminIds();
             $ids[] = Academy::getAssignRectorIds();
             $ids[] = School::getAssignDeanIds();
             $ids[] = Clan::getAssignTeacherIds();
-
+            
             //Make single array form all ids
             $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
-
+            
             //Fecth all the User details
             $user = new User();
             $users = $user->where_in('id', $final_ids)->get();
-
+            
             // Mail Template for new user register notification to all above ids
             $email = new Email();
             $email->where('type', 'user_registration_notification')->get();
             $message = $email->message;
             $message = str_replace('#firstname', $new_user->firstname, $message);
             $message = str_replace('#lastname', $new_user->lastname, $message);
-            $location = $city->en_name. ', ' . $city->state->en_name. ', ' . $city->state->country->en_name;
+            $location = $city->en_name . ', ' . $city->state->en_name . ', ' . $city->state->country->en_name;
             $message = str_replace('#dob', $this->input->post('date_of_birth'), $message);
             $message = str_replace('#nickname', $this->input->post('username'), $message);
             $message = str_replace('#location', $location, $message);
             $message = str_replace('#date', get_current_date_time()->get_date_time_for_db(), $message);
-
+            
             foreach ($users as $value) {
                 $notification = new Notification();
                 $notification->type = 'I';
@@ -191,9 +191,9 @@ class authenticate extends CI_Controller {
                 $notification->object_id = $new_user->id;
                 $notification->data = serialize($this->input->post());
                 $notification->save();
-
+                
                 $check_privacy = unserialize($value->email_privacy);
-                if(is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy['user_registration_notification'] == 1){
+                if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy['user_registration_notification'] == 1) {
                     $option = null;
                     $option = array();
                     $option['tomailid'] = $value->email;
@@ -202,15 +202,15 @@ class authenticate extends CI_Controller {
                     if (!is_null($email->attachment)) {
                         $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
                     }
-
+                    
                     send_mail($option);
                 }
             }
-
+            
             unset($obj_user);
             $obj_user = new User();
             $obj_user->where('id', $new_user->id)->get();
-
+            
             $this->_setSessionData($obj_user);
             $this->session->set_flashdata('success', $this->lang->line('register_success'));
             redirect(base_url() . 'dashboard', 'refresh');
@@ -219,16 +219,16 @@ class authenticate extends CI_Controller {
             redirect(base_url() . 'register', 'refresh');
         }
     }
-
+    
     function userForgotPassword() {
         $this->layout->setField('page_title', $this->lang->line('forgot_password'));
         $this->layout->view('authenticate/forgot_password');
     }
-
+    
     function userSendResetPasswordLink() {
         $user = new User();
         $user->where('email', $this->input->post('user_email'))->get();
-
+        
         $email = new Email();
         $email->where('type', 'forgot_password')->get();
         if ($user->result_count() == 1 && $email->result_count() == 1) {
@@ -240,7 +240,7 @@ class authenticate extends CI_Controller {
             $message = str_replace('#lastname', $user->lastname, $message);
             $link = '<a href="' . base_url() . 'reset_password/' . $random_string . '">Click Here to reset password</a>';
             $message = str_replace('#reset_link', $link, $message);
-
+            
             $option['tomailid'] = $user->email;
             $option['subject'] = $email->subject;
             $option['message'] = $message;
@@ -258,7 +258,7 @@ class authenticate extends CI_Controller {
         }
         redirect(base_url() . 'forgot_password', 'refresh');
     }
-
+    
     function userResetPassword($random_string) {
         if ($this->input->post() !== false) {
             $user = new User();
@@ -278,14 +278,12 @@ class authenticate extends CI_Controller {
             $this->layout->view('authenticate/reset_password', $data);
         }
     }
-
+    
     function permissionDenied() {
         $this->layout->view('authenticate/permission');
     }
-
-
-    function error_404(){
+    
+    function error_404() {
         $this->layout->view('authenticate/error_404');
     }
-
 }

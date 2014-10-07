@@ -1,30 +1,29 @@
 <?php
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
-
-class emails extends CI_Controller {
-
+class emails extends CI_Controller
+{
+    
     var $session_data;
-
+    
     function __construct() {
         parent::__construct();
         $this->layout->setField('page_title', $this->lang->line('email'));
         $this->session_data = $this->session->userdata('user_session');
     }
-
+    
     function viewEmail() {
         $this->layout->view('emails/view');
     }
-
+    
     function editEmail($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
-
+                
                 if ($_FILES['attachment']['name'] != '') {
                     $this->uploadAttachment($id);
                 }
-
+                
                 $email = new Email();
                 $email->where('id', $id)->get();
                 $email->subject = $this->input->post('subject');
@@ -37,7 +36,7 @@ class emails extends CI_Controller {
                 $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('email'));
                 $email = new Email();
                 $data['email'] = $email->where('id', $id)->get();
-
+                
                 $this->layout->view('emails/edit', $data);
             }
         } else {
@@ -45,22 +44,16 @@ class emails extends CI_Controller {
             redirect(base_url() . 'email', 'refresh');
         }
     }
-
+    
     function uploadAttachment($id) {
-        $this->upload->initialize(array(
-            'upload_path'   => "./assets/email_attachments/",
-            'allowed_types' => '*',
-            'overwrite' => FALSE,
-            'remove_spaces' => TRUE,
-            'encrypt_name' => TRUE
-        ));
-
+        $this->upload->initialize(array('upload_path' => "./assets/email_attachments/", 'allowed_types' => '*', 'overwrite' => FALSE, 'remove_spaces' => TRUE, 'encrypt_name' => TRUE));
+        
         if (!$this->upload->do_upload('attachment')) {
             $data = array('error' => $this->upload->display_errors());
         } else {
             $data = array('upload_data' => $this->upload->data('attachment'));
         }
-
+        
         if (isset($data['upload_data'])) {
             if ($data['upload_data']['file_name'] != '') {
                 $obj = new Email();
@@ -82,7 +75,7 @@ class emails extends CI_Controller {
             redirect(base_url() . 'email/edit/' . $id, 'refresh');
         }
     }
-
+    
     function removeAttachment($id) {
         $obj = new Email();
         $obj->where('id', $id)->get();
@@ -99,5 +92,4 @@ class emails extends CI_Controller {
         $this->session->set_flashdata('success', $this->lang->line('attachment_removed'));
         redirect(base_url() . 'email/edit/' . $id, 'refresh');
     }
-
 }

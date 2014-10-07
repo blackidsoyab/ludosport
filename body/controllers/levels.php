@@ -1,22 +1,21 @@
 <?php
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
-
-class levels extends CI_Controller {
-
+class levels extends CI_Controller
+{
+    
     var $session_data;
-
+    
     function __construct() {
         parent::__construct();
         $this->layout->setField('page_title', $this->lang->line('level'));
         $this->session_data = $this->session->userdata('user_session');
     }
-
+    
     function viewLevel() {
         $this->layout->view('levels/view');
     }
-
+    
     function addLevel() {
         if ($this->input->post() !== false) {
             $level = new Level();
@@ -28,19 +27,19 @@ class levels extends CI_Controller {
                     $level->$temp = $this->input->post('en_level_name');
                 }
             }
-
+            
             if ($this->input->post('is_basic') == '1') {
                 $level->is_basic = '1';
             } else {
                 $level->is_basic = '0';
             }
-
+            
             if ($this->input->post('under_sixteen') == '1') {
                 $level->under_sixteen = '1';
             } else {
                 $level->under_sixteen = '0';
             }
-
+            
             $level->user_id = $this->session_data->id;
             $level->save();
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
@@ -50,7 +49,7 @@ class levels extends CI_Controller {
             $this->layout->view('levels/add');
         }
     }
-
+    
     function editLevel($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
@@ -65,29 +64,29 @@ class levels extends CI_Controller {
                         $level->$temp = $this->input->post('en_level_name');
                     }
                 }
-
+                
                 if ($this->input->post('is_basic') == '1') {
                     $level->is_basic = '1';
                 } else {
                     $level->is_basic = '0';
                 }
-
+                
                 if ($this->input->post('under_sixteen') == '1') {
                     $level->under_sixteen = '1';
                 } else {
                     $level->under_sixteen = '0';
                 }
-
+                
                 $level->user_id = $this->session_data->id;
                 $level->save();
-
+                
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
                 redirect(base_url() . 'level', 'refresh');
             } else {
                 $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('level'));
                 $levels = new Level();
                 $data['level'] = $levels->where('id', $id)->get();
-
+                
                 $this->layout->view('levels/edit', $data);
             }
         } else {
@@ -95,7 +94,7 @@ class levels extends CI_Controller {
             redirect(base_url() . 'level', 'refresh');
         }
     }
-
+    
     function deleteLevel($id) {
         if (!empty($id)) {
             $c = new Level();
@@ -108,5 +107,4 @@ class levels extends CI_Controller {
             redirect(base_url() . 'level', 'refresh');
         }
     }
-
 }

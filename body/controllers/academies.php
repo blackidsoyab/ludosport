@@ -1,18 +1,17 @@
 <?php
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
-
-class academies extends CI_Controller {
-
+class academies extends CI_Controller
+{
+    
     var $session_data;
-
+    
     function __construct() {
         parent::__construct();
         $this->layout->setField('page_title', $this->lang->line('academy'));
         $this->session_data = $this->session->userdata('user_session');
     }
-
+    
     function viewAcademy($id = null, $type = null) {
         if (is_null($id)) {
             $this->layout->view('academies/view');
@@ -20,27 +19,27 @@ class academies extends CI_Controller {
             if ($type == 'notification') {
                 Notification::updateNotification('rector_assign_academy', $this->session_data->id, $id);
             }
-
+            
             $academy = new Academy();
             $data['academy'] = $academy->where('id', $id)->get();
-
-            if(!validAcess($id, 'academy')){
+            
+            if (!validAcess($id, 'academy')) {
                 $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
-                redirect(base_url() . 'dashboard', 'refresh'); 
+                redirect(base_url() . 'dashboard', 'refresh');
             }
-
-            $schools =  $academy->School->get();
+            
+            $schools = $academy->School->get();
             $data['schools'] = $schools;
             foreach ($schools as $school) {
                 $clans = $school->Clan->get();
-                if(!empty($clans->all)) {
+                if (!empty($clans->all)) {
                     foreach ($clans as $clan) {
                         $data['clans'][] = $clan->stored;
                         $userdetails = $clan->Userdetail->get();
-                        if($userdetails->result_count() > 0){
+                        if ($userdetails->result_count() > 0) {
                             foreach ($userdetails as $userdetail) {
                                 $user = $userdetail->User->get();
-                                if(!is_null($user->id)){
+                                if (!is_null($user->id)) {
                                     $data['students'][] = $user->stored;
                                 }
                             }
@@ -48,23 +47,23 @@ class academies extends CI_Controller {
                     }
                 }
             }
-
-            if(!isset($data['schools'])){
+            
+            if (!isset($data['schools'])) {
                 $data['schools'] = null;
             }
-
-            if(!isset($data['clans'])){
+            
+            if (!isset($data['clans'])) {
                 $data['clans'] = null;
             }
-
-             if(!isset($data['students'])){
+            
+            if (!isset($data['students'])) {
                 $data['students'] = null;
             }
-
+            
             $this->layout->view('academies/view_single', $data);
         }
     }
-
+    
     function addAcademy() {
         if ($this->input->post() !== false) {
             $obj = new Academy();
@@ -76,7 +75,7 @@ class academies extends CI_Controller {
                     $obj->$temp = $this->input->post('en_academy_name');
                 }
             }
-
+            
             $obj->rector_id = implode(',', $this->input->post('rector_id'));
             $obj->type = $this->input->post('type');
             $obj->contact_firstname = $this->input->post('contact_firstname');
@@ -95,22 +94,22 @@ class academies extends CI_Controller {
             $obj->fee2 = @$this->input->post('fee2');
             $obj->user_id = $this->session_data->id;
             $obj->save();
-
+            
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
             redirect(base_url() . 'academy', 'refresh');
         } else {
             $this->layout->setField('page_title', $this->lang->line('add') . ' ' . $this->lang->line('academy'));
-
+            
             $countries = New Country();
             $data['countries'] = $countries->get();
-
+            
             $users = New User();
             $data['users'] = $users->getUsersByRole(3);
-
+            
             $this->layout->view('academies/add', $data);
         }
     }
-
+    
     function editAcademy($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
@@ -124,7 +123,7 @@ class academies extends CI_Controller {
                         $obj->$temp = $this->input->post('en_academy_name');
                     }
                 }
-
+                
                 $obj->rector_id = implode(',', $this->input->post('rector_id'));
                 $obj->type = $this->input->post('type');
                 $obj->contact_firstname = $this->input->post('contact_firstname');
@@ -143,27 +142,27 @@ class academies extends CI_Controller {
                 $obj->email = @$this->input->post('email');
                 $obj->user_id = $this->session_data->id;
                 $obj->save();
-
+                
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
                 redirect(base_url() . 'academy', 'refresh');
             } else {
                 $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('academy'));
-
+                
                 $obj = new Academy();
                 $data['academy'] = $obj->where('id', $id)->get();
-
+                
                 $countries = New Country();
                 $data['countries'] = $countries->get();
-
+                
                 $users = New User();
                 $data['users'] = $users->getUsersByRole(3);
-
+                
                 $states = New State();
                 $data['states'] = $states->where('country_id', $obj->country_id)->get();
-
+                
                 $cities = New City();
                 $data['cities'] = $cities->where('state_id', $obj->state_id)->get();
-
+                
                 $this->layout->view('academies/edit', $data);
             }
         } else {
@@ -171,17 +170,18 @@ class academies extends CI_Controller {
             redirect(base_url() . 'academy', 'refresh');
         }
     }
-
+    
     function deleteAcademy($id) {
         if (!empty($id)) {
             $academy = new Academy();
             $academy->where('id', $id)->get();
+            
             /* foreach ($academy->School as $user) {
               $user->User_details->delete_all();
               }
               $academy->School->delete_all(); */
             $academy->delete();
-
+            
             $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
             redirect(base_url() . 'academy', 'refresh');
         } else {
@@ -189,5 +189,4 @@ class academies extends CI_Controller {
             redirect(base_url() . 'academy', 'refresh');
         }
     }
-
 }

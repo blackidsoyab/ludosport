@@ -1,22 +1,21 @@
 <?php
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
-
-class eventcategories extends CI_Controller {
-
+class eventcategories extends CI_Controller
+{
+    
     var $session_data;
-
+    
     function __construct() {
         parent::__construct();
         $this->layout->setField('page_title', $this->lang->line('eventcategory'));
         $this->session_data = $this->session->userdata('user_session');
     }
-
+    
     function viewEventcategory() {
         $this->layout->view('eventcategories/view');
     }
-
+    
     function addEventcategory() {
         if ($this->input->post() !== false) {
             $eventcategory = new Eventcategory();
@@ -28,19 +27,19 @@ class eventcategories extends CI_Controller {
                     $eventcategory->$temp = $this->input->post('en_name');
                 }
             }
-
-            if($this->input->post('has_point') == 1){
+            
+            if ($this->input->post('has_point') == 1) {
                 $eventcategory->has_point = 1;
                 $eventcategory->xpr = $this->input->post('xpr');
                 $eventcategory->war = $this->input->post('war');
                 $eventcategory->sty = $this->input->post('sty');
-            }else{
+            } else {
                 $eventcategory->has_point = 0;
                 $eventcategory->xpr = 0;
                 $eventcategory->war = 0;
                 $eventcategory->sty = 0;
             }
-
+            
             $eventcategory->user_id = $this->session_data->id;
             $eventcategory->save();
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
@@ -50,7 +49,7 @@ class eventcategories extends CI_Controller {
             $this->layout->view('eventcategories/add');
         }
     }
-
+    
     function editEventcategory($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
@@ -64,13 +63,13 @@ class eventcategories extends CI_Controller {
                         $eventcategory->$temp = $this->input->post('en_name');
                     }
                 }
-
-                if($this->input->post('has_point') == 1){
+                
+                if ($this->input->post('has_point') == 1) {
                     $eventcategory->has_point = 1;
                     $eventcategory->xpr = $this->input->post('xpr');
                     $eventcategory->war = $this->input->post('war');
                     $eventcategory->sty = $this->input->post('sty');
-                }else{
+                } else {
                     $eventcategory->has_point = 0;
                     $eventcategory->xpr = 0;
                     $eventcategory->war = 0;
@@ -85,7 +84,7 @@ class eventcategories extends CI_Controller {
                 $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('eventcategory'));
                 $eventcategories = new Eventcategory();
                 $data['eventcategory'] = $eventcategories->where('id', $id)->get();
-
+                
                 $this->layout->view('eventcategories/edit', $data);
             }
         } else {
@@ -93,7 +92,7 @@ class eventcategories extends CI_Controller {
             redirect(base_url() . 'eventcategory', 'refresh');
         }
     }
-
+    
     function deleteEventcategory($id) {
         if (!empty($id)) {
             $c = new Eventcategory();
@@ -106,5 +105,4 @@ class eventcategories extends CI_Controller {
             redirect(base_url() . 'eventcategory', 'refresh');
         }
     }
-
 }

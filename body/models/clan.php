@@ -242,7 +242,7 @@ class Clan extends DataMapper
             }
         }
     }
-
+    
     function getAviableClanForSchool($school_id, $under_sixteen) {
         $session = get_instance()->session->userdata('user_session');
         $this->db->_protect_identifiers = false;
@@ -252,7 +252,7 @@ class Clan extends DataMapper
         $this->db->join('levels', 'levels.id=clans.level_id');
         $this->db->where('is_basic', "'0'", null);
         $this->db->where('under_sixteen', "$under_sixteen");
-        $this->db->order_by($session->language.'_class_name', 'ASC');
+        $this->db->order_by($session->language . '_class_name', 'ASC');
         $query = $this->db->get();
         if ($query->num_rows > 0) {
             return $query->result();
@@ -294,9 +294,10 @@ class Clan extends DataMapper
             $result = $query->result();
             $current_date = get_current_date_time()->get_date_for_db();
             $start_date = date('Y-m-d', strtotime("+1 day", strtotime($current_date)));
+            
             //$end_date = date('Y-m-d', strtotime("+1 month", strtotime($start_date)));
             $end_date = $result[0]->clan_to;
-        
+            
             $dates = array();
             
             $days = explode(',', $result[0]->lesson_day);
@@ -306,10 +307,10 @@ class Clan extends DataMapper
                 $temp_dates[] = getDateByDay($day, $start_date, $end_date);
             }
             
-            if(count($temp_dates)>0){
+            if (count($temp_dates) > 0) {
                 $finals_dates = array_unique(MultiArrayToSinlgeArray($temp_dates));
-
-                if(count($finals_dates)>0){
+                
+                if (count($finals_dates) > 0) {
                     sort($finals_dates);
                     foreach ($finals_dates as $value) {
                         if (!in_array($value, $dates)) {
@@ -336,7 +337,7 @@ class Clan extends DataMapper
                 } else {
                     return FALSE;
                 }
-            }else{
+            } else {
                 return FALSE;
             }
         } else {
@@ -443,26 +444,26 @@ class Clan extends DataMapper
         $this->db->_protect_identifiers = false;
         $this->db->select('clans.id,' . $session->language . '_class_name AS clan,' . $session->language . '_school_name AS school,' . $session->language . '_academy_name AS academy, clans.clan_from, clans.clan_to');
         $this->db->from('clans');
-        if($session->role == 1 || $session->role == 2){
+        if ($session->role == 1 || $session->role == 2) {
             $this->db->join('schools', 'schools.id=clans.school_id');
             $this->db->join('academies', 'academies.id=schools.academy_id');
-        } else if($session->role == 3){
+        } else if ($session->role == 3) {
             $this->db->join('schools', 'schools.id=clans.school_id');
             $this->db->join('academies', 'academies.id=schools.academy_id');
             $this->db->where("FIND_IN_SET(" . $session->id . ", rector_id) > 0");
-        } else if($session->role == 4){
+        } else if ($session->role == 4) {
             $this->db->join('schools', 'schools.id=clans.school_id');
             $this->db->join('academies', 'academies.id=schools.academy_id');
             $this->db->where("FIND_IN_SET(" . $session->id . ", dean_id) > 0");
-        } else if($session->role == 5){
+        } else if ($session->role == 5) {
             $this->db->join('schools', 'schools.id=clans.school_id');
             $this->db->join('academies', 'academies.id=schools.academy_id');
             $this->db->where("FIND_IN_SET(" . $session->id . ", teacher_id) > 0");
-        } else if($session->role == 6){
+        } else if ($session->role == 6) {
             $this->db->join('userdetails', 'clans.id=userdetails.clan_id');
             $this->db->where('student_master_id', $student_id);
         }
-        $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0"); 
+        $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0");
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();
@@ -470,12 +471,12 @@ class Clan extends DataMapper
             return false;
         }
     }
-
+    
     function getClansByDayForCronJob($day = '1') {
         $this->db->_protect_identifiers = false;
         $this->db->select('clans.id, clans.clan_from, clans.clan_to, teacher_id');
         $this->db->from('clans');
-        $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0"); 
+        $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0");
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();
@@ -582,7 +583,7 @@ class Clan extends DataMapper
             return false;
         }
     }
-
+    
     function getCitiesofClans() {
         $this->db->_protect_identifiers = false;
         $this->db->select('city_id');
@@ -599,26 +600,26 @@ class Clan extends DataMapper
             return false;
         }
     }
-
+    
     function getClanforAjax($school_id) {
         $session = get_instance()->session->userdata('user_session');
         $this->db->_protect_identifiers = false;
         $this->db->select('clans.*');
         $this->db->from('clans');
         
-        if($session->role == 3){
+        if ($session->role == 3) {
             $this->db->join('schools', 'schools.id=clans.school_id');
             $this->db->join('academies', 'academies.id=schools.academy_id');
             $this->db->where('FIND_IN_SET(' . $session->id . ', academies.rector_id) > 0');
-        } else if($session->role == 4){
+        } else if ($session->role == 4) {
             $this->db->join('schools', 'schools.id=clans.school_id');
             $this->db->where('FIND_IN_SET(' . $session->id . ', schools.dean_id) > 0');
-        } else if($session->role == 5){
+        } else if ($session->role == 5) {
             $this->db->where('FIND_IN_SET(' . $session->id . ', clans.teacher_id) > 0');
         }
-
+        
         $this->db->where('clans.school_id', $school_id);
-        $this->db->group_by("clans.id"); 
+        $this->db->group_by("clans.id");
         $res = $this->db->get()->result();
         return $res;
     }

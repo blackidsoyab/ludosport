@@ -1,22 +1,21 @@
 <?php
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
-
-class states extends CI_Controller {
-
+class states extends CI_Controller
+{
+    
     var $session_data;
-
+    
     function __construct() {
         parent::__construct();
         $this->layout->setField('page_title', $this->lang->line('state'));
         $this->session_data = $this->session->userdata('user_session');
     }
-
+    
     function viewState() {
         $this->layout->view('states/view');
     }
-
+    
     function addState() {
         if ($this->input->post() !== false) {
             $c = new State();
@@ -40,7 +39,7 @@ class states extends CI_Controller {
             $this->layout->view('states/add', $data);
         }
     }
-
+    
     function editState($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
@@ -63,10 +62,10 @@ class states extends CI_Controller {
                 $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('state'));
                 $states = new State();
                 $data['states'] = $states->where('id', $id)->get();
-
+                
                 $country = new Country();
                 $data['countries'] = $country->get();
-
+                
                 $this->layout->view('states/edit', $data);
             }
         } else {
@@ -74,7 +73,7 @@ class states extends CI_Controller {
             redirect(base_url() . 'state', 'refresh');
         }
     }
-
+    
     function deleteState($id) {
         if (!empty($id)) {
             $c = new State();
@@ -88,5 +87,4 @@ class states extends CI_Controller {
             redirect(base_url() . 'state', 'refresh');
         }
     }
-
 }

@@ -1,11 +1,11 @@
 <?php
-
-class Attendance extends DataMapper {
-
+class Attendance extends DataMapper
+{
+    
     function __construct($id = NULL) {
         parent::__construct($id);
     }
-
+    
     function getTotalStudentsForDate($date, $clan_id) {
         $this->db->select('count(*) as total');
         $this->db->from('attendances');
@@ -16,22 +16,20 @@ class Attendance extends DataMapper {
         $query = $this->db->get()->result();
         return $query[0]->total;
     }
-
-    function getTotalAttendance($student_id, $type = null){
+    
+    function getTotalAttendance($student_id, $type = null) {
         $this->db->select('count(*) as total');
         $this->db->from('attendances');
         $this->db->where('student_id', $student_id, null);
-
-        if(!is_null($type) && $type == 'present'){
+        
+        if (!is_null($type) && $type == 'present') {
             $this->db->where('attendances.attendance', 1, null);
-        } else if(!is_null($type) && $type == 'absent'){
+        } else if (!is_null($type) && $type == 'absent') {
             $this->db->where('attendances.attendance', 0, null);
         }
         
         $query = $this->db->get()->result();
         return $query[0]->total;
     }
-
 }
-
 ?>
