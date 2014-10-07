@@ -3,8 +3,8 @@
         loadDatatable();
 
         
-        $('#delete_messages_button').click(function(){
-             var count = $('a.list-group-item input[name="message_id[]"]:checked').length;
+        $('#delete_messages_button').click(function(e){
+            var count = $('a.list-group-item input[name="message_id[]"]:checked').length;
             if(count > 0){
                 $.ajax( {
                     url : '<?php echo base_url() . 'message/delete'; ?>',
