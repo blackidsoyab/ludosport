@@ -21,10 +21,13 @@ class Clan extends DataMapper
     }
     
     function getTotalTeachers() {
+        $this->db->_protect_identifiers = false;
         $this->db->select('teacher_id');
         $this->db->from('clans');
+        $this->db->join('users', 'FIND_IN_SET(users.id, clans.teacher_id)');
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
+        $this->db->where('users.status', 'A');
         $res = $this->db->get()->result();
         $count = array();
         foreach ($res as $r) {
