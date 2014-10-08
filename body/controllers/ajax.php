@@ -665,10 +665,110 @@ class ajax extends CI_Controller
 
     function gerUserByRoleID($role_id) {
         $users = new User();
-        $data = $users->getUsersByRole($role_id);
-        
+
+        if($this->session_data->role == 1 || $this->session_data->role == 2) {
+            $data = $users->getUsersByRole($role_id);    
+        } else {
+            if($role_id == 2){
+                $data = $users->getUsersByRole($role_id);
+            }else{
+                if($this->session_data->role == 3){
+                    if($role_id == 3){
+                        $obj = new Academy();
+                        $ids = $obj->getRelatedRectorsByRector($this->session_data->id);
+                    }
+
+                    if($role_id == 4){
+                        $obj = new School();
+                        $ids = $obj->getRelatedDeansByRector($this->session_data->id);
+                    }
+
+                    if($role_id == 5){
+                        $obj = new Clan();
+                        $ids = $obj->getRelatedTeachersByRector($this->session_data->id);
+                    }
+
+                    if($role_id == 6){
+                        $obj = new Userdetail();
+                        $ids = $obj->getRelatedStudentsByRector($this->session_data->id);
+                    }
+
+                    $data = $users->getUsersDetails($ids);
+                }
+
+                if($this->session_data->role == 4){
+                    if($role_id == 3){
+                        $obj = new Academy();
+                        $ids = $obj->getRelatedRectorsByDean($this->session_data->id);
+                    }
+
+                    if($role_id == 4){
+                        $obj = new School();
+                        $ids = $obj->getRelatedDeansByDean($this->session_data->id);
+                    }
+
+                    if($role_id == 5){
+                        $obj = new Clan();
+                        $ids = $obj->getRelatedTeachersByDean($this->session_data->id);
+                    }
+
+                    if($role_id == 6){
+                        $obj = new Userdetail();
+                        $ids = $obj->getRelatedStudentsByDean($this->session_data->id);
+                    }
+
+                    $data = $users->getUsersDetails($ids);
+                }
+
+                if($this->session_data->role == 5){
+                    if($role_id == 3){
+                        $obj = new Academy();
+                        $ids = $obj->getRelatedRectorsByTeacher($this->session_data->id);
+                    }
+
+                    if($role_id == 4){
+                        $obj = new School();
+                        $ids = $obj->getRelatedDeansByTeacher($this->session_data->id);
+                    }
+
+                    if($role_id == 5){
+                        $obj = new Clan();
+                        $ids = $obj->getRelatedTeachersByTeacher($this->session_data->id);
+                    }
+
+                    if($role_id == 6){
+                        $obj = new Userdetail();
+                        $ids = $obj->getRelatedStudentsByTeacher($this->session_data->id);
+                    }
+                }
+
+                if($this->session_data->role == 6){
+                    if($role_id == 3){
+                        $obj = new Academy();
+                        $ids = $obj->getRelatedRectorsByStudent($this->session_data->id);
+                    }
+
+                    if($role_id == 4){
+                        $obj = new School();
+                        $ids = $obj->getRelatedDeansByStudent($this->session_data->id);
+                    }
+
+                    if($role_id == 5){
+                        $obj = new Clan();
+                        $ids = $obj->getRelatedTeachersByStudent($this->session_data->id);
+                    }
+
+                    if($role_id == 6){
+                        $obj = new Userdetail();
+                        $ids = $obj->getRelatedStudentsByStudent($this->session_data->id);
+                    }
+                }
+
+                $data = $users->getUsersDetails($ids);
+            } 
+        }
+
         echo '<option value="">' . $this->lang->line('select'), ' ', $this->lang->line('manager') . '</option>';
-        
         foreach ($data as $value) {
             echo '<option value="' . $value->id . '">' . $value->firstname . ' ' . $value->lastname . '</option>';
         }

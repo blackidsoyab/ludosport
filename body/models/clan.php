@@ -37,9 +37,12 @@ class Clan extends DataMapper
     function getTotalStudents() {
         $this->db->select('count(*) as total');
         $this->db->from('userdetails');
+        $this->db->join('users', 'users.id=userdetails.student_master_id');
         $this->db->join('clans', 'clans.id=userdetails.clan_id');
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
+        $this->db->where('userdetails.status', 'A');
+        $this->db->where('users.status', 'A');
         $res = $this->db->get()->result();
         return $res[0]->total;
     }
@@ -62,10 +65,13 @@ class Clan extends DataMapper
     function getTotalStudentsOfRector($rector_id) {
         $this->db->select('count(*) as total');
         $this->db->from('userdetails');
+        $this->db->join('users', 'users.id=userdetails.student_master_id');
         $this->db->join('clans', 'clans.id=userdetails.clan_id');
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
         $this->db->where("FIND_IN_SET('" . $rector_id . "', academies.rector_id) > 0");
+        $this->db->where('userdetails.status', 'A');
+        $this->db->where('users.status', 'A');
         $res = $this->db->get()->result();
         return $res[0]->total;
     }
@@ -87,9 +93,12 @@ class Clan extends DataMapper
     function getTotalStudentsOfDean($dean_id) {
         $this->db->select('count(*) as total');
         $this->db->from('userdetails');
+        $this->db->join('users', 'users.id=userdetails.student_master_id');
         $this->db->join('clans', 'clans.id=userdetails.clan_id');
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->where("FIND_IN_SET('" . $dean_id . "', schools.dean_id) > 0");
+        $this->db->where('userdetails.status', 'A');
+        $this->db->where('users.status', 'A');
         $res = $this->db->get()->result();
         return $res[0]->total;
     }
@@ -105,8 +114,11 @@ class Clan extends DataMapper
     function getTotalStudentsOfTeacher($teacher_id) {
         $this->db->select('count(*) as total');
         $this->db->from('userdetails');
+        $this->db->join('users', 'users.id=userdetails.student_master_id');
         $this->db->join('clans', 'clans.id=userdetails.clan_id');
         $this->db->where("FIND_IN_SET('" . $teacher_id . "', clans.teacher_id) > 0");
+        $this->db->where('userdetails.status', 'A');
+        $this->db->where('users.status', 'A');
         $res = $this->db->get()->result();
         return $res[0]->total;
     }

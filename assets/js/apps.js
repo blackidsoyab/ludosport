@@ -197,32 +197,6 @@ $(document).ready(function(){
 		});
 	});
 	/** END PANEL HEADER BUTTON COLLAPSE **/
-
-	/** BEGIN SUMMERNOTE **/
-	if ($('.summernote-lg').length > 0){
-		$('.summernote-lg').summernote({
-			height: 400
-		});
-	}
-	
-	if ($('.summernote-sm').length > 0){
-		$('.summernote-sm').summernote({
-			height: 200,
-			  toolbar: [
-				//['style', ['style']], // no style button
-				['style', ['bold', 'italic', 'underline', 'clear']],
-				['font', ['strike']],
-				['fontsize', ['fontsize']],
-				['color', ['color']],
-				['para', ['ul', 'ol', 'paragraph']],
-				['height', ['height']],
-				//['insert', ['picture', 'link']], // no insert buttons
-				//['table', ['table']], // no table button
-				//['help', ['help']] //no help button
-			  ]
-		});
-	}
-	/** END SUMMERNOTE **/
 	
 
    
@@ -577,8 +551,9 @@ function PositionFooter() {
         var current_height=height-133;
         $('.page-content').css('min-height', current_height +'px');	
         if(parentsHeight>current_height) {
-        	$('.page-content').css('min-height', '0px');	
             $('#footer').css('position', 'relative');
+        }else{
+        	$('#footer').css('position', 'fixed');
         }
     }
 }

@@ -142,7 +142,6 @@ class announcements extends CI_Controller
     
     //Send the Individual announcement
     private function _saveSingleAnnouncement() {
-        
         //loop through all the users selected
         foreach ($this->input->post('to_id') as $to) {
             $announcement = new Announcement();
@@ -669,7 +668,7 @@ class announcements extends CI_Controller
     private function _getIdsForGroup($group_id, $role, $relation) {
         
         //Role Super Admin | Admin : get all user ids
-        if ($this->session_data->id == 1 || $this->session_data->id == 2) {
+        if ($this->session_data->role == 1 || $this->session_data->role == 2) {
             
             //fetch users
             if ($role != 'clans') {

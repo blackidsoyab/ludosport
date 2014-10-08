@@ -335,11 +335,12 @@ class users extends CI_Controller
                     
                     $class = new Clan();
                     $class->where('id', $userdetail->clan_id)->get();
-                    $data['classes'] = $class->where('school_id', $class->school_id)->get();
+                    $data['classes'] = $class->getClanforAjax($class->school_id);
                     $data['school_id'] = $class->school_id;
+                    
                     $school = new School();
                     $school->where('id', $class->school_id)->get();
-                    $data['schools'] = $school->where('academy_id', $school->academy_id)->get();
+                    $data['schools'] = $school->getSchoolforAjax($school->academy_id);
                     $data['academy_id'] = $school->academy_id;
                     
                     $clan = new Clan();

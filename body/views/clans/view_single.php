@@ -1,43 +1,49 @@
 <?php $session = $this->session->userdata('user_session'); ?>
 <script type="text/javascript" >
-function deleteRow(ele) {
-    $.confirm({
-        'title': 'Manage Clan Date',
-        'message': 'Do you Want to Delete ?',
-        'buttons': {
-            '<?php echo $this->lang->line("yes"); ?>': {
-            	'class': 'btn btn-danger',
-                'action': function() {
-                    UpdateClanDate(ele, 0);
-            	}
-            },
-            '<?php echo $this->lang->line("yes").', '. $this->lang->line("notify"); ?>': {
-                'class': 'btn btn-primary',
-                'action': function() {
-                    UpdateClanDate(ele, 1);
-            	},
-        	},
-            '<?php echo $this->lang->line("no"); ?>': {
-                'class': 'btn btn-default'	
-            }
-   		}
-    });
-    return false;
-}
+	function deleteRow(ele) {
+	    $.confirm({
+	        'title': 'Manage Clan Date',
+	        'message': 'Do you Want to Delete ?',
+	        'buttons': {
+	            '<?php echo $this->lang->line("yes"); ?>': {
+	            	'class': 'btn btn-danger',
+	                'action': function() {
+	                    UpdateClanDate(ele, 0);
+	            	}
+	            },
+	            '<?php echo $this->lang->line("yes").', '. $this->lang->line("notify"); ?>': {
+	                'class': 'btn btn-primary',
+	                'action': function() {
+	                    UpdateClanDate(ele, 1);
+	            	},
+	        	},
+	            '<?php echo $this->lang->line("no"); ?>': {
+	                'class': 'btn btn-default'	
+	            }
+	   		}
+	    });
+	    return false;
+	}
 
-function UpdateClanDate(ele, notify){
-	var current_id = $(ele).attr('id');
-    var parent = $(ele).parent().parent();
-	$.ajax({
-		type: 'POST',
-		url: http_host_js + 'clan/delete_date/' + current_id,
-		data: {'id' : current_id, 'notify' : notify},
-		dataType : 'JSON',
-		success: function(data) {
-			window.location.reload();
-		}
+	function UpdateClanDate(ele, notify){
+		var current_id = $(ele).attr('id');
+	    var parent = $(ele).parent().parent();
+		$.ajax({
+			type: 'POST',
+			url: http_host_js + 'clan/delete_date/' + current_id,
+			data: {'id' : current_id, 'notify' : notify},
+			dataType : 'JSON',
+			success: function(data) {
+				window.location.reload();
+			}
+		});
+	}
+
+	$(document).ready(function() {
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+			PositionFooter();
+		});
 	});
-}
 </script>
 <h1 class="page-heading"><?php echo $clan->{$session->language.'_class_name'}; ?></h1>
 

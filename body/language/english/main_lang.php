@@ -76,6 +76,8 @@ $lang['unapproved_success'] = 'Unapproved Successfully';
 $lang['announcement_sent_success'] = 'Announcement Sent Successfully';
 $lang['announcement_read_error'] = 'Error in reading Announcement';
 $lang['announcement_reply_error'] = 'Error in replying Announcement';
+$lang['event_add_success'] = 'Event created successfully';
+$lang['event_add_error'] = 'Error in creating Event';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';

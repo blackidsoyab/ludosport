@@ -111,7 +111,48 @@ class events extends CI_Controller
             $event->description = $this->input->post('description');
             $event->user_id = $this->session_data->id;
             $event->save();
-            $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
+
+            $email = new Email();
+            //get the mail templates
+            $email->where('type', 'event_manager')->get();
+            $message = $email->message;
+
+            //replace appropriate varaibles
+            $message = str_replace('#event_name', $this->input->post('en_name'), $message);
+            $message = str_replace('#from_date', date('Y-m-d', strtotime($this->input->post('date_from'))), $message);
+            $message = str_replace('#to_date', date('Y-m-d', strtotime($this->input->post('date_to'))), $message);
+            $message = str_replace('#location', getFullLocationByCity($this->input->post('city_id')), $message);
+            $message = str_replace('#event_created_by', $this->session_data->name, $message);
+
+            foreach ($this->input->post('manager') as $manager) {
+                if($manager != $this->session_data->id){
+                    $notification = new Notification();
+                    $notification->type = 'N';
+                    $notification->notify_type = 'event_manager';
+                    $notification->from_id = $this->session_data->id;
+                    $notification->to_id = $manager;
+                    $notification->object_id = $event->id;
+                    $notification->data = serialize($this->input->post());
+                    $notification->save();
+
+                    $user_details = userNameEmail($manager);
+                    $check_privacy = unserialize($user_details['email_privacy']);
+                    if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy['event_manager']) || $check_privacy['event_manager'] == 1) {
+                        //Send Mail to user
+                        $message = str_replace('#user', $user_details['name'], $message);
+                        //Send Email
+                        $option = array();
+                        $option['tomailid'] = $user_details['email'];
+                        $option['subject'] = $email->subject;
+                        $option['message'] = $message;
+                        if (!is_null($email->attachment)) {
+                            $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                        }
+                        send_mail($option);
+                    }
+                }
+            }
+            $this->session->set_flashdata('success', $this->lang->line('event_add_success'));
             redirect(base_url() . 'event', 'refresh');
         } else {
             $this->layout->setField('page_title', $this->lang->line('add') . ' ' . $this->lang->line('event'));
@@ -221,8 +262,18 @@ class events extends CI_Controller
                 redirect(base_url() . 'event', 'refresh');
             } else {
                 $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('event'));
+                
                 $events = new Event();
                 $data['event'] = $events->where('id', $id)->get();
+
+                $redirect = true;
+                if (hasPermission('events', 'editEvent') || in_array($this->session_data->id, explode(',', $events->manager))) {
+                    $redirect = false;
+                }
+                if($redirect){
+                     $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                    redirect(base_url(), 'refresh');
+                }
                 
                 $event_category = new Eventcategory();
                 $event_category->order_by($this->session_data->language . '_name', 'ASC');
@@ -271,11 +322,28 @@ class events extends CI_Controller
         if (!empty($id)) {
             $event = new Event();
             $event->where('id', $id)->get();
+
+            $redirect = true;
+            if (hasPermission('events', 'deleteEvent') || in_array($this->session_data->id, explode(',', $event->manager))) {
+                $redirect = false;
+            }
+            if($redirect){
+                 $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                redirect(base_url(), 'refresh');
+            }
+
             if ($event->image != 'no-cover.jpg') {
                 if (file_exists('assets/img/event_images/' . $event->image)) {
                     unlink('assets/img/event_images/' . $event->image);
                 }
             }
+
+            $obj_eventinvitation = new Eventinvitation();
+            $obj_eventinvitation->delete($event);
+
+            $obj_eventattendance = new Eventattendance();
+            $obj_eventattendance->delete($event);
+
             $event->delete();
             
             $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
@@ -321,6 +389,16 @@ class events extends CI_Controller
             $event_detail = new Event();
             $event_detail->where('id', $event_id)->get();
             
+            $redirect = true;
+            if (hasPermission('events', 'takeEventAttendance') || in_array($this->session_data->id, explode(',', $event_detail->manager))) {
+                $redirect = false;
+            }
+            
+            if($redirect){
+                 $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                redirect(base_url(), 'refresh');
+            }
+
             $manager_events_ids = $event_detail->getRunningEventAsManager($this->session_data->id);
             
             //Check data exits or not
@@ -398,6 +476,16 @@ class events extends CI_Controller
         if (!empty($event_id)) {
             $event_detail = new Event();
             $event_detail->where('id', $event_id)->get();
+
+            $redirect = true;
+            if (in_array($this->session_data->id, explode(',', $event_detail->manager))) {
+                $redirect = false;
+            }
+
+            if($redirect){
+                 $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                redirect(base_url(), 'refresh');
+            }
             
             //Check data exits or not
             if ($event_detail->result_count() == 1) {
@@ -498,7 +586,7 @@ class events extends CI_Controller
                             
                             $user_details = userNameEmail($user);
                             $check_privacy = unserialize($user_details['email_privacy']);
-                            if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy['event_invitation'] == 1) {
+                            if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy['event_invitation']) || $check_privacy['event_invitation'] == 1) {
                                 
                                 //Send Mail to user
                                 $message = str_replace('#user', $user_details['name'], $message);

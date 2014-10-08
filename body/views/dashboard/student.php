@@ -159,8 +159,8 @@
                                 <p class="name"><small><?php echo $announcement->from_person; ?></small></p>
                                 <?php
                                     if(strlen($announcement->announcement) > 50){
-                                        echo character_limiter($announcement->announcement, 50);
-                                        echo '<a href="'. base_url() .'announcement/read/' .  $announcement->id .'">Read more</a>';
+                                        echo character_limiter(strip_tags($announcement->announcement), 50);
+                                        echo '<br /><a href="'. base_url() .'announcement/read/' .  $announcement->id .'">Read more</a>';
                                     }else{
                                         echo $announcement->announcement;
                                     }

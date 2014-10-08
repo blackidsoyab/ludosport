@@ -517,6 +517,13 @@ if (!function_exists('emailPrivacyArray')) {
             'it'=>'Announcements',
         );
 
+        $email_privacy['event_manager'] = array(
+            'en'=>'Event Manager',
+            'it'=>'Event Manager',
+        );
+
+
+
         //ADMIN
         $email_role[2] = array(
             'user_registration_notification',
@@ -524,7 +531,8 @@ if (!function_exists('emailPrivacyArray')) {
             'batch_request',
             'batch_request_approved',
             'batch_request_unapproved',
-            'new_announcement'
+            'new_announcement',
+            'event_manager'
         );
 
         //RECTOR
@@ -538,7 +546,8 @@ if (!function_exists('emailPrivacyArray')) {
             'batch_request',
             'batch_request_approved',
             'batch_request_unapproved',
-            'new_announcement'
+            'new_announcement',
+            'event_manager'
         );
 
         //DEAN
@@ -553,7 +562,8 @@ if (!function_exists('emailPrivacyArray')) {
             'batch_request',
             'batch_request_approved',
             'batch_request_unapproved',
-            'new_announcement'
+            'new_announcement',
+            'event_manager'
         );
 
         //TEACHER
@@ -573,7 +583,8 @@ if (!function_exists('emailPrivacyArray')) {
             'batch_request',
             'batch_request_approved',
             'batch_request_unapproved',
-            'new_announcement'
+            'new_announcement',
+            'event_manager'
         );
 
         //PUPIL
@@ -585,7 +596,8 @@ if (!function_exists('emailPrivacyArray')) {
             'challenge_accepted',
             'challenge_rejected',
             'challenge_winner',
-            'new_announcement'
+            'new_announcement',
+            'event_manager'
         );
 
         $return = array();

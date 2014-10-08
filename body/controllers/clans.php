@@ -868,7 +868,7 @@ class clans extends CI_Controller
             $clan = New Clan();
             
             //Role Super Admin or Admin => get the clan details
-            if ($this->session_data->id == 1 || $this->session_data->id == 2) {
+            if ($this->session_data->role == 1 || $this->session_data->role == 2) {
                 $clan = $clan->where(array('id' => $clan_id))->get();
             } else {
                 $clan = $clan->where(array('id' => $clan_id, 'teacher_id' => $this->session_data->id))->get();

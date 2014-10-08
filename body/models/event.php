@@ -31,6 +31,7 @@ class Event extends DataMapper
             }
             $this->db->or_where('event_for', 'ALL');
         }
+        $this->db->order_by('id', 'desc');
         $res = $this->db->get();
         
         if ($res->num_rows > 0) {

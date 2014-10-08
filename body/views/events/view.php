@@ -1,10 +1,6 @@
 <?php $session = $this->session->userdata('user_session'); ?>
 <link href="<?php echo PLUGIN_URL; ?>salvattore/salvattore.css" rel="stylesheet" />
-<style type="text/css">
-.mason[data-columns]::before {
-    content: '3 .column.size-1of3';
-}
-</style>
+
 <div class="row">
     <div class="col-lg-6 col-xs-6">
         <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('event'); ?></h1>    
@@ -29,7 +25,12 @@
                             <p class="text-danger bolded"><strong><?php echo ucfirst($event->{$session->language.'_name'}), ' at ', getLocationName($event->city_id, 'City'); ?></strong></p>
                             <p>
                             <?php
-                                echo date('d-m-Y', strtotime($event->date_from)), ' : ' , date('d-m-Y', strtotime($event->date_to));
+                                if(strtotime($event->date_from) == strtotime($event->date_to)){
+                                    echo ' on ' , date('d-m-Y', strtotime($event->date_from));
+                                } else{
+                                    echo date('d-m-Y', strtotime($event->date_from)), ' : ' , date('d-m-Y', strtotime($event->date_to));    
+                                }
+                                
                             ?>
                             </p>
                         </div>

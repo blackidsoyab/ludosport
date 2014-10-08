@@ -269,6 +269,7 @@
 													</a>
 												</h5>
 												<p class="small text-muted">Score : <?php echo @$received_value->from_total_score; ?></p>
+												<?php echo (!is_null($received_value->place) && $received_value->place != '0')  ? '<p class="small text-muted">Place : '. $received_value->place .'</p>' : ''; ?>
 												<p class="small text-muted"><?php echo @time_elapsed_string($received_value->made_on); ?></p>
 											</div>
 											
@@ -599,7 +600,7 @@
 		                        </div>
 		                        <div class="right-button">
 		                        	<?php $check = Challenge::isRequestedBefore($session->id, $top_five_value->id);
-		                        		if(!$check){
+		                        		if(!$check && $top_five_value->id != $session->id){
 		                        	?>
 		                            	<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#<?php echo ($can_do_challege) ? 'do_duel_box' : 'cannot_do_duel_box'; ?>" data-userid="<?php echo $top_five_value->id; ?>">&nbsp;<?php echo $this->lang->line('challenge'); ?>&nbsp;</button>
 		                            <?php } ?>

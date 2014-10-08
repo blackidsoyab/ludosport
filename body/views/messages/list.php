@@ -22,7 +22,7 @@
         $('#list_data_filter').parent().prev().remove();
         $('#list_data_filter').parent().removeClass('col-sm-6').addClass('col-sm-12');
         $('#list_data_filter').find('label').addClass('form-group has-feedback no-label');
-        $('#list_data_filter').find(':input').attr("placeholder", "<?php echo $this->lang->line('search'), ' ', $this->lang->line('message'); ?>");
+        $('#list_data_filter').find(':input').attr("placeholder", "<?php echo $this->lang->line('search'), ' ', $this->lang->line('message'), ' in ', ucwords($message_box); ?>");
         $('#list_data_filter').find('label').append('<span class="fa fa-search form-control-feedback"></span>');
     });
     

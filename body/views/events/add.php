@@ -59,7 +59,7 @@
         jQuery.validator.addMethod("greaterThan", function(value, element, params) {
 
             if (!/Invalid|NaN/.test(new Date(value))) {
-                return new Date(value) > new Date($(params).val());
+                return new Date(value) >= new Date($(params).val());
             }
             return isNaN(value) && isNaN($(params).val()) || (Number(value) > Number($(params).val()));
         },'Must be greater than {0}');
@@ -261,14 +261,14 @@
         <div class="form-group">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('date_from'); ?> <span class="text-danger">*</span></label>
             <div class="col-lg-5">
-                <input type="text" name="date_from" id="date_from"  class="form-control required datepicker" placeholder="<?php echo $this->lang->line('date_from'); ?>" />
+                <input type="text" name="date_from" id="date_from"  class="form-control required datepicker" placeholder="<?php echo $this->lang->line('date_from'); ?>" readonly/>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('date_to'); ?> <span class="text-danger">*</span></label>
             <div class="col-lg-5">
-                <input type="text" name="date_to" id="date_to"  class="form-control required datepicker" placeholder="<?php echo $this->lang->line('date_to'); ?>" />
+                <input type="text" name="date_to" id="date_to"  class="form-control required datepicker" placeholder="<?php echo $this->lang->line('date_to'); ?>" readonly/>
             </div>
         </div>
 

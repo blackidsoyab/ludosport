@@ -57,6 +57,7 @@
         });
 
         jQuery.validator.addMethod("ImageDimension", function(value, element, params) {
+                if(value == '') return true;
                  if(params[0] == 'width'){
                     return (Number($('#event-img-width').val()) > Number(params[1]));
                  } else {
@@ -67,7 +68,7 @@
         jQuery.validator.addMethod("greaterThan", function(value, element, params) {
 
             if (!/Invalid|NaN/.test(new Date(value))) {
-                return new Date(value) > new Date($(params).val());
+                return new Date(value) >= new Date($(params).val());
             }
             return isNaN(value) && isNaN($(params).val()) || (Number(value) > Number($(params).val()));
         },'Must be greater than {0}');
@@ -154,10 +155,10 @@
         <?php } ?>
 
         <div class="form-group">
-            <label class="col-lg-3 control-label"><?php echo $this->lang->line('image'); ?>&nbsp;<span class="text-danger">*</span></label>
+            <label class="col-lg-3 control-label"><?php echo $this->lang->line('image'); ?>&nbsp;<span class="text-danger">&nbsp;</span></label>
             <div class="col-lg-5">
                 <div class=" input-group">
-                    <input type="text" class="form-control required" readonly="">
+                    <input type="text" class="form-control" readonly="">
                     <span class="input-group-btn">
                         <span class="btn btn-default btn-file">
                             <?php echo $this->lang->line('browse_file'); ?> <input type="file" name="event_image" id="event_image">
@@ -281,14 +282,14 @@
         <div class="form-group">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('date_from'); ?> <span class="text-danger">*</span></label>
             <div class="col-lg-5">
-                <input type="text" name="date_from" id="date_from"  class="form-control required datepicker" placeholder="<?php echo $this->lang->line('date_from'); ?>" value="<?php echo date('d-m-Y', strtotime($event->date_from)) ?>"/>
+                <input type="text" name="date_from" id="date_from"  class="form-control required datepicker" placeholder="<?php echo $this->lang->line('date_from'); ?>" value="<?php echo date('d-m-Y', strtotime($event->date_from)) ?>" readonly/>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('date_to'); ?> <span class="text-danger">*</span></label>
             <div class="col-lg-5">
-                <input type="text" name="date_to" id="date_to"  class="form-control required datepicker" placeholder="<?php echo $this->lang->line('date_to'); ?>" value="<?php echo date('d-m-Y', strtotime($event->date_to)) ?>"/>
+                <input type="text" name="date_to" id="date_to"  class="form-control required datepicker" placeholder="<?php echo $this->lang->line('date_to'); ?>" value="<?php echo date('d-m-Y', strtotime($event->date_to)) ?>" readonly/>
             </div>
         </div>
 

@@ -41,11 +41,11 @@
                     }
                 }
             }
-        }).find('[name="announcement"]').summernote({
+        }).find('.summernote-sm').summernote({
             height: 200,
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strike']],
+                ['font', ['strikethrough']],
                 ['fontsize', ['fontsize']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
@@ -58,6 +58,7 @@
                 validateEditor();
             }
         });
+
      });
     //]]>
 </script>

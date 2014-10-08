@@ -574,26 +574,31 @@ class json extends CI_Controller
         }
         
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS student_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'clans.' . $this->session_data->language . '_class_name AS class_name');
+        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS student_name', 'batches.id', 'clans.' . $this->session_data->language . '_class_name AS class_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name');
         $this->datatable->eColumns = array('users.id', 'avtar', $this->session_data->language . '_name AS batch_name', 'batches.image');
         $this->datatable->sIndexColumn = "users.id";
-        $this->datatable->sTable = " clans, users, schools, academies, userdetails, batches";
+        $this->datatable->sTable = " users, userdetails";
         
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.degree_id ' . $where;
+            $this->datatable->myWhere = ' JOIN clans ON clans.id=userdetails.clan_id JOIN schools ON schools.id=clans.school_id JOIN academies ON academies.id=schools.academy_id LEFT JOIN batches ON batches.id=userdetails.degree_id WHERE userdetails.student_master_id=users.id AND users.status="A" AND userdetails.status="A" ' . $where;
         } else if ($this->session_data->role == '3') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.degree_id ' . $where;
+            $this->datatable->myWhere = ' JOIN clans ON clans.id=userdetails.clan_id JOIN schools ON schools.id=clans.school_id JOIN academies ON academies.id=schools.academy_id  AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 LEFT JOIN batches ON batches.id=userdetails.degree_id WHERE userdetails.student_master_id=users.id AND users.status="A" AND userdetails.status="A" ' . $where;
         } else if ($this->session_data->role == '4') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.degree_id ' . $where;
+            $this->datatable->myWhere = ' JOIN clans ON clans.id=userdetails.clan_id JOIN schools ON schools.id=clans.school_id  AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0 JOIN academies ON academies.id=schools.academy_id LEFT JOIN batches ON batches.id=userdetails.degree_id WHERE userdetails.student_master_id=users.id AND users.status="A" AND userdetails.status="A" ' . $where;
         } else if ($this->session_data->role == '5') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0 AND userdetails.student_master_id=users.id AND clans.id=userdetails.clan_id AND batches.id=userdetails.degree_id ' . $where;
+            $this->datatable->myWhere = ' JOIN clans ON clans.id=userdetails.clan_id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0 JOIN schools ON schools.id=clans.school_id JOIN academies ON academies.id=schools.academy_id LEFT JOIN batches ON batches.id=userdetails.degree_id WHERE userdetails.student_master_id=users.id AND users.status="A" AND userdetails.status="A" ' . $where;
         }
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
             $temp_arr[] = '<img src="' . IMG_URL . 'user_avtar/40X40/' . $aRow['avtar'] . '" class="avatar img-circle" alt="avatar"><a href="' . base_url() . 'profile/view/' . $aRow['id'] . '" class="text-black">' . $aRow['student_name'] . '</a>';
-            $temp_arr[] = '<img src="' . IMG_URL . 'batches/' . $aRow['image'] . '" class="avatar img-circle" alt="avatar" data-toggle="tooltip" data-original-title="' . $aRow['batch_name'] . '">';
+            if (!is_null($aRow['image'])) {
+                $temp_arr[] = '<img src="' . IMG_URL . 'batches/' . $aRow['image'] . '" class="avatar img-circle" alt="avatar" data-toggle="tooltip" data-original-title="' . $aRow['batch_name'] . '">';
+            } else {
+                $temp_arr[] = null;
+            }
+            
             $temp_arr[] = $aRow['class_name'];
             $temp_arr[] = $aRow['school_name'];
             $temp_arr[] = $aRow['academy_name'];
@@ -990,7 +995,8 @@ class json extends CI_Controller
             }
             
             $message_id = $aRow['id'];
-             //getLastReplyOfMessage($aRow['id']);
+            
+            //getLastReplyOfMessage($aRow['id']);
             $message = NULL;
             
             $message.= '<a class="list-group-item message-delete-checkbox pull-left ' . $status . '" data-toggle="tooltip" data-placement="right" data-original-title="' . $delete_msg . '"><input type="checkbox" value="' . $type . '_' . $message_id . '_' . $aRow['type'] . '" name="message_id[]"></a><a href="' . base_url() . 'message/read/' . $message_id . '" class="list-group-item mail-list ' . $status . '">' . $img . '<span class="name">' . $name . '</span><span class="subject">' . $type_label . character_limiter($mess[0], 50) . '</span>' . $attachments . '<span class="time">' . date('d-m-Y', strtotime($aRow['timestamp'])) . '</span></a>';
@@ -1108,7 +1114,7 @@ class json extends CI_Controller
             $temp_arr[] = $aRow['school'];
             $temp_arr[] = $aRow['clan'];
             $check = Challenge::isRequestedBefore($this->session_data->id, $aRow['id']);
-            if (!$check) {
+            if (!$check && $aRow['id'] != $this->session_data->id) {
                 $box_type = ($aRow['total_pending_challenge'] > 7) ? 'cannot_do_duel_box' : 'do_duel_box';
                 $temp_arr[] = '<button class="btn btn-warning" data-toggle="modal" data-target="#' . $box_type . '" data-userid="' . $aRow['id'] . '">Challenge!</button>';
             } else {

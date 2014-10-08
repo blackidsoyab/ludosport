@@ -73,16 +73,16 @@
         }).on('error.validator.bv', function(e, data) {
             $(data.element[0]).parent().parent().find('.removeButton').show(); 
             $(data.element[0]).parent().parent().find('.addButton').hide();   
-        }).find('[name="message"]').summernote({
+        }).find('.summernote-sm').summernote({
             height: 200,
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['font', ['strike']],
+                ['font', ['strikethrough']],
                 ['fontsize', ['fontsize']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['height', ['height']]
-            ], 
+            ],
             onkeyup: function() {
                 validateEditor();
             },

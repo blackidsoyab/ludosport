@@ -114,6 +114,10 @@ function makeURL($options) {
         $url = base_url() . 'event/view/' . $options['data']['id'] . '/notification';
     }
 
+    if ($options['notify_type'] == 'event_manager') {
+        $url = base_url() . 'event/view/' . $options['object_id'] . '/notification';
+    }
+
     if ($options['notify_type'] == 'teacher_absent') {
         $url = base_url() . 'dean/absence_approval/' . $options['object_id'] . '/notification';
     }
@@ -230,6 +234,12 @@ function getNotificationTemplate($options, $user_name_link = false) {
     }
 
     if ($options['notify_type'] == 'event_invitation') {
+        $template_edit = true;
+        $event_field = $session->language .'_name';
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $options['data'][$event_field], getFullLocationByCity( $options['data']['city_id']));
+    }
+
+    if ($options['notify_type'] == 'event_manager') {
         $template_edit = true;
         $event_field = $session->language .'_name';
         $new_template = sprintf($templates[$options['notify_type']][$session->language], $options['data'][$event_field], getFullLocationByCity( $options['data']['city_id']));
@@ -400,8 +410,13 @@ function seNotificationTemplate() {
         ),
         'event_invitation' =>
         array(
-            'en' => '%s at %s',
-            'it' => '%s at %s',
+            'en' => 'Event : %s at %s',
+            'it' => 'Event : %s at %s',
+        ),
+        'event_manager' =>
+        array(
+            'en' => 'You are selected as manager of Event %s at %s',
+            'it' => 'You are selected as manager of Event %s at %s',
         ),
         'teacher_absent' =>
         array(
@@ -539,6 +554,12 @@ function getTimelineTemplate($options, $user_name_link = false) {
         $template_edit = true;
         $event_field = $session->language .'_name';
         $new_template = sprintf($templates[$options['notify_type']][$session->language], $options['data'][$event_field], getFullLocationByCity($options['data']['city_id']));
+    }
+
+    if ($options['notify_type'] == 'event_manager') {
+        $template_edit = true;
+        $event_field = $session->language .'_name';
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $options['data'][$event_field], getFullLocationByCity( $options['data']['city_id']));
     }
 
     if ($options['notify_type'] == 'teacher_absent') {
@@ -693,8 +714,13 @@ function setTimelineTemplate() {
         ),
         'event_invitation' =>
         array(
-            'en' => '%s at %s',
-            'it' => '%s at %s',
+            'en' => 'Event : %s at %s',
+            'it' => 'Event : %s at %s',
+        ),
+        'event_manager' =>
+        array(
+            'en' => 'You are selected as manager of Event %s at %s',
+            'it' => 'You are selected as manager of Event %s at %s',
         ),
         'teacher_absent' =>
         array(

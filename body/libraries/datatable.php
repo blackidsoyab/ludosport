@@ -72,7 +72,6 @@ class Datatable extends CI_Controller
         $sGroupBy = $this->groupBy;
         $sQuery = "SELECT SQL_CALC_FOUND_ROWS " . str_replace(" , ", " ", implode(", ", $this->aColumns)) . "," . str_replace(" , ", " ", implode(", ", $this->eColumns)) . " FROM   $this->sTable $sWhere $sGroupBy $sOrder $sLimit";
         $this->rResult = $this->db->query($sQuery);
-        
         //echo $this->db->last_query();
         
         /*

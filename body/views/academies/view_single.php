@@ -1,4 +1,11 @@
 <?php $session = $this->session->userdata('user_session'); ?>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+			PositionFooter();
+		});
+	});
+</script>
 <h1 class="page-heading"><?php echo $academy->{$session->language.'_academy_name'}; ?></h1>
 
 <div class="row">

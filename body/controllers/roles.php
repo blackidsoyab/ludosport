@@ -42,10 +42,8 @@ class roles extends CI_Controller
             redirect(base_url() . 'role', 'refresh');
         } else {
             $this->layout->setField('page_title', 'Add Role');
-            
-            $myACL = new ACL();
-            $data['aPerms'] = $myACL->getAllPerms('full');
-            $this->layout->view('roles/add', $data);
+
+            $this->layout->view('roles/add');
         }
     }
     
@@ -79,10 +77,6 @@ class roles extends CI_Controller
                 
                 $role = new Role();
                 $data['role'] = $role->where('id', $id)->get();
-                
-                //$myACL = new ACL();
-                //$data['rPerms'] = $myACL->getRolePerms($id);
-                //$data['aPerms'] = $myACL->getAllPerms('full');
                 
                 $this->layout->view('roles/edit', $data);
             }

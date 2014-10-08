@@ -40,18 +40,18 @@
 		<div class="featured-post-wide">
 			<p class="pull-left">
 				<?php
-					if (hasPermission('events', 'sendEventInvitation')) {
+					if (hasPermission('events', 'sendEventInvitation') || in_array($session->id, explode(',', $event_detail->manager))) {
 			            echo '<a href="' . base_url() . 'event/invitation/' . $event_detail->id. '" class="actions btn btn-primary" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('send') .' '. $this->lang->line('invitation') . '">'.$this->lang->line('send') .' '. $this->lang->line('invitation').'</a>';
 			        }
 			    ?>
 			</p>
 			<p class="pull-right">
 				<?php
-					if (hasPermission('events', 'editEvent')) {
+					if (hasPermission('events', 'editEvent') || in_array($session->id, explode(',', $event_detail->manager))) {
 			            echo '<a href="' . base_url() . 'event/edit/' . $event_detail->id. '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
 			        }
 
-			        if (hasPermission('events', 'deleteEvent')) {
+			        if (hasPermission('events', 'deleteEvent') || in_array($session->id, explode(',', $event_detail->manager))) {
 			            echo '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' .  $event_detail->id . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
 			        }
 				?>
@@ -60,8 +60,16 @@
 			<div class="featured-text relative-left">
 				<h3><a href="#"><?php echo ucfirst($event_detail->{$session->language.'_name'}); ?></a></h3>
 				<p class="date">
-					<?php
-						echo ucwords($this->lang->line('date')), ' ', $this->lang->line('from') ,' : ' , date('d-m-Y', strtotime($event_detail->date_from)), ' ', strtolower($this->lang->line('to')) ,' ' , date('d-m-Y', strtotime($event_detail->date_to));
+				 	<?php
+                                if(strtotime($event_detail->date_from) == strtotime($event_detail->date_to)){
+                                    echo ucwords($this->lang->line('date')) ,' : ', date('d-m-Y', strtotime($event_detail->date_from));
+                                } else{
+                                    echo ucwords($this->lang->line('date')), ' ', $this->lang->line('from') ,' : ' , date('d-m-Y', strtotime($event_detail->date_from)), ' ', strtolower($this->lang->line('to')) ,' ' , date('d-m-Y', strtotime($event_detail->date_to));
+                                }
+                                
+                    ?>
+                    <?php
+						
 					?>
 				</p>
 				<p><?php echo $event_detail->description; ?></p>

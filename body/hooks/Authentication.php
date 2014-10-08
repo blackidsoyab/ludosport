@@ -46,7 +46,8 @@ class Authentication extends CI_Controller {
             'students',
             'teachers',
             'deans',
-            'announcements'
+            'announcements',
+            'events'
         );
     }
 
@@ -60,7 +61,10 @@ class Authentication extends CI_Controller {
             'getSameLevelClans',
             'deleteClanDate',
             'viewClanAttendance',
-            'viewStudentAttendance'
+            'viewStudentAttendance',
+            'sendEventInvitation',
+            'editEvent',
+            'deleteEvent'
         );
     }
 
