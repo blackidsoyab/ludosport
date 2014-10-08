@@ -265,15 +265,6 @@ class events extends CI_Controller
                 
                 $events = new Event();
                 $data['event'] = $events->where('id', $id)->get();
-
-                $redirect = true;
-                if (hasPermission('events', 'editEvent') || in_array($this->session_data->id, explode(',', $events->manager))) {
-                    $redirect = false;
-                }
-                if($redirect){
-                     $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
-                    redirect(base_url(), 'refresh');
-                }
                 
                 $event_category = new Eventcategory();
                 $event_category->order_by($this->session_data->language . '_name', 'ASC');
@@ -322,15 +313,6 @@ class events extends CI_Controller
         if (!empty($id)) {
             $event = new Event();
             $event->where('id', $id)->get();
-
-            $redirect = true;
-            if (hasPermission('events', 'deleteEvent') || in_array($this->session_data->id, explode(',', $event->manager))) {
-                $redirect = false;
-            }
-            if($redirect){
-                 $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
-                redirect(base_url(), 'refresh');
-            }
 
             if ($event->image != 'no-cover.jpg') {
                 if (file_exists('assets/img/event_images/' . $event->image)) {
@@ -388,16 +370,6 @@ class events extends CI_Controller
         if (!empty($event_id)) {
             $event_detail = new Event();
             $event_detail->where('id', $event_id)->get();
-            
-            $redirect = true;
-            if (hasPermission('events', 'takeEventAttendance') || in_array($this->session_data->id, explode(',', $event_detail->manager))) {
-                $redirect = false;
-            }
-            
-            if($redirect){
-                 $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
-                redirect(base_url(), 'refresh');
-            }
 
             $manager_events_ids = $event_detail->getRunningEventAsManager($this->session_data->id);
             
@@ -476,16 +448,6 @@ class events extends CI_Controller
         if (!empty($event_id)) {
             $event_detail = new Event();
             $event_detail->where('id', $event_id)->get();
-
-            $redirect = true;
-            if (in_array($this->session_data->id, explode(',', $event_detail->manager))) {
-                $redirect = false;
-            }
-
-            if($redirect){
-                 $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
-                redirect(base_url(), 'refresh');
-            }
             
             //Check data exits or not
             if ($event_detail->result_count() == 1) {
@@ -530,25 +492,13 @@ class events extends CI_Controller
                     //get the mail templates
                     $email->where('type', 'event_invitation')->get();
                     $message = $email->message;
-                    
-                    if (!empty($event_detail->image)) {
-                        $path = 'assets/img/event_images/' . $event_detail->image;
-                        if (file_exists($path)) {
-                            $base64 = base_url() . $path;
-                            $image = '<img src="' . $base64 . '" style="width:25%"/>';
-                        } else {
-                            $image = '&nbsp;';
-                        }
-                    } else {
-                        $image = '&nbsp;';
-                    }
+
                     
                     //replace appropriate varaibles
                     $message = str_replace('#event_name', $event_detail->en_name, $message);
                     $message = str_replace('#from_date', date('d-m-Y', strtotime($event_detail->date_from)), $message);
                     $message = str_replace('#to_date', date('d-m-Y', strtotime($event_detail->date_to)), $message);
                     $message = str_replace('#location', getFullLocationByCity($event_detail->city_id), $message);
-                    $message = str_replace('#event_image', $image, $message);
                     $user_info = userNameAvtar($event_detail->user_id);
                     $message = str_replace('#event_created_by', $user_info['name'], $message);
                     $message = str_replace('#invitation_send_by', $this->session_data->name, $message);
