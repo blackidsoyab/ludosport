@@ -707,4 +707,24 @@ class students extends CI_Controller
         
         return true;
     }
+
+    function paymentHistory(){
+        $this->layout->setField('page_title', $this->lang->line('payment'). ' '. $this->lang->line('history'));
+        $this->layout->view('students/shop');
+    }
+
+    function viewInvoice($id){
+        $obj = new Payment();
+        $obj->where(array('id'=>$id, 'user_id'=>$this->session_data->id))->get();
+
+        if($obj->result_count() == 0){
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'dashboard', 'refresh');
+        }
+
+        $data['payment_details'] = $obj;
+
+        $this->layout->setField('page_title', $this->lang->line('view'). ' '. $this->lang->line('invoice'));
+        $this->layout->view('students/view_invoice', $data);
+    }
 }

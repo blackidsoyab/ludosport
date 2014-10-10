@@ -118,6 +118,9 @@ $lang['received'] = 'Received';
 $lang['renewals'] = 'Renewals';
 $lang['certificates'] = 'Certificates';
 $lang['merchandising'] = 'Merchandising';
+$lang['payment'] = 'Payment';
+$lang['amount'] = 'Amount';
+$lang['invoice'] = 'Invoice';
 
 //Dashboard
 $lang['control_panel'] = 'Control Panel';

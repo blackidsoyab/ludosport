@@ -544,7 +544,7 @@ class json extends CI_Controller
         }
         
         $this->datatable->groupBy = ' GROUP BY users.id';
-
+        
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -1445,6 +1445,32 @@ class json extends CI_Controller
             
             $this->datatable->output['aaData'][] = $temp_arr;
         }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+    
+    function getStudentPaymentHistoryJsonData($user_id = null) {
+        if (is_null($user_id)) {
+            $user_id = $this->session_data->id;
+        }
+        
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('description', 'amount', 'timestamp');
+        $this->datatable->eColumns = array('id');
+        $this->datatable->sIndexColumn = "id";
+        $this->datatable->sTable = " payments";
+        $this->datatable->myWhere = 'WHERE user_id=' . $user_id;
+        $this->datatable->sOrder = " ORDER BY timestamp DESC";
+        $this->datatable->datatable_process();
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = getClanName($aRow['description']);
+            $temp_arr[] = '<i class="fa fa-dollar"></i>&nbsp;' . $aRow['amount'];
+            $temp_arr[] = date('d-m-Y', strtotime($aRow['timestamp']));
+            $temp_arr[] = '<a href="' . base_url() . 'shop/invoice/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('view') .' ' . $this->lang->line('invoice') . '"><i class="fa fa-file-pdf-o icon-circle icon-xs icon-primary"></i></a>';
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        
         echo json_encode($this->datatable->output);
         exit();
     }

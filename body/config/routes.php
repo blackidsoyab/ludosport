@@ -174,6 +174,10 @@ $route['duels/declare_result_box/(:num)'] = "ajax/duelResultBox/$1";
 $route['duels/declare_result'] = "students/duelResult";
 $route['student/rating_list_json'] = "json/getRattingListJsonData";
 $route['student/rating_list_json/(:any)'] = "json/getRattingListJsonData/$1";
+$route['shop'] = "students/paymentHistory";
+$route['shop/json_data'] = "json/getStudentPaymentHistoryJsonData";
+$route['shop/invoice/(:num)'] = "students/viewInvoice/$1";
+
 
 //Message System
 $route['message/compose'] = "messages/composeMessage";
