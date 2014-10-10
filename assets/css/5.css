@@ -106,6 +106,18 @@ ul.sidebar-menu li.active a:hover, ul.sidebar-menu li.active a:focus {
     border-color: #F1C15C;
 }
 
+.btn-primary.btn-perspective{
+    -webkit-box-shadow: 0px 3px 0px #C88127;
+    -moz-box-shadow: 0px 3px 0px #C88127;
+    box-shadow: 0px 3px 0px #C88127;
+}
+
+.btn-primary.btn-perspective:active{
+    -webkit-box-shadow: 0px 1px 0px #C88127;
+    -moz-box-shadow: 0px 1px 0px #C88127;
+    box-shadow: 0px 1px 0px #C88127;
+}
+
 .btn-primary:hover, .btn-primary:focus, 
 .btn-primary:active, .btn-primary.active, 
 .open .dropdown-toggle.btn-primary {

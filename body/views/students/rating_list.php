@@ -133,6 +133,11 @@
     }
 </script>
 
+<style>
+	.datepicker{z-index:9999 !important;}
+	.bootstrap-timepicker-widget{z-index:9999 !important;}
+</style>
+
 <h1 class="page-heading h1"><?php echo $this->lang->line('rating_list'); ?></h1>
 <div class="the-box">
     <div class="form-horizontal">

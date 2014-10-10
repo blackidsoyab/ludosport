@@ -10,7 +10,7 @@ class ajax extends CI_Controller
         parent::__construct();
         $this->session_data = $this->session->userdata('user_session');
     }
-
+    
     function setNewLanguage($lang_prefix) {
         $session = $this->session->userdata('user_session');
         $session->language = $lang_prefix;
@@ -130,6 +130,8 @@ class ajax extends CI_Controller
         $str = Null;
         if ($obj->result_count() > 0) {
             foreach ($notifications as $notify) {
+                $obj->update('status', 1);
+                
                 $options['id'] = $notify->id;
                 $options['notify_type'] = $notify->notify_type;
                 $options['object_id'] = $notify->object_id;
@@ -145,14 +147,20 @@ class ajax extends CI_Controller
                     $img = '<i class="fa fa-3x fa-info-circle"></i>';
                 }
                 
-                $str.= '<div class="col-sm-12"><div class="the-box no-border"><div class="media user-card-sm">';
-                $str.= '<a class="pull-left">' . $img . '</a>';
-                $str.= '<div class="media-body"><h4 class="media-heading">' . @$message . '</h4>';
-                $str.= '<p class="text-primary">' . time_elapsed_string($notify->timestamp) . '</p></div>';
+                $str.= '<div class="col-sm-12">' . "\n";
+                $str.= '<div class="the-box no-border"><div class="media user-card-sm">' . "\n";
+                $str.= '<a class="pull-left">' . $img . '</a>' . "\n";
+                $str.= '<div class="media-body">' . "\n";
+                $str.= '<h4 class="media-heading">' . @$message . '</h4>' . "\n";
+                $str.= '<p class="text-primary">' . time_elapsed_string($notify->timestamp) . '</p>' . "\n";
+                $str.= '</div>' . "\n";
                 
-                $str.= '<div class="right-button">';
-                $str.= '<a href="' . makeURL($options) . '" class="btn btn-primary"><i class="fa fa-share"></i></a>';
-                $str.= '</div></div></div></div>';
+                $str.= '<div class="right-button">'."\n";
+                $str.= '<a href="' . makeURL($options) . '" class="btn btn-primary"><i class="fa fa-share"></i></a>' . "\n";
+                $str.= '</div>' . "\n";
+                $str.= '</div>' . "\n";
+                $str.= '</div>' . "\n";
+                $str.= '</div>' . "\n";
             }
             echo $str;
         } else {
@@ -472,7 +480,7 @@ class ajax extends CI_Controller
             }
         }
     }
-
+    
     function checkValidRole($id = null) {
         $role = new Role();
         $role->where('en_role_name', $this->input->post('en_role_name'));
@@ -662,118 +670,118 @@ class ajax extends CI_Controller
             echo 'false';
         }
     }
-
+    
     function gerUserByRoleID($role_id) {
         $users = new User();
-
-        if($this->session_data->role == 1 || $this->session_data->role == 2) {
-            $data = $users->getUsersByRole($role_id);    
+        
+        if ($this->session_data->role == 1 || $this->session_data->role == 2) {
+            $data = $users->getUsersByRole($role_id);
         } else {
-            if($role_id == 2){
+            if ($role_id == 2) {
                 $data = $users->getUsersByRole($role_id);
-            }else{
-                if($this->session_data->role == 3){
-                    if($role_id == 3){
+            } else {
+                if ($this->session_data->role == 3) {
+                    if ($role_id == 3) {
                         $obj = new Academy();
                         $ids = $obj->getRelatedRectorsByRector($this->session_data->id);
                     }
-
-                    if($role_id == 4){
+                    
+                    if ($role_id == 4) {
                         $obj = new School();
                         $ids = $obj->getRelatedDeansByRector($this->session_data->id);
                     }
-
-                    if($role_id == 5){
+                    
+                    if ($role_id == 5) {
                         $obj = new Clan();
                         $ids = $obj->getRelatedTeachersByRector($this->session_data->id);
                     }
-
-                    if($role_id == 6){
+                    
+                    if ($role_id == 6) {
                         $obj = new Userdetail();
                         $ids = $obj->getRelatedStudentsByRector($this->session_data->id);
                     }
-
+                    
                     $data = $users->getUsersDetails($ids);
                 }
-
-                if($this->session_data->role == 4){
-                    if($role_id == 3){
+                
+                if ($this->session_data->role == 4) {
+                    if ($role_id == 3) {
                         $obj = new Academy();
                         $ids = $obj->getRelatedRectorsByDean($this->session_data->id);
                     }
-
-                    if($role_id == 4){
+                    
+                    if ($role_id == 4) {
                         $obj = new School();
                         $ids = $obj->getRelatedDeansByDean($this->session_data->id);
                     }
-
-                    if($role_id == 5){
+                    
+                    if ($role_id == 5) {
                         $obj = new Clan();
                         $ids = $obj->getRelatedTeachersByDean($this->session_data->id);
                     }
-
-                    if($role_id == 6){
+                    
+                    if ($role_id == 6) {
                         $obj = new Userdetail();
                         $ids = $obj->getRelatedStudentsByDean($this->session_data->id);
                     }
-
+                    
                     $data = $users->getUsersDetails($ids);
                 }
-
-                if($this->session_data->role == 5){
-                    if($role_id == 3){
+                
+                if ($this->session_data->role == 5) {
+                    if ($role_id == 3) {
                         $obj = new Academy();
                         $ids = $obj->getRelatedRectorsByTeacher($this->session_data->id);
                     }
-
-                    if($role_id == 4){
+                    
+                    if ($role_id == 4) {
                         $obj = new School();
                         $ids = $obj->getRelatedDeansByTeacher($this->session_data->id);
                     }
-
-                    if($role_id == 5){
+                    
+                    if ($role_id == 5) {
                         $obj = new Clan();
                         $ids = $obj->getRelatedTeachersByTeacher($this->session_data->id);
                     }
-
-                    if($role_id == 6){
+                    
+                    if ($role_id == 6) {
                         $obj = new Userdetail();
                         $ids = $obj->getRelatedStudentsByTeacher($this->session_data->id);
                     }
                 }
-
-                if($this->session_data->role == 6){
-                    if($role_id == 3){
+                
+                if ($this->session_data->role == 6) {
+                    if ($role_id == 3) {
                         $obj = new Academy();
                         $ids = $obj->getRelatedRectorsByStudent($this->session_data->id);
                     }
-
-                    if($role_id == 4){
+                    
+                    if ($role_id == 4) {
                         $obj = new School();
                         $ids = $obj->getRelatedDeansByStudent($this->session_data->id);
                     }
-
-                    if($role_id == 5){
+                    
+                    if ($role_id == 5) {
                         $obj = new Clan();
                         $ids = $obj->getRelatedTeachersByStudent($this->session_data->id);
                     }
-
-                    if($role_id == 6){
+                    
+                    if ($role_id == 6) {
                         $obj = new Userdetail();
                         $ids = $obj->getRelatedStudentsByStudent($this->session_data->id);
                     }
                 }
-
+                
                 $data = $users->getUsersDetails($ids);
-            } 
+            }
         }
-
+        
         echo '<option value="">' . $this->lang->line('select'), ' ', $this->lang->line('manager') . '</option>';
         foreach ($data as $value) {
             echo '<option value="' . $value->id . '">' . $value->firstname . ' ' . $value->lastname . '</option>';
         }
     }
-
+    
     function downloadAttachment($attachment_id) {
         $obj = new Messageattachment();
         $obj->where('id', $attachment_id)->get();
