@@ -5,6 +5,10 @@ class Userdetail extends DataMapper
     public $table = 'userdetails';
     public $has_one = array('clan', 'user' => array('join_other_as' => 'user', 'join_self_as' => 'id'));
     
+    function __construct($id = NULL) {
+        parent::__construct($id);
+    }
+
     public static function getAssingStudentIds() {
         $obj = new Userdetail();
         $array = array();
@@ -194,76 +198,6 @@ class Userdetail extends DataMapper
         return $res[0]->total;
     }
     
-    function randomUserDetails() {
-        $session = get_instance()->session->userdata('user_session');
-        $this->db->_protect_identifiers = false;
-        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar');
-        $this->db->from('users');
-        $this->db->join('userdetails', 'users.id=userdetails.student_master_id');
-        $this->db->where('users.status', 'A');
-        $this->db->order_by('RAND()');
-        $this->db->limit(1);
-        $res = $this->db->get();
-        if ($res->num_rows > 0) {
-            $return = $res->result();
-            if ($return[0]->id != $session->id) {
-                return $return[0];
-            } else {
-                return $this->randomUserDetails();
-            }
-        } else {
-            return $this->randomUserDetails();
-        }
-    }
-    
-    function userForChallenge($user_id, $type = 'all', $limit = 1) {
-        $session = get_instance()->session->userdata('user_session');
-        $this->db->_protect_identifiers = false;
-        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, users.status, userdetails.total_score');
-        $this->db->from('userdetails');
-        if ($type == 'all') {
-            $this->db->join('users', 'users.id=userdetails.student_master_id');
-        } else if ($type == 'academy') {
-            $this->db->join('users', 'users.id=userdetails.student_master_id');
-            $this->db->join('clans', 'clans.id=userdetails.clan_id');
-            $this->db->join('schools', 'schools.id=clans.school_id');
-            $this->db->join('academies', 'academies.id=schools.academy_id');
-            $this->db->join('schools sc2', 'academies.id=sc2.academy_id');
-            $this->db->join('clans c2', 'sc2.id=c2.school_id');
-            $this->db->join('userdetails s2', 'c2.id=s2.clan_id');
-            $this->db->where('s2.student_master_id ', $user_id);
-        } else if ($type == 'school') {
-            $this->db->join('users', 'users.id=userdetails.student_master_id');
-            $this->db->join('clans', 'clans.id=userdetails.clan_id');
-            $this->db->join('schools', 'schools.id=clans.school_id');
-            $this->db->join('clans c2', 'schools.id=c2.school_id');
-            $this->db->join('userdetails s2', 'c2.id=s2.clan_id');
-            $this->db->where('s2.student_master_id ', $user_id);
-        }
-        if ($type == 'clan') {
-            $this->db->join('users', 'users.id=userdetails.student_master_id');
-            $this->db->join('clans', 'clans.id=userdetails.clan_id');
-            $this->db->join('userdetails s2', 'clans.id=s2.clan_id');
-            $this->db->where('s2.student_master_id ', $user_id);
-        }
-        $this->db->where('userdetails.student_master_id !=', $user_id);
-        $this->db->order_by('RAND()');
-        $this->db->where('users.status', 'A');
-        $this->db->limit($limit);
-        $res = $this->db->get();
-        if ($res->num_rows > 0) {
-            $return = $res->result();
-            $check = Challenge::isRequestedBefore($session->id, $return[0]->id);
-            if (!$check) {
-                return $return[0];
-            } else {
-                return $this->userForChallenge($user_id, $type);
-            }
-        } else {
-            return $this->userForChallenge($user_id, $type);
-        }
-    }
-    
     function userDetailsBeforeAfterMe($id, $score, $type, $type_2 = null, $limit = null) {
         $this->db->_protect_identifiers = false;
         $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, userdetails.total_score');
@@ -324,10 +258,19 @@ class Userdetail extends DataMapper
     }
     
     function topStudents($type = null, $type_2 = null, $limit = null) {
-        $session = get_instance()->session->userdata('user_session');
+        $ci = & get_instance();
+        $session = $ci->session->userdata('user_session');
         $this->db->_protect_identifiers = false;
-        $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, userdetails.xpr, userdetails.war, userdetails.sty, userdetails.total_score, role_id, quote, ' . $session->language . '_academy_name as academy, schools.' . $session->language . '_school_name as school, clans.' . $session->language . '_class_name as clan');
+        if ($session->role == 6) {
+            $reset_date = date('Y-m-d', strtotime($ci->config->item('reset_app_day_month') . '-' . (get_current_date_time()->year + 1)));
+            
+            $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, userdetails.xpr, userdetails.war, userdetails.sty, userdetails.total_score, role_id, quote, ' . $session->language . '_academy_name as academy, schools.' . $session->language . '_school_name as school, clans.' . $session->language . '_class_name as clan, (SELECT COUNT(*) FROM challenges WHERE DATE(made_on) <= "' . $reset_date . '" AND ((from_id=' . $session->id . ' AND challenges.to_id=userdetails.student_master_id) OR (to_id=' . $session->id . ' AND challenges.from_id=userdetails.student_master_id))) AS total_challenge');
+        } else {
+            $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, userdetails.xpr, userdetails.war, userdetails.sty, userdetails.total_score, role_id, quote, ' . $session->language . '_academy_name as academy, schools.' . $session->language . '_school_name as school, clans.' . $session->language . '_class_name as clan');
+        }
+        
         $this->db->from('userdetails');
+        
         if (is_null($type_2)) {
             $this->db->join('users', 'users.id=userdetails.student_master_id');
             $this->db->join('clans', 'clans.id=userdetails.clan_id');
@@ -350,8 +293,7 @@ class Userdetail extends DataMapper
             $this->db->join('clans c2', 'schools.id=c2.school_id');
             $this->db->join('userdetails s2', 'c2.id=s2.clan_id');
             $this->db->where('s2.student_master_id ', $session->id);
-        }
-        if (!is_null($type_2) && $type_2 == 'clan') {
+        } else if (!is_null($type_2) && $type_2 == 'clan') {
             $this->db->join('users', 'users.id=userdetails.student_master_id');
             $this->db->join('clans', 'clans.id=userdetails.clan_id');
             $this->db->join('schools', 'schools.id=clans.school_id');
@@ -376,7 +318,9 @@ class Userdetail extends DataMapper
         if (!is_null($limit)) {
             $this->db->limit($limit);
         }
+        
         $res = $this->db->get();
+        
         if ($res->num_rows > 0) {
             $return = $res->result();
             return $return;

@@ -8,6 +8,7 @@ class students extends CI_Controller
     
     function __construct() {
         parent::__construct();
+
         $this->layout->setField('page_title', $this->config->item('app_name'));
         $this->session_data = $this->session->userdata('user_session');
         
@@ -323,11 +324,11 @@ class students extends CI_Controller
         //Last 3 Challenge Submitted
         $data['challenge_submitted'] = $challenge->getChallengeDetails($this->session_data->id, 'made', 'P', 3);
         
-        //Recommended User
-        $data['recommended_user'] = $userdetail->userForChallenge($this->session_data->id, 'academy');
-        
         //Suggested User
-        $data['suggested_user'] = $userdetail->userForChallenge($this->session_data->id, 'all');
+        $data['suggested_user'] = $challenge->userForChallenge($this->session_data->id, 'all');
+
+        //Recommended User
+        $data['recommended_user'] = $challenge->userForChallenge($this->session_data->id, 'academy');
         
         //Duels Logs
         $data['duel_logs'] = $challenge->challengeLogs($this->session_data->id, 'academy');

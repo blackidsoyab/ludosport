@@ -233,8 +233,8 @@ class Clan extends DataMapper
     }
     
     function getAviableTrialClan($city_id, $under_sixteen, $class_limit = 3) {
-        static $counter = 0;
-        $counter++;
+        static $get_aviable_trial_clan = 0;
+        $get_aviable_trial_clan++;
         $this->db->_protect_identifiers = false;
         $this->db->select('clans.id');
         $this->db->from('clans');
@@ -250,7 +250,7 @@ class Clan extends DataMapper
         } else {
             $city = new City();
             $id = $city->getRandomCityId();
-            if ($counter > 10) {
+            if ($get_aviable_trial_clan > 10) {
                 return false;
             } else {
                 return $this->getAviableTrialClan($id, $under_sixteen);
@@ -277,8 +277,8 @@ class Clan extends DataMapper
     }
     
     function getSameLevelClan($city_id, $level_id, $class_limit = 3) {
-        static $counter = 0;
-        $counter++;
+        static $get_Same_level_clan = 0;
+        $get_Same_level_clan++;
         $this->db->_protect_identifiers = false;
         $this->db->select('clans.id');
         $this->db->from('clans');
@@ -292,7 +292,7 @@ class Clan extends DataMapper
         } else {
             $city = new City();
             $id = $city->getRandomCityId();
-            if ($counter > 10) {
+            if ($get_Same_level_clan > 10) {
                 return false;
             } else {
                 return $this->getSameLevelClan($id, $level_id);

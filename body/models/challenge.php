@@ -8,11 +8,11 @@ class Challenge extends DataMapper
     
     static public function isRequestedBefore($from_id, $to_id) {
         $ci = & get_instance();
-        $reset_date = date('Y-m-d', strtotime($ci->config->item('reset_app_day_month') . '-' . get_current_date_time()->year + 1));
+        $reset_date = date('Y-m-d', strtotime($ci->config->item('reset_app_day_month') . '-' . (get_current_date_time()->year + 1)));
         $ci->db->_protect_identifiers = false;
         $ci->db->select('COUNT(*) AS total');
         $ci->db->from('challenges');
-        $ci->db->where('DATE(made_on) <=', $reset_date);
+        $ci->db->where('DATE(made_on) <= ', $reset_date);
         $ci->db->where('((from_id=' . $from_id . ' AND to_id=' . $to_id . ') OR (to_id=' . $from_id . ' AND from_id=' . $to_id . '))');
         $res = $ci->db->get()->result();
         if ($res[0]->total == 0) {
@@ -22,7 +22,7 @@ class Challenge extends DataMapper
         }
     }
     
-    function getChallengeDetails($user_id, $type, $type_2 = null, $limit = null) {
+    function getChallengeDetails($user_id, $type = null, $type_2 = null, $limit = null) {
         $this->db->_protect_identifiers = false;
         $this->db->select('from_user.id AS from_id, CONCAT(from_user.firstname," ",from_user.lastname) AS from_name, from_user.avtar AS from_avtar, from_userdetail.total_score AS from_total_score, to_user.id AS to_id, CONCAT(to_user.firstname," ",to_user.lastname) as to_name, to_user.avtar AS to_avtar, to_userdetail.total_score AS to_total_score, challenges.*');
         
@@ -32,24 +32,24 @@ class Challenge extends DataMapper
         $this->db->join('users to_user', 'to_user.id = challenges.to_id');
         $this->db->join('userdetails to_userdetail', 'to_userdetail.student_master_id=to_user.id');
         
-        if ($type == 'made') {
+        if (!is_null($type) && $type == 'made') {
             $this->db->where('from_id', $user_id);
             $this->db->where('from_status', 'A');
             if (!is_null($type_2)) {
                 $this->db->where('to_status', $type_2);
             }
-        } else if ($type == 'received') {
+        } else if (!is_null($type) && $type == 'received') {
             $this->db->where('to_id', $user_id);
             if (!is_null($type_2)) {
                 $this->db->where('to_status', $type_2);
             }
-        } else if ($type == 'rejected') {
+        } else if (!is_null($type) && $type == 'rejected') {
             $this->db->where('(from_id=' . $user_id . ' OR to_id=' . $user_id . ')');
             $this->db->where("(from_status='R' OR to_status='R')");
-        } else if ($type == 'accepted') {
+        } else if (!is_null($type) && $type == 'accepted') {
             $this->db->where('(from_id=' . $user_id . ' OR to_id=' . $user_id . ')');
             $this->db->where("(from_status='A' AND to_status='A')");
-        } else if ($type == 'pending') {
+        } else if (!is_null($type) && $type == 'pending') {
             $this->db->where('(from_id=' . $user_id . ' OR to_id=' . $user_id . ')');
             $this->db->where("(from_status='P' OR to_status='P')");
         }
@@ -282,6 +282,63 @@ class Challenge extends DataMapper
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();
+        } else {
+            return false;
+        }
+    }
+
+        function userForChallenge($user_id, $type = 'all', $limit = 1) {
+        static $user_for_challenge_counter = 0;
+        $user_for_challenge_counter++;
+        if ($user_for_challenge_counter < 10) {
+            $ci = & get_instance();
+            $session = $ci->session->userdata('user_session');
+            $reset_date = date('Y-m-d', strtotime($ci->config->item('reset_app_day_month') . '-' . (get_current_date_time()->year + 1)));
+            
+            $this->db->_protect_identifiers = false;
+            $this->db->select('users.id, CONCAT(firstname," ", lastname) as name, avtar, users.status, userdetails.total_score, (SELECT COUNT(*) FROM challenges WHERE DATE(made_on) <= "' . $reset_date . '" AND ((from_id=' . $user_id . ' AND challenges.to_id=userdetails.student_master_id) OR (to_id=' . $user_id . ' AND challenges.from_id=userdetails.student_master_id))) AS total_challenge');
+            $this->db->from('userdetails');
+
+            if ($type == 'all') {
+                $this->db->join('users', 'users.id=userdetails.student_master_id');
+            } else if ($type == 'academy') {
+                $this->db->join('users', 'users.id=userdetails.student_master_id');
+                $this->db->join('clans', 'clans.id=userdetails.clan_id');
+                $this->db->join('schools', 'schools.id=clans.school_id');
+                $this->db->join('academies', 'academies.id=schools.academy_id');
+                $this->db->join('schools sc2', 'academies.id=sc2.academy_id');
+                $this->db->join('clans c2', 'sc2.id=c2.school_id');
+                $this->db->join('userdetails s2', 'c2.id=s2.clan_id');
+                $this->db->where('s2.student_master_id ', $user_id);
+            } else if ($type == 'school') {
+                $this->db->join('users', 'users.id=userdetails.student_master_id');
+                $this->db->join('clans', 'clans.id=userdetails.clan_id');
+                $this->db->join('schools', 'schools.id=clans.school_id');
+                $this->db->join('clans c2', 'schools.id=c2.school_id');
+                $this->db->join('userdetails s2', 'c2.id=s2.clan_id');
+                $this->db->where('s2.student_master_id ', $user_id);
+            } else if ($type == 'clan') {
+                $this->db->join('users', 'users.id=userdetails.student_master_id');
+                $this->db->join('clans', 'clans.id=userdetails.clan_id');
+                $this->db->join('userdetails s2', 'clans.id=s2.clan_id');
+                $this->db->where('s2.student_master_id ', $user_id);
+            }
+
+            $this->db->where('userdetails.student_master_id !=', $user_id);
+            $this->db->order_by('RAND()');
+            $this->db->where('users.status', 'A');
+            $this->db->limit($limit);
+            $res = $this->db->get();
+            if ($res->num_rows > 0) {
+                $return = $res->result();
+                if ($return[0]->total_challenge == 0) {
+                    return $return[0];
+                } else {
+                    return $this->userForChallenge($user_id, $type);
+                }
+            } else {
+                return $this->userForChallenge($user_id, $type);
+            }
         } else {
             return false;
         }

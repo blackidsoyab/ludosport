@@ -150,32 +150,36 @@
 
 <div class="row">
 	<div class="col-lg-4">
-		<div class="the-box no-border card-info text-center">
-			<h4 class="bolded"><?php echo $this->lang->line('duel_suggested'); ?></h4>
-			<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$suggested_user->avtar; ?>" class="social-avatar has-margin has-dark-shadow img-circle" alt="Avatar">
-	  		<h3 class="bolded padding-killer"><?php echo @$suggested_user->name; ?></h3>
-			<div class="row">
-				<div class="col-xs-6">
-					<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#<?php echo ($can_do_challege) ? 'do_duel_box' : 'cannot_do_duel_box'; ?>" data-userid="<?php echo $suggested_user->id; ?>" data-challenge-type="R"><i class="fa fa-user"></i><?php echo $this->lang->line('challenge'); ?></button>
-				</div>
-				<div class="col-xs-6">
-					<a href="<?php echo base_url() .'message/compose'; ?>" class="btn btn-warning btn-block"><i class="fa fa-envelope"></i><?php echo $this->lang->line('message'); ?></a>
+		<?php if($suggested_user != false){ ?>
+			<div class="the-box no-border card-info text-center">
+				<h4 class="bolded"><?php echo $this->lang->line('duel_suggested'); ?></h4>
+				<img src="<?php echo IMG_URL . 'user_avtar/100X100/' . @$suggested_user->avtar; ?>" class="social-avatar has-margin has-dark-shadow img-circle" alt="Avatar">
+		  		<h3 class="bolded padding-killer"><?php echo @$suggested_user->name; ?></h3>
+				<div class="row">
+					<div class="col-xs-6">
+						<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#<?php echo ($can_do_challege) ? 'do_duel_box' : 'cannot_do_duel_box'; ?>" data-userid="<?php echo $suggested_user->id; ?>" data-challenge-type="R"><i class="fa fa-user"></i><?php echo $this->lang->line('challenge'); ?></button>
+					</div>
+					<div class="col-xs-6">
+						<a href="<?php echo base_url() .'message/compose'; ?>" class="btn btn-warning btn-block"><i class="fa fa-envelope"></i><?php echo $this->lang->line('message'); ?></a>
+					</div>
 				</div>
 			</div>
-		</div>
+		<?php } ?>
 
-		<div class="the-box no-border card-info text-center">
-			<h4 class="bolded"><?php echo $this->lang->line('duel_recommended'); ?></h4>
-			<i class="fa fa-question icon-circle special-icon-duel icon-bordered special-icon-default mar-bt-10"></i>
-			<div class="row">
-				<div class="col-xs-7">
-					<a href="<?php echo base_url() .'rating_list'; ?>" class="btn btn-warning btn-block"><i class="fa fa-list icon-sidebar"></i> <?php echo $this->lang->line('choose_by_rating'); ?></a>
-				</div>
-				<div class="col-xs-5">
-					<button class="btn btn-warning btn-block" data-userid="<?php echo $recommended_user->id; ?>" data-toggle="modal" data-target="#<?php echo ($can_do_challege) ? 'do_duel_box' : 'cannot_do_duel_box'; ?>" data-challenge-type="B"><i class="fa fa-user"></i><?php echo $this->lang->line('blind'); ?></button>
+		<?php if($recommended_user != false){ ?>
+			<div class="the-box no-border card-info text-center">
+				<h4 class="bolded"><?php echo $this->lang->line('duel_recommended'); ?></h4>
+				<i class="fa fa-question icon-circle special-icon-duel icon-bordered special-icon-default mar-bt-10"></i>
+				<div class="row">
+					<div class="col-xs-7">
+						<a href="<?php echo base_url() .'rating_list'; ?>" class="btn btn-warning btn-block"><i class="fa fa-list icon-sidebar"></i> <?php echo $this->lang->line('choose_by_rating'); ?></a>
+					</div>
+					<div class="col-xs-5">
+						<button class="btn btn-warning btn-block" data-userid="<?php echo $recommended_user->id; ?>" data-toggle="modal" data-target="#<?php echo ($can_do_challege) ? 'do_duel_box' : 'cannot_do_duel_box'; ?>" data-challenge-type="B"><i class="fa fa-user"></i><?php echo $this->lang->line('blind'); ?></button>
+					</div>
 				</div>
 			</div>
-		</div>
+		<?php } ?>
 	</div>
 
 	<div class="col-lg-4">
@@ -538,7 +542,7 @@
 	</div>
 
 	<div class="col-lg-3">
-		<?php if($before_me_users != false || $after_me_users != false) { ?>
+		<?php if((isset($before_me_users) && $before_me_users != false) || (isset($before_me_users) && $after_me_users != false)) { ?>
 			<div class="the-box bg-dark no-border text-center more-padding">
 				<?php if($before_me_users != false){ 
 					krsort($before_me_users);
@@ -576,7 +580,7 @@
 	</div>
 
 	<div class="col-lg-4">
-		<?php if($top_five_users != false){ ?>
+		<?php if(isset($top_five_users) && $top_five_users != false){ ?>
 			<div class="panel panel-success panel-square panel-no-border">
 				<div class="panel-heading">
 					<div class="right-content">
@@ -599,8 +603,8 @@
 									<p class="small text-muted margin-killer"><?php echo @$top_five_value->academy; ?></p>
 		                        </div>
 		                        <div class="right-button">
-		                        	<?php $check = Challenge::isRequestedBefore($session->id, $top_five_value->id);
-		                        		if(!$check && $top_five_value->id != $session->id){
+		                        	<?php //$check = Challenge::isRequestedBefore($session->id, $top_five_value->id);
+		                        		if($top_five_value->total_challenge == 0 && $top_five_value->id != $session->id){
 		                        	?>
 		                            	<button class="btn btn-warning btn-block" data-toggle="modal" data-target="#<?php echo ($can_do_challege) ? 'do_duel_box' : 'cannot_do_duel_box'; ?>" data-userid="<?php echo $top_five_value->id; ?>">&nbsp;<?php echo $this->lang->line('challenge'); ?>&nbsp;</button>
 		                            <?php } ?>
