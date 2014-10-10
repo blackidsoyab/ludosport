@@ -90,7 +90,9 @@ $route['register/step_1'] = "authenticate/register";
 $route['add_user'] = "authenticate/saveUser";
 $route['register/step_2'] = "dashboard/studentRegistrationSecondPhase";
 $route['register/step_2/clan_ajax/(:num)'] = "ajax/getClassesFromSchoolForRegistrationStep2/$1";
+$route['register/step_2/clan_fee/(:num)'] = "ajax/getClassFeeFromClanForRegistrationStep2/$1";
 $route['register_step_2/download/(:any)'] = "ajax/downloadRegistrationPdf/$1";
+$route['register/step_2_payment'] = "dashboard/studentPaymentStatus";
 
 //Commom
 $route['getstate/(:num)'] = "ajax/getAllStatesOptionsFromCountry/$1";

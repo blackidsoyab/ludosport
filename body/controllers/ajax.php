@@ -623,6 +623,12 @@ class ajax extends CI_Controller
         
         echo $str;
     }
+
+    function getClassFeeFromClanForRegistrationStep2($clan_id){
+        $obj_academy = new Academy();
+        $return = $obj_academy->getFeesFromClan($clan_id);
+        echo $return->fee2;
+    }
     
     function checkUsernameExit($id = null) {
         $user = new User();

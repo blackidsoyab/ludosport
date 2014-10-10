@@ -78,6 +78,10 @@ $lang['announcement_read_error'] = 'Error in reading Announcement';
 $lang['announcement_reply_error'] = 'Error in replying Announcement';
 $lang['event_add_success'] = 'Event created successfully';
 $lang['event_add_error'] = 'Error in creating Event';
+$lang['payment_success'] = 'Your paymenent is done.';
+$lang['payment_cancelled'] = 'Your payment is cancelled.';
+$lang['payment_failed'] = 'Your payment is failed.';
+$lang['payment_expired'] = 'Your payment is expired.';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';

@@ -277,5 +277,21 @@ class Academy extends DataMapper
             return false;
         }
     }
+
+    function getFeesFromClan($clan_id){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('fee1, fee2');
+        $this->db->from('academies');
+        $this->db->join('schools', 'academies.id=schools.academy_id');
+        $this->db->join('clans', 'schools.id=clans.school_id');
+        $this->db->where('clans.id', $clan_id);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $return = $res->result();
+            return $return[0];
+        } else {
+            return false;
+        }
+    }
 }
 ?>

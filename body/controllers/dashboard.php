@@ -10,6 +10,9 @@ class dashboard extends CI_Controller
         parent::__construct();
         $this->layout->setField('page_title', 'Dashboard');
         $this->session_data = $this->session->userdata('user_session');
+        
+        $this->load->helper('paypal/paypal');
+        include_paypal_setting();
     }
     
     public function index() {
@@ -435,9 +438,6 @@ class dashboard extends CI_Controller
             
             //Get Current login Student Extra Detail
             $user_details->where('student_master_id', $this->session_data->id)->get();
-            if ($user_details->result_count() == 0) {
-                $this->session->set_flashdata('success', $this->lang->line('register_step2_success'));
-            }
             
             //save the data
             $user_details->student_master_id = $this->session_data->id;
@@ -465,15 +465,45 @@ class dashboard extends CI_Controller
             $user_details->status = 'P2';
             $user_details->user_id = $this->session_data->id;
             $user_details->save();
-            
+
             redirect(base_url() . 'register/step_2', 'refresh');
+            /*try {
+                $clan_id = $this->input->post('clan_id');
+                $obj_academy = new Academy();
+                $fee_details = $obj_academy->getFeesFromClan($clan_id);
+                
+                $obj_payment = new Payment();
+                $obj_payment->user_id = $this->session_data->id;
+                $obj_payment->type = 'PayPal';
+                $obj_payment->amount = $fee_details->fee2;
+                $obj_payment->description = $clan_id;
+                $obj_payment->save();
+                
+                $baseUrl = getBaseUrl() . '/register/step_2_payment?payment_id=' . $this->encrypt->encode($obj_payment->id, $this->config->item('encryption_key'));
+                $payment = makePaymentUsingPayPal($fee_details->fee2, 'USD', getClanName($clan_id), $baseUrl . '&status=' . $this->encrypt->encode('1', $this->config->item('encryption_key')), $baseUrl . '&status=' . $this->encrypt->encode('0', $this->config->item('encryption_key')));
+                
+                $obj = new Payment();
+                $obj->where('id', $obj_payment->id)->update(array('payment_id' => $payment->getId(), 'state' => $payment->getState()));
+                
+                redirect(getLink($payment->getLinks(), "approval_url"), 'refresh');
+            }
+            catch(PPConnectionException $ex) {
+                $message = parseApiError($ex->getData());
+                $this->session->set_flashdata('error', $message);
+                redirect(base_url() . 'register/step_2', 'refresh');
+            }
+            catch(Exception $ex) {
+                $message = $ex->getMessage();
+                $this->session->set_flashdata('error', $message);
+                redirect(base_url() . 'register/step_2', 'refresh');
+            }*/
         } else {
             $user = new User($this->session_data->id);
             
             $user_details = new Userdetail();
             $user_details->where('student_master_id', $this->session_data->id)->get();
             
-            if ($user_details->result_count() == 1 && $user_details->status == 'P2') {
+            if ($user_details->result_count() == 1 && ($user_details->status == 'P2' || $user_details->status == 'P3')) {
                 $data['user_details'] = $user_details;
                 
                 $clan = new Clan();
@@ -499,4 +529,45 @@ class dashboard extends CI_Controller
             $this->layout->view('authenticate/register_step_2', $data);
         }
     }
+    
+    function studentPaymentStatus() {
+        $payment_id = $this->encrypt->decode($_GET['payment_id'], $this->config->item('encryption_key'));
+        $status = $this->encrypt->decode($_GET['status'], $this->config->item('encryption_key'));
+        
+        $obj = new Payment($payment_id);
+        $obj->where('id', $payment_id)->update('payer_id' , $_GET['PayerID']);
+
+        $payment = getPaymentDetails($obj->payment_id);
+        
+        if ($payment->getState() == 'created' && $status == 1) {
+            $payment = executePayment($obj->payment_id, $_GET['PayerID']);
+            if ($payment->getState() == 'approved') {
+                $obj->update(array('state' => $payment->getState()));
+                $obj_user_details = new Userdetail();
+                $obj_user_details->where('student_master_id', $this->session_data->id)->update('status', 'A');
+
+                $obj_user = new User();
+                $obj_user->where('id', $this->session_data->id)->update('status', 'A');
+
+                $session = $this->session->userdata('user_session');
+                $session->status = 'A';
+                $newdata = array('user_session' => $session);
+                $this->session->set_userdata($newdata);
+
+                $this->session->set_flashdata('success', $this->lang->line('payment_success'));
+                redirect(base_url() . 'dashboard', 'refresh');
+            }
+        } else if ($payment->getState() == 'created' && $status == 0) {
+            $obj->update(array('state' => 'canceled'));
+            if ($payment->getState() == 'canceled') {
+                $this->session->set_flashdata('error', $this->lang->line('payment_cancelled'));
+            } else if ($payment->getState() == 'failed') {
+                $this->session->set_flashdata('error', $this->lang->line('payment_failed'));
+            } else if ($payment->getState() == 'expired') {
+                $this->session->set_flashdata('error', $this->lang->line('payment_expired'));
+            }
+            redirect(base_url() . 'register/step_2', 'refresh');
+        }
+    }
+
 }

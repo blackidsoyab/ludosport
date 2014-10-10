@@ -28,13 +28,25 @@
                     $('#clans-lists').empty();
                     $('#clans-lists').show();
                     $('#clans-lists').append(data);
-                    $('#clans-lists').find('input').iCheck({radioClass: 'iradio_flat-grey'});
-                    $('#register-form input[name="clan_id"]').rules('add', {
-                        required:true,
-                        messages: {
-                            required: "* This filed is required"
-                        }
+                    $('#clans-lists').find('input').iCheck({
+                        radioClass: 'iradio_flat-grey'
+                    }).on('ifChecked', function() {
+                         $.ajax({
+                            type: 'GET',
+                            url: '<?php echo base_url(); ?>register/step_2/clan_fee/'+this.value,
+                            success: function(data){
+                                $('.subscribe-button').html('<?php echo $this->lang->line('subscribe'); ?> @ ' + data + '$');
+                            }
+                        });
                     });
+                    if($('#register-form input[name="clan_id"]').length > 0){
+                        $('#register-form input[name="clan_id"]').rules('add', {
+                            required:true,
+                            messages: {
+                                required: "* This filed is required"
+                            }
+                        });    
+                    }
                 }
             });
         });
@@ -47,13 +59,25 @@
                     $('#clans-lists').empty();
                     $('#clans-lists').show();
                     $('#clans-lists').append(data);
-                    $('#clans-lists').find('input').iCheck({radioClass: 'iradio_flat-grey'});
-                    $('input[name="clan_id"]').rules('add', {
-                        required:true,
-                        messages: {
-                            required: "* This filed is required"
-                        }
+                    $('#clans-lists').find('input').iCheck({
+                        radioClass: 'iradio_flat-grey'
+                    }).on('ifChecked', function() {
+                         $.ajax({
+                            type: 'GET',
+                            url: '<?php echo base_url(); ?>register/step_2/clan_fee/'+this.value,
+                            success: function(data){
+                                $('.subscribe-button').html('<?php echo $this->lang->line('subscribe'); ?> & ' + data + '$');
+                            }
+                        });
                     });
+                    if($('#register-form input[name="clan_id"]').length > 0){
+                        $('#register-form input[name="clan_id"]').rules('add', {
+                            required:true,
+                            messages: {
+                                required: "* This filed is required"
+                            }
+                        });    
+                    }
                 }
             });
         <?php } ?>
@@ -144,7 +168,7 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-warning btn-lg btn-perspective btn-block" title="<?php echo $this->lang->line('subscribe'); ?>"><?php echo $this->lang->line('subscribe'); ?></button>
+                <button type="submit" class="btn btn-warning btn-lg btn-perspective btn-block subscribe-button" title="<?php echo $this->lang->line('subscribe'); ?>"><?php echo $this->lang->line('subscribe'); ?></button>
             </div>
         </form>
     </div>
