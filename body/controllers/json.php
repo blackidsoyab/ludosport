@@ -1091,7 +1091,7 @@ class json extends CI_Controller
     
     public function getRattingListJsonData($type = null) {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) as name', 'userdetails.total_score', 'en_academy_name as academy', 'schools.en_school_name as school', 'clans.en_class_name as clan');
+        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS name', 'userdetails.total_score', 'en_academy_name AS academy', 'schools.en_school_name AS school', 'clans.en_class_name AS clan');
         $this->datatable->eColumns = array('users.id', 'avtar', 'userdetails.xpr', 'userdetails.war', 'userdetails.sty', '(SELECT COUNT(*) FROM challenges WHERE to_id=' . $this->session_data->id . ' AND to_status="P") AS total_pending_challenge');
         $this->datatable->sIndexColumn = "users.id";
         $this->datatable->sTable = "userdetails";
@@ -1362,7 +1362,7 @@ class json extends CI_Controller
     public function getViewStudentAttendanceJsonData($student_id) {
         $this->load->library('datatable');
         $this->datatable->aColumns = array('clan_date');
-        $this->datatable->eColumns = array('attendances.id', 'attendance', '(SELECT count(*) FROM attendance_recovers WHERE attendance_recovers.attendance_id=attendances.id) as recovery');
+        $this->datatable->eColumns = array('attendances.id', 'attendance', '(SELECT count(*) FROM attendance_recovers WHERE attendance_recovers.attendance_id=attendances.id) AS recovery');
         $this->datatable->sIndexColumn = "attendances.id";
         $this->datatable->sTable = " attendances";
         $this->datatable->myWhere = 'WHERE student_id=' . $student_id;

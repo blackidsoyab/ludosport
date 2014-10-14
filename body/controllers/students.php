@@ -384,7 +384,7 @@ class students extends CI_Controller
         $challenge->where(array('from_id' => $this->session_data->id, 'to_id' => $this->input->post('to_id')))->get();
         $return = false;
         
-        if ($challenge->result_count() == 0) {
+        if ($challenge->result_count() == 0 && $this->input->post('to_id') != 0) {
             $challenge->type = $this->input->post('challenge_type');
             $challenge->from_id = $this->session_data->id;
             $challenge->from_status = 'A';
@@ -399,7 +399,7 @@ class students extends CI_Controller
             $challenge->save();
             $return = true;
             
-            $this->_sendNotificationEmail('challenge_made', $challenge->stored, $challenge->id);
+            $this->_sendNotificationEmail('challenge_made', $this->input->post(), $challenge->id);
         }
         
         echo json_encode(array('status' => $return));

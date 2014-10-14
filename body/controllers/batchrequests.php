@@ -238,9 +238,9 @@ class batchrequests extends CI_Controller
                 
                 if ($obj_batch->has_point == 1) {
                     $obj_score_history = new Scorehistory();
-                    $obj_score_history->meritStudentScore($details->student_id, $obj_batch->xpr, $xpr, 'Badge request approved');
-                    $obj_score_history->meritStudentScore($details->student_id, $obj_batch->war, $war, 'Badge request approved');
-                    $obj_score_history->meritStudentScore($details->student_id, $obj_batch->sty, $sty, 'Badge request approved');
+                    $obj_score_history->meritStudentScore($details->student_id, 'xpr', $obj_batch->xpr, 'Badge request approved');
+                    $obj_score_history->meritStudentScore($details->student_id, 'war', $obj_batch->war, 'Badge request approved');
+                    $obj_score_history->meritStudentScore($details->student_id, 'sty', $obj_batch->sty, 'Badge request approved');
                 }
                 
                 $this->_sendNotificationAndEmail('batch_request_approved', $post, $id);
@@ -292,9 +292,9 @@ class batchrequests extends CI_Controller
                     
                     if ($obj_batch->has_point == 1) {
                         $obj_score_history = new Scorehistory();
-                        $obj_score_history->demeritStudentScore($details->student_id, $obj_batch->xpr, $xpr, 'Badge request unapproved after approved');
-                        $obj_score_history->demeritStudentScore($details->student_id, $obj_batch->war, $war, 'Badge request unapproved after approved');
-                        $obj_score_history->demeritStudentScore($details->student_id, $obj_batch->sty, $sty, 'Badge request unapproved after approved');
+                        $obj_score_history->demeritStudentScore($details->student_id, 'xpr', $obj_batch->xpr, 'Badge request unapproved after approved');
+                        $obj_score_history->demeritStudentScore($details->student_id, 'war', $obj_batch->war, 'Badge request unapproved after approved');
+                        $obj_score_history->demeritStudentScore($details->student_id, 'sty', $obj_batch->sty, 'Badge request unapproved after approved');
                     }
                 }
                 

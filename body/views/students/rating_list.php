@@ -9,26 +9,7 @@
             loadDatable();
         });
 
-        $('button[data-toggle~="modal"]').on('click', function(e) {
-			var target_modal = $(e.currentTarget).data('target');
-			var modal = $(target_modal);
-			modal.on('show.bs.modal', function () {
-				if(target_modal == 'do_duel_box') {
-					$("input[name='to_id']").val($(e.currentTarget).data('userid'));
-					$('.form-group').show();
-			    	$('.animation_image').hide();
-			    	$('#time_error').hide();
-	        		$('#date_error').hide();
-				}
-        		$('#date_error').hide();
-			}).modal({
-				backdrop: 'static',
-				keyboard: false
-			});
-			return false;
-		});
-
-		$('#do_duel_box').on('shown.bs.modal', function(){
+		$('#do_duel_box').on('shown.bs.modal', function(e){
 			if ($('.timepicker').length > 0){
 	            $('.timepicker').timepicker({
 	                minuteStep: 5,
@@ -99,6 +80,7 @@
 		});
 
 		$('#do_duel_box').on('hidden.bs.modal', function(){
+			$("input[name='to_id']").val(0);
 		    $('.form-group').show();
 		    $('.animation_image').hide();
 		    $('#time_error').hide();
@@ -128,7 +110,26 @@
             "sAjaxSource": "<?php echo base_url() . 'student/rating_list_json/'; ?>" + $('#list_type').val(),
             "fnInitComplete": function (oSettings, json) {
                 PositionFooter();     
-            }  
+            },
+            "fnDrawCallback": function( oSettings ) {
+		     	$('button[data-toggle~="modal"]').on('click', function(e) {
+					var target_modal = $(e.currentTarget).data('target');
+					var modal = $(target_modal);
+					modal.on('show.bs.modal', function () {
+						if(target_modal == '#do_duel_box') {
+							$("input[name='to_id']").val($(e.currentTarget).data('userid'));
+							$('.form-group').show();
+					    	$('.animation_image').hide();
+					    	$('#time_error').hide();
+			        		$('#date_error').hide();
+						}
+					}).modal({
+						backdrop: 'static',
+						keyboard: false
+					});
+					return false;
+				});
+		    }
         });
     }
 </script>
