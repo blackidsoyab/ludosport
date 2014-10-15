@@ -201,7 +201,7 @@ class authenticate extends CI_Controller
                 $notification->save();
                 
                 $check_privacy = unserialize($value->email_privacy);
-                if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy['user_registration_notification'] == 1) {
+                if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy['user_registration_notification']) || $check_privacy['user_registration_notification'] == 1) {
                     $option = null;
                     $option = array();
                     $option['tomailid'] = $value->email;

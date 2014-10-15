@@ -249,7 +249,10 @@
 									<td>Location</td>
 								</thead>
 								<tbody>
-									<?php foreach ($students as $stud) { ?>
+									<?php 
+										$students = subvalue_sort($students, 'firstname');
+										foreach ($students as $stud) { 
+									?>
 									<tr>
 										<td>
 											<img src="<?php echo IMG_URL .'user_avtar/40X40/' . $stud->avtar; ?>" class="avatar img-circle" alt="avatar">

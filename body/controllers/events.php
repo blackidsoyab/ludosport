@@ -410,7 +410,7 @@ class events extends CI_Controller
                         $obj_event_attendance->save();
                     }
                     
-                    $this->session->set_flashdata('success', $this->lang->line('Attendance taken Successfully'));
+                    $this->session->set_flashdata('success', $this->lang->line('attendance_save_successfully'));
                     redirect(base_url() . 'event/attendance/' . $event_id, 'refresh');
                 } else {
                     
@@ -557,7 +557,19 @@ class events extends CI_Controller
                     $this->session->set_flashdata('success', $this->lang->line('invitation_send_successfully'));
                     redirect(base_url() . 'event/view/' . $event_id, 'refresh');
                 } else {
-                    
+                    $current_date_time = get_current_date_time()->get_date_for_db();
+                    $date_from = $event_detail->date_from;
+                    $date_to = $event_detail->date_to;
+                    $event_over = false;
+                    if(strtotime($date_to) < strtotime($current_date_time)){
+                         $event_over = true;
+                    }
+
+                    if($event_over){
+                        $this->session->set_flashdata('info', $this->lang->line('event_over'));
+                        redirect(base_url() . 'event/view/' . $event_id, 'refresh');
+                    }
+
                     //set array for view part
                     $data['event_detail'] = $event_detail;
                     $data['users'] = $this->_getUsers();

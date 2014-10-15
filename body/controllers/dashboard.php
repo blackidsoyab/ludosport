@@ -417,7 +417,7 @@ class dashboard extends CI_Controller
             
             //Send Email
             $check_privacy = unserialize($value->email_privacy);
-            if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy['apply_trial_lesson'] == 1) {
+            if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy['apply_trial_lesson']) || $check_privacy['apply_trial_lesson'] == 1) {
                 $option = array();
                 $option['tomailid'] = $value->email;
                 $option['subject'] = $email->subject;

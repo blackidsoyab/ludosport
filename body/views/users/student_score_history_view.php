@@ -16,6 +16,7 @@
             'iDisplayLength': <?php $lengths = explode(',', $this->config->item('data_table_length'));
 echo $lengths[0]; ?>,
             "bServerSide" : true,
+            "aaSorting": [[ 2, "desc" ]],
             "aoColumns": [
                 {"sClass":""},{"sClass":""},{"sClass":"text-center"},{"sClass":""},{"sClass":"",},
                 {"sClass": "text-center","bSortable": false}

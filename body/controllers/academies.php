@@ -28,7 +28,7 @@ class academies extends CI_Controller
                 redirect(base_url() . 'dashboard', 'refresh');
             }
             
-            $schools = $academy->School->get();
+            $schools = $academy->School->order_by($this->session_data->language .'_school_name','ASC')->get();
             $data['schools'] = $schools;
             foreach ($schools as $school) {
                 $clans = $school->Clan->get();

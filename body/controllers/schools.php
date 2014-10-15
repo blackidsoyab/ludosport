@@ -43,7 +43,7 @@ class schools extends CI_Controller
             }
             
             $data['academy'] = $obj->Academy->get();
-            $clans = $obj->Clan->get();
+            $clans = $obj->Clan->order_by($this->session_data->language .'_class_name','ASC')->get();
             $data['clans'] = $clans;
             foreach ($clans as $clan) {
                 $userdetails = $clan->Userdetail->get();

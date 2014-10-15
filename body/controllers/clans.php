@@ -609,7 +609,7 @@ class clans extends CI_Controller
                             
                             //Send Email
                             $check_privacy = unserialize($value->email_privacy);
-                            if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy[$email_type] == 1) {
+                            if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$email_type]) || $check_privacy[$email_type] == 1) {
                                 $option = array();
                                 $option['tomailid'] = $value->email;
                                 $option['subject'] = $email->subject;
@@ -990,7 +990,7 @@ class clans extends CI_Controller
                 //get all the Clan details and make HTML.
                 $clans = $obj_clan->where_in('id', $array)->get();;
                 $str.= '<h4 class="text-center text-black">Select Recovery Clan</h4>';
-                $str.= '<div class="row">';
+                $str.= '<div class="row" id="clan-row">';
                 foreach ($clans as $clan) {
                     $str.= '<div class="col-lg-4">';
                     $str.= '<div class="radio padding-left-killer">';
@@ -1004,6 +1004,9 @@ class clans extends CI_Controller
                 }
                 $str.= '</div>';
                 $str.= '<div id="clan-dates-selection"></div>';
+                $str .= '<div class="animation_image" style="display:none" align="center">';
+                $str .= '<i class="fa fa-cog fa-spin fa-2x text-primary"></i>';
+                $str .= '</div>';
             } else {
                 $str = 'No Clans';
             }
@@ -1102,7 +1105,7 @@ class clans extends CI_Controller
         $user->where('id', $this->input->post('student_id'))->get();
         
         $check_privacy = unserialize($user->email_privacy);
-        if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy['teacher_recovery_student_for_student'] == 1) {
+        if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy['teacher_recovery_student_for_student']) || $check_privacy['teacher_recovery_student_for_student'] == 1) {
             
             //get email details
             $email = new Email();
@@ -1143,7 +1146,7 @@ class clans extends CI_Controller
         $teacher->where('id', $clan->teacher_id)->get();
         
         $check_privacy = unserialize($teacher->email_privacy);
-        if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy['teacher_recovery_student_for_teacher'] == 1) {
+        if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy['teacher_recovery_student_for_teacher']) || $check_privacy['teacher_recovery_student_for_teacher'] == 1) {
             
             //get email details
             $email = new Email();
@@ -1308,7 +1311,7 @@ class clans extends CI_Controller
                 $notification->save();
                 
                 $check_privacy = unserialize($value->email_privacy);
-                if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy['change_clan_date'] == 1) {
+                if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy['change_clan_date']) || $check_privacy['change_clan_date'] == 1) {
                     
                     //Send Email
                     $option = array();

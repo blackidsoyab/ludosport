@@ -19,7 +19,7 @@ $(document).ready(function() {
 
 	$('#change_dates').on('shown.bs.modal', function(){
 		$('#change_dates .modal-body').find('input').iCheck({radioClass: 'iradio_square-grey'});
-			$('#clan_dates').validate({
+		$('#clan_dates').validate({
 			rules: {
 				clan_id: {required: true},
 				absence_date: {required: true},
@@ -41,6 +41,10 @@ $(document).ready(function() {
 		});			
 
 		$('#clan_dates').submit(function(e) {
+			$('.animation_image').show();
+			$('#clan-dates-selection').hide();
+			$('#clan-row').hide();
+			$('#clan-row').parents('.modal-body').find('h4').html('<?php echo   $this->lang->line("processing") ?>...');
 			var post_data = {
 				'current_clan_id' : $("input[name='current_clan_id']").val(),
 				'clan_id' : $("input[name='clan_id']:checked").val(),
@@ -55,6 +59,7 @@ $(document).ready(function() {
 				dataType : 'JSON',
 				success: function(data) {
 					if(data.status == true){
+						$('.animation_image').hide();
 						$('#change_dates').modal('hide');
 						$('tr#user_id_' + data.student_id).animate({height: 0}, 1000,"swing",function() {
                             $(this).remove();

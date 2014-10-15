@@ -43,9 +43,9 @@ class students extends CI_Controller
             $notification->data = serialize($this->input->post());
             $notification->save();
             
-            $check_privacy = unserialize($this->session_data->email_privacy);
-            if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy['student_absent'] == 1) {
-                $teacher_email = userNameEmail($clan->teacher_id);
+            $teacher_email = userNameEmail($clan->teacher_id);
+            $check_privacy = unserialize($teacher_email['email_privacy']);
+            if (is_null($check_privacy) || $check_privacy == false || $check_privacy['student_absent'] == 1) {
                 $email = new Email();
                 $email->where('type', 'student_absent')->get();
                 $message = $email->message;
@@ -55,7 +55,7 @@ class students extends CI_Controller
                 $message = str_replace('#date', date('d-m-Y', strtotime($this->input->post('absence_date'))), $message);
                 
                 $option = array();
-                $option['tomailid'] = $teacher_email->email;
+                $option['tomailid'] = $teacher_email['email'];
                 $option['subject'] = $email->subject;
                 $option['message'] = $message;
                 if (!is_null($email->attachment)) {
@@ -88,7 +88,7 @@ class students extends CI_Controller
                 
                 $recover_teacher_email = userNameEmail($recover_clan->teacher_id);
                 $check_privacy = unserialize($recover_teacher_email['email_privacy']);
-                if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy['recovery_student'] == 1) {
+                if (is_null($check_privacy) || $check_privacy == false || $check_privacy['recovery_student'] == 1) {
                     $email = new Email();
                     $email->where('type', 'recovery_student')->get();
                     $message = $email->message;
@@ -99,7 +99,7 @@ class students extends CI_Controller
                     $message = str_replace('#date', date('d-m-Y', strtotime($this->input->post('date'))), $message);
                     
                     $option = array();
-                    $option['tomailid'] = $recover_teacher_email->email;
+                    $option['tomailid'] = $recover_teacher_email['email'];
                     $option['subject'] = $email->subject;
                     $option['message'] = $message;
                     if (!is_null($email->attachment)) {

@@ -24,8 +24,14 @@ function loadChoseSelect(select_name){
 
 <div class="the-box">
 	<legend>
-		<?php echo ucfirst($event_detail->{$session->language.'_name'}), ' on ',  date('d-m-Y', strtotime($event_detail->date_from)), ' ', strtolower($this->lang->line('to')) ,' ' , date('d-m-Y', strtotime($event_detail->date_to));
-		?>
+	<?php
+		echo ucfirst($event_detail->{$session->language.'_name'}), ' on ';
+		if(strtotime($event_detail->date_from) == strtotime($event_detail->date_to)){
+		    echo date('d-m-Y', strtotime($event_detail->date_from));
+		} else{
+		    echo date('d-m-Y', strtotime($event_detail->date_from)), ' : ', date('d-m-Y', strtotime($event_detail->date_to));
+		}
+	?>
 	</legend>
 
 	<form class="form-horizontal" action="<?php echo base_url() .'event/invitation/'.$event_detail->id; ?>" method="post">

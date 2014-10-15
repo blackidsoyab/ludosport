@@ -35,6 +35,7 @@ $lang['no'] = 'No';
 $lang['yes'] = 'Yes';
 $lang['download'] = 'Download';
 $lang['change_email_privacy'] = 'Change Email Privacy';
+$lang['processing'] = 'Processing';
 
 //Operation's Messages
 $lang['you_logged_in'] = 'You are already logged in :)';
@@ -82,6 +83,7 @@ $lang['payment_success'] = 'Your paymenent is done.';
 $lang['payment_cancelled'] = 'Your payment is cancelled.';
 $lang['payment_failed'] = 'Your payment is failed.';
 $lang['payment_expired'] = 'Your payment is expired.';
+$lang['event_over'] = 'Event is over';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';

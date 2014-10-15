@@ -194,7 +194,10 @@
 					<div class="tab-pane fade" id="clan-detail">
 						<?php if(!is_null($clans)) { ?>
 							<div class="panel-group" id="clan-list">
-							<?php foreach ($clans as $clan) { ?>
+							<?php
+								$clans = subvalue_sort($clans, $session->language .'_class_name');
+								foreach ($clans as $clan) { 
+							?>
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<h3 class="panel-title">
@@ -273,7 +276,10 @@
 									<td><?php echo $this->lang->line('location'); ?></td>
 								</thead>
 								<tbody>
-									<?php foreach ($students as $stud) { ?>
+									<?php 
+										$students = subvalue_sort($students, 'firstname');
+										foreach ($students as $stud) { 
+									?>
 										<tr>
 										<td>
 											<img src="<?php echo IMG_URL .'user_avtar/40X40/' . $stud->avtar; ?>" class="avatar img-circle" alt="avatar">

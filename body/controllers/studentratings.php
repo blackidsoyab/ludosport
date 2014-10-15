@@ -71,8 +71,9 @@ class studentratings extends CI_Controller
                 $score = $this->input->post('score');
                 $description = $this->input->post('description');
                 
+                $obj_score = new Scorehistory();
+                
                 if ($oper['xpr'] != 'N') {
-                    $obj_score = new Scorehistory();
                     if ($oper['xpr'] == 'M') {
                         $obj_score->meritStudentScore($id, 'xpr', $score['xpr'], $description['xpr']);
                     }

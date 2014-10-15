@@ -8,10 +8,10 @@
 </script>
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
         <h1 class="page-heading"><?php echo $session->role_name; ?><small>&nbsp;<?php echo $this->lang->line('control_panel'); ?></small></h1>
     </div>
-    <div class="col-lg-6">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
         <a href="<?php echo base_url().'teacher_mark_absence'; ?>" class="h1 page-heading btn btn-primary pull-right"><?php echo $this->lang->line('communicate_absence'); ?></a>
     </div>
 </div>
@@ -88,20 +88,20 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="the-box no-margin no-border padding-bottom-killer">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <span id="current-month-year" class="btn btn-primary"></span>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                      <div class="progress-icon" style="display:none" align="center">
                         <i class="fa fa-cog fa-spin fa-2x text-primary"></i>
                     </div>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <div class="btn-group pull-right">
                         <a href="javascript:;" class="btn btn-primary" id="prev-button"><i class="fa fa-chevron-left"></i></a>
                         <a href="javascript:;" class="btn btn-primary" id="today-button"><?php echo $this->lang->line('today'); ?></a>

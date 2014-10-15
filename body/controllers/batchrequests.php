@@ -314,6 +314,10 @@ class batchrequests extends CI_Controller
                 if ($details->status == 'P' && $this->session_data->role < $details->from_role && hasPermission('batchrequests', 'changeStatusBatchrequest')) {
                     $data['show_approve_button'] = true;
                     $data['show_unapprove_button'] = true;
+                } else if ($details->status == 'A' && $this->session_data->role < $details->from_role && hasPermission('batchrequests', 'changeStatusBatchrequest')) {
+                    $data['show_unapprove_button'] = true;
+                } else if ($details->status == 'U' && $this->session_data->role < $details->from_role && hasPermission('batchrequests', 'changeStatusBatchrequest')) {
+                    $data['show_approve_button'] = true;
                 }
             }
             
@@ -330,7 +334,7 @@ class batchrequests extends CI_Controller
             }
             
             if ($details->status != 'P') {
-                $data['request_status'] = ($details->status == 'A') ? '<label class="label label-success">' . $this->lang->line('approved_batch_request') . '</label>' : $this->lang->line('unapproved_batch_request');
+                $data['request_status'] = ($details->status == 'A') ? '<label class="label label-success">' . $this->lang->line('approved_batch_request') . '</label>' : '<label class="label label-danger">' . $this->lang->line('unapproved_batch_request') . '</label>' ;
                 $data['request_status_changed_by'] = userNameAvtar($details->status_change_by, true);
             }
             
