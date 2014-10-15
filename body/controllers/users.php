@@ -499,6 +499,20 @@ class users extends CI_Controller
         }
         
         if ($obj_score_history->result_count() == 1 && $can_perform_action) {
+
+            $userdetail = new Userdetail();
+            $userdetail->where('student_master_id',$obj_score_history->student_id)->get();
+            
+            if($obj_score_history->oper == 'M'){
+                $userdetail->{$obj_score_history->score_type} = $userdetail->{$obj_score_history->score_type} - $obj_score_history->score;
+                $userdetail->total_score = $userdetail->total_score - $obj_score_history->score;
+            }else if($obj_score_history->oper == 'D'){
+                $userdetail->{$obj_score_history->score_type} = $userdetail->{$obj_score_history->score_type} + $obj_score_history->score;
+                $userdetail->total_score = $userdetail->total_score + $obj_score_history->score;
+            }
+
+            $userdetail->save();
+
             $obj_score_history->delete();
         }
     }
