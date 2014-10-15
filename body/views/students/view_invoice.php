@@ -15,6 +15,7 @@
 			</div>
 
 			<div class="col-sm-6 text-right">
+				<p><?php echo  ucwords($this->lang->line('invoice')) ,': ', $payment_details->invoice_id; ?></p>
 				<p><?php echo  ucwords($this->lang->line('date')) ,': ', date('j<\s\u\p>S</\s\u\p> F Y', strtotime($payment_details->timestamp)); ?></p>
 			</div>
 		</div>

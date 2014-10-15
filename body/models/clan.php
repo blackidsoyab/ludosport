@@ -19,6 +19,22 @@ class Clan extends DataMapper
         
         return array_unique(MultiArrayToSinlgeArray($array));
     }
+
+    function getClanSchoolAcademyID($clan_id){
+        $this->db->_protect_identifiers = false;
+        $this->db->select('clans.id AS clan, schools.id AS school, academies.id AS academy');
+        $this->db->from('clans');
+        $this->db->join('schools', 'schools.id=clans.school_id');
+        $this->db->join('academies', 'academies.id=schools.academy_id');
+        $this->db->where('clans.id', $clan_id);
+        $res = $this->db->get();
+        if ($res->num_rows > 0) {
+            $return  = $res->result_array();
+            return $return[0];
+        } else {
+            return false;
+        }
+    }
     
     function getTotalTeachers() {
         $this->db->_protect_identifiers = false;

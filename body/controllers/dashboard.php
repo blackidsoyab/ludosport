@@ -465,8 +465,9 @@ class dashboard extends CI_Controller
             $user_details->status = 'P2';
             $user_details->user_id = $this->session_data->id;
             $user_details->save();
-
+            
             redirect(base_url() . 'register/step_2', 'refresh');
+            
             /*try {
                 $clan_id = $this->input->post('clan_id');
                 $obj_academy = new Academy();
@@ -496,7 +497,7 @@ class dashboard extends CI_Controller
                 $message = $ex->getMessage();
                 $this->session->set_flashdata('error', $message);
                 redirect(base_url() . 'register/step_2', 'refresh');
-            }*/
+            } */
         } else {
             $user = new User($this->session_data->id);
             
@@ -534,27 +535,44 @@ class dashboard extends CI_Controller
         $payment_id = $this->encrypt->decode($_GET['payment_id'], $this->config->item('encryption_key'));
         $status = $this->encrypt->decode($_GET['status'], $this->config->item('encryption_key'));
         
-        $obj = new Payment($payment_id);
-        $obj->where('id', $payment_id)->update('payer_id' , $_GET['PayerID']);
-
-        $payment = getPaymentDetails($obj->payment_id);
+        $obj_payment = new Payment($payment_id);
+        $obj_payment->where('id', $payment_id)->update('payer_id', $_GET['PayerID']);
+        
+        $payment = getPaymentDetails($obj_payment->payment_id);
         
         if ($payment->getState() == 'created' && $status == 1) {
-            $payment = executePayment($obj->payment_id, $_GET['PayerID']);
+            $payment = executePayment($obj_payment->payment_id, $_GET['PayerID']);
             if ($payment->getState() == 'approved') {
-                $obj->update(array('state' => $payment->getState()));
                 $obj_user_details = new Userdetail();
                 $obj_user_details->where('student_master_id', $this->session_data->id)->update('status', 'A');
-
+                
                 $obj_user = new User();
                 $obj_user->where('id', $this->session_data->id)->update('status', 'A');
-
+                
+                $obj_user_details = new Userdetail();
+                $obj_user_details->where('student_master_id', $this->session_data->id)->get();
+                
+                $invoice_id = $obj_payment->autoIncrementID($this->session_data->id, $obj_user_details->clan_id);
+                $obj_payment->where('id', $payment_id)->update(array('state' => $payment->getState(), 'invoice_id' => $invoice_id));
+                
+                $obj_batch_history = new Userbatcheshistory();
+                $obj_batch_history->saveStudentBatchHistory($this->session_data->id, 'D', $obj_user_details->degree_id);
+                
+                $obj_batch = new Batch($obj_user_details->degree_id);
+                if ($obj_batch->has_point == 1) {
+                    $obj_score_history = new Scorehistory();
+                    $obj_score_history->meritStudentScore($this->session_data->id, 'xpr', $obj_batch->xpr, 'Badge Assign');
+                    $obj_score_history->meritStudentScore($this->session_data->id, 'war', $obj_batch->war, 'Badge Assign');
+                    $obj_score_history->meritStudentScore($this->session_data->id, 'sty', $obj_batch->sty, 'Badge Assign');
+                }
+                
                 $session = $this->session->userdata('user_session');
                 $session->status = 'A';
                 $newdata = array('user_session' => $session);
                 $this->session->set_userdata($newdata);
-
+                
                 $this->session->set_flashdata('success', $this->lang->line('payment_success'));
+                
                 redirect(base_url() . 'dashboard', 'refresh');
             }
         } else if ($payment->getState() == 'created' && $status == 0) {
@@ -569,5 +587,11 @@ class dashboard extends CI_Controller
             redirect(base_url() . 'register/step_2', 'refresh');
         }
     }
-
+    
+    function mail_testing() {
+        $option['tomailid'] = 'soyab@blackidsolutions.com';
+        $option['subject'] = 'Testing';
+        $option['message'] = 'Testing';
+        send_mail($option);
+    }
 }
