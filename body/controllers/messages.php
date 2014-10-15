@@ -172,6 +172,8 @@ class messages extends CI_Controller
                     
                     //if key does not exit then get clans value => will return : 0(none), 1(all), 2(related)
                     $what_to_fetch = $permissions['messages']['group_message']['clans'];
+                } else {
+                    $what_to_fetch = 0;
                 }
                 
                 if ($to_id[0] == 'clans') {

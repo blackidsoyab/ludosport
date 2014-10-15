@@ -190,6 +190,8 @@ class announcements extends CI_Controller
                         
                         //if key does not exit then get clans value => will return : 0(none), 1(all), 2(related)
                         $what_to_fetch = $permissions['announcements']['group_announcement']['clans'];
+                    }else{
+                        $what_to_fetch = 0;
                     }
                 }
                 
