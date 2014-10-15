@@ -12,10 +12,6 @@ class authenticate extends CI_Controller
         setLanguage();
     }
     
-    function phpinfo() {
-        phpinfo();
-    }
-    
     public function index() {
         $session = $this->session->userdata('user_session');
         if (!empty($session)) {
@@ -68,6 +64,18 @@ class authenticate extends CI_Controller
             $this->session->set_flashdata('error', $this->lang->line('invalid_user'));
             redirect(base_url() . 'login', 'refresh');
         }
+    }
+
+    function phpinfo() {
+        phpinfo();
+    }
+
+    function ignorePhraseError() {
+        //ignore if there are any pharese error
+        $this->load->dbutil();
+
+        //hide all the Pharse Error
+        CI_DB_utility::ignorePhraseError();
     }
     
     private function _setLastNotification($user_id) {

