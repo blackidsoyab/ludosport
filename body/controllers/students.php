@@ -334,13 +334,13 @@ class students extends CI_Controller
         $data['duel_logs'] = $challenge->challengeLogs($this->session_data->id, 'academy');
         
         //Victories User
-        $data['my_victories'] = $challenge->studentDuelResult($this->session_data->id, 'winner', 3);
+        $data['my_victories'] = $challenge->studentDuelResult($this->session_data->id, 'winner', null, 5);
         
         //Defeats User
-        $data['my_defeats'] = $challenge->studentDuelResult($this->session_data->id, 'defeat', 3);
+        $data['my_defeats'] = $challenge->studentDuelResult($this->session_data->id, 'defeat', null, 5);
         
         //Failure User
-        $data['my_failures'] = $challenge->studentDuelResult($this->session_data->id, 'failure', 3);
+        $data['my_failures'] = $challenge->studentDuelResult($this->session_data->id, 'failure', null, 5);
         
         $userdetail = new Userdetail();
         $userdetail->where('student_master_id', $this->session_data->id)->get();
@@ -385,7 +385,7 @@ class students extends CI_Controller
         $return = false;
         
         if ($challenge->result_count() == 0 && $this->input->post('to_id') != 0) {
-            $challenge->type = $this->input->post('challenge_type');
+            $challenge->type = ($this->input->post('challenge_type') == '') ? 'R' : $this->input->post('challenge_type');
             $challenge->from_id = $this->session_data->id;
             $challenge->from_status = 'A';
             $challenge->to_id = $this->input->post('to_id');
@@ -394,12 +394,14 @@ class students extends CI_Controller
             if ($this->input->post('date') != '' && $this->input->post('time') != '') {
                 $challenge->played_on = date('Y-m-d H:i:s', strtotime($this->input->post('date') . ' ' . $this->input->post('time')));
             }
+
             $challenge->place = @$this->input->post('place');
             $challenge->user_id = $this->session_data->id;
             $challenge->save();
             $return = true;
-            
-            $this->_sendNotificationEmail('challenge_made', $this->input->post(), $challenge->id);
+
+            $obj = new Challenge($challenge->id);
+            $this->_sendNotificationEmail('challenge_made', $obj->stored, $obj->id);
         }
         
         echo json_encode(array('status' => $return));
@@ -487,6 +489,7 @@ class students extends CI_Controller
             $data['show_reject_button'] = false;
             $data['status'] = false;
             $data['show_result_button'] = false;
+
             
             if ($this->session_data->id == $single[0]->from_id) {
                 $user_id = $single[0]->to_id;
@@ -683,7 +686,7 @@ class students extends CI_Controller
             $message = str_replace('#winner', $winner['name'], $message);
         }
         
-        if (!is_null($post->played_on)) {
+        if (!isset($post->played_on) && $post->played_on != '') {
             $message = str_replace('#on_date', date('d-m-Y', strtotime($post->played_on)), $message);
             $message = str_replace('#on_time', date('H:i a', strtotime($post->played_on)), $message);
         } else {

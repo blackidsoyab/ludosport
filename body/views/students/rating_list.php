@@ -54,7 +54,7 @@
 						'to_id' : $("input[name='to_id']").val(),
 						'date' : $("input[name='date']").val(),
 						'time' : $("input[name='time']").val(),
-						'place' : $("input[name='place]").val(),
+						'place' : $("input[name='place']").val(),
 					};
 					$.ajax({
 						type: "POST",
@@ -71,6 +71,7 @@
 							}
 							setTimeout(function() {
 	                        	$('#do_duel_box').modal('hide');
+	                        	loadDatable();
 	                    	}, 2500);
 						}	
 					});

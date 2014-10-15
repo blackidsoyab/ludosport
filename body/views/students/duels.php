@@ -111,7 +111,7 @@
 						'to_id' : $("input[name='to_id']").val(),
 						'date' : $("input[name='date']").val(),
 						'time' : $("input[name='time']").val(),
-						'place' : $("input[name='place]").val(),
+						'place' : $("input[name='place']").val(),
 					};
 					$.ajax({
 						type: "POST",
@@ -230,7 +230,7 @@
 										</div>
 									
 										<div class="pull-right">
-												<a href="<?php echo base_url() .'duels/single/' . $made_id; ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="detail view" class="btn btn-success btn-xs"><i class="fa fa-share"></i></a>
+												<a href="<?php echo base_url() .'duels/single/' . $made_value->id; ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="detail view" class="btn btn-success btn-xs"><i class="fa fa-share"></i></a>
 											</div>
 										</div>
 									</div>
@@ -241,7 +241,7 @@
 					</div>
 
 					<div class="panel-footer no-border padding-killer">
-						<a href="<?php echo base_url() .'duels/view/made'; ?>" class="btn btn-block btn-success "><?php echo $this->lang->line('see_all'); ?></a>
+						<a href="<?php echo base_url() .'duels/view/accepted'; ?>" class="btn btn-block btn-success "><?php echo $this->lang->line('see_all'); ?></a>
 					</div>
 				</div>
 			</div>
