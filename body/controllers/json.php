@@ -1117,7 +1117,7 @@ class json extends CI_Controller
             $temp_arr[] = $aRow['clan'];
             $check = Challenge::isRequestedBefore($this->session_data->id, $aRow['id']);
             if (!$check && $aRow['id'] != $this->session_data->id) {
-                $box_type = ($aRow['total_pending_challenge'] > 7) ? 'cannot_do_duel_box' : 'do_duel_box';
+                $box_type = ($aRow['total_pending_challenge'] > 3) ? 'cannot_do_duel_box' : 'do_duel_box';
                 $temp_arr[] = '<button class="btn btn-warning" data-toggle="modal" data-target="#' . $box_type . '" data-userid="' . $aRow['id'] . '">Challenge!</button>';
             } else {
                 $temp_arr[] = '&nbsp';

@@ -18,7 +18,11 @@ class Scorehistory extends DataMapper
             $obj_score->score = $score;
             $obj_score->score_date = get_current_date_time()->get_date_for_db();
             $obj_score->description = $description;
-            $obj_score->user_id = $session->id;
+            if($student_id == $session->id){
+                $obj_score->user_id = 0;
+            }else{
+                $obj_score->user_id = $session->id;
+            }
             $obj_score->save();
             
             $user_details = new Userdetail();
@@ -41,7 +45,11 @@ class Scorehistory extends DataMapper
             $obj_score->score = $score;
             $obj_score->score_date = get_current_date_time()->get_date_for_db();
             $obj_score->description = $description;
-            $obj_score->user_id = $session->id;
+            if($student_id == $session->id){
+                $obj_score->user_id = 0;
+            }else{
+                $obj_score->user_id = $session->id;
+            }
             $obj_score->save();
             
             $user_details = new Userdetail();

@@ -374,8 +374,12 @@
 	        <div class="the-box no-border full card-info">
             	<div class="the-box no-border text-center no-margin">
 	                <img src="<?php echo IMG_URL . 'user_avtar/70X70/' . $topper->avtar; ?>" class="social-avatar has-margin has-light-shadow img-circle" alt="Avatar">
-	                <p class="text-info"><?php echo @$topper_batch_detail->{$session->language.'_name'}; ?></p>
-	                <p class="text-muted"><?php echo @$topper_ac_sc_clan_name; ?></p>
+	                <?php if(isset($topper_degree_batch_name)){ ?>
+	                	<p class="text-info"><?php echo @$topper_degree_batch_name; ?></p>
+	                <?php } ?>
+	                <?php if(isset($topper_ac_sc_clan_name)){ ?>
+	                	<p class="text-muted"><?php echo @$topper_ac_sc_clan_name; ?></p>
+	                <?php } ?>
 	                <p class="text-muted bordered">
 	                <?php
 		                $role_name = NULL;

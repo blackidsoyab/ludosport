@@ -44,7 +44,7 @@ $(document).ready(function() {
 <div class="row">
 	<div class="col-lg-8">
 		<div class="the-box duel-single">
-			<form class="form-horizontal" role="form" method="post" action="<?php echo base_url().'duels/single/' . $single->id ; ?>">
+			<form id="challenge_unconfirmed" class="form-horizontal" role="form" method="post" action="<?php echo base_url().'duels/single/' . $single->id ; ?>">
 				<input type="hidden" name="from_id" value="<?php echo $single->from_id?>" />
 				<input type="hidden" name="to_id" value="<?php echo $single->to_id; ?>" />
 				<input type="hidden" name="id" value="<?php echo $single->id; ?>" />
@@ -135,7 +135,31 @@ $(document).ready(function() {
 		                </div>
 		            </div>
 	            <?php } ?>
-            </form>
+	        </form>
+
+            <?php if($show_result_confirmation_agree_button || $show_result_confirmation_disagree_button) { ?>
+            	<form id="challenge_confirmed" class="form-horizontal" role="form" method="post" action="<?php echo base_url().'duels/confirm_result'; ?>">
+            		<input type="hidden" name="from_id" value="<?php echo $single->from_id?>" />
+					<input type="hidden" name="to_id" value="<?php echo $single->to_id; ?>" />
+					<input type="hidden" name="id" value="<?php echo $single->id; ?>" />
+
+	            	<div class="form-group text-center">
+		            	<label class="col-lg-12"><?php echo $this->lang->line('do_you_agree_result'); ?></label>
+		                <div class="col-lg-12">
+		                	<?php if($show_result_confirmation_agree_button){ ?>
+		                    	<button type="submit" name="action" value="A" class="btn btn-success btn-perspective"><?php echo $this->lang->line('i_agree_result'); ?></button>
+		                    <?php } ?>
+		                    <?php if($show_result_confirmation_disagree_button){ ?>
+		                    	<button type="submit" name="action" value="D" class="btn btn-danger btn-perspective"><?php echo $this->lang->line('i_disagree_result'); ?></button>
+		                    <?php } ?>
+		                </div>
+		            </div>
+	            </form>
+            <?php } ?>
+
+            <?php if(isset($error_msg)) { ?>
+	            	<h4 class="text-center text-danger"><?php echo @$error_msg; ?></h4>
+		    <?php } ?>
 		</div>
 	</div>
 

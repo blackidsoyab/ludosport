@@ -1,7 +1,31 @@
 <?php
 class Challenge extends DataMapper
 {
-    
+    /*
+        ------------------------------
+                ENUMS in Table
+        ------------------------------
+        Type:
+            R => Regular challenge
+            B => Blind Challenge
+
+        From status:
+            A => Accepted
+            R => Rejected
+
+        To status:
+            P => Pending
+            A => Accepted
+            R => Rejected
+
+        Result Status :
+            MP  => Match Played
+            MNP => Match not played
+            SP  => System Punishment
+            CW  => Winner confirmation waiting
+            CO  => Contrast Opinion on winner
+    */
+
     function __construct($id = NULL) {
         parent::__construct($id);
     }

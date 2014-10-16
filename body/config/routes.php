@@ -172,6 +172,7 @@ $route['duels/single/(:num)'] = "students/duelSingleView/$1";
 $route['duels/single/(:num)/(:any)'] = "students/duelSingleView/$1/$2";
 $route['duels/declare_result_box/(:num)'] = "ajax/duelResultBox/$1";
 $route['duels/declare_result'] = "students/duelResult";
+$route['duels/confirm_result'] = "students/duelResultConfirmation";
 $route['student/rating_list_json'] = "json/getRattingListJsonData";
 $route['student/rating_list_json/(:any)'] = "json/getRattingListJsonData/$1";
 $route['shop'] = "students/paymentHistory";

@@ -204,7 +204,7 @@ class cronjobs extends CI_Controller
     }
     
     /*
-     *   Check for the Challenge whos time is over.
+     *   Check for the Challenge whos result time is over.
      *   Param1(Date-required) : current date
     */
     public function checkOverDueDuel($date = null) {
@@ -220,16 +220,27 @@ class cronjobs extends CI_Controller
         $obj_challenge->where(array('from_status' => 'A', 'to_status' => 'A', 'result_status' => 'MNP'))->get();
         if ($obj_challenge->result_count() > 0) {
             foreach ($obj_challenge as $challenge) {
-                
-                //get the date of matche is to being played and add 7 days to it.
-                $over_due_date = strtotime('+7 day', strtotime(date('Y-m-d', strtotime($challenge->played_on))));
-                if ($strtotime >= $over_due_date) {
-                    $challenge->result = 0;
-                    $challenge->result_status = 'SP';
-                    $challenge->save();
+                if($challenge->result_status == 'MNP'){
+                    $over_due_date = strtotime('+7 day', strtotime(date('Y-m-d', strtotime($challenge->played_on))));
+                    if ($strtotime >= $over_due_date) {
+                        $challenge->result = 0;
+                        $challenge->result_status = 'SP';
+                        $challenge->save();
+                    }
+                } else if($challenge->result_status == 'CW'){
+                    $over_due_date = strtotime('+101 min', strtotime($challenge->status_changed_on));
+                    if ($strtotime >= $over_due_date) {
+                        $challenge->result = 0;
+                        $challenge->result_status = 'CO';
+                        $challenge->save();
+
+                        $challenge_victory_unconfirmed = systemRatingScore('challenge_victory_unconfirmed');
+                        $obj_score = new Scorehistory();
+                        $obj_score->demeritStudentScore($challenge->result_declare_by, $challenge_victory_unconfirmed['type'], $challenge_victory_unconfirmed['score'], 'Challenge victory is not confirmend by oppnent');
+                    }
                 }
             }
         }
     }
-}
 
+}

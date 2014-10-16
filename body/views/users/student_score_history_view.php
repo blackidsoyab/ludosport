@@ -59,11 +59,8 @@ echo $lengths[0]; ?>,
     }
 </script>
 <?php $session = $this->session->userdata('user_session'); ?>
-<div class="row">
-    <div class="col-lg-6 col-xs-6">
-        <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('score_history'); ?> : <a href="<?php echo base_url() .'profile/view/' . $user->id; ?>"><?php echo $user->firstname, ' ', $user->lastname; ?></a></h1>    
-    </div>
-</div>
+
+<h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('score_history'); ?> : <a href="<?php echo base_url() .'profile/view/' . $user->id; ?>"><?php echo $user->firstname, ' ', $user->lastname; ?></a></h1>    
 
 <div class="the-box">
     <div class="form-horizontal">

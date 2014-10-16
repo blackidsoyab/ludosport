@@ -138,6 +138,14 @@ function makeURL($options) {
         $url = base_url() . 'duels/single/' . $options['object_id'] . '/notification';
     }
 
+    if ($options['notify_type'] == 'challenge_winner_confirmation') {
+        $url = base_url() . 'duels/single/' . $options['object_id'] . '/notification';
+    }
+
+    if ($options['notify_type'] == 'contrast_opinions_challenge_winner') {
+        $url = base_url() . 'duels/single/' . $options['object_id'] . '/notification';
+    }
+
     if ($options['notify_type'] == 'batch_request') {
         $url = base_url() . 'batchrequest/changestatus/' . $options['object_id'] . '/notification';
     }
@@ -318,6 +326,12 @@ function getNotificationTemplate($options, $user_name_link = false) {
         $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name']);
     }
 
+    if ($options['notify_type'] == 'challenge_winner_confirmation') {
+    }
+
+    if ($options['notify_type'] == 'contrast_opinions_challenge_winner') {
+    }
+
     if ($options['notify_type'] == 'batch_request') {
         $template_edit = true;
         $student = userNameEmail($options['data']['student_id']);
@@ -350,18 +364,18 @@ function seNotificationTemplate() {
     $template = array(
         'rector_assign_academy' =>
         array(
-            'en' => '<strong>%s</strong> added you as rector in academy',
-            'it' => '<strong>%s</strong> hai aggiunto come rettore in accademia'
+            'en' => '%s added you as rector in academy',
+            'it' => '%s hai aggiunto come rettore in accademia'
         ),
         'dean_assign_school' =>
         array(
-            'en' => '<strong>%s</strong> added you as dean in school',
-            'it' => '<strong>%s</strong> hai aggiunto come dean in school'
+            'en' => '%s added you as dean in school',
+            'it' => '%s hai aggiunto come dean in school'
         ),
         'teacher_assign_class' =>
         array(
-            'en' => '<strong>%s</strong> added you as teacher in class',
-            'it' => '<strong>%s</strong> hai aggiunto come teacher in clan'
+            'en' => '%s added you as teacher in class',
+            'it' => '%s hai aggiunto come teacher in clan'
         ),
         'user_register' =>
         array(
@@ -420,13 +434,13 @@ function seNotificationTemplate() {
         ),
         'teacher_absent' =>
         array(
-            'en' => '<strong>%s</strong> will remain absent for %s on %s',
-            'it' => '<strong>%s</strong> will remain absent for %s on %s',
+            'en' => '%s will remain absent for %s on %s',
+            'it' => '%s will remain absent for %s on %s',
         ),
         'recovery_teacher' =>
         array(
-            'en' => '<strong>%s</strong> will take lesson of %s on %s inplace of <strong>%s</strong>. It is approved by <strong>%s</strong>',
-            'it' => '<strong>%s</strong> avrà lezione di %s su %s inplace di <strong>%s</strong>. It is approved by <strong>%s</strong>',
+            'en' => '%s will take lesson of %s on %s inplace of <strong>%s</strong>. It is approved by <strong>%s</strong>',
+            'it' => '%s avrà lezione di %s su %s inplace di <strong>%s</strong>. It is approved by <strong>%s</strong>',
         ),
         'holiday_approved' =>
         array(
@@ -440,43 +454,53 @@ function seNotificationTemplate() {
         ),
         'change_clan_date' =>
         array(
-            'en' => 'Your clan <strong>%s</strong> has been reschedule from %s to %s',
-            'it' => 'Your clan <strong>%s</strong> has been reschedule from %s to %s',
+            'en' => 'Your clan %s has been reschedule from %s to %s',
+            'it' => 'Your clan %s has been reschedule from %s to %s',
         ),
         'challenge_made' =>
         array(
-            'en' => '<strong>%s</strong> has challenged you.',
-            'it' => '<strong>%s</strong> has challenged you.',
+            'en' => '%s has challenged you.',
+            'it' => '%s has challenged you.',
         ),
         'challenge_accepted' =>
         array(
-            'en' => '<strong>%s</strong> has accepted the challenge.',
-            'it' => '<strong>%s</strong> has accepted the challenge.',
+            'en' => '%s has accepted the challenge.',
+            'it' => '%s has accepted the challenge.',
         ),
         'challenge_rejected' =>
         array(
-            'en' => '<strong>%s</strong> has rejected the challenge.',
-            'it' => '<strong>%s</strong> has rejected the challenge.',
+            'en' => '%s has rejected the challenge.',
+            'it' => '%s has rejected the challenge.',
         ),
         'challenge_winner' =>
         array(
-            'en' => '<strong>%s</strong> has won the challenge.',
-            'it' => '<strong>%s</strong> has won the challenge.',
+            'en' => '%s has won the challenge.',
+            'it' => '%s has won the challenge.',
+        ),
+        'challenge_winner_confirmation' =>
+        array(
+            'en' => 'Please confirm the winner of the challenge.',
+            'it' => 'Please confirm the winner of the challenge.',
+        ),
+        'contrast_opinions_challenge_winner' =>
+        array(
+            'en' => 'Disagree with the result of the challenge',
+            'it' => 'Disagree with the result of the challenge',
         ),
         'batch_request' =>
         array(
-            'en' => 'Request for a badge <strong>%s</strong> to %s.',
-            'it' => 'Request for a badge <strong>%s</strong> to %s.',
+            'en' => 'Request for a badge %s to %s.',
+            'it' => 'Request for a badge %s to %s.',
         ),
         'batch_request_approved' =>
         array(
-            'en' => 'Your request for a badge <strong>%s</strong> to %s is approved.',
-            'it' => 'Your request for a badge <strong>%s</strong> to %s is approved.',
+            'en' => 'Your request for a badge %s to %s is approved.',
+            'it' => 'Your request for a badge %s to %s is approved.',
         ),
         'batch_request_unapproved' =>
         array(
-            'en' => 'Your request for a badge <strong>%s</strong> to %s is unapproved.',
-            'it' => 'Your request for a badge <strong>%s</strong> to %s is unapproved.',
+            'en' => 'Your request for a badge %s to %s is unapproved.',
+            'it' => 'Your request for a badge %s to %s is unapproved.',
         ),
         'new_announcement' =>
         array(
@@ -791,7 +815,4 @@ function setTimelineTemplate() {
 
     return $template;
 }
-
-
-
 ?>

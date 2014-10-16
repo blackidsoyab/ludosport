@@ -463,6 +463,12 @@ $lang['the_best'] = 'The Best';
 $lang['duel_accept'] = 'Yes, I am ready';
 $lang['duel_reject'] = 'I, retire';
 $lang['duel_result'] = 'Finally, Result comes';
+$lang['do_you_agree_result'] = 'Do you agree with result';
+$lang['please_confirm'] = 'Please confirm';
+$lang['waiting_for_confirm'] = 'Waiting for confirmation';
+$lang['opnion_contrast'] = 'Opnion on winner contrast';
+$lang['i_agree_result'] = 'Yes, I agree';
+$lang['i_disagree_result'] = 'No, I don\'t agree';
 $lang['challenged_you'] = 'Challenged you';
 $lang['challenge_encourage_message'] = 'Pick the gauntlet up and prepare to fight.';
 $lang['challenge_to_duel'] = 'CHALLENGE TO A DUEL';
@@ -514,6 +520,8 @@ $lang['time'] = 'Time';
 $lang['place'] = 'Place';
 $lang['cannot_challenge'] = 'You cannot challenge any one !!';
 $lang['cannot_challenge_error'] = 'You have more than 7 duel pending. Please accept any of them to make new duel';
+$lang['7_day_time_over'] = '7 days are over now you cannot declare the result.';
+$lang['101_min_time_over'] = '101 minutes are over now you cannot confirm the result.';
 
 //Student Register
 $lang['view_attendance'] = 'Register';

@@ -280,6 +280,7 @@ class students extends CI_Controller
             $temp = array();
             $temp['image'] = IMG_URL . 'batches/' . $degree_batch->image;
             $temp['name'] = $degree_batch->{$this->session_data->language . '_name'};
+            $data['topper_degree_batch_name'] = $degree_batch->{$this->session_data->language . '_name'};;
             $data['batch_image'][] = $temp;
         }
         
@@ -311,7 +312,9 @@ class students extends CI_Controller
         }
         
         $clan = new Clan($data['topper_userdetail']->clan_id);
-        $data['topper_ac_sc_clan_name'] = $clan->School->Academy->{$this->session_data->language . '_academy_name'} . '<br />' . $clan->School->{$this->session_data->language . '_school_name'} . '<br />' . $clan->{$this->session_data->language . '_class_name'};
+        if ($clan->result_count() > 0) {
+            $data['topper_ac_sc_clan_name'] = $clan->School->Academy->{$this->session_data->language . '_academy_name'} . '<br />' . $clan->School->{$this->session_data->language . '_school_name'} . '<br />' . $clan->{$this->session_data->language . '_class_name'};
+        }
         
         $challenge = new Challenge();
         
@@ -372,7 +375,7 @@ class students extends CI_Controller
         $challenge = new Challenge();
         $pending_challenge = $challenge->countChallenges($this->session_data->id, 'received', 'P');
         $data['can_do_challege'] = false;
-        if ($pending_challenge < 7) {
+        if ($pending_challenge < 3) {
             $data['can_do_challege'] = true;
         }
         
@@ -431,38 +434,93 @@ class students extends CI_Controller
                 $challenge = new Challenge();
                 $challenge->where(array('id' => $id, 'from_id' => $this->input->post('from_id'), 'to_id' => $this->input->post('to_id')))->get();
                 
-                if ($challenge->result_count() == 1 && $challenge->to_status == 'P') {
-                    $challenge->to_status = $this->input->post('action');
-                    $challenge->status_changed_on = get_current_date_time()->get_date_time_for_db();
-                    if (is_null($challenge->played_on)) {
-                        $challenge->played_on = get_current_date_time()->get_date_time_for_db();
-                    }
-                    $challenge->save();
-                }
-                
-                if ($challenge->result_count() == 1 && $challenge->to_status == 'A') {
-                    if ($challenge->from_id == $this->session_data->id) {
-                        $challenge->from_status = $this->input->post('action');
-                    } else {
-                        $challenge->to_status = $this->input->post('action');
-                        $challenge->result = $challenge->from_id;
+                if ($challenge->result_count() == 1) {
+                    
+                    //if Status is Pending and challenge Accepted
+                    if ($challenge->to_status == 'P' && $this->input->post('action') == 'A') {
+                        $challenge->to_status = 'A';
+                        $challenge->status_changed_on = get_current_date_time()->get_date_time_for_db();
+                        if (is_null($challenge->played_on)) {
+                            $challenge->played_on = get_current_date_time()->get_date_time_for_db();
+                        }
                     }
                     
-                    $challenge->status_changed_on = get_current_date_time()->get_date_time_for_db();
+                    //if Status is Pending and challenge Rejected
+                    if ($challenge->to_status == 'P' && $this->input->post('action') == 'R') {
+                        if ($challenge->from_id == $this->session_data->id) {
+                            $challenge->from_stauts = 'R';
+                            $challenge->to_stauts = 'A';
+                        } else {
+                            $challenge->from_stauts = 'A';
+                            $challenge->to_stauts = 'R';
+                        }
+                    }
+                    
+                    //if Status is Accepted and challenge Rejected
+                    if ($challenge->to_status == 'A' && $this->input->post('action') == 'R') {
+                        
+                        //check who reject the challenge
+                        if ($challenge->from_id == $this->session_data->id) {
+                            
+                            //if yes then challenge rejected by the one who lauched the challenge
+                            $challenge->from_status = 'R';
+                            $challenge->to_status = 'A';
+                            $challenge->result = $challenge->to_id;
+                            $challenge->result_status = 'MP';
+                            
+                            //Demerit the Point from the Rejected Student
+                            $reject_challenge_launches = systemRatingScore('reject_challenge_launches');
+                            $obj_score = new Scorehistory();
+                            $obj_score->demeritStudentScore($challenge->from_id, $reject_challenge_launches['type'], $reject_challenge_launches['score'], 'Rejected own challenge');
+                            
+                            //Merit the Score to the Winner Student
+                            if ($challenge->type == 'R') {
+                                $winner_rating_point = systemRatingScore('regular_challenge_win');
+                            } else if ($challenge->type == 'B') {
+                                $winner_rating_point = systemRatingScore('blind_challenge_win');
+                            }
+                            $obj_score = new Scorehistory();
+                            $obj_score->meritStudentScore($challenge->to_id, $winner_rating_point['type'], $winner_rating_point['score'], 'Challenge winner as challenge owner rejected');
+                        } else {
+                            
+                            //if No then challenge rejected by the opponent
+                            $challenge->from_status = 'A';
+                            $challenge->to_status = 'R';
+                            $challenge->result = $challenge->from_id;
+                            $challenge->result_status = 'MP';
+                            
+                            //Demerit the Point from the Rejected Student
+                            $reject_challenge_launches = systemRatingScore('reject_challenge_launches');
+                            $obj_score = new Scorehistory();
+                            $obj_score->demeritStudentScore($challenge->to_id, $reject_challenge_launches['type'], $reject_challenge_launches['score'], 'Rejected challenge request');
+                            
+                            //Merit the Score to the Winner Student
+                            if ($challenge->type == 'R') {
+                                $winner_rating_point = systemRatingScore('regular_challenge_win');
+                            } else if ($challenge->type == 'B') {
+                                $winner_rating_point = systemRatingScore('blind_challenge_win');
+                            }
+                            $obj_score = new Scorehistory();
+                            $obj_score->meritStudentScore($challenge->from_id, $winner_rating_point['type'], $winner_rating_point['score'], 'Challenge winner as challenge opponet rejected');
+                        }
+                    }
+                    
                     $challenge->save();
+                    
+                    if ($this->input->post('action') == 'A') {
+                        $this->_sendNotificationEmail('challenge_accepted', $challenge->stored, $challenge->id);
+                        $message = 'Challenge accepted Successfully';
+                    }
+                    
+                    if ($this->input->post('action') == 'R') {
+                        $this->_sendNotificationEmail('challenge_rejected', $challenge->stored, $challenge->id);
+                        $message = 'Challenge rejected Successfully';
+                    }
+                    
+                    $this->session->set_flashdata('success', $message);
+                } else {
+                    $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
                 }
-                
-                if ($this->input->post('action') == 'A') {
-                    $this->_sendNotificationEmail('challenge_accepted', $challenge->stored, $challenge->id);
-                    $message = 'Challenge accepted Successfully';
-                }
-                
-                if ($this->input->post('action') == 'R') {
-                    $this->_sendNotificationEmail('challenge_rejected', $challenge->stored, $challenge->id);
-                    $message = 'Challenge rejected Successfully';
-                }
-                
-                $this->session->set_flashdata('success', $message);
             } else {
                 $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
             }
@@ -483,12 +541,16 @@ class students extends CI_Controller
                 Notification::updateNotification('challenge_accepted', $this->session_data->id, $id);
                 Notification::updateNotification('challenge_rejected', $this->session_data->id, $id);
                 Notification::updateNotification('challenge_winner', $this->session_data->id, $id);
+                Notification::updateNotification('challenge_winner_confirmation', $this->session_data->id, $id);
+                Notification::updateNotification('contrast_opinions_challenge_winner', $this->session_data->id, $id);
             }
             
             $data['show_accept_button'] = false;
             $data['show_reject_button'] = false;
             $data['status'] = false;
             $data['show_result_button'] = false;
+            $data['show_result_confirmation_agree_button'] = false;
+            $data['show_result_confirmation_disagree_button'] = false;
             
             if ($this->session_data->id == $single[0]->from_id) {
                 $user_id = $single[0]->to_id;
@@ -515,20 +577,59 @@ class students extends CI_Controller
                     //get Current time
                     $time_2 = strtotime(get_current_date_time()->get_date_time_for_db());
                     
-                    if ($single[0]->result_status == 'MNP' && $time_2 <= $time_1) {
-                        $data['show_result_button'] = true;
+                    if ($single[0]->result_status == 'MNP') {
+                        if ($time_2 <= $time_1) {
+                            $data['show_result_button'] = true;
+                        } else {
+                            $data['error_msg'] = $this->lang->line('7_day_time_over');
+                        }
                     }
                 } else if ($single[0]->from_status == 'R' || $single[0]->to_status == 'R') {
                     $data['status'] = '<h2 class="text-white text-center bg-danger">' . $this->lang->line('rejected') . '</h2>';
                 }
+            } else if ($single[0]->result_status == 'CW') {
+                if ($single[0]->result == $this->session_data->id) {
+                    $winner = $this->lang->line('challenge_you');
+                } else if ($single[0]->result != $this->session_data->id) {
+                    $winner = $this->lang->line('challenge_opponent');
+                }
+                $msg = ($single[0]->result_declare_by != $this->session_data->id) ? $this->lang->line('please_confirm') : $this->lang->line('waiting_for_confirm');
+                
+                $data['status'] = '<h2 class="text-white text-center bg-info">' . $msg . ' ' . $this->lang->line('winner') . ' : ' . $winner . '</h2>';
+                
+                //get time after 101 min
+                $time_1 = strtotime('+101 min', strtotime($single[0]->status_changed_on));
+                
+                //get Current time
+                $time_2 = strtotime(get_current_date_time()->get_date_time_for_db());
+                
+                if ($single[0]->result_status == 'MNP' && $time_2 <= $time_1) {
+                    $data['show_result_button'] = true;
+                }
+                if ($single[0]->result_declare_by != $this->session_data->id) {
+                    if ($time_2 <= $time_1) {
+                        $data['show_result_confirmation_agree_button'] = true;
+                        $data['show_result_confirmation_disagree_button'] = true;
+                    } else {
+                        $data['error_msg'] = $this->lang->line('101_min_time_over');
+                    }
+                }
+                
+                $data['show_accept_button'] = false;
+                $data['show_reject_button'] = false;
+                $data['show_result_button'] = false;
+            } else if ($single[0]->result_status == 'CO') {
+                
+                $data['status'] = '<h2 class="text-white text-center bg-danger">' . $this->lang->line('opnion_contrast') . '</h2>';
             } else if ($single[0]->result_status == 'MP') {
                 if ($single[0]->result == $this->session_data->id) {
                     $winner = $this->lang->line('challenge_you');
-                } else {
+                } else if ($single[0]->result != $this->session_data->id) {
                     $winner = $this->lang->line('challenge_opponent');
                 }
                 $data['status'] = '<h2 class="text-white text-center bg-success">' . $this->lang->line('winner') . ' : ' . $winner . '</h2>';
             } else {
+                
                 $data['status'] = '<h2 class="text-white text-center bg-danger">Disqualified</h2>';
             }
             
@@ -589,7 +690,32 @@ class students extends CI_Controller
         if ($single != false && $single[0]->result_status == 'MNP' && ($single[0]->from_id == $this->session_data->id || $single[0]->to_id == $this->session_data->id)) {
             if ($single[0]->to_status == 'A' && $single[0]->from_status == 'A') {
                 $obj = new Challenge($this->input->post('id'));
+                $obj->result_declare_by = $this->session_data->id;
+                $obj->status_changed_on = get_current_date_time()->get_date_time_for_db();
                 $obj->result = $this->input->post('winner');
+                $obj->result_status = 'CW';
+                $obj->save();
+                
+                $this->_sendNotificationEmail('challenge_winner_confirmation', $obj->stored, $obj->id);
+            }
+            $status = true;
+        } else {
+            $status = false;
+        }
+        
+        echo json_encode(array('status' => $status));
+    }
+    
+    function duelResultConfirmation() {
+        $challenge = new Challenge();
+        $single = $challenge->getSingleChallengeDetails($this->input->post('id'));
+        
+        if ($single != false && $single[0]->result_status == 'CW' && ($single[0]->from_id == $this->session_data->id || $single[0]->to_id == $this->session_data->id)) {
+            
+            $obj = new Challenge($this->input->post('id'));
+            
+            if ($this->input->post('action') == 'A') {
+                
                 $obj->result_status = 'MP';
                 $obj->save();
                 
@@ -601,28 +727,40 @@ class students extends CI_Controller
                     $defeat_rating_point = systemRatingScore('blind_challenge_defeat');
                 }
                 
-                if ($single[0]->from_id == $this->input->post('winner')) {
+                if ($single[0]->from_id == $single[0]->result) {
                     $obj_score = new Scorehistory();
-                    $obj_score->meritStudentScore($single[0]->from_id, $winner_rating_point['type'], $winner_rating_point['score'], 'Challenge Winner');
+                    $obj_score->meritStudentScore($single[0]->from_id, $winner_rating_point['type'], $winner_rating_point['score'], 'Challenge winner');
                     
                     $obj_score = new Scorehistory();
-                    $obj_score->meritStudentScore($single[0]->to_id, $defeat_rating_point['type'], $defeat_rating_point['score'], 'Challenge Failure');
+                    $obj_score->meritStudentScore($single[0]->to_id, $defeat_rating_point['type'], $defeat_rating_point['score'], 'Challenge defeat');
                 } else {
                     $obj_score = new Scorehistory();
-                    $obj_score->meritStudentScore($single[0]->to_id, $winner_rating_point['type'], $winner_rating_point['score'], 'Challenge Winner');
+                    $obj_score->meritStudentScore($single[0]->to_id, $winner_rating_point['type'], $winner_rating_point['score'], 'Challenge winner');
                     
                     $obj_score = new Scorehistory();
-                    $obj_score->meritStudentScore($single[0]->from_id, $defeat_rating_point['type'], $defeat_rating_point['score'], 'Challenge Failure');
+                    $obj_score->meritStudentScore($single[0]->from_id, $defeat_rating_point['type'], $defeat_rating_point['score'], 'Challenge defeat');
                 }
                 
                 $this->_sendNotificationEmail('challenge_winner', $obj->stored, $obj->id);
             }
-            $status = true;
-        } else {
-            $status = false;
+            
+            if ($this->input->post('action') == 'D') {
+                $obj->result_status = 'CO';
+                $obj->save();
+                
+                $contrast_opinions = systemRatingScore('challenge_contrast_opinions');
+                
+                $obj_score = new Scorehistory();
+                $obj_score->demeritStudentScore($single[0]->from_id, $contrast_opinions['type'], $contrast_opinions['score'], 'Contrast of opinions on challenge winner');
+                
+                $obj_score = new Scorehistory();
+                $obj_score->demeritStudentScore($single[0]->to_id, $contrast_opinions['type'], $contrast_opinions['score'], 'Contrast of opinions on challenge winner');
+                
+                $this->_sendNotificationEmail('contrast_opinions_challenge_winner', $obj->stored, $obj->id);
+            }
         }
         
-        echo json_encode(array('status' => $status));
+        redirect(base_url() . 'duels/single/' . $this->input->post('id'), 'refresh');
     }
     
     function _sendNotificationEmail($type, $post, $object_id) {
@@ -673,7 +811,7 @@ class students extends CI_Controller
             $message = str_replace('#to_name', $this->session_data->name, $message);
         }
         
-        if ($type == 'challenge_winner') {
+        if ($type == 'challenge_winner' || $type == 'challenge_winner_confirmation' || $type == 'contrast_opinions_challenge_winner') {
             if ($post->from_id == $this->session_data->id) {
                 $user->where('id', $post->to_id)->get();
             } else {
@@ -734,24 +872,24 @@ class students extends CI_Controller
         $this->layout->setField('page_title', $this->lang->line('journal'));
         $this->layout->view('students/journal');
     }
-
+    
     function viewEvolution() {
         $this->layout->setField('page_title', $this->lang->line('evolution'));
         $this->layout->view('students/evolution');
     }
-
+    
     function viewAdministrationReceived() {
-        $this->layout->setField('page_title', $this->lang->line('administrations').' '.  $this->lang->line('received'));
+        $this->layout->setField('page_title', $this->lang->line('administrations') . ' ' . $this->lang->line('received'));
         $this->layout->view('students/administration_received');
     }
-
+    
     function viewAdministrationRenewal() {
-        $this->layout->setField('page_title', $this->lang->line('administrations').' '.  $this->lang->line('renewals'));
+        $this->layout->setField('page_title', $this->lang->line('administrations') . ' ' . $this->lang->line('renewals'));
         $this->layout->view('students/administration_renewal');
     }
-
+    
     function viewAdministrationCertificate() {
-        $this->layout->setField('page_title', $this->lang->line('administrations').' '.  $this->lang->line('certificates'));
+        $this->layout->setField('page_title', $this->lang->line('administrations') . ' ' . $this->lang->line('certificates'));
         $this->layout->view('students/administration_certificate');
     }
 }
