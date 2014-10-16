@@ -823,7 +823,7 @@ class students extends CI_Controller
             $message = str_replace('#winner', $winner['name'], $message);
         }
         
-        if (!isset($post->played_on) && $post->played_on != '') {
+        if (isset($post->played_on) && $post->played_on != '') {
             $message = str_replace('#on_date', date('d-m-Y', strtotime($post->played_on)), $message);
             $message = str_replace('#on_time', date('H:i a', strtotime($post->played_on)), $message);
         } else {
