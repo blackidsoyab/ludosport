@@ -334,7 +334,7 @@
                         <?php if ($session->status == 'A') { ?>
                             <li class="<?php echo ($page == 'message') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'message'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('message'); ?>"><i class="fa fa-envelope icon-sidebar"></i><?php echo $this->lang->line('message'); ?></a></li>
 
-                            <li class="<?php echo ($page == 'announcement') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'announcement'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('announcement'); ?>"><i class="fa fa-bullhorn icon-sidebar"></i><?php echo $this->lang->line('announcement'); ?></a></li>
+                            <li class="<?php echo ($page == 'announcement') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'announcement'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('announcement'); ?>"><i class="fa fa-bullhorn icon-sidebar"></i><?php echo ($session->role != 6) ? $this->lang->line('announcement') : $this->lang->line('student_dashboard_announcement_title'); ?></a></li>
                         <?php } ?>
 
                         <?php if ($session->status == 'A' && $session->role != 6) { ?>
@@ -489,19 +489,11 @@
                                 </a>
                             </li>
 
-                            <li class="<?php echo ($page == 'news') ? 'active selected' : ''; ?>">
-                                <a href="<?php echo base_url(). 'news'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('news'); ?>">
-                                    <i class="fa fa-bullhorn icon-sidebar"></i>
-                                    <i class="fa fa-angle-right chevron-icon-sidebar"></i>
-                                    <?php echo $this->lang->line('news'); ?>
-                                </a>
-                            </li>
-
                             <li class="<?php echo ($page == 'shop') ? 'active selected' : ''; ?>">
                                 <a href="<?php echo base_url(). 'shop'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('shop'); ?>">
                                     <i class="fa fa-shopping-cart icon-sidebar"></i>
                                     <i class="fa fa-angle-right chevron-icon-sidebar"></i>
-                                    (<?php echo $this->lang->line('shop'); ?>)
+                                    <?php echo $this->lang->line('shop'); ?>
                                 </a>
                             </li>
 
@@ -518,7 +510,7 @@
                                 </ul>
                             </li>
                             
-                            <li class="static"><?php echo $this->lang->line('merchandising'); ?></li>
+                            <!-- <li class="static"><?php echo $this->lang->line('merchandising'); ?></li> -->
                         <?php } ?>
                     </ul>
                 </div>

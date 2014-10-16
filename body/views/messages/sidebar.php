@@ -1,8 +1,9 @@
+<?php $session = $this->session->userdata('user_session'); ?>
 <div class="mail-apps-wrap margin-killer">
     <div class="the-box toolbar no-border margin-killer">
         <div class="btn-toolbar" role="toolbar">
             <div class="btn-group">
-                <p class="h1"><?php echo @$view_title; ?></p>
+                <p class="h1 margin-killer <?php echo ($session->role < 6) ? 'text-black' : 'text-white padding-killer';?>"><i class="fa fa-envelope icon-lg icon-circle icon-bordered"></i> <?php echo @$view_title; ?></p>
             </div>
             <div class="btn-group pull-right">
                 <button data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" type="button" class="btn btn-primary" id="delete_messages_button"><i class="fa fa-trash-o"></i></button>

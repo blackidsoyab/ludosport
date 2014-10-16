@@ -3,7 +3,7 @@
     <div class="the-box toolbar no-border no-margin heading padding-killer">
         <div class="row">
             <div class="col-sm-12">
-                <h3 class="margin-killer <?php echo ($session->role < 6) ? 'text-black' : 'text-white padding-killer';?>"><i class="fa fa-bullhorn icon-lg icon-circle icon-bordered"></i> <?php echo @$view_title; ?></h3>
+                <h3 class="margin-killer <?php echo ($session->role < 6) ? 'text-black' : 'text-white padding-killer';?>"><i class="fa fa-bullhorn icon-lg icon-circle icon-bordered"></i> <?php echo ($session->role != 6) ? @$view_title : $this->lang->line('student_dashboard_announcement_title'); ?></h3>
             </div>
         </div>
     </div>

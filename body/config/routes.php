@@ -177,6 +177,11 @@ $route['student/rating_list_json/(:any)'] = "json/getRattingListJsonData/$1";
 $route['shop'] = "students/paymentHistory";
 $route['shop/json_data'] = "json/getStudentPaymentHistoryJsonData";
 $route['shop/invoice/(:num)'] = "students/viewInvoice/$1";
+$route['journal'] = "students/viewJournal";
+$route['evolution'] = "students/viewEvolution";
+$route['received'] = "students/viewAdministrationReceived";
+$route['renewals'] = "students/viewAdministrationRenewal";
+$route['certificates'] = "students/viewAdministrationCertificate";
 
 
 //Message System

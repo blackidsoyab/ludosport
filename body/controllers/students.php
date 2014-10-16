@@ -8,7 +8,7 @@ class students extends CI_Controller
     
     function __construct() {
         parent::__construct();
-
+        
         $this->layout->setField('page_title', $this->config->item('app_name'));
         $this->session_data = $this->session->userdata('user_session');
         
@@ -326,7 +326,7 @@ class students extends CI_Controller
         
         //Suggested User
         $data['suggested_user'] = $challenge->userForChallenge($this->session_data->id, 'all');
-
+        
         //Recommended User
         $data['recommended_user'] = $challenge->userForChallenge($this->session_data->id, 'academy');
         
@@ -394,12 +394,12 @@ class students extends CI_Controller
             if ($this->input->post('date') != '' && $this->input->post('time') != '') {
                 $challenge->played_on = date('Y-m-d H:i:s', strtotime($this->input->post('date') . ' ' . $this->input->post('time')));
             }
-
+            
             $challenge->place = @$this->input->post('place');
             $challenge->user_id = $this->session_data->id;
             $challenge->save();
             $return = true;
-
+            
             $obj = new Challenge($challenge->id);
             $this->_sendNotificationEmail('challenge_made', $obj->stored, $obj->id);
         }
@@ -489,7 +489,6 @@ class students extends CI_Controller
             $data['show_reject_button'] = false;
             $data['status'] = false;
             $data['show_result_button'] = false;
-
             
             if ($this->session_data->id == $single[0]->from_id) {
                 $user_id = $single[0]->to_id;
@@ -710,24 +709,49 @@ class students extends CI_Controller
         
         return true;
     }
-
-    function paymentHistory(){
-        $this->layout->setField('page_title', $this->lang->line('payment'). ' '. $this->lang->line('history'));
+    
+    function paymentHistory() {
+        $this->layout->setField('page_title', $this->lang->line('payment') . ' ' . $this->lang->line('history'));
         $this->layout->view('students/shop');
     }
-
-    function viewInvoice($id){
+    
+    function viewInvoice($id) {
         $obj = new Payment();
-        $obj->where(array('id'=>$id, 'user_id'=>$this->session_data->id))->get();
-
-        if($obj->result_count() == 0){
+        $obj->where(array('id' => $id, 'user_id' => $this->session_data->id))->get();
+        
+        if ($obj->result_count() == 0) {
             $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
             redirect(base_url() . 'dashboard', 'refresh');
         }
-
+        
         $data['payment_details'] = $obj;
-
-        $this->layout->setField('page_title', $this->lang->line('view'). ' '. $this->lang->line('invoice'));
+        
+        $this->layout->setField('page_title', $this->lang->line('view') . ' ' . $this->lang->line('invoice'));
         $this->layout->view('students/view_invoice', $data);
+    }
+    
+    function viewJournal() {
+        $this->layout->setField('page_title', $this->lang->line('journal'));
+        $this->layout->view('students/journal');
+    }
+
+    function viewEvolution() {
+        $this->layout->setField('page_title', $this->lang->line('evolution'));
+        $this->layout->view('students/evolution');
+    }
+
+    function viewAdministrationReceived() {
+        $this->layout->setField('page_title', $this->lang->line('administrations').' '.  $this->lang->line('received'));
+        $this->layout->view('students/administration_received');
+    }
+
+    function viewAdministrationRenewal() {
+        $this->layout->setField('page_title', $this->lang->line('administrations').' '.  $this->lang->line('renewals'));
+        $this->layout->view('students/administration_renewal');
+    }
+
+    function viewAdministrationCertificate() {
+        $this->layout->setField('page_title', $this->lang->line('administrations').' '.  $this->lang->line('certificates'));
+        $this->layout->view('students/administration_certificate');
     }
 }
