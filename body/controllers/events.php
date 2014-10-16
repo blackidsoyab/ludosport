@@ -34,7 +34,7 @@ class events extends CI_Controller
                 $school = $schools->getSchoolOfStudent($this->session_data->id);
             }
             
-            if (!is_null($school)) {
+            if (!is_null($school) && !empty($school)) {
                 $temp = array();
                 foreach ($school as $value) {
                     $temp[] = $value->id;
