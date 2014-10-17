@@ -22,6 +22,18 @@ $(document).ready(function() {
     $('input[name="has_point"]').on('ifUnchecked', function(event){
         $('#ratting_points').hide();
     });
+
+    $('.summernote-sm').summernote({
+        height: 200,
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['font', ['strikethrough']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']]
+        ]
+    });
 });
 //]]>
 </script>
