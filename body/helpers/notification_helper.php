@@ -791,6 +791,16 @@ function setTimelineTemplate() {
             'en' => '<strong>%s</strong> won the challenge.',
             'it' => '<strong>%s</strong> won the challenge.',
         ),
+        'challenge_winner_confirmation' =>
+        array(
+            'en' => 'Please confirm the winner of the challenge.',
+            'it' => 'Please confirm the winner of the challenge.',
+        ),
+        'contrast_opinions_challenge_winner' =>
+        array(
+            'en' => 'Disagree with the result of the challenge',
+            'it' => 'Disagree with the result of the challenge',
+        ),
         'batch_request' =>
         array(
             'en' => 'Request for a badge <strong>%s</strong> to %s.',
