@@ -1078,8 +1078,11 @@ class json extends CI_Controller
                     $temp_arr[] = '<span class="label label-info-danger">' . $this->lang->line('rejected') . '</span>';
                 }
             }
-            
-            $temp_arr[] = date('d-m-Y H:i a', strtotime($aRow['played_on']));
+            if(isset($aRow['played_on']) && $aRow['played_on'] != ''){
+                $temp_arr[] = date('d-m-Y H:i a', strtotime($aRow['played_on']));
+            } else {
+                $temp_arr[] = '&nbsp;';
+            }
             
             $temp_arr[] = '<a href="' . base_url() . 'duels/single/' . $aRow['id'] . '" data-toggle="tooltip" data-placement="bottom" data-original-title="detail view" class="btn btn-default btn-xs"><i class="fa fa-share"></i></a>';
             
