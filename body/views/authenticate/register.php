@@ -89,7 +89,7 @@
     </div>
 
     <div class="form-group has-feedback lg left-feedback no-label">
-        <input type="email" name="email" class="form-control no-border input-lg rounded required" placeholder="<?php echo $this->lang->line('email'); ?>">
+        <input type="email" name="email" class="form-control no-border input-lg rounded required" placeholder="<?php echo $this->lang->line('email'); ?>" autocomplete="off">
         <span class="fa fa-envelope form-control-feedback"></span>
     </div>
 
@@ -116,6 +116,9 @@
         <button type="submit" class="btn btn-warning btn-lg btn-perspective btn-block" title="<?php echo $this->lang->line('enter'); ?>"><?php echo $this->lang->line('enter'); ?></button>
     </div>
 
+    <div class="form-group text-center">
+        <a href="<?php echo base_url() . 'login'; ?>"><?php echo $this->lang->line('back_to_login'); ?></a>
+    </div>
 </form>
 
 <div class="modal fade" id="terms_conditions" style="color: #000 !important;">
