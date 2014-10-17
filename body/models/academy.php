@@ -23,13 +23,15 @@ class Academy extends DataMapper
     }
     
     public static function getAssignRectorIds() {
-        $obj = new Academy();
+        $CI =& get_instance();
+        $res = $CI->db->query("SELECT users.id FROM users WHERE id IN((SELECT GROUP_CONCAT(rector_id) FROM academies GROUP BY academies.id)) AND status = 'A'");
         $array = array();
-        foreach ($obj->get() as $value) {
-            $array[] = explode(',', $value->rector_id);
+        if ($res->num_rows > 0) {
+            $result = $res->result_array();
+            $array = MultiArrayToSinlgeArray($result);
         }
         
-        return array_unique(MultiArrayToSinlgeArray($array));
+        return array_unique($array);
     }
     
     function getTotalAcademyOfRector($rector_id) {
@@ -151,15 +153,23 @@ class Academy extends DataMapper
     
     function getRelatedRectorsByRector($rector_id) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('rector_id');
+        $this->db->select('rector_id, users.id, users.status');
         $this->db->from('academies');
+        $this->db->join('users', 'FIND_IN_SET(users.id, academies.rector_id)');
         $this->db->where("FIND_IN_SET(" . $rector_id . ", rector_id) > 0");
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-            $temp = $res->result();
-            $array[] = explode(',', $temp[0]->rector_id);
-            
-            return array_unique(MultiArrayToSinlgeArray($array));
+            $result = $res->result();
+            $array = array();
+            foreach ($result as $value) {
+                $rector_ids = explode(',', $value->rector_id);
+                foreach ($rector_ids as  $rector) {
+                    if($rector == $value->id && $value->status == 'A'){
+                        $array[] = $rector;
+                    }
+                }   
+            }
+            return array_unique($array);
         } else {
             return false;
         }
@@ -167,17 +177,24 @@ class Academy extends DataMapper
     
     function getRelatedRectorsByDean($dean_id) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('rector_id');
+        $this->db->select('rector_id, users.id, users.status');
         $this->db->from('academies');
         $this->db->join('schools', 'academies.id=schools.academy_id');
+        $this->db->join('users', 'FIND_IN_SET(users.id, academies.rector_id)');
         $this->db->where("FIND_IN_SET(" . $dean_id . ", dean_id) > 0");
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-            $temp = $res->result();
-            foreach ($temp as $value) {
-                $array[] = explode(',', $value->rector_id);
+            $result = $res->result();
+            $array = array();
+            foreach ($result as $value) {
+                $rector_ids = explode(',', $value->rector_id);
+                foreach ($rector_ids as  $rector) {
+                    if($rector == $value->id && $value->status == 'A'){
+                        $array[] = $rector;
+                    }
+                }   
             }
-            return array_unique(MultiArrayToSinlgeArray($array));
+            return array_unique($array);
         } else {
             return false;
         }
@@ -185,18 +202,25 @@ class Academy extends DataMapper
     
     function getRelatedRectorsByTeacher($teacher_id) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('rector_id');
+        $this->db->select('rector_id, users.id, users.status');
         $this->db->from('academies');
         $this->db->join('schools', 'academies.id=schools.academy_id');
         $this->db->join('clans', 'schools.id=clans.school_id');
+        $this->db->join('users', 'FIND_IN_SET(users.id, academies.rector_id)');
         $this->db->where("FIND_IN_SET(" . $teacher_id . ", teacher_id) > 0");
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-            $temp = $res->result();
-            foreach ($temp as $value) {
-                $array[] = explode(',', $value->rector_id);
+            $result = $res->result();
+            $array = array();
+            foreach ($result as $value) {
+                $rector_ids = explode(',', $value->rector_id);
+                foreach ($rector_ids as  $rector) {
+                    if($rector == $value->id && $value->status == 'A'){
+                        $array[] = $rector;
+                    }
+                }   
             }
-            return array_unique(MultiArrayToSinlgeArray($array));
+            return array_unique($array);
         } else {
             return false;
         }
@@ -204,19 +228,26 @@ class Academy extends DataMapper
     
     function getRelatedRectorsByStudent($student_id) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('rector_id');
+        $this->db->select('rector_id, users.id, users.status');
         $this->db->from('academies');
         $this->db->join('schools', 'academies.id=schools.academy_id');
         $this->db->join('clans', 'schools.id=clans.school_id');
         $this->db->join('userdetails', 'clans.id=userdetails.clan_id');
+        $this->db->join('users', 'FIND_IN_SET(users.id, academies.rector_id)');
         $this->db->where('student_master_id', $student_id);
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-            $temp = $res->result();
-            foreach ($temp as $value) {
-                $array[] = explode(',', $value->rector_id);
+            $result = $res->result();
+            $array = array();
+            foreach ($result as $value) {
+                $rector_ids = explode(',', $value->rector_id);
+                foreach ($rector_ids as  $rector) {
+                    if($rector == $value->id && $value->status == 'A'){
+                        $array[] = $rector;
+                    }
+                }   
             }
-            return array_unique(MultiArrayToSinlgeArray($array));
+            return array_unique($array);
         } else {
             return false;
         }
@@ -224,17 +255,23 @@ class Academy extends DataMapper
     
     function getRecotrsByAcademy($academy_id) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('rector_id');
+        $this->db->select('rector_id, users.id, users.status');
         $this->db->from('academies');
-        $this->db->where('id', $academy_id);
+        $this->db->join('users', 'FIND_IN_SET(users.id, academies.rector_id)');
+        $this->db->where('academies.id', $academy_id);
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-            $temp = $res->result();
-            foreach ($temp as $value) {
-                $array[] = explode(',', $value->rector_id);
+            $result = $res->result();
+            $array = array();
+            foreach ($result as $value) {
+                $rector_ids = explode(',', $value->rector_id);
+                foreach ($rector_ids as  $rector) {
+                    if($rector == $value->id && $value->status == 'A'){
+                        $array[] = $rector;
+                    }
+                }   
             }
-            
-            return array_unique(MultiArrayToSinlgeArray($array));
+            return array_unique($array);
         } else {
             return false;
         }
@@ -242,18 +279,24 @@ class Academy extends DataMapper
     
     function getRecotrsBySchool($school_id) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('rector_id');
+        $this->db->select('rector_id, users.id, users.status');
         $this->db->from('academies');
         $this->db->join('schools', 'academies.id=schools.academy_id');
+        $this->db->join('users', 'FIND_IN_SET(users.id, academies.rector_id)');
         $this->db->where('schools.id', $school_id);
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-            $temp = $res->result();
-            foreach ($temp as $value) {
-                $array[] = explode(',', $value->rector_id);
+            $result = $res->result();
+            $array = array();
+            foreach ($result as $value) {
+                $rector_ids = explode(',', $value->rector_id);
+                foreach ($rector_ids as  $rector) {
+                    if($rector == $value->id && $value->status == 'A'){
+                        $array[] = $rector;
+                    }
+                }   
             }
-            
-            return array_unique(MultiArrayToSinlgeArray($array));
+            return array_unique($array);
         } else {
             return false;
         }
@@ -261,18 +304,25 @@ class Academy extends DataMapper
     
     function getRecotrsByClan($clan_id) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('rector_id');
+        $this->db->select('rector_id, users.id, users.status');
         $this->db->from('academies');
         $this->db->join('schools', 'academies.id=schools.academy_id');
         $this->db->join('clans', 'schools.id=clans.school_id');
+        $this->db->join('users', 'FIND_IN_SET(users.id, academies.rector_id)');
         $this->db->where('clans.id', $clan_id);
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-            $temp = $res->result();
-            foreach ($temp as $value) {
-                $array[] = explode(',', $value->rector_id);
+            $result = $res->result();
+            $array = array();
+            foreach ($result as $value) {
+                $rector_ids = explode(',', $value->rector_id);
+                foreach ($rector_ids as  $rector) {
+                    if($rector == $value->id && $value->status == 'A'){
+                        $array[] = $rector;
+                    }
+                }   
             }
-            return array_unique(MultiArrayToSinlgeArray($array));
+            return array_unique($array);
         } else {
             return false;
         }

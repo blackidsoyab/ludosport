@@ -10,26 +10,39 @@ class Userdetail extends DataMapper
     }
 
     public static function getAssingStudentIds() {
-        $obj = new Userdetail();
+        $CI =& get_instance();
+        $CI->db->_protect_identifiers = false;
+        $CI->db->select('student_master_id');
+        $CI->db->from('userdetails');
+        $CI->db->join('users', 'users.id=userdetails.student_master_id');
+        $CI->db->where('userdetails.status', 'A');
+        $CI->db->where('users.status', 'A');
+        $res = $CI->db->get();
         $array = array();
-        foreach ($obj->get() as $value) {
-            $array[] = $value->student_master_id;
+        if ($res->num_rows > 0) {
+            $result = $res->result_array();
+            $array = MultiArrayToSinlgeArray($result);
         }
         
         return array_unique($array);
     }
     
     public static function getAssignStudentIdsByCaln($clan_id) {
-        $obj = new Userdetail();
-        $obj->where('clan_id', $clan_id);
-        $obj->where('status', 'A');
-        $obj->get();
-        
+        $CI =& get_instance();
+        $CI->db->_protect_identifiers = false;
+        $CI->db->select('student_master_id');
+        $CI->db->from('userdetails');
+        $CI->db->join('users', 'users.id=userdetails.student_master_id');
+        $CI->db->where('clan_id', $clan_id);
+        $CI->db->where('userdetails.status', 'A');
+        $CI->db->where('users.status', 'A');
+        $res = $CI->db->get();
         $array = array();
-        foreach ($obj as $value) {
-            $array[] = $value->student_master_id;
+        if ($res->num_rows > 0) {
+            $result = $res->result_array();
+            $array = MultiArrayToSinlgeArray($result);
         }
-        
+
         return array_unique($array);
     }
     
@@ -40,10 +53,13 @@ class Userdetail extends DataMapper
         $this->db->join('clans', 'clans.id=userdetails.clan_id');
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
+        $this->db->join('users', 'users.id=userdetails.student_master_id');
         $this->db->where("FIND_IN_SET(" . $rector_id . ", academies.rector_id) > 0");
+        $this->db->where('users.status', 'A');
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             $temp = $res->result();
+            $array = array();
             foreach ($temp as $value) {
                 $array[] = $value->student_master_id;
             }
@@ -59,10 +75,13 @@ class Userdetail extends DataMapper
         $this->db->from('userdetails');
         $this->db->join('clans', 'clans.id=userdetails.clan_id');
         $this->db->join('schools', 'schools.id=clans.school_id');
+        $this->db->join('users', 'users.id=userdetails.student_master_id');
         $this->db->where("FIND_IN_SET(" . $dean_id . ", dean_id) > 0");
+        $this->db->where('users.status', 'A');
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             $temp = $res->result();
+            $array = array();
             foreach ($temp as $value) {
                 $array[] = $value->student_master_id;
             }
@@ -77,10 +96,13 @@ class Userdetail extends DataMapper
         $this->db->select('student_master_id');
         $this->db->from('userdetails');
         $this->db->join('clans', 'clans.id=userdetails.clan_id');
+        $this->db->join('users', 'users.id=userdetails.student_master_id');
         $this->db->where("FIND_IN_SET(" . $teacher_id . ", teacher_id) > 0");
+        $this->db->where('users.status', 'A');
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             $temp = $res->result();
+            $array = array();
             foreach ($temp as $value) {
                 $array[] = $value->student_master_id;
             }
@@ -96,10 +118,13 @@ class Userdetail extends DataMapper
         $this->db->from('userdetails s1');
         $this->db->join('clans', 'clans.id=s1.clan_id');
         $this->db->join('userdetails s2', 'clans.id=s2.clan_id');
-        $this->db->where("FIND_IN_SET(" . $student_id . ", s2.student_master_id) > 0");
+        $this->db->join('users', 'users.id=s1.student_master_id');
+        $this->db->where('s2.student_master_id', $student_id);
+        $this->db->where('users.status', 'A');
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             $temp = $res->result();
+            $array = array();
             foreach ($temp as $value) {
                 $array[] = $value->student_master_id;
             }
@@ -116,10 +141,13 @@ class Userdetail extends DataMapper
         $this->db->join('clans', 'clans.id=userdetails.clan_id');
         $this->db->join('schools', 'schools.id=clans.school_id');
         $this->db->join('academies', 'academies.id=schools.academy_id');
+        $this->db->join('users', 'users.id=userdetails.student_master_id');
         $this->db->where('academies.id', $academy_id);
+        $this->db->where('users.status', 'A');
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             $temp = $res->result();
+            $array = array();
             foreach ($temp as $value) {
                 $array[] = $value->student_master_id;
             }
@@ -135,10 +163,13 @@ class Userdetail extends DataMapper
         $this->db->from('userdetails');
         $this->db->join('clans', 'clans.id=userdetails.clan_id');
         $this->db->join('schools', 'schools.id=clans.school_id');
+        $this->db->join('users', 'users.id=userdetails.student_master_id');
         $this->db->where('schools.id', $school_id);
+        $this->db->where('users.status', 'A');
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             $temp = $res->result();
+            $array = array();
             foreach ($temp as $value) {
                 $array[] = $value->student_master_id;
             }
@@ -153,10 +184,13 @@ class Userdetail extends DataMapper
         $this->db->select('student_master_id');
         $this->db->from('userdetails');
         $this->db->join('clans', 'clans.id=userdetails.clan_id');
+        $this->db->join('users', 'users.id=userdetails.student_master_id');
         $this->db->where('clans.id', $clan_id);
+        $this->db->where('users.status', 'A');
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             $temp = $res->result();
+            $array = array();
             foreach ($temp as $value) {
                 $array[] = $value->student_master_id;
             }
@@ -333,10 +367,4 @@ class Userdetail extends DataMapper
     }
 }
 
-/*
-SET @row = 88;
-UPDATE userdetails SET war = @row + (FLOOR(1 + RAND() * 45)) order by id DESC;
-
-UPDATE userdetails SET total_score = (xpr+war+sty);
-*/
 ?>

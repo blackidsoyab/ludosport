@@ -114,29 +114,37 @@ class School extends DataMapper
     }
     
     public static function getAssignDeanIds() {
-        $obj = new School();
+        $CI =& get_instance();
+        $res = $CI->db->query("SELECT users.id FROM users WHERE id IN((SELECT GROUP_CONCAT(dean_id) FROM schools GROUP BY schools.id)) AND status = 'A'");
         $array = array();
-        foreach ($obj->get() as $value) {
-            $array[] = explode(',', $value->dean_id);
+        if ($res->num_rows > 0) {
+            $result = $res->result_array();
+            $array = MultiArrayToSinlgeArray($result);
         }
         
-        return array_unique(MultiArrayToSinlgeArray($array));
+        return array_unique($array);
     }
     
     function getRelatedDeansByRector($rector_id) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('dean_id');
+        $this->db->select('dean_id, users.id, users.status');
         $this->db->from('schools');
         $this->db->join('academies', 'academies.id=schools.academy_id');
+        $this->db->join('users', 'FIND_IN_SET(users.id, schools.dean_id)');
         $this->db->where("FIND_IN_SET(" . $rector_id . ", academies.rector_id) > 0");
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-            $temp = $res->result();
-            foreach ($temp as $value) {
-                $array[] = explode(',', $value->dean_id);
+            $result = $res->result();
+            $array = array();
+            foreach ($result as $value) {
+                $dean_ids = explode(',', $value->dean_id);
+                foreach ($dean_ids as  $dean) {
+                    if($dean == $value->id && $value->status == 'A'){
+                        $array[] = $dean;
+                    }
+                }   
             }
-            
-            return array_unique(MultiArrayToSinlgeArray($array));
+            return array_unique($array);
         } else {
             return false;
         }
@@ -144,19 +152,25 @@ class School extends DataMapper
     
     function getRelatedDeansByDean($dean_id) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('s1.dean_id');
+        $this->db->select('s1.dean_id, users.id, users.status');
         $this->db->from('schools s1');
         $this->db->join('academies', 'academies.id=s1.academy_id');
         $this->db->join('schools s2', 'academies.id=s2.academy_id');
+        $this->db->join('users', 'FIND_IN_SET(users.id, s1.dean_id)');
         $this->db->where("FIND_IN_SET(" . $dean_id . ", s2.dean_id) > 0");
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-            $temp = $res->result();
-            foreach ($temp as $value) {
-                $array[] = explode(',', $value->dean_id);
+            $result = $res->result();
+            $array = array();
+            foreach ($result as $value) {
+                $dean_ids = explode(',', $value->dean_id);
+                foreach ($dean_ids as  $dean) {
+                    if($dean == $value->id && $value->status == 'A'){
+                        $array[] = $dean;
+                    }
+                }   
             }
-            
-            return array_unique(MultiArrayToSinlgeArray($array));
+            return array_unique($array);
         } else {
             return false;
         }
@@ -164,19 +178,25 @@ class School extends DataMapper
     
     function getRelatedDeansByTeacher($teacher_id) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('dean_id');
+        $this->db->select('s1.dean_id, users.id, users.status');
         $this->db->from('schools');
-        $this->db->join('academies', 'academies.id=schools.academy_id');
+        $this->db->join('schools s1', 's1.academy_id = schools.academy_id');
         $this->db->join('clans', 'schools.id=clans.school_id');
-        $this->db->where("FIND_IN_SET(" . $teacher_id . ", teacher_id) > 0");
+        $this->db->join('users', 'FIND_IN_SET(users.id, s1.dean_id)');
+        $this->db->where("FIND_IN_SET(" . $teacher_id . ", clans.teacher_id) > 0");
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-            $temp = $res->result();
-            foreach ($temp as $value) {
-                $array[] = explode(',', $value->dean_id);
+            $result = $res->result();
+            $array = array();
+            foreach ($result as $value) {
+                $dean_ids = explode(',', $value->dean_id);
+                foreach ($dean_ids as  $dean) {
+                    if($dean == $value->id && $value->status == 'A'){
+                        $array[] = $dean;
+                    }
+                }   
             }
-            
-            return array_unique(MultiArrayToSinlgeArray($array));
+            return array_unique($array);
         } else {
             return false;
         }
@@ -184,19 +204,25 @@ class School extends DataMapper
     
     function getRelatedDeansByStudent($student_id) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('dean_id');
+        $this->db->select('dean_id, users.id, users.status');
         $this->db->from('schools');
         $this->db->join('clans', 'schools.id=clans.school_id');
         $this->db->join('userdetails', 'clans.id=userdetails.clan_id');
+        $this->db->join('users', 'FIND_IN_SET(users.id, schools.dean_id)');
         $this->db->where('student_master_id', $student_id);
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-            $temp = $res->result();
-            foreach ($temp as $value) {
-                $array[] = explode(',', $value->dean_id);
+            $result = $res->result();
+            $array = array();
+            foreach ($result as $value) {
+                $dean_ids = explode(',', $value->dean_id);
+                foreach ($dean_ids as  $dean) {
+                    if($dean == $value->id && $value->status == 'A'){
+                        $array[] = $dean;
+                    }
+                }   
             }
-            
-            return array_unique(MultiArrayToSinlgeArray($array));
+            return array_unique($array);
         } else {
             return false;
         }
@@ -204,18 +230,24 @@ class School extends DataMapper
     
     function getDeansByAcademy($academy_id) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('dean_id');
+        $this->db->select('dean_id, users.id, users.status');
         $this->db->from('schools');
         $this->db->join('academies', 'academies.id=schools.academy_id');
+        $this->db->join('users', 'FIND_IN_SET(users.id, schools.dean_id)');
         $this->db->where('academies.id', $academy_id);
         $res = $this->db->get();
-        if ($res->num_rows > 0) {
-            $temp = $res->result();
-            foreach ($temp as $value) {
-                $array[] = explode(',', $value->dean_id);
+         if ($res->num_rows > 0) {
+            $result = $res->result();
+            $array = array();
+            foreach ($result as $value) {
+                $dean_ids = explode(',', $value->dean_id);
+                foreach ($dean_ids as  $dean) {
+                    if($dean == $value->id && $value->status == 'A'){
+                        $array[] = $dean;
+                    }
+                }   
             }
-            
-            return array_unique(MultiArrayToSinlgeArray($array));
+            return array_unique($array);
         } else {
             return false;
         }
@@ -223,17 +255,23 @@ class School extends DataMapper
     
     function getDeansBySchool($school_id) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('dean_id');
+        $this->db->select('dean_id, users.id, users.status');
         $this->db->from('schools');
-        $this->db->where('id', $school_id);
+        $this->db->join('users', 'FIND_IN_SET(users.id, schools.dean_id)');
+        $this->db->where('schools.id', $school_id);
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-            $temp = $res->result();
-            foreach ($temp as $value) {
-                $array[] = explode(',', $value->dean_id);
+            $result = $res->result();
+            $array = array();
+            foreach ($result as $value) {
+                $dean_ids = explode(',', $value->dean_id);
+                foreach ($dean_ids as  $dean) {
+                    if($dean == $value->id && $value->status == 'A'){
+                        $array[] = $dean;
+                    }
+                }   
             }
-            
-            return array_unique(MultiArrayToSinlgeArray($array));
+            return array_unique($array);
         } else {
             return false;
         }
@@ -241,17 +279,24 @@ class School extends DataMapper
     
     function getDeansByClan($clan_id) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('dean_id');
+        $this->db->select('dean_id, users.id, users.status');
         $this->db->from('schools');
         $this->db->join('clans', 'schools.id=clans.school_id');
+        $this->db->join('users', 'FIND_IN_SET(users.id, schools.dean_id)');
         $this->db->where('clans.id', $clan_id);
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-            $temp = $res->result();
-            foreach ($temp as $value) {
-                $array[] = explode(',', $value->dean_id);
+            $result = $res->result();
+            $array = array();
+            foreach ($result as $value) {
+                $dean_ids = explode(',', $value->dean_id);
+                foreach ($dean_ids as  $dean) {
+                    if($dean == $value->id && $value->status == 'A'){
+                        $array[] = $dean;
+                    }
+                }   
             }
-            return array_unique(MultiArrayToSinlgeArray($array));
+            return array_unique($array);
         } else {
             return false;
         }

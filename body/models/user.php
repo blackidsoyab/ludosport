@@ -69,11 +69,17 @@ class User extends DataMapper
     }
     
     public static function getAdminIds() {
-        $obj = new User();
-        $obj->where('role_id', 2);
+        $CI =& get_instance();
+        $CI->db->_protect_identifiers = false;
+        $CI->db->select('users.id');
+        $CI->db->from('users');
+        $CI->db->where('FIND_IN_SET(2, role_id)');
+        $CI->db->where('users.status', 'A');
+        $res = $CI->db->get();
         $array = array();
-        foreach ($obj->get() as $value) {
-            $array[] = $value->id;
+        if ($res->num_rows > 0) {
+            $result = $res->result_array();
+            $array = MultiArrayToSinlgeArray($result);
         }
         
         return array_unique($array);
@@ -107,6 +113,7 @@ class User extends DataMapper
         $this->db->_protect_identifiers = false;
         $this->db->select('id');
         $this->db->from('users');
+        $this->db->where('users.status', 'A');
         $this->db->where(substr($where, 4));
         $res = $this->db->get();
         if ($res->num_rows > 0) {
