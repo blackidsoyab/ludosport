@@ -7,9 +7,9 @@ if (!function_exists('systemRatingScore')) {
         
         $array = array();
         $array['lesson'] = array('type' => 'xpr', 'score' => 2);
-        $array['regular_challenge_win'] = array('type' => 'sty', 'score' => 3);
+        $array['regular_challenge_win'] = array('type' => 'war', 'score' => 3);
         $array['regular_challenge_defeat'] = array('type' => 'xpr', 'score' => 1);
-        $array['blind_challenge_win'] = array('type' => 'sty', 'score' => 5);
+        $array['blind_challenge_win'] = array('type' => 'war', 'score' => 5);
         $array['blind_challenge_defeat'] = array('type' => 'xpr', 'score' => 2);
         $array['reject_challenge_launches'] = array('type' => 'xpr', 'score' => 2);
         $array['reject_challenge_accepted'] = array('type' => 'xpr', 'score' => 1);
