@@ -20,11 +20,11 @@
 
                     <hr class="mail-tab-hr"/>
 
-                    <a href="<?php echo base_url() . 'message'; ?>" class="list-group-item <?php echo ($page == 'inbox') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('inbox'); ?>"><?php echo $this->lang->line('inbox'); ?> <span class="badge badge-primary"><?php echo $count_inbox; ?></span></a>
+                    <a href="<?php echo base_url() . 'message'; ?>" class="list-group-item <?php echo ($page == 'inbox') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('inbox'); ?>"><?php echo $this->lang->line('inbox'); ?> <?php echo ($count_inbox != 0) ? '<span class="badge badge-primary">' . $count_inbox .'</span>' : '&nbsp;'; ?></a>
 
-                    <a href="<?php echo base_url() . 'message/sent'; ?>" class="list-group-item <?php echo ($page == 'sent') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('sent'); ?>"><?php echo $this->lang->line('sent'); ?> <span class="badge badge-success"><?php echo $count_sent; ?></span></a>
+                    <a href="<?php echo base_url() . 'message/sent'; ?>" class="list-group-item <?php echo ($page == 'sent') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('sent'); ?>"><?php echo $this->lang->line('sent'); ?> <?php echo ($count_sent != 0) ? '<span class="badge badge-success">' . $count_sent .'</span>' : '&nbsp;'; ?></a>
 
-                    <a href="<?php echo base_url() . 'message/trash'; ?>" class="list-group-item <?php echo ($page == 'trash') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('trash'); ?>"><?php echo $this->lang->line('trash'); ?> <span class="badge badge-danger"><?php echo $count_trash; ?></span></a>
+                    <a href="<?php echo base_url() . 'message/trash'; ?>" class="list-group-item <?php echo ($page == 'trash') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('trash'); ?>"><?php echo $this->lang->line('trash'); ?> <?php echo ($count_trash != 0) ? '<span class="badge badge-danger">' . $count_trash .'</span>' : '&nbsp;'; ?></a>
 
                 </div>
             </div>

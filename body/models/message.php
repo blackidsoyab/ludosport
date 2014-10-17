@@ -107,5 +107,38 @@ class Message extends DataMapper
             return true;
         }
     }
+    
+    function trashMessage($type, $message_id, $user_id) {
+        $message = new Message();
+        
+        if ($type == 'inbox') {
+            $message->where(array('type' => 'single',  'id' => $message_id))->get();
+            if($message->to_id == $user_id){
+                $message->where(array('type' => 'single', 'id' => $message_id))->update('to_status', 'T');
+            }
+        } else if ($type == 'sent') {
+            $message->where(array('type' => 'single',  'id' => $message_id))->get();
+            if($message->from_id == $user_id){
+                $message->where(array('type' => 'single', 'id' => $message_id))->update('from_status', 'T');
+            }
+        } else if($type == 'trash'){
+            $message->where(array('type' => 'single',  'id' => $message_id))->get();
+            if ($message->from_id == $user_id && $message->to_status == 'E') {
+                $message->where(array('type' => 'single', 'id' => $message_id))->delete();
+            } else if ($message->to_id == $user_id && $message->from_status == 'E') {
+                $message->where(array('type' => 'single', 'id' => $message_id))->delete();
+            } else if ($message->to_id == $user_id) {
+                $message->where(array('type' => 'single', 'id' => $message_id))->update('to_status', 'E');
+            } else if ($message->from_id == $user_id) {
+                $message->where(array('type' => 'single', 'id' => $message_id))->update('from_status', 'E');
+            }
+        }
+        
+        if ($message->reply_of != 0) {
+            $this->trashMessage($type, $message->reply_of, $user_id);
+        } else {
+            return true;
+        }
+    }
 }
 ?>

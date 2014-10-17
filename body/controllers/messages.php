@@ -956,36 +956,21 @@ class messages extends CI_Controller
                 
                 //Check message prefix
                 if ($message_part[0] == 'inbox') {
-                    
                     //Check message sufix is single message set status to Trash or if group leave group
                     if ($message_part[2] == 'single') {
-                        $message->where(array('type' => 'single', 'to_id' => $this->session_data->id, 'id' => $message_part[1]))->update('to_status', 'T');
+                        $message->trashMessage('inbox', $message_part[1], $this->session_data->id);
                     } else if ($message_part[2] == 'group') {
                         $message->leaveGroupMessage($message_part[1], $this->session_data->id);
                     }
                 } else if ($message_part[0] == 'sent') {
-                    
                     //Check message sufix is single message set status to Trash
                     if ($message_part[2] == 'single') {
-                        $message->where(array('id' => $message_part[1], 'type' => 'single', 'from_id' => $this->session_data->id,))->update('from_status', 'T');
+                       $message->trashMessage('sent', $message_part[1], $this->session_data->id);
                     } else if ($message_part[2] == 'group') {
                         $message->leaveGroupMessage($message_part[1], $this->session_data->id);
                     }
                 } else if ($message_part[0] == 'trash') {
-                    
-                    // now deleting permentally
-                    $message->where(array('type' => 'single', 'id' => $message_part[1]))->get();
-                    
-                    //if any one is deleted that is sender or reciver then delted permentaly or else set status to erased
-                    if ($message->from_id == $this->session_data->id && $message->to_status == 'E') {
-                        $message->where(array('type' => 'single', 'id' => $message_part[1]))->delete();
-                    } else if ($message->to_id == $this->session_data->id && $message->from_status == 'E') {
-                        $message->where(array('type' => 'single', 'id' => $message_part[1]))->delete();
-                    } else if ($message->to_id == $this->session_data->id) {
-                        $message->where(array('type' => 'single', 'id' => $message_part[1]))->update('to_status', 'E');
-                    } else if ($message->from_id == $this->session_data->id) {
-                        $message->where(array('type' => 'single', 'id' => $message_part[1]))->update('from_status', 'E');
-                    }
+                    $message->trashMessage('trash', $message_part[1], $this->session_data->id);
                 }
             }
         }
