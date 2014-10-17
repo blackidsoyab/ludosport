@@ -132,7 +132,15 @@
             $(data.element[0]).parent().parent().find('.removeButton').show(); 
             $(data.element[0]).parent().parent().find('.addButton').hide();   
         }).find('[name="message"]').summernote({
-            height: 200,
+           height: 200,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ],
             onkeyup: function() {
                 validateEditor();
             },
