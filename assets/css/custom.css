@@ -647,3 +647,11 @@ h1.page-heading a{
 .chat-wrap ul li.media:last-child {
     padding: 20px 0 0;
 }
+
+.blog-detail-image img.img-blog {
+    width: 100%;
+}
+
+.featured-post-wide img {
+    width: 100%;
+}

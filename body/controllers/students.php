@@ -536,7 +536,7 @@ class students extends CI_Controller
                 redirect(base_url() . 'dashboard', 'refresh');
             }
             
-            if (!is_null($id) && $type_2 == 'notification') {
+            if (!is_null($id) && ($type_2 == null || $type_2 == 'notification')) {
                 Notification::updateNotification('challenge_made', $this->session_data->id, $id);
                 Notification::updateNotification('challenge_accepted', $this->session_data->id, $id);
                 Notification::updateNotification('challenge_rejected', $this->session_data->id, $id);

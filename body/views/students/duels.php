@@ -318,7 +318,7 @@
 										<div class="media-body">
 											<div class="pull-left">
 												<h5 class="media-heading mar-bt-10">
-													<a href="<?php echo base_url() . 'profile/view/'. $submitted_value->to_id ?>" class="text-primary">
+													<a href="<?php echo base_url() . 'profile/view/'. $submitted_value->to_id ?>" class="text-info">
 														<strong><?php echo $submitted_value->to_name; ?></strong>
 													</a>
 												</h5>
@@ -327,7 +327,7 @@
 											</div>
 											
 											<div class="pull-right">
-												<a href="<?php echo base_url() .'duels/single/' . $submitted_value->id; ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="detail view" class="btn btn-primary btn-xs"><i class="fa fa-share"></i></a>
+												<a href="<?php echo base_url() .'duels/single/' . $submitted_value->id; ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="detail view" class="btn btn-info btn-xs"><i class="fa fa-share"></i></a>
 											</div>
 										</div>
 									</div>

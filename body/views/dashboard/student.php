@@ -22,6 +22,22 @@
                 stopOnHover: true
             });
         }
+
+        $('.scroll-chat-widget').slimScroll({
+            height: 'auto',
+            position: 'right',
+            size: '4px',
+            railOpacity: 0.3,
+            railVisible: true,
+            alwaysVisible: true,
+            start : 'bottom'
+        });
+
+        if($('.scroll-chat-widget').find('li').length == 0){
+            $('#personal-communication .chat-wrap').css('height', 'auto');
+            $('#personal-communication .scroll-chat-widget').css('height', 'auto');
+            $('#personal-communication .slimScrollDiv').css('height', 'auto');
+        }
     });
 </script>
 
@@ -63,11 +79,11 @@
             <?php } ?>
 
             <div class="row">
-                <div class="col-lg-6">
-                    <a href="<?php echo base_url() .'duels'; ?>" class="btn btn-block btn-danger"><i class="fa fa-cogs"></i><?php echo $this->lang->line('challenge_to_duel'); ?></a>
+                <div class="col-sm-6">
+                    <a href="<?php echo base_url() .'duels'; ?>" class="btn btn-block btn-danger"><?php echo $this->lang->line('challenge_to_duel'); ?></a>
                 </div>
                 <div class="col-sm-6">
-                    <a href="<?php echo base_url() .'message/compose'; ?>" class="btn btn-block btn-info"><i class="fa fa-cogs"></i><?php echo $this->lang->line('write_message'); ?></a>
+                    <a href="<?php echo base_url() .'message/compose'; ?>" class="btn btn-block btn-info"><?php echo $this->lang->line('write_message'); ?></a>
                 </div>
             </div>
         </div>
@@ -147,30 +163,32 @@
             </div>
         </div>
 
-        <?php if($last_five_announcements != false) { ?>
-            <div class="the-box no-border">
-                <h4 class="small-heading more-margin-bottom"><?php echo $this->lang->line('student_dashboard_announcement_title'); ?></h4>
-                <div class="chat-wrap scroll-chat-widget">
+        
+        <div class="the-box no-border" id="personal-communication">
+            <h4 class="small-heading more-margin-bottom"><?php echo $this->lang->line('student_dashboard_announcement_title'); ?></h4>
+            <div class="chat-wrap scroll-chat-widget">
+                <?php if($last_five_announcements != false) { ?>
                     <ul class="media-list media-xs media-dotted media-chat">
-                    <?php foreach ($last_five_announcements as $announcement) { ?>
-                         <li class="media">
-                            <a class="pull-left" href="<?php echo base_url().'profile/view/' . $announcement->from_id; ?>"><img class="media-object img-circle" src="<?php echo IMG_URL .'user_avtar/40X40/' . $announcement->from_avtar; ?>" alt="<?php echo $announcement->from_person; ?>"></a>
-                            <div class="media-body">
-                                <p class="name"><small><?php echo $announcement->from_person; ?></small></p>
-                                <?php
-                                    if(strlen($announcement->announcement) > 50){
-                                        echo character_limiter(strip_tags($announcement->announcement), 50);
-                                        echo '<br /><a href="'. base_url() .'announcement/read/' .  $announcement->id .'">Read more</a>';
-                                    }else{
-                                        echo $announcement->announcement;
-                                    }
-                                ?>
-                                <p class="text-danger"><small><?php echo time_elapsed_string($announcement->timestamp); ?></small></p>
-                            </div>
-                        </li>
-                    <?php } ?>
+                        <?php foreach ($last_five_announcements as $announcement) { ?>
+                            <li class="media">
+                                <a class="pull-left" href="<?php echo base_url().'profile/view/' . $announcement->from_id; ?>"><img class="media-object img-circle" src="<?php echo IMG_URL .'user_avtar/40X40/' . $announcement->from_avtar; ?>" alt="<?php echo $announcement->from_person; ?>"></a>
+                                <div class="media-body">
+                                    <p class="name"><small><?php echo $announcement->from_person; ?></small></p>
+                                    <?php
+                                        if(strlen($announcement->announcement) > 50){
+                                            echo character_limiter(strip_tags($announcement->announcement), 50);
+                                            echo '<br /><a href="'. base_url() .'announcement/read/' .  $announcement->id .'">Read more</a>';
+                                        }else{
+                                            echo $announcement->announcement;
+                                        }
+                                    ?>
+                                    <p class="text-danger"><small><?php echo time_elapsed_string($announcement->timestamp); ?></small></p>
+                                </div>
+                            </li>
+                        <?php } ?>
                     </ul>
-                </div>
+                <?php } else { echo  $this->lang->line('no_personal_communication'); }?>
             </div>
-        <?php } ?>
+        </div>
+        
 </div>

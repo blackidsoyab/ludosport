@@ -21,7 +21,7 @@
             "bProcessing": true,
             "aLengthMenu": [ [<?php echo $this->config->item('data_table_length'); ?>], [<?php echo $this->config->item('data_table_length'); ?>] ],
             'iDisplayLength': <?php $lengths = explode(',', $this->config->item('data_table_length'));
-echo $lengths[0]; ?>,
+            echo $lengths[0]; ?>,
             "bServerSide" : true,
             "aoColumns": [
                 {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-right","bSortable": false}
@@ -75,27 +75,29 @@ echo $lengths[0]; ?>,
     <div class="col-lg-6 col-xs-6">
         <?php if (hasPermission('users', 'addUser')) { ?>
             <a href="<?php echo base_url() . 'user/add' ?>" class="btn btn-primary h1 pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('user'); ?></a>
-<?php } ?>
-
+        <?php } ?>
     </div>
 </div>
 
 <div class="the-box">
-    <div class="form-horizontal">
-        <div class="form-group margin-killer">
-            <div class=" col-lg-4">
-                <select class="form-control" id="role_id">
-                    <option value="0">Filter by Role</option>
-                    <?php foreach ($roles as $role) { ?>
-                        <option value="<?php echo $role->id; ?>" <?php echo (@$role_id == $role->id) ? 'selected' : ''; ?>><?php echo $role->{$session->language . '_role_name'}; ?></option>
-<?php } ?>    
-                </select>
+    <?php if(count($roles) > 1) { ?>
+        <div class="form-horizontal">
+            <div class="form-group margin-killer">
+                <div class=" col-lg-4">
+                    <select class="form-control" id="role_id">
+                        <option value="0">Filter by Role</option>
+                        <?php foreach ($roles as $role) { ?>
+                            <option value="<?php echo $role->id; ?>" <?php echo (@$role_id == $role->id) ? 'selected' : ''; ?>><?php echo $role->{$session->language . '_role_name'}; ?></option>
+                        <?php } ?>    
+                    </select>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-lg-12">
-        &nbsp;
-    </div>
+        <div class="col-lg-12">
+            &nbsp;
+        </div>
+    <?php } ?>
+    
     <div class="table-responsive">
         <table class="table table-striped table-hover" id="list_data">
             <thead class="the-box dark full">

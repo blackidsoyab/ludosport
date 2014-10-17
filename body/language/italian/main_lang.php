@@ -532,4 +532,5 @@ $lang['recovery'] = 'Recovery';
 //Announcements
 $lang['announcement'] = 'Announcement';
 $lang['student_dashboard_announcement_title'] = 'Personal Communications';
+$lang['no_personal_communication'] = 'No personal Comminucations';
 ?>
