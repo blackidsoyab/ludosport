@@ -8,7 +8,7 @@ $(document).ready(function() {
 		var modal = $(target_modal);
 		var modalBody = $(target_modal + ' .modal-body');
 		modal.on('show.bs.modal', function () {
-			$("input[name='id']").val($(e.currentTarget).data('challenge_id'));
+			$('input[name="id"]').val($(e.currentTarget).data('challenge_id'));
 			modalBody.load(remote_content);
 		}).modal();
 		return false;
@@ -20,8 +20,8 @@ $(document).ready(function() {
 
 		$('#duel_result').submit(function(e) {
 			var post_data = {
-				'id' : $("input[name='id']").val(),
-				'winner' : $("input[name='winner']:checked").val(),
+				'id' : $('input[name="id"]').val(),
+				'winner' : $('input[name="winner"]:checked').val(),
 			};
 			$.ajax({
 				type: "POST",
@@ -42,7 +42,7 @@ $(document).ready(function() {
 </script>
 <h1 class="page-heading"><?php echo $this->lang->line('challenge') . @$type; ?></h1>
 <div class="row">
-	<div class="col-lg-8">
+	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 		<div class="the-box duel-single">
 			<form id="challenge_unconfirmed" class="form-horizontal" role="form" method="post" action="<?php echo base_url().'duels/single/' . $single->id ; ?>">
 				<input type="hidden" name="from_id" value="<?php echo $single->from_id?>" />
@@ -55,30 +55,30 @@ $(document).ready(function() {
 	            <?php } ?>
 
 				<div class="form-group">
-	                <label class="col-lg-2 control-label"><?php echo ucwords($this->lang->line('from')), ' : '; ?></label>
-	                <div class="col-lg-8">
+	                <label class="col-xs-4 col-sm-4 col-md-2 col-lg-2 control-label"><?php echo ucwords($this->lang->line('from')), ' : '; ?></label>
+	                <div class="col-xs-8 col-sm-8 col-md-10 col-lg-10">
 	                    <p class="form-control-static"><a href="<?php echo base_url() .'profile/view/' .$challenge_user->id ; ?>"><?php echo $challenge_user->firstname .' ' . $challenge_user->lastname; ?></a></p>
 	                </div>
 	            </div>
 
 	            <div class="form-group">
-	                <label class="col-lg-2 control-label"><?php echo ucwords($this->lang->line('score')), ' : '; ?></label>
-	                <div class="col-lg-8">
+	                <label class="col-xs-4 col-sm-4 col-md-2 col-lg-2 control-label"><?php echo ucwords($this->lang->line('score')), ' : '; ?></label>
+	                <div class="col-xs-8 col-sm-8 col-md-10 col-lg-10">
 	                    <p class="form-control-static"><?php echo $challenge_userdetail->total_score; ?></p>
 	                </div>
 	            </div>
 
 	            <div class="form-group">
-	                <label class="col-lg-2 control-label"><?php echo ucwords($this->lang->line('clan')), ' : '; ?></label>
-	                <div class="col-lg-8">
+	                <label class="col-xs-4 col-sm-4 col-md-2 col-lg-2 control-label"><?php echo ucwords($this->lang->line('clan')), ' : '; ?></label>
+	                <div class="col-xs-8 col-sm-8 col-md-10 col-lg-10">
 	                    <p class="form-control-static"><?php echo $challenge_user_ac_sc_clan_name; ?></p>
 	                </div>
 	            </div>
 
 	            <?php if(!is_null($single->played_on)) { ?>
 		            <div class="form-group">
-		                <label class="col-lg-2 control-label"><?php echo ucwords($this->lang->line('date')), ' : '; ?></label>
-		                <div class="col-lg-8">
+		                <label class="col-xs-4 col-sm-4 col-md-2 col-lg-2 control-label"><?php echo ucwords($this->lang->line('date')), ' : '; ?></label>
+		                <div class="col-xs-8 col-sm-8 col-md-10 col-lg-10">
 		                    <p class="form-control-static"><?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($single->played_on)) ?></p>
 		                </div>
 		            </div>
@@ -86,8 +86,8 @@ $(document).ready(function() {
 
 	            <?php if(!is_null($single->played_on)) { ?>
 		            <div class="form-group">
-		                <label class="col-lg-2 control-label"><?php echo ucwords($this->lang->line('time')), ' : '; ?></label>
-		                <div class="col-lg-8">
+		                <label class="col-xs-4 col-sm-4 col-md-2 col-lg-2 control-label"><?php echo ucwords($this->lang->line('time')), ' : '; ?></label>
+		                <div class="col-xs-8 col-sm-8 col-md-10 col-lg-10">
 		                    <p class="form-control-static"><?php echo date('H:i a', strtotime($single->played_on)) ?></p>
 		                </div>
 		            </div>
@@ -95,8 +95,8 @@ $(document).ready(function() {
 
 	            <?php if(!is_null($single->place) && $single->place != 0) { ?>
 	            	<div class="form-group">
-		                <label class="col-lg-2 control-label"><?php echo ucwords($this->lang->line('place')), ' : '; ?></label>
-		                <div class="col-lg-8">
+		                <label class="col-xs-4 col-sm-4 col-md-2 col-lg-2 control-label"><?php echo ucwords($this->lang->line('place')), ' : '; ?></label>
+		                <div class="col-xs-8 col-sm-8 col-md-10 col-lg-10">
 		                    <p class="form-control-static"><?php echo @$single->place; ?></p>
 		                </div>
 		            </div>
@@ -104,8 +104,8 @@ $(document).ready(function() {
 
 	            <?php if($single->from_status == 'R' || $single->to_status == 'R') { ?>
 	            	<div class="form-group">
-		                <label class="col-lg-2 control-label"><?php echo ucwords($this->lang->line('rejected')), ' : '; ?></label>
-		                <div class="col-lg-8">
+		                <label class="col-xs-4 col-sm-4 col-md-2 col-lg-2 control-label"><?php echo ucwords($this->lang->line('rejected')), ' : '; ?></label>
+		                <div class="col-xs-8 col-sm-8 col-md-10 col-lg-10">
 		                    <p class="form-control-static">
 		                    	<?php
 		                    	if(($single->from_id == $session->id && $single->from_status == 'R') || $single->to_id == $session->id && $single->to_status == 'R') {
@@ -121,8 +121,8 @@ $(document).ready(function() {
 
 	            <?php if($show_accept_button || $show_reject_button || $show_result_button) { ?>
 		            <div class="form-group">
-		            	<label class="col-lg-2 control-label">&nbsp;</label>
-		                <div class="col-lg-8">
+		            	<label class="col-xs-4 col-sm-4 col-md-2 col-lg-2 control-label">&nbsp;</label>
+		                <div class="col-xs-8 col-sm-8 col-md-10 col-lg-10">
 		                	<?php if($show_accept_button){ ?>
 		                    	<button type="submit" name="action" value="A" class="btn btn-success btn-perspective"><?php echo $this->lang->line('duel_accept'); ?></button>
 		                    <?php } ?>
@@ -144,8 +144,8 @@ $(document).ready(function() {
 					<input type="hidden" name="id" value="<?php echo $single->id; ?>" />
 
 	            	<div class="form-group text-center">
-		            	<label class="col-lg-12"><?php echo $this->lang->line('do_you_agree_result'); ?></label>
-		                <div class="col-lg-12">
+		            	<label class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><?php echo $this->lang->line('do_you_agree_result'); ?></label>
+		                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		                	<?php if($show_result_confirmation_agree_button){ ?>
 		                    	<button type="submit" name="action" value="A" class="btn btn-success btn-perspective"><?php echo $this->lang->line('i_agree_result'); ?></button>
 		                    <?php } ?>
@@ -163,7 +163,7 @@ $(document).ready(function() {
 		</div>
 	</div>
 
-	<div class="col-lg-4">
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 		<div class="panel panel-warning panel-square panel-no-border">
 	        <div class="panel-heading">
             	<span class="bolded"><a class="text-white padding-killer" href="<?php echo base_url() . 'profile/view/' . $challenge_user->id; ?>"><?php echo $challenge_user->firstname .' ' . $challenge_user->lastname; ?></a></span>

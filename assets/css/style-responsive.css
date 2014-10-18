@@ -592,6 +592,14 @@ PHONE < 548px
 	.table-item:last-child{
 		border-radius: 5px;
 	}
+
+	.mail-apps-wrap .panel-heading .time {
+    	padding: 8px 0;
+	}
+
+	.mail-apps-wrap .panel-heading .avatar {
+		display: none;
+	}
 }
 
 
@@ -683,6 +691,19 @@ PHONE < 480px
 	.list-group-item.mail-list span.subject{
 		display: none;
 	}
+
+	.mail-apps-wrap .panel-heading .time {
+    	padding: 8px 0;
+	}
+
+	.panel-heading .message-right-content {
+    	position: relative;
+    	text-align: right;
+	}
+
+	.mail-apps-wrap .panel-heading .avatar {
+		display: none;
+	}
 }
 
 
@@ -695,6 +716,18 @@ PHONE < 360px
 **/
 @media (max-width: 360px){
 
+	.mail-apps-wrap .panel-heading .time {
+    	padding: 8px 0;
+	}
+
+	.panel-heading .message-right-content {
+    	position: relative;
+    	text-align: right;
+	}
+
+	.mail-apps-wrap .panel-heading .avatar {
+		display: none;
+	}
 }
 
 
@@ -706,4 +739,14 @@ PHONE < 320px
 =================================
 **/
 @media (max-width: 320px){
+
+	.panel-heading .message-right-content {
+    	position: relative;
+    	text-align: right;
+    	padding: 8px 0;
+	}
+
+	.mail-apps-wrap .panel-heading .avatar {
+		display: none;
+	}
 }

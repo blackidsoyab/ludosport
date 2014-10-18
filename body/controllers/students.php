@@ -45,7 +45,7 @@ class students extends CI_Controller
             
             $teacher_email = userNameEmail($clan->teacher_id);
             $check_privacy = unserialize($teacher_email['email_privacy']);
-            if (is_null($check_privacy) || $check_privacy == false || $check_privacy['student_absent'] == 1) {
+            if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy['student_absent']) || $check_privacy['student_absent'] == 1) {
                 $email = new Email();
                 $email->where('type', 'student_absent')->get();
                 $message = $email->message;

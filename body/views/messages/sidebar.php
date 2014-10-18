@@ -1,15 +1,17 @@
 <?php $session = $this->session->userdata('user_session'); ?>
 <div class="mail-apps-wrap margin-killer">
     <div class="the-box toolbar no-border margin-killer">
-        <div class="btn-toolbar" role="toolbar">
-            <div class="btn-group">
-                <p class="h1 margin-killer <?php echo ($session->role < 6) ? 'text-black' : 'text-white padding-killer';?>"><i class="fa fa-envelope icon-lg icon-circle icon-bordered"></i> <?php echo @$view_title; ?></p>
+        <div class="row">
+            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                <p class="nowrap overflow-hidden overflow-text-dot h1 margin-killer <?php echo ($session->role < 6) ? 'text-black' : 'text-white padding-killer';?>"><i class="fa fa-envelope"></i> <?php echo @$view_title; ?></p>
             </div>
-            <div class="btn-group pull-right">
-                <button data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" type="button" class="btn btn-primary" id="delete_messages_button"><i class="fa fa-trash-o"></i></button>
+
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <button data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" type="button" class="btn btn-primary pull-right" id="delete_messages_button"><i class="fa fa-trash-o"></i></button>
             </div>
         </div>
     </div>
+
     <?php $page = ($this->uri->segment(2) ? $this->uri->segment(2) : 'inbox'); ?>
     <div class="the-box margin-killer no-border">
         <div class="row">

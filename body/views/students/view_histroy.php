@@ -2,13 +2,13 @@
 <h1 class="page-heading h1"><?php echo $this->lang->line('history'); ?></h1>
 
 <div class="row" id="history">
-    <div class="col-lg-8">
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
         <div class="panel panel-success panel-square panel-no-border">
             <div class="panel-heading lg">
+                <h3 class="panel-title"><strong><?php echo $this->lang->line('my_personal_data'); ?></strong></h3>
                 <div class="right-content">
                     <button class="btn btn-success to-collapse collapsed" data-toggle="collapse" data-target="#panel-chart-widget-1"><i class="fa fa-chevron-down"></i></button>
                 </div>
-                <h3 class="panel-title"><strong><?php echo $this->lang->line('my_personal_data'); ?></strong></h3>
             </div>
             <div class="blog-detail-image">
                 <img src="assets/img/Z1.png" class="img-blog" alt="Blog image">
@@ -170,7 +170,8 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
+
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
         <?php if ($student_degrees != false) { ?>
             <div class="panel panel-degree panel-square panel-no-border">
                 <div class="panel-heading">
@@ -271,7 +272,7 @@
             </div>
         <?php } ?>     
     </div>
-</div>
+
 
 
 <script type="text/javascript">

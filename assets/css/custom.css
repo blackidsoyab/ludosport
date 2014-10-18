@@ -266,6 +266,11 @@ a.list-group-item.btn.active {
     border-color: #D5DAE0;
 }
 
+.mail-apps-wrap #delete_messages_button {
+    display: block;
+    margin: 5px 0 0 0;
+}
+
 .has-error .form-control, .has-success .form-control {
     border: 1px solid #ddd;
     border-radius: 0;
@@ -654,4 +659,8 @@ h1.page-heading a{
 
 .featured-post-wide img {
     width: 100%;
+}
+
+.lg > .right-content{
+    top: 15px;
 }

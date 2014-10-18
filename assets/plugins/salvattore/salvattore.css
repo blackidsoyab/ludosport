@@ -31,6 +31,9 @@
 
 /* Configurate salvattore with media queries */
 @media screen and (max-width: 450px) {
+    .column {
+        float: none;
+    }
     .mason[data-columns]::before {
         content: '1 .column';
 		visibility: hidden;

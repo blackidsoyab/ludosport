@@ -3,51 +3,51 @@
 $(document).ready(function() {
     $("#add").validate();
 
-    $("input[name='oper[xpr]']").click(function(){
+    $('input[name="oper[xpr]"]').click(function(){
         if($('input:radio[name="oper[xpr]"]:checked').val() != "N"){
-            $('input[name="score[xpr]"').closest('.form-group').show();
-            $('textarea[name="description[xpr]"').closest('.form-group').show();
+            $('input[name="score[xpr]"]').closest('.form-group').show();
+            $('textarea[name="description[xpr]"]').closest('.form-group').show();
 
             if($('input:radio[name="oper[xpr]"]:checked').val() == "D") {
-                $('input[name="score[xpr]"').attr('max', '<?php echo $userdetails->xpr; ?>');
+                $('input[name="score[xpr]"]').attr('max', '<?php echo $userdetails->xpr; ?>');
             } else {
-                $('input[name="score[xpr]"').removeAttr('max');
+                $('input[name="score[xpr]"]').removeAttr('max');
             }
         }else{
-           $('input[name="score[xpr]"]').closest('.form-group').hide();
-            $('textarea[name="description[xpr]"').closest('.form-group').hide(); 
+            $('input[name="score[xpr]"]').closest('.form-group').hide();
+            $('textarea[name="description[xpr]"]').closest('.form-group').hide(); 
         }   
     });
 
-    $("input[name='oper[war]']").click(function(){
+    $('input[name="oper[war]"]').click(function(){
         if($('input:radio[name="oper[war]"]:checked').val() != "N"){
-            $('input[name="score[war]"').closest('.form-group').show();
-            $('textarea[name="description[war]"').closest('.form-group').show();
+            $('input[name="score[war]"]').closest('.form-group').show();
+            $('textarea[name="description[war]"]').closest('.form-group').show();
 
             if($('input:radio[name="oper[war]"]:checked').val() == "D") {
-                $('input[name="score[war]"').attr('max', '<?php echo $userdetails->war; ?>');
+                $('input[name="score[war]"]').attr('max', '<?php echo $userdetails->war; ?>');
             } else {
-                $('input[name="score[war]"').removeAttr('max');
+                $('input[name="score[war]"]').removeAttr('max');
             }
         }else{
            $('input[name="score[war]"]').closest('.form-group').hide();
-            $('textarea[name="description[war]"').closest('.form-group').hide(); 
+            $('textarea[name="description[war]"]').closest('.form-group').hide(); 
         }   
     });
 
-    $("input[name='oper[sty]']").click(function(){
+    $('input[name="oper[sty]"]').click(function(){
         if($('input:radio[name="oper[sty]"]:checked').val() != "N"){
-            $('input[name="score[sty]"').closest('.form-group').show();
-            $('textarea[name="description[sty]"').closest('.form-group').show();
+            $('input[name="score[sty]"]').closest('.form-group').show();
+            $('textarea[name="description[sty]"]').closest('.form-group').show();
 
             if($('input:radio[name="oper[sty]"]:checked').val() == "D") {
-                $('input[name="score[sty]"').attr('max', '<?php echo $userdetails->sty; ?>');
+                $('input[name="score[sty]"]').attr('max', '<?php echo $userdetails->sty; ?>');
             } else {
-                $('input[name="score[sty]"').removeAttr('max');
+                $('input[name="score[sty]"]').removeAttr('max');
             }
         }else{
            $('input[name="score[sty]"]').closest('.form-group').hide();
-            $('textarea[name="description[sty]"').closest('.form-group').hide(); 
+            $('textarea[name="description[sty]"]').closest('.form-group').hide(); 
         }   
     });
 });

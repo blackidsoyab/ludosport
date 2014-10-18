@@ -107,7 +107,7 @@
         <?php } ?>
 
         <div class="form-group">
-            <select data-placeholder="<?php echo $this->lang->line('to'); ?> ..." class="form-control chosen-select required" multiple id="to_message_list" name="to_id[]" data-bv-excluded="false">
+            <select data-placeholder="<?php echo $this->lang->line('to'); ?> ..." class="form-control input-lg chosen-select required" multiple id="to_message_list" name="to_id[]" data-bv-excluded="false">
 
                 <?php if ($type == 'single') { ?>
                     <?php

@@ -106,7 +106,7 @@ class teachers extends CI_Controller
             $user_details = new User();
             $user_details->where_in('id', $user_ids)->get();
             foreach ($user_details as $user_key => $user_value) {
-                $str.= '<div class="col-lg-4 col-xs-4 clan-date">';
+                $str.= '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 clan-date">';
                 $str.= '<div class="the-box rounded text-center padding-killer mar-bt-10" data-teacher-id="' . $user_value->id . '">';
                 $str.= '<input type="radio" value="' . $user_value->id . '" name="teacher_id" />';
                 $str.= '<h4 class="light">' . $user_value->firstname . ' ' . $user_value->lastname . '</h4>';

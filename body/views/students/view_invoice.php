@@ -3,18 +3,18 @@
 <div class="the-box full invoice">
 	<div class="the-box no-border bg-dark" style="vertical-align: text-middle;">
 		<div class="row">
-			<div class="col-sm-6">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 				<img src="<?php echo IMG_URL . $this->config->item('main_logo'); ?>" alt="<?php echo $this->config->item('app_name'); ?>" class="logo-invoice">
 			</div>
 		</div>
 	</div>
 	<div class="the-box no-border padding-bottom-killer">
 		<div class="row">
-			<div class="col-sm-6">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 				<h1><?php echo $this->lang->line('invoice'); ?></h1>
 			</div>
 
-			<div class="col-sm-6 text-right">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-right">
 				<p><?php echo  ucwords($this->lang->line('invoice')) ,': ', $payment_details->invoice_id; ?></p>
 				<p><?php echo  ucwords($this->lang->line('date')) ,': ', date('j<\s\u\p>S</\s\u\p> F Y', strtotime($payment_details->timestamp)); ?></p>
 			</div>

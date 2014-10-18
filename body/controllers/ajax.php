@@ -285,7 +285,7 @@ class ajax extends CI_Controller
             $clan->where_in('id', MultiArrayToSinlgeArray($clans_data))->get();
             $str = NULL;
             foreach ($clan as $clan_detail) {
-                $str.= '<div class="col-lg-4 col-xs-4 clan">';
+                $str.= '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 clan">';
                 $str.= '<div class="the-box rounded text-center padding-killer margin-bottom-killer" data-clan="' . $clan_detail->id . '">';
                 $str.= '<input type="radio" value="' . $clan_detail->id . '" name="clan_id" />';
                 $str.= '<h4 class="light">' . $clan_detail->{$this->session_data->language . '_class_name'} . '</h4>';
@@ -295,8 +295,6 @@ class ajax extends CI_Controller
             }
             
             echo $str;
-        } else {
-            return 'There is no Clan. Please Contact on 123-4567-8900 or mail us at info@myludosport.net';
         }
     }
     
@@ -321,7 +319,7 @@ class ajax extends CI_Controller
         
         sort($dates);
         foreach ($dates as $date) {
-            $str.= '<div class="col-lg-4 col-xs-4 clan-date">';
+            $str.= '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 clan-date">';
             $str.= '<div class="the-box rounded text-center padding-killer mar-bt-10" data-clan-date="' . $date . '">';
             $str.= '<input type="radio" value="' . $date . '" name="date" />';
             $str.= '<h4 class="light">' . date('l', strtotime($date)) . '<br />' . date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date)) . '</h4>';
@@ -811,7 +809,7 @@ class ajax extends CI_Controller
         $single = $challenge->getSingleChallengeDetails($id);
         if ($single != false && $single[0]->result_status == 'MNP' && ($single[0]->from_id == $this->session_data->id || $single[0]->to_id == $this->session_data->id)) {
             $str = '<div class="form-group">';
-            $str.= '<div class="col-lg-12 text-center">';
+            $str.= '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">';
             $str.= '<label class="radio-inline padding-killer" for="radios-0">';
             $str.= '<input type="radio" name="winner" id="radios-0" value="' . $single[0]->from_id . '">';
             $str.= '<span class="pad-lt-10">' . $single[0]->from_name . '</span>';

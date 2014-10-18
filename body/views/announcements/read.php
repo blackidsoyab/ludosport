@@ -6,17 +6,17 @@
             <img src="<?php echo IMG_URL . 'user_avtar/40X40/' . $announcement_data->from_avtar; ?>" class="avatar img-circle margin-left-killer" alt="Avatar">
 
             <?php if ($session->id != $announcement_data->from_id) { ?>
-                <strong><?php echo $announcement_data->from_person; ?></strong>
+                <a href="<?php echo base_url() . 'profile/view/' . $announcement_data->from_id; ?>"><?php echo $announcement_data->from_person; ?></a>
             <?php } else { echo 'Me'; } ?>
 
             <span>&nbsp;to&nbsp;</span> 
 
             <?php if ($announcement_data->type == 'single' && $session->id != $announcement_data->to_id) { ?>
                 <img src="<?php echo IMG_URL . 'user_avtar/40X40/' . $announcement_data->to_avtar; ?>" class="avatar img-circle" alt="Avatar"> 
-                <strong><?php echo $announcement_data->to_person; ?></strong>
+                <a href="<?php echo base_url() . 'profile/view/' . $announcement_data->to_id; ?>"><?php echo $announcement_data->to_person; ?></a>
             <?php } else {
                 if ($announcement_data->type == 'single'){
-                    echo 'Me';
+                    echo '<span>Me</span> ';
                 }else if ($announcement_data->type == 'group'){
                     $group = explode('_', $announcement_data->group_id);
                     if($group[0] == 'clans'){
@@ -26,8 +26,8 @@
                     }
                 }
             } ?>
-            <span class="right-content">
-            <span class="time"><?php echo time_elapsed_string($announcement_data->timestamp); ?></span>
+            <span class="message-right-content">
+                <span class="time"><?php echo time_elapsed_string($announcement_data->timestamp); ?></span>
             </span>
         </h3>
     </div>

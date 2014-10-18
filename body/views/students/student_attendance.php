@@ -82,8 +82,8 @@ $(document).ready(function() {
 		if($("#step_1 .panel-body").find('.checked').length == 0){
 			$('#date-error').show();
 		}else{
-			$("input[name='clan_id']").prop('disabled', true);
-			$("input[name='date']").prop('disabled', true);
+			$('input[name="clan_id"]').prop('disabled', true);
+			$('input[name="date"]').prop('disabled', true);
 			$('#student_mark_absence').submit(); // trigget the submit handler
 		}
     });
@@ -91,11 +91,7 @@ $(document).ready(function() {
 //]]>
 </script>
 
-<div class="row">
-	<div class="col-lg-6 col-xs-6">
-		<h1 class="page-heading h1"><?php echo $this->lang->line('communicate_absence'); ?></h1>
-	</div>
-</div>
+<h1 class="page-heading h1"><?php echo $this->lang->line('communicate_absence'); ?></h1>
 
 <?php if(!empty($next_clans_dates)){ ?>
 <form id="student_mark_absence" action="<?php echo base_url().'student_mark_absence'; ?>" method="post">
@@ -107,7 +103,7 @@ $(document).ready(function() {
 		<div class="panel-body">
 			<div class="row">
 				<?php foreach ($next_clans_dates as $date) { ?>
-				<div class="col-lg-4 mar-bt-10">
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 mar-bt-10">
 					<div class="radio pull-left margin-killer padding-top-killer padding-left-killer absence-radio-btn">
 						<label>
 							<input type="radio" value="<?php echo $date;?>" class="i-grey-square" name="absence_date">
@@ -126,12 +122,13 @@ $(document).ready(function() {
 
 		<div class="panel-footer">
 			<div class="row">
-				<div class="col-lg-12 col-sm-12 col-xs-12 text-right">
-					<a class="btn btn-primary" id="recover-absence-btn"><?php echo $this->lang->line('recover_absence'); ?></a>
-					<a class="btn btn-primary" id="confirm-absence-btn"><?php echo $this->lang->line('confirm_absence'); ?></a>					
+				<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 pull-right">
+					<a class="btn btn-primary btn-block" id="confirm-absence-btn"><?php echo $this->lang->line('confirm_absence'); ?></a>
+				</div>
+				<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 pull-right">
+					<a class="btn btn-primary btn-block" id="recover-absence-btn"><?php echo $this->lang->line('recover_absence'); ?></a>
 				</div>
 			</div>
-			
 		</div>
 	</div>
 	<?php if (isset($clans) && is_object($clans)) { ?>
@@ -142,7 +139,7 @@ $(document).ready(function() {
 
 		<div class="panel-body ludosport-class">
 			<?php foreach ($clans as $clan) { ?>
-			<div class="col-lg-4 col-xs-4 clan">
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 clan">
 				<div class="the-box rounded text-center" data-clan="<?php echo $clan->id; ?>">
 					<input type="radio" value="<?php echo $clan->id; ?>" name="clan_id" />
 					<h4 class="light"><?php echo $clan->{$session->language . '_class_name'}; ?></h4>
@@ -162,9 +159,13 @@ $(document).ready(function() {
 	</div>
 
 	<div id="step_4">
-		<div class="text-center">
-			<a class="btn btn-primary" id="recover-clan-btn"><?php echo $this->lang->line('confirm_absence'); ?></a>
-			<a class="btn btn-primary" id="cancel-recover-btn"><?php echo $this->lang->line('cancel'); ?></a>
+		<div class="row">
+			<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 pull-right">
+				<a class="btn btn-primary btn-block" id="cancel-recover-btn"><?php echo $this->lang->line('cancel'); ?></a>
+			</div>
+			<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 pull-right">
+				<a class="btn btn-primary btn-block" id="recover-clan-btn"><?php echo $this->lang->line('confirm_absence'); ?></a>
+			</div>
 		</div>
 	</div>
 	<?php } else if(isset($clans)) { ?>

@@ -32,12 +32,12 @@
 	    	}
 
 	        $('#duel_date_time').submit(function(e) {
-	        	if($("input[name='date']").val() != '' && $("input[name='time']").val() == ''){
+	        	if($('input[name="date"]').val() != '' && $('input[name="time"]').val() == ''){
 	        		$('#time_error').show();
 	        		$('#date_error').hide();
 	        		$('.animation_image').hide();
 	        		$('.message').hide();
-	        	} else if($("input[name='date']").val() == '' && $("input[name='time']").val() != ''){
+	        	} else if($('input[name="date"]').val() == '' && $('input[name="time"]').val() != ''){
 	        		$('#time_error').hide();
 	        		$('#date_error').show();
 	        		$('.animation_image').hide();
@@ -49,12 +49,12 @@
 	        		$('.form-group').hide();
 	        		$('.message').hide();
 	        		var post_data = {
-	        			'challenge_type' : $("input[name='challenge_type']").val(),
-						'from_id' : $("input[name='from_id']").val(),
-						'to_id' : $("input[name='to_id']").val(),
-						'date' : $("input[name='date']").val(),
-						'time' : $("input[name='time']").val(),
-						'place' : $("input[name='place']").val(),
+	        			'challenge_type' : $('input[name="challenge_type"]').val(),
+						'from_id' : $('input[name="from_id"]').val(),
+						'to_id' : $('input[name="to_id"]').val(),
+						'date' : $('input[name="date"]').val(),
+						'time' : $('input[name="time"]').val(),
+						'place' : $('input[name="place"]').val(),
 					};
 					$.ajax({
 						type: "POST",
@@ -71,7 +71,6 @@
 							}
 							setTimeout(function() {
 	                        	$('#do_duel_box').modal('hide');
-	                        	loadDatable();
 	                    	}, 2500);
 						}	
 					});
@@ -81,7 +80,7 @@
 		});
 
 		$('#do_duel_box').on('hidden.bs.modal', function(){
-			$("input[name='to_id']").val(0);
+			$('input[name="to_id"]').val(0);
 		    $('.form-group').show();
 		    $('.animation_image').hide();
 		    $('#time_error').hide();
@@ -118,7 +117,7 @@
 					var modal = $(target_modal);
 					modal.on('show.bs.modal', function () {
 						if(target_modal == '#do_duel_box') {
-							$("input[name='to_id']").val($(e.currentTarget).data('userid'));
+							$('input[name="to_id"]').val($(e.currentTarget).data('userid'));
 							$('.form-group').show();
 					    	$('.animation_image').hide();
 					    	$('#time_error').hide();
@@ -143,8 +142,8 @@
 <h1 class="page-heading h1"><?php echo $this->lang->line('rating_list'); ?></h1>
 <div class="the-box">
     <div class="form-horizontal">
-        <div class="form-group margin-killer">
-            <div class=" col-lg-4">
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <select class="form-control" name="list_type" id="list_type">
                     <option value="all"><?php echo $this->lang->line('all'); ?></option>    
                     <option value="xpr"  <?php echo (isset($type) && !is_null($type) && $type == 'xp') ? 'selected' : ''; ?>><?php echo $this->lang->line('xpr'); ?></option>
@@ -154,7 +153,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-12">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         &nbsp;
     </div>
     <div class="table-responsive">

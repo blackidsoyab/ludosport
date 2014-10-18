@@ -16,7 +16,7 @@
 
 <div class="the-box">
 	<div class="row">
-		<div class="col-sm-6 col-md-6 col-lg-6">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<div class="panel with-nav-tabs panel-warning">
 				<div class="panel-heading">
 					<ul class="nav nav-tabs">
@@ -131,7 +131,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-6 col-md-6 col-lg-6">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<div class="panel with-nav-tabs panel-warning">
 				<div class="panel-heading">
 					<ul class="nav nav-tabs">
@@ -239,33 +239,35 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	
-		<?php if($top_ten_users != false){ ?>
-            <div class="col-lg-12">
-                <div class="the-box no-border">
-                    <h4 class="small-heading more-margin-bottom text-black text-center"><?php echo $this->lang->line('the_best'),' ',count($top_ten_users)?></h4>
-                    <div id="store-item-carousel-1" class="owl-carousel shop-carousel owl-theme">
-                    <?php 
-                        $count = 0;
-                        foreach ($top_ten_users as $ten_users) { 
-                    ?>
-                        <div class="item">
-                            <div class="media">
-                                <a class="pull-left" href="#fakelink">
-                                    <img class="lazyOwl media-object sm img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . $ten_users->avtar; ?>" alt="Image">
-                                </a>
-                                <div class="media-body">
-                                    <h4 class="media-heading nowrap overflow-hidden overflow-text-dot">
-                                        <a href="<?php echo base_url() .'profile/view/' . $ten_users->id; ?>" data-toggle="tooltip" data-original-title="<?php echo $ten_users->name; ?>"><?php echo $ten_users->name; ?></a>
-                                    </h4>
-                                    <p class="price text-danger"><strong><?php echo ++$count; ?></strong></p>
-                                </div>
-                            </div>
-                        </div>
-                    <?php } ?>
-                    </div>
-                </div>
-            </div>
-    	<?php } ?>
-   	</div>
+	<?php if($top_ten_users != false){ ?>
+		<div class="row">
+	        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	            <div class="the-box no-border">
+	                <h4 class="small-heading more-margin-bottom text-black text-center"><?php echo $this->lang->line('the_best'),' ',count($top_ten_users)?></h4>
+	                <div id="store-item-carousel-1" class="owl-carousel shop-carousel owl-theme">
+	                <?php 
+	                    $count = 0;
+	                    foreach ($top_ten_users as $ten_users) { 
+	                ?>
+	                    <div class="item">
+	                        <div class="media">
+	                            <a class="pull-left" href="#fakelink">
+	                                <img class="lazyOwl media-object sm img-circle" src="<?php echo IMG_URL . 'user_avtar/100X100/' . $ten_users->avtar; ?>" alt="Image">
+	                            </a>
+	                            <div class="media-body">
+	                                <h4 class="media-heading nowrap overflow-hidden overflow-text-dot">
+	                                    <a href="<?php echo base_url() .'profile/view/' . $ten_users->id; ?>" data-toggle="tooltip" data-original-title="<?php echo $ten_users->name; ?>"><?php echo $ten_users->name; ?></a>
+	                                </h4>
+	                                <p class="price text-danger"><strong><?php echo ++$count; ?></strong></p>
+	                            </div>
+	                        </div>
+	                    </div>
+	                <?php } ?>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	<?php } ?>
 </div>

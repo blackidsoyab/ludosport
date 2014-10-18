@@ -1387,6 +1387,23 @@ PANEL
     right: 10px;
     top: 8px;
 }
+
+.panel-heading .message-right-content{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+.panel-heading .message-right-content .btn{
+    padding: 3px 5px;
+}
+.with-nav-tabs .panel-heading .message-right-content .btn{
+    padding: 5px 8px;
+}
+.with-nav-tabs .panel-heading .message-right-content{
+    right: 10px;
+    top: 8px;
+}
+
 .icon-collapse{
     padding: 6px 8px;
     font-size: 12px;

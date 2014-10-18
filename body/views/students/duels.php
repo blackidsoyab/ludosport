@@ -41,6 +41,7 @@
 				timer = setTimeout(callback, ms);
 			};
 		})();
+		
 		$(window).resize(function() {
 			delay(function() {
 				statistics.redraw();
@@ -52,8 +53,8 @@
 			var modal = $(target_modal);
 			modal.on('show.bs.modal', function () {
 				if(target_modal == '#do_duel_box') {
-					$("input[name='to_id']").val($(e.currentTarget).data('userid'));
-					$("input[name='challenge_type']").val($(e.currentTarget).data('challenge-type'));
+					$('input[name="to_id"]').val($(e.currentTarget).data('userid'));
+					$('input[name="challenge_type"]').val($(e.currentTarget).data('challenge-type'));
 					$('.form-group').show();
 			    	$('.animation_image').hide();
 			    	$('#time_error').hide();
@@ -89,12 +90,12 @@
 	    	}
 
 	        $('#duel_date_time').submit(function(e) {
-	        	if($("input[name='date']").val() != '' && $("input[name='time']").val() == ''){
+	        	if($('input[name="date"]').val() != '' && $('input[name="time"]').val() == ''){
 	        		$('#time_error').show();
 	        		$('#date_error').hide();
 	        		$('.animation_image').hide();
 	        		$('.message').hide();
-	        	} else if($("input[name='date']").val() == '' && $("input[name='time']").val() != ''){
+	        	} else if($('input[name="date"]').val() == '' && $('input[name="time"]').val() != ''){
 	        		$('#time_error').hide();
 	        		$('#date_error').show();
 	        		$('.animation_image').hide();
@@ -106,12 +107,12 @@
 	        		$('.form-group').hide();
 	        		$('.message').hide();
 	        		var post_data = {
-	        			'challenge_type' : $("input[name='challenge_type']").val(),
-						'from_id' : $("input[name='from_id']").val(),
-						'to_id' : $("input[name='to_id']").val(),
-						'date' : $("input[name='date']").val(),
-						'time' : $("input[name='time']").val(),
-						'place' : $("input[name='place']").val(),
+	        			'challenge_type' : $('input[name="challenge_type"]').val(),
+						'from_id' : $('input[name="from_id"]').val(),
+						'to_id' : $('input[name="to_id"]').val(),
+						'date' : $('input[name="date"]').val(),
+						'time' : $('input[name="time"]').val(),
+						'place' : $('input[name="place"]').val(),
 					};
 					$.ajax({
 						type: "POST",
@@ -137,7 +138,7 @@
 		});
 
 		$('#do_duel_box').on('hidden.bs.modal', function(){
-			$("input[name='to_id']").val(0);
+			$('input[name="to_id"]').val(0);
 		    $('.form-group').show();
 		    $('.animation_image').hide();
 		    $('#time_error').hide();
@@ -150,7 +151,7 @@
 <h1 class="page-heading h1"><?php echo $this->lang->line('duel'); ?></h1>
 
 <div class="row">
-	<div class="col-lg-4">
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 		<?php if($suggested_user != false){ ?>
 			<div class="the-box no-border card-info text-center">
 				<h4 class="bolded"><?php echo $this->lang->line('duel_suggested'); ?></h4>
@@ -183,7 +184,7 @@
 		<?php } ?>
 	</div>
 
-	<div class="col-lg-4">
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 		<div class="panel-group" id="challenges">
 			<div class="panel panel-success">
 				<div class="panel-heading">
@@ -365,7 +366,7 @@
 		</div>
 	</div>
 
-	<div class="col-lg-4">
+	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 		<div class="panel panel-warning panel-square panel-no-border">
 	        <div class="panel-heading">
             	<span class="bolded"><a class="text-white padding-killer" href="<?php echo base_url() . 'profile/view/' . $topper->id; ?>"><?php echo $topper->name; ?></a></span>
@@ -410,7 +411,7 @@
 </div>
 
 <div class="row">
-	<div class="col-lg-3">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
 		<div class="panel panel-success panel-square panel-no-border">
 			<div class="panel-heading">
 				<div class="right-content">
@@ -456,7 +457,7 @@
 		</div>
 	</div>
 
-	<div class="col-lg-3">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
 		<div class="panel panel-danger panel-square panel-no-border">
 			<div class="panel-heading">
 				<div class="right-content">
@@ -501,7 +502,7 @@
 		</div>
 	</div>
 
-	<div class="col-lg-3">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
 		<div class="panel panel-info panel-square panel-no-border">
 			<div class="panel-heading">
 				<div class="right-content">
@@ -546,7 +547,7 @@
 		</div>
 	</div>
 
-	<div class="col-lg-3">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
 		<?php if((isset($before_me_users) && $before_me_users != false) || (isset($before_me_users) && $after_me_users != false)) { ?>
 			<div class="the-box bg-dark no-border text-center more-padding">
 				<?php if($before_me_users != false){ 
@@ -577,14 +578,14 @@
 </div>
 
 <div class="row">
-	<div class="col-lg-8">
+	<div class="col-xs-12 col-sm-7 col-md-8 col-lg-8">
 		<div class="the-box">
 			<h4 class="small-title"><?php echo $this->lang->line('statistics'); ?></h4>
 			<div id="statistics-challenge"></div>
 		</div>
 	</div>
 
-	<div class="col-lg-4">
+	<div class="col-xs-12 col-sm-5 col-md-4 col-lg-4">
 		<?php if(isset($top_five_users) && $top_five_users != false){ ?>
 			<div class="panel panel-success panel-square panel-no-border">
 				<div class="panel-heading">

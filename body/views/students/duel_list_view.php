@@ -51,7 +51,7 @@
 <div class="the-box">
     <div class="form-horizontal">
         <div class="form-group margin-killer">
-            <div class="col-lg-4">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <select class="form-control required" id="type-wise">
 		            <option value="all"><?php echo $this->lang->line('all'); ?></option>
 		            <option value="accepted" <?php echo (isset($type) && !is_null($type) && $type == 'accepted') ? 'selected' : ''; ?>><?php echo $this->lang->line('accepted'); ?></option>
@@ -63,7 +63,7 @@
 		            <option value="defeats" <?php echo (isset($type) && !is_null($type) && $type == 'defeats') ? 'selected' : ''; ?>><?php echo $this->lang->line('defeats'); ?></option>
 		        </select>
             </div>
-            <div class="col-lg-4">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <select class="form-control required" id="type-wise-2">
 		            <option value="null"><?php echo $this->lang->line('all'); ?></option>
 		            <option value="P"><?php echo $this->lang->line('pending'); ?></option>
@@ -72,7 +72,7 @@
 		        </select>
             </div>
 
-            <div class="col-lg-4 text-right">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-right">
             	<p>
             		<span class="label label-default"><?php echo $this->lang->line('challenge_made'); ?></span>
             		<span class="label label-info"><?php echo $this->lang->line('challenge_received'); ?></span>
@@ -85,7 +85,7 @@
             </div> 
         </div>
     </div>
-    <div class="col-lg-12">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         &nbsp;
     </div>
     <div class="table-responsive">

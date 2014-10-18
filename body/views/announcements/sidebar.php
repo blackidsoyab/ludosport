@@ -1,12 +1,14 @@
 <?php $session = $this->session->userdata('user_session'); ?>
 <div class="mail-apps-wrap margin-killer">
-    <div class="the-box toolbar no-border no-margin heading padding-killer">
+
+    <div class="the-box toolbar no-border margin-killer">
         <div class="row">
-            <div class="col-sm-12">
-                <h3 class="margin-killer <?php echo ($session->role < 6) ? 'text-black' : 'text-white padding-killer';?>"><i class="fa fa-bullhorn icon-lg icon-circle icon-bordered"></i> <?php echo ($session->role != 6) ? @$view_title : $this->lang->line('student_dashboard_announcement_title'); ?></h3>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <p class="nowrap overflow-hidden overflow-text-dot h1 margin-killer <?php echo ($session->role < 6) ? 'text-black' : 'text-white padding-killer';?>"><i class="fa fa-bullhorn"></i> <?php echo ($session->role != 6) ? @$view_title : $this->lang->line('student_dashboard_announcement_title'); ?></p>
             </div>
         </div>
     </div>
+
     <?php if($session->role < 6) { ?>
         <?php $page = ($this->uri->segment(2) ? $this->uri->segment(2) : 'inbox'); ?>
         <div class="the-box toolbar no-border no-margin">
@@ -32,7 +34,7 @@
 
     <div class="the-box margin-killer no-border">
         <div class="row">
-            <div class="col-sm-12 col-md-12">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <?php echo $announcement_page_layout; ?>
             </div>
         </div>

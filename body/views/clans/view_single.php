@@ -445,10 +445,13 @@
 						<h4><?php echo $teacher['name'], '\'s  ', $this->lang->line('attendance'); ?></h4>
 						<?php if(!is_null($teacher_attendance)) { ?>
 							<div class="the-box no-border tags-cloud margin-killer padding-killer">
-								<span class="label label-primary"><?php echo $this->lang->line('total'); ?> </span><span class="badge badge-primary"><?php echo count($teacher_attendance); ?></span>
+								<span class="label label-primary"><?php echo $this->lang->line('total'); ?> </span>
+								<span class="badge badge-primary"><?php echo count($teacher_attendance); ?></span>
 								<span class="label label-default"><?php echo $this->lang->line('holiday_aproval_pending'); ?></span>
-								<span class="label label-success"><?php echo $this->lang->line('present'); ?></span><span class="badge badge-success"><?php echo $present; ?></span>
-								<span class="label label-danger"><?php echo $this->lang->line('absence'); ?></span> <span class="badge badge-danger"><?php echo $absence; ?></span>
+								<span class="label label-success"><?php echo $this->lang->line('present'); ?></span>
+								<span class="badge badge-success"><?php echo $present; ?></span>
+								<span class="label label-danger"><?php echo $this->lang->line('absence'); ?></span>
+								<span class="badge badge-danger"><?php echo $absence; ?></span>
 								<span class="label label-danger-warning"><?php echo $this->lang->line('absence_recover_teacher'); ?></span>
 								<span class="label label-success-danger"><?php echo $this->lang->line('holiday_unapproved'); ?></span>
 								<p class="help-block margin-killer pull-left">
@@ -464,22 +467,11 @@
 							<div class="the-box no-border tags-cloud padding-killer">
 								<?php foreach($teacher_attendance as $date) { ?>
 									<?php if($date['status'] == 'P'){ ?>
-										<a href="<?php echo base_url(). 'dean/absence_approval/'. $date['id'] ; ?>">
-											<span class="<?php echo $date['type']; ?>"  data-toggle="tooltip" data-original-title="<?php echo @$date['recover_teacher']['name']; ?>">
-												<?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date['date'])); ?>
-											</span>	
-										</a>
+										<a href="<?php echo base_url(). 'dean/absence_approval/'. $date['id'] ; ?>"><span class="<?php echo $date['type']; ?>"  data-toggle="tooltip" data-original-title="<?php echo @$date['recover_teacher']['name']; ?>"><?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date['date'])); ?></span></a>
 									<?php } else if($date['status'] == 'U') { ?>
-										<a href="<?php echo base_url(). 'dean/absence_approval/'. $date['id'] ; ?>">
-											<span class="<?php echo $date['type']; ?>" data-toggle="tooltip" data-original-title="<?php echo @$date['unapproved_reason']; ?>">
-												<?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date['date'])); ?>
-											</span>
-										</a>
+										<a href="<?php echo base_url(). 'dean/absence_approval/'. $date['id'] ; ?>"><span class="<?php echo $date['type']; ?>" data-toggle="tooltip" data-original-title="<?php echo @$date['unapproved_reason']; ?>"><?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date['date'])); ?></span></a>
 									<?php } else { ?>
-										<a href="<?php echo base_url(). 'dean/absence_approval/'. $date['id'] ; ?>">
-											<span class="<?php echo $date['type']; ?>" data-toggle="tooltip" data-original-title="<?php echo @$date['recover_teacher']['name']; ?>">
-												<?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date['date'])); ?>
-											</span>
+										<a href="<?php echo base_url(). 'dean/absence_approval/'. $date['id'] ; ?>"><span class="<?php echo $date['type']; ?>" data-toggle="tooltip" data-original-title="<?php echo @$date['recover_teacher']['name']; ?>"><?php echo date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date['date'])); ?></span>
 										</a>
 									<?php } ?>
 								<?php } ?>

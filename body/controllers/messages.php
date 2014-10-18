@@ -611,7 +611,7 @@ class messages extends CI_Controller
                                 }
                             }
                             
-                            if ($clans) {
+                            if (isset($clans) && $clans) {
                                 foreach ($clans as $value) {
                                     $temp = new stdClass();
                                     $temp->id = 'clans_' . $value->id;

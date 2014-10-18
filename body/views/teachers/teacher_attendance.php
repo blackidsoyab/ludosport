@@ -78,7 +78,7 @@ $(document).ready(function() {
 		}if($("#step_3 #teachers_list").find('.clan-date').find('.bg-primary').length == 0){
 			$('#date-error-teacher').show();
 		} else{
-			$("input[name='action']").val('recover-teacher');
+			$('input[name="action"]').val('recover-teacher');
 			$('#teacher_mark_absence').submit();
 		}
     });
@@ -89,7 +89,7 @@ $(document).ready(function() {
 		if($("#step_2 #clan_dates").find('.clan-date').find('.bg-primary').length == 0){
 			$('#date-error').show();
 		}else{
-			$("input[name='teacher_id']").prop('disabled', true);
+			$('input[name="teacher_id"]').prop('disabled', true);
 			$('#teacher_mark_absence').submit();
 		}
     });

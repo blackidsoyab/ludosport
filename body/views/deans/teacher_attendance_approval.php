@@ -8,7 +8,7 @@ $(document).ready(function() {
 		var modal = $(target_modal);
 		var modalBody = $(target_modal + ' .modal-body');
 		modal.on('show.bs.modal', function () {
-			$("input[name='attendance_id']").val($(e.currentTarget).data('attendanceid'));
+			$('input[name="attendance_id"]').val($(e.currentTarget).data('attendanceid'));
 			modalBody.load(remote_content);
 		}).modal();
 		return false;
@@ -23,8 +23,8 @@ $(document).ready(function() {
 
 			$('#change_recovery_teacher').submit(function(e) {
 				var post_data = {
-					'teacher_id' : $("input[name='teacher_id']").val(),
-					'attendance_id' : $("input[name='attendance_id']").val()
+					'teacher_id' : $('input[name="teacher_id"]').val(),
+					'attendance_id' : $('input[name="attendance_id"]').val()
 				};
 				$.ajax({
 					type: "POST",
@@ -44,16 +44,16 @@ $(document).ready(function() {
 
 	$('#to_reason').hide();
 
-	$("#teacher_absence_approval input[name='status']").click(function(){
-        if($('input:radio[name=status]:checked').val() == "A"){
+	$('#teacher_absence_approval input[name="status"]').click(function(){
+        if($('input:radio[name="status"]:checked').val() == "A"){
             $('#to_reason').hide();
         }
         
-        if($('input:radio[name=status]:checked').val() == "P"){
+        if($('input:radio[name="status"]:checked').val() == "P"){
             $('#to_reason').hide();
         }
         
-        if($('input:radio[name=status]:checked').val() == "U"){
+        if($('input:radio[name="status"]:checked').val() == "U"){
             $('#to_reason').show();
         }
     });

@@ -74,20 +74,20 @@
             $(this).datepicker('hide');
         });
         
-        $("#event_for input[name='event_for']").click(function(){
+        $('#event_for input[name="event_for"]').click(function(){
             if($('input:radio[name=event_for]:checked').val() == "A"){
                 $('#schools_list').hide();
                 $('#academies_list').show();
                 $(".academies-list").chosen();
             }
             
-            if($('input:radio[name=event_for]:checked').val() == "S"){
+            if($('input:radio[name="event_for"]:checked').val() == "S"){
                 $('#schools_list').show();
                 $(".school-list").chosen();
                 $('#academies_list').hide();
             }
             
-            if($('input:radio[name=event_for]:checked').val() == "All"){
+            if($('input:radio[name="event_for"]:checked').val() == "All"){
                 $('#schools_list').hide();
                 $('#academies_list').hide();
             }

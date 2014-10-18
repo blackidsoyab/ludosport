@@ -545,7 +545,7 @@ $(document).ready(function(){
 });
 
 function PositionFooter() {
-    if (window.innerHeight) {
+    if (window.innerHeight > 640) {
         var height = window.innerHeight;
         var parentsHeight = $('#middle-section').height();
         var current_height=height-133;
@@ -555,5 +555,7 @@ function PositionFooter() {
         }else{
         	$('#footer').css('position', 'fixed');
         }
+    } else {
+    	$('#footer').css('position', 'relative');
     }
 }

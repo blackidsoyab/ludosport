@@ -9,8 +9,8 @@ $(document).ready(function() {
 		var modal = $(target_modal);
 		var modalBody = $(target_modal + ' .modal-body');
 		modal.on('show.bs.modal', function () {
-			$("input[name='student_id']").val($(e.currentTarget).data('studentid'));
-			$("input[name='attendance_id']").val($(e.currentTarget).data('attendanceid'));
+			$('input[name="student_id"]').val($(e.currentTarget).data('studentid'));
+			$('input[name="attendance_id"]').val($(e.currentTarget).data('attendanceid'));
 			modalBody.load(remote_content);
 		}).modal();
 		return false;
@@ -29,10 +29,10 @@ $(document).ready(function() {
 			}
 		});
 
-		$("input[name='clan_id']").on('ifChecked', function(event){
+		$('input[name="clan_id"]').on('ifChecked', function(event){
 			$.ajax({
 				type: "POST",
-				url: '<?php echo  base_url(). "getclandates_teacher/"; ?>' + $("input[name='clan_id']:checked").val(),
+				url: '<?php echo  base_url(). "getclandates_teacher/"; ?>' + $('input[name="clan_id"]:checked').val(),
 				success: function(data) {
 					$('#clan-dates-selection').html(data);
 					$('#change_dates .modal-body').find('input').iCheck({radioClass: 'iradio_square-grey'});
@@ -46,11 +46,11 @@ $(document).ready(function() {
 			$('#clan-row').hide();
 			$('#clan-row').parents('.modal-body').find('h4').html('<?php echo   $this->lang->line("processing") ?>...');
 			var post_data = {
-				'current_clan_id' : $("input[name='current_clan_id']").val(),
-				'clan_id' : $("input[name='clan_id']:checked").val(),
-				'student_id' : $("input[name='student_id']").val(),
-				'date' : $("input[name='date']:checked").val(),
-				'attendance_id' : $("input[name='attendance_id']").val()
+				'current_clan_id' : $('input[name="current_clan_id"]').val(),
+				'clan_id' : $('input[name="clan_id"]:checked').val(),
+				'student_id' : $('input[name="student_id"]').val(),
+				'date' : $('input[name="date"]:checked').val(),
+				'attendance_id' : $('input[name="attendance_id"]').val()
 			};
 			$.ajax({
 				type: "POST",

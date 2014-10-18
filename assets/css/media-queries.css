@@ -1,0 +1,32 @@
+/* LARGE DESKTOP > 1200px */ 
+@media (min-width: 1200px) {}
+
+/* STANDARD DESKTOP 992px <> 1200px */
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+/* STANDARD DESKTOP 992px <> 1200px */
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+/* TABLET < 1025px */
+@media (max-width: 1025px) {}
+
+/* SMALL DESKTOP 768px <> 991px */
+@media (min-width: 768px) and (max-width: 991px) {}
+
+/* TABLET < 800px */
+@media (max-width: 800px) {}
+
+/* PHONE < 640px */
+@media (max-width: 640px){}
+
+/* PHONE < 548px */
+@media (max-width: 548px){}
+
+/* PHONE < 480px */
+@media (max-width: 480px){}
+
+/* PHONE < 360px */
+@media (max-width: 360px){}
+
+/* PHONE < 320px */
+@media (max-width: 320px){}

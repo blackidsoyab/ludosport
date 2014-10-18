@@ -28,7 +28,7 @@
     }
 }
 ?>
-<span class="right-content">
+<span class="message-right-content">
     <span class="time"><?php echo time_elapsed_string($message->timestamp); ?></span>
 </span>
 </a>
