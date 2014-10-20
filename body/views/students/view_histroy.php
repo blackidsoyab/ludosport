@@ -13,7 +13,7 @@
             <div class="blog-detail-image">
                 <img src="assets/img/Z1.png" class="img-blog" alt="Blog image">
             </div>
-            <div id="panel-chart-widget-1" class="collapse">
+            <div id="panel-chart-widget-1" class="collapse in">
                 <div class="the-box no-border">
                     <div class="row">
                         <div class="col-sm-6">

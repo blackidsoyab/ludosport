@@ -18,7 +18,7 @@
 					<div class="radio pull-left margin-killer padding-top-killer">
 						<label>
 							<input type="radio" value="0" class="i-grey-square" name="<?php echo $email_key; ?>" <?php echo (isset($session->email_privacy[$email_key]) && $session->email_privacy[$email_key] == 0) ? 'checked' : ''; ?>>
-							<?php echo $this->lang->line('No'); ?>
+							<?php echo $this->lang->line('no'); ?>
 						</label>
 					</div>
 	            </div>
