@@ -75,12 +75,12 @@ $(document).ready(function() {
 //]]>
 </script>
 <div class="row">
-	<div class="col-lg-6 col-xs-6">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 		<h1 class="page-heading"><?php echo $this->lang->line('attendance_sheet'), ' : ', $clan_details->{$session->language.'_class_name'}; ?></h1>
 	</div>
 
 	<?php if(strtotime($date) == strtotime($current_date)) { ?>
-	<div class="col-lg-6 col-xs-6">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 		<a href="<?php echo base_url() . 'clan/next_week_attendance/'.$clan_details->id; ?>" class="btn btn-primary h1 pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('next_week'), ' ', $this->lang->line('attendance'); ?>"><?php echo $this->lang->line('next_class'), ' ', $this->lang->line('attendance'); ?></a>
 	</div>
 	<?php } ?>
@@ -120,12 +120,12 @@ $(document).ready(function() {
 									<div class="row">
 										<div class="col-md-12">
 											<label class="radio-inline" for="P-radios-<?php echo $value['type']; ?>_user_id[<?php echo $value['id']; ?>]">
-										      <input type="radio" for="P-radios-<?php echo $value['type']; ?>_user_id[<?php echo $value['id']; ?>]" value="1" class="radio" name="<?php echo $value['type']; ?>_user_id[<?php echo $value['id']; ?>]" <?php echo ($value['attadence'] == 1)? 'checked' : ''; ?>>
+										      <input type="radio" for="P-radios-<?php echo $value['type']; ?>_user_id[<?php echo $value['id']; ?>]" value="1" class="radio i-grey-square" name="<?php echo $value['type']; ?>_user_id[<?php echo $value['id']; ?>]" <?php echo ($value['attadence'] == 1)? 'checked' : ''; ?>>
 										      <?php echo $this->lang->line('present'); ?>
 										    </label>
 
-										    <label class="radio-inline" for="A-radios-<?php echo $value['type']; ?>_user_id[<?php echo $value['id']; ?>]">
-										      <input type="radio" for="A-radios-<?php echo $value['type']; ?>_user_id[<?php echo $value['id']; ?>]" value="0" class="radio" name="<?php echo $value['type']; ?>_user_id[<?php echo $value['id']; ?>]" <?php echo ($value['attadence'] == 0)? 'checked' : ''; ?>>
+										    <label class="radio-inline margin-left-killer" for="A-radios-<?php echo $value['type']; ?>_user_id[<?php echo $value['id']; ?>]">
+										      <input type="radio" for="A-radios-<?php echo $value['type']; ?>_user_id[<?php echo $value['id']; ?>]" value="0" class="radio i-grey-square" name="<?php echo $value['type']; ?>_user_id[<?php echo $value['id']; ?>]" <?php echo ($value['attadence'] == 0)? 'checked' : ''; ?>>
 										      <?php echo $this->lang->line('absent'); ?>
 										    </label>
 										</div> 

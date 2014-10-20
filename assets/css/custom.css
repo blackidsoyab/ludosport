@@ -659,3 +659,11 @@ h1.page-heading a{
 .lg > .right-content{
     top: 15px;
 }
+
+.seven-style-icon{
+    display: block;
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 14%;
+}

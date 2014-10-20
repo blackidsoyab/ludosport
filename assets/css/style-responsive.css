@@ -568,6 +568,14 @@ PHONE < 548px
 =================================
 **/
 @media (max-width: 548px){
+	body{
+		padding: 0px;
+	}
+
+	.top-navbar{
+		height: auto;
+		position: relative;
+	}
 
 	/**
 	-------------------------------------------
@@ -599,6 +607,14 @@ PHONE < 548px
 
 	.mail-apps-wrap .panel-heading .avatar {
 		display: none;
+	}
+
+	.seven-style-icon{
+	    display: block;
+	    float: left;
+	    padding-left: 15px;
+	    padding-right: 15px;
+	    width: 25% !important;
 	}
 }
 
@@ -708,6 +724,14 @@ PHONE < 480px
 	.custom-profile-view .profile-heading img.avatar {
 		bottom: 210px;
 	}
+
+	.seven-style-icon{
+	    display: block;
+	    float: left;
+	    padding-left: 15px;
+	    padding-right: 15px;
+	    width: 25% !important;
+	}
 }
 
 
@@ -732,7 +756,6 @@ PHONE < 360px
 	.mail-apps-wrap .panel-heading .avatar {
 		display: none;
 	}
-
 
 }
 
