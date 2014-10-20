@@ -197,7 +197,7 @@
             <div class="top-navbar">
                 <div class="top-navbar-inner">
                     <div class="logo-brand">
-                        <a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="MYLUDOSPORT"><img src="<?php echo IMG_URL . $this->config->item('main_logo'); ?>" alt="<?php echo $this->config->item('app_name'); ?>" class="logo"></a>
+                        <a href="<?php echo base_url(); ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->config->item('app_name'); ?>"><img src="<?php echo IMG_URL . $this->config->item('main_logo'); ?>" alt="<?php echo $this->config->item('app_name'); ?>" class="logo"></a>
                     </div>
 
                     <div class="top-nav-content">
@@ -205,121 +205,126 @@
                             <i class="fa fa-long-arrow-right icon-dinamic"></i>
                         </div>
 
+                        <div data-target="#main-fixed-nav" data-toggle="collapse" class="btn-collapse-nav collapsed">
+                            <i class="fa fa-plus icon-plus"></i>
+                        </div>
+
                         <ul class="nav-user navbar-right">
                             <?php if (count($session->all_roles) > 0) { ?>
-                            <li class="dropdown pull-left role-selection">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <?php echo $this->lang->line('selected'), ' ', $this->lang->line('role'), ' : '; ?>&nbsp;<strong><?php echo $session->role_name; ?>&nbsp;&nbsp;<i class="fa fa-angle-right chevron-icon-sidebar"></i></strong>
-                                </a>
-                                <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
-                                    <?php foreach ($session->all_roles as $role) { 
-                                        $role_name = ucwords(getRoleName($role));
-                                        ?>
-                                        <li><a href="javascript:;" onclick="UpdateRole(this)" class="role" data-role ="<?php echo $role; ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $role_name; ?>"><?php echo $role_name; ?></a></li>
+                                <li class="dropdown role-selection">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <?php echo $this->lang->line('selected'), ' ', $this->lang->line('role'), ' : '; ?>&nbsp;<strong><?php echo $session->role_name; ?>&nbsp;&nbsp;<i class="fa fa-angle-right chevron-icon-sidebar"></i></strong>
+                                    </a>
+                                    <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
+                                        <?php foreach ($session->all_roles as $role) { 
+                                            $role_name = ucwords(getRoleName($role));
+                                            ?>
+                                            <li><a href="javascript:;" onclick="UpdateRole(this)" class="role" data-role ="<?php echo $role; ?>" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $role_name; ?>"><?php echo $role_name; ?></a></li>
                                         <?php } ?>
                                     </ul>
                                 </li>
-                                <?php } ?>
-                                <li class="dropdown pull-left">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <img src="<?php echo IMG_URL . 'user_avtar/40X40/' . $session->avtar; ?>" class="avatar img-circle" alt="<?php echo $session->logged_in_name; ?>" data-placement="bottom" data-toggle="tooltip" data-original-title="<?php echo $session->logged_in_name; ?>">
-                                        <?php echo $this->lang->line('hello'); ?>, <strong data-placement="bottom" data-toggle="tooltip" data-original-title="<?php echo $session->logged_in_name; ?>"><?php echo $session->logged_in_name; ?></strong>
+                            <?php } ?>
+                            
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="<?php echo IMG_URL . 'user_avtar/40X40/' . $session->avtar; ?>" class="avatar img-circle" alt="<?php echo $session->logged_in_name; ?>" data-placement="bottom" data-toggle="tooltip" data-original-title="<?php echo $session->logged_in_name; ?>">
+                                    <?php echo $this->lang->line('hello'); ?>, <strong data-placement="bottom" data-toggle="tooltip" data-original-title="<?php echo $session->logged_in_name; ?>"><?php echo $session->logged_in_name; ?></strong>
+                                </a>
+                                <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
+                                    <?php if (hasPermission('profiles', 'viewProfile')) { ?>
+                                    <li><a href="<?php echo base_url() . 'profile'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('profile'); ?>"><?php echo $this->lang->line('profile'); ?></a></li>
+                                    <?php } ?>
+
+                                    <?php if (hasPermission('profiles', 'changeEmailPrivacy')) { ?>
+                                    <li><a href="<?php echo base_url() . 'change_email_privacy'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('change_email_privacy'); ?>"><?php echo $this->lang->line('change_email_privacy'); ?></a></li>
+                                    <?php } ?>
+
+                                    <?php if (hasPermission('profiles', 'changePassword')) { ?>
+                                    <li><a href="<?php echo base_url() . 'change_password'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('change_password'); ?>"><?php echo $this->lang->line('change_password'); ?></a></li>
+                                    <?php } ?> 
+                                    <div class="divider"></div>
+                                    <li><a href="<?php echo base_url() . 'logout'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('logout'); ?>"><?php echo $this->lang->line('logout'); ?></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="collapse navbar-collapse" id="main-fixed-nav">
+                            <ul class="nav navbar-nav navbar-left">
+                                <li class="dropdown">
+                                    <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
+                                        <?php $languages = $this->config->item('custom_languages'); ?>
+                                        <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo ucwords($languages[$session->language]); ?>"><?php echo strtoupper($session->language); ?></span>
+                                        <i class="fa fa-tasks"></i>
                                     </a>
-                                    <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
-                                        <?php if (hasPermission('profiles', 'viewProfile')) { ?>
-                                        <li><a href="<?php echo base_url() . 'profile'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('profile'); ?>"><?php echo $this->lang->line('profile'); ?></a></li>
-                                        <?php } ?>
+                                    <ul class="dropdown-menu square with-triangle">
+                                        <li>
+                                            <div class="nav-dropdown-heading">
+                                                <?php echo $this->lang->line('languages'); ?>
+                                            </div>
+                                            <div class="nav-dropdown-content scroll-nav-dropdown">
+                                                <ul>
+                                                    <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
+                                                    <li class="<?php echo ($session->language == $key) ? 'unread' : ''; ?>"><a href="javascript:;" onclick="UpdateLang(this)" class="language" data-lang ="<?php echo $key; ?>" data-toggle="tooltip" data-original-title="<?php echo ucwords($value); ?>"><?php echo ucwords($value); ?></a></li>
+                                                    <?php } ?>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
 
-                                        <?php if (hasPermission('profiles', 'changeEmailPrivacy')) { ?>
-                                        <li><a href="<?php echo base_url() . 'change_email_privacy'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('change_email_privacy'); ?>"><?php echo $this->lang->line('change_email_privacy'); ?></a></li>
-                                        <?php } ?>
+                                <li class="dropdown">
+                                    <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('notifications'); ?>" id="notification_count"></span>
+                                        <i class="fa fa-bell-o"></i>
+                                    </a>
+                                    <ul class="dropdown-menu square with-triangle">
+                                        <li>
+                                            <div class="nav-dropdown-heading">
+                                                <?php echo $this->lang->line('notifications'); ?>
+                                                <div class="pull-right">
+                                                    <a href="javascript:;" onclick="allNotification()" class="pull-right"  data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('read_all'), ' ', $this->lang->line('notifications'); ?>"><?php echo $this->lang->line('read_all'); ?></a>
+                                                </div>
 
-                                        <?php if (hasPermission('profiles', 'changePassword')) { ?>
-                                        <li><a href="<?php echo base_url() . 'change_password'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('change_password'); ?>"><?php echo $this->lang->line('change_password'); ?></a></li>
-                                        <?php } ?> 
-                                        <div class="divider"></div>
-                                        <li><a href="<?php echo base_url() . 'logout'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('logout'); ?>"><?php echo $this->lang->line('logout'); ?></a></li>
+                                            </div>
+                                            <div class="nav-dropdown-content scroll-nav-dropdown">
+                                                <ul id="notifications">
+                                                    <?php echo getNotifications($session->id); ?>
+                                                </ul>
+                                            </div>
+                                            <a href="<?php echo base_url() . 'notification' ?>" class="padding-killer"><button class="btn btn-primary btn-square btn-block"><?php echo $this->lang->line('see_all'), ' ', $this->lang->line('notifications'); ?></button></a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('messages'); ?>" id="message_count"></span>
+                                        <i class="fa fa-envelope"></i>
+                                    </a>
+                                    <ul class="dropdown-menu square with-triangle">
+                                        <li>
+                                            <div class="nav-dropdown-heading">
+                                                <?php echo $this->lang->line('messages'); ?>
+                                                <div class="pull-right">
+                                                    <a href="javascript:;" onclick="allMessage()" class="pull-right"  data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('read_all'), ' ', $this->lang->line('messages'); ?>"><?php echo $this->lang->line('read_all'); ?></a>
+                                                </div>
+
+                                            </div>
+                                            <div class="nav-dropdown-content scroll-nav-dropdown">
+                                                <ul id="messages">
+                                                    <?php echo getMessages($session->id); ?>
+                                                </ul>
+                                            </div>
+                                            <a href="<?php echo base_url() . 'message' ?>" class="padding-killer"><button class="btn btn-primary btn-square btn-block"><?php echo $this->lang->line('see_all'), ' ', $this->lang->line('messages'); ?></button></a>
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>
-
-                            <div class="collapse navbar-collapse" id="main-fixed-nav">
-                                <ul class="nav navbar-nav navbar-left">
-                                    <li class="dropdown">
-                                        <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
-                                            <?php $languages = $this->config->item('custom_languages'); ?>
-                                            <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo ucwords($languages[$session->language]); ?>"><?php echo strtoupper($session->language); ?></span>
-                                            <i class="fa fa-tasks"></i>
-                                        </a>
-                                        <ul class="dropdown-menu square with-triangle">
-                                            <li>
-                                                <div class="nav-dropdown-heading">
-                                                    <?php echo $this->lang->line('languages'); ?>
-                                                </div>
-                                                <div class="nav-dropdown-content scroll-nav-dropdown">
-                                                    <ul>
-                                                        <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
-                                                        <li class="<?php echo ($session->language == $key) ? 'unread' : ''; ?>"><a href="javascript:;" onclick="UpdateLang(this)" class="language" data-lang ="<?php echo $key; ?>" data-toggle="tooltip" data-original-title="<?php echo ucwords($value); ?>"><?php echo ucwords($value); ?></a></li>
-                                                        <?php } ?>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="dropdown">
-                                        <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
-                                            <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('notifications'); ?>" id="notification_count"></span>
-                                            <i class="fa fa-bell-o"></i>
-                                        </a>
-                                        <ul class="dropdown-menu square with-triangle">
-                                            <li>
-                                                <div class="nav-dropdown-heading">
-                                                    <?php echo $this->lang->line('notifications'); ?>
-                                                    <div class="pull-right">
-                                                        <a href="javascript:;" onclick="allNotification()" class="pull-right"  data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('read_all'), ' ', $this->lang->line('notifications'); ?>"><?php echo $this->lang->line('read_all'); ?></a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="nav-dropdown-content scroll-nav-dropdown">
-                                                    <ul id="notifications">
-                                                        <?php echo getNotifications($session->id); ?>
-                                                    </ul>
-                                                </div>
-                                                <a href="<?php echo base_url() . 'notification' ?>" class="padding-killer"><button class="btn btn-primary btn-square btn-block"><?php echo $this->lang->line('see_all'), ' ', $this->lang->line('notifications'); ?></button></a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="dropdown">
-                                        <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
-                                            <span class="badge badge-primary icon-count" data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('messages'); ?>" id="message_count"></span>
-                                            <i class="fa fa-envelope"></i>
-                                        </a>
-                                        <ul class="dropdown-menu square with-triangle">
-                                            <li>
-                                                <div class="nav-dropdown-heading">
-                                                    <?php echo $this->lang->line('messages'); ?>
-                                                    <div class="pull-right">
-                                                        <a href="javascript:;" onclick="allMessage()" class="pull-right"  data-toggle="tooltip" data-placement="bottom" data-original-title="<?php echo $this->lang->line('read_all'), ' ', $this->lang->line('messages'); ?>"><?php echo $this->lang->line('read_all'); ?></a>
-                                                    </div>
-
-                                                </div>
-                                                <div class="nav-dropdown-content scroll-nav-dropdown">
-                                                    <ul id="messages">
-                                                        <?php echo getMessages($session->id); ?>
-                                                    </ul>
-                                                </div>
-                                                <a href="<?php echo base_url() . 'message' ?>" class="padding-killer"><button class="btn btn-primary btn-square btn-block"><?php echo $this->lang->line('see_all'), ' ', $this->lang->line('messages'); ?></button></a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- /.Top Nav -->
+            </div>
+            <!-- /.Top Nav -->
 
                 <!-- BEGIN SIDEBAR LEFT -->
                 <?php $page = ($this->uri->segment(1) ? $this->uri->segment(2) ? $this->uri->segment(2) : $this->uri->segment(1) : 'dashboard');  

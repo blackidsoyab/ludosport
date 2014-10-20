@@ -25,11 +25,11 @@ class Scorehistory extends DataMapper
             }
             $obj_score->save();
             
-            $user_details = new Userdetail();
-            $user_details->where('student_master_id', $student_id)->get();
-            $user_details->$type = $user_details->$type + $score;
-            $user_details->total_score = $user_details->total_score + $score;
-            $user_details->save();
+            $obj_merit_user_details = new Userdetail();
+            $obj_merit_user_details->where('student_master_id', $student_id)->get();
+            $obj_merit_user_details->$type = $obj_merit_user_details->$type + $score;
+            $obj_merit_user_details->total_score = $obj_merit_user_details->total_score + $score;
+            $obj_merit_user_details->save();
         }
         
         return true;
@@ -52,15 +52,15 @@ class Scorehistory extends DataMapper
             }
             $obj_score->save();
             
-            $user_details = new Userdetail();
-            $user_details->where('student_master_id', $student_id)->get();
-            if ($user_details->$type - $score > 0) {
-                $user_details->$type = $user_details->$type - $score;
+            $obj_demerit_user_details = new Userdetail();
+            $obj_demerit_user_details->where('student_master_id', $student_id)->get();
+            if ($obj_demerit_user_details->$type - $score > 0) {
+                $obj_demerit_user_details->$type = $obj_demerit_user_details->$type - $score;
             } else {
-                $user_details->$type = 0;
+                $obj_demerit_user_details->$type = 0;
             }
-            $user_details->total_score = $user_details->total_score - $score;
-            $user_details->save();
+            $obj_demerit_user_details->total_score = $obj_demerit_user_details->total_score - $score;
+            $obj_demerit_user_details->save();
         }
         
         return true;

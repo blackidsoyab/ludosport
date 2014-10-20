@@ -283,7 +283,7 @@ class Clan extends DataMapper
         $this->db->from('clans');
         $this->db->where('school_id', $school_id, null);
         $this->db->join('levels', 'levels.id=clans.level_id');
-        $this->db->where('is_basic', "'0'", null);
+        $this->db->where('is_basic', "'1'", null);
         $this->db->where('under_sixteen', "$under_sixteen");
         $this->db->order_by($session->language . '_class_name', 'ASC');
         $query = $this->db->get();

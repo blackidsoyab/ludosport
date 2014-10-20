@@ -452,52 +452,79 @@ class dashboard extends CI_Controller
             
             //Under 16 or not
             if ($age[1] == 'year' && $age[0] < 16) {
-                $user_details->degree_id = $this->config->item('basic_level_under_16');
+                $degree_id = $this->config->item('basic_level_under_16');
             } else {
-                $user_details->degree_id = $this->config->item('basic_level_above_16');
+                $degree_id = $this->config->item('basic_level_above_16');
             }
-            
+
+            $user_details->degree_id = $degree_id;
             $user_details->palce_of_birth = $this->input->post('palce_of_birth');
             $user_details->first_lesson_date = get_current_date_time()->get_date_for_db();
             $user_details->zip_code = $this->input->post('zip_code');
             $user_details->tax_code = $this->input->post('tax_code');
             $user_details->blood_group = $this->input->post('blood_group');
-            $user_details->status = 'P2';
+
+            if(PAYMEMT_GATEWAY_ENABLE){
+                $user_details->status = 'P2';
+            } else{
+                $user_details->status = 'A';
+            }
             $user_details->user_id = $this->session_data->id;
             $user_details->save();
             
-            redirect(base_url() . 'register/step_2', 'refresh');
-            
-            /*try {
-                $clan_id = $this->input->post('clan_id');
-                $obj_academy = new Academy();
-                $fee_details = $obj_academy->getFeesFromClan($clan_id);
+            if(PAYMEMT_GATEWAY_ENABLE){
+                try {
+                    $clan_id = $this->input->post('clan_id');
+                    $obj_academy = new Academy();
+                    $fee_details = $obj_academy->getFeesFromClan($clan_id);
+                    
+                    $obj_payment = new Payment();
+                    $obj_payment->user_id = $this->session_data->id;
+                    $obj_payment->type = 'PayPal';
+                    $obj_payment->amount = $fee_details->fee2;
+                    $obj_payment->description = $clan_id;
+                    $obj_payment->save();
+                    
+                    $baseUrl = getBaseUrl() . '/register/step_2_payment?payment_id=' . $this->encrypt->encode($obj_payment->id, $this->config->item('encryption_key'));
+                    $payment = makePaymentUsingPayPal($fee_details->fee2, 'USD', getClanName($clan_id), $baseUrl . '&status=' . $this->encrypt->encode('1', $this->config->item('encryption_key')), $baseUrl . '&status=' . $this->encrypt->encode('0', $this->config->item('encryption_key')));
+                    
+                    $obj = new Payment();
+                    $obj->where('id', $obj_payment->id)->update(array('payment_id' => $payment->getId(), 'state' => $payment->getState()));
+                    
+                    redirect(getLink($payment->getLinks(), "approval_url"), 'refresh');
+                }
+                catch(PPConnectionException $ex) {
+                    $message = parseApiError($ex->getData());
+                    $this->session->set_flashdata('error', $message);
+                    redirect(base_url() . 'register/step_2', 'refresh');
+                }
+                catch(Exception $ex) {
+                    $message = $ex->getMessage();
+                    $this->session->set_flashdata('error', $message);
+                    redirect(base_url() . 'register/step_2', 'refresh');
+                }
+            }else{
+                $obj_batch_history = new Userbatcheshistory();
+                $obj_batch_history->saveStudentBatchHistory($this->session_data->id, 'D', $degree_id);
+
+                $obj_batch = new Batch($degree_id);
+                if ($obj_batch->has_point == 1) {
+                    $obj_score_history = new Scorehistory();
+                    $obj_score_history->meritStudentScore($this->session_data->id, 'xpr', $obj_batch->xpr, 'Assign badge at time of Registration');
+                    $obj_score_history->meritStudentScore($this->session_data->id, 'war', $obj_batch->war, 'Assign badge at time of Registration');
+                    $obj_score_history->meritStudentScore($this->session_data->id, 'sty', $obj_batch->sty, 'Assign badge at time of Registration');
+                }
+
+                $obj_user = new User();
+                $obj_user->where('id', $this->session_data->id)->update('status', 'A');
+
+                $session = $this->session->userdata('user_session');
+                $session->status = 'A';
+                $newdata = array('user_session' => $session);
+                $this->session->set_userdata($newdata);
                 
-                $obj_payment = new Payment();
-                $obj_payment->user_id = $this->session_data->id;
-                $obj_payment->type = 'PayPal';
-                $obj_payment->amount = $fee_details->fee2;
-                $obj_payment->description = $clan_id;
-                $obj_payment->save();
-                
-                $baseUrl = getBaseUrl() . '/register/step_2_payment?payment_id=' . $this->encrypt->encode($obj_payment->id, $this->config->item('encryption_key'));
-                $payment = makePaymentUsingPayPal($fee_details->fee2, 'USD', getClanName($clan_id), $baseUrl . '&status=' . $this->encrypt->encode('1', $this->config->item('encryption_key')), $baseUrl . '&status=' . $this->encrypt->encode('0', $this->config->item('encryption_key')));
-                
-                $obj = new Payment();
-                $obj->where('id', $obj_payment->id)->update(array('payment_id' => $payment->getId(), 'state' => $payment->getState()));
-                
-                redirect(getLink($payment->getLinks(), "approval_url"), 'refresh');
+                redirect(base_url() . 'dashboard', 'refresh');
             }
-            catch(PPConnectionException $ex) {
-                $message = parseApiError($ex->getData());
-                $this->session->set_flashdata('error', $message);
-                redirect(base_url() . 'register/step_2', 'refresh');
-            }
-            catch(Exception $ex) {
-                $message = $ex->getMessage();
-                $this->session->set_flashdata('error', $message);
-                redirect(base_url() . 'register/step_2', 'refresh');
-            } */
         } else {
             $user = new User($this->session_data->id);
             
@@ -561,9 +588,9 @@ class dashboard extends CI_Controller
                 $obj_batch = new Batch($obj_user_details->degree_id);
                 if ($obj_batch->has_point == 1) {
                     $obj_score_history = new Scorehistory();
-                    $obj_score_history->meritStudentScore($this->session_data->id, 'xpr', $obj_batch->xpr, 'Badge Assign');
-                    $obj_score_history->meritStudentScore($this->session_data->id, 'war', $obj_batch->war, 'Badge Assign');
-                    $obj_score_history->meritStudentScore($this->session_data->id, 'sty', $obj_batch->sty, 'Badge Assign');
+                    $obj_score_history->meritStudentScore($this->session_data->id, 'xpr', $obj_batch->xpr, 'Assign badge at time of Registration');
+                    $obj_score_history->meritStudentScore($this->session_data->id, 'war', $obj_batch->war, 'Assign badge at time of Registration');
+                    $obj_score_history->meritStudentScore($this->session_data->id, 'sty', $obj_batch->sty, 'Assign badge at time of Registration');
                 }
                 
                 $session = $this->session->userdata('user_session');

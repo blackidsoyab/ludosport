@@ -562,7 +562,7 @@ class ajax extends CI_Controller
         
         $obj = New Clan();
         $clans = $obj->getAviableClanForSchool($school_id, $under_sixteen);
-        
+
         $str = null;
         $str.= '<h4 class="margin-killer">Clan Selection</h4>' . "\n";
         $str.= '<hr class="mar-10 margin-left-killer margin-right-killer" />' . "\n";
