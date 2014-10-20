@@ -704,6 +704,10 @@ PHONE < 480px
 	.mail-apps-wrap .panel-heading .avatar {
 		display: none;
 	}
+
+	.custom-profile-view .profile-heading img.avatar {
+		bottom: 210px;
+	}
 }
 
 
@@ -728,6 +732,8 @@ PHONE < 360px
 	.mail-apps-wrap .panel-heading .avatar {
 		display: none;
 	}
+
+
 }
 
 

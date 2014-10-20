@@ -570,7 +570,6 @@ footer{
 }
 
 .custom-profile-view .profile-heading .profile-info{
-    bottom: 0px;
     background: transparent;
 }
 
@@ -578,10 +577,6 @@ footer{
     -webkit-box-shadow: 7px 7px 5px 0px rgba(237, 139, 0, 0.5);
     -moz-box-shadow: 7px 7px 5px 0px rgba(237, 139, 0, 0.5);
     box-shadow: 7px 7px 5px 0px rgba(237, 139, 0, 0.5);
-}
-
-.profile-heading .profile-info .text-custom-primary {
-    width: 80%;
 }
 
 .text-custom-primary{

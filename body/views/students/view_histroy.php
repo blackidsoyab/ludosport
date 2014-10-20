@@ -101,18 +101,18 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <p><a href="#" data-toggle="tooltip" title="Paris Hawker"> <img src="<?php echo IMG_URL . 'history_tournament/torneo_1classificato.png'; ?>" alt="Avatar" width="80" class="img-responsive img-circle"> </a></p>
+                                    <img src="<?php echo IMG_URL . 'history_tournament/torneo_1classificato.png'; ?>" alt="Avatar" width="80" class="img-responsive img-circle">
                                 </div>
                                 
                                 <div class="col-xs-3">
-                                    <p><a href="#" data-toggle="tooltip" title="" data-original-title="Thomas White"> <img src="<?php echo IMG_URL . 'history_tournament/torneo_2classificato.png'; ?>" alt="Avatar" width="80" class="img-responsive img-circle"> </a></p>
+                                    <img src="<?php echo IMG_URL . 'history_tournament/torneo_2classificato.png'; ?>" alt="Avatar" width="80" class="img-responsive img-circle">
                                 </div>
                                 
                                 <div class="col-xs-3">
-                                    <p><a href="#" data-toggle="tooltip" title="Doina Slaivici"> <img src="<?php echo IMG_URL . 'history_tournament/torneo_3classificato.png'; ?>" alt="Avatar" width="80" class="img-responsive img-circle"> </a></p>
+                                    <img src="<?php echo IMG_URL . 'history_tournament/torneo_3classificato.png'; ?>" alt="Avatar" width="80" class="img-responsive img-circle">
                                 </div>
                                 <div class="col-xs-3">
-                                    <p><a href="#" data-toggle="tooltip" title="Doina Slaivici"> <img src="<?php echo IMG_URL . 'history_tournament/torneo_premiostile.png'; ?>" alt="Avatar" width="80" class="img-responsive img-circle"></a></p>
+                                    <img src="<?php echo IMG_URL . 'history_tournament/torneo_premiostile.png'; ?>" alt="Avatar" width="80" class="img-responsive img-circle">
                                 </div>
                             </div>
                         </div>
@@ -125,32 +125,32 @@
                 <h3 class="panel-title text-white padding-top-killer padding-left-killer"><strong><?php echo $this->lang->line('my_combat_style'); ?></strong></h3>
                 <div class="the-box">
                     <div class="row">
-                        <div class="col-xs-2">
-                            <p><a href="#" data-toggle="tooltip" title="" data-original-title="Shiicho"> <img src="<?php echo IMG_URL . 'seven_styles/01_shiicho_esamestile.png'; ?>" alt="Avatar" class="img-responsive img-circle"> </a></p>
+                        <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+                            <img src="<?php echo IMG_URL . 'seven_styles/01_shiicho_esamestile.png'; ?>" alt="Avatar" class="img-responsive img-circle" data-toggle="tooltip" title="" data-original-title="Shiicho">
                         </div>
                         
-                        <div class="col-xs-2">
-                            <p><a href="#" data-toggle="tooltip" title="" data-original-title="Makashi"> <img src="<?php echo IMG_URL . 'seven_styles/02_makashi_esamestile.png'; ?>" alt="Avatar" width="400" class="img-responsive img-circle"> </a></p>
+                        <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+                            <img src="<?php echo IMG_URL . 'seven_styles/02_makashi_esamestile.png'; ?>" alt="Avatar" width="400" class="img-responsive img-circle" data-toggle="tooltip" title="" data-original-title="Makashi">
                         </div>
                         
-                        <div class="col-xs-2">
-                            <p><a href="#" data-toggle="tooltip" title="" data-original-title="Soresu"> <img src="<?php echo IMG_URL . 'seven_styles/03_soresu_esamestile.png'; ?>" alt="Avatar" width="400" class="img-responsive img-circle"> </a></p>
+                        <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+                            <img src="<?php echo IMG_URL . 'seven_styles/03_soresu_esamestile.png'; ?>" alt="Avatar" width="400" class="img-responsive img-circle" data-toggle="tooltip" title="" data-original-title="Soresu">
                         </div>
                         
-                        <div class="col-xs-2">
-                            <p><a href="#" data-toggle="tooltip" title="" data-original-title="Ataru"> <img src="<?php echo IMG_URL . 'seven_styles/04_ataru_esamestile.png'; ?>" alt="Avatar" width="400" class="img-responsive img-circle"> </a></p>
+                        <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+                            <img src="<?php echo IMG_URL . 'seven_styles/04_ataru_esamestile.png'; ?>" alt="Avatar" width="400" class="img-responsive img-circle" data-toggle="tooltip" title="" data-original-title="Ataru">
                         </div>
                         
-                        <div class="col-xs-2">
-                            <p><a href="#" data-toggle="tooltip" title="Djemso"> <img src="<?php echo IMG_URL . 'seven_styles/05_djemso_base.png'; ?>" alt="Avatar" class="img-responsive img-circle"> </a></p>
+                        <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+                            <img src="<?php echo IMG_URL . 'seven_styles/05_djemso_base.png'; ?>" alt="Avatar" class="img-responsive img-circle" data-toggle="tooltip" title="Djemso">
                         </div>
                         
-                        <div class="col-xs-2">
-                            <p><a href="#" data-toggle="tooltip" title="" data-original-title="Niman"> <img src="<?php echo IMG_URL . 'seven_styles/'; ?>06_niman_base.png" alt="Avatar" class="img-responsive img-circle"> </a></p>
+                        <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+                            <img src="<?php echo IMG_URL . 'seven_styles/'; ?>06_niman_base.png" alt="Avatar" class="img-responsive img-circle" data-toggle="tooltip" title="" data-original-title="Niman">
                         </div>
                         
-                        <div class="col-xs-2">
-                            <p><a href="#" data-toggle="tooltip" title="Vaapad"> <img src="<?php echo IMG_URL . 'seven_styles/07_vaapad_base.png'; ?>" alt="Avatar" class="img-responsive img-circle"> </a></p>
+                        <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+                            <img src="<?php echo IMG_URL . 'seven_styles/07_vaapad_base.png'; ?>" alt="Avatar" class="img-responsive img-circle" data-toggle="tooltip" title="Vaapad">
                         </div>
 
                     </div>
