@@ -12,21 +12,18 @@
     <?php if($session->role < 6) { ?>
         <?php $page = ($this->uri->segment(2) ? $this->uri->segment(2) : 'inbox'); ?>
         <div class="the-box toolbar no-border no-margin">
-            <div class="btn-toolbar" role="toolbar">
-                <div class="btn-group">
-                    <a href="<?php echo base_url() . 'announcement/compose'; ?>" class="list-group-item <?php echo ($page == 'compose') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('new'), ' ', $this->lang->line('announcement'); ?>"><?php echo $this->lang->line('new'), ' ', $this->lang->line('announcement'); ?></a>
+            <div class="row">
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
+                    <a href="<?php echo base_url() . 'announcement/compose'; ?>" class="btn btn-primary btn-block <?php echo ($page == 'compose') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('new'), ' ', $this->lang->line('announcement'); ?>"><?php echo $this->lang->line('new'), ' ', $this->lang->line('announcement'); ?></a>
                 </div>
-
-                <div class="btn-group">
-                     <a href="<?php echo base_url() . 'announcement'; ?>" class="list-group-item <?php echo ($page == 'inbox') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('inbox'); ?>"><?php echo $this->lang->line('inbox'); ?></a>
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
+                    <a href="<?php echo base_url() . 'announcement'; ?>" class="btn btn-primary btn-block <?php echo ($page == 'inbox') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('inbox'); ?>"><?php echo $this->lang->line('inbox'); ?></a>
                 </div>
-
-                <div class="btn-group">
-                    <a href="<?php echo base_url() . 'announcement/sent'; ?>" class="list-group-item <?php echo ($page == 'sent') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('sent'); ?>"><?php echo $this->lang->line('sent'); ?></a>
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2">
+                    <a href="<?php echo base_url() . 'announcement/sent'; ?>" class="btn btn-primary btn-block <?php echo ($page == 'sent') ? 'active' : ''; ?>" data-toggle="tooltip" title="<?php echo $this->lang->line('sent'); ?>"><?php echo $this->lang->line('sent'); ?></a>
                 </div>
-
-                <div class="btn-group">
-                    <a data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" class="list-group-item" id="delete_announcements_button"><i class="fa fa-trash-o"></i></a>
+                <div class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+                    <a data-toggle="tooltip" title="<?php echo $this->lang->line('delete'); ?>" class="btn btn-primary btn-block" id="delete_announcements_button"><i class="fa fa-trash-o"></i></a>
                 </div>
             </div>
         </div>

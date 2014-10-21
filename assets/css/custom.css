@@ -667,3 +667,15 @@ h1.page-heading a{
     padding-right: 15px;
     width: 14%;
 }
+
+.h1.btn{
+    margin-bottom: 20px; 
+}
+
+.navbar-right > li {
+    float: left;
+}
+
+.navbar-right > li.last {
+    float: none;
+}

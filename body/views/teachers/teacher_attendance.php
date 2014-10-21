@@ -97,11 +97,7 @@ $(document).ready(function() {
 //]]>
 </script>
 
-<div class="row">
-	<div class="col-lg-6 col-xs-6">
-		<h1 class="page-heading h1"><?php echo $this->lang->line('communicate_absence'); ?></h1>
-	</div>
-</div>
+<h1 class="page-heading h1"><?php echo $this->lang->line('communicate_absence'); ?></h1>
 
 <?php if(!empty($clans)){ ?>
 <form id="teacher_mark_absence" action="<?php echo base_url().'teacher_mark_absence'; ?>" method="post">

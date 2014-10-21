@@ -2,11 +2,9 @@
 <link href="<?php echo PLUGIN_URL; ?>salvattore/salvattore.css" rel="stylesheet" />
 
 <div class="row">
-    <div class="col-lg-6 col-xs-6">
-        <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('event'); ?></h1>    
-    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h1 class="page-heading h1 pull-left"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('event'); ?></h1>    
 
-    <div class="col-lg-6 col-xs-6">
         <?php if (hasPermission('events', 'addEvent')) { ?>
             <a href="<?php echo base_url() . 'event/add' ?>" class="btn btn-primary h1 pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('event'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('event'); ?></a>
         <?php } ?>

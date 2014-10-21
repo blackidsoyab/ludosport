@@ -1,7 +1,7 @@
+<?php $session = $this->session->userdata('user_session'); ?>
 <!DOCTYPE html>
-<html lang="it">
+<html lang="<?php echo $session->language; ?>">
     <head>
-        <?php $session = $this->session->userdata('user_session'); ?>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title><?php echo @$page_title . ' |' . $this->config->item('app_name'); ?></title>
@@ -247,7 +247,7 @@
                                 </ul>
                             </li>
                         </ul>
-
+                        <div class="clear"></div>
                         <div class="collapse navbar-collapse" id="main-fixed-nav">
                             <ul class="nav navbar-nav navbar-left">
                                 <li class="dropdown">

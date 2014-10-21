@@ -14,7 +14,7 @@
             "bProcessing": true,
             "aLengthMenu": [ [<?php echo $this->config->item('data_table_length'); ?>], [<?php echo $this->config->item('data_table_length'); ?>] ],
             'iDisplayLength': <?php $lengths = explode(',', $this->config->item('data_table_length'));
-echo $lengths[0]; ?>,
+            echo $lengths[0]; ?>,
             "bServerSide" : true,
             "aaSorting": [[ 2, "desc" ]],
             "aoColumns": [

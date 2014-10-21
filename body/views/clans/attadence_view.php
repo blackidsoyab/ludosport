@@ -75,15 +75,13 @@ $(document).ready(function() {
 //]]>
 </script>
 <div class="row">
-	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-		<h1 class="page-heading"><?php echo $this->lang->line('attendance_sheet'), ' : ', $clan_details->{$session->language.'_class_name'}; ?></h1>
-	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<h1 class="page-heading pull-left"><?php echo $this->lang->line('attendance_sheet'), ' : ', $clan_details->{$session->language.'_class_name'}; ?></h1>
 
 	<?php if(strtotime($date) == strtotime($current_date)) { ?>
-	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 		<a href="<?php echo base_url() . 'clan/next_week_attendance/'.$clan_details->id; ?>" class="btn btn-primary h1 pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('next_week'), ' ', $this->lang->line('attendance'); ?>"><?php echo $this->lang->line('next_class'), ' ', $this->lang->line('attendance'); ?></a>
-	</div>
 	<?php } ?>
+	</div>
 </div>
 
 <?php if(!empty($userdetails)){ ?>

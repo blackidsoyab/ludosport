@@ -67,11 +67,9 @@
     }
 </script>
 <?php $session = $this->session->userdata('user_session'); ?>
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-heading h1"><?php echo $this->lang->line('list'), ' ', $this->lang->line('student'); ?></h1>    
-    </div>
-</div>
+
+<h1 class="page-heading h1"><?php echo $this->lang->line('list'), ' ', $this->lang->line('student'); ?></h1>    
+
 
 <div class="the-box">
     <h4 class="small-title"><?php echo $this->lang->line('filter'); ?>: <p class="pull-right"><a href="<?php echo base_url() . 'student_rating'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('reset'), ' ', $this->lang->line('filter'); ?>"><?php echo $this->lang->line('reset'), ' ', $this->lang->line('filter'); ?></a></p></h4>

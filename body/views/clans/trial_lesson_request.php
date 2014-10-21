@@ -23,11 +23,7 @@ if(!is_null($clan_details)){
     });
 </script>
 
-<div class="row">
-    <div class="col-md-6">
-        <h1 class="page-heading h1"><?php echo $this->lang->line('list'), ' ', $this->lang->line('trial_lesson'), ' ', $this->lang->line('student'), $clan_name; ?></h1>    
-    </div>
-</div>
+<h1 class="page-heading h1"><?php echo $this->lang->line('list'), ' ', $this->lang->line('trial_lesson'), ' ', $this->lang->line('student'), $clan_name; ?></h1>    
 
 
 <div class="the-box">

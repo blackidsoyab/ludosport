@@ -18,11 +18,7 @@ echo $lengths[0]; ?>,
 
 </script>
 
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('email_template'); ?></h1>
-    </div>
-</div>
+<h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('email_template'); ?></h1>
 
 
 <div class="the-box">
