@@ -1,0 +1,13 @@
+<?php
+class Evolutioncategory extends DataMapper
+{
+    
+    public $table = 'evolutioncategories';
+    public $has_many = array('evolutionlevel');
+    
+    // Optionally, don't include a constructor if you don't need one.
+    function __construct($id = NULL) {
+        parent::__construct($id);
+    }
+}
+?>
