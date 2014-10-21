@@ -708,7 +708,12 @@ class json extends CI_Controller
             $temp_arr = array();
             $temp_arr[] = $aRow['student_name'];
             $temp_arr[] = $aRow['class_name'];
-            $temp_arr[] = date('d-m-Y', strtotime($aRow['first_lesson_date']));
+            if($aRow['first_lesson_date'] != ''){
+                $temp_arr[] = date('d-m-Y', strtotime($aRow['first_lesson_date']));     
+            } else {
+                $temp_arr[] = '';
+            }
+            
             if ($aRow['status'] == 'A') {
                 $temp_arr[] = '<label class="label label-success">' . $this->lang->line('approved') . '</label>';
             } else if ($aRow['status'] == 'U') {
@@ -1079,7 +1084,9 @@ class json extends CI_Controller
                 }
             }
             if(isset($aRow['played_on']) && $aRow['played_on'] != ''){
-                $temp_arr[] = date('d-m-Y H:i a', strtotime($aRow['played_on']));
+                $str = (date('d-m-Y', strtotime($aRow['played_on'])) != '01-01-1970') ? date('d-m-Y', strtotime($aRow['played_on'])) : '-- ';
+                $str .= (date('H:i', strtotime($aRow['played_on'])) != '00:00') ? date('H:i a', strtotime($aRow['played_on'])) : ' --';
+                $temp_arr[] = $str;
             } else {
                 $temp_arr[] = '&nbsp;';
             }
@@ -1216,7 +1223,12 @@ class json extends CI_Controller
                 $temp_arr[] = '&nbsp;';
             }
             
-            $temp_arr[] = date('d-m-Y', strtotime($aRow['assign_date']));
+            if($aRow['assign_date'] != ''){
+                $temp_arr[] = date('d-m-Y', strtotime($aRow['assign_date']));
+            }else{
+                $temp_arr[] = '';
+            }
+            
             $temp_arr[] = $aRow['assign_user'];
             
             $str = NULL;
@@ -1474,6 +1486,165 @@ class json extends CI_Controller
             $this->datatable->output['aaData'][] = $temp_arr;
         }
         
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getEvolutioncategoriesJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array($this->session_data->language . '_name');
+        $this->datatable->eColumns = array('id');
+        $this->datatable->sIndexColumn = "id";
+        $this->datatable->sTable = " evolutioncategories";
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow[$this->session_data->language . '_name'];
+            
+            $str = NULL;
+            if (hasPermission('evolutioncategories', 'editEvolutioncategory')) {
+                $str.= '<a href="' . base_url() . 'evolutioncategory/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+            
+            if (hasPermission('evolutioncategories', 'deleteEvolutioncategory')) {
+                $str.= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
+            
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getEvolutionlevelsJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('evolutionlevels.' . $this->session_data->language . '_name AS evolutionlevel', 'evolutioncategories.' . $this->session_data->language . '_name AS evolutioncategory');
+        $this->datatable->eColumns = array('evolutionlevels.id');
+        $this->datatable->sIndexColumn = "evolutionlevels.id";
+        $this->datatable->sTable = " evolutionlevels, evolutioncategories";
+        $this->datatable->myWhere = 'WHERE evolutioncategories.id=evolutionlevels.evolutioncategory_id';
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['evolutionlevel'];
+            $temp_arr[] = $aRow['evolutioncategory'];
+            
+            $str = NULL;
+            if (hasPermission('evolutionlevels', 'editEvolutionlevel')) {
+                $str.= '<a href="' . base_url() . 'evolutionlevel/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+            
+            if (hasPermission('evolutionlevels', 'deleteEvolutionlevel')) {
+                $str.= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
+            
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getEvolutionClansJsonData($school_id) {
+        $where = Null;
+        
+        if ($school_id != 0) {
+            $where = ' AND school_id = ' . $school_id;
+        }
+        
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('evolutionclans.' . $this->session_data->language . '_class_name AS class_name', 'CONCAT(users.firstname," ", users.lastname) AS instructor', 'evolutionlevels.' . $this->session_data->language . '_name AS level', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', '(SELECT count(*) from evolutionstudents, evolutionclans temp_clan where evolutionstudents.evolutionclan_id=temp_clan.id AND temp_clan.id=evolutionclans.id) AS total_students');
+        $this->datatable->eColumns = array('evolutionclans.id');
+        $this->datatable->sIndexColumn = "evolutionclans.id";
+        $this->datatable->sTable = " evolutionclans, users, schools, academies, evolutionlevels";
+        
+        if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=evolutionclans.school_id AND evolutionclans.teacher_id=users.id AND evolutionclans.evolutionlevel_id=evolutionlevels.id' . $where;
+        } else if ($this->session_data->role == '3') {
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=evolutionclans.school_id AND evolutionclans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 AND evolutionclans.evolutionlevel_id=evolutionlevels.id' . $where;
+        } else if ($this->session_data->role == '4') {
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=evolutionclans.school_id AND evolutionclans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', dean_id) > 0 AND evolutionclans.evolutionlevel_id=evolutionlevels.id' . $where;
+        } else if ($this->session_data->role == '5') {
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=evolutionclans.school_id AND evolutionclans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', teacher_id) > 0 AND evolutionclans.evolutionlevel_id=evolutionlevels.id' . $where;
+        }
+        
+        $this->datatable->groupBy = ' GROUP BY evolutionclans.id';
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = '<a href="' . base_url() . 'clan/view/' . $aRow['id'] . '" class="text-black" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $this->lang->line('view_') . ' ' . $this->lang->line('clan') . '">' . $aRow['class_name'] . '</a>';
+            
+            $temp_arr[] = $aRow['instructor'];
+            $temp_arr[] = $aRow['level'];
+            $temp_arr[] = $aRow['school_name'] . ', ' . $aRow['academy_name'];
+            if ($aRow['total_students'] > 0) {
+                $temp_arr[] = '<a href="' . base_url() . 'evolutionclan/studentlist/' . $aRow['id'] . '/clan" class="text-black" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $this->lang->line('view_all') . ' ' . $this->lang->line('student') . '">' . $aRow['total_students'] . '</a>';
+            } else {
+                $temp_arr[] = $aRow['total_students'];
+            }
+            
+            $str = NULL;
+            if (hasPermission('evolutionclans', 'editEvolutionClan')) {
+                $str.= '<a href="' . base_url() . 'clan/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+            
+            if (hasPermission('evolutionclans', 'deleteEvolutionClan')) {
+                $str.= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
+            
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getEvolutionClanStudentsJsonData($academy_id = 0, $school_id = 0, $evolutionclan_id = 0) {
+        $where = NULL;
+        
+        if ($academy_id != 0) {
+            $where.= ' AND academies.id=' . $academy_id;
+        }
+        
+        if ($school_id != 0) {
+            $where.= ' AND schools.id=' . $school_id;
+        }
+        
+        if ($evolutionclan_id != 0) {
+            $where.= ' AND evolutionclans.id=' . $evolutionclan_id;
+        }
+        
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS student_name', 'evolutionclans.' . $this->session_data->language . '_class_name AS class_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name');
+        $this->datatable->eColumns = array('users.id', 'avtar');
+        $this->datatable->sIndexColumn = "users.id";
+        $this->datatable->sTable = " users, evolutionstudents";
+        
+        if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+            $this->datatable->myWhere = ' JOIN evolutionclans ON evolutionclans.id=evolutionstudents.evolutionclan_id JOIN schools ON schools.id=evolutionclans.school_id JOIN academies ON academies.id=schools.academy_id WHERE evolutionstudents.student_id=users.id AND users.status="A" ' . $where;
+        } else if ($this->session_data->role == '3') {
+            $this->datatable->myWhere = ' JOIN evolutionclans ON evolutionclans.id=userdetails.evolutionclan_id JOIN schools ON schools.id=evolutionclans.school_id JOIN academies ON academies.id=schools.academy_id  AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 WHERE evolutionstudents.student_id=users.id AND users.status="A" ' . $where;
+        } else if ($this->session_data->role == '4') {
+            $this->datatable->myWhere = ' JOIN evolutionclans ON evolutionclans.id=userdetails.evolutionclan_id JOIN schools ON schools.id=evolutionclans.school_id  AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0 JOIN academies ON academies.id=schools.academy_id WHERE evolutionstudents.student_id=users.id AND users.status="A" ' . $where;
+        } else if ($this->session_data->role == '5') {
+            $this->datatable->myWhere = ' JOIN evolutionclans ON evolutionclans.id=userdetails.evolutionclan_id AND FIND_IN_SET(' . $this->session_data->id . ', evolutionclans.teacher_id) > 0 JOIN schools ON schools.id=evolutionclans.school_id JOIN academies ON academies.id=schools.academy_id WHERE evolutionstudents.student_id=users.id AND users.status="A" ' . $where;
+        }
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = '<img src="' . IMG_URL . 'user_avtar/40X40/' . $aRow['avtar'] . '" class="avatar img-circle" alt="avatar"><a href="' . base_url() . 'profile/view/' . $aRow['id'] . '" class="text-black">' . $aRow['student_name'] . '</a>';
+
+            $temp_arr[] = $aRow['class_name'];
+            $temp_arr[] = $aRow['school_name'];
+            $temp_arr[] = $aRow['academy_name'];
+            
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
         echo json_encode($this->datatable->output);
         exit();
     }

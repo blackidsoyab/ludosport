@@ -255,5 +255,15 @@ $route['system_setting/(:any)'] = "systemsettings/viewSystemSetting/$1";
 //Student Batch Reqwuest
 $route['batchrequest/changestatus/(:num)'] = "batchrequests/changeStatusBatchrequest/$1";
 $route['batchrequest/changestatus/(:num)/(:any)'] = "batchrequests/changeStatusBatchrequest/$1/$2";
+
+//Evolutions
+$route['evolutioncategory/level/(:num)/(:num)'] = "ajax/getEvolutionLevels/$1/$2";
+$route['evolutionclan/studentlist'] = "evolutionclans/evolutionclanStudentList";
+$route['evolutionclan/studentlist/(:num)/(:any)'] = "evolutionclans/evolutionclanStudentList/$1/$2";
+$route['evolutionclan/studentjson'] = "json/getEvolutionClanStudentsJsonData";
+$route['evolutionclan/studentjson/(:any)'] = "json/getEvolutionClanStudentsJsonData/$1";
+$route['evolutionclan/studentjson/(:any)/(:any)'] = "json/getEvolutionClanStudentsJsonData/$1/$2";
+$route['evolutionclan/studentjson/(:any)/(:any)/(:any)'] = "json/getEvolutionClanStudentsJsonData/$1/$2/$3";
+$route['evolutionclan/getclasses/(:num)'] = "ajax/getEvolutionClassesOptionFromSchool/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

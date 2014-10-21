@@ -379,8 +379,8 @@
                             <li class="<?php echo ($page == 'view_attendance') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'clan/view_attendance'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('view_attendance'); ?>"><i class="fa fa-book icon-sidebar"></i><?php echo $this->lang->line('view_attendance'); ?></a></li>
                             <?php } ?>
 
-                            <?php if (hasPermission('batchrequests', 'viewBatchrequest')) { ?>
-                            <li class="<?php echo ($page == 'batchrequest') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'batchrequest'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('batch_request'); ?>"><i class="fa fa-graduation-cap icon-sidebar"></i><?php echo $this->lang->line('batch_request'); ?></a></li>
+                            <?php if (hasPermission('evolutions', 'viewEvolutionclan')) { ?>
+                            <li class="<?php echo ($page == 'evolutionclan') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'evolutionclan'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('evolutionclan'); ?>"><i class="fa fa-folder icon-sidebar"></i><?php echo $this->lang->line('evolutionclan'); ?></a></li>
                             <?php } ?>
 
                             <li class="static"><i class="fa fa-table icon-sidebar"></i>&nbsp;<?php echo $this->lang->line('setting'); ?></li>
@@ -391,6 +391,14 @@
 
                             <?php if (hasPermission('eventcategories', 'viewEventcategory')) { ?>
                             <li class="<?php echo ($page == 'eventcategory') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'eventcategory'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('eventcategory'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('eventcategory'); ?></a></li>
+                            <?php } ?>
+
+                            <?php if (hasPermission('evolutioncategories', 'viewEvolutioncategory')) { ?>
+                            <li class="<?php echo ($page == 'evolutioncategory') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'evolutioncategory'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('evolutioncategory'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('evolutioncategory'); ?></a></li>
+                            <?php } ?>
+
+                            <?php if (hasPermission('evolutionlevels', 'viewEvolutionlevel')) { ?>
+                            <li class="<?php echo ($page == 'evolutionlevel') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'evolutionlevel'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('evolutionlevel'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('evolutionlevel'); ?></a></li>
                             <?php } ?>
 
                             <?php if (hasPermission('batches', 'viewBatch')) { ?>   

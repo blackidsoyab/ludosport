@@ -3,7 +3,7 @@ class School extends DataMapper
 {
     
     public $has_one = array('academy');
-    public $has_many = array('clan');
+    public $has_many = array('clan','evolutionclan');
     
     // Optionally, don't include a constructor if you don't need one.
     function __construct($id = NULL) {

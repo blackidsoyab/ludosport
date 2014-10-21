@@ -232,6 +232,14 @@ if (!function_exists('createPermissionArray')) {
                     'viewStudentrating' => array('name' => 'List'),
                     'editStudentrating' => array('name' => 'Edit'),
                     )),
+            'batches' => array(
+                'name' => 'Batches',
+                'hasChild' => array(
+                    'viewBatch' => array('name' => 'List'),
+                    'addBatch' => array('name' => 'Add'),
+                    'editBatch' => array('name' => 'Edit'),
+                    'deleteBatch' => array('name' => 'Delete'),
+                    )),
             'batchrequests' => array(
                 'name' => 'Batch request',
                 'hasChild' => array(
@@ -297,13 +305,29 @@ if (!function_exists('createPermissionArray')) {
                     'sendEventInvitation' => array('name' => 'Send Invitation'),
                     'takeEventAttendance' => array('name' => 'Take Event Attendances'),
                     )),
-            'batches' => array(
-                'name' => 'Batches',
+            'evolutioncategories' => array(
+                'name' => 'Evolution Categories',
                 'hasChild' => array(
-                    'viewBatch' => array('name' => 'List'),
-                    'addBatch' => array('name' => 'Add'),
-                    'editBatch' => array('name' => 'Edit'),
-                    'deleteBatch' => array('name' => 'Delete'),
+                    'viewEvolutioncategory' => array('name' => 'List'),
+                    'addEvolutioncategory' => array('name' => 'Add'),
+                    'editEvolutioncategory' => array('name' => 'Edit'),
+                    'deleteEvolutioncategory' => array('name' => 'Delete'),
+                    )),
+            'evolutionlevels' => array(
+                'name' => 'Evolution Level',
+                'hasChild' => array(
+                    'viewEvolutionlevel' => array('name' => 'List'),
+                    'addEvolutionlevel' => array('name' => 'Add'),
+                    'editEvolutionlevel' => array('name' => 'Edit'),
+                    'deleteEvolutionlevel' => array('name' => 'Delete'),
+                    )),
+            'evolutionclans' => array(
+                'name' => 'Evolution',
+                'hasChild' => array(
+                    'viewEvolutionclan' => array('name' => 'List'),
+                    'addEvolutionclan' => array('name' => 'Add'),
+                    'editEvolutionclan' => array('name' => 'Edit'),
+                    'deleteEvolutionclan' => array('name' => 'Delete'),
                     )),
             'profiles' => array(
                 'name' => 'Profile',
