@@ -875,7 +875,18 @@ class students extends CI_Controller
     
     function viewEvolution() {
         $this->layout->setField('page_title', $this->lang->line('evolution'));
-        $this->layout->view('students/evolution');
+
+        $obj_category = new Evolutioncategory();
+        
+        foreach ($obj_category->get() as $category) {
+            $data['evolution_categories'][] = $category->stored;
+
+            foreach ($category->Evolutionlevel->order_by('depth', 'ASC')->get() as $level) {
+                $data['evolution_levels'][] = $level->stored;                
+            }
+        }
+
+        $this->layout->view('students/evolution', $data);
     }
     
     function viewAdministrationReceived() {

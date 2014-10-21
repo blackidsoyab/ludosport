@@ -28,7 +28,13 @@ class evolutionlevels extends CI_Controller
                 }
             }
             $evolutionlevel->evolutioncategory_id = $this->input->post('evolutioncategory_id');
-            $evolutionlevel->on_passing = $this->input->post('on_passing');            
+            if($this->input->post('on_passing') != 0){
+                $obj_evolutionlevel = new Evolutionlevel($this->input->post('on_passing'));
+                $evolutionlevel->depth = (int)$obj_evolutionlevel->depth + 1;
+            }else{
+                $evolutionlevel->depth = 0;
+            }
+            $evolutionlevel->on_passing = $this->input->post('on_passing');
             $evolutionlevel->user_id = $this->session_data->id;
             $evolutionlevel->save();
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
@@ -60,6 +66,12 @@ class evolutionlevels extends CI_Controller
                     }
                 }
                 $evolutionlevel->evolutioncategory_id = $this->input->post('evolutioncategory_id');
+                if($this->input->post('on_passing') != 0){
+                    $obj_evolutionlevel = new Evolutionlevel($this->input->post('on_passing'));
+                    $evolutionlevel->depth = (int)$obj_evolutionlevel->depth + 1;
+                }else{
+                    $evolutionlevel->depth = 0;
+                }
                 $evolutionlevel->on_passing = $this->input->post('on_passing');            
                 $evolutionlevel->user_id = $this->session_data->id;
                 $evolutionlevel->save();
