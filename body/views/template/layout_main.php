@@ -379,7 +379,7 @@
                             <li class="<?php echo ($page == 'view_attendance') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'clan/view_attendance'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('view_attendance'); ?>"><i class="fa fa-book icon-sidebar"></i><?php echo $this->lang->line('view_attendance'); ?></a></li>
                             <?php } ?>
 
-                            <?php if (hasPermission('evolutions', 'viewEvolutionclan')) { ?>
+                            <?php if (hasPermission('evolutionclans', 'viewEvolutionclan')) { ?>
                             <li class="<?php echo ($page == 'evolutionclan') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'evolutionclan'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('evolutionclan'); ?>"><i class="fa fa-folder icon-sidebar"></i><?php echo $this->lang->line('evolutionclan'); ?></a></li>
                             <?php } ?>
 

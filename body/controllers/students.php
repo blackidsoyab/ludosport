@@ -875,18 +875,125 @@ class students extends CI_Controller
     
     function viewEvolution() {
         $this->layout->setField('page_title', $this->lang->line('evolution'));
-
-        $obj_category = new Evolutioncategory();
         
+        $obj_category = new Evolutioncategory();
         foreach ($obj_category->get() as $category) {
             $data['evolution_categories'][] = $category->stored;
-
             foreach ($category->Evolutionlevel->order_by('depth', 'ASC')->get() as $level) {
-                $data['evolution_levels'][] = $level->stored;                
+                $data['evolution_levels_' . $category->id][] = $level->stored;
+                foreach ($level->Evolutionclan->order_by($this->session_data->language . '_class_name', 'ASC')->get() as $clan) {
+                    $data['evolution_clans_' . $level->id][] = $clan->stored;
+                }
             }
         }
 
+        $obj_student_clan_details = new Evolutionstudent();
+        $student_clan_details = $obj_student_clan_details->where('student_id' , $this->session_data->id)->get();
+        if ($student_clan_details->result_count() > 0) {
+            foreach ($student_clan_details as $clan_details) {
+                if ($clan_details->status == 'P') {
+                    $data['evolution_clan_pending'][$clan_details->Evolutionclan->evolutioncategory_id][] = $clan_details->Evolutionclan->evolutionlevel_id;
+                }
+                
+                if ($clan_details->status == 'A') {
+                    $data['evolution_clan_active'][$clan_details->Evolutionclan->evolutioncategory_id][] = $clan_details->Evolutionclan->evolutionlevel_id;
+                }
+                
+                if ($clan_details->status == 'C') {
+                    $data['evolution_clan_completed'][$clan_details->Evolutionclan->evolutioncategory_id][] = $clan_details->Evolutionclan->evolutionlevel_id;
+                }
+            }
+        }
+        
+        if (!isset($data['evolution_clan_pending'])) {
+            $data['evolution_clan_pending'] = array();
+        }
+        
+        if (!isset($data['evolution_clan_active'])) {
+            $data['evolution_clan_active'] = array();
+        }
+        
+        if (!isset($data['evolution_clan_completed'])) {
+            $data['evolution_clan_completed'] = array();
+        }
+        
         $this->layout->view('students/evolution', $data);
+    }
+
+    function applyEvolutionClan(){
+       if($this->input->post() !== false) {
+            $obj_student = new Evolutionstudent();
+            $student_detail = $obj_student->where(array('student_id' => $this->session_data->id, 'status' => 'A'))->get();
+            $active_clan_detail = $obj_student->Evolutionclan->get();
+
+            $obj_clan = new Evolutionclan($this->input->post('clan_id'));
+
+            if($active_clan_detail->evolutioncategory_id != $obj_clan->evolutioncategory_id){
+                unset($obj_student);
+                
+                $obj_student = new Evolutionstudent();
+
+                $obj_student->evolutionclan_id = $this->input->post('clan_id');
+                $obj_student->student_id = $this->session_data->id;
+                $obj_student->user_id = $this->session_data->id;
+                $obj_student->save();
+
+                $obj = new Evolutionstudent($obj_student->id);
+                $this->_sendNotificationEmailForEvoltion('evolution_clan_request', $obj->stored, $obj->id);
+
+                $this->session->set_flashdata('success', $this->lang->line('applied_for_clan_successfully'));
+                echo true;
+            }else{
+                $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                redirect(base_url() . 'evolution', 'refresh');    
+            }
+        }else{
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'dashboard', 'refresh');
+        }
+    }
+
+    function _sendNotificationEmailForEvoltion($type, $post, $object_id){
+        $clan = new Evolutionclan($post->evolutionclan_id);
+        $final_ids = array_unique(array_merge(explode(',', $clan->teacher_id), User::getAdminIds()));
+
+        foreach ($final_ids as $user_id) {
+            $notification = new Notification();
+            $notification->type = 'N';
+            $notification->notify_type = $type;
+            $notification->from_id = $this->session_data->id;
+            $notification->to_id = $user_id;
+            $notification->object_id = $object_id;
+            $notification->data = serialize(objectToArray($post));
+            $notification->save();
+
+            $email = new Email();
+            $email->where('type', $type)->get();
+            $message = $email->message;
+
+            $user = userNameEmail($user_id);
+
+            if($type == 'evolution_clan_request'){
+                $message = str_replace('#user_name', $user['name'], $message);
+                $message = str_replace('#request_username', $this->session_data->name, $message);
+                $message = str_replace('#clan_name', $clan->en_class_name, $message);
+            }
+
+            $check_privacy = unserialize($user['email_privacy']);
+            if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy[$type] == 1) {
+                //set option for sending mail
+                $option = array();
+                $option['tomailid'] = $user['email'];
+                $option['subject'] = $email->subject;
+                $option['message'] = $message;
+                if (!is_null($email->attachment)) {
+                    $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                }
+                send_mail($option);
+            }
+        }
+
+        return true;
     }
     
     function viewAdministrationReceived() {

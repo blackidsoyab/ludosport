@@ -342,7 +342,7 @@ function getNotificationTemplate($options, $user_name_link = false) {
 
     if ($options['notify_type'] == 'batch_request_approved' || $options['notify_type'] == 'batch_request_unapproved') {
         $template_edit = true;
-        $student = userNameEmail($options['data']['student_id']);
+        $student = userNameAvtar($options['data']['student_id'], $user_name_link);
         $obj_batch = new Batch($options['data']['batch_id']);
         $batch = $obj_batch->{$session->language.'_name'};
         $new_template = sprintf($templates[$options['notify_type']][$session->language],$batch, $student['name']);
@@ -351,6 +351,13 @@ function getNotificationTemplate($options, $user_name_link = false) {
     if ($options['notify_type'] == 'new_announcement') {
         $template_edit = true;
         $new_template = sprintf($templates[$options['notify_type']][$session->language],$options['data']['subject']);
+    }
+
+    if($options['notify_type'] == 'evolution_clan_request'){
+        $template_edit = true;
+        $user_name = userNameAvtar($options['from_id'], $user_name_link);
+        $clan = new Evolutionclan($options['data']['evolutionclan_id']);
+        $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name'], $clan->{$session->language.'_class_name'});
     }     
 
     if ($template_edit) {
@@ -506,6 +513,11 @@ function seNotificationTemplate() {
         array(
             'en' => 'Announcement : %s',
             'it' => 'Announcement : %s',
+        ),
+        'evolution_clan_request' =>
+        array(
+            'en' => '%s requested for the evolution clan %s',
+            'it' => '%s requested for the evolution clan %s',
         )
     );
 
@@ -665,7 +677,14 @@ function getTimelineTemplate($options, $user_name_link = false) {
     if ($options['notify_type'] == 'new_announcement') {
         $template_edit = true;
         $new_template = sprintf($templates[$options['notify_type']][$session->language],$options['data']['subject'] .' '.$options['data']['announcement']);
-    }   
+    }
+
+    if($options['notify_type'] == 'evolution_clan_request'){
+        $template_edit = true;
+        $user_name = userNameAvtar($options['from_id'], $user_name_link);
+        $clan = new Evolutionclan($options['data']['evolutionclan_id']);
+        $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name'], $clan->{$session->language.'_class_name'});
+    }       
 
     if ($template_edit) {
         return $new_template;
@@ -820,6 +839,11 @@ function setTimelineTemplate() {
         array(
             'en' => 'Announcement : %s',
             'it' => 'Announcement : %s',
+        ),
+        'evolution_clan_request' =>
+        array(
+            'en' => '%s requested for the evolution clan %s',
+            'it' => '%s requested for the evolution clan %s',
         )
     );
 

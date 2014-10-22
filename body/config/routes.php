@@ -180,6 +180,7 @@ $route['shop/json_data'] = "json/getStudentPaymentHistoryJsonData";
 $route['shop/invoice/(:num)'] = "students/viewInvoice/$1";
 $route['journal'] = "students/viewJournal";
 $route['evolution'] = "students/viewEvolution";
+$route['evolution/apply_for_clan'] = "students/applyEvolutionClan";
 $route['received'] = "students/viewAdministrationReceived";
 $route['renewals'] = "students/viewAdministrationRenewal";
 $route['certificates'] = "students/viewAdministrationCertificate";
@@ -257,7 +258,8 @@ $route['batchrequest/changestatus/(:num)'] = "batchrequests/changeStatusBatchreq
 $route['batchrequest/changestatus/(:num)/(:any)'] = "batchrequests/changeStatusBatchrequest/$1/$2";
 
 //Evolutions
-$route['evolutioncategory/level/(:num)/(:num)'] = "ajax/getEvolutionLevels/$1/$2";
+$route['evolutioncategory/level/(:num)'] = "ajax/getEvolutionLevels/$1";
+$route['evolutionlevel/level/(:num)'] = "ajax/getEvolutionLevelForLevel/$1";
 $route['evolutionclan/studentlist'] = "evolutionclans/evolutionclanStudentList";
 $route['evolutionclan/studentlist/(:num)/(:any)'] = "evolutionclans/evolutionclanStudentList/$1/$2";
 $route['evolutionclan/studentjson'] = "json/getEvolutionClanStudentsJsonData";

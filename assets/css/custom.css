@@ -679,3 +679,32 @@ h1.page-heading a{
 .navbar-right > li.last {
     float: none;
 }
+
+/*
+*
+* Evolution List 
+*
+*/
+
+#evolution-clan-list .list-group-item:first-child {
+    border-top: none; 
+}
+
+#evolution-clan-list .panel-primary .panel-body a {
+    color: #37BC9B;
+}
+
+#evolution-clan-list a{
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#evolution-clan-list h4.modal-title {
+    color: #fff;
+}
+
+#evolution-clan-list .table > tbody > tr:first-child > td {
+    border-top:none;
+}
+
+/* ******************************** */

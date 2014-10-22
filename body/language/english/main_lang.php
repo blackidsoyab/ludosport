@@ -541,8 +541,11 @@ $lang['evolutioncategory'] = 'Evolution Category';
 $lang['evolutionlevel'] = 'Evolution Level';
 $lang['basic_evolution_level'] = 'Basci Level';
 $lang['apply_after_passing'] = 'Only apply after passing level';
+$lang['criteria'] = 'Criteria';
 
 //Evolution Clans
 $lang['evolutionclan'] = 'Evolution';
 $lang['no_of_studnet'] = 'No of Student';
+$lang['applied_for_clan_successfully'] = 'Request sent succeessfully';
+$lang['applied_for_clan_error'] = 'Error in sending request';
 ?>
