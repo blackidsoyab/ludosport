@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 21, 2014 at 06:31 PM
+-- Generation Time: Oct 22, 2014 at 06:10 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3
 
@@ -546,7 +546,7 @@ CREATE TABLE IF NOT EXISTS `emails` (
   `format_info` text CHARACTER SET utf8,
   `user_id` int(11) NOT NULL DEFAULT '1',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `emails`
@@ -580,7 +580,10 @@ INSERT INTO `emails` (`id`, `type`, `subject`, `message`, `attachment`, `format_
 (25, 'new_announcement', 'New Announcement | MyLudosport', '<div>Dear #user_name,</div><div><br>Their is new announcement for you from #announcer_name.</div><div><br></div><div>#announcement</div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#announcer_name\r\n#subject\r\n#announcement', 1, '2014-08-25 08:05:22'),
 (26, 'event_manager', 'Event Manager | MyLudosport', '<p>Dear #user</p><p>A New Event is organised and you are selected as manager.</p><p><br></p><h4><span>Event Details :</span></h4><h4></h4><p><span >Name : #event_name</span><br></p><p>Date : #from_date to #to_date</p><p>Location : #location</p><p>Event Created &nbsp;:&nbsp;#event_created_by</p><p><br></p><p></p><div>Thanks.</div><div><hr>Please Click Here to <a href="http://#" target="_blank">unsubscribe</a></div><p></p>', NULL, '#user\r\n#event_name\r\n#from_date\r\n#to_date\r\n#location\r\n#event_created_by', 1, '2014-08-25 08:05:22'),
 (27, 'challenge_winner_confirmation', 'Confirmation of Winner in Challenge | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>The result is almost declare of the match played between you and #opponent_name&nbsp;on date : #on_date #on_time and t<span style="line-height: 1.42857143;">he winner is #winner . Please confirmation it.</span></div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#opponent_name\r\n#on_date\r\n#to_time\r\n#winner', 1, '2014-09-09 11:56:53'),
-(28, 'contrast_opinions_challenge_winner', 'Contrast of opinion on Winner in Challenge | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>The result is declare of the match played between you and #opponent_name&nbsp;on date : #on_date #on_time and t<span style="line-height: 1.42857143;">he winner is #winner . But opinion of both&nbsp;</span>students<span style="line-height: 1.42857143;">&nbsp;does not matched.</span></div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#opponent_name\r\n#on_date\r\n#to_time\r\n#winner', 1, '2014-09-09 11:56:53');
+(28, 'contrast_opinions_challenge_winner', 'Contrast of opinion on Winner in Challenge | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>The result is declare of the match played between you and #opponent_name&nbsp;on date : #on_date #on_time and t<span style="line-height: 1.42857143;">he winner is #winner . But opinion of both&nbsp;</span>students<span style="line-height: 1.42857143;">&nbsp;does not matched.</span></div><div><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#opponent_name\r\n#on_date\r\n#to_time\r\n#winner', 1, '2014-09-09 11:56:53'),
+(29, 'evolution_clan_request', 'Request for Evolution Clan | MyLudosport', '<div >Dear #user_name,</div><div ><br></div><div >#request_username has requested for Evolution clan &nbsp;#clan_name</div><div ><br></div><div >Thanks </div><div ><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#clan_name\r\n#request_username', 1, '2014-08-25 08:05:22'),
+(30, 'evolution_clan_request_approved', 'Request for Evolution Clan Approved | MyLudosport', '<div >Dear #user_name,</div><div ><br></div><div >#request_username has requested for Evolution clan &nbsp;#clan_name</div><div ><br></div><div >Thanks </div><div ><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#clan_name\r\n#request_username\r\n#authorized_username', 1, '2014-08-25 08:05:22'),
+(31, 'evolution_clan_request_unapproved', 'Request for Evolution Clan unapproved | MyLudosport', '<div >Dear #user_name,</div><div ><br></div><div >#request_username has requested for Evolution clan &nbsp;#clan_name</div><div ><br></div><div >Thanks </div><div ><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#clan_name\r\n#request_username\r\n#authorized_username', 1, '2014-08-25 08:05:22');
 
 -- --------------------------------------------------------
 
@@ -685,14 +688,15 @@ CREATE TABLE IF NOT EXISTS `evolutioncategories` (
   `description` text CHARACTER SET utf8 COLLATE utf8_bin,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `evolutioncategories`
 --
 
 INSERT INTO `evolutioncategories` (`id`, `en_name`, `it_name`, `image`, `description`, `user_id`, `timestamp`) VALUES
-(1, 'Instructor Courses', 'Instructor Courses', '565c6f8fd4c9bceeddcc4e6131d9fd9d.jpg', '<p style="margin-bottom: 14px; padding: 0px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum commodo elit eu rutrum. Nam rutrum, est sit amet lacinia vehicula, quam orci finibus lacus, in posuere leo lorem vitae ante. In tempus neque sed arcu tincidunt, pretium aliquet quam sodales. Ut sed maximus neque, quis blandit sem. Etiam turpis nisi, hendrerit sed est vel, tempor auctor mauris. Donec elementum consectetur rutrum. Praesent scelerisque convallis sapien. Maecenas imperdiet velit mauris, a viverra ipsum viverra et. Pellentesque sit amet ipsum sed lacus dapibus auctor et eu orci. Curabitur eget aliquet nibh, vitae rutrum diam. Cras ultricies condimentum orci, vitae consequat lacus vehicula eu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean odio magna, porta sit amet lacus vitae, tristique rutrum mauris. Sed eu mauris metus. Vestibulum nec ante eros. Donec suscipit sollicitudin nisi at aliquam.</p><p style="margin-bottom: 14px; padding: 0px;">Sed tempus ultrices eros, non egestas enim facilisis ut. Suspendisse a leo viverra, mollis nulla nec, rutrum neque. Mauris congue accumsan diam, ut viverra libero fermentum et. In vestibulum semper leo et tincidunt. Integer sit amet ligula et sem eleifend ullamcorper eget sed urna. Pellentesque cursus augue ac magna molestie, gravida maximus libero aliquam. Proin posuere a sem nec egestas. Quisque luctus consequat sapien pretium consequat. Praesent facilisis risus in tellus imperdiet malesuada. Integer nisi nulla, rhoncus sit amet ullamcorper vel, cursus sit amet leo. Nam vitae molestie eros. Nulla ut vulputate risus. Maecenas risus ligula, placerat a venenatis nec, interdum quis leo. Morbi aliquam dapibus ex a pretium. Donec vel molestie lacus, non commodo risus.</p>', 1, '2014-10-21 09:04:45');
+(1, 'Instructor Courses', 'Instructor Courses', '565c6f8fd4c9bceeddcc4e6131d9fd9d.jpg', '<p style="margin-bottom: 14px; padding: 0px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum commodo elit eu rutrum. Nam rutrum, est sit amet lacinia vehicula, quam orci finibus lacus, in posuere leo lorem vitae ante. In tempus neque sed arcu tincidunt, pretium aliquet quam sodales. Ut sed maximus neque, quis blandit sem. Etiam turpis nisi, hendrerit sed est vel, tempor auctor mauris. Donec elementum consectetur rutrum. Praesent scelerisque convallis sapien. Maecenas imperdiet velit mauris, a viverra ipsum viverra et. Pellentesque sit amet ipsum sed lacus dapibus auctor et eu orci. Curabitur eget aliquet nibh, vitae rutrum diam. Cras ultricies condimentum orci, vitae consequat lacus vehicula eu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean odio magna, porta sit amet lacus vitae, tristique rutrum mauris. Sed eu mauris metus. Vestibulum nec ante eros. Donec suscipit sollicitudin nisi at aliquam.</p><p style="margin-bottom: 14px; padding: 0px;">Sed tempus ultrices eros, non egestas enim facilisis ut. Suspendisse a leo viverra, mollis nulla nec, rutrum neque. Mauris congue accumsan diam, ut viverra libero fermentum et. In vestibulum semper leo et tincidunt. Integer sit amet ligula et sem eleifend ullamcorper eget sed urna. Pellentesque cursus augue ac magna molestie, gravida maximus libero aliquam. Proin posuere a sem nec egestas. Quisque luctus consequat sapien pretium consequat. Praesent facilisis risus in tellus imperdiet malesuada. Integer nisi nulla, rhoncus sit amet ullamcorper vel, cursus sit amet leo. Nam vitae molestie eros. Nulla ut vulputate risus. Maecenas risus ligula, placerat a venenatis nec, interdum quis leo. Morbi aliquam dapibus ex a pretium. Donec vel molestie lacus, non commodo risus.</p>', 1, '2014-10-21 09:04:45'),
+(2, 'Master''s Degree', 'Master''s Degree', '8bd770b261c68427e49b357493454ab6.jpg', '<p style="line-height: 2;"><span style="text-align: justify;"><span style="font-weight: bold;">Lorem ipsum dolor sit amet</span>, consectetur adipiscing elit. Sed sit amet mollis nisi. Sed tincidunt orci ut erat luctus posuere. Donec fringilla lectus non eleifend scelerisque. Proin eu magna ut nisl molestie pharetra. Quisque non est lorem. <span style="font-weight: bold;">Vestibulum</span> nisl diam, consequat porta iaculis sed, viverra et nibh. <span style="font-weight: bold;">Vestibulum</span> neque lorem, semper eget lorem quis, cursus hendrerit ipsum. Nunc et venenatis massa, sed facilisis orci. <span style="font-weight: bold;">Vestibulum</span> lobortis congue elit et tincidunt. Proin a justo massa. Cras maximus, augue et feugiat aliquam, ipsum tortor euismod felis, elementum tristique mauris neque vel sapien.</span><br></p>', 1, '2014-10-22 05:56:30');
 
 -- --------------------------------------------------------
 
@@ -725,14 +729,21 @@ CREATE TABLE IF NOT EXISTS `evolutionclans` (
   `email` varchar(65) NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `evolutionclans`
 --
 
 INSERT INTO `evolutionclans` (`id`, `school_id`, `teacher_id`, `evolutioncategory_id`, `evolutionlevel_id`, `max_student`, `clan_from`, `clan_to`, `lesson_day`, `lesson_from`, `lesson_to`, `en_class_name`, `it_class_name`, `same_address`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `user_id`, `timestamp`) VALUES
-(1, 1, '3', 1, 1, 10, '2014-11-01', '2014-12-31', '1,3,4,7', 1413862200, 1413873000, 'Evolution Instructor Clan 1', 'Evolution Instructor Clan 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-21 11:08:03');
+(1, 1, '3', 1, 1, 10, '2014-11-01', '2014-12-31', '1,3,4,7', 1413862200, 1413873000, 'Evolution Instructor Level 1 Clan 1', 'Evolution Instructor Level 1 Clan 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-21 11:08:03'),
+(2, 1, '3', 1, 1, 10, '2014-11-01', '2014-12-31', '1,3,4,7', 1413862200, 1413873000, 'Evolution Instructor Level 1 Clan 2', 'Evolution Instructor Level 1 Clan 2', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-21 11:08:03'),
+(3, 2, '5', 2, 3, 10, '2014-09-01', '2014-12-31', '1', 1413945000, 1413959400, 'Evolution Master Shiicho Clan 1', 'Evolution Master Shiicho Clan 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-22 05:58:47'),
+(4, 2, '5', 2, 3, 10, '2014-09-01', '2014-12-31', '1', 1413945000, 1413959400, 'Evolution Master Shiicho Clan 2', 'Evolution Master Makashi Clan 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-22 05:58:47'),
+(5, 2, '5', 2, 4, 10, '2014-09-01', '2014-12-31', '1', 1413945000, 1413959400, 'Evolution Master Makashi Clan 1', 'Evolution Master Makashi Clan 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-22 05:58:47'),
+(6, 1, '3', 1, 1, 10, '2014-11-01', '2014-12-31', '1,3,4,7', 1413862200, 1413873000, 'Evolution Instructor Level 1 Clan 3', 'Evolution Instructor Level 1 Clan 3', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-21 11:08:03'),
+(7, 1, '3', 1, 2, 10, '2014-11-01', '2014-12-31', '1,3,4,7', 1413862200, 1413873000, 'Evolution Instructor Level 2 Clan 1', 'Evolution Instructor Level 2 Clan 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-21 11:08:03'),
+(8, 1, '3', 1, 2, 10, '2014-11-01', '2014-12-31', '1,3,4,7', 1413862200, 1413873000, 'Evolution Instructor Level 2 Clan 2', 'Evolution Instructor Level 2 Clan 2', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-21 11:08:03');
 
 -- --------------------------------------------------------
 
@@ -749,19 +760,20 @@ CREATE TABLE IF NOT EXISTS `evolutionlevels` (
   `on_passing` int(11) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `evolutionlevels`
 --
 
 INSERT INTO `evolutionlevels` (`id`, `evolutioncategory_id`, `en_name`, `it_name`, `depth`, `on_passing`, `user_id`, `timestamp`) VALUES
-(1, 1, 'Instructor Level 1', 'Instructor Level 1', 0, 0, 1, '2014-10-21 09:53:17'),
-(2, 1, 'Instructor Level 2', 'Instructor Level 2', 1, 1, 1, '2014-10-21 09:53:31'),
-(3, 1, 'Instructor Level 3', 'Instructor Level 3', 2, 2, 1, '2014-10-21 12:46:56'),
-(4, 1, 'Instructor Level 4', 'Instructor Level 4', 3, 3, 1, '2014-10-21 12:46:56'),
-(5, 1, 'Instructor Level 5', 'Instructor Level 5', 4, 4, 1, '2014-10-21 12:46:56'),
-(6, 1, 'Instructor Level 6', 'Instructor Level 6', 5, 5, 1, '2014-10-21 12:46:56');
+(1, 1, 'Instructor Level 1', 'Instructor Level 1', 0, 0, 1, '2014-10-22 09:21:51'),
+(2, 1, 'Instructor Level 2', 'Instructor Level 2', 1, 1, 1, '2014-10-22 09:29:04'),
+(3, 2, 'Master Shiicho', 'Master Shiicho', 0, 0, 1, '2014-10-22 09:29:38'),
+(4, 2, 'Master Makashi', 'Master Makashi', 1, 3, 1, '2014-10-22 09:29:47'),
+(5, 1, 'Instructor Level 3', 'Instructor Level 3', 2, 2, 1, '2014-10-22 09:29:04'),
+(6, 1, 'Instructor Level 4', 'Instructor Level 4', 3, 5, 1, '2014-10-22 10:12:22'),
+(7, 1, 'Instructor Level 5', 'Instructor Level 5', 4, 6, 1, '2014-10-22 10:12:37');
 
 -- --------------------------------------------------------
 
@@ -783,7 +795,7 @@ CREATE TABLE IF NOT EXISTS `evolutionstudents` (
 --
 
 INSERT INTO `evolutionstudents` (`id`, `evolutionclan_id`, `student_id`, `status`, `user_id`, `timestamp`) VALUES
-(1, 1, 37, 'P', 37, '2014-10-21 11:46:32');
+(1, 1, 37, 'P', 37, '2014-10-22 11:59:04');
 
 -- --------------------------------------------------------
 
@@ -1005,7 +1017,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `data` longtext CHARACTER SET utf8 COLLATE utf8_bin,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `notifications`
@@ -1028,7 +1040,9 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (14, 'I', 'user_register', 0, 6, 39, 'a:10:{s:9:"firstname";s:6:"Second";s:8:"lastname";s:9:"Developer";s:8:"username";s:4:"dev2";s:7:"city_id";s:1:"1";s:17:"city_of_residence";s:5:"Milan";s:13:"date_of_birth";s:10:"21-07-1994";s:5:"email";s:16:"dev2@yopmail.com";s:8:"password";s:3:"111";s:9:"cpassword";s:3:"111";s:16:"terms_conditions";s:2:"on";}', 1, '2014-10-20 05:16:57'),
 (15, 'I', 'user_register', 0, 7, 39, 'a:10:{s:9:"firstname";s:6:"Second";s:8:"lastname";s:9:"Developer";s:8:"username";s:4:"dev2";s:7:"city_id";s:1:"1";s:17:"city_of_residence";s:5:"Milan";s:13:"date_of_birth";s:10:"21-07-1994";s:5:"email";s:16:"dev2@yopmail.com";s:8:"password";s:3:"111";s:9:"cpassword";s:3:"111";s:16:"terms_conditions";s:2:"on";}', 1, '2014-10-20 05:17:02'),
 (16, 'I', 'user_register', 0, 8, 39, 'a:10:{s:9:"firstname";s:6:"Second";s:8:"lastname";s:9:"Developer";s:8:"username";s:4:"dev2";s:7:"city_id";s:1:"1";s:17:"city_of_residence";s:5:"Milan";s:13:"date_of_birth";s:10:"21-07-1994";s:5:"email";s:16:"dev2@yopmail.com";s:8:"password";s:3:"111";s:9:"cpassword";s:3:"111";s:16:"terms_conditions";s:2:"on";}', 1, '2014-10-20 05:17:08'),
-(17, 'I', 'user_register', 0, 25, 39, 'a:10:{s:9:"firstname";s:6:"Second";s:8:"lastname";s:9:"Developer";s:8:"username";s:4:"dev2";s:7:"city_id";s:1:"1";s:17:"city_of_residence";s:5:"Milan";s:13:"date_of_birth";s:10:"21-07-1994";s:5:"email";s:16:"dev2@yopmail.com";s:8:"password";s:3:"111";s:9:"cpassword";s:3:"111";s:16:"terms_conditions";s:2:"on";}', 1, '2014-10-20 05:17:14');
+(17, 'I', 'user_register', 0, 25, 39, 'a:10:{s:9:"firstname";s:6:"Second";s:8:"lastname";s:9:"Developer";s:8:"username";s:4:"dev2";s:7:"city_id";s:1:"1";s:17:"city_of_residence";s:5:"Milan";s:13:"date_of_birth";s:10:"21-07-1994";s:5:"email";s:16:"dev2@yopmail.com";s:8:"password";s:3:"111";s:9:"cpassword";s:3:"111";s:16:"terms_conditions";s:2:"on";}', 1, '2014-10-20 05:17:14'),
+(22, 'N', 'evolution_clan_request', 37, 3, 1, 'a:6:{s:2:"id";i:1;s:16:"evolutionclan_id";s:1:"1";s:10:"student_id";s:2:"37";s:6:"status";s:1:"P";s:7:"user_id";s:2:"37";s:9:"timestamp";s:19:"2014-10-22 17:29:04";}', 0, '2014-10-22 11:59:04'),
+(23, 'N', 'evolution_clan_request', 37, 2, 1, 'a:6:{s:2:"id";i:1;s:16:"evolutionclan_id";s:1:"1";s:10:"student_id";s:2:"37";s:6:"status";s:1:"P";s:7:"user_id";s:2:"37";s:9:"timestamp";s:19:"2014-10-22 17:29:04";}', 0, '2014-10-22 11:59:10');
 
 -- --------------------------------------------------------
 
@@ -1082,7 +1096,7 @@ INSERT INTO `roles` (`id`, `en_role_name`, `it_role_name`, `is_manager`, `permis
 (1, 'Super Admin', 'Super Amministratore', 0, NULL, '0', 0, '2014-07-17 07:04:55'),
 (2, 'Admin', 'Admin', 0, 'a:20:{s:5:"roles";a:2:{i:0;s:8:"viewRole";i:1;s:8:"editRole";}s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:7:"batches";a:3:{i:0;s:9:"viewBatch";i:1;s:9:"editBatch";i:2;s:11:"deleteBatch";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:4:{i:0;s:11:"viewAcademy";i:1;s:10:"addAcademy";i:2;s:11:"editAcademy";i:3;s:13:"deleteAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:6:"levels";a:4:{i:0;s:9:"viewLevel";i:1;s:8:"addLevel";i:2;s:9:"editLevel";i:3;s:11:"deleteLevel";}s:5:"clans";a:10:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:18:"clanViewAttendance";i:7;s:22:"listTrialLessonRequest";i:8;s:24:"changeStatusTrialStudent";i:9;s:14:"changeClanDate";}s:15:"eventcategories";a:4:{i:0;s:17:"viewEventcategory";i:1;s:16:"addEventcategory";i:2;s:17:"editEventcategory";i:3;s:19:"deleteEventcategory";}s:6:"events";a:6:{i:0;s:9:"viewEvent";i:1;s:8:"addEvent";i:2;s:9:"editEvent";i:3;s:11:"deleteEvent";i:4;s:19:"sendEventInvitation";i:5;s:19:"takeEventAttendance";}s:19:"evolutioncategories";a:4:{i:0;s:21:"viewEvolutioncategory";i:1;s:20:"addEvolutioncategory";i:2;s:21:"editEvolutioncategory";i:3;s:23:"deleteEvolutioncategory";}s:15:"evolutionlevels";a:4:{i:0;s:18:"viewEvolutionlevel";i:1;s:17:"addEvolutionlevel";i:2;s:18:"editEvolutionlevel";i:3;s:20:"deleteEvolutionlevel";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:6:"emails";a:2:{i:0;s:9:"viewEmail";i:1;s:9:"editEmail";}s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:9:"viewState";i:1;s:8:"addState";i:2;s:9:"editState";i:3;s:11:"deleteState";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"5";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 2, '2014-07-17 07:27:03'),
 (3, 'Rector', 'Rettore', 1, 'a:12:{s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:9:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:18:"clanViewAttendance";i:7;s:22:"listTrialLessonRequest";i:8;s:14:"changeClanDate";}s:6:"events";a:1:{i:0;s:9:"viewEvent";}s:19:"evolutioncategories";a:4:{i:0;s:21:"viewEvolutioncategory";i:1;s:20:"addEvolutioncategory";i:2;s:21:"editEvolutioncategory";i:3;s:23:"deleteEvolutioncategory";}s:15:"evolutionlevels";a:4:{i:0;s:18:"viewEvolutionLevel";i:1;s:17:"addEvolutionLevel";i:2;s:18:"editEvolutionLevel";i:3;s:20:"deleteEvolutionLevel";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 10:13:22'),
-(4, 'Dean', 'Preside', 0, 'a:10:{s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:5:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:18:"clanViewAttendance";i:4;s:22:"listTrialLessonRequest";}s:6:"events";a:3:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"takeEventAttendance";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 10:13:43'),
+(4, 'Dean', 'Preside', 0, 'a:11:{s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:5:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:18:"clanViewAttendance";i:4;s:22:"listTrialLessonRequest";}s:6:"events";a:3:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"takeEventAttendance";}s:14:"evolutionclans";a:1:{i:0;s:17:"viewEvolutionclan";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 2, '2014-07-17 10:13:43'),
 (5, 'Teacher', 'Insegnante', 1, 'a:10:{s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:6:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:18:"clanViewAttendance";i:4;s:22:"listTrialLessonRequest";i:5;s:24:"changeStatusTrialStudent";}s:6:"events";a:3:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"takeEventAttendance";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 10:16:50'),
 (6, 'Pupil', 'Pupil', 1, 'a:6:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:6:"events";a:3:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"takeEventAttendance";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 10:17:08');
 
@@ -1787,7 +1801,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `emails`
 --
 ALTER TABLE `emails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `eventattendances`
 --
@@ -1812,17 +1826,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `evolutioncategories`
 --
 ALTER TABLE `evolutioncategories`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `evolutionclans`
 --
 ALTER TABLE `evolutionclans`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `evolutionlevels`
 --
 ALTER TABLE `evolutionlevels`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `evolutionstudents`
 --
@@ -1857,7 +1871,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `payments`
 --
