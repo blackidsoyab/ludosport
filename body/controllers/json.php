@@ -1520,17 +1520,18 @@ class json extends CI_Controller
 
     public function getEvolutionlevelsJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('evolutionlevels.' . $this->session_data->language . '_name AS evolutionlevel', 'evolutioncategories.' . $this->session_data->language . '_name AS evolutioncategory');
+        $this->datatable->aColumns = array('evolutionlevels.' . $this->session_data->language . '_name AS evolutionlevel', 'evolutioncategories.' . $this->session_data->language . '_name AS evolutioncategory', 'el.' . $this->session_data->language . '_name AS criteria');
         $this->datatable->eColumns = array('evolutionlevels.id');
         $this->datatable->sIndexColumn = "evolutionlevels.id";
-        $this->datatable->sTable = " evolutionlevels, evolutioncategories";
-        $this->datatable->myWhere = 'WHERE evolutioncategories.id=evolutionlevels.evolutioncategory_id';
+        $this->datatable->sTable = " evolutionlevels";
+        $this->datatable->myWhere = ' LEFT JOIN evolutionlevels el ON evolutionlevels.on_passing=el.id LEFT JOIN evolutioncategories ON evolutioncategories.id=evolutionlevels.evolutioncategory_id';
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
             $temp_arr[] = $aRow['evolutionlevel'];
             $temp_arr[] = $aRow['evolutioncategory'];
+            $temp_arr[] = (!is_null($aRow['criteria'])) ? $aRow['criteria'] : $this->lang->line('basic_evolution_level');
             
             $str = NULL;
             if (hasPermission('evolutionlevels', 'editEvolutionlevel')) {

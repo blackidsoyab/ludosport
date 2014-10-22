@@ -7,7 +7,7 @@
             echo $lengths[0]; ?>,
             "bServerSide" : true,
             "aoColumns": [
-                {"sClass": ""},{"sClass": ""},{"bSortable": false, "sClass": "text-center"}
+                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"bSortable": false, "sClass": "text-center"}
             ],
             "sAjaxSource": "<?php echo base_url() . 'evolutionlevel/getjson'; ?>",
             "fnInitComplete": function (oSettings, json) {
@@ -68,12 +68,13 @@
                 <tr align="left">
                     <th><?php echo $this->lang->line('evolutionlevel'), ' ', $this->lang->line('name'); ?></th>
                     <th width="200"><?php echo $this->lang->line('evolutioncategory'); ?></th>
+                    <th width="200"><?php echo $this->lang->line('criteria'); ?></th>
                     <th width="125"><?php echo $this->lang->line('actions'); ?></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                     <td colspan="3"><i><?php echo $this->lang->line('loading'); ?>...</i></td>
+                     <td colspan="4"><i><?php echo $this->lang->line('loading'); ?>...</i></td>
                 </tr>
             </tbody>
         </table>

@@ -27,7 +27,7 @@
         $('#evolutioncategory_id').change(function(){
             $.ajax({
                 type: 'GET',
-                url: '<?php echo base_url(); ?>evolutioncategory/level/' + $('#evolutioncategory_id').val() + '/0',
+                url: '<?php echo base_url(); ?>evolutioncategory/level/' + $('#evolutioncategory_id').val(),
                 success: function(data) {
                     $('#evolutionlevel_id').empty();
                     $('#evolutionlevel_id').append(data);

@@ -826,18 +826,27 @@ class ajax extends CI_Controller
         }
     }
 
-    function getEvolutionLevels($category_id, $basic = 0){
+    function getEvolutionLevels($category_id){
         $obj = new Evolutionlevel();
         $obj->where('evolutioncategory_id', $category_id)->get();
 
-        if($basic == 1){
-            echo '<option value="0">', $this->lang->line('basic_evolution_level'), '</option>';
-        }else{
-            echo '<option value="0">', $this->lang->line('select'), ' ', $this->lang->line('level'), '</option>';
-        }
+        echo '<option value="0">', $this->lang->line('select'), ' ', $this->lang->line('level'), '</option>';
         foreach ($obj as $level) {
             echo '<option value="' . $level->id . '">' . $level->{$this->session_data->language . '_name'} . '</option>';
         }
+    }
+
+    function getEvolutionLevelForLevel($category_id){
+        $obj = new Evolutionlevel();
+        $obj->where('evolutioncategory_id', $category_id)->order_by('depth', 'desc')->get();
+        if($obj->result_count() > 0){
+            foreach ($obj as $level) {
+                echo '<option value="' . $level->id . '">' . $level->{$this->session_data->language . '_name'} . '</option>';
+            }
+        } else {
+            echo '<option value="0">', $this->lang->line('basic_evolution_level') , '</option>';
+        }
+        
     }
 
     function getEvolutionClassesOptionFromSchool($school_id) {
@@ -849,4 +858,5 @@ class ajax extends CI_Controller
             echo '<option value="' . $clan->id . '">' . $clan->{$session->language . '_class_name'} . '</option>';
         }
     }
+
 }

@@ -12,6 +12,17 @@
                 }
             }
         });
+
+        $('#evolutioncategory_id').change(function(){
+            $.ajax({
+                type: 'GET',
+                url: '<?php echo base_url(); ?>evolutionlevel/level/' + $('#evolutioncategory_id').val(),
+                success: function(data) {
+                    $('#evolutionlevel_id').empty();
+                    $('#evolutionlevel_id').append(data);
+                }
+            });
+        });
     });
     //]]>
 </script>
@@ -23,7 +34,7 @@
         <div class="form-group">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('evolutioncategory'); ?><span class="text-danger">*</span></label>
             <div class="col-lg-5">
-                <select class="form-control required" name="evolutioncategory_id">
+                <select class="form-control required" name="evolutioncategory_id" id="evolutioncategory_id">
                     <option value=""><?php echo $this->lang->line('select'), ' ', $this->lang->line('evolutioncategory'); ?></option>
                     <?php foreach ($evolution_categories as $category) { ?>
                         <option value="<?php echo $category->id; ?>"><?php echo ucwords($category->{$session->language . '_name'}); ?></option>
@@ -47,11 +58,7 @@
         <div class="form-group">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('apply_after_passing'); ?><span class="text-danger">&nbsp;</span></label>
             <div class="col-lg-5">
-                <select class="form-control required" name="on_passing">
-                    <option value="0"><?php echo $this->lang->line('basic_evolution_level'); ?></option>
-                    <?php foreach ($evolution_levels as $level) { ?>
-                        <option value="<?php echo $level->id; ?>"><?php echo ucwords($level->{$session->language . '_name'}); ?></option>
-                    <?php } ?>     
+                <select class="form-control required" name="on_passing" id="evolutionlevel_id">    
                 </select>
             </div>
         </div>
