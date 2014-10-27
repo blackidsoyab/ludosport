@@ -441,6 +441,34 @@ class ajax extends CI_Controller
                     }
                 }
             }
+
+            $obj_evolution_clan = New Evolutionclan();
+            $obj_evolution_details = $obj_evolution_clan->getEvolutionClanByDay($day_numeric);
+            
+            if ($obj_evolution_details) {
+                foreach ($obj_evolution_details as $value) {
+                    if (strtotime($date) >= strtotime($value->clan_from) && strtotime($date) <= strtotime($value->clan_to)) {
+                        $temp = array();
+                        $temp['title'] = $value->clan;
+                        $temp['start'] = $date;
+                        $temp['tooltip'] = $value->clan . ', ' . $value->school . ', ' . $value->academy;
+                        if (strtotime($date) < strtotime($current_date)) {
+                            $temp['url'] = base_url() . 'evolutionclan/clan_attendance/' . $value->id . '/' . $date;
+                            $temp['type'] = 'past';
+                            $temp['class'] = 'badge badge-info';
+                        } else if (strtotime($date) == strtotime($current_date)) {
+                            $temp['url'] = base_url() . 'evolutionclan/clan_attendance/' . $value->id . '/' . $date;
+                            $temp['type'] = 'present';
+                            $temp['class'] = 'badge badge-success';
+                        } else {
+                            $temp['url'] = base_url() . 'evolutionclan/clan_attendance/' . $value->id . '/' . $date;
+                            $temp['type'] = 'future';
+                            $temp['class'] = 'badge badge-inverse';
+                        }
+                        $return[] = $temp;
+                    }
+                }
+            }
         }
         
         if (count($return) == 0) {

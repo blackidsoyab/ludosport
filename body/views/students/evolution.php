@@ -50,7 +50,7 @@
 			<div class="panel panel-warning">
 				<div class="panel-heading">
 					<h3 class="panel-title">
-						<a class="block-collapse" data-toggle="collapse" href="#evolution_levels">
+						<a class="block-collapse" data-toggle="collapse" href="<?php echo '#evolution_' . $category->id; ?>">
 							Course Levels
 							<span class="right-content">
 								<span class="right-icon"><i class="glyphicon glyphicon-plus icon-collapse"></i></span>
@@ -59,7 +59,7 @@
 					</h3>
 				</div>
 
-				<div id="evolution_levels" class="collapse in">
+				<div id="<?php echo 'evolution_' . $category->id; ?>" class="collapse in">
 					<div class="panel-body">
 						<div class="panel-group" id="evolution-clan-list">
 							<?php 
@@ -96,7 +96,7 @@
 														<li class="list-group-item">
 															<a data-target="#clan_detail_<?php echo$clan->id; ?>" data-toggle="modal"><?php echo $clan->{$session->language.'_class_name'}; ?></a>
 															<?php if($can_apply) { ?>
-																<a href="javascript(0)" class="pull-right apply_for_clan" data-clan="<?php echo $clan->id; ?>">Apply Now</a>
+																<a href="javascript:void(0)" class="pull-right apply_for_clan" data-clan="<?php echo $clan->id; ?>">Apply Now</a>
 															<?php } ?>
 														</li>
 

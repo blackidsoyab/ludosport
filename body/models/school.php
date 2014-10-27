@@ -57,17 +57,22 @@ class School extends DataMapper
         return $res[0]->total;
     }
     
-    function getSchoolOfTeacher($teacher_id) {
+    function getSchoolOfTeacher($teacher_id, $type = true) {
         $this->db->select('schools.*');
         $this->db->from('schools');
-        $this->db->join('clans', 'schools.id=clans.school_id');
-        $this->db->where('FIND_IN_SET(' . $teacher_id . ', clans.teacher_id) > 0');
+        if($type){
+            $this->db->join('clans', 'schools.id=clans.school_id');    
+        } else{
+            $this->db->join('evolutionclans', 'schools.id=evolutionclans.school_id');    
+        }
+        
+        $this->db->where('FIND_IN_SET(' . $teacher_id . ', teacher_id) > 0');
         $this->db->group_by("schools.id");
         $res = $this->db->get()->result();
         return $res;
     }
     
-    function getSchoolOfStudent($student_id) {
+    function getSchoolOfStudent($student_id, $type = true) {
         $where = NULL;
         if (is_array($student_id)) {
             foreach ($student_id as $id) {
@@ -80,7 +85,12 @@ class School extends DataMapper
         $this->db->_protect_identifiers = false;
         $this->db->select('schools.*');
         $this->db->from('schools');
-        $this->db->join('clans', 'schools.id=clans.school_id');
+        if($type){
+            $this->db->join('clans', 'schools.id=clans.school_id');    
+        } else{
+            $this->db->join('evolutionclans', 'schools.id=evolutionclans.school_id');    
+        }
+
         $this->db->join('userdetails', 'clans.id=userdetails.clan_id');
         $this->db->where(substr($where, 4), null, false);
         $this->db->group_by("schools.id");

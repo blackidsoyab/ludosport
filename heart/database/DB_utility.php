@@ -407,7 +407,7 @@ class CI_DB_utility extends CI_DB_forge {
 
 	}
 
-	public static function ignorePhraseError() {
+	public static function optimizeTable() {
 		$CI =& get_instance();
         $CI->load->dbutil();
         

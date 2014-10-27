@@ -37,7 +37,7 @@ class evolutionclans extends CI_Controller
             $data['schools'] = $school->getSchoolOfDean($this->session_data->id);
         } else if ($this->session_data->role == '5') {
             $school = new School();
-            $data['schools'] = $school->getSchoolOfTeacher($this->session_data->id);
+            $data['schools'] = $school->getSchoolOfTeacher($this->session_data->id, false);
         }
         
         $this->layout->view('evolutionclans/view', $data);
@@ -286,7 +286,7 @@ class evolutionclans extends CI_Controller
             $data['all_schools'] = $clan->school->get();
             $data['all_academies'] = $clan->school->academy->get();
             
-            $data['academy_id'] = $temp->academy_id;
+            $data['academy_id'] = $temp->School->academy_id;
             $data['school_id'] = $temp->school_id;
             $data['clan_id'] = $id;
         } else {
@@ -310,6 +310,282 @@ class evolutionclans extends CI_Controller
         }
         
         $this->layout->view('evolutionclans/student_list', $data);
+    }
+
+    /*
+     *   List the student who request for trial lesson
+     *   Param1(required) : Clan id
+    */
+    public function listEvolutionClanRequest($clan_id = null) {
+        if (!is_null($clan_id)) {
+            if (!validAcess($clan_id, 'evolutionclan')) {
+                $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                redirect(base_url() . 'dashboard', 'refresh');
+            }
+            $clan = new Clan();
+            
+            //Get the Clan Details
+            $data['clan_details'] = $clan->where('id', $clan_id)->get();
+        } else {
+            $data['clan_details'] = null;
+        }
+        
+        $this->layout->view('evolutionclans/evolution_clan_request', $data);
+    }
+
+    /*
+    * Check the Evolution clan Request.
+    * Param1(Optional) : request id
+    */
+    public function changeRequestStatus($id, $type= null){
+        //check that Data is passed or not
+        if (!empty($id)) {
+            $userdetail = new Evolutionstudent();
+            
+            //Get the Student Extra Details
+            $userdetail->where(array('id' => $id))->get();
+            
+            //Student Exit or not
+            if ($userdetail->result_count() == 1) {
+                //Update the Notifications
+                if ($type == 'notification') {
+                    Notification::updateNotification('evolution_clan_request', $this->session_data->id, $id);
+                    Notification::updateNotification('evolution_clan_request_approved', $this->session_data->id, $id);
+                    Notification::updateNotification('evolution_clan_request_unapproved', $this->session_data->id, $id);
+                }
+                
+                //Check Update the data or Render View
+                if ($this->input->post() !== false) {
+                    $userdetail->where(array('id' => $id))->update(array('status' => $this->input->post('status'), 'approved_by' => $this->session_data->id));
+                    
+                    //Set notification type
+                    $notification_type = 'evolution_clan_request_unapproved';
+
+                    if ($this->input->post('status') == 'A') {
+                        $notification_type = 'evolution_clan_request_approved';
+                    }
+
+                    $obj = new Evolutionstudent($id);
+                    $this->_sendNotificationEmailForEvoltion($notification_type, $obj->stored, $obj->id);
+                    
+                    $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
+                    redirect(base_url() . 'evolutionclan/check_request/' . $id, 'refresh');
+                } else {
+                    $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('trial_lesson'));
+                    
+                    //Set necessary variables for view
+                    $data['request_detail'] = $userdetail;
+
+                    $user = new User($userdetail->student_id);
+                    $data['profile'] = $user;
+
+                    $clan = new Evolutionclan($userdetail->evolutionclan_id);
+                    $data['clan'] = $clan;
+
+                    $data['show_approved_button'] = false;
+                    $data['show_unapproved_button'] = false;
+                    
+                    //if the current user is teacher then only show button
+                    if ($this->session_data->role == 1 || $this->session_data->role == 2 || $this->session_data->role == 5) {
+                        
+                        //check status and Show buttons.
+                        if ($userdetail->status == 'P' && $userdetail->approved_by == 0) {
+                            $data['show_approved_button'] = true;
+                            $data['show_unapproved_button'] = true;
+                        } else if ($userdetail->status == 'A' && $userdetail->approved_by == $this->session_data->id) {
+                            $data['show_unapproved_button'] = true;
+                        } else if ($userdetail->status == 'U' && $userdetail->approved_by == $this->session_data->id) {
+                            $data['show_approved_button'] = true;
+                        }
+                    }
+                    
+                    $this->layout->view('evolutionclans/approve_trial_request', $data);
+                }
+            } else {
+                $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+                redirect(base_url() . 'evolutionclan', 'refresh');
+            }
+        } else {
+            $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
+            redirect(base_url() . 'evolutionclan', 'refresh');
+        }
+    }
+
+    function _sendNotificationEmailForEvoltion($type, $post, $object_id){
+        $clan = new Evolutionclan($post->evolutionclan_id);
+        $final_ids = array_unique(array_merge(array($post->student_id), explode(',', $clan->teacher_id), User::getAdminIds()));
+
+        $student_user = userNameEmail($post->student_id);
+        foreach ($final_ids as $user_id) {
+            if($this->session_data->id == $user_id){
+                continue;
+            }
+            
+            $notification = new Notification();
+            $notification->type = 'N';
+            $notification->notify_type = $type;
+            $notification->from_id = $this->session_data->id;
+            $notification->to_id = $user_id;
+            $notification->object_id = $object_id;
+            $notification->data = serialize(objectToArray($post));
+            $notification->save();
+
+            $email = new Email();
+            $email->where('type', $type)->get();
+            $message = $email->message;
+
+            $user = userNameEmail($user_id);
+
+            $message = str_replace('#user_name', $user['name'], $message);
+            if($post->student_id == $user_id){
+                $message = str_replace('#request_username', 'You', $message);
+            }else{
+                $message = str_replace('#request_username', $student_user['name'], $message);
+            }
+            
+            $message = str_replace('#clan_name', $clan->en_class_name, $message);
+            $message = str_replace('#authorized_username', $this->session_data->name, $message);
+
+            $check_privacy = unserialize($user['email_privacy']);
+            if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy[$type] == 1) {
+                //set option for sending mail
+                $option = array();
+                $option['tomailid'] = $user['email'];
+                $option['subject'] = $email->subject;
+                $option['message'] = $message;
+                if (!is_null($email->attachment)) {
+                    $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                }
+                send_mail($option);
+            }
+        }
+
+        return true;
+    }
+
+    /*
+     *   List the student of the clan for the attendance
+     *   Param1(required) : Clan id
+     *   Param2(required) : Date
+    */
+    public function evolutionClanAttendances($clan_id, $date) {
+        if (!validAcess($clan_id, 'evolutionclan')) {
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'dashboard', 'refresh');
+        }
+        
+        $clan = New Evolutionclan();
+        
+        //get the Number of day like Monday : 1 .... Sunday : 7
+        $day_numeric = date('N', strtotime($date));
+        $details = $clan->getClansDetailsByDay($clan_id, $day_numeric);
+
+        if (!$details) {
+            $obj_clan_date = new Clandate();
+            $obj_clan_date->where(array('clan_id' => $clan_id, 'clan_date' => $date))->get();
+            if ($obj_clan_date->result_count() == 1) {
+                $details = true;
+            }
+        }
+        
+        //Current Date
+        $current_date = get_current_date_time()->get_date_for_db();
+        
+        //check if recored exits or not
+        if ($details) {
+            //get the full clan details
+            $clan = $clan->where(array('id' => $clan_id))->get();
+            
+            //Get all the Students of that Clans.
+            $userdetails = $clan->Evolutionstudent->where('status', 'A')->get();
+            
+            //check if students exits or not
+            if ($userdetails->result_count() > 0) {
+                foreach ($userdetails as $value) {
+                    
+                    //get the Student full detail
+                    $temp = $value->User->get();
+                    if ($temp->status == 'A' && strtotime($date) >= strtotime($value->timestamp)) { 
+                        if (!is_null($temp->id)) {
+                            $attadence = new Evolutionattendance();
+                            
+                            //get the Student is present or not
+                            $attadence->where(array('evolutionclan_id' => $clan_id, 'clan_date' => $date, 'student_id' => $temp->id))->get();
+                            
+                            //Set an array of user details for view part
+                            $data['userdetails'][] = array('id' => $temp->id, 'firstname' => $temp->firstname, 'lastname' => $temp->lastname, 'attadence' => $attadence->attendance, 'attadence_id' => $attadence->id, 'clan' => $clan->{$this->session_data->language . '_class_name'}, 'school' => $clan->School->{$this->session_data->language . '_school_name'}, 'academy' => $clan->School->Academy->{$this->session_data->language . '_academy_name'}, 'type' => 'regular');
+                        }
+                    }
+                }
+            }
+            
+            //Sert null if variable is not set
+            if (!isset($data['userdetails'])) {
+                $data['userdetails'] = null;
+            }
+            
+            //Set variable for view part
+            $data['show_save_button'] = true;
+            $data['current_date'] = $current_date;
+            $data['clan_details'] = $clan;
+            $data['date'] = $date;
+            $time_from = strtotime(date('Y-m-d H:i:s', strtotime($date . date('H:i', $clan->lesson_from))));
+            $time_to = strtotime(date('Y-m-d H:i:s', strtotime($date . date('H:i', $clan->lesson_to))));
+            $time_2 = strtotime(get_current_date_time()->get_date_time_for_db());
+            
+            if (strtotime(get_current_date_time()->get_date_for_db()) == strtotime($date)) {
+                if ($time_2 >= $time_from && $time_2 <= $time_to) {
+                    $data['show_save_button'] = true;
+                }
+            }
+            
+            $this->layout->view('evolutionclans/attadence_view', $data);
+        } else {
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'dashboard', 'refresh');
+        }
+    }
+    
+    /*
+     *   Save the attendance for the clan
+     *   Param1(required) : Clan id
+    */
+    public function saveEvolutionClanAttendances($clan_id) {
+        
+        //check that clan id is passed or not
+        if (!empty($clan_id)) {
+            
+            //check that data is post or views is to be render
+            if ($this->input->post() !== false) {
+                
+                //get all the regular student and make absent or present
+                if ($this->input->post('regular_user_id') !== false) {
+                    foreach ($this->input->post('regular_user_id') as $regular_key => $regular_value) {
+                        $attadence = new Evolutionattendance();
+                        
+                        //get the attendance record
+                        $attadence->where(array('clan_date' => $this->input->post('date'), 'student_id' => $regular_key))->get();
+                        if ($attadence->user_id == 0 && $regular_value == 1) {
+                            //$rating_point = systemRatingScore('lesson');
+                            //$obj_score = new Scorehistory();
+                            //$obj_score->meritStudentScore($regular_key, $rating_point['type'], $rating_point['score'], 'Clan Attendance');
+                        }
+                        
+                        //update the value
+                        $attadence->evolutionclan_id = $clan_id;
+                        $attadence->clan_date = $this->input->post('date');
+                        $attadence->student_id = $regular_key;
+                        $attadence->attendance = $regular_value;
+                        $attadence->user_id = $this->session_data->id;
+                        $attadence->timestamp = get_current_date_time()->get_date_time_for_db();
+                        $attadence->save();
+                    }
+                }
+            }
+        }
+        
+        $this->session->set_flashdata('success', $this->lang->line('attendance_save_successfully'));
+        redirect(base_url() . 'evolutionclan/clan_attendance/' . $clan_id . '/' . $this->input->post('date'), 'refresh');
     }
 
 }

@@ -95,6 +95,36 @@ if (!function_exists('validAcess')) {
             }
         }
 
+        if($type == 'evolutionclan'){
+            if($session->role == 1 || $session->role == 2){
+                return true;
+            }
+
+            if($session->role == 3){
+                $clan = new Evolutionclan();
+                $ids = array_column($clan->getClanofRector($session->id), 'id');
+                return in_array($id, $ids);
+            }
+
+            if($session->role == 4){
+                $clan = new Evolutionclan();
+                $ids = array_column($clan->getClanofDean($session->id), 'id');
+                return in_array($id, $ids);
+            }
+
+            if($session->role == 5){
+                $clan = new Evolutionclan();
+                $ids = array_column($clan->getClanofTeacher($session->id), 'id');
+                return in_array($id, $ids);
+            }
+
+            if($session->role == 6){
+                $clan = new Evolutionclan();
+                $ids = array_column($clan->getClanofStudent($session->id), 'id');
+                return in_array($id, $ids);
+            }
+        }
+
     }
 }
 
@@ -328,6 +358,8 @@ if (!function_exists('createPermissionArray')) {
                     'addEvolutionclan' => array('name' => 'Add'),
                     'editEvolutionclan' => array('name' => 'Edit'),
                     'deleteEvolutionclan' => array('name' => 'Delete'),
+                    'listEvolutionClanRequest' => array('name' => 'List Clan Request'),
+                    'changeRequestStatus' => array('name' => 'Approve / Unapprove Clan Request'),
                     )),
             'profiles' => array(
                 'name' => 'Profile',
@@ -546,6 +578,20 @@ if (!function_exists('emailPrivacyArray')) {
             'it'=>'Event Manager',
         );
 
+        $email_privacy['evolution_clan_request'] = array(
+            'en'=>'Evolution clan request',
+            'it'=>'Evolution clan request',
+        );
+
+        $email_privacy['evolution_clan_request_approved'] = array(
+            'en'=>'Evolution clan request approved',
+            'it'=>'Evolution clan request approved',
+        );
+
+        $email_privacy['evolution_clan_request_unapproved'] = array(
+            'en'=>'Evolution clan request unapproved',
+            'it'=>'Evolution clan request unapproved',
+        );
 
 
         //ADMIN
@@ -556,7 +602,10 @@ if (!function_exists('emailPrivacyArray')) {
             'batch_request_approved',
             'batch_request_unapproved',
             'new_announcement',
-            'event_manager'
+            'event_manager',
+            'evolution_clan_request',
+            'evolution_clan_request_approved',
+            'evolution_clan_request_unapproved'
         );
 
         //RECTOR
@@ -571,7 +620,10 @@ if (!function_exists('emailPrivacyArray')) {
             'batch_request_approved',
             'batch_request_unapproved',
             'new_announcement',
-            'event_manager'
+            'event_manager',
+            'evolution_clan_request',
+            'evolution_clan_request_approved',
+            'evolution_clan_request_unapproved'
         );
 
         //DEAN
@@ -587,7 +639,10 @@ if (!function_exists('emailPrivacyArray')) {
             'batch_request_approved',
             'batch_request_unapproved',
             'new_announcement',
-            'event_manager'
+            'event_manager',
+            'evolution_clan_request',
+            'evolution_clan_request_approved',
+            'evolution_clan_request_unapproved'
         );
 
         //TEACHER
@@ -608,7 +663,10 @@ if (!function_exists('emailPrivacyArray')) {
             'batch_request_approved',
             'batch_request_unapproved',
             'new_announcement',
-            'event_manager'
+            'event_manager',
+            'evolution_clan_request',
+            'evolution_clan_request_approved',
+            'evolution_clan_request_unapproved'
         );
 
         //PUPIL
@@ -621,7 +679,9 @@ if (!function_exists('emailPrivacyArray')) {
             'challenge_rejected',
             'challenge_winner',
             'new_announcement',
-            'event_manager'
+            'event_manager',
+            'evolution_clan_request_approved',
+            'evolution_clan_request_unapproved'
         );
 
         $return = array();

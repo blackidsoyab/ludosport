@@ -383,6 +383,10 @@
                             <li class="<?php echo ($page == 'evolutionclan') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'evolutionclan'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('evolutionclan'); ?>"><i class="fa fa-folder icon-sidebar"></i><?php echo $this->lang->line('evolutionclan'); ?></a></li>
                             <?php } ?>
 
+                            <?php if (hasPermission('evolutionclans', 'listEvolutionClanRequest')) { ?>
+                            <li class="<?php echo ($page == 'evolution_clan_request') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'evolutionclan/evolution_clan_request'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('evolution_clan_request'); ?>"><i class="glyphicon glyphicon-registration-mark icon-sidebar"></i><?php echo $this->lang->line('evolution_clan_request'); ?></a></li>
+                            <?php } ?>
+
                             <li class="static"><i class="fa fa-table icon-sidebar"></i>&nbsp;<?php echo $this->lang->line('setting'); ?></li>
 
                             <?php if (hasPermission('levels', 'viewLevel')) { ?>   

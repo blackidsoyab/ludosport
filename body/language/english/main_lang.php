@@ -546,6 +546,12 @@ $lang['criteria'] = 'Criteria';
 //Evolution Clans
 $lang['evolutionclan'] = 'Evolution';
 $lang['no_of_studnet'] = 'No of Student';
+$lang['evolution_clan_request'] = 'Evolution Request';
 $lang['applied_for_clan_successfully'] = 'Request sent succeessfully';
 $lang['applied_for_clan_error'] = 'Error in sending request';
+$lang['evolution_clan_request'] = 'Evolution clan request';
+$lang['accept_evolution_clan_request'] = 'Accept request';
+$lang['reject_evolution_clan_request'] = 'Reject request';
+$lang['accepted_evolution_clan_request'] = 'Request accepted';
+$lang['rejected_evolution_clan_request'] = 'Request rejected';
 ?>

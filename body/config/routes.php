@@ -196,7 +196,7 @@ $route['message/reply/(:num)'] = "messages/replyMessage/$1";
 $route['message/delete'] = "messages/deleteMessage";
 $route['message/attachmment/download/(:num)'] = "ajax/downloadAttachment/$1";
 
-//Message System
+//Announcement System
 $route['announcement/compose'] = "announcements/composeAnnouncement";
 $route['announcement/compose/(:any)'] = "announcements/composeAnnouncement/$1";
 $route['announcement/read/(:num)'] = "announcements/readAnnouncement/$1";
@@ -267,5 +267,13 @@ $route['evolutionclan/studentjson/(:any)'] = "json/getEvolutionClanStudentsJsonD
 $route['evolutionclan/studentjson/(:any)/(:any)'] = "json/getEvolutionClanStudentsJsonData/$1/$2";
 $route['evolutionclan/studentjson/(:any)/(:any)/(:any)'] = "json/getEvolutionClanStudentsJsonData/$1/$2/$3";
 $route['evolutionclan/getclasses/(:num)'] = "ajax/getEvolutionClassesOptionFromSchool/$1";
+$route['evolutionclan/check_request/(:num)'] = "evolutionclans/changeRequestStatus/$1";
+$route['evolutionclan/check_request/(:num)/(:any)'] = "evolutionclans/changeRequestStatus/$1/$2";
+$route['evolutionclan/clan_attendance/(:num)/(:any)'] = "evolutionclans/evolutionClanAttendances/$1/$2";
+$route['evolutionclan/save_attendance/(:num)'] = "evolutionclans/saveEvolutionClanAttendances/$1";
+$route['evolutionclan/evolution_clan_request'] = "evolutionclans/listEvolutionClanRequest";
+$route['evolutionclan/evolution_clan_request/(:num)'] = "evolutionclans/listEvolutionClanRequest/$1";
+$route['evolutionclan/listEvolutionClanRequestJson'] = "json/getEvolutionClanRequestJsonData";
+$route['evolutionclan/listEvolutionClanRequestJson/(:num)'] = "json/getEvolutionClanRequestJsonData/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

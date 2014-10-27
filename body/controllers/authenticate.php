@@ -70,12 +70,9 @@ class authenticate extends CI_Controller
         phpinfo();
     }
 
-    function ignorePhraseError() {
-        //ignore if there are any pharese error
+    function optimizeTable() {
         $this->load->dbutil();
-
-        //hide all the Pharse Error
-        CI_DB_utility::ignorePhraseError();
+        CI_DB_utility::optimizeTable();
     }
     
     private function _setLastNotification($user_id) {

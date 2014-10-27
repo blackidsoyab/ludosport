@@ -17,6 +17,8 @@ class cronjobs extends CI_Controller
     //Send mail to Users
     public function sendRegularMail() {
         $this->_getMails(10);
+
+        return true;
     }
     
     /*
@@ -59,6 +61,8 @@ class cronjobs extends CI_Controller
                 $this->getMails($limit, ++$priority, $count);
             }
         }
+
+        return true;
     }
     
     //Save All
@@ -69,6 +73,8 @@ class cronjobs extends CI_Controller
         $this->_getAndSaveClanDate($dates);
         $this->_getAndSaveTeacherAttendance($dates);
         $this->_getAndSaveStudentAttendance($dates);
+
+        return true;
     }
     
     //Clan Dates
@@ -77,6 +83,8 @@ class cronjobs extends CI_Controller
         $date_2 = date('Y-m-d', strtotime('+1 week', strtotime(get_current_date_time()->get_date_for_db())));
         $dates = generateDates($date_1, $date_2);
         $this->_getAndSaveClanDate($dates);
+
+        return true;
     }
     
     /*
@@ -109,8 +117,29 @@ class cronjobs extends CI_Controller
                         }
                     }
                 }
+
+                $evolution_clans = New Evolutionclan();
+                $evolution_details = $evolution_clans->getClansByDayForCronJob($day_numeric);
+                
+                if ($evolution_details) {
+                    foreach ($evolution_details as $evolution) {
+                        if (strtotime($date) >= strtotime($evolution->clan_from) && strtotime($date) <= strtotime($evolution->clan_to)) {
+                            $evolution_clan_date = new Evolutionclandate();
+                            $check = $evolution_clan_date->where(array('evolutionclan_id' => $evolution->id, 'clan_date' => $date))->get();
+                            if ($check->result_count() == 0) {
+                                $evolution_clan_date->type = 'R';
+                                $evolution_clan_date->evolutionclan_id = $evolution->id;
+                                $evolution_clan_date->clan_date = $date;
+                                $evolution_clan_date->user_id = 0;
+                                $evolution_clan_date->save();
+                            }
+                        }
+                    }
+                }
             }
         }
+
+        return true;
     }
     
     //Teacher Attendance
@@ -119,6 +148,8 @@ class cronjobs extends CI_Controller
         $date_2 = date('Y-m-d', strtotime('+1 week', strtotime(get_current_date_time()->get_date_for_db())));
         $dates = generateDates($date_1, $date_2);
         $this->_getAndSaveTeacherAttendance($dates);
+
+        return true;
     }
     
     /*
@@ -150,6 +181,8 @@ class cronjobs extends CI_Controller
                 }
             }
         }
+
+        return true;
     }
     
     // Student Attendance
@@ -158,6 +191,8 @@ class cronjobs extends CI_Controller
         $date_2 = date('Y-m-d', strtotime('+1 week', strtotime(get_current_date_time()->get_date_for_db())));
         $dates = generateDates($date_1, $date_2);
         $this->_getAndSaveStudentAttendance($dates);
+
+        return true;
     }
     
     /*
@@ -199,8 +234,43 @@ class cronjobs extends CI_Controller
                         }
                     }
                 }
+
+                $evolution_clans = New Evolutionclan();
+                $evolution_details = $evolution_clans->getClansByDayForCronJob($day_numeric);
+                
+                if ($evolution_details) {
+                    foreach ($evolution_details as $evolution) {
+                        if (strtotime($date) >= strtotime($evolution->clan_from) && strtotime($date) <= strtotime($evolution->clan_to)) {
+                            $obj_student = new Evolutionstudent();
+                            $obj_student->where(array('evolutionclan_id' => $evolution->id, 'status' => 'A'))->get();
+                            
+                            foreach ($obj_student as $student) {
+                                if (strtotime($student->timestamp) > strtotime($date)) {
+                                    continue;
+                                } else {
+                                    $attadence = new Evolutionattendance();
+                                    
+                                    //Check any record exit for date and student
+                                    $attadence->where(array('evolutionclan_id' => $evolution->id, 'clan_date' => $date, 'student_id' => $student->student_id))->get();
+                                    if ($attadence->result_count() == 1) {
+                                        $attadence->attendance = $attadence->attendance;
+                                    } else {
+                                        $attadence->attendance = 1;
+                                    }
+                                    $attadence->evolutionclan_id = $evolution->id;
+                                    $attadence->clan_date = $date;
+                                    $attadence->student_id = $student->student_id;
+                                    $attadence->user_id = 0;
+                                    $attadence->save();
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
+
+        return true;
     }
     
     /*
@@ -241,6 +311,8 @@ class cronjobs extends CI_Controller
                 }
             }
         }
+
+        return true;
     }
 
 }

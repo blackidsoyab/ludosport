@@ -126,13 +126,13 @@
                 <div class="the-box">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <img src="<?php echo IMG_URL . 'seven_styles/01_shiicho_esamestile.png'; ?>" alt="Avatar" class="seven-style-icon img-responsive img-circle" data-toggle="tooltip" title="" data-original-title="Shiicho">
+                            <img src="<?php echo IMG_URL . 'seven_styles/01_shiicho_base.png'; ?>" alt="Avatar" class="seven-style-icon img-responsive img-circle" data-toggle="tooltip" title="" data-original-title="Shiicho">
                             
-                            <img src="<?php echo IMG_URL . 'seven_styles/02_makashi_esamestile.png'; ?>" alt="Avatar" width="400" class="seven-style-icon img-responsive img-circle" data-toggle="tooltip" title="" data-original-title="Makashi">
+                            <img src="<?php echo IMG_URL . 'seven_styles/02_makashi_base.png'; ?>" alt="Avatar" width="400" class="seven-style-icon img-responsive img-circle" data-toggle="tooltip" title="" data-original-title="Makashi">
                             
-                            <img src="<?php echo IMG_URL . 'seven_styles/03_soresu_esamestile.png'; ?>" alt="Avatar" width="400" class="seven-style-icon img-responsive img-circle" data-toggle="tooltip" title="" data-original-title="Soresu">
+                            <img src="<?php echo IMG_URL . 'seven_styles/03_soresu_base.png'; ?>" alt="Avatar" width="400" class="seven-style-icon img-responsive img-circle" data-toggle="tooltip" title="" data-original-title="Soresu">
                             
-                            <img src="<?php echo IMG_URL . 'seven_styles/04_ataru_esamestile.png'; ?>" alt="Avatar" width="400" class="seven-style-icon img-responsive img-circle" data-toggle="tooltip" title="" data-original-title="Ataru">
+                            <img src="<?php echo IMG_URL . 'seven_styles/04_ataru_base.png'; ?>" alt="Avatar" width="400" class="seven-style-icon img-responsive img-circle" data-toggle="tooltip" title="" data-original-title="Ataru">
                             
                             <img src="<?php echo IMG_URL . 'seven_styles/05_djemso_base.png'; ?>" alt="Avatar" class="seven-style-icon img-responsive img-circle" data-toggle="tooltip" title="Djemso">
                             

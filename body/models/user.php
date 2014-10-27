@@ -2,7 +2,10 @@
 class User extends DataMapper
 {
     
-    public $has_one = array('userdetail' => array('join_other_as' => 'userdetail', 'join_self_as' => 'student_master'));
+    public $has_one = array(
+        'userdetail' => array('join_other_as' => 'userdetail', 'join_self_as' => 'student_master'),
+        'evolutionstudent' => array('join_other_as' => 'evolutionstudent', 'join_self_as' => 'student')
+        );
     var $session_data;
     
     function __construct($id = NULL) {

@@ -533,4 +533,26 @@ $lang['recovery'] = 'Recovery';
 $lang['announcement'] = 'Announcement';
 $lang['student_dashboard_announcement_title'] = 'Personal Communications';
 $lang['no_personal_communication'] = 'No personal Comminucations';
+
+//Evolution Categories
+$lang['evolutioncategory'] = 'Evolution Category';
+
+//Evolution Levels
+$lang['evolutionlevel'] = 'Evolution Level';
+$lang['basic_evolution_level'] = 'Basci Level';
+$lang['apply_after_passing'] = 'Only apply after passing level';
+$lang['criteria'] = 'Criteria';
+
+//Evolution Clans
+$lang['evolutionclan'] = 'Evolution';
+$lang['no_of_studnet'] = 'No of Student';
+$lang['evolution_clan_request'] = 'Evolution Request';
+$lang['applied_for_clan_successfully'] = 'Request sent succeessfully';
+$lang['applied_for_clan_error'] = 'Error in sending request';
+$lang['evolution_clan_request'] = 'Evolution clan request';
+$lang['accept_evolution_clan_request'] = 'Accept request';
+$lang['reject_evolution_clan_request'] = 'Reject request';
+$lang['accepted_evolution_clan_request'] = 'Request accepted';
+$lang['rejected_evolution_clan_request'] = 'Request rejected';
+?>
 ?>
