@@ -59,7 +59,17 @@
 </script>
 <?php $session = $this->session->userdata('user_session'); ?>
 
-<h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('batch_history'); ?> : <a href="<?php echo base_url() .'profile/view/' . $user->id; ?>"><?php echo $user->firstname, ' ', $user->lastname; ?></a></h1>    
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h1 class="page-heading h1 pull-left"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('batch_history'); ?> : <a href="<?php echo base_url() .'profile/view/' . $user->id; ?>"><?php echo $user->firstname, ' ', $user->lastname; ?></a></h1>        
+
+        <?php if (hasPermission('users', 'addStudentBatches')) { ?>
+            <a href="<?php echo base_url() . 'user_student/badge_history/add/'. $user->id ?>" class="btn btn-primary h1 pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('batch_history'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('batch_history'); ?></a>
+        <?php } ?>
+    </div>
+</div>
+
+
 
 
 <div class="the-box">

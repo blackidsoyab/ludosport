@@ -251,6 +251,7 @@ if (!function_exists('createPermissionArray')) {
                     'editUser' => array('name' => 'Edit'),
                     'deleteUser' => array('name' => 'Delete'),
                     'listStudentBatches' => array('name' => 'List Student Badge History'),
+                    'addStudentBatches' => array('name' => 'Add Student Badge History'),
                     'editStudentBatches' => array('name' => 'Edit Student Badge History'),
                     'deleteStudentBatches' => array('name' => 'Delete Student Badge History'),
                     'listStudentScore' => array('name' => 'List Student Score History'),

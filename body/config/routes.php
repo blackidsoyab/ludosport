@@ -229,6 +229,7 @@ $route['clan/change_status_trial_student/(:num)/(:num)/(:any)'] = "clans/changeS
 $route['user_student/badge_history/(:num)'] = 'users/listStudentBatches/$1';
 $route['user_student/badge_history/list/(:num)'] = 'users/listStudentBatches/$1';
 $route['user_student/badge_history/view/(:num)'] = 'users/listStudentBatches/$1';
+$route['user_student/badge_history/add/(:num)'] = 'users/addStudentBatches/$1';
 $route['user_student/badge_history/edit/(:num)'] = 'users/editStudentBatches/$1';
 $route['user_student/badge_history/delete/(:num)'] = 'users/deleteStudentBatches/$1';
 $route['user_student/badge_history/get_json_batch_history/(:num)/(:any)'] = "json/getStudentBatchHistoryJsonData/$1/$2";

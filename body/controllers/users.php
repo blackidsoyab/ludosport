@@ -328,7 +328,7 @@ class users extends CI_Controller
                     $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
                     redirect(base_url() . 'user', 'refresh');
                 } else {
-                    $this->layout->setField('page_title', 'Edit User');
+                    $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('user'));
                     
                     $userdetail = new Userdetail();
                     $data['userdetail'] = $userdetail->where('student_master_id', $id)->get();
@@ -423,8 +423,49 @@ class users extends CI_Controller
     }
     
     function listStudentBatches($id) {
+        $this->layout->setField('page_title', $this->lang->line('batch_history'));
         $data['user'] = new User($id);
         $this->layout->view('users/student_batch_history_view', $data);
+    }
+
+    function addStudentBatches($student_id) {
+        if ($this->input->post() !== false) {
+            $obj_batch = new Batch($this->input->post('batch_id'));
+            
+            if($obj_batch->result_count() == 1){
+                $obj_batch_history = new Userbatcheshistory();
+                $obj_batch_history->saveStudentBatchHistory($student_id, $obj_batch->type, $this->input->post('batch_id'), date('Y-m-d', strtotime($this->input->post('date'))));
+
+                if ($this->input->post('affect_score') === 'Y' && $obj_batch->has_point == 1) {
+                    $obj_score_history = new Scorehistory();
+                    $obj_score_history->meritStudentScore($student_id, 'xpr', $obj_batch->xpr, 'Assign badge history');
+                    $obj_score_history->meritStudentScore($student_id, 'war', $obj_batch->war, 'Assign badge history');
+                    $obj_score_history->meritStudentScore($student_id, 'sty', $obj_batch->sty, 'Assign badge history');
+                }
+                $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
+            }
+            
+            redirect(base_url().'user_student/badge_history/' . $student_id, 'refresh');
+        }else{
+            $this->layout->setField('page_title', $this->lang->line('add').' '.$this->lang->line('batch_history'));
+            $data['user'] = new User($student_id);
+
+            $obj_batch = new Batch();
+            $data['batches'] = $obj_batch->order_by('type','ASC')->order_by('sequence' , 'ASC')->get();
+
+            $obj_batch_history = new Userbatcheshistory();
+            $obj_batch_history->select('batch_id')->where('student_id', $student_id)->get();
+
+            foreach ($obj_batch_history as $batch_detail) {
+                $data['assigned_batches'][] = $batch_detail->batch_id;
+            }
+
+            if(!isset($data['assigned_batches'])){
+                $data['assigned_batches'] = array();   
+            }
+
+            $this->layout->view('users/student_batch_history_add', $data);
+        }
     }
     
     function editStudentBatches($id) {
@@ -437,6 +478,7 @@ class users extends CI_Controller
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
                 redirect(base_url() . 'user_student/badge_history/' . $obj_batch_history->student_id, 'refresh');
             } else {
+                $this->layout->setField('page_title', $this->lang->line('edit').' '.$this->lang->line('batch_history'));
                 $obj_batch_history = new Userbatcheshistory($id);
                 $data['batch_history'] = $obj_batch_history;
                 
@@ -486,6 +528,7 @@ class users extends CI_Controller
     }
     
     function listStudentScore($id) {
+        $this->layout->setField('page_title', $this->lang->line('list_score_history'));
         $data['user'] = new User($id);
         $this->layout->view('users/student_score_history_view', $data);
     }

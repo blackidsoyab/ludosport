@@ -60,7 +60,7 @@
 </script>
 <?php $session = $this->session->userdata('user_session'); ?>
 
-<h1 class="page-heading h1"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('score_history'); ?> : <a href="<?php echo base_url() .'profile/view/' . $user->id; ?>"><?php echo $user->firstname, ' ', $user->lastname; ?></a></h1>    
+<h1 class="page-heading h1"><?php echo $this->lang->line('list_score_history'); ?> : <a href="<?php echo base_url() .'profile/view/' . $user->id; ?>"><?php echo $user->firstname, ' ', $user->lastname; ?></a></h1>    
 
 <div class="the-box">
     <div class="form-horizontal">
