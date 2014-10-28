@@ -462,6 +462,11 @@ TABLET < 767px
 		top: 0;
 		bottom: -50px;
 	}
+
+	.event-action-btn a {
+		display: inline-block;;
+		margin-top: 10px; 
+	}
 	
 }
 

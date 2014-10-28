@@ -708,8 +708,8 @@ class json extends CI_Controller
             $temp_arr = array();
             $temp_arr[] = $aRow['student_name'];
             $temp_arr[] = $aRow['class_name'];
-            if($aRow['first_lesson_date'] != ''){
-                $temp_arr[] = date('d-m-Y', strtotime($aRow['first_lesson_date']));     
+            if ($aRow['first_lesson_date'] != '') {
+                $temp_arr[] = date('d-m-Y', strtotime($aRow['first_lesson_date']));
             } else {
                 $temp_arr[] = '';
             }
@@ -1083,9 +1083,9 @@ class json extends CI_Controller
                     $temp_arr[] = '<span class="label label-info-danger">' . $this->lang->line('rejected') . '</span>';
                 }
             }
-            if(isset($aRow['played_on']) && $aRow['played_on'] != ''){
+            if (isset($aRow['played_on']) && $aRow['played_on'] != '') {
                 $str = (date('d-m-Y', strtotime($aRow['played_on'])) != '01-01-1970') ? date('d-m-Y', strtotime($aRow['played_on'])) : '-- ';
-                $str .= (date('H:i', strtotime($aRow['played_on'])) != '00:00') ? date('H:i a', strtotime($aRow['played_on'])) : ' --';
+                $str.= (date('H:i', strtotime($aRow['played_on'])) != '00:00') ? date('H:i a', strtotime($aRow['played_on'])) : ' --';
                 $temp_arr[] = $str;
             } else {
                 $temp_arr[] = '&nbsp;';
@@ -1223,9 +1223,9 @@ class json extends CI_Controller
                 $temp_arr[] = '&nbsp;';
             }
             
-            if($aRow['assign_date'] != ''){
+            if ($aRow['assign_date'] != '') {
                 $temp_arr[] = date('d-m-Y', strtotime($aRow['assign_date']));
-            }else{
+            } else {
                 $temp_arr[] = '';
             }
             
@@ -1489,7 +1489,7 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
-
+    
     public function getEvolutioncategoriesJsonData() {
         $this->load->library('datatable');
         $this->datatable->aColumns = array($this->session_data->language . '_name');
@@ -1517,7 +1517,7 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
-
+    
     public function getEvolutionlevelsJsonData() {
         $this->load->library('datatable');
         $this->datatable->aColumns = array('evolutionlevels.' . $this->session_data->language . '_name AS evolutionlevel', 'evolutioncategories.' . $this->session_data->language . '_name AS evolutioncategory', 'el.' . $this->session_data->language . '_name AS criteria');
@@ -1548,7 +1548,7 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
-
+    
     public function getEvolutionClansJsonData($school_id) {
         $where = Null;
         
@@ -1603,7 +1603,7 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
-
+    
     public function getEvolutionClanRequestJsonData($clan_id = null) {
         $this->load->library('datatable');
         $this->datatable->aColumns = array('CONCAT(users.firstname," ", users.lastname) AS student_name', 'evolutionclans.' . $this->session_data->language . '_class_name AS class_name', 'evolutionstudents.timestamp', 'evolutionstudents.status');
@@ -1635,7 +1635,7 @@ class json extends CI_Controller
             $temp_arr = array();
             $temp_arr[] = $aRow['student_name'];
             $temp_arr[] = $aRow['class_name'];
-            $temp_arr[] = date('d-m-Y', strtotime($aRow['timestamp']));     
+            $temp_arr[] = date('d-m-Y', strtotime($aRow['timestamp']));
             
             if ($aRow['status'] == 'A') {
                 $temp_arr[] = '<label class="label label-success">' . $this->lang->line('approved') . '</label>';
@@ -1657,7 +1657,7 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
-
+    
     public function getEvolutionClanStudentsJsonData($academy_id = 0, $school_id = 0, $evolutionclan_id = 0) {
         $where = NULL;
         
@@ -1693,10 +1693,82 @@ class json extends CI_Controller
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
             $temp_arr[] = '<img src="' . IMG_URL . 'user_avtar/40X40/' . $aRow['avtar'] . '" class="avatar img-circle" alt="avatar"><a href="' . base_url() . 'profile/view/' . $aRow['id'] . '" class="text-black">' . $aRow['student_name'] . '</a>';
-
+            
             $temp_arr[] = $aRow['class_name'];
             $temp_arr[] = $aRow['school_name'];
             $temp_arr[] = $aRow['academy_name'];
+            
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+    
+    public function getEventInvitationJsonData($event_id) {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('GROUP_CONCAT(CONCAT(f.firstname," ",f.lastname,"_",from_id) ORDER BY f.firstname ASC, f.lastname ASC) AS from_name', 'CONCAT(t.firstname," ",t.lastname,"_",to_id) AS to_name', 'COUNT(*) AS total');
+        $this->datatable->eColumns = array('e.id');
+        $this->datatable->sIndexColumn = "e.id";
+        $this->datatable->sTable = " eventinvitations e, users f, users t";
+        $this->datatable->myWhere = ' WHERE f.id=e.from_id AND t.id = e.to_id AND e.event_id = ' . $event_id;
+        $this->datatable->groupBy = ' GROUP BY e.to_id';
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            
+            $from_str = null;
+            foreach (explode(',', $aRow['from_name']) as $from) {
+                list($name, $id) = explode('_', $from);
+                $from_str.= ',&nbsp;<a href="' . base_url() . 'profile/view/' . $id . '">' . ucwords($name) . '</a>' . "\n";
+            }
+            $temp_arr[] = substr($from_str, 7);
+            
+            $to_str = null;
+            foreach (explode(',', $aRow['to_name']) as $to) {
+                list($name, $id) = explode('_', $to);
+                $to_str.= ',&nbsp;<a href="' . base_url() . 'profile/view/' . $id . '">' . ucwords($name) . '</a>' . "\n";
+            }
+            $temp_arr[] = substr($to_str, 7);
+
+            $temp_arr[] = $aRow['total'];
+            
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getviewEventInvitedJsonData(){
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array($this->session_data->language.'_name AS event_name', 'CONCAT(date_from, " ", date_to) AS event_date','GROUP_CONCAT(CONCAT(f.firstname," ",f.lastname,"_",from_id) ORDER BY f.firstname ASC, f.lastname ASC) AS from_name', 'COUNT(*) AS total');
+        $this->datatable->eColumns = array('e.id');
+        $this->datatable->sIndexColumn = "e.id";
+        $this->datatable->sTable = " eventinvitations e, events, users f";
+        $this->datatable->myWhere = ' WHERE events.id=e.event_id AND f.id=e.from_id AND to_id= ' . $this->session_data->id;
+        $this->datatable->groupBy = ' GROUP BY e.event_id';
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+
+            $temp_arr[] = $aRow['event_name'];
+            list($date_from, $date_to) = explode(' ', $aRow['event_date']);
+            if(strtotime($date_from) == strtotime($date_to)){
+                $temp_arr[] = date('d-m-Y', strtotime($date_from));
+            } else{
+                $temp_arr[] = date('d-m-Y', strtotime($date_from)) . ' <br />-<br /> ' . date('d-m-Y', strtotime($date_to));
+            }
+            
+
+            $from_str = null;
+            foreach (explode(',', $aRow['from_name']) as $from) {
+                list($name, $id) = explode('_', $from);
+                $from_str.= ',&nbsp;<a href="' . base_url() . 'profile/view/' . $id . '">' . ucwords($name) . '</a>' . "\n";
+            }
+            $temp_arr[] = substr($from_str, 7);
+
+            $temp_arr[] = $aRow['total'];
             
             $this->datatable->output['aaData'][] = $temp_arr;
         }

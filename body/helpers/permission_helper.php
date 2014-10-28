@@ -333,6 +333,8 @@ if (!function_exists('createPermissionArray')) {
                     'editEvent' => array('name' => 'Edit'),
                     'deleteEvent' => array('name' => 'Delete'),
                     'sendEventInvitation' => array('name' => 'Send Invitation'),
+                    'viewEventInvitation' => array('name' => 'List Invited Member'),
+                    'viewEventInvited' => array('name' => 'List events invited in'),
                     'takeEventAttendance' => array('name' => 'Take Event Attendances'),
                     )),
             'evolutioncategories' => array(

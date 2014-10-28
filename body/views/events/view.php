@@ -5,9 +5,14 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <h1 class="page-heading h1 pull-left"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('event'); ?></h1>    
 
+        <?php if (hasPermission('events', 'viewEventInvited')) { ?>
+            <a href="<?php echo base_url() . 'event/view_inivted' ?>" class="btn btn-primary h1 pull-right mar-lt-10" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('view'), ' ', $this->lang->line('event_inivted'); ?>"><?php echo $this->lang->line('view'), ' ', $this->lang->line('event_inivted'); ?></a>
+        <?php } ?>
+
         <?php if (hasPermission('events', 'addEvent')) { ?>
             <a href="<?php echo base_url() . 'event/add' ?>" class="btn btn-primary h1 pull-right" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('add'), ' ', $this->lang->line('event'); ?>"><?php echo $this->lang->line('add'), ' ', $this->lang->line('event'); ?></a>
         <?php } ?>
+
     </div>
 </div>
 

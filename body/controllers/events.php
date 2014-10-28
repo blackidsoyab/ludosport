@@ -365,7 +365,6 @@ class events extends CI_Controller
      *   Param1(required) : event id
     */
     function takeEventAttendance($event_id) {
-        
         //check Event it is passed or not
         if (!empty($event_id)) {
             $event_detail = new Event();
@@ -413,7 +412,7 @@ class events extends CI_Controller
                     $this->session->set_flashdata('success', $this->lang->line('attendance_save_successfully'));
                     redirect(base_url() . 'event/attendance/' . $event_id, 'refresh');
                 } else {
-                    
+                    $this->layout->setField('page_title', $this->lang->line('event_take_attendance'));
                     //set array for view part
                     $data['event_detail'] = $event_detail;
                     
@@ -557,6 +556,7 @@ class events extends CI_Controller
                     $this->session->set_flashdata('success', $this->lang->line('invitation_send_successfully'));
                     redirect(base_url() . 'event/view/' . $event_id, 'refresh');
                 } else {
+                    $this->layout->setField('page_title', $this->lang->line('send') .' '. $this->lang->line('event'). ' '. $this->lang->line('invitation'));
                     $current_date_time = get_current_date_time()->get_date_for_db();
                     $date_from = $event_detail->date_from;
                     $date_to = $event_detail->date_to;
@@ -993,5 +993,47 @@ class events extends CI_Controller
             
             return $array;
         }
+    }
+
+    /*
+    *   view all the member invited to the event
+    *   Param1(required) : event id
+    */
+    function viewEventInvitation($event_id){
+        if (!empty($event_id)) {
+            $event_detail = new Event();
+            $event_detail->where('id', $event_id)->get();
+
+            if ($event_detail->result_count() == 1) {
+                if (!hasPermission('events', 'viewEventInvitation') && !in_array($this->session_data->id, explode(',', $event_detail->manager))) {
+                    $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                    redirect(base_url() . 'event', 'refresh');
+                }
+
+                $this->layout->setField('page_title', $this->lang->line('view') .' '. $this->lang->line('event'). ' '. $this->lang->line('invitation'));
+                //set array for view part
+                $data['event_detail'] = $event_detail;
+                $this->layout->view('events/view_invitation', $data);
+            } else {
+                $this->session->set_flashdata('error', $this->lang->line('no_data_exit'));
+                redirect(base_url() . 'event', 'refresh');
+            }
+        } else {
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'event', 'refresh');
+        }
+    }
+
+    /*
+    *   view all the member invited to the event
+    *   Param1(required) : event id
+    */
+    function viewEventInvited(){
+        $this->layout->setField('page_title', $this->lang->line('view') .' '. $this->lang->line('event_inivted'));
+        if (!hasPermission('events', 'viewEventInvited')) {
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'event', 'refresh');
+        }
+        $this->layout->view('events/view_event_inivted');
     }
 }

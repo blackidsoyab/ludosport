@@ -38,24 +38,30 @@
 <div class="col-lg-8">
 	<div class="the-box">
 		<div class="featured-post-wide">
-			<p class="pull-left">
-				<?php
-					if (hasPermission('events', 'sendEventInvitation') || in_array($session->id, explode(',', $event_detail->manager))) {
-			            echo '<a href="' . base_url() . 'event/invitation/' . $event_detail->id. '" class="actions btn btn-primary" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('send') .' '. $this->lang->line('invitation') . '">'.$this->lang->line('send') .' '. $this->lang->line('invitation').'</a>';
-			        }
-			    ?>
-			</p>
-			<p class="pull-right">
-				<?php
-					if (hasPermission('events', 'editEvent') || in_array($session->id, explode(',', $event_detail->manager))) {
-			            echo '<a href="' . base_url() . 'event/edit/' . $event_detail->id. '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
-			        }
+			<div class="row">
+				<?php if (hasPermission('events', 'sendEventInvitation') || in_array($session->id, explode(',', $event_detail->manager))) { ?>
+					<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+						<a href="<?php echo base_url() . 'event/invitation/' . $event_detail->id; ?>" class="btn btn-block btn-primary" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('send') .' '. $this->lang->line('invitation'); ?>"> <?php echo $this->lang->line('send') .' '. $this->lang->line('invitation'); ?></a>
+					</div>
+			    <?php } ?>
 
-			        if (hasPermission('events', 'deleteEvent') || in_array($session->id, explode(',', $event_detail->manager))) {
-			            echo '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' .  $event_detail->id . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
-			        }
-				?>
-			</p>
+			    <?php if (hasPermission('events', 'viewEventInvitation') || in_array($session->id, explode(',', $event_detail->manager))) { ?>
+			    	<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+			        	<a href="<?php echo base_url() . 'event/view_invitation/' . $event_detail->id; ?>" class="btn btn-block btn-primary" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('view') .' '. $this->lang->line('invitation'); ?>"><?php echo $this->lang->line('view') .' '. $this->lang->line('invitation'); ?> </a>
+			        </div>
+			    <?php } ?>
+
+			    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-right event-action-btn">
+					<?php if (hasPermission('events', 'editEvent') || in_array($session->id, explode(',', $event_detail->manager))) { ?>
+			        	<a href="<?php echo base_url() . 'event/edit/' . $event_detail->id; ?>" class="actions" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('edit'); ?>"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>
+				    <?php } ?>
+
+				    <?php if (hasPermission('events', 'deleteEvent') || in_array($session->id, explode(',', $event_detail->manager))) { ?>
+			        	<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="<?php echo $event_detail->id; ?>" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('delete'); ?>"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>
+				    <?php } ?>
+			    </div>
+			</div>
+			<hr class="mar-tp-10 mar-bt-10" />
 			<img src="<?php echo IMG_URL .'event_images/780X450/' . $event_detail->image; ?>" class="img-responsive" alt="Image">
 			<div class="featured-text relative-left">
 				<h3><a href="#"><?php echo ucfirst($event_detail->{$session->language.'_name'}); ?></a></h3>

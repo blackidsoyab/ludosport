@@ -372,6 +372,10 @@ $lang['select_clans'] = 'Select Clans';
 $lang['select_any_clan'] = 'Select any Clan';
 $lang['select_studetns'] = 'Select Students';
 $lang['select_any_student'] = 'Select any Student';
+$lang['invitation_send_from_name'] = "From user(s)";
+$lang['invitation_send_to_name'] = "To user";
+$lang['total_invitation_send'] = "Total";
+$lang['event_inivted'] = 'Event invited in';
 
 //Event Attendance
 $lang['no_manager_attendance_error'] = 'You are not the authorized person to take attendance';
