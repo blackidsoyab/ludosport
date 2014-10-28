@@ -71,7 +71,7 @@ $(document).ready(function() {
         <div class="form-group">
             <label class="col-lg-3 control-label">&nbsp;</label>
             <div class="col-lg-5">
-                <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('update'); ?>"><?php echo $this->lang->line('update'); ?></button>
+                <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('save'); ?>"><?php echo $this->lang->line('save'); ?></button>
                 <a href="<?php echo base_url() . 'user_student/badge_history/' . $user->id;  ?>" class="btn btn-default" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('cancel'); ?>"><?php echo $this->lang->line('cancel'); ?></a>
             </div>
         </div>
