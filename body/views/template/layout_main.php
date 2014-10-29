@@ -401,10 +401,6 @@
                             <li class="<?php echo ($page == 'evolutioncategory') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'evolutioncategory'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('evolutioncategory'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('evolutioncategory'); ?></a></li>
                             <?php } ?>
 
-                            <?php if (hasPermission('evolutionlevels', 'viewEvolutionlevel')) { ?>
-                            <li class="<?php echo ($page == 'evolutionlevel') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'evolutionlevel'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('evolutionlevel'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('evolutionlevel'); ?></a></li>
-                            <?php } ?>
-
                             <?php if (hasPermission('batches', 'viewBatch')) { ?>   
                             <li class="<?php echo ($page == 'batch') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'batch'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('batch'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('batch'); ?></a></li>
                             <?php } ?> 

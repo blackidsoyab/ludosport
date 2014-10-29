@@ -204,6 +204,34 @@ class students extends CI_Controller
             $data['recover_percentage'] = round(($data['total_recover'] * 100) / $total_attendance, 2);
         }
         
+        unset($obj_batch_history);
+        $obj_batch_history = new Userbatcheshistory();
+        $obj_batch_history->select('batch_id')->where(array('batch_type' => 'S', 'student_id' => $this->session_data->id))->get();
+        
+        foreach ($obj_batch_history as $batch_detail) {
+            $assigned_batches[] = $batch_detail->batch_id;
+        }
+        
+        if (!isset($assigned_batches)) {
+            $assigned_batches = array();
+        }
+        
+        for ($i = 0; $i <= 2; $i++) {
+            for ($j = 1; $j <= 7; $j++) {
+                $evolution_batch_master = evolutionMasterLevels($i, $j);
+                if (in_array($evolution_batch_master['id'], $assigned_batches)) {
+                    $data['evolution_batch_master'][$j] = $evolution_batch_master;
+                } else {
+                    if (!isset($data['evolution_batch_master'][$j])) {
+                        $evolution_batch_master = evolutionMasterLevels(0, $j);
+                        $data['evolution_batch_master'][$j] = $evolution_batch_master;
+                    }
+                }
+            }
+        }
+        
+        //$data['evolution_batch_master'] = evolutionMasterLevels();
+        
         //For Timeline
         $obj = new Notification();
         $obj->where('to_id', $this->session_data->id);
@@ -873,22 +901,99 @@ class students extends CI_Controller
         $this->layout->view('students/journal');
     }
     
-    function viewEvolution() {
+    function viewEvolution($id = null, $type = null) {
         $this->layout->setField('page_title', $this->lang->line('evolution'));
+
+         if (!is_null($id) && $type == 'notification') {
+            Notification::updateNotification('evolution_clan_result', $this->session_data->id, $id);
+            Notification::updateNotification('evolution_clan_request_unapproved', $this->session_data->id, $id);
+            Notification::updateNotification('evolution_clan_request_approved', $this->session_data->id, $id);
+        }
+        
+        $obj_batch_history = new Userbatcheshistory();
+        $obj_batch_history->select('batch_id');
+        $obj_batch_history->where(array('batch_type' => 'S', 'student_id' => $this->session_data->id));
+        $obj_batch_history->get();
+        
+        foreach ($obj_batch_history as $batch_detail) {
+            $assigned_batches[] = $batch_detail->batch_id;
+        }
+        
+        if (!isset($assigned_batches)) {
+            $assigned_batches = array();
+        }
+        
+        $orange_batch = array();
+        for ($i = 0; $i <= 2; $i++) {
+            for ($j = 1; $j <= 7; $j++) {
+                $evolution_batch_master = evolutionMasterLevels($i, $j);
+                if (in_array($evolution_batch_master['id'], $assigned_batches)) {
+                    if ($i == 1) {
+                        $orange_batch[] = $evolution_batch_master['id'];
+                    }
+                }
+            }
+        }
         
         $obj_category = new Evolutioncategory();
         foreach ($obj_category->get() as $category) {
             $data['evolution_categories'][] = $category->stored;
-            foreach ($category->Evolutionlevel->order_by('depth', 'ASC')->get() as $level) {
-                $data['evolution_levels_' . $category->id][] = $level->stored;
-                foreach ($level->Evolutionclan->order_by($this->session_data->language . '_class_name', 'ASC')->get() as $clan) {
-                    $data['evolution_clans_' . $level->id][] = $clan->stored;
+            if ($category->id == 1) {
+                $obj = new Batch();
+                $obj->where(array('type' => 'Q'))->order_by('sequence', 'ASC')->get();
+                $count = 0;
+                foreach ($obj as $level) {
+                    $std_obj = new stdClass();
+                    $std_obj->id = $level->id;
+                    if ($count == 0) {
+                        $std_obj->on_passing = 0;
+                        $count++;
+                    } else {
+                        $std_obj->on_passing = $previous_id;
+                    }
+                    
+                    $previous_id = $level->id;
+                    $std_obj->name = $level->{$this->session_data->language . '_name'};
+                    
+                    $data['evolution_levels_' . $category->id][] = $std_obj;
+                    $obj_clan = new Evolutionclan();
+                    $obj_clan->where('evolutionlevel_id', $level->id)->order_by($this->session_data->language . '_class_name', 'ASC')->get();
+                    foreach ($obj_clan as $clan) {
+                        $data['evolution_clans_' . $level->id][] = $clan->stored;
+                    }
+                }
+            } else if ($category->id == 2) {
+                $obj = evolutionMasterLevels(2);
+                $count = 0;
+
+                for($i=1; $i<= count($obj); $i++){
+                    $std_obj = new stdClass();
+                    $std_obj->id = $obj[$i]['id'];
+                    if ($count == 0 && empty($orange_batch)) {
+                        $std_obj->elegible = true;
+                        $count++;
+                    } else {
+                        $obj_temp = evolutionMasterLevels(1);
+                        if (in_array($obj_temp[$i]['id'], $orange_batch)) {
+                            $std_obj->elegible = true;
+                        } else {
+                            $std_obj->elegible = false;
+                        }
+                    }
+                    $std_obj->name = $obj[$i][$this->session_data->language];
+                    $data['evolution_levels_' . $category->id][] = $std_obj;
+
+                    $obj_clan = new Evolutionclan();
+                    $obj_clan->where('evolutionlevel_id', $obj[$i]['id'])->order_by($this->session_data->language . '_class_name', 'ASC')->get();
+                    foreach ($obj_clan as $clan) {
+                        $data['evolution_clans_' . $obj[$i]['id']][] = $clan->stored;
+                    }
                 }
             }
         }
-
+        
         $obj_student_clan_details = new Evolutionstudent();
-        $student_clan_details = $obj_student_clan_details->where('student_id' , $this->session_data->id)->get();
+        $student_clan_details = $obj_student_clan_details->where('student_id', $this->session_data->id)->get();
         if ($student_clan_details->result_count() > 0) {
             foreach ($student_clan_details as $clan_details) {
                 if ($clan_details->status == 'P') {
@@ -919,44 +1024,39 @@ class students extends CI_Controller
         
         $this->layout->view('students/evolution', $data);
     }
-
-    function applyEvolutionClan(){
-       if($this->input->post() !== false) {
-            $obj_student = new Evolutionstudent();
-            $student_detail = $obj_student->where(array('student_id' => $this->session_data->id, 'status' => 'A'))->get();
-            $active_clan_detail = $obj_student->Evolutionclan->get();
-
-            $obj_clan = new Evolutionclan($this->input->post('clan_id'));
-
-            if($active_clan_detail->evolutioncategory_id != $obj_clan->evolutioncategory_id){
-                unset($obj_student);
+    
+    function applyEvolutionClan() {
+        if ($this->input->post() !== false) {
                 
-                $obj_student = new Evolutionstudent();
-
-                $obj_student->evolutionclan_id = $this->input->post('clan_id');
-                $obj_student->student_id = $this->session_data->id;
-                $obj_student->user_id = $this->session_data->id;
-                $obj_student->save();
-
-                $obj = new Evolutionstudent($obj_student->id);
-                $this->_sendNotificationEmailForEvoltion('evolution_clan_request', $obj->stored, $obj->id);
-
-                $this->session->set_flashdata('success', $this->lang->line('applied_for_clan_successfully'));
-                echo true;
+            $obj_student = new Evolutionstudent();
+            $obj_student = $obj_student->where(array('student_id' => $this->session_data->id, 'evolutionclan_id' => $this->input->post('clan_id')))->get();
+            $obj_student->evolutionclan_id = $this->input->post('clan_id');
+            $obj_student->student_id = $this->session_data->id;
+            if($obj_student->result_count() == 1){
+                $obj_student->histroy = serialize($obj_student->stored);
             }else{
-                $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
-                redirect(base_url() . 'evolution', 'refresh');    
+                $obj_student->histroy = null;
             }
-        }else{
+            $obj_student->approved_by = 0;
+            $obj_student->status = 'P';
+            $obj_student->user_id = $this->session_data->id;
+            $obj_student->save();
+            
+            $obj = new Evolutionstudent($obj_student->id);
+            $this->_sendNotificationEmailForEvoltion('evolution_clan_request', $obj->stored, $obj->id);
+            
+            echo json_encode(array('status' => 'success', 'msg' => $this->lang->line('applied_for_clan_successfully')));
+
+        } else {
             $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
             redirect(base_url() . 'dashboard', 'refresh');
         }
     }
-
-    function _sendNotificationEmailForEvoltion($type, $post, $object_id){
+    
+    function _sendNotificationEmailForEvoltion($type, $post, $object_id) {
         $clan = new Evolutionclan($post->evolutionclan_id);
         $final_ids = array_unique(array_merge(explode(',', $clan->teacher_id), User::getAdminIds()));
-
+        
         foreach ($final_ids as $user_id) {
             $notification = new Notification();
             $notification->type = 'N';
@@ -966,21 +1066,22 @@ class students extends CI_Controller
             $notification->object_id = $object_id;
             $notification->data = serialize(objectToArray($post));
             $notification->save();
-
+            
             $email = new Email();
             $email->where('type', $type)->get();
             $message = $email->message;
-
+            
             $user = userNameEmail($user_id);
-
-            if($type == 'evolution_clan_request'){
+            
+            if ($type == 'evolution_clan_request') {
                 $message = str_replace('#user_name', $user['name'], $message);
                 $message = str_replace('#request_username', $this->session_data->name, $message);
                 $message = str_replace('#clan_name', $clan->en_class_name, $message);
             }
-
+            
             $check_privacy = unserialize($user['email_privacy']);
             if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy[$type] == 1) {
+                
                 //set option for sending mail
                 $option = array();
                 $option['tomailid'] = $user['email'];
@@ -992,7 +1093,7 @@ class students extends CI_Controller
                 send_mail($option);
             }
         }
-
+        
         return true;
     }
     

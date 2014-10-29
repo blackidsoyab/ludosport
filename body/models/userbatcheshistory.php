@@ -15,10 +15,12 @@ class Userbatcheshistory extends DataMapper
         $obj_batch_history->student_id = $student_id;
         $obj_batch_history->batch_type = $type;
         $obj_batch_history->batch_id = $batch_id;
-        if(is_null($assign_date)){
-            $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
-        } else{
-             $obj_batch_history->assign_date = $assign_date;
+        if($obj_batch_history->result_count() == 0){
+            if(is_null($assign_date)){
+                $obj_batch_history->assign_date = get_current_date_time()->get_date_for_db();
+            } else{
+                $obj_batch_history->assign_date = $assign_date;
+            }
         }
         $obj_batch_history->user_id = $session->id;
         $obj_batch_history->save();

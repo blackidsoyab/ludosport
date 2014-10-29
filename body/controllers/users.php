@@ -117,6 +117,11 @@ class users extends CI_Controller
                         }
                     }
                 }
+
+                if ($this->input->post('master_id') != 0) {
+                    $obj_batch_history = new Userbatcheshistory();
+                    $obj_batch_history->saveStudentBatchHistory($user->id, 'S', $this->input->post('master_id'));
+                }
                 
                 if ($this->input->post('affect_score') === 'Y') {
                     $obj_score_history = new Scorehistory();
@@ -191,6 +196,8 @@ class users extends CI_Controller
                 $obj_batch = new Batch();
                 $data['security_batches'] = $obj_batch->getBatchAssignmentByRole('S', $this->session_data->role);
             }
+
+            $data['evolution_batch_master'] = evolutionMasterLevels(1);
             
             $this->layout->view('users/add', $data);
         }
@@ -307,6 +314,11 @@ class users extends CI_Controller
                         $obj_score_history->meritStudentScore($user->id, 'war', $war, 'Assign badge');
                         $obj_score_history->meritStudentScore($user->id, 'sty', $sty, 'Assign badge');
                     }
+
+                    if ($this->input->post('master_id') != 0) {
+                        $obj_batch_history = new Userbatcheshistory();
+                        $obj_batch_history->saveStudentBatchHistory($user->id, 'S', $this->input->post('master_id'));
+                    }
                     
                     $user_details->clan_id = $this->input->post('class_id');
                     $user_details->first_lesson_date = get_current_date_time()->get_date_for_db();
@@ -398,6 +410,20 @@ class users extends CI_Controller
                             $obj_batch = new Batch();
                             $data['security_batches'] = $obj_batch->getBatchAssignmentByRole('S', $this->session_data->role);
                         }
+
+                        unset($obj_batch_history);
+                        $obj_batch_history = new Userbatcheshistory();
+                        $obj_batch_history->select('batch_id')->where(array('batch_type' => 'M', 'student_id' => $user->id))->get();
+                        
+                        foreach ($obj_batch_history as $batch_detail) {
+                            $data['assigned_master_batches'][] = $batch_detail->batch_id;
+                        }
+
+                        if (!isset($data['assigned_master_batches'])) {
+                            $data['assigned_master_batches'] = array();
+                        }
+
+                        $data['evolution_batch_master'] = evolutionMasterLevels(1);
                     }
                     
                     $this->layout->view('users/edit', $data);

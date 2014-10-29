@@ -342,17 +342,7 @@ if (!function_exists('createPermissionArray')) {
                 'name' => 'Evolution Categories',
                 'hasChild' => array(
                     'viewEvolutioncategory' => array('name' => 'List'),
-                    'addEvolutioncategory' => array('name' => 'Add'),
                     'editEvolutioncategory' => array('name' => 'Edit'),
-                    'deleteEvolutioncategory' => array('name' => 'Delete'),
-                    )),
-            'evolutionlevels' => array(
-                'name' => 'Evolution Level',
-                'hasChild' => array(
-                    'viewEvolutionlevel' => array('name' => 'List'),
-                    'addEvolutionlevel' => array('name' => 'Add'),
-                    'editEvolutionlevel' => array('name' => 'Edit'),
-                    'deleteEvolutionlevel' => array('name' => 'Delete'),
                     )),
             'evolutionclans' => array(
                 'name' => 'Evolution',
@@ -362,7 +352,9 @@ if (!function_exists('createPermissionArray')) {
                     'editEvolutionclan' => array('name' => 'Edit'),
                     'deleteEvolutionclan' => array('name' => 'Delete'),
                     'listEvolutionClanRequest' => array('name' => 'List Clan Request'),
+                    'evolutionclanStudentList' => array('name' => 'Student List'),
                     'changeRequestStatus' => array('name' => 'Approve / Unapprove Clan Request'),
+                    'resultEvolutionclan' => array('name' => 'Declare student result'),
                     )),
             'profiles' => array(
                 'name' => 'Profile',
@@ -596,6 +588,11 @@ if (!function_exists('emailPrivacyArray')) {
             'it'=>'Evolution clan request unapproved',
         );
 
+        $email_privacy['evolution_clan_result'] = array(
+            'en'=>'Evolution clan result',
+            'it'=>'Evolution clan result',
+        );
+
 
         //ADMIN
         $email_role[2] = array(
@@ -608,7 +605,8 @@ if (!function_exists('emailPrivacyArray')) {
             'event_manager',
             'evolution_clan_request',
             'evolution_clan_request_approved',
-            'evolution_clan_request_unapproved'
+            'evolution_clan_request_unapproved',
+            'evolution_clan_result'
         );
 
         //RECTOR
@@ -626,7 +624,8 @@ if (!function_exists('emailPrivacyArray')) {
             'event_manager',
             'evolution_clan_request',
             'evolution_clan_request_approved',
-            'evolution_clan_request_unapproved'
+            'evolution_clan_request_unapproved',
+            'evolution_clan_result'
         );
 
         //DEAN
@@ -645,7 +644,8 @@ if (!function_exists('emailPrivacyArray')) {
             'event_manager',
             'evolution_clan_request',
             'evolution_clan_request_approved',
-            'evolution_clan_request_unapproved'
+            'evolution_clan_request_unapproved',
+            'evolution_clan_result'
         );
 
         //TEACHER
@@ -669,7 +669,8 @@ if (!function_exists('emailPrivacyArray')) {
             'event_manager',
             'evolution_clan_request',
             'evolution_clan_request_approved',
-            'evolution_clan_request_unapproved'
+            'evolution_clan_request_unapproved',
+            'evolution_clan_result'
         );
 
         //PUPIL
@@ -684,7 +685,8 @@ if (!function_exists('emailPrivacyArray')) {
             'new_announcement',
             'event_manager',
             'evolution_clan_request_approved',
-            'evolution_clan_request_unapproved'
+            'evolution_clan_request_unapproved',
+            'evolution_clan_result'
         );
 
         $return = array();

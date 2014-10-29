@@ -1,6 +1,7 @@
 <?php $session = $this->session->userdata('user_session'); ?>
 <script type="text/javascript">
 	$(document).ready(function(){
+		$('#success-alert-message').hide();
 		$('.apply_for_clan').click(function(e) {
 			var post_data = {
 				'clan_id' : $(this).data('clan'),
@@ -14,7 +15,13 @@
 				data: post_data,
 				dataType : 'JSON',
 				success: function(data) {
-                    location.reload();
+					if(data.status == 'success'){
+						$('#success-alert-message').show();
+						$('#success-alert-message span#message').html(data.msg);
+						setTimeout(function() {
+                            location.reload();
+                        },2500);
+					}
 				}	
 			});
 			e.preventDefault();
@@ -39,6 +46,20 @@
 		</div>
 
 		<?php if(isset(${'evolution_levels_' . $category->id}) && count(${'evolution_levels_' . $category->id}) > 0) { ?>
+
+			<div class="row" id="success-alert-message" style="display:none">
+                <div>&nbsp;</div>
+                <div class="col-lg-12">
+                    <div class="auto-close alert alert-success fade in alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <p class="text-center">
+                            <i class="fa fa-thumbs-o-up icon-sm"></i>
+                            <span id="message"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
 			<div class="row mar-bt-10 text-right">
 				<div class="col-xs-12 col-xsm-12 col-md-12 col-lg-12">
 					<label class="label label-success">Level Clear</label>
@@ -64,23 +85,39 @@
 						<div class="panel-group" id="evolution-clan-list">
 							<?php 
 								foreach (${'evolution_levels_' . $category->id} as $levels) { 
-									$can_apply = false;
-									if(isset($evolution_clan_completed[$category->id]) && in_array($levels->id, $evolution_clan_completed[$category->id])) {
-										$panel_class = 'panel-success';
-									} else if(isset($evolution_clan_active[$category->id]) && in_array($levels->id, $evolution_clan_active[$category->id])) {
-										$panel_class = 'panel-info';
-									} else if($levels->on_passing == 0 || (isset($evolution_clan_completed[$category->id]) && in_array($levels->on_passing, $evolution_clan_completed[$category->id]))){
-										$panel_class = 'panel-primary';
-										$can_apply = true;
-									} else {
-										$panel_class = 'panel-danger';
+									if($category->id == 1){
+										$can_apply = false;
+										if(isset($evolution_clan_completed[$category->id]) && in_array($levels->id, $evolution_clan_completed[$category->id])) {
+											$panel_class = 'panel-success';
+										} else if(isset($evolution_clan_active[$category->id]) && in_array($levels->id, $evolution_clan_active[$category->id])) {
+											$panel_class = 'panel-info';
+										} else if($levels->on_passing == 0 || (isset($evolution_clan_completed[$category->id]) && in_array($levels->on_passing, $evolution_clan_completed[$category->id]))){
+											$panel_class = 'panel-primary';
+											$can_apply = true;
+										} else {
+											$panel_class = 'panel-danger';
+										}
+									}
+
+									if($category->id == 2){
+										$can_apply = false;
+										if(isset($evolution_clan_completed[$category->id]) && in_array($levels->id, $evolution_clan_completed[$category->id])) {
+											$panel_class = 'panel-success';
+										} else if(isset($evolution_clan_active[$category->id]) && in_array($levels->id, $evolution_clan_active[$category->id])) {
+											$panel_class = 'panel-info';
+										} else if($levels->elegible){
+											$panel_class = 'panel-primary';
+											$can_apply = true;
+										} else {
+											$panel_class = 'panel-danger';
+										}
 									}
 							?>
 								<div class="panel <?php echo $panel_class; ?>">
 									<div class="panel-heading">
 										<h3 class="panel-title">
 											<a class="block-collapse" data-parent="#evolution-clan-list" data-toggle="collapse" href="#levels-<?php echo $levels->id; ?>">
-												<?php echo $levels->{$session->language.'_name'}; ?>
+												<?php echo $levels->name; ?>
 												<span class="right-content">
 													<span class="right-icon"><i class="glyphicon glyphicon-plus icon-collapse"></i></span>
 												</span>

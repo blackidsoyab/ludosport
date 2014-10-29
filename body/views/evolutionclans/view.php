@@ -19,7 +19,7 @@
             "bServerSide" : true,
             "aaSorting": [[ 0, "asc" ]],
             "aoColumns": [
-                {"sClass": ""},{"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center"},{"sClass": "text-center", "bSortable": false}
+                {"sClass": ""},{"sClass": ""},{"sClass": "text-center"},{"sClass": "text-center"},{"sClass": "text-center", "bSortable": false}
             ],
             "sAjaxSource": "<?php echo base_url() . 'evolutionclan/getjson/'; ?>" +  $('#school_id').val(),
             "fnInitComplete": function (oSettings, json) {
@@ -94,7 +94,6 @@
                 <tr align="left">
                     <th><?php echo $this->lang->line('clan'), ' ', $this->lang->line('name'); ?></th>
                     <th><?php echo $this->lang->line('instructor'), ' ', $this->lang->line('name'); ?></th>
-                    <th><?php echo $this->lang->line('level'); ?></th>
                     <th><?php echo $this->lang->line('school'), ' ', $this->lang->line('name'); ?></th>
                     <th><?php echo $this->lang->line('total'), ' ', $this->lang->line('student'); ?></th>
                     <th width="100"><?php echo $this->lang->line('actions'); ?></th>

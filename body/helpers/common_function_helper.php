@@ -203,6 +203,51 @@ if (!function_exists('colorOfBlades')) {
     }
 }
 
+if (!function_exists('evolutionMasterLevels')) {
+    function evolutionMasterLevels($level = 0, $id = null, $return = null) {
+
+        $array = array();
+
+        $array[0][1] = array('id'=> 1001, 'image' => IMG_URL . 'seven_styles/01_shiicho_base.png' , 'en' => 'Style Master In Shii-Cho', 'it' => 'Style Master In Shii-Cho');
+        $array[0][2] = array('id'=> 1002, 'image' => IMG_URL . 'seven_styles/02_makashi_base.png', 'en' => 'Style Master In Makashi', 'it' => 'Style Master In Makashi');
+        $array[0][3] = array('id'=> 1003, 'image' => IMG_URL . 'seven_styles/03_soresu_base.png', 'en' => 'Style Master In Soresu', 'it' => 'Style Master In Soresu');
+        $array[0][4] = array('id'=> 1004, 'image' => IMG_URL . 'seven_styles/04_ataru_base.png', 'en' => 'Style Master In Ataru', 'it' => 'Style Master In Ataru');
+        $array[0][5] = array('id'=> 1005, 'image' => IMG_URL . 'seven_styles/05_djemso_base.png', 'en' => 'Style Master In Djemso', 'it' => 'Style Master In Djemso');
+        $array[0][6] = array('id'=> 1006, 'image' => IMG_URL . 'seven_styles/06_niman_base.png', 'en' => 'Style Master In Niman', 'it' => 'Style Master In Niman');
+        $array[0][7] = array('id'=> 1007, 'image' => IMG_URL . 'seven_styles/07_vaapad_base.png', 'en' => 'Style Master In Vaapad', 'it' => 'Style Master In Vaapad');
+
+        $array[1][1] = array('id'=> 1008, 'image' => IMG_URL . 'seven_styles/01_shiicho_esamestile.png' , 'en' => 'Style Master In Shii-Cho', 'it' => 'Style Master In Shii-Cho');
+        $array[1][2] = array('id'=> 1009, 'image' => IMG_URL . 'seven_styles/02_makashi_esamestile.png', 'en' => 'Style Master In Makashi', 'it' => 'Style Master In Makashi');
+        $array[1][3] = array('id'=> 10010, 'image' => IMG_URL . 'seven_styles/03_soresu_esamestile.png', 'en' => 'Style Master In Soresu', 'it' => 'Style Master In Soresu');
+        $array[1][4] = array('id'=> 10011, 'image' => IMG_URL . 'seven_styles/04_ataru_esamestile.png', 'en' => 'Style Master In Ataru', 'it' => 'Style Master In Ataru');
+        $array[1][5] = array('id'=> 10012, 'image' => IMG_URL . 'seven_styles/05_djemso_esamestile.png', 'en' => 'Style Master In Djemso', 'it' => 'Style Master In Djemso');
+        $array[1][6] = array('id'=> 10013, 'image' => IMG_URL . 'seven_styles/06_niman_esamestile.png', 'en' => 'Style Master In Niman', 'it' => 'Style Master In Niman');
+        $array[1][7] = array('id'=> 10014, 'image' => IMG_URL . 'seven_styles/07_vaapad_esamestile.png', 'en' => 'Style Master In Vaapad', 'it' => 'Style Master In Vaapad');
+
+        $array[2][1] = array('id'=> 35, 'image' => IMG_URL . 'seven_styles/01_shiicho_esamemaster.png' , 'en' => 'Style Master In Shii-Cho', 'it' => 'Style Master In Shii-Cho');
+        $array[2][2] = array('id'=> 36, 'image' => IMG_URL . 'seven_styles/02_makashi_esamemaster.png', 'en' => 'Style Master In Makashi', 'it' => 'Style Master In Makashi');
+        $array[2][3] = array('id'=> 37, 'image' => IMG_URL . 'seven_styles/03_soresu_esamemaster.png', 'en' => 'Style Master In Soresu', 'it' => 'Style Master In Soresu');
+        $array[2][4] = array('id'=> 38, 'image' => IMG_URL . 'seven_styles/04_ataru_esamemaster.png', 'en' => 'Style Master In Ataru', 'it' => 'Style Master In Ataru');
+        $array[2][5] = array('id'=> 39, 'image' => IMG_URL . 'seven_styles/05_djemso_esamemaster.png', 'en' => 'Style Master In Djemso', 'it' => 'Style Master In Djemso');
+        $array[2][6] = array('id'=> 40, 'image' => IMG_URL . 'seven_styles/06_niman_esamemaster.png', 'en' => 'Style Master In Niman', 'it' => 'Style Master In Niman');
+        $array[2][7] = array('id'=> 41, 'image' => IMG_URL . 'seven_styles/07_vaapad_esamemaster.png', 'en' => 'Style Master In Vaapad', 'it' => 'Style Master In Vaapad');
+
+        
+
+        if (is_null($id) && is_null($return)) {
+            return $array[$level];
+        } else {
+            if (array_key_exists($id, $array[$level])) {
+                if (is_null($return)) {
+                    return $array[$level][$id];
+                } else {
+                    return $array[$level][$id][$return];
+                }
+            }
+        }
+    }
+}
+
 /*
  *   Array Function Start
 */
@@ -250,8 +295,7 @@ if (!function_exists('getArrayNexyValue')) {
         }
         return $next;
     }
-} 
-if (!function_exists('getArrayPreviousValue')) {
+} if (!function_exists('getArrayPreviousValue')) {
     function getArrayPreviousValue(&$array, $curr_val) {
         end($array);
         $prev = current($array);
@@ -264,8 +308,7 @@ if (!function_exists('getArrayPreviousValue')) {
         }
         return $prev;
     }
-} 
-if (!function_exists('objectToArray')) {
+} if (!function_exists('objectToArray')) {
     function objectToArray($array) {
         if (is_object($array)) {
             $array = get_object_vars($array);

@@ -161,10 +161,20 @@ function makeURL($options) {
 
     if ($session->role != 6 && $options['notify_type'] == 'evolution_clan_request_approved') {
         $url = base_url() . 'evolutionclan/check_request/' . $options['object_id'] . '/notification';
+    } else{
+        $url = base_url() . 'evolution/' . $options['object_id'] . '/notification';
     }
 
     if ($session->role != 6 && $options['notify_type'] == 'evolution_clan_request_unapproved') {
         $url = base_url() . 'evolutionclan/check_request/' . $options['object_id'] . '/notification';
+    } else{
+        $url = base_url() . 'evolution/' . $options['object_id'] . '/notification';
+    }
+
+    if ($session->role != 6 && $options['notify_type'] == 'evolution_clan_result') {
+        $url = base_url() . 'evolutionclan/check_request/' . $options['object_id'] . '/notification';
+    } else{
+        $url = base_url() . 'evolution/' . $options['object_id'] . '/notification';
     }
 
     return $url;
@@ -385,6 +395,21 @@ function getNotificationTemplate($options, $user_name_link = false) {
         $user_name = userNameAvtar($options['data']['student_id'], $user_name_link);
         $clan = new Evolutionclan($options['data']['evolutionclan_id']);
         $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name'], $clan->{$session->language.'_class_name'});
+    } 
+
+    if($options['notify_type'] == 'evolution_clan_result'){
+        $template_edit = true;
+        $user_name = userNameAvtar($options['data']['student_id'], $user_name_link);
+        $clan = new Evolutionclan($options['data']['evolutionclan_id']);
+        if($options['data']['status'] == 'C'){
+            $result = & get_instance()->lang->line('evolution_completed_student');
+        }
+
+        if($options['data']['status'] == 'F'){
+            $result = & get_instance()->lang->line('evolution_fail_student');
+        }
+
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $result ,$user_name['name'], $clan->{$session->language.'_class_name'});
     }     
 
     if ($template_edit) {
@@ -548,13 +573,18 @@ function seNotificationTemplate() {
         ),
         'evolution_clan_request_approved' =>
         array(
-            'en' => 'Evolution clan request approved of %s whchi has requested for the evolution clan %s',
-            'it' => 'Evolution clan request approved of %s whchi has requested for the evolution clan %s',
+            'en' => 'Evolution clan request approved of %s which has requested for the evolution clan %s',
+            'it' => 'Evolution clan request approved of %s which has requested for the evolution clan %s',
         ),
         'evolution_clan_request_unapproved' =>
         array(
-            'en' => 'Evolution clan request unapproved of %s whchi has requested for the evolution clan %s',
-            'it' => 'Evolution clan request unapproved of %s whchi has requested for the evolution clan %s',
+            'en' => 'Evolution clan request unapproved of %s which has requested for the evolution clan %s',
+            'it' => 'Evolution clan request unapproved of %s which has requested for the evolution clan %s',
+        ),
+        'evolution_clan_result' =>
+        array(
+            'en' => 'Evolution clan result declared %s for %s of student %s',
+            'en' => 'Evolution clan result declared %s for %s of student %s',
         )
 
     );
@@ -736,7 +766,22 @@ function getTimelineTemplate($options, $user_name_link = false) {
         $user_name = userNameAvtar($options['data']['student_id'], $user_name_link);
         $clan = new Evolutionclan($options['data']['evolutionclan_id']);
         $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name'], $clan->{$session->language.'_class_name'});
-    }       
+    }   
+
+    if($options['notify_type'] == 'evolution_clan_result'){
+        $template_edit = true;
+        $user_name = userNameAvtar($options['data']['student_id'], $user_name_link);
+        $clan = new Evolutionclan($options['data']['evolutionclan_id']);
+        if($options['data']['status'] == 'C'){
+            $result = & get_instance()->lang->line('evolution_completed_student');
+        }
+
+        if($options['data']['status'] == 'F'){
+            $result = & get_instance()->lang->line('evolution_fail_student');
+        }
+
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $result ,$user_name['name'], $clan->{$session->language.'_class_name'});
+    }     
 
     if ($template_edit) {
         return $new_template;
@@ -906,6 +951,11 @@ function setTimelineTemplate() {
         array(
             'en' => 'Evolution clan request unapproved of %s whchi has requested for the evolution clan %s',
             'it' => 'Evolution clan request unapproved of %s whchi has requested for the evolution clan %s',
+        ),
+        'evolution_clan_result' =>
+        array(
+            'en' => 'Evolution clan result declared %s for %s of student %s',
+            'en' => 'Evolution clan result declared %s for %s of student %s',
         )
     );
 

@@ -165,6 +165,8 @@ $lang['degree'] = 'Rank';
 $lang['honour'] = 'Honour';
 $lang['qualification'] = 'Qualifications';
 $lang['security'] = 'Titles';
+$lang['security'] = 'Combat ';
+$lang['master_degree'] = 'Combat styles';
 
 //Teacher Dashboard
 $lang['replace_teacher'] = 'Replace Teacher';
@@ -558,4 +560,12 @@ $lang['accept_evolution_clan_request'] = 'Accept request';
 $lang['reject_evolution_clan_request'] = 'Reject request';
 $lang['accepted_evolution_clan_request'] = 'Request accepted';
 $lang['rejected_evolution_clan_request'] = 'Request rejected';
+$lang['evolution_active_student'] = 'Active';
+$lang['evolution_pending_student'] = 'Pending';
+$lang['evolution_completed_student'] = 'Completed';
+$lang['evolution_fail_student'] = 'Failed';
+$lang['btn_declare_result_of_evolution_clan'] = 'Declare Result';
+$lang['title_declare_result_of_evolution_clan'] = 'Declare result for Evolution clan';
+$lang['evolution_clan_pass'] = 'Pass';
+$lang['evolution_clan_fail'] = 'Fail';
 ?>

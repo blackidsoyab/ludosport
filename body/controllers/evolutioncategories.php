@@ -16,43 +16,6 @@ class evolutioncategories extends CI_Controller
         $this->layout->view('evolutioncategories/view');
     }
     
-    function addEvolutioncategory() {
-        if ($this->input->post() !== false) {
-            $evolutioncategory = new Evolutioncategory();
-
-            if ($_FILES['evolution_image']['name'] != '') {
-                $image = $this->uploadImage();
-                if (isset($image['error'])) {
-                    $this->session->set_flashdata('file_errors', $image['error']);
-                    redirect(base_url() . 'evolutioncategories/add', 'refresh');
-                } else if (isset($image['upload_data'])) {
-                    $evolutioncategory->image = $image['upload_data']['file_name'];
-                }
-            }
-
-
-            foreach ($this->config->item('custom_languages') as $key => $value) {
-                if ($this->input->post($key . '_name') != '') {
-                    $evolutioncategory->{$key . '_name'} = $this->input->post($key . '_name');
-                } else {
-                    $evolutioncategory->{$key . '_name'} = $this->input->post('en_name');
-                }
-            }
-
-            if($this->input->post('description') != '' && $this->input->post('description') != '<p><br></p>'){
-                $evolutioncategory->description = $this->input->post('description');
-            }
-            
-            $evolutioncategory->user_id = $this->session_data->id;
-            $evolutioncategory->save();
-            $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
-            redirect(base_url() . 'evolutioncategory', 'refresh');
-        } else {
-            $this->layout->setField('page_title', $this->lang->line('add') . ' ' . $this->lang->line('evolutioncategory'));
-            $this->layout->view('evolutioncategories/add');
-        }
-    }
-    
     function editEvolutioncategory($id) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
@@ -102,25 +65,6 @@ class evolutioncategories extends CI_Controller
             $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
             redirect(base_url() . 'evolutioncategory', 'refresh');
         }
-    }
-    
-    function deleteEvolutioncategory($id) {
-        if (!empty($id)) {
-            $obj = new Evolutioncategory();
-            $obj->where('id', $id)->get();
-
-            if ($obj->image != 'no-cover.jpg') {
-                if (file_exists('assets/img/evolution_images/' . $obj->image)) {
-                    unlink('assets/img/evolution_images/' . $obj->image);
-                }
-            }
-
-            $obj->delete();
-            $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
-        } else {
-            $this->session->set_flashdata('error', $this->lang->line('delete_data_error'));
-        }
-        redirect(base_url() . 'evolutioncategory', 'refresh');
     }
 
     //upload the evolution image keep the original image and conver the image in 780*450 & 300*200 scale

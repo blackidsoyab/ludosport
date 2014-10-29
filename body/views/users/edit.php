@@ -280,6 +280,20 @@
                         </div>
                     </div>
                 <?php } ?>
+
+                <?php if(isset($evolution_batch_master) && !is_null($evolution_batch_master)) { ?>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('master_degree'); ?></label>
+                        <div class="col-lg-5">
+                            <select class="form-control" name="master_id">
+                                <option value="0"><?php echo $this->lang->line('select'), ' ', $this->lang->line('master_degree'); ?></option> 
+                                <?php foreach ($evolution_batch_master as $master) { ?>
+                                    <option value="<?php echo $master['id']; ?>" <?php echo (in_array($master['id'], $assigned_master_batches)) ? 'selected' : ''; ?>><?php echo $master[$session->language]; ?></option>
+                                <?php } ?>  
+                            </select>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
         <?php } ?>
 

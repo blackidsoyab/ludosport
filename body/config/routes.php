@@ -180,6 +180,8 @@ $route['shop/json_data'] = "json/getStudentPaymentHistoryJsonData";
 $route['shop/invoice/(:num)'] = "students/viewInvoice/$1";
 $route['journal'] = "students/viewJournal";
 $route['evolution'] = "students/viewEvolution";
+$route['evolution/(:num)'] = "students/viewEvolution/$1";
+$route['evolution/(:num)/(:any)'] = "students/viewEvolution/$1/$2";
 $route['evolution/apply_for_clan'] = "students/applyEvolutionClan";
 $route['received'] = "students/viewAdministrationReceived";
 $route['renewals'] = "students/viewAdministrationRenewal";
@@ -281,5 +283,8 @@ $route['evolutionclan/evolution_clan_request'] = "evolutionclans/listEvolutionCl
 $route['evolutionclan/evolution_clan_request/(:num)'] = "evolutionclans/listEvolutionClanRequest/$1";
 $route['evolutionclan/listEvolutionClanRequestJson'] = "json/getEvolutionClanRequestJsonData";
 $route['evolutionclan/listEvolutionClanRequestJson/(:num)'] = "json/getEvolutionClanRequestJsonData/$1";
+$route['evolutionclan/evolution_result_box/(:num)/(:num)'] = "ajax/evolutionClanResultBox/$1/$2";
+$route['evolutionclan/result'] = "evolutionclans/resultEvolutionclan";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

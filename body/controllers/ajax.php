@@ -855,12 +855,19 @@ class ajax extends CI_Controller
     }
 
     function getEvolutionLevels($category_id){
-        $obj = new Evolutionlevel();
-        $obj->where('evolutioncategory_id', $category_id)->get();
-
-        echo '<option value="0">', $this->lang->line('select'), ' ', $this->lang->line('level'), '</option>';
-        foreach ($obj as $level) {
-            echo '<option value="' . $level->id . '">' . $level->{$this->session_data->language . '_name'} . '</option>';
+        if($category_id == 1){
+            $obj = new Batch();
+            $obj->where(array('type' => 'Q'))->order_by('sequence', 'ASC')->get();
+            echo '<option value="0">', $this->lang->line('select'), ' ', $this->lang->line('level'), '</option>';
+            foreach ($obj as $o) {
+                echo '<option value="' . $o->id . '">' . $o->{$this->session_data->language . '_name'} . '</option>';
+            }
+        } else if($category_id == 2){
+            $obj = evolutionMasterLevels(2);
+            echo '<option value="0">', $this->lang->line('select'), ' ', $this->lang->line('level'), '</option>';
+            foreach ($obj as $o) {
+                echo '<option value="' . $o['id'] . '">' . $o[$this->session_data->language] . '</option>';
+            }
         }
     }
 
@@ -885,6 +892,20 @@ class ajax extends CI_Controller
         foreach ($clans as $clan) {
             echo '<option value="' . $clan->id . '">' . $clan->{$session->language . '_class_name'} . '</option>';
         }
+    }
+
+    function evolutionClanResultBox($evolutionclan_id, $student_id){
+        $obj_student = new Evolutionstudent();
+        $obj_student->where(array('evolutionclan_id'=>$evolutionclan_id, 'student_id'=>$student_id))->get();
+
+        if($obj_student->result_count() == 1){
+            $temp = $obj_student->User->get();
+            $temp1 = $obj_student->Evolutionclan->get();
+            $array = array('status'=>true, 'student_name'=> $temp->firstname .' '.  $temp->lastname, 'evolutionclan_name' =>$temp1->{$this->session_data->language.'_class_name'});
+        }else{
+            $array = array('status'=>false);
+        }
+        echo json_encode($array);
     }
 
 }

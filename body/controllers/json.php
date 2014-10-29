@@ -798,6 +798,78 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
+
+        public function getEventInvitationJsonData($event_id) {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('GROUP_CONCAT(CONCAT(f.firstname," ",f.lastname,"_",from_id) ORDER BY f.firstname ASC, f.lastname ASC) AS from_name', 'CONCAT(t.firstname," ",t.lastname,"_",to_id) AS to_name', 'COUNT(*) AS total');
+        $this->datatable->eColumns = array('e.id');
+        $this->datatable->sIndexColumn = "e.id";
+        $this->datatable->sTable = " eventinvitations e, users f, users t";
+        $this->datatable->myWhere = ' WHERE f.id=e.from_id AND t.id = e.to_id AND e.event_id = ' . $event_id;
+        $this->datatable->groupBy = ' GROUP BY e.to_id';
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            
+            $from_str = null;
+            foreach (explode(',', $aRow['from_name']) as $from) {
+                list($name, $id) = explode('_', $from);
+                $from_str.= ',&nbsp;<a href="' . base_url() . 'profile/view/' . $id . '">' . ucwords($name) . '</a>' . "\n";
+            }
+            $temp_arr[] = substr($from_str, 7);
+            
+            $to_str = null;
+            foreach (explode(',', $aRow['to_name']) as $to) {
+                list($name, $id) = explode('_', $to);
+                $to_str.= ',&nbsp;<a href="' . base_url() . 'profile/view/' . $id . '">' . ucwords($name) . '</a>' . "\n";
+            }
+            $temp_arr[] = substr($to_str, 7);
+
+            $temp_arr[] = $aRow['total'];
+            
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getviewEventInvitedJsonData(){
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array($this->session_data->language.'_name AS event_name', 'CONCAT(date_from, " ", date_to) AS event_date','GROUP_CONCAT(CONCAT(f.firstname," ",f.lastname,"_",from_id) ORDER BY f.firstname ASC, f.lastname ASC) AS from_name', 'COUNT(*) AS total');
+        $this->datatable->eColumns = array('e.id');
+        $this->datatable->sIndexColumn = "e.id";
+        $this->datatable->sTable = " eventinvitations e, events, users f";
+        $this->datatable->myWhere = ' WHERE events.id=e.event_id AND f.id=e.from_id AND to_id= ' . $this->session_data->id;
+        $this->datatable->groupBy = ' GROUP BY e.event_id';
+        $this->datatable->datatable_process();
+
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+
+            $temp_arr[] = $aRow['event_name'];
+            list($date_from, $date_to) = explode(' ', $aRow['event_date']);
+            if(strtotime($date_from) == strtotime($date_to)){
+                $temp_arr[] = date('d-m-Y', strtotime($date_from));
+            } else{
+                $temp_arr[] = date('d-m-Y', strtotime($date_from)) . ' <br />-<br /> ' . date('d-m-Y', strtotime($date_to));
+            }
+            
+
+            $from_str = null;
+            foreach (explode(',', $aRow['from_name']) as $from) {
+                list($name, $id) = explode('_', $from);
+                $from_str.= ',&nbsp;<a href="' . base_url() . 'profile/view/' . $id . '">' . ucwords($name) . '</a>' . "\n";
+            }
+            $temp_arr[] = substr($from_str, 7);
+
+            $temp_arr[] = $aRow['total'];
+            
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
     
     public function getBatchesJsonData($type = 'all') {
         $this->load->library('datatable');
@@ -1506,41 +1578,7 @@ class json extends CI_Controller
             if (hasPermission('evolutioncategories', 'editEvolutioncategory')) {
                 $str.= '<a href="' . base_url() . 'evolutioncategory/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
             }
-            
-            if (hasPermission('evolutioncategories', 'deleteEvolutioncategory')) {
-                $str.= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
-            }
-            $temp_arr[] = $str;
-            
-            $this->datatable->output['aaData'][] = $temp_arr;
-        }
-        echo json_encode($this->datatable->output);
-        exit();
-    }
-    
-    public function getEvolutionlevelsJsonData() {
-        $this->load->library('datatable');
-        $this->datatable->aColumns = array('evolutionlevels.' . $this->session_data->language . '_name AS evolutionlevel', 'evolutioncategories.' . $this->session_data->language . '_name AS evolutioncategory', 'el.' . $this->session_data->language . '_name AS criteria');
-        $this->datatable->eColumns = array('evolutionlevels.id');
-        $this->datatable->sIndexColumn = "evolutionlevels.id";
-        $this->datatable->sTable = " evolutionlevels";
-        $this->datatable->myWhere = ' LEFT JOIN evolutionlevels el ON evolutionlevels.on_passing=el.id LEFT JOIN evolutioncategories ON evolutioncategories.id=evolutionlevels.evolutioncategory_id';
-        $this->datatable->datatable_process();
-        
-        foreach ($this->datatable->rResult->result_array() as $aRow) {
-            $temp_arr = array();
-            $temp_arr[] = $aRow['evolutionlevel'];
-            $temp_arr[] = $aRow['evolutioncategory'];
-            $temp_arr[] = (!is_null($aRow['criteria'])) ? $aRow['criteria'] : $this->lang->line('basic_evolution_level');
-            
-            $str = NULL;
-            if (hasPermission('evolutionlevels', 'editEvolutionlevel')) {
-                $str.= '<a href="' . base_url() . 'evolutionlevel/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
-            }
-            
-            if (hasPermission('evolutionlevels', 'deleteEvolutionlevel')) {
-                $str.= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
-            }
+
             $temp_arr[] = $str;
             
             $this->datatable->output['aaData'][] = $temp_arr;
@@ -1557,19 +1595,19 @@ class json extends CI_Controller
         }
         
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('evolutionclans.' . $this->session_data->language . '_class_name AS class_name', 'CONCAT(users.firstname," ", users.lastname) AS instructor', 'evolutionlevels.' . $this->session_data->language . '_name AS level', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', '(SELECT count(*) from evolutionstudents, evolutionclans temp_clan where evolutionstudents.evolutionclan_id=temp_clan.id AND temp_clan.id=evolutionclans.id) AS total_students');
+        $this->datatable->aColumns = array('evolutionclans.' . $this->session_data->language . '_class_name AS class_name', 'CONCAT(users.firstname," ", users.lastname) AS instructor', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', '(SELECT count(*) from evolutionstudents, evolutionclans temp_clan where evolutionstudents.evolutionclan_id=temp_clan.id AND temp_clan.id=evolutionclans.id) AS total_students');
         $this->datatable->eColumns = array('evolutionclans.id');
         $this->datatable->sIndexColumn = "evolutionclans.id";
-        $this->datatable->sTable = " evolutionclans, users, schools, academies, evolutionlevels";
+        $this->datatable->sTable = " evolutionclans, users, schools, academies";
         
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=evolutionclans.school_id AND evolutionclans.teacher_id=users.id AND evolutionclans.evolutionlevel_id=evolutionlevels.id' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=evolutionclans.school_id AND evolutionclans.teacher_id=users.id' . $where;
         } else if ($this->session_data->role == '3') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=evolutionclans.school_id AND evolutionclans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 AND evolutionclans.evolutionlevel_id=evolutionlevels.id' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=evolutionclans.school_id AND evolutionclans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0' . $where;
         } else if ($this->session_data->role == '4') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=evolutionclans.school_id AND evolutionclans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', dean_id) > 0 AND evolutionclans.evolutionlevel_id=evolutionlevels.id' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=evolutionclans.school_id AND evolutionclans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', dean_id) > 0' . $where;
         } else if ($this->session_data->role == '5') {
-            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=evolutionclans.school_id AND evolutionclans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', evolutionclans.teacher_id) > 0 AND evolutionclans.evolutionlevel_id=evolutionlevels.id' . $where;
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=evolutionclans.school_id AND evolutionclans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', evolutionclans.teacher_id) > 0' . $where;
         }
         
         $this->datatable->groupBy = ' GROUP BY evolutionclans.id';
@@ -1580,7 +1618,6 @@ class json extends CI_Controller
             $temp_arr[] = '<a href="' . base_url() . 'evolutionclan/view/' . $aRow['id'] . '" class="text-black" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $this->lang->line('view_') . ' ' . $this->lang->line('clan') . '">' . $aRow['class_name'] . '</a>';
             
             $temp_arr[] = $aRow['instructor'];
-            $temp_arr[] = $aRow['level'];
             $temp_arr[] = $aRow['school_name'] . ', ' . $aRow['academy_name'];
             if ($aRow['total_students'] > 0) {
                 $temp_arr[] = '<a href="' . base_url() . 'evolutionclan/studentlist/' . $aRow['id'] . '/clan" class="text-black" data-toggle="tooltip" data-placement="bottom" data-original-title="' . $this->lang->line('view_all') . ' ' . $this->lang->line('student') . '">' . $aRow['total_students'] . '</a>';
@@ -1674,19 +1711,19 @@ class json extends CI_Controller
         }
         
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS student_name', 'evolutionclans.' . $this->session_data->language . '_class_name AS class_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name');
-        $this->datatable->eColumns = array('users.id', 'avtar');
+        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS student_name', 'evolutionclans.' . $this->session_data->language . '_class_name AS class_name', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', 'evolutionstudents.status');
+        $this->datatable->eColumns = array('users.id', 'avtar', 'evolutionstudents.student_id', 'evolutionstudents.evolutionclan_id');
         $this->datatable->sIndexColumn = "users.id";
         $this->datatable->sTable = " users, evolutionstudents";
         
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {
             $this->datatable->myWhere = ' JOIN evolutionclans ON evolutionclans.id=evolutionstudents.evolutionclan_id JOIN schools ON schools.id=evolutionclans.school_id JOIN academies ON academies.id=schools.academy_id WHERE evolutionstudents.student_id=users.id AND users.status="A" ' . $where;
         } else if ($this->session_data->role == '3') {
-            $this->datatable->myWhere = ' JOIN evolutionclans ON evolutionclans.id=userdetails.evolutionclan_id JOIN schools ON schools.id=evolutionclans.school_id JOIN academies ON academies.id=schools.academy_id  AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 WHERE evolutionstudents.student_id=users.id AND users.status="A" ' . $where;
+            $this->datatable->myWhere = ' JOIN evolutionclans ON evolutionclans.id=evolutionstudents.evolutionclan_id JOIN schools ON schools.id=evolutionclans.school_id JOIN academies ON academies.id=schools.academy_id  AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 WHERE evolutionstudents.student_id=users.id AND users.status="A" ' . $where;
         } else if ($this->session_data->role == '4') {
-            $this->datatable->myWhere = ' JOIN evolutionclans ON evolutionclans.id=userdetails.evolutionclan_id JOIN schools ON schools.id=evolutionclans.school_id  AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0 JOIN academies ON academies.id=schools.academy_id WHERE evolutionstudents.student_id=users.id AND users.status="A" ' . $where;
+            $this->datatable->myWhere = ' JOIN evolutionclans ON evolutionclans.id=evolutionstudents.evolutionclan_id JOIN schools ON schools.id=evolutionclans.school_id  AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0 JOIN academies ON academies.id=schools.academy_id WHERE evolutionstudents.student_id=users.id AND users.status="A" ' . $where;
         } else if ($this->session_data->role == '5') {
-            $this->datatable->myWhere = ' JOIN evolutionclans ON evolutionclans.id=userdetails.evolutionclan_id AND FIND_IN_SET(' . $this->session_data->id . ', evolutionclans.teacher_id) > 0 JOIN schools ON schools.id=evolutionclans.school_id JOIN academies ON academies.id=schools.academy_id WHERE evolutionstudents.student_id=users.id AND users.status="A" ' . $where;
+            $this->datatable->myWhere = ' JOIN evolutionclans ON evolutionclans.id=evolutionstudents.evolutionclan_id AND FIND_IN_SET(' . $this->session_data->id . ', evolutionclans.teacher_id) > 0 JOIN schools ON schools.id=evolutionclans.school_id JOIN academies ON academies.id=schools.academy_id WHERE evolutionstudents.student_id=users.id AND users.status="A" ' . $where;
         }
         $this->datatable->datatable_process();
         
@@ -1697,78 +1734,26 @@ class json extends CI_Controller
             $temp_arr[] = $aRow['class_name'];
             $temp_arr[] = $aRow['school_name'];
             $temp_arr[] = $aRow['academy_name'];
-            
-            $this->datatable->output['aaData'][] = $temp_arr;
-        }
-        echo json_encode($this->datatable->output);
-        exit();
-    }
-    
-    public function getEventInvitationJsonData($event_id) {
-        $this->load->library('datatable');
-        $this->datatable->aColumns = array('GROUP_CONCAT(CONCAT(f.firstname," ",f.lastname,"_",from_id) ORDER BY f.firstname ASC, f.lastname ASC) AS from_name', 'CONCAT(t.firstname," ",t.lastname,"_",to_id) AS to_name', 'COUNT(*) AS total');
-        $this->datatable->eColumns = array('e.id');
-        $this->datatable->sIndexColumn = "e.id";
-        $this->datatable->sTable = " eventinvitations e, users f, users t";
-        $this->datatable->myWhere = ' WHERE f.id=e.from_id AND t.id = e.to_id AND e.event_id = ' . $event_id;
-        $this->datatable->groupBy = ' GROUP BY e.to_id';
-        $this->datatable->datatable_process();
-        
-        foreach ($this->datatable->rResult->result_array() as $aRow) {
-            $temp_arr = array();
-            
-            $from_str = null;
-            foreach (explode(',', $aRow['from_name']) as $from) {
-                list($name, $id) = explode('_', $from);
-                $from_str.= ',&nbsp;<a href="' . base_url() . 'profile/view/' . $id . '">' . ucwords($name) . '</a>' . "\n";
+
+            if ($aRow['status'] == 'A') {
+                $str = '<label class="label label-info">' . $this->lang->line('evolution_active_student') . '</label>';
+                if (hasPermission('evolutionclans', 'resultEvolutionclan')) {
+                    $str .= '<br /><a href="'.base_url().'evolutionclan/evolution_result_box/'.$aRow['evolutionclan_id'].'/'.$aRow['student_id'].'" class="btn btn-default btn-perspective mar-tp-10" data-toggle="modal" data-target="#declare_result" data-studentid="' . $aRow['student_id'] . '" data-evolutionclanid="' . $aRow['evolutionclan_id'] . '">'. $this->lang->line('btn_declare_result_of_evolution_clan') .'</a>';
+                }
+                
+            } else if ($aRow['status'] == 'U') {
+                $str = '<label class="label label-danger">' . $this->lang->line('rejected_evolution_clan_request') . '</label>';
+            } else if ($aRow['status'] == 'P') {
+                $str = '<label class="label label-warning">' . $this->lang->line('evolution_pending_student') . '</label>';
+            } else if ($aRow['status'] == 'C') {
+                $str = '<label class="label label-success">' . $this->lang->line('evolution_completed_student') . '</label>';
+            } else if ($aRow['status'] == 'F') {
+                $str = '<label class="label label-danger">' . $this->lang->line('evolution_fail_student') . '</label>';
+            } else {
+                $str = null;
             }
-            $temp_arr[] = substr($from_str, 7);
-            
-            $to_str = null;
-            foreach (explode(',', $aRow['to_name']) as $to) {
-                list($name, $id) = explode('_', $to);
-                $to_str.= ',&nbsp;<a href="' . base_url() . 'profile/view/' . $id . '">' . ucwords($name) . '</a>' . "\n";
-            }
-            $temp_arr[] = substr($to_str, 7);
 
-            $temp_arr[] = $aRow['total'];
-            
-            $this->datatable->output['aaData'][] = $temp_arr;
-        }
-        echo json_encode($this->datatable->output);
-        exit();
-    }
-
-    public function getviewEventInvitedJsonData(){
-        $this->load->library('datatable');
-        $this->datatable->aColumns = array($this->session_data->language.'_name AS event_name', 'CONCAT(date_from, " ", date_to) AS event_date','GROUP_CONCAT(CONCAT(f.firstname," ",f.lastname,"_",from_id) ORDER BY f.firstname ASC, f.lastname ASC) AS from_name', 'COUNT(*) AS total');
-        $this->datatable->eColumns = array('e.id');
-        $this->datatable->sIndexColumn = "e.id";
-        $this->datatable->sTable = " eventinvitations e, events, users f";
-        $this->datatable->myWhere = ' WHERE events.id=e.event_id AND f.id=e.from_id AND to_id= ' . $this->session_data->id;
-        $this->datatable->groupBy = ' GROUP BY e.event_id';
-        $this->datatable->datatable_process();
-
-        foreach ($this->datatable->rResult->result_array() as $aRow) {
-            $temp_arr = array();
-
-            $temp_arr[] = $aRow['event_name'];
-            list($date_from, $date_to) = explode(' ', $aRow['event_date']);
-            if(strtotime($date_from) == strtotime($date_to)){
-                $temp_arr[] = date('d-m-Y', strtotime($date_from));
-            } else{
-                $temp_arr[] = date('d-m-Y', strtotime($date_from)) . ' <br />-<br /> ' . date('d-m-Y', strtotime($date_to));
-            }
-            
-
-            $from_str = null;
-            foreach (explode(',', $aRow['from_name']) as $from) {
-                list($name, $id) = explode('_', $from);
-                $from_str.= ',&nbsp;<a href="' . base_url() . 'profile/view/' . $id . '">' . ucwords($name) . '</a>' . "\n";
-            }
-            $temp_arr[] = substr($from_str, 7);
-
-            $temp_arr[] = $aRow['total'];
+            $temp_arr[] = $str;
             
             $this->datatable->output['aaData'][] = $temp_arr;
         }
