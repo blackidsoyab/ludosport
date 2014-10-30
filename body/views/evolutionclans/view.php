@@ -40,13 +40,10 @@
                     'action': function() {
                         $.ajax({
                             type: 'POST',
-                            url: http_host_js + 'clan/delete/' + current_id,
+                            url: http_host_js + 'evolutionclan/delete/' + current_id,
                             data: id = current_id,
                             success: function() {
-                                window.location.reload();
-                            },
-                            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                                alert('error');
+                                //window.location.reload();
                             }
                         });
                     }

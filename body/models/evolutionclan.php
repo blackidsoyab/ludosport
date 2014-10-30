@@ -3,7 +3,7 @@ class Evolutionclan extends DataMapper
 {
     
     public $table = 'evolutionclans';
-    public $has_one = array('school', 'evolutioncategory', 'evolutionlevel');
+    public $has_one = array('school', 'evolutioncategory');
     public $has_many = array('evolutionstudent');
     
     // Optionally, don't include a constructor if you don't need one.

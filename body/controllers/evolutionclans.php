@@ -265,6 +265,18 @@ class evolutionclans extends CI_Controller
     */
     public function deleteEvolutionclan($id) {
         if (!empty($id)) {
+            $evolution_clan_date = new Evolutionclandate();
+            $evolution_clan_date->where('evolutionclan_id', $id)->get();
+            $evolution_clan_date->delete();
+
+            $evolution_attendances = new Evolutionattendance();
+            $evolution_attendances->where('evolutionclan_id', $id)->get();
+            $evolution_attendances->delete();
+
+            $evolution_students = new Evolutionstudent();
+            $evolution_students->where('evolutionclan_id', $id)->get();
+            $evolution_students->delete();
+
             $evolution = new Evolutionclan();
             $evolution->where('id', $id)->get();
             $evolution->delete();

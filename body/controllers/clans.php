@@ -323,12 +323,7 @@ class clans extends CI_Controller
         if (!empty($id)) {
             $clan = new Clan();
             $clan->where('id', $id)->get();
-            
-            /* foreach ($clan->School as $user) {
-              $user->User_details->delete_all();
-              }
-              $clan->School->delete_all(); */
-            $clan->delete();
+            //$clan->delete();
             
             $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
             redirect(base_url() . 'clan', 'refresh');
