@@ -170,12 +170,12 @@ class ajax extends CI_Controller
         exit;
     }
     
-    function timelinePanigate($group_number) {
+    function timelinePanigate($year, $group_number) {
         $items_per_group = 10;
         $position = ($group_number * $items_per_group);
         
         $obj = new Notification();
-        $results = $obj->notificationLogs($this->session_data->id, $items_per_group, $position);
+        $results = $obj->notificationLogs($this->session_data->id, $year, $items_per_group, $position);
         $str = Null;
         $count = 0;
         

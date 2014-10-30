@@ -121,7 +121,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h3 class="panel-title text-white padding-top-killer padding-left-killer"><strong><?php echo $this->lang->line('my_combat_style'); ?></strong></h3>
                 <div class="the-box">
                     <div class="row">
@@ -134,13 +134,22 @@
                 </div>
             </div>
 
-            <div class="col-lg-12">
-                <h3 class="panel-title text-white padding-top-killer padding-left-killer"><strong><?php echo $this->lang->line('timeline'); ?></strong></h3>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h3 class="panel-title text-white padding-top-killer padding-left-killer pull-left"><strong><?php echo $this->lang->line('timeline'); ?></strong></h3>
+                        <a href="<?php echo base_url() . 'timeline' ; ?>" class="pull-right"><?php echo $this->lang->line('view_all'), ' ', strtolower($this->lang->line('timeline')); ?></a>
+                    </div>
+                </div>
                 <ul class="timeline">
                     <li class="centering-line"></li>
                     <div id="timeline-data">
                     </div>
                 </ul>
+
+                <div align="center">
+                    <button class="btn btn-warning btn-perspective text-center load_more" >Click here / Scroll down to load more <i class="padding-killer fa fa-long-arrow-down text-white"></i></button>
+                </div>
                 <div class="animation_image" style="display:none" align="center">
                     <i class="fa fa-cog fa-spin fa-2x text-white padding-killer"></i>
                 </div>
@@ -249,7 +258,7 @@
             </div>
         <?php } ?>     
     </div>
-
+</div>
 
 
 <script type="text/javascript">
@@ -258,7 +267,7 @@
         var loading  = false;
         var total_groups = <?php echo $per_page; ?>;
 
-        $('#timeline-data').load("<?php echo base_url() . 'history/load_more_timeline/'; ?>" + track_load , function() {track_load++;});
+        $('#timeline-data').load("<?php echo base_url() . 'history/load_more_timeline/0/'; ?>" + track_load , function() {track_load++;});
 
         $(window).scroll(function() {
             if($(window).scrollTop() + $(window).height() == $(document).height()){
@@ -266,7 +275,7 @@
                 {
                     loading = true;
                     $('.animation_image').show();
-                    $.post('<?php echo base_url() . "history/load_more_timeline/"; ?>' + track_load , function(data){
+                    $.post('<?php echo base_url() . "history/load_more_timeline/0/"; ?>' + track_load , function(data){
                         $("#timeline-data").append(data);
                         $('.animation_image').hide();
                         track_load++;
@@ -276,6 +285,22 @@
                         loading = false;
                     });
                 }
+            }
+        });
+
+         $('.load_more').click(function(){
+            if(track_load <= total_groups && loading==false){
+                loading = true;
+                $('.animation_image').show();
+                $.post('<?php echo base_url() . "history/load_more_timeline/0/"; ?>' + track_load , function(data){
+                    $("#timeline-data").append(data);
+                    $('.animation_image').hide();
+                    track_load++;
+                    loading = false; 
+                }).fail(function(xhr, ajaxOptions, thrownError) {
+                    $('.animation_image').hide();
+                    loading = false;
+                });
             }
         });
     });

@@ -1111,4 +1111,24 @@ class students extends CI_Controller
         $this->layout->setField('page_title', $this->lang->line('administrations') . ' ' . $this->lang->line('certificates'));
         $this->layout->view('students/administration_certificate');
     }
+
+    function viewTimline($year = 0){
+        //For Timeline
+        $obj = new Notification();
+        $obj->where('to_id', $this->session_data->id);
+        $obj->or_where('from_id', $this->session_data->id);
+        $obj->get();
+        $data['per_page'] = ceil($obj->result_count() / 10);
+
+        $obj = new Notification();
+        $obj->select('DISTINCT(YEAR(TIMESTAMP)) AS year');
+        $obj->where('to_id', $this->session_data->id);
+        $obj->or_where('from_id', $this->session_data->id);
+        $obj->order_by('YEAR(TIMESTAMP)', 'ASC');
+        $data['timeline_years'] = $obj->get();
+        
+        $data['year'] = $year;
+        
+        $this->layout->view('students/view_timeline', $data);
+    }
 }
