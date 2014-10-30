@@ -153,6 +153,8 @@ $lang['current_location'] = 'Current location';
 $lang['change_location'] = 'Change location';
 $lang['select_date'] = 'Select Date';
 $lang['confirm'] = 'Confirm';
+$lang['captcha_code_info'] = 'Enter the captcha code';
+$lang['captcha_code_error'] = 'wrong captcha code enter';
 
 //Student
 $lang['communicate_absence'] = 'Communicate Absence';

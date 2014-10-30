@@ -352,12 +352,30 @@ class dashboard extends CI_Controller
         if (!isset($data['clans'])) {
             $data['clans'] = null;
         }
+
+        $this->load->helper('captcha');
+        $this->session->unset_userdata('captcha_string');
+        $random_string = random_string('alnum', 6);
+        $this->session->set_userdata('captcha_string', $random_string);
+
+        $captcha_argument = array(
+            'word'  => $random_string,
+            'img_path'  => './assets/captcha/',
+            'img_url'   => base_url(). 'assets/captcha/',
+            'img_width' => 150,
+            'img_height' => 50,
+            'expiration' => 7200
+        );
+
+        $data['captcha_details'] = create_captcha($captcha_argument);
         
         //Set Layout view
         $this->layout->view('dashboard/pending_student', $data);
     }
     
     function pendingStudnetSaveTrailLesson() {
+        echo 'hi';
+        exit();
         $user_details = new Userdetail();
         
         //Get Current login Student Extra Detail

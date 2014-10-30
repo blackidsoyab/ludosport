@@ -908,4 +908,30 @@ class ajax extends CI_Controller
         echo json_encode($array);
     }
 
+    public function reloadCaptcha(){
+        $this->session->unset_userdata('captcha_string');
+        $this->load->helper('captcha');
+        $random_string = random_string('alnum', 6);
+        $this->session->set_userdata('captcha_string', $random_string);
+
+        $captcha_argument = array(
+            'word'  => $random_string,
+            'img_path'  => './assets/captcha/',
+            'img_url'   => base_url(). 'assets/captcha/',
+            'img_width' => 150,
+            'img_height' => 50,
+            'expiration' => 7200
+        );
+        $img = create_captcha($captcha_argument);
+        echo $img['image'];
+    }
+
+    public function checkCaptcha() {
+        if ($_GET['captcha'] == $this->session->userdata('captcha_string')) {
+            echo 'true';
+        } else {
+            echo 'false';
+        }
+    }
+
 }

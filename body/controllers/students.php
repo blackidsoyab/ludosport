@@ -875,10 +875,15 @@ class students extends CI_Controller
         
         return true;
     }
+
+    function viewShop() {
+        $this->layout->setField('page_title', $this->lang->line('shop'));
+        $this->layout->view('students/shop');
+    }
     
     function paymentHistory() {
         $this->layout->setField('page_title', $this->lang->line('payment') . ' ' . $this->lang->line('history'));
-        $this->layout->view('students/shop');
+        $this->layout->view('students/payment');
     }
     
     function viewInvoice($id) {

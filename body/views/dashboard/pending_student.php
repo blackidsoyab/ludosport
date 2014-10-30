@@ -17,6 +17,27 @@
                 ChangeLocation(<?php echo $user_details->city_id; ?>);
             <?php } ?>
         });
+
+        $('#reload-captcha').click(function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: http_host_js + 'reload_captcha',
+                success: function(data) {
+                    $('#captcha-image').html(data);
+                }
+            });
+        });
+
+        $("#trial_clan_selection").validate({
+            rules: {
+                captcha: {
+                    remote: '<?php echo base_url() . "check_captcha?"; ?>' + $('input[name="captcha"]').val()
+                },
+            },
+            messages: {
+                captcha: {remote: '* <?php echo $this->lang->line("captcha_code_error"); ?>'}
+            }
+        });
     });
 
     function ChangeLocation(cityid) {
@@ -152,8 +173,20 @@
     </div>
 
     <div id="step_3">
-        <div class="text-center">
-            <a class="btn btn-primary NextStep" id="btn-setp-2"><?php echo $this->lang->line('confirm'); ?><i class="fa fa-angle-right"></i></a>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-right">
+                <span id="captcha-image"><?php echo $captcha_details['image']; ?></span>
+                <br />
+                <a id="reload-captcha" style="vertical-align: bottom">Reload Code</a>
+                
+            </div>
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 form-horizontal">
+                <input type="text" name="captcha" placeholder="<?php echo $this->lang->line('captcha_code_info'); ?>" class="form-control required">
+            </div>
+
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                <a class="btn btn-primary NextStep" id="btn-setp-2"><?php echo $this->lang->line('confirm'); ?><i class="fa fa-angle-right"></i></a>
+            </div>
         </div>
     </div>
 </form>
