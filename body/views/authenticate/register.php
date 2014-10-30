@@ -7,13 +7,17 @@
                 cpassword: {equalTo: '#password'},
                 username: {nowhitespace: true, remote: '<?php echo base_url() . 'checkusername/0'; ?>'},
                 email: {remote: '<?php echo base_url() . 'checkemail/0'; ?>'},
-                terms_conditions : {required: true}
+                terms_conditions : {required: true},
+                captcha: {
+                    remote: '<?php echo base_url() . "check_captcha?"; ?>' + $('input[name="captcha"]').val()
+                },
             },
             messages: {
                 cpassword: {equalTo: '* Password does Not Match'},
                 username: {remote: '* Username already exit'},
                 email: {remote: '* Email already exit'},
-                terms_conditions: {required : '* please accept the terms and conditions'}
+                terms_conditions: {required : '* please accept the terms and conditions'},
+                captcha: {remote: '* <?php echo $this->lang->line("captcha_code_error"); ?>'}
             },
             errorPlacement: function(error, element){
                 if(element.attr("type") == "checkbox"){
@@ -45,6 +49,16 @@
             }else{
                 $(this).removeClass('register-select');
             }
+        });
+
+         $('#reload-captcha').click(function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: http_host_js + 'reload_captcha',
+                success: function(data) {
+                    $('#captcha-image').html(data);
+                }
+            });
         });
     });
     //]]>
@@ -101,6 +115,16 @@
     <div class="form-group has-feedback lg left-feedback no-label">
         <input type="password" name="cpassword" class="form-control no-border input-lg rounded required" placeholder="<?php echo $this->lang->line('re_enter_password'); ?>" autocomplete="off">
         <span class="fa fa-unlock form-control-feedback"></span>
+    </div>
+
+    <div class="form-group text-center">
+        <span id="captcha-image"><?php echo $captcha_details['image']; ?></span>
+        <br />
+        <a id="reload-captcha" style="vertical-align: bottom">Reload Code</a>
+    </div>
+
+    <div class="form-group">
+        <input type="text" name="captcha" placeholder="<?php echo $this->lang->line('captcha_code_info'); ?>" class="form-control no-border input-lg rounded required">
     </div>
 
     <div class="form-group">

@@ -118,6 +118,23 @@ class authenticate extends CI_Controller
         
         $city = new City();
         $data['cities'] = $city->where_in('id', $cities_ids)->get();
+
+        $this->load->helper('captcha');
+        $this->session->unset_userdata('captcha_string');
+        $random_string = random_string('alnum', 6);
+        $this->session->set_userdata('captcha_string', $random_string);
+
+        $captcha_argument = array(
+            'word'  => $random_string,
+            'img_path'  => './assets/captcha/',
+            'img_url'   => base_url(). 'assets/captcha/',
+            'img_width' => 150,
+            'img_height' => 50,
+            'expiration' => 7200
+        );
+
+        $data['captcha_details'] = create_captcha($captcha_argument);
+        
         $this->layout->view('authenticate/register', $data);
     }
     
