@@ -1,3 +1,4 @@
+<!--
 <script type="text/javascript" >
     $(document).ready(function() {
         $('#list_data').dataTable({
@@ -40,3 +41,5 @@
         </table>
     </div>
 </div>
+-->
+<h1 class="text-white text-center">Comming Soon</h1>  

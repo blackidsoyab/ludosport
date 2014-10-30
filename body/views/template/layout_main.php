@@ -453,7 +453,6 @@
                             <li class="<?php echo ($page == 'history') ? 'active selected' : ''; ?>">
                                 <a href="<?php echo base_url(). 'history'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('history'); ?>">
                                     <i class="fa fa-graduation-cap icon-sidebar"></i>
-                                    <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                                     <?php echo $this->lang->line('history'); ?>
                                 </a>
                             </li>
@@ -473,7 +472,6 @@
                             <li class="<?php echo ($page == 'journal') ? 'active selected' : ''; ?>">
                                 <a href="<?php echo base_url(). 'journal'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('journal'); ?>">
                                     <i class="fa fa-book icon-sidebar"></i>
-                                    <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                                     <?php echo $this->lang->line('journal'); ?>
                                 </a>
                             </li>
@@ -481,7 +479,6 @@
                             <li class="<?php echo ($page == 'duels') ? 'active selected' : ''; ?>">
                                 <a href="<?php echo base_url(). 'duels'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('duels'); ?>">
                                     <i class="icon-sidebar"><img src="<?php echo IMG_URL; ?>icons/duels.png" width="24" height="24" alt=""></i>
-                                    <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                                     <?php echo $this->lang->line('duels'); ?>
                                 </a>
                             </li>
@@ -489,7 +486,6 @@
                             <li class="<?php echo ($page == 'evolution') ? 'active selected' : ''; ?>">
                                 <a href="<?php echo base_url(). 'evolution'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('evolution'); ?>">
                                     <i class="fa fa-leaf icon-sidebar"></i>
-                                    <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                                     <?php echo $this->lang->line('evolution'); ?>
                                 </a>
                             </li>
@@ -497,26 +493,18 @@
                             <li class="<?php echo ($page == 'events') ? 'active selected' : ''; ?>">
                                 <a href="<?php echo base_url(). 'event'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('events'); ?>">
                                     <i class="fa fa-calendar icon-sidebar"></i>
-                                    <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                                     <?php echo $this->lang->line('events'); ?>
                                 </a>
                             </li>
 
-                            <li class="<?php echo ($page == 'shop') ? 'active selected' : ''; ?>">
-                                <a href="<?php echo base_url(). 'shop'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('shop'); ?>">
-                                    <i class="fa fa-shopping-cart icon-sidebar"></i>
-                                    <i class="fa fa-angle-right chevron-icon-sidebar"></i>
-                                    <?php echo $this->lang->line('shop'); ?>
-                                </a>
-                            </li>
-
-                            <li class="<?php echo ($page == 'received' || $page == 'renewals' || $page == 'certificates') ? 'active selected' : ''; ?>">
+                            <li class="<?php echo ($page == 'shop' || $page == 'received' || $page == 'renewals' || $page == 'certificates') ? 'active selected' : ''; ?>">
                                 <a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('administrations'); ?>">
                                     <i class="fa fa-table icon-sidebar"></i>
                                     <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                                     <?php echo $this->lang->line('administrations'); ?>
                                 </a>
                                 <ul class="submenu">
+                                    <li><a href="<?php echo base_url(). 'shop'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('shop'); ?>"><?php echo $this->lang->line('shop'); ?></a></li>
                                     <li><a href="<?php echo base_url(). 'received'?>"><?php echo $this->lang->line('received'); ?></a></li>
                                     <li><a href="<?php echo base_url(). 'renewals'?>"><?php echo $this->lang->line('renewals'); ?></a></li>
                                     <li><a href="<?php echo base_url(). 'certificates'?>"><?php echo $this->lang->line('certificates'); ?></a></li>
