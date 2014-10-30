@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 29, 2014 at 05:53 PM
+-- Generation Time: Oct 30, 2014 at 11:40 AM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3
 
@@ -313,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `batches` (
   `description` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
 
 --
 -- Dumping data for table `batches`
@@ -571,8 +571,7 @@ INSERT INTO `clans` (`id`, `academy_id`, `school_id`, `teacher_id`, `level_id`, 
 (3, 1, 3, '3', 1, '2014-07-01', '2015-06-30', '2,4,5', 1406352600, 1406359800, 'Sailor Ep 2', 'Sailor Ep 2', 1, 'Baroda', '390016', 2, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:47:38'),
 (4, 2, 4, '8', 1, '2014-07-01', '2015-06-30', '2', 1406363400, 1406370600, 'Lab Ep 2', 'Lab Ep 2', 1, 'Baroda', '390016', 5, 4, 2, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:48:27'),
 (5, 1, 1, '7', 1, '2014-07-01', '2015-06-30', '5,6', 1407292200, 1407306600, 'Poppey Ep 2', 'Poppey Ep 2', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-08-06 05:25:51'),
-(6, 1, 3, '25', 1, '2014-07-01', '2015-06-30', '1,3,7', 1410345000, 1410348600, 'Sailor Ep 3', 'Sailor Ep 3', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 1, '2014-07-26 09:47:38'),
-(7, 3, 5, '3', 1, '2014-01-01', '2014-12-31', '1,2,3,4,5,6', 1412908200, 1412915400, 'PPG 1', 'PPG 1', 1, 'Baroda', '390016', 2, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 1, '2014-10-10 08:29:17');
+(6, 1, 3, '25', 1, '2014-07-01', '2015-06-30', '1,3,7', 1410345000, 1410348600, 'Sailor Ep 3', 'Sailor Ep 3', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 1, '2014-07-26 09:47:38');
 
 -- --------------------------------------------------------
 
@@ -824,7 +823,14 @@ CREATE TABLE IF NOT EXISTS `evolutionattendances` (
   `attendance` tinyint(1) NOT NULL DEFAULT '1',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `evolutionattendances`
+--
+
+INSERT INTO `evolutionattendances` (`id`, `evolutionclan_id`, `clan_date`, `student_id`, `attendance`, `user_id`, `timestamp`) VALUES
+(1, 1, '2014-11-02', 40, 1, 3, '2014-10-29 12:30:33');
 
 -- --------------------------------------------------------
 
@@ -866,7 +872,7 @@ CREATE TABLE IF NOT EXISTS `evolutionclandates` (
   `history` text,
   `user_id` int(11) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -899,7 +905,7 @@ CREATE TABLE IF NOT EXISTS `evolutionclans` (
   `email` varchar(65) NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `evolutionclans`
@@ -928,14 +934,14 @@ CREATE TABLE IF NOT EXISTS `evolutionstudents` (
   `histroy` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `evolutionstudents`
 --
 
 INSERT INTO `evolutionstudents` (`id`, `evolutionclan_id`, `student_id`, `status`, `approved_by`, `histroy`, `user_id`, `timestamp`) VALUES
-(1, 1, 40, 'C', 1, NULL, 40, '2014-10-29 11:04:17'),
+(1, 1, 40, 'A', 1, NULL, 40, '2014-10-29 11:04:17'),
 (2, 5, 40, 'C', 1, NULL, 40, '2014-10-29 11:05:02');
 
 -- --------------------------------------------------------
@@ -1158,25 +1164,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `data` longtext CHARACTER SET utf8 COLLATE utf8_bin,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
-
---
--- Dumping data for table `notifications`
---
-
-INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `object_id`, `data`, `status`, `timestamp`) VALUES
-(1, 'N', 'evolution_clan_request', 40, 3, 1, 'a:8:{s:2:"id";i:1;s:16:"evolutionclan_id";s:1:"1";s:10:"student_id";s:2:"40";s:6:"status";s:1:"P";s:11:"approved_by";s:1:"0";s:7:"histroy";N;s:7:"user_id";s:2:"40";s:9:"timestamp";s:19:"2014-10-29 16:34:17";}', 0, '2014-10-29 11:04:17'),
-(2, 'N', 'evolution_clan_request', 40, 2, 1, 'a:8:{s:2:"id";i:1;s:16:"evolutionclan_id";s:1:"1";s:10:"student_id";s:2:"40";s:6:"status";s:1:"P";s:11:"approved_by";s:1:"0";s:7:"histroy";N;s:7:"user_id";s:2:"40";s:9:"timestamp";s:19:"2014-10-29 16:34:17";}', 0, '2014-10-29 11:04:23'),
-(3, 'N', 'evolution_clan_request', 40, 3, 2, 'a:8:{s:2:"id";i:2;s:16:"evolutionclan_id";s:1:"5";s:10:"student_id";s:2:"40";s:6:"status";s:1:"P";s:11:"approved_by";s:1:"0";s:7:"histroy";N;s:7:"user_id";s:2:"40";s:9:"timestamp";s:19:"2014-10-29 16:35:02";}', 0, '2014-10-29 11:05:02'),
-(4, 'N', 'evolution_clan_request', 40, 2, 2, 'a:8:{s:2:"id";i:2;s:16:"evolutionclan_id";s:1:"5";s:10:"student_id";s:2:"40";s:6:"status";s:1:"P";s:11:"approved_by";s:1:"0";s:7:"histroy";N;s:7:"user_id";s:2:"40";s:9:"timestamp";s:19:"2014-10-29 16:35:02";}', 0, '2014-10-29 11:05:08'),
-(5, 'N', 'evolution_clan_result', 1, 40, 1, 'a:8:{s:2:"id";i:1;s:16:"evolutionclan_id";s:1:"1";s:10:"student_id";s:2:"40";s:6:"status";s:1:"C";s:11:"approved_by";s:1:"1";s:7:"histroy";N;s:7:"user_id";s:2:"40";s:9:"timestamp";s:19:"2014-10-29 16:34:17";}', 1, '2014-10-29 11:05:57'),
-(6, 'N', 'evolution_clan_result', 1, 40, 2, 'a:8:{s:2:"id";i:2;s:16:"evolutionclan_id";s:1:"5";s:10:"student_id";s:2:"40";s:6:"status";s:1:"C";s:11:"approved_by";s:1:"1";s:7:"histroy";N;s:7:"user_id";s:2:"40";s:9:"timestamp";s:19:"2014-10-29 16:35:02";}', 1, '2014-10-29 11:06:00'),
-(7, 'N', 'evolution_clan_result', 1, 3, 1, 'a:8:{s:2:"id";i:1;s:16:"evolutionclan_id";s:1:"1";s:10:"student_id";s:2:"40";s:6:"status";s:1:"C";s:11:"approved_by";s:1:"1";s:7:"histroy";N;s:7:"user_id";s:2:"40";s:9:"timestamp";s:19:"2014-10-29 16:34:17";}', 0, '2014-10-29 11:06:03'),
-(8, 'N', 'evolution_clan_result', 1, 3, 2, 'a:8:{s:2:"id";i:2;s:16:"evolutionclan_id";s:1:"5";s:10:"student_id";s:2:"40";s:6:"status";s:1:"C";s:11:"approved_by";s:1:"1";s:7:"histroy";N;s:7:"user_id";s:2:"40";s:9:"timestamp";s:19:"2014-10-29 16:35:02";}', 0, '2014-10-29 11:06:06'),
-(9, 'N', 'evolution_clan_result', 1, 2, 1, 'a:8:{s:2:"id";i:1;s:16:"evolutionclan_id";s:1:"1";s:10:"student_id";s:2:"40";s:6:"status";s:1:"C";s:11:"approved_by";s:1:"1";s:7:"histroy";N;s:7:"user_id";s:2:"40";s:9:"timestamp";s:19:"2014-10-29 16:34:17";}', 0, '2014-10-29 11:06:09'),
-(10, 'N', 'evolution_clan_result', 1, 2, 2, 'a:8:{s:2:"id";i:2;s:16:"evolutionclan_id";s:1:"5";s:10:"student_id";s:2:"40";s:6:"status";s:1:"C";s:11:"approved_by";s:1:"1";s:7:"histroy";N;s:7:"user_id";s:2:"40";s:9:"timestamp";s:19:"2014-10-29 16:35:02";}', 0, '2014-10-29 11:06:18'),
-(11, 'N', 'evolution_clan_result', 3, 40, 2, 'a:8:{s:2:"id";i:2;s:16:"evolutionclan_id";s:1:"5";s:10:"student_id";s:2:"40";s:6:"status";s:1:"C";s:11:"approved_by";s:1:"1";s:7:"histroy";N;s:7:"user_id";s:2:"40";s:9:"timestamp";s:19:"2014-10-29 16:35:02";}', 0, '2014-10-29 12:21:44'),
-(12, 'N', 'evolution_clan_result', 3, 2, 2, 'a:8:{s:2:"id";i:2;s:16:"evolutionclan_id";s:1:"5";s:10:"student_id";s:2:"40";s:6:"status";s:1:"C";s:11:"approved_by";s:1:"1";s:7:"histroy";N;s:7:"user_id";s:2:"40";s:9:"timestamp";s:19:"2014-10-29 16:35:02";}', 0, '2014-10-29 12:21:50');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1543,11 +1531,11 @@ INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `degree_id`, `h
 (12, 33, 6, 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-30', 8, NULL, NULL, NULL, NULL, 'A', 33, '2014-09-05 13:05:45'),
 (13, 34, 1, 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-23', 8, NULL, NULL, NULL, NULL, 'A', 34, '2014-09-05 13:18:57'),
 (14, 23, 6, 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-08-04', 2, 'Milan', 20162, 610093, 'O +ve', 'A', 2, '2014-08-04 00:09:02'),
-(16, 37, 7, 6, 20, 0, 21, 0, 1, 1442, 408, 56, 1906, '2014-10-10', 0, 'Vadodara', 390016, 610093, 'B -ve', 'A', 1, '2013-09-25 09:46:53'),
+(16, 37, 0, 6, 20, 0, 21, 0, 1, 1442, 408, 56, 1906, '2014-10-10', 0, 'Vadodara', 390016, 610093, 'B -ve', 'A', 1, '2013-09-25 09:46:53'),
 (20, 36, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-13', 0, 'Vadodara', 390016, 963852, 'B -ve', 'A', 36, '2014-10-13 05:00:29'),
 (27, 38, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-20', 0, 'Vadodara', 390016, 963850, 'O +ve', 'A', 38, '2014-10-20 05:04:25'),
 (28, 39, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-20', 0, 'Vadodara', 390016, 963852, 'B -ve', 'A', 39, '2014-10-20 05:17:36'),
-(30, 40, 7, 3, 0, 0, 12, 0, 1, 300, 150, 0, 450, '2014-10-29', 0, NULL, NULL, NULL, NULL, 'A', 1, '2014-10-28 12:34:27');
+(30, 40, 0, 3, 0, 0, 12, 0, 1, 300, 150, 0, 450, '2014-10-29', 0, NULL, NULL, NULL, NULL, 'A', 1, '2014-10-28 12:34:27');
 
 -- --------------------------------------------------------
 
@@ -1924,7 +1912,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `batches`
 --
 ALTER TABLE `batches`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `batchrequests`
 --
@@ -1984,7 +1972,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `evolutionattendances`
 --
 ALTER TABLE `evolutionattendances`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `evolutioncategories`
 --
@@ -1994,17 +1982,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `evolutionclandates`
 --
 ALTER TABLE `evolutionclandates`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `evolutionclans`
 --
 ALTER TABLE `evolutionclans`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `evolutionstudents`
 --
 ALTER TABLE `evolutionstudents`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `levels`
 --
@@ -2034,7 +2022,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `payments`
 --
