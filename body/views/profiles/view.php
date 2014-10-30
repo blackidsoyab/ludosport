@@ -48,9 +48,6 @@
             <div class="panel-heading">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#panel-about" data-toggle="tab"><i class="fa fa-user"></i></a></li>
-                    <?php if($profile->role_id == 6 && isset($userdetail) && !empty($userdetail)) { ?>  
-                        <li><a href="#panel-extra-details" data-toggle="tab"><i class="fa fa-bell"></i></a></li>
-                    <?php } ?>
                 </ul>
             </div>
             <div id="panel-collapse-1" class="collapse in">
@@ -65,12 +62,16 @@
                                         <p class="form-control-static"><?php echo $profile->firstname, ' ', $profile->lastname ?></p>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('email'), ' : '; ?></label>
-                                    <div class="col-lg-8">
-                                        <p class="form-control-static"><?php echo $profile->email ?></p>
+
+                                <?php if($session->role < 6 || $profile->id == $session->id){ ?>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label"><?php echo $this->lang->line('email'), ' : '; ?></label>
+                                        <div class="col-lg-8">
+                                            <p class="form-control-static"><?php echo $profile->email ?></p>
+                                        </div>
                                     </div>
-                                </div>
+                                <?php } ?>
+
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label"><?php echo $this->lang->line('nickname'), ' : '; ?></label>
                                     <div class="col-lg-8">
@@ -93,48 +94,50 @@
                                 </div>
                                 
 
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('address'), ' : '; ?></label>
-                                    <div class="col-lg-8">
-                                        <p class="form-control-static"><?php echo $profile->address; ?></p>
+                                <?php if($session->role < 6 || $profile->id == $session->id){ ?>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label"><?php echo $this->lang->line('address'), ' : '; ?></label>
+                                        <div class="col-lg-8">
+                                            <p class="form-control-static"><?php echo $profile->address; ?></p>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('dob'), ' : '; ?></label>
-                                    <div class="col-lg-8">
-                                        <p class="form-control-static"><?php echo date('d-m-Y', $profile->date_of_birth); ?></p>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label"><?php echo $this->lang->line('dob'), ' : '; ?></label>
+                                        <div class="col-lg-8">
+                                            <p class="form-control-static"><?php echo date('d-m-Y', $profile->date_of_birth); ?></p>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('phone_no_1'), ' : '; ?></label>
-                                    <div class="col-lg-8">
-                                        <p class="form-control-static"><?php echo $profile->phone_no_1; ?></p>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label"><?php echo $this->lang->line('phone_no_1'), ' : '; ?></label>
+                                        <div class="col-lg-8">
+                                            <p class="form-control-static"><?php echo $profile->phone_no_1; ?></p>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('phone_no_2'), ' : '; ?></label>
-                                    <div class="col-lg-8">
-                                        <p class="form-control-static"><?php echo $profile->phone_no_2; ?></p>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label"><?php echo $this->lang->line('phone_no_2'), ' : '; ?></label>
+                                        <div class="col-lg-8">
+                                            <p class="form-control-static"><?php echo $profile->phone_no_2; ?></p>
+                                        </div>
                                     </div>
-                                </div>
+                                <?php } ?>
 
                                 <?php if(in_array(6, explode(',',$profile->role_id))){ ?>
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('color_of_blade'), ' : '; ?></label>
-                                    <div class="col-lg-8">
-                                        <p class="form-control-static"><?php echo colorOfBlades($userdetail->color_of_blade, $session->language); ?></p>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label"><?php echo $this->lang->line('color_of_blade'), ' : '; ?></label>
+                                        <div class="col-lg-8">
+                                            <p class="form-control-static"><?php echo colorOfBlades($userdetail->color_of_blade, $session->language); ?></p>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('pupil_since'), ' : '; ?></label>
-                                    <div class="col-lg-8">
-                                        <p class="form-control-static"><?php echo date('Y', strtotime($userdetail->timestamp)); ?></p>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label"><?php echo $this->lang->line('pupil_since'), ' : '; ?></label>
+                                        <div class="col-lg-8">
+                                            <p class="form-control-static"><?php echo date('Y', strtotime($userdetail->timestamp)); ?></p>
+                                        </div>
                                     </div>
-                                </div>
                                 <?php } ?>
 
                                 <div class="form-group">
@@ -146,41 +149,14 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('about_me'), ' : '; ?></label>
-                                    <div class="col-lg-8 text-justify">
-                                        <p class="form-control-static"><?php echo $profile->about_me; ?></p>
+                                <?php if($session->role < 6 || $profile->id == $session->id){ ?>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label"><?php echo $this->lang->line('about_me'), ' : '; ?></label>
+                                        <div class="col-lg-8 text-justify">
+                                            <p class="form-control-static"><?php echo $profile->about_me; ?></p>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="tab-pane fade" id="panel-extra-details">
-                            <form class="form-horizontal" role="form">
-                                <div class="form-group">
-                                    <label class="col-lg-5 control-label"><?php echo $this->lang->line('palce_of_birth'), ' : '; ?></label>
-                                    <div class="col-lg-7">
-                                        <p class="form-control-static"><?php echo $userdetail->palce_of_birth; ?></p>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-5 control-label"><?php echo $this->lang->line('city_of_residence'), ' ', $this->lang->line('by'), ' ',$this->lang->line('zip_code'), ' : '; ?></label>
-                                    <div class="col-lg-7">
-                                        <p class="form-control-static"><?php echo $userdetail->zip_code; ?></p>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-5 control-label"><?php echo $this->lang->line('city_of_residence'), ' ', $this->lang->line('by'), ' ',$this->lang->line('tax_code'), ' : '; ?></label>
-                                    <div class="col-lg-7">
-                                        <p class="form-control-static"><?php echo $userdetail->tax_code; ?></p>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-lg-5 control-label"><?php echo $this->lang->line('blood_group'), ' : '; ?></label>
-                                    <div class="col-lg-7">
-                                        <p class="form-control-static"><?php echo $userdetail->blood_group; ?></p>
-                                    </div>
-                                </div>
+                                <?php } ?>
                             </form>
                         </div>
                     </div>
