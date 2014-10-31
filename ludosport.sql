@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 30, 2014 at 11:40 AM
+-- Generation Time: Oct 31, 2014 at 06:14 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3
 
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `attendances` (
   `attendance` tinyint(1) NOT NULL DEFAULT '1',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=163 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=191 ;
 
 --
 -- Dumping data for table `attendances`
@@ -141,7 +141,7 @@ INSERT INTO `attendances` (`id`, `clan_date`, `student_id`, `attendance`, `user_
 (37, '2014-10-01', 34, 1, 0, '2014-09-30 09:52:48'),
 (38, '2014-10-01', 15, 0, 0, '2014-09-30 09:52:48'),
 (39, '2014-10-01', 16, 1, 0, '2014-09-30 09:52:49'),
-(40, '2014-10-01', 37, 1, 0, '2014-09-30 09:52:49'),
+(40, '2014-10-01', 37, 0, 0, '2014-09-30 09:52:49'),
 (41, '2014-10-01', 20, 1, 0, '2014-09-30 09:52:49'),
 (42, '2014-10-01', 21, 1, 0, '2014-09-30 09:52:49'),
 (43, '2014-10-01', 25, 1, 0, '2014-09-30 09:52:49'),
@@ -189,7 +189,7 @@ INSERT INTO `attendances` (`id`, `clan_date`, `student_id`, `attendance`, `user_
 (85, '2014-10-22', 28, 1, 0, '2014-10-20 11:42:50'),
 (86, '2014-10-22', 33, 1, 0, '2014-10-20 11:42:50'),
 (87, '2014-10-22', 23, 1, 0, '2014-10-20 11:42:50'),
-(88, '2014-10-22', 37, 1, 0, '2014-10-20 11:42:50'),
+(88, '2014-10-22', 37, 0, 0, '2014-10-20 11:42:50'),
 (89, '2014-10-23', 15, 1, 0, '2014-10-20 11:42:50'),
 (90, '2014-10-23', 16, 1, 0, '2014-10-20 11:42:50'),
 (91, '2014-10-23', 14, 1, 0, '2014-10-20 11:42:50'),
@@ -263,7 +263,35 @@ INSERT INTO `attendances` (`id`, `clan_date`, `student_id`, `attendance`, `user_
 (159, '2014-11-03', 28, 1, 0, '2014-10-27 09:20:50'),
 (160, '2014-11-03', 33, 1, 0, '2014-10-27 09:20:50'),
 (161, '2014-11-03', 23, 1, 0, '2014-10-27 09:20:50'),
-(162, '2014-11-03', 37, 1, 0, '2014-10-27 09:20:50');
+(162, '2014-11-03', 37, 1, 0, '2014-10-27 09:20:50'),
+(163, '2014-11-04', 31, 1, 0, '2014-10-31 11:29:02'),
+(164, '2014-11-04', 34, 1, 0, '2014-10-31 11:29:02'),
+(165, '2014-11-04', 37, 1, 0, '2014-10-31 11:29:02'),
+(166, '2014-11-04', 36, 1, 0, '2014-10-31 11:29:02'),
+(167, '2014-11-04', 38, 1, 0, '2014-10-31 11:29:02'),
+(168, '2014-11-04', 39, 1, 0, '2014-10-31 11:29:02'),
+(169, '2014-11-04', 14, 1, 0, '2014-10-31 11:29:02'),
+(170, '2014-11-05', 31, 1, 0, '2014-10-31 11:29:02'),
+(171, '2014-11-05', 34, 1, 0, '2014-10-31 11:29:02'),
+(172, '2014-11-05', 37, 1, 0, '2014-10-31 11:29:02'),
+(173, '2014-11-05', 36, 1, 0, '2014-10-31 11:29:02'),
+(174, '2014-11-05', 38, 1, 0, '2014-10-31 11:29:02'),
+(175, '2014-11-05', 39, 1, 0, '2014-10-31 11:29:02'),
+(176, '2014-11-05', 15, 1, 0, '2014-10-31 11:29:02'),
+(177, '2014-11-05', 16, 1, 0, '2014-10-31 11:29:02'),
+(178, '2014-11-05', 20, 1, 0, '2014-10-31 11:29:02'),
+(179, '2014-11-05', 21, 1, 0, '2014-10-31 11:29:02'),
+(180, '2014-11-05', 25, 1, 0, '2014-10-31 11:29:03'),
+(181, '2014-11-05', 27, 1, 0, '2014-10-31 11:29:03'),
+(182, '2014-11-05', 28, 1, 0, '2014-10-31 11:29:03'),
+(183, '2014-11-05', 33, 1, 0, '2014-10-31 11:29:03'),
+(184, '2014-11-05', 23, 1, 0, '2014-10-31 11:29:03'),
+(185, '2014-11-06', 15, 1, 0, '2014-10-31 11:29:03'),
+(186, '2014-11-06', 16, 1, 0, '2014-10-31 11:29:03'),
+(187, '2014-11-06', 14, 1, 0, '2014-10-31 11:29:03'),
+(188, '2014-11-07', 14, 1, 0, '2014-10-31 11:29:03'),
+(189, '2014-11-07', 17, 1, 0, '2014-10-31 11:29:03'),
+(190, '2014-11-07', 13, 1, 0, '2014-10-31 11:29:03');
 
 -- --------------------------------------------------------
 
@@ -281,14 +309,15 @@ CREATE TABLE IF NOT EXISTS `attendance_recovers` (
   `history` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `attendance_recovers`
 --
 
 INSERT INTO `attendance_recovers` (`id`, `attendance_id`, `clan_date`, `clan_id`, `student_id`, `attendance`, `history`, `user_id`, `timestamp`) VALUES
-(1, 14, '2014-09-30', 1, 15, 1, NULL, 15, '2014-09-30 09:49:00');
+(1, 14, '2014-09-30', 1, 15, 1, NULL, 15, '2014-09-30 09:49:00'),
+(2, 88, '2014-09-30', 1, 37, 1, NULL, 37, '2014-09-30 09:49:00');
 
 -- --------------------------------------------------------
 
@@ -298,7 +327,7 @@ INSERT INTO `attendance_recovers` (`id`, `attendance_id`, `clan_date`, `clan_id`
 
 CREATE TABLE IF NOT EXISTS `batches` (
 `id` int(11) NOT NULL,
-  `type` enum('D','H','M','Q','S') NOT NULL,
+  `type` enum('D','H','M','Q','S','T') NOT NULL,
   `assign_role` varchar(20) NOT NULL DEFAULT '0',
   `sequence` int(11) NOT NULL DEFAULT '0',
   `en_name` varchar(65) NOT NULL,
@@ -313,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `batches` (
   `description` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
 
 --
 -- Dumping data for table `batches`
@@ -360,7 +389,8 @@ INSERT INTO `batches` (`id`, `type`, `assign_role`, `sequence`, `en_name`, `it_n
 (38, 'S', '4', 10, 'Style Master in Ataru', 'Maestro di Ataru', 0, 0, 0, 0, '49155d58d16f378639ee78ed4589d5be.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:20:29'),
 (39, 'S', '4', 11, 'Style Master in Djem-So', 'Maestro di Djem-So', 0, 0, 0, 0, '6198824741d2cef9be0fff724cf4f777.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:20:51'),
 (40, 'S', '4', 12, 'Style Master in Niman', 'Maestro di Niman', 0, 0, 0, 0, '31bf67508bc6ab370e6913dbb0f9dbe1.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:21:08'),
-(41, 'S', '4', 13, 'Style Master in Vaapad', 'Maestro di Vaapad', 0, 0, 0, 0, '2e622daab8de916330cf3d1d06e27a59.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:21:24');
+(41, 'S', '4', 13, 'Style Master in Vaapad', 'Maestro di Vaapad', 0, 0, 0, 0, '2e622daab8de916330cf3d1d06e27a59.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:21:24'),
+(42, 'T', '2,3', 0, '1st Assignment', '1st Assignment', 1, 1000, 500, 250, 'de47d353ce1a7f411ec53ae1a6e1298d.png', NULL, NULL, '<p><span style="text-align: justify;">Lorem ipsum dolor sit amet.</span><br></p>', 1, '2014-10-31 12:01:05');
 
 -- --------------------------------------------------------
 
@@ -454,7 +484,7 @@ CREATE TABLE IF NOT EXISTS `clandates` (
   `history` text,
   `user_id` int(11) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=68 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=78 ;
 
 --
 -- Dumping data for table `clandates`
@@ -527,7 +557,17 @@ INSERT INTO `clandates` (`id`, `type`, `clan_id`, `clan_date`, `clan_shift_from`
 (64, 'R', 7, '2014-11-01', NULL, NULL, NULL, 0, '2014-10-27 09:09:36'),
 (65, 'R', 6, '2014-11-02', NULL, NULL, NULL, 0, '2014-10-27 09:09:37'),
 (66, 'R', 6, '2014-11-03', NULL, NULL, NULL, 0, '2014-10-27 09:10:09'),
-(67, 'R', 7, '2014-11-03', NULL, NULL, NULL, 0, '2014-10-27 09:10:09');
+(67, 'R', 7, '2014-11-03', NULL, NULL, NULL, 0, '2014-10-27 09:10:09'),
+(68, 'R', 1, '2014-11-04', NULL, NULL, NULL, 0, '2014-10-31 08:33:22'),
+(69, 'R', 3, '2014-11-04', NULL, NULL, NULL, 0, '2014-10-31 08:33:22'),
+(70, 'R', 4, '2014-11-04', NULL, NULL, NULL, 0, '2014-10-31 08:33:22'),
+(71, 'R', 1, '2014-11-05', NULL, NULL, NULL, 0, '2014-10-31 08:33:22'),
+(72, 'R', 2, '2014-11-05', NULL, NULL, NULL, 0, '2014-10-31 08:33:22'),
+(73, 'R', 6, '2014-11-05', NULL, NULL, NULL, 0, '2014-10-31 08:33:22'),
+(74, 'R', 2, '2014-11-06', NULL, NULL, NULL, 0, '2014-10-31 08:33:23'),
+(75, 'R', 3, '2014-11-06', NULL, NULL, NULL, 0, '2014-10-31 08:33:23'),
+(76, 'R', 3, '2014-11-07', NULL, NULL, NULL, 0, '2014-10-31 08:33:23'),
+(77, 'R', 5, '2014-11-07', NULL, NULL, NULL, 0, '2014-10-31 08:33:23');
 
 -- --------------------------------------------------------
 
@@ -559,7 +599,7 @@ CREATE TABLE IF NOT EXISTS `clans` (
   `email` varchar(65) NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `clans`
@@ -682,20 +722,21 @@ CREATE TABLE IF NOT EXISTS `eventcategories` (
   `xpr` int(11) NOT NULL DEFAULT '0',
   `war` int(11) NOT NULL DEFAULT '0',
   `sty` int(11) NOT NULL DEFAULT '0',
+  `is_tournament` int(1) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `eventcategories`
 --
 
-INSERT INTO `eventcategories` (`id`, `en_name`, `it_name`, `has_point`, `xpr`, `war`, `sty`, `user_id`, `timestamp`) VALUES
-(1, 'Tournament', 'Tournament', 0, 0, 0, 0, 1, '2014-08-05 12:27:51'),
-(2, 'Workshop', 'Workshop', 1, 8, 0, 0, 1, '2014-08-05 12:27:57'),
-(3, 'Seminar', 'Seminar', 1, 0, 8, 0, 1, '2014-08-05 12:28:01'),
-(4, 'Promo', 'Promo', 0, 0, 0, 0, 1, '2014-08-05 12:28:47'),
-(5, 'Meeting', 'Adunanza', 1, 0, 8, 0, 1, '2014-08-05 12:28:54');
+INSERT INTO `eventcategories` (`id`, `en_name`, `it_name`, `has_point`, `xpr`, `war`, `sty`, `is_tournament`, `user_id`, `timestamp`) VALUES
+(1, 'Tournament', 'Tournament', 0, 0, 0, 0, 1, 1, '2014-08-05 12:27:51'),
+(2, 'Workshop', 'Workshop', 1, 8, 0, 0, 0, 1, '2014-08-05 12:27:57'),
+(3, 'Seminar', 'Seminar', 1, 0, 8, 0, 0, 1, '2014-08-05 12:28:01'),
+(4, 'Promo', 'Promo', 0, 0, 0, 0, 0, 1, '2014-08-05 12:28:47'),
+(5, 'Meeting', 'Adunanza', 1, 0, 8, 0, 0, 1, '2014-08-05 12:28:54');
 
 -- --------------------------------------------------------
 
@@ -800,14 +841,16 @@ CREATE TABLE IF NOT EXISTS `events` (
   `description` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `events`
 --
 
 INSERT INTO `events` (`id`, `eventcategory_id`, `event_for`, `school_id`, `en_name`, `it_name`, `city_id`, `date_from`, `date_to`, `manager`, `image`, `description`, `user_id`, `timestamp`) VALUES
-(1, 4, 'ALL', '0', 'Seminar', 'Seminar', 2, '2014-10-31', '2014-11-01', '3,37', '579f4c645204d29c9c76143930d559b6.jpg', '<p>asdasd</p>', 1, '2014-10-08 07:32:52');
+(1, 4, 'ALL', '0', 'Seminar', 'Seminar', 2, '2014-10-23', '2014-10-31', '3,37', '579f4c645204d29c9c76143930d559b6.jpg', '<p>asdasd</p>', 1, '2014-10-08 07:32:52'),
+(2, 4, 'AC', '1,3', 'Testing', 'Testing', 2, '2014-10-31', '2014-10-31', '3,37', '579f4c645204d29c9c76143930d559b6.jpg', '<p>asdasd</p>', 1, '2014-10-08 07:32:52'),
+(3, 4, 'SC', '1', 'workshop', 'workshop', 1, '2014-11-05', '2014-11-05', '3,37', '579f4c645204d29c9c76143930d559b6.jpg', '<p>asdasd</p>', 1, '2014-10-08 07:32:52');
 
 -- --------------------------------------------------------
 
@@ -823,14 +866,7 @@ CREATE TABLE IF NOT EXISTS `evolutionattendances` (
   `attendance` tinyint(1) NOT NULL DEFAULT '1',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `evolutionattendances`
---
-
-INSERT INTO `evolutionattendances` (`id`, `evolutionclan_id`, `clan_date`, `student_id`, `attendance`, `user_id`, `timestamp`) VALUES
-(1, 1, '2014-11-02', 40, 1, 3, '2014-10-29 12:30:33');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -872,7 +908,20 @@ CREATE TABLE IF NOT EXISTS `evolutionclandates` (
   `history` text,
   `user_id` int(11) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `evolutionclandates`
+--
+
+INSERT INTO `evolutionclandates` (`id`, `type`, `evolutionclan_id`, `clan_date`, `clan_shift_from`, `description`, `history`, `user_id`, `timestamp`) VALUES
+(1, 'R', 1, '2014-10-31', NULL, NULL, NULL, 1, '2014-10-31 10:28:34'),
+(2, 'R', 1, '2014-11-02', NULL, NULL, NULL, 1, '2014-10-31 10:28:34'),
+(6, 'R', 2, '2014-10-31', NULL, NULL, NULL, 1, '2014-10-31 10:29:53'),
+(7, 'R', 2, '2014-11-05', NULL, NULL, NULL, 1, '2014-10-31 10:29:53'),
+(8, 'R', 2, '2014-11-25', NULL, NULL, NULL, 1, '2014-10-31 10:29:53'),
+(10, 'R', 2, '2014-10-21', NULL, NULL, NULL, 1, '2014-10-31 11:04:50'),
+(11, 'R', 2, '2014-10-16', NULL, NULL, NULL, 1, '2014-10-31 11:04:50');
 
 -- --------------------------------------------------------
 
@@ -887,9 +936,6 @@ CREATE TABLE IF NOT EXISTS `evolutionclans` (
   `evolutioncategory_id` int(11) NOT NULL,
   `evolutionlevel_id` int(11) NOT NULL,
   `max_student` int(11) NOT NULL DEFAULT '0',
-  `clan_from` date NOT NULL,
-  `clan_to` date NOT NULL,
-  `lesson_day` varchar(25) NOT NULL,
   `lesson_from` bigint(100) NOT NULL DEFAULT '0',
   `lesson_to` bigint(100) NOT NULL DEFAULT '0',
   `en_class_name` varchar(65) NOT NULL,
@@ -905,19 +951,15 @@ CREATE TABLE IF NOT EXISTS `evolutionclans` (
   `email` varchar(65) NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `evolutionclans`
 --
 
-INSERT INTO `evolutionclans` (`id`, `school_id`, `teacher_id`, `evolutioncategory_id`, `evolutionlevel_id`, `max_student`, `clan_from`, `clan_to`, `lesson_day`, `lesson_from`, `lesson_to`, `en_class_name`, `it_class_name`, `same_address`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `user_id`, `timestamp`) VALUES
-(1, 1, '3', 1, 12, 10, '2014-11-01', '2014-11-30', '7', 1414549800, 1414557000, 'Evolution Training Instructor Clan 1', 'Evolution Training Instructor Clan 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-29 05:34:30'),
-(2, 2, '5', 1, 21, 20, '2014-11-01', '2014-11-30', '1,3,6', 1414549800, 1414557000, 'Evolution Instructor Level 1 Clan 1', 'Evolution Instructor Level 1 Clan 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-29 05:38:36'),
-(3, 2, '5', 1, 21, 20, '2014-11-01', '2014-11-30', '1,3,6', 1414549800, 1414557000, 'Evolution Instructor Level 1 Clan 2', 'Evolution Instructor Level 1 Clan 2', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-29 05:38:36'),
-(4, 2, '5', 1, 22, 20, '2014-11-01', '2014-11-30', '1,3,6', 1414549800, 1414557000, 'Evolution Instructor Level 2 Clan 1', 'Evolution Instructor Level 2 Clan 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-29 05:38:36'),
-(5, 1, '3', 2, 36, 20, '2014-09-19', '2014-12-31', '1,2,3', 1414553400, 1414564200, 'Evolution Master Makashi Clan 1', 'Evolution Master Makashi Clan 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-29 07:18:30'),
-(6, 1, '3', 2, 35, 20, '2014-09-19', '2014-12-31', '1,2,3', 1414553400, 1414564200, 'Evolution Master Shii-cho Clan 1', 'Evolution Master Shii-cho Clan 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-29 07:18:30');
+INSERT INTO `evolutionclans` (`id`, `school_id`, `teacher_id`, `evolutioncategory_id`, `evolutionlevel_id`, `max_student`, `lesson_from`, `lesson_to`, `en_class_name`, `it_class_name`, `same_address`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `user_id`, `timestamp`) VALUES
+(1, 4, '3', 1, 12, 20, 1414722600, 1414737000, 'Tanning Instructor Clan 1', 'Tanning Instructor Clan 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 1, '2014-10-31 10:28:34'),
+(2, 1, '3', 1, 12, 20, 1414726200, 1414729800, 'Tanning Instructor Clan 2', 'Tanning Instructor Clan 2', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-10-31 10:29:53');
 
 -- --------------------------------------------------------
 
@@ -934,15 +976,7 @@ CREATE TABLE IF NOT EXISTS `evolutionstudents` (
   `histroy` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `evolutionstudents`
---
-
-INSERT INTO `evolutionstudents` (`id`, `evolutionclan_id`, `student_id`, `status`, `approved_by`, `histroy`, `user_id`, `timestamp`) VALUES
-(1, 1, 40, 'A', 1, NULL, 40, '2014-10-29 11:04:17'),
-(2, 5, 40, 'C', 1, NULL, 40, '2014-10-29 11:05:02');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1425,7 +1459,7 @@ CREATE TABLE IF NOT EXISTS `teacher_attendances` (
   `status` enum('A','P','U') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=62 ;
 
 --
 -- Dumping data for table `teacher_attendances`
@@ -1479,7 +1513,20 @@ INSERT INTO `teacher_attendances` (`id`, `clan_date`, `clan_id`, `teacher_id`, `
 (45, '2014-10-25', 7, 3, 1, 0, NULL, NULL, 'P', 0, '2014-10-20 11:42:49'),
 (46, '2014-10-26', 6, 25, 1, 0, NULL, NULL, 'P', 0, '2014-10-20 11:42:49'),
 (47, '2014-10-27', 6, 25, 1, 0, NULL, NULL, 'P', 0, '2014-10-20 11:42:49'),
-(48, '2014-10-27', 7, 3, 1, 0, NULL, NULL, 'P', 0, '2014-10-20 11:42:49');
+(48, '2014-10-27', 7, 3, 1, 0, NULL, NULL, 'P', 0, '2014-10-20 11:42:49'),
+(49, '2014-11-01', 5, 7, 1, 0, NULL, NULL, 'P', 0, '2014-10-31 11:29:00'),
+(50, '2014-11-02', 6, 25, 1, 0, NULL, NULL, 'P', 0, '2014-10-31 11:29:00'),
+(51, '2014-11-03', 6, 25, 1, 0, NULL, NULL, 'P', 0, '2014-10-31 11:29:00'),
+(52, '2014-11-04', 1, 5, 1, 0, NULL, NULL, 'P', 0, '2014-10-31 11:29:00'),
+(53, '2014-11-04', 3, 3, 1, 0, NULL, NULL, 'P', 0, '2014-10-31 11:29:00'),
+(54, '2014-11-04', 4, 8, 1, 0, NULL, NULL, 'P', 0, '2014-10-31 11:29:01'),
+(55, '2014-11-05', 1, 5, 1, 0, NULL, NULL, 'P', 0, '2014-10-31 11:29:01'),
+(56, '2014-11-05', 2, 7, 1, 0, NULL, NULL, 'P', 0, '2014-10-31 11:29:01'),
+(57, '2014-11-05', 6, 25, 1, 0, NULL, NULL, 'P', 0, '2014-10-31 11:29:01'),
+(58, '2014-11-06', 2, 7, 1, 0, NULL, NULL, 'P', 0, '2014-10-31 11:29:01'),
+(59, '2014-11-06', 3, 3, 1, 0, NULL, NULL, 'P', 0, '2014-10-31 11:29:01'),
+(60, '2014-11-07', 3, 3, 1, 0, NULL, NULL, 'P', 0, '2014-10-31 11:29:01'),
+(61, '2014-11-07', 5, 7, 1, 0, NULL, NULL, 'P', 0, '2014-10-31 11:29:01');
 
 -- --------------------------------------------------------
 
@@ -1510,7 +1557,7 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   `status` enum('A','P','U','P2') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `userdetails`
@@ -1531,11 +1578,10 @@ INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `degree_id`, `h
 (12, 33, 6, 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-30', 8, NULL, NULL, NULL, NULL, 'A', 33, '2014-09-05 13:05:45'),
 (13, 34, 1, 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-23', 8, NULL, NULL, NULL, NULL, 'A', 34, '2014-09-05 13:18:57'),
 (14, 23, 6, 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-08-04', 2, 'Milan', 20162, 610093, 'O +ve', 'A', 2, '2014-08-04 00:09:02'),
-(16, 37, 0, 6, 20, 0, 21, 0, 1, 1442, 408, 56, 1906, '2014-10-10', 0, 'Vadodara', 390016, 610093, 'B -ve', 'A', 1, '2013-09-25 09:46:53'),
+(16, 37, 1, 6, 20, 0, 21, 0, 1, 1442, 408, 56, 1906, '2014-10-10', 0, 'Vadodara', 390016, 610093, 'B -ve', 'A', 1, '2013-09-25 09:46:53'),
 (20, 36, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-13', 0, 'Vadodara', 390016, 963852, 'B -ve', 'A', 36, '2014-10-13 05:00:29'),
 (27, 38, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-20', 0, 'Vadodara', 390016, 963850, 'O +ve', 'A', 38, '2014-10-20 05:04:25'),
-(28, 39, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-20', 0, 'Vadodara', 390016, 963852, 'B -ve', 'A', 39, '2014-10-20 05:17:36'),
-(30, 40, 0, 3, 0, 0, 12, 0, 1, 300, 150, 0, 450, '2014-10-29', 0, NULL, NULL, NULL, NULL, 'A', 1, '2014-10-28 12:34:27');
+(28, 39, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-20', 0, 'Vadodara', 390016, 963852, 'B -ve', 'A', 39, '2014-10-20 05:17:36');
 
 -- --------------------------------------------------------
 
@@ -1603,7 +1649,7 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `last
 (37, '6', 'ranasoyab', '202cb962ac59075b964b07152d234b70', 'Soyab', 'Rana', 'soyab@blackidsolutions.com', 653596200, 1, 1, 1, 'Vadodara', NULL, '5865aa782c8c4ee571acac7af45b9d94.jpg', 'Baroda', '9876543210', '91987654321', 'It is better to be hated for what you are than to be loved for what you are not.', '<p ><span >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus accumsan non lorem et bibendum. Ut imperdiet sed lectus vitae euismod. Nulla lobortis hendrerit pharetra. Vivamus vitae egestas velit. Vivamus vitae sodales turpis. In hac habitasse platea dictumst. Cras volutpat mi porta, sollicitudin mauris in, volutpat diam. Ut vel velit molestie, auctor mi sed, posuere purus. Donec malesuada mi urna, at iaculis nisi venenatis ac. Sed et rhoncus neque. Morbi nisi velit, mattis in metus nec, efficitur dignissim ex. Vestibulum bibendum ligula scelerisque orci fermentum egestas. Morbi non enim purus.</span></p><p ><span >Duis urna turpis, porttitor sodales felis in, interdum porttitor nunc. Vivamus dictum accumsan mauris, ac gravida ligula venenatis sit amet. Quisque quam leo, auctor et tortor at, auctor aliquam lorem. In et lorem sit amet lectus hendrerit mattis ut eu arcu. Integer interdum luctus elit at elementum. Suspendisse consequat leo nec diam lobortis, sed mollis lectus bibendum. Integer et finibus ex. Vivamus maximus consectetur eros ut ultricies. Ut convallis nibh a erat vulputate, sed rutrum libero ullamcorper. Suspendisse et metus in odio tincidunt maximus non quis lacus. Morbi bibendum feugiat quam, et posuere orci malesuada eu.</span></p>', 'a:8:{s:36:"teacher_recovery_student_for_student";s:1:"1";s:16:"event_invitation";s:1:"1";s:16:"change_clan_date";s:1:"1";s:14:"challenge_made";s:1:"1";s:18:"challenge_accepted";s:1:"1";s:18:"challenge_rejected";s:1:"1";s:16:"challenge_winner";s:1:"1";s:16:"new_announcement";s:1:"0";}', 'A', 1, '2013-09-25 09:46:53'),
 (38, '6', 'dev1', '698d51a19d8a121ce581499d7b701668', 'First', 'Developer', 'dev1@yopmail.com', 358453800, 1, 1, 1, 'Milan', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'A', 0, '2014-10-20 04:47:10'),
 (39, '6', 'dev2', '698d51a19d8a121ce581499d7b701668', 'Second', 'Developer', 'dev2@yopmail.com', 774729000, 1, 1, 1, 'Milan', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'A', 0, '2014-10-20 05:16:29'),
-(40, '6', 'dev_1', '202cb962ac59075b964b07152d234b70', 'Developer', 'One', 'demo@yopmail.com', 806005800, 1, 1, 1, 'Milan', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'A', 1, '2014-10-28 12:34:27');
+(40, '6', 'dev_1', '202cb962ac59075b964b07152d234b70', 'Developer', 'One', 'demo@yopmail.com', 806005800, 1, 1, 1, 'Milan', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'P', 1, '2014-10-28 12:34:27');
 
 -- --------------------------------------------------------
 
@@ -1614,7 +1660,7 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `last
 CREATE TABLE IF NOT EXISTS `user_batches_histories` (
 `id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
-  `batch_type` enum('D','H','M','Q','S') NOT NULL,
+  `batch_type` enum('D','H','M','Q','S','T') NOT NULL,
   `batch_id` int(11) NOT NULL,
   `assign_date` date NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -1902,17 +1948,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=163;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=191;
 --
 -- AUTO_INCREMENT for table `attendance_recovers`
 --
 ALTER TABLE `attendance_recovers`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `batches`
 --
 ALTER TABLE `batches`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT for table `batchrequests`
 --
@@ -1932,12 +1978,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `clandates`
 --
 ALTER TABLE `clandates`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=68;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=78;
 --
 -- AUTO_INCREMENT for table `clans`
 --
 ALTER TABLE `clans`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `countries`
 --
@@ -1957,7 +2003,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `eventcategories`
 --
 ALTER TABLE `eventcategories`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `eventinvitations`
 --
@@ -1967,12 +2013,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=63;
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `evolutionattendances`
 --
 ALTER TABLE `evolutionattendances`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `evolutioncategories`
 --
@@ -1982,17 +2028,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `evolutionclandates`
 --
 ALTER TABLE `evolutionclandates`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `evolutionclans`
 --
 ALTER TABLE `evolutionclans`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `evolutionstudents`
 --
 ALTER TABLE `evolutionstudents`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `levels`
 --
@@ -2057,12 +2103,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 -- AUTO_INCREMENT for table `teacher_attendances`
 --
 ALTER TABLE `teacher_attendances`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
 --
 -- AUTO_INCREMENT for table `userdetails`
 --
 ALTER TABLE `userdetails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `users`
 --
