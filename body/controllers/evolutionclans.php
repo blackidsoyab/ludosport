@@ -66,9 +66,6 @@ class evolutionclans extends CI_Controller
             $obj->evolutioncategory_id = $this->input->post('evolutioncategory_id');
             $obj->evolutionlevel_id = $this->input->post('evolutionlevel_id');
             $obj->max_student = $this->input->post('max_student');
-            $obj->clan_from = date('Y-m-d', strtotime($this->input->post('clan_from')));
-            $obj->clan_to = date('Y-m-d', strtotime($this->input->post('clan_to')));
-            $obj->lesson_day = implode(',', $this->input->post('lesson_day'));
             $obj->lesson_from = strtotime($this->input->post('lesson_from'));
             $obj->lesson_to = strtotime($this->input->post('lesson_to'));
             
@@ -98,6 +95,17 @@ class evolutionclans extends CI_Controller
             
             $obj->user_id = $this->session_data->id;
             $obj->save();
+
+            $dates = array_filter(array_unique($this->input->post('clan_date')));
+
+            foreach ($dates as $clan_date) {
+                $obj_evolution_clan_date = new Evolutionclandate();
+                $obj_evolution_clan_date->type = 'R';
+                $obj_evolution_clan_date->evolutionclan_id = $obj->id;
+                $obj_evolution_clan_date->clan_date = date('Y-m-d', strtotime($clan_date));
+                $obj_evolution_clan_date->user_id = $this->session_data->id;
+                $obj_evolution_clan_date->save();
+            }
             
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
             redirect(base_url() . 'evolutionclan', 'refresh');
@@ -155,9 +163,6 @@ class evolutionclans extends CI_Controller
                 $obj->evolutioncategory_id = $this->input->post('evolutioncategory_id');
                 $obj->evolutionlevel_id = $this->input->post('evolutionlevel_id');
                 $obj->max_student = $this->input->post('max_student');
-                $obj->clan_from = date('Y-m-d', strtotime($this->input->post('clan_from')));
-                $obj->clan_to = date('Y-m-d', strtotime($this->input->post('clan_to')));
-                $obj->lesson_day = implode(',', $this->input->post('lesson_day'));
                 $obj->lesson_from = strtotime($this->input->post('lesson_from'));
                 $obj->lesson_to = strtotime($this->input->post('lesson_to'));
                 
@@ -187,6 +192,18 @@ class evolutionclans extends CI_Controller
                 
                 $obj->user_id = $this->session_data->id;
                 $obj->save();
+
+                $dates = array_filter(array_unique($this->input->post('clan_date')));
+
+                foreach ($dates as $clan_date) {
+                    $obj_evolution_clan_date = new Evolutionclandate();
+                    $obj_evolution_clan_date->where(array('evolutionclan_id' =>$id, 'clan_date'=>date('Y-m-d', strtotime($clan_date))))->get();
+                    $obj_evolution_clan_date->type = 'R';
+                    $obj_evolution_clan_date->evolutionclan_id = $id;
+                    $obj_evolution_clan_date->clan_date = date('Y-m-d', strtotime($clan_date));
+                    $obj_evolution_clan_date->user_id = $this->session_data->id;
+                    $obj_evolution_clan_date->save();
+                }
                 
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
                 redirect(base_url() . 'evolutionclan', 'refresh');
@@ -250,6 +267,11 @@ class evolutionclans extends CI_Controller
                         $data['evolution_levels'][] = $std;
                     }
                 }
+
+                $obj_evolution_clan_date = new Evolutionclandate();
+                $data['clan_dates'] = $obj_evolution_clan_date->where('evolutionclan_id', $id)->order_by('clan_date', 'ASC')->get();
+
+                $data['current_date'] = get_current_date_time()->get_date_for_db();
                 
                 $this->layout->view('evolutionclans/edit', $data);
             }
@@ -257,6 +279,12 @@ class evolutionclans extends CI_Controller
             $this->session->set_flashdata('error', $this->lang->line('edit_data_error'));
             redirect(base_url() . 'evolutionclan', 'refresh');
         }
+    }
+
+    public function evolutionClandateDelete($id){
+        $obj_evolution_clan_date = new Evolutionclandate($id);
+        $obj_evolution_clan_date->delete();
+        echo true;
     }
     
     /*

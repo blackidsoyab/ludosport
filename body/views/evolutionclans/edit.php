@@ -76,15 +76,57 @@
             });
         }
 
-        $('.datepicker').datepicker({
-            format: "dd-mm-yyyy",
-            startView: 2,
-            autoclose: true,
-            todayHighlight: true
-        }).on('changeDate', function (ev) {
-            $(this).datepicker('hide');
+        $('#manage').on("focus",".datepicker", function(e){
+            $(this).datepicker({
+                format: "dd-mm-yyyy",
+                todayHighlight: true
+            }).on('changeDate', function (ev) {
+                $(this).datepicker('hide');
+            });
+        });
+
+        $('#manage').on("click",".addButton", function(e){
+            $('#optiontemplate').clone().removeClass('hide').removeAttr('id').insertBefore($('#optiontemplate'));
+        });
+
+        $('#manage').on("click",".removeButton", function(e){
+            if($(this).parents('.form-group').find('input[name="clan_date[]"]').val() != ''){
+                UpdateRow($(this).parents('.form-group').find('input[name="clan_date[]"]'));                
+            } else{
+                $(this).parents('.form-group').remove();
+            }
         });
     });
+
+    function UpdateRow(ele) {
+        var current_id = $(ele).attr('id');
+
+        $.confirm({
+            'title': 'Manage Evolution Clan Date',
+            'message': 'Do you Want to Delete the Evolution Clan date ?',
+            'buttons': {
+                '<?php echo $this->lang->line("yes"); ?>': {
+                    'class': 'btn btn-danger',
+                    'action': function() {
+                        $.ajax({
+                            type: 'POST',
+                            url: http_host_js + 'evolutionclandate/delete/' + current_id,
+                            data: id = current_id,
+                            success: function() {
+                                $(ele).parents('.form-group').remove();
+                            }
+                        });
+                    }
+                },
+                '<?php echo $this->lang->line("no"); ?>': {
+                    'class': 'btn btn-default',
+                    'action': function() {
+                    }   // Nothing to do in this case. You can as well omit the action property.
+                }
+            }
+        });
+        return false;
+    }
     //]]>
 </script>
 <h1 class="page-heading"><?php echo $this->lang->line('edit'), ' ', $this->lang->line('evolutionclan'); ?></h1>
@@ -182,33 +224,6 @@
             </div>
 
             <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('evolutionclan'), ' ', $this->lang->line('start_from'); ?> <span class="text-danger">*</span></label>
-                <div class="col-lg-5">
-                    <input type="text" class="form-control datepicker required" name="clan_from" value="<?php echo date('d-m-Y', strtotime($evolutionclan->clan_from));?>">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('evolutionclan'), ' ', $this->lang->line('end_in'); ?> <span class="text-danger">*</span></label>
-                <div class="col-lg-5">
-                    <input type="text" class="form-control datepicker required" name="clan_to" value="<?php echo date('d-m-Y', strtotime($evolutionclan->clan_to));?>">
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label class="col-lg-3 control-label"><?php echo $this->lang->line('select'), ' ', $this->lang->line('day'), ' ', $this->lang->line('lesson'); ?> <span class="text-danger">*</span></label>
-                <div class="col-lg-5">
-                    <select class="form-control required" name="lesson_day[]" multiple="multiple">
-                        <?php
-                        foreach ($this->config->item('custom_days') as $key => $value) {
-                            ?>
-                            <option value="<?php echo $key; ?>" <?php echo (in_array($key, explode(',', $evolutionclan->lesson_day))) ? 'selected' : ''; ?>><?php echo $value[$session->language]; ?></option>
-                        <?php } ?>    
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
                 <label class="col-lg-3 control-label"><?php echo $this->lang->line('lesson'), ' ', $this->lang->line('time_from'); ?> <span class="text-danger">*</span></label>
                 <div class="col-lg-5">
                     <div class="input-group input-append bootstrap-timepicker">
@@ -223,6 +238,64 @@
                     <div class="input-group input-append bootstrap-timepicker">
                         <input type="text" class="form-control timepicker" name="lesson_to" value="<?php echo date('H:i', $evolutionclan->lesson_to);?>"> <span class="input-group-addon add-on"><i class="fa fa-clock-o"></i></span>
                     </div>
+                </div>
+            </div>
+
+            <?php
+                foreach ($clan_dates as $date) {
+                    $disable = false;
+                    if(strtotime($date->clan_date) <= strtotime($current_date)){
+                        $disable = true;
+                    }
+            ?>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('evolutionclan'), ' ', $this->lang->line('date'); ?> <span class="text-danger">*</span></label>
+                    <div class="col-lg-5">
+                        <input type="text" id="<?php echo $date->id; ?>" class="form-control datepicker required" name="clan_date[]" value="<?php echo date('d-m-Y', strtotime($date->clan_date)); ?>" <?php echo ($disable) ? 'disabled="disabled"' : ''; ?>>
+                    </div>
+                    <?php if(!$disable) { ?>
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-primary addButton">
+                                <i class="fa fa-plus"></i>
+                            </button>
+
+                            <button type="button" class="btn btn-primary removeButton">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    <?php } ?>
+                </div>
+            <?php } ?>
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('evolutionclan'), ' ', $this->lang->line('date'); ?> <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control datepicker" name="clan_date[]">
+                </div>
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-primary addButton">
+                        <i class="fa fa-plus"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-primary removeButton">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group hide" id="optiontemplate">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('evolutionclan'), ' ', $this->lang->line('date'); ?> <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control datepicker required" name="clan_date[]">
+                </div>
+                <div class="col-lg-2">
+                    <button type="button" class="btn btn-primary addButton">
+                        <i class="fa fa-plus"></i>
+                    </button>
+
+                    <button type="button" class="btn btn-primary removeButton">
+                        <i class="fa fa-minus"></i>
+                    </button>
                 </div>
             </div>
         </fieldset>

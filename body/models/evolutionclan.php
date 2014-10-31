@@ -34,11 +34,12 @@ class Evolutionclan extends DataMapper
         return $res;
     }
 
-    function getEvolutionClanByDay($day = '1') {
+    function getEvolutionClanMonth($month) {
         $session = get_instance()->session->userdata('user_session');
         $this->db->_protect_identifiers = false;
-        $this->db->select('evolutionclans.id,' . $session->language . '_class_name AS clan,' . $session->language . '_school_name AS school,' . $session->language . '_academy_name AS academy, evolutionclans.clan_from, evolutionclans.clan_to');
+        $this->db->select('evolutionclans.id,' . $session->language . '_class_name AS clan,' . $session->language . '_school_name AS school,' . $session->language . '_academy_name AS academy, evolutionclandates.clan_date');
         $this->db->from('evolutionclans');
+        $this->db->join('evolutionclandates', 'evolutionclans.id=evolutionclandates.evolutionclan_id');
         if ($session->role == 1 || $session->role == 2) {
             $this->db->join('schools', 'schools.id=evolutionclans.school_id');
             $this->db->join('academies', 'academies.id=schools.academy_id');
@@ -61,7 +62,7 @@ class Evolutionclan extends DataMapper
             $this->db->where('student_id', $session->id);
         }
         
-        $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0");
+        $this->db->where('MONTH(evolutionclandates.clan_date)', $month);
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();
@@ -180,11 +181,12 @@ class Evolutionclan extends DataMapper
         }
     }
 
-    function getClansByDayForCronJob($day = '1') {
+    function getClansByDateForCronJob($date) {
         $this->db->_protect_identifiers = false;
-        $this->db->select('evolutionclans.id, evolutionclans.clan_from, evolutionclans.clan_to, teacher_id');
+        $this->db->select('evolutionclans.id, teacher_id, evolutionclandates.clan_date');
         $this->db->from('evolutionclans');
-        $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0");
+        $this->db->join('evolutionclandates', 'evolutionclans.id=evolutionclandates.evolutionclan_id');
+        $this->db->where('evolutionclandates.clan_date', $date);
         $res = $this->db->get();
         if ($res->num_rows > 0) {
             return $res->result();

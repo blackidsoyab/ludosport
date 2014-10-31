@@ -103,22 +103,7 @@
                                                 <p class="form-control-static"><?php echo $clan->{$session->language . '_class_name'}; ?></p>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label"><?php echo $this->lang->line('lesson'), ' ', $this->lang->line('day'); ?></label>
-                                            <div class="col-sm-9">
-                                                <p class="form-control-static">
-                                                    <?php
-                                                    $days_array = $this->config->item('custom_days');
-                                                    $str = null;
-                                                    foreach (explode(',', $clan->lesson_day) as $value) {
-                                                        $str .= ', ' . $days_array[$value]['en'];
-                                                    }
 
-                                                    echo substr($str, 2);
-                                                    ?>
-                                                </p>
-                                            </div>
-                                        </div>
                                         <div class="form-group">
                                             <label class="col-sm-3 control-label"><?php echo $this->lang->line('time_from'); ?></label>
                                             <div class="col-sm-9">

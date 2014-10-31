@@ -461,34 +461,32 @@ class ajax extends CI_Controller
                     }
                 }
             }
+        }
 
-            $obj_evolution_clan = New Evolutionclan();
-            $obj_evolution_details = $obj_evolution_clan->getEvolutionClanByDay($day_numeric);
+        $obj_evolution_clan = New Evolutionclan();
+            $obj_evolution_details = $obj_evolution_clan->getEvolutionClanMonth($month);
             if ($obj_evolution_details) {
                 foreach ($obj_evolution_details as $value) {
-                    if (strtotime($date) >= strtotime($value->clan_from) && strtotime($date) <= strtotime($value->clan_to)) {
-                        $temp = array();
-                        $temp['title'] = $value->clan;
-                        $temp['start'] = $date;
-                        $temp['tooltip'] = $value->clan . ', ' . $value->school . ', ' . $value->academy;
-                        if (strtotime($date) < strtotime($current_date)) {
-                            $temp['url'] = base_url() . 'evolutionclan/clan_attendance/' . $value->id . '/' . $date;
-                            $temp['type'] = 'past';
-                            $temp['class'] = 'badge badge-info';
-                        } else if (strtotime($date) == strtotime($current_date)) {
-                            $temp['url'] = base_url() . 'evolutionclan/clan_attendance/' . $value->id . '/' . $date;
-                            $temp['type'] = 'present';
-                            $temp['class'] = 'badge badge-success';
-                        } else {
-                            $temp['url'] = base_url() . 'evolutionclan/clan_attendance/' . $value->id . '/' . $date;
-                            $temp['type'] = 'future';
-                            $temp['class'] = 'badge badge-inverse';
-                        }
-                        $return[] = $temp;
+                    $temp = array();
+                    $temp['title'] = $value->clan;
+                    $temp['start'] = $value->clan_date;
+                    $temp['tooltip'] = $value->clan . ', ' . $value->school . ', ' . $value->academy;
+                    if (strtotime($value->clan_date) < strtotime($current_date)) {
+                        $temp['url'] = base_url() . 'evolutionclan/clan_attendance/' . $value->id . '/' . $date;
+                        $temp['type'] = 'past';
+                        $temp['class'] = 'label badge-info';
+                    } else if (strtotime($value->clan_date) == strtotime($current_date)) {
+                        $temp['url'] = base_url() . 'evolutionclan/clan_attendance/' . $value->id . '/' . $date;
+                        $temp['type'] = 'present';
+                        $temp['class'] = 'label badge-success';
+                    } else {
+                        $temp['url'] = base_url() . 'evolutionclan/clan_attendance/' . $value->id . '/' . $date;
+                        $temp['type'] = 'future';
+                        $temp['class'] = 'label badge-inverse';
                     }
+                    $return[] = $temp;
                 }
             }
-        }
 
         $schools = new School();
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {

@@ -715,7 +715,7 @@
 				date.getUTCFullYear() === today.getFullYear() &&
 				date.getUTCMonth() === today.getMonth() &&
 				date.getUTCDate() === today.getDate()){
-				cls.push('today');
+				cls.push('active');
 			}
 			if (this.dates.contains(date) !== -1)
 				cls.push('active');

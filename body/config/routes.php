@@ -290,6 +290,7 @@ $route['evolutionclan/listEvolutionClanRequestJson'] = "json/getEvolutionClanReq
 $route['evolutionclan/listEvolutionClanRequestJson/(:num)'] = "json/getEvolutionClanRequestJsonData/$1";
 $route['evolutionclan/evolution_result_box/(:num)/(:num)'] = "ajax/evolutionClanResultBox/$1/$2";
 $route['evolutionclan/result'] = "evolutionclans/resultEvolutionclan";
+$route['evolutionclandate/delete/(:num)'] = "evolutionclans/evolutionClandateDelete/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
