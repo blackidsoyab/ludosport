@@ -172,6 +172,7 @@ $lang['qualification'] = 'Qualifications';
 $lang['security'] = 'Titles';
 $lang['security'] = 'Combat ';
 $lang['master_degree'] = 'Combat styles';
+$lang['tournament'] = 'Tournament';
 
 //Teacher Dashboard
 $lang['replace_teacher'] = 'Replace Teacher';
@@ -354,6 +355,7 @@ $lang['pre_format'] = 'Pre Format';
 
 //Event Category
 $lang['eventcategory'] = 'Event Category';
+$lang['is_tournament'] = 'Is Tournament';
 
 //Events
 $lang['event'] = 'Event';

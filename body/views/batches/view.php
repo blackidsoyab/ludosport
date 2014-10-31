@@ -98,6 +98,7 @@
                     <option value="H"><?php echo $this->lang->line('honour'); ?></option>
                     <option value="Q"><?php echo $this->lang->line('qualification'); ?></option>
                     <option value="S"><?php echo $this->lang->line('security'); ?></option> 
+                    <option value="T"><?php echo $this->lang->line('tournament'); ?></option> 
                 </select>
             </div>
 

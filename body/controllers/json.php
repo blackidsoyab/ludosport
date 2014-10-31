@@ -902,6 +902,10 @@ class json extends CI_Controller
             if ($aRow['type'] == 'S') {
                 $temp_arr[] = '<span class="label label-danger">' . $this->lang->line('security') . '</span>';
             }
+
+            if ($aRow['type'] == 'T') {
+                $temp_arr[] = '<span class="label label-default">' . $this->lang->line('tournament') . '</span>';
+            }
             
             $temp_arr[] = '<img src="' . IMG_URL . 'batches/' . $aRow['image'] . '" class="avatar" alt="Batch">';
             

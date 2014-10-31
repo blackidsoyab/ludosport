@@ -39,6 +39,20 @@
         <?php } ?>
 
         <div class="form-group">
+            <label class="col-lg-3 control-label"><?php echo $this->lang->line('is_tournament'); ?></label>
+            <div class="col-lg-8">
+                <label class="radio-inline padding-left-killer" for="p-radios-0">
+                    <input type="radio" id="p-radios-0" value="1" class="radio i-grey-square" name="is_tournament"/>
+                <?php echo $this->lang->line('yes'); ?>
+                </label>
+                <label class="radio-inline  padding-left-killer" for="a-radios-1">
+                    <input type="radio" id="p-radios-1" value="0" class="radio i-grey-square" name="is_tournament" checked="checked" />
+                <?php echo $this->lang->line('no'); ?>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-lg-3 control-label"><?php echo $this->lang->line('has_rating'); ?></label>
             <div class="col-lg-8">
                 <div class="checkbox padding-left-killer">

@@ -40,6 +40,7 @@ class eventcategories extends CI_Controller
                 $eventcategory->sty = 0;
             }
             
+            $eventcategory->is_tournament = $this->input->post('is_tournament');
             $eventcategory->user_id = $this->session_data->id;
             $eventcategory->save();
             $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
@@ -76,6 +77,7 @@ class eventcategories extends CI_Controller
                     $eventcategory->sty = 0;
                 }
                 
+                $eventcategory->is_tournament = $this->input->post('is_tournament');
                 $eventcategory->user_id = $this->session_data->id;
                 $eventcategory->save();
                 $this->session->set_flashdata('success', $this->lang->line('edit_data_success'));
