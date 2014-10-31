@@ -339,7 +339,6 @@ class ajax extends CI_Controller
             $day_numeric = date('N', strtotime($date));
             $clans = New Clan();
             $details = $clans->getClansByDay($day_numeric);
-            
             if ($details) {
                 foreach ($details as $value) {
                     if (strtotime($date) >= strtotime($value->clan_from) && strtotime($date) <= strtotime($value->clan_to)) {
@@ -396,7 +395,7 @@ class ajax extends CI_Controller
                             if (strtotime($date) < strtotime($current_date)) {
                                 $temp['url'] = base_url() . 'clan/clan_attendance/' . $value->id . '/' . $date;
                                 $temp['type'] = 'past';
-                                $temp['class'] = 'badge badge-info';
+                                $temp['class'] = 'badge badge-info fc-cell-'.$date;
                             } else if (strtotime($date) == strtotime($current_date)) {
                                 $temp['url'] = base_url() . 'clan/clan_attendance/' . $value->id . '/' . $date;
                                 $temp['type'] = 'present';
@@ -406,6 +405,27 @@ class ajax extends CI_Controller
                                 $temp['type'] = 'future';
                                 $temp['class'] = 'badge badge-inverse';
                             }
+
+                            if($this->session_data->role == 6){
+                                $obj_attendance = new Attendance();
+                                $attendance = $obj_attendance->getAttendaceDateStudent($date, $this->session_data->id);
+                                if($attendance != false){
+                                    if($attendance->attendance == '0' && $attendance->recovery == '0'){
+                                        $temp['day_bg_class'] = "badge-danger";
+                                    } else if($attendance->attendance == '1'){
+                                        $temp['day_bg_class'] = "badge-success";
+                                    } else if($attendance->attendance == '0' && $attendance->recovery == '1'){
+                                        $temp['day_bg_class'] = "badge-warning";
+                                    } else{
+                                        $temp['day_bg_class'] = "";    
+                                    }
+                                } else {
+                                    $temp['day_bg_class'] = "";
+                                }
+                            }else{
+                                $temp['day_bg_class'] = "";
+                            }
+
                             $return[] = $temp;
                         }
                     }
@@ -414,8 +434,8 @@ class ajax extends CI_Controller
             
             unset($obj_clan_date);
             $obj_clan_date = new Clandate();
-            $check = $obj_clan_date->where(array('type' => 'S', 'clan_date' => $date))->get();
-            if ($check->result_count() > 0) {
+            $check = $obj_clan_date->getClansDateByTypeDate('S', $date);
+            if ($check != false) {
                 foreach ($check as $value) {
                     $clan = new Clan();
                     $clan->where('id', $value->clan_id)->get();
@@ -444,7 +464,6 @@ class ajax extends CI_Controller
 
             $obj_evolution_clan = New Evolutionclan();
             $obj_evolution_details = $obj_evolution_clan->getEvolutionClanByDay($day_numeric);
-            
             if ($obj_evolution_details) {
                 foreach ($obj_evolution_details as $value) {
                     if (strtotime($date) >= strtotime($value->clan_from) && strtotime($date) <= strtotime($value->clan_to)) {
@@ -467,6 +486,73 @@ class ajax extends CI_Controller
                         }
                         $return[] = $temp;
                     }
+                }
+            }
+        }
+
+        $schools = new School();
+        if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+            $school = null;
+        } else if ($this->session_data->role == '3') {
+            $school = $schools->getSchoolOfRector($this->session_data->id);
+        } else if ($this->session_data->role == '4') {
+            $school = $schools->getSchoolOfDean($this->session_data->id);
+        } else if ($this->session_data->role == '5') {
+            $school = $schools->getSchoolOfTeacher($this->session_data->id);
+        } else if ($this->session_data->role == '6') {
+            $school = $schools->getSchoolOfStudent($this->session_data->id);
+        }
+        
+        if (!is_null($school) && !empty($school)) {
+            $school_ids = array();
+            foreach ($school as $value) {
+                $school_ids[] = $value->id;
+            }
+        } else {
+            $school_ids = null;
+        }
+        
+        $obj_event = new Event();
+        $obj_event_details = $obj_event->getEventsMonthwise($month, $school_ids);
+        if ($obj_event_details != false) {
+            foreach ($obj_event_details as $obj_event_detail) {
+                if($month == date('m', strtotime($obj_event_detail->date_from)) || $month == date('m', strtotime($obj_event_detail->date_to))) {
+                    $temp = array();
+                    $temp['title'] = $obj_event_detail->{$this->session_data->language . '_name'};
+                    $temp['start'] = $obj_event_detail->date_from;
+                    $temp['end'] = $obj_event_detail->date_to;
+                    $temp['tooltip'] = $obj_event_detail->{$this->session_data->language . '_name'} . ' at ' . getLocationName($obj_event_detail->city_id, 'City');
+
+                    $can_take_attendance = false;
+                    if(strtotime($obj_event_detail->date_from) <= strtotime($current_date)){
+                        if($this->session_data->role > 2){
+                            if(in_array($this->session_data->id, explode(',', $obj_event_detail->manager)) && hasPermission('events', 'takeEventAttendance')){
+                                $can_take_attendance = true;
+                            }
+                        }else{
+                            $can_take_attendance = true;
+                        }
+                    }
+
+                    if ($can_take_attendance) {
+                        $temp['url'] = base_url() . 'event/attendance/' . $obj_event_detail->id;
+                    }else{
+                        $temp['url'] = 'javascript:void(0)';
+                    }
+                    if (strtotime($current_date) >= strtotime($obj_event_detail->date_from) && strtotime($current_date) <= strtotime($obj_event_detail->date_to)) {
+                        $temp['type'] = 'present';
+                        $temp['class'] = 'progress progress-striped';
+                        $temp['class_event'] = 'progress-bar progress-bar-success';
+                    } else if (strtotime($obj_event_detail->date_from) < strtotime($current_date)) {
+                        $temp['type'] = 'past';
+                        $temp['class'] = 'progress progress-striped';
+                        $temp['class_event'] = 'progress-bar progress-bar-info';
+                    } else {
+                        $temp['type'] = 'future';
+                        $temp['class'] = 'progress progress-striped';
+                        $temp['class_event'] = 'progress-bar progress-bar-inverse';
+                    }
+                    $return[] = $temp;
                 }
             }
         }

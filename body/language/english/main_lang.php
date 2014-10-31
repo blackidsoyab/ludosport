@@ -143,6 +143,9 @@ $lang['clan_present_shif_of'] = 'Present Shifted Clan of';
 $lang['clan_future'] = 'Future Clan';
 $lang['clan_future_shif_on'] = 'Future Shifted Clan on';
 $lang['clan_future_shif_of'] = 'Future Shifted Clan of';
+$lang['event_past'] = 'Event over';
+$lang['event_current'] = 'Running event';
+$lang['event_future'] = 'Upcoming event';
 
 //Pending Student
 $lang['request_for_trail_lesson'] = 'Request for Trail Lesson';

@@ -41,6 +41,40 @@ class Event extends DataMapper
         }
     }
     
+    function getEventsMonthwise($month, $school_id = null) {
+        $session = get_instance()->session->userdata('user_session');
+        $where = NULL;
+        if (!is_null($school_id)) {
+            if (is_array($school_id)) {
+                foreach ($school_id as $id) {
+                    $where.= " OR FIND_IN_SET('" . $id . "', school_id) > 0";
+                }
+            } else {
+                $where.= " OR FIND_IN_SET('" . $school_id . "', school_id) > 0";
+            }
+        }
+        
+        $this->db->_protect_identifiers = false;
+        $this->db->select('events.*');
+        $this->db->from('events');
+        $this->db->where('(MONTH(date_from)=' . $month . ' OR MONTH(date_to)=' . $month . ')', null, false);
+        if ($session->role > 2) {
+            if (!is_null($where)) {
+                $this->db->where('(' . substr($where, 4) . ' OR event_for="ALL")');
+            }else{
+                $this->db->where('event_for', 'ALL');
+            }
+        }
+        $this->db->order_by('id', 'desc');
+        $res = $this->db->get();
+        
+        if ($res->num_rows > 0) {
+            return $res->result();
+        } else {
+            return false;
+        }
+    }
+    
     function getRunningEventIDS() {
         $current_date = get_current_date_time()->get_date_for_db();
         $res = $this->db->query("SELECT id FROM events WHERE '" . $current_date . "' between date_from and date_to");

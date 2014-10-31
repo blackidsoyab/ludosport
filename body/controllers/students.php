@@ -903,7 +903,13 @@ class students extends CI_Controller
     
     function viewJournal() {
         $this->layout->setField('page_title', $this->lang->line('journal'));
-        $this->layout->view('students/journal');
+
+        $data['monthNames'] = array_map(function ($ar) {
+            $session = get_instance()->session->userdata('user_session');
+            return $ar["$session->language"];
+        }, $this->config->item('custom_months'));
+
+        $this->layout->view('students/journal', $data);
     }
     
     function viewEvolution($id = null, $type = null) {

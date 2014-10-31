@@ -32,11 +32,11 @@
 									<div class="row">
 										<div class="col-md-12">
 											<label class="radio-inline" for="p-radios-<?php echo $value['id']; ?>">
-										      <input type="radio" id="p-radios-<?php echo $value['id']; ?>" value="1" class="radio" name="student[<?php echo $value['id']; ?>]" <?php echo (is_null($value['attendance'])) ? 'checked="checked"' : ($value['attendance'] == '1') ? 'checked="checked"' : ''; ?>/>
+										      <input type="radio" id="p-radios-<?php echo $value['id']; ?>" value="1" class="radio i-grey-square" name="student[<?php echo $value['id']; ?>]" <?php echo (is_null($value['attendance'])) ? 'checked="checked"' : ($value['attendance'] == '1') ? 'checked="checked"' : ''; ?>/>
 										      <?php echo $this->lang->line('present'); ?>
 										    </label>
 										    <label class="radio-inline" for="a-radios-<?php echo $value['id']; ?>">
-										      <input type="radio" id="a-radios-<?php echo $value['id']; ?>" value="0" class="radio" name="student[<?php echo $value['id']; ?>]" <?php echo ($value['attendance'] == '0') ? 'checked="checked"' : ''; ?>/>
+										      <input type="radio" id="a-radios-<?php echo $value['id']; ?>" value="0" class="radio i-grey-square" name="student[<?php echo $value['id']; ?>]" <?php echo ($value['attendance'] == '0') ? 'checked="checked"' : ''; ?>/>
 										      <?php echo $this->lang->line('absent'); ?>
 										    </label>
 										</div> 

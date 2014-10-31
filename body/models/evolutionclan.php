@@ -54,6 +54,11 @@ class Evolutionclan extends DataMapper
             $this->db->join('schools', 'schools.id=evolutionclans.school_id');
             $this->db->join('academies', 'academies.id=schools.academy_id');
             $this->db->where("FIND_IN_SET(" . $session->id . ", teacher_id) > 0");
+        } else if($session->role == 6){
+            $this->db->join('schools', 'schools.id=evolutionclans.school_id');
+            $this->db->join('academies', 'academies.id=schools.academy_id');
+            $this->db->join('evolutionstudents', 'evolutionclans.id=evolutionstudents.evolutionclan_id');
+            $this->db->where('student_id', $session->id);
         }
         
         $this->db->where("FIND_IN_SET('" . $day . "', lesson_day) > 0");

@@ -31,5 +31,20 @@ class Attendance extends DataMapper
         $query = $this->db->get()->result();
         return $query[0]->total;
     }
+
+    function getAttendaceDateStudent($date, $student_id){
+        $this->db->select('attendances.id, attendance, (SELECT count(*) FROM attendance_recovers WHERE attendance_recovers.attendance_id=attendances.id) AS recovery');
+        $this->db->from('attendances');
+        $this->db->where('clan_date', $date, null);
+        $this->db->where('student_id', $student_id, null);
+        $res = $this->db->get();
+         if ($res->num_rows > 0) {
+            $temp = $res->result();
+            return $temp[0];
+        } else {
+            return false;
+        }
+
+    }
 }
 ?>

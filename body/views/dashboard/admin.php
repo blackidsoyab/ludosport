@@ -120,15 +120,103 @@
         </div>
 
         <div class="the-box no-margin no-border padding-bottom-killer">
-            <span class="label badge-info"><?php echo $this->lang->line('clan_past'); ?></span>
-            <span class="label badge-info-danger"><?php echo $this->lang->line('clan_past_shif_on'); ?></span>
-            <span class="label badge-warning-info"><?php echo $this->lang->line('clan_past_shif_of'); ?></span>
-            <span class="label badge-success"><?php echo $this->lang->line('clan_present'); ?></span>
-            <span class="label badge-success-danger"><?php echo $this->lang->line('clan_present_shif_on'); ?></span>
-            <span class="label badge-warning-success"><?php echo $this->lang->line('clan_present_shif_of'); ?></span>
-            <span class="label badge-inverse"><?php echo $this->lang->line('clan_future'); ?></span>
-            <span class="label badge-inverse-danger"><?php echo $this->lang->line('clan_future_shif_on'); ?></span>
-            <span class="label badge-warning-inverse"><?php echo $this->lang->line('clan_future_shif_of'); ?></span>
+            <div class="row">
+                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info" role="progressbar" style="width: 100%">
+                            <span><?php echo $this->lang->line('clan_past'); ?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+                    <div class="progress">
+                        <div class="progress-bar badge-info-danger" role="progressbar" style="width: 100%">
+                            <span><?php echo $this->lang->line('clan_past_shif_on'); ?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+                    <div class="progress">
+                        <div class="progress-bar badge-warning-info" role="progressbar" style="width: 100%">
+                            <span><?php echo $this->lang->line('clan_past_shif_of'); ?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+                    <div class="progress">
+                        <div class="progress-bar badge-success" role="progressbar" style="width: 100%">
+                            <span><?php echo $this->lang->line('clan_present'); ?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+                    <div class="progress">
+                        <div class="progress-bar badge-success-danger" role="progressbar" style="width: 100%">
+                            <span><?php echo $this->lang->line('clan_present_shif_on'); ?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+                    <div class="progress">
+                        <div class="progress-bar badge-warning-success" role="progressbar" style="width: 100%">
+                            <span><?php echo $this->lang->line('clan_present_shif_of'); ?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+                    <div class="progress">
+                        <div class="progress-bar badge-inverse" role="progressbar" style="width: 100%">
+                            <span><?php echo $this->lang->line('clan_future'); ?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+                    <div class="progress">
+                        <div class="progress-bar badge-inverse-danger" role="progressbar" style="width: 100%">
+                            <span><?php echo $this->lang->line('clan_future_shif_on'); ?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+                    <div class="progress">
+                        <div class="progress-bar badge-warning-inverse" role="progressbar" style="width: 100%">
+                            <span><?php echo $this->lang->line('clan_future_shif_of'); ?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+                    <div class="progress progress-striped">
+                        <div class="progress-bar progress-bar-info" role="progressbar" style="width: 100%">
+                            <span><?php echo $this->lang->line('event_past'); ?></span>
+                        </div>    
+                    </div>
+                </div>
+
+                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+                    <div class="progress progress-striped">
+                        <div class="col-xs-12 progress-bar progress-bar-success" style="width: 100%">
+                            <span><?php echo $this->lang->line('event_current'); ?></span>    
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+                    <div class="progress progress-striped">
+                        <div class="col-xs-12 progress-bar progress-bar-inverse" style="width: 100%">
+                            <span><?php echo $this->lang->line('event_future'); ?></span>    
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     
         <div class="the-box no-margin no-border">
