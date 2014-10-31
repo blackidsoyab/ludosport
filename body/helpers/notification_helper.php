@@ -161,19 +161,19 @@ function makeURL($options) {
 
     if ($session->role != 6 && $options['notify_type'] == 'evolution_clan_request_approved') {
         $url = base_url() . 'evolutionclan/check_request/' . $options['object_id'] . '/notification';
-    } else{
+    } else if ($session->role == 6 && $options['notify_type'] == 'evolution_clan_request_approved') {
         $url = base_url() . 'evolution/' . $options['object_id'] . '/notification';
     }
 
     if ($session->role != 6 && $options['notify_type'] == 'evolution_clan_request_unapproved') {
         $url = base_url() . 'evolutionclan/check_request/' . $options['object_id'] . '/notification';
-    } else{
+    } else if ($session->role == 6 && $options['notify_type'] == 'evolution_clan_request_approved') {
         $url = base_url() . 'evolution/' . $options['object_id'] . '/notification';
     }
 
     if ($session->role != 6 && $options['notify_type'] == 'evolution_clan_result') {
         $url = base_url() . 'evolutionclan/check_request/' . $options['object_id'] . '/notification';
-    } else{
+    } else if ($session->role == 6 && $options['notify_type'] == 'evolution_clan_request_approved') {
         $url = base_url() . 'evolution/' . $options['object_id'] . '/notification';
     }
 
