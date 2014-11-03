@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 31, 2014 at 06:14 PM
+-- Generation Time: Nov 03, 2014 at 06:38 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3
 
@@ -342,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `batches` (
   `description` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
 
 --
 -- Dumping data for table `batches`
@@ -390,7 +390,13 @@ INSERT INTO `batches` (`id`, `type`, `assign_role`, `sequence`, `en_name`, `it_n
 (39, 'S', '4', 11, 'Style Master in Djem-So', 'Maestro di Djem-So', 0, 0, 0, 0, '6198824741d2cef9be0fff724cf4f777.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:20:51'),
 (40, 'S', '4', 12, 'Style Master in Niman', 'Maestro di Niman', 0, 0, 0, 0, '31bf67508bc6ab370e6913dbb0f9dbe1.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:21:08'),
 (41, 'S', '4', 13, 'Style Master in Vaapad', 'Maestro di Vaapad', 0, 0, 0, 0, '2e622daab8de916330cf3d1d06e27a59.png', NULL, NULL, '<p><br></p>', 2, '2014-09-04 14:21:24'),
-(42, 'T', '2,3', 0, '1st Assignment', '1st Assignment', 1, 1000, 500, 250, 'de47d353ce1a7f411ec53ae1a6e1298d.png', NULL, NULL, '<p><span style="text-align: justify;">Lorem ipsum dolor sit amet.</span><br></p>', 1, '2014-10-31 12:01:05');
+(42, 'T', '2,3', 1, '1st Assignment', '1st Assignment', 1, 1000, 500, 250, 'de47d353ce1a7f411ec53ae1a6e1298d.png', NULL, NULL, '<p><span style="text-align: justify;">Lorem ipsum dolor sit amet.</span><br></p>', 1, '2014-10-31 12:01:05'),
+(43, 'T', '2,3,4,5', 2, '2nd Assignment', '2nd Assignment', 1, 750, 400, 200, 'b00f50c0046b5ccbf2ac914f404113d5.png', NULL, NULL, '<p><br></p>', 1, '2014-11-03 04:20:34'),
+(44, 'T', '2,3,4,5', 3, '3rd Assignment', '3rd Assignment', 1, 500, 300, 150, '3204ea37558ea449ad8b543d2cdd7e01.png', NULL, NULL, '<p><br></p>', 1, '2014-11-03 04:20:59'),
+(45, 'T', '2,3,4,5', 4, 'Best Style', 'Best Style', 1, 250, 200, 100, 'a46fd5f381d0aba3e47763ef5612cffe.png', NULL, NULL, '<p><br></p>', 1, '2014-11-03 04:31:30'),
+(46, 'T', '2,3,4', 5, 'Best Technique', 'Best Technique', 0, 0, 0, 0, 'cdb62994bc1a4792b0132aecabaac11e.png', NULL, NULL, '<p><br></p>', 1, '2014-11-03 08:14:02'),
+(47, 'T', '2,3', 6, 'Best Sequence', 'Best Sequence', 1, 0, 0, 100, 'fd113b1693c61c30ccca8d0ce5076cbb.png', NULL, NULL, '<p><br></p>', 1, '2014-11-03 08:14:40'),
+(48, 'T', '2', 7, 'Best Fight', 'Best Fight', 1, 1500, 1000, 500, '599e8132fd473bf7d3d533816714e4cc.png', NULL, NULL, '<p><br></p>', 1, '2014-11-03 08:15:12');
 
 -- --------------------------------------------------------
 
@@ -606,7 +612,7 @@ CREATE TABLE IF NOT EXISTS `clans` (
 --
 
 INSERT INTO `clans` (`id`, `academy_id`, `school_id`, `teacher_id`, `level_id`, `clan_from`, `clan_to`, `lesson_day`, `lesson_from`, `lesson_to`, `en_class_name`, `it_class_name`, `same_address`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `user_id`, `timestamp`) VALUES
-(1, 1, 1, '5', 1, '2014-06-01', '2014-12-31', '2,3', 1410406200, 1410417000, 'Poppey Ep 1', 'Poppey Ep 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-07-26 09:45:00'),
+(1, 1, 1, '5', 1, '2014-06-01', '2014-10-31', '2,3', 1410406200, 1410417000, 'Poppey Ep 1', 'Poppey Ep 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 2, '2014-07-26 09:45:00'),
 (2, 2, 2, '7', 2, '2014-07-01', '2015-06-30', '3,4', 1411619400, 1411630200, 'Dexter Ep 1', 'Dexter Ep 1', 1, 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 1, '2014-07-26 09:46:59'),
 (3, 1, 3, '3', 1, '2014-07-01', '2015-06-30', '2,4,5', 1406352600, 1406359800, 'Sailor Ep 2', 'Sailor Ep 2', 1, 'Baroda', '390016', 2, 1, 1, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:47:38'),
 (4, 2, 4, '8', 1, '2014-07-01', '2015-06-30', '2', 1406363400, 1406370600, 'Lab Ep 2', 'Lab Ep 2', 1, 'Baroda', '390016', 5, 4, 2, '91987654321', '91987654321', 'soyab@yopmail.com', 2, '2014-07-26 09:48:27'),
@@ -703,10 +709,43 @@ CREATE TABLE IF NOT EXISTS `eventattendances` (
   `event_id` int(11) NOT NULL,
   `event_date` date NOT NULL,
   `student_id` int(11) NOT NULL,
-  `attendance` tinyint(1) NOT NULL DEFAULT '1',
+  `attendance` tinyint(1) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
+
+--
+-- Dumping data for table `eventattendances`
+--
+
+INSERT INTO `eventattendances` (`id`, `event_id`, `event_date`, `student_id`, `attendance`, `user_id`, `timestamp`) VALUES
+(1, 1, '2014-11-03', 13, 1, 1, '2014-11-03 05:31:35'),
+(2, 1, '2014-11-03', 14, 0, 1, '2014-11-03 05:31:35'),
+(3, 1, '2014-11-03', 15, 0, 1, '2014-11-03 05:31:35'),
+(4, 1, '2014-11-03', 16, 0, 1, '2014-11-03 05:31:35'),
+(5, 1, '2014-11-03', 17, 0, 1, '2014-11-03 05:31:35'),
+(6, 1, '2014-11-03', 20, 1, 1, '2014-11-03 05:31:35'),
+(7, 1, '2014-11-03', 21, 1, 1, '2014-11-03 05:31:35'),
+(8, 1, '2014-11-03', 23, 1, 1, '2014-11-03 05:31:35'),
+(9, 1, '2014-11-03', 25, 1, 1, '2014-11-03 05:31:35'),
+(10, 1, '2014-11-03', 36, 1, 1, '2014-11-03 05:31:35'),
+(11, 1, '2014-11-03', 37, 1, 1, '2014-11-03 05:31:35'),
+(12, 1, '2014-11-03', 38, 1, 1, '2014-11-03 05:31:35'),
+(13, 1, '2014-11-03', 39, 1, 1, '2014-11-03 05:31:36'),
+(56, 2, '2014-11-03', 12, 0, 1, '2014-11-03 09:07:52'),
+(57, 2, '2014-11-03', 13, 0, 1, '2014-11-03 09:07:52'),
+(58, 2, '2014-11-03', 14, 1, 1, '2014-11-03 09:07:52'),
+(59, 2, '2014-11-03', 15, 0, 1, '2014-11-03 09:07:52'),
+(60, 2, '2014-11-03', 16, 1, 1, '2014-11-03 09:07:52'),
+(61, 2, '2014-11-03', 17, 1, 1, '2014-11-03 09:07:52'),
+(62, 2, '2014-11-03', 20, 0, 1, '2014-11-03 09:07:52'),
+(63, 2, '2014-11-03', 21, 1, 1, '2014-11-03 09:07:52'),
+(64, 2, '2014-11-03', 23, 1, 1, '2014-11-03 09:07:52'),
+(65, 2, '2014-11-03', 25, 0, 1, '2014-11-03 09:07:52'),
+(66, 2, '2014-11-03', 36, 1, 1, '2014-11-03 09:07:52'),
+(67, 2, '2014-11-03', 37, 0, 1, '2014-11-03 09:07:52'),
+(68, 2, '2014-11-03', 38, 1, 1, '2014-11-03 09:07:52'),
+(69, 2, '2014-11-03', 39, 1, 1, '2014-11-03 09:07:52');
 
 -- --------------------------------------------------------
 
@@ -725,7 +764,7 @@ CREATE TABLE IF NOT EXISTS `eventcategories` (
   `is_tournament` int(1) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `eventcategories`
@@ -750,7 +789,7 @@ CREATE TABLE IF NOT EXISTS `eventinvitations` (
   `from_id` int(11) NOT NULL,
   `to_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=63 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=82 ;
 
 --
 -- Dumping data for table `eventinvitations`
@@ -818,7 +857,26 @@ INSERT INTO `eventinvitations` (`id`, `event_id`, `from_id`, `to_id`, `timestamp
 (59, 1, 5, 25, '2014-10-28 04:57:54'),
 (60, 1, 5, 36, '2014-10-28 04:57:54'),
 (61, 1, 5, 38, '2014-10-28 04:57:54'),
-(62, 1, 5, 39, '2014-10-28 04:57:54');
+(62, 1, 5, 39, '2014-10-28 04:57:54'),
+(63, 2, 1, 3, '2014-11-03 08:35:24'),
+(64, 2, 1, 4, '2014-11-03 08:35:24'),
+(65, 2, 1, 5, '2014-11-03 08:35:24'),
+(66, 2, 1, 6, '2014-11-03 08:35:24'),
+(67, 2, 1, 7, '2014-11-03 08:35:24'),
+(68, 2, 1, 8, '2014-11-03 08:35:24'),
+(69, 2, 1, 13, '2014-11-03 08:35:24'),
+(70, 2, 1, 14, '2014-11-03 08:35:24'),
+(71, 2, 1, 15, '2014-11-03 08:35:24'),
+(72, 2, 1, 16, '2014-11-03 08:35:24'),
+(73, 2, 1, 17, '2014-11-03 08:35:24'),
+(74, 2, 1, 20, '2014-11-03 08:35:24'),
+(75, 2, 1, 21, '2014-11-03 08:35:24'),
+(76, 2, 1, 23, '2014-11-03 08:35:24'),
+(77, 2, 1, 25, '2014-11-03 08:35:24'),
+(78, 2, 1, 36, '2014-11-03 08:35:24'),
+(79, 2, 1, 37, '2014-11-03 08:35:24'),
+(80, 2, 1, 38, '2014-11-03 08:35:24'),
+(81, 2, 1, 39, '2014-11-03 08:35:24');
 
 -- --------------------------------------------------------
 
@@ -848,8 +906,8 @@ CREATE TABLE IF NOT EXISTS `events` (
 --
 
 INSERT INTO `events` (`id`, `eventcategory_id`, `event_for`, `school_id`, `en_name`, `it_name`, `city_id`, `date_from`, `date_to`, `manager`, `image`, `description`, `user_id`, `timestamp`) VALUES
-(1, 4, 'ALL', '0', 'Seminar', 'Seminar', 2, '2014-10-23', '2014-10-31', '3,37', '579f4c645204d29c9c76143930d559b6.jpg', '<p>asdasd</p>', 1, '2014-10-08 07:32:52'),
-(2, 4, 'AC', '1,3', 'Testing', 'Testing', 2, '2014-10-31', '2014-10-31', '3,37', '579f4c645204d29c9c76143930d559b6.jpg', '<p>asdasd</p>', 1, '2014-10-08 07:32:52'),
+(1, 1, 'ALL', '0', 'Tournament', 'Tournament', 2, '2014-11-03', '2014-11-03', '3,37', '579f4c645204d29c9c76143930d559b6.jpg', '<p style="margin-bottom: 14px; padding: 0px; line-height: 2;"><span style="font-size: 14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse facilisis tempor varius. Aliquam quis velit est. Nunc laoreet nunc ex, at ultricies lectus accumsan ac. Nam elementum viverra turpis vitae faucibus. Nunc commodo sollicitudin mauris, eget tempus eros convallis ac. Quisque in tristique sapien, non maximus ex. Nunc congue risus et arcu fermentum consequat. Proin vehicula nisl eu ligula hendrerit vulputate.</span></p><p style="margin-bottom: 14px; padding: 0px; line-height: 2;"><span style="font-size: 14px;">Ut accumsan mattis ante at vehicula. Donec convallis libero sem, eget fermentum enim pellentesque ut. Sed feugiat posuere erat, eget mattis sem pharetra eu. Duis ut egestas orci. Vivamus iaculis, est id venenatis ullamcorper, diam diam tristique sem, ullamcorper consequat lacus erat ac arcu. Etiam id interdum diam, interdum fermentum orci. Pellentesque a quam est. Cras vitae eleifend tellus. Nulla ornare varius nibh pretium fringilla. Integer vitae velit maximus, venenatis nisl sed, gravida nibh. Vestibulum bibendum ut purus ut iaculis.</span></p>', 1, '2014-10-08 07:32:52'),
+(2, 1, 'AC', '1,3', 'Testing', 'Testing', 2, '2014-11-03', '2014-11-03', '37', '579f4c645204d29c9c76143930d559b6.jpg', '<p>asdasd</p>', 1, '2014-10-08 07:32:52'),
 (3, 4, 'SC', '1', 'workshop', 'workshop', 1, '2014-11-05', '2014-11-05', '3,37', '579f4c645204d29c9c76143930d559b6.jpg', '<p>asdasd</p>', 1, '2014-10-08 07:32:52');
 
 -- --------------------------------------------------------
@@ -1198,7 +1256,21 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `data` longtext CHARACTER SET utf8 COLLATE utf8_bin,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `object_id`, `data`, `status`, `timestamp`) VALUES
+(1, 'I', 'user_register', 0, 2, 41, 'a:10:{s:9:"firstname";s:0:"";s:8:"lastname";s:0:"";s:8:"username";s:0:"";s:7:"city_id";s:0:"";s:17:"city_of_residence";s:0:"";s:13:"date_of_birth";s:0:"";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:0:"";s:7:"captcha";s:0:"";}', 0, '2014-11-03 11:19:09'),
+(2, 'I', 'user_register', 0, 3, 41, 'a:10:{s:9:"firstname";s:0:"";s:8:"lastname";s:0:"";s:8:"username";s:0:"";s:7:"city_id";s:0:"";s:17:"city_of_residence";s:0:"";s:13:"date_of_birth";s:0:"";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:0:"";s:7:"captcha";s:0:"";}', 0, '2014-11-03 11:19:17'),
+(3, 'I', 'user_register', 0, 4, 41, 'a:10:{s:9:"firstname";s:0:"";s:8:"lastname";s:0:"";s:8:"username";s:0:"";s:7:"city_id";s:0:"";s:17:"city_of_residence";s:0:"";s:13:"date_of_birth";s:0:"";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:0:"";s:7:"captcha";s:0:"";}', 0, '2014-11-03 11:19:24'),
+(4, 'I', 'user_register', 0, 5, 41, 'a:10:{s:9:"firstname";s:0:"";s:8:"lastname";s:0:"";s:8:"username";s:0:"";s:7:"city_id";s:0:"";s:17:"city_of_residence";s:0:"";s:13:"date_of_birth";s:0:"";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:0:"";s:7:"captcha";s:0:"";}', 0, '2014-11-03 11:19:31'),
+(5, 'I', 'user_register', 0, 6, 41, 'a:10:{s:9:"firstname";s:0:"";s:8:"lastname";s:0:"";s:8:"username";s:0:"";s:7:"city_id";s:0:"";s:17:"city_of_residence";s:0:"";s:13:"date_of_birth";s:0:"";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:0:"";s:7:"captcha";s:0:"";}', 0, '2014-11-03 11:19:38'),
+(6, 'I', 'user_register', 0, 7, 41, 'a:10:{s:9:"firstname";s:0:"";s:8:"lastname";s:0:"";s:8:"username";s:0:"";s:7:"city_id";s:0:"";s:17:"city_of_residence";s:0:"";s:13:"date_of_birth";s:0:"";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:0:"";s:7:"captcha";s:0:"";}', 0, '2014-11-03 11:19:47'),
+(7, 'I', 'user_register', 0, 8, 41, 'a:10:{s:9:"firstname";s:0:"";s:8:"lastname";s:0:"";s:8:"username";s:0:"";s:7:"city_id";s:0:"";s:17:"city_of_residence";s:0:"";s:13:"date_of_birth";s:0:"";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:0:"";s:7:"captcha";s:0:"";}', 0, '2014-11-03 11:19:55'),
+(8, 'I', 'user_register', 0, 25, 41, 'a:10:{s:9:"firstname";s:0:"";s:8:"lastname";s:0:"";s:8:"username";s:0:"";s:7:"city_id";s:0:"";s:17:"city_of_residence";s:0:"";s:13:"date_of_birth";s:0:"";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:0:"";s:7:"captcha";s:0:"";}', 0, '2014-11-03 11:20:07');
 
 -- --------------------------------------------------------
 
@@ -1250,8 +1322,8 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 INSERT INTO `roles` (`id`, `en_role_name`, `it_role_name`, `is_manager`, `permission`, `is_delete`, `user_id`, `timestamp`) VALUES
 (1, 'Super Admin', 'Super Amministratore', 0, NULL, '0', 0, '2014-07-17 07:04:55'),
-(2, 'Admin', 'Admin', 0, 'a:20:{s:5:"roles";a:2:{i:0;s:8:"viewRole";i:1;s:8:"editRole";}s:5:"users";a:10:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:17:"addStudentBatches";i:6;s:18:"editStudentBatches";i:7;s:20:"deleteStudentBatches";i:8;s:16:"listStudentScore";i:9;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:7:"batches";a:3:{i:0;s:9:"viewBatch";i:1;s:9:"editBatch";i:2;s:11:"deleteBatch";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:4:{i:0;s:11:"viewAcademy";i:1;s:10:"addAcademy";i:2;s:11:"editAcademy";i:3;s:13:"deleteAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:6:"levels";a:4:{i:0;s:9:"viewLevel";i:1;s:8:"addLevel";i:2;s:9:"editLevel";i:3;s:11:"deleteLevel";}s:5:"clans";a:10:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:18:"clanViewAttendance";i:7;s:22:"listTrialLessonRequest";i:8;s:24:"changeStatusTrialStudent";i:9;s:14:"changeClanDate";}s:15:"eventcategories";a:4:{i:0;s:17:"viewEventcategory";i:1;s:16:"addEventcategory";i:2;s:17:"editEventcategory";i:3;s:19:"deleteEventcategory";}s:6:"events";a:8:{i:0;s:9:"viewEvent";i:1;s:8:"addEvent";i:2;s:9:"editEvent";i:3;s:11:"deleteEvent";i:4;s:19:"sendEventInvitation";i:5;s:19:"viewEventInvitation";i:6;s:16:"viewEventInvited";i:7;s:19:"takeEventAttendance";}s:19:"evolutioncategories";a:2:{i:0;s:21:"viewEvolutioncategory";i:1;s:21:"editEvolutioncategory";}s:14:"evolutionclans";a:8:{i:0;s:17:"viewEvolutionclan";i:1;s:16:"addEvolutionclan";i:2;s:17:"editEvolutionclan";i:3;s:19:"deleteEvolutionclan";i:4;s:24:"listEvolutionClanRequest";i:5;s:24:"evolutionclanStudentList";i:6;s:19:"changeRequestStatus";i:7;s:19:"resultEvolutionclan";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:6:"emails";a:2:{i:0;s:9:"viewEmail";i:1;s:9:"editEmail";}s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:9:"viewState";i:1;s:8:"addState";i:2;s:9:"editState";i:3;s:11:"deleteState";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"5";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 07:27:03'),
-(3, 'Rector', 'Rettore', 1, 'a:12:{s:5:"users";a:10:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:17:"addStudentBatches";i:6;s:18:"editStudentBatches";i:7;s:20:"deleteStudentBatches";i:8;s:16:"listStudentScore";i:9;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:9:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:18:"clanViewAttendance";i:7;s:22:"listTrialLessonRequest";i:8;s:14:"changeClanDate";}s:6:"events";a:5:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"viewEventInvitation";i:3;s:16:"viewEventInvited";i:4;s:19:"takeEventAttendance";}s:19:"evolutioncategories";a:2:{i:0;s:21:"viewEvolutioncategory";i:1;s:21:"editEvolutioncategory";}s:14:"evolutionclans";a:5:{i:0;s:17:"viewEvolutionclan";i:1;s:24:"listEvolutionClanRequest";i:2;s:24:"evolutionclanStudentList";i:3;s:19:"changeRequestStatus";i:4;s:19:"resultEvolutionclan";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 2, '2014-07-17 10:13:22'),
+(2, 'Admin', 'Admin', 0, 'a:20:{s:5:"roles";a:2:{i:0;s:8:"viewRole";i:1;s:8:"editRole";}s:5:"users";a:10:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:17:"addStudentBatches";i:6;s:18:"editStudentBatches";i:7;s:20:"deleteStudentBatches";i:8;s:16:"listStudentScore";i:9;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:7:"batches";a:3:{i:0;s:9:"viewBatch";i:1;s:9:"editBatch";i:2;s:11:"deleteBatch";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:4:{i:0;s:11:"viewAcademy";i:1;s:10:"addAcademy";i:2;s:11:"editAcademy";i:3;s:13:"deleteAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:6:"levels";a:4:{i:0;s:9:"viewLevel";i:1;s:8:"addLevel";i:2;s:9:"editLevel";i:3;s:11:"deleteLevel";}s:5:"clans";a:10:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:18:"clanViewAttendance";i:7;s:22:"listTrialLessonRequest";i:8;s:24:"changeStatusTrialStudent";i:9;s:14:"changeClanDate";}s:15:"eventcategories";a:4:{i:0;s:17:"viewEventcategory";i:1;s:16:"addEventcategory";i:2;s:17:"editEventcategory";i:3;s:19:"deleteEventcategory";}s:6:"events";a:9:{i:0;s:9:"viewEvent";i:1;s:8:"addEvent";i:2;s:9:"editEvent";i:3;s:11:"deleteEvent";i:4;s:19:"sendEventInvitation";i:5;s:19:"viewEventInvitation";i:6;s:16:"viewEventInvited";i:7;s:19:"takeEventAttendance";i:8;s:23:"assignTournamentBatches";}s:19:"evolutioncategories";a:2:{i:0;s:21:"viewEvolutioncategory";i:1;s:21:"editEvolutioncategory";}s:14:"evolutionclans";a:8:{i:0;s:17:"viewEvolutionclan";i:1;s:16:"addEvolutionclan";i:2;s:17:"editEvolutionclan";i:3;s:19:"deleteEvolutionclan";i:4;s:24:"listEvolutionClanRequest";i:5;s:24:"evolutionclanStudentList";i:6;s:19:"changeRequestStatus";i:7;s:19:"resultEvolutionclan";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:6:"emails";a:2:{i:0;s:9:"viewEmail";i:1;s:9:"editEmail";}s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:9:"viewState";i:1;s:8:"addState";i:2;s:9:"editState";i:3;s:11:"deleteState";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"5";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 07:27:03'),
+(3, 'Rector', 'Rettore', 1, 'a:12:{s:5:"users";a:10:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:17:"addStudentBatches";i:6;s:18:"editStudentBatches";i:7;s:20:"deleteStudentBatches";i:8;s:16:"listStudentScore";i:9;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:9:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:18:"clanViewAttendance";i:7;s:22:"listTrialLessonRequest";i:8;s:14:"changeClanDate";}s:6:"events";a:6:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"viewEventInvitation";i:3;s:16:"viewEventInvited";i:4;s:19:"takeEventAttendance";i:5;s:23:"assignTournamentBatches";}s:19:"evolutioncategories";a:2:{i:0;s:21:"viewEvolutioncategory";i:1;s:21:"editEvolutioncategory";}s:14:"evolutionclans";a:5:{i:0;s:17:"viewEvolutionclan";i:1;s:24:"listEvolutionClanRequest";i:2;s:24:"evolutionclanStudentList";i:3;s:19:"changeRequestStatus";i:4;s:19:"resultEvolutionclan";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 10:13:22'),
 (4, 'Dean', 'Preside', 0, 'a:11:{s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:5:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:18:"clanViewAttendance";i:4;s:22:"listTrialLessonRequest";}s:6:"events";a:5:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"viewEventInvitation";i:3;s:16:"viewEventInvited";i:4;s:19:"takeEventAttendance";}s:14:"evolutionclans";a:5:{i:0;s:17:"viewEvolutionclan";i:1;s:24:"listEvolutionClanRequest";i:2;s:24:"evolutionclanStudentList";i:3;s:19:"changeRequestStatus";i:4;s:19:"resultEvolutionclan";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 10:13:43'),
 (5, 'Teacher', 'Insegnante', 1, 'a:11:{s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:6:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:18:"clanViewAttendance";i:4;s:22:"listTrialLessonRequest";i:5;s:24:"changeStatusTrialStudent";}s:6:"events";a:5:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"viewEventInvitation";i:3;s:16:"viewEventInvited";i:4;s:19:"takeEventAttendance";}s:14:"evolutionclans";a:4:{i:0;s:17:"viewEvolutionclan";i:1;s:24:"listEvolutionClanRequest";i:2;s:24:"evolutionclanStudentList";i:3;s:19:"changeRequestStatus";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 10:16:50'),
 (6, 'Pupil', 'Pupil', 1, 'a:6:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:6:"events";a:2:{i:0;s:9:"viewEvent";i:1;s:19:"takeEventAttendance";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 10:17:08');
@@ -1307,7 +1379,7 @@ CREATE TABLE IF NOT EXISTS `score_histories` (
   `description` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=117 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=164 ;
 
 --
 -- Dumping data for table `score_histories`
@@ -1377,7 +1449,45 @@ INSERT INTO `score_histories` (`id`, `student_id`, `oper`, `score_type`, `score`
 (112, 37, 'M', 'xpr', 1000, '2014-10-28', 'Assign badge history', 1, '2014-10-28 09:19:57'),
 (113, 40, 'M', 'xpr', 300, '2014-10-28', 'Assign badge', 2, '2014-10-28 12:34:27'),
 (115, 40, 'M', 'war', 150, '2014-10-29', 'Passing Evolution Clan', 1, '2014-10-29 09:52:46'),
-(116, 37, 'M', 'war', 150, '2014-10-29', 'Passing Evolution Clan', 1, '2014-10-29 09:54:02');
+(116, 37, 'M', 'war', 150, '2014-10-29', 'Passing Evolution Clan', 1, '2014-10-29 09:54:02'),
+(117, 0, 'M', 'xpr', 1000, '2014-11-03', 'Tournament batch assignment (1st Assignment)', 1, '2014-11-03 07:04:36'),
+(118, 0, 'M', 'war', 500, '2014-11-03', 'Tournament batch assignment (1st Assignment)', 1, '2014-11-03 07:04:36'),
+(119, 0, 'M', 'sty', 250, '2014-11-03', 'Tournament batch assignment (1st Assignment)', 1, '2014-11-03 07:04:36'),
+(123, 0, 'M', 'xpr', 1000, '2014-11-03', 'Tournament batch assignment (1st Assignment)', 1, '2014-11-03 07:09:13'),
+(124, 0, 'M', 'war', 500, '2014-11-03', 'Tournament batch assignment (1st Assignment)', 1, '2014-11-03 07:09:13'),
+(125, 0, 'M', 'sty', 250, '2014-11-03', 'Tournament batch assignment (1st Assignment)', 1, '2014-11-03 07:09:13'),
+(132, 23, 'M', 'xpr', 1000, '2014-11-03', 'Tournament batch assignment (1st Assignment)', 1, '2014-11-03 07:16:22'),
+(133, 23, 'M', 'war', 500, '2014-11-03', 'Tournament batch assignment (1st Assignment)', 1, '2014-11-03 07:16:22'),
+(134, 23, 'M', 'sty', 250, '2014-11-03', 'Tournament batch assignment (1st Assignment)', 1, '2014-11-03 07:16:22'),
+(135, 37, 'M', 'xpr', 750, '2014-11-03', 'Tournament batch assignment (2nd Assignment)', 1, '2014-11-03 07:16:23'),
+(136, 37, 'M', 'war', 400, '2014-11-03', 'Tournament batch assignment (2nd Assignment)', 1, '2014-11-03 07:16:23'),
+(137, 37, 'M', 'sty', 200, '2014-11-03', 'Tournament batch assignment (2nd Assignment)', 1, '2014-11-03 07:16:23'),
+(138, 36, 'M', 'xpr', 500, '2014-11-03', 'Tournament batch assignment (3rd Assignment)', 1, '2014-11-03 07:16:23'),
+(139, 36, 'M', 'war', 300, '2014-11-03', 'Tournament batch assignment (3rd Assignment)', 1, '2014-11-03 07:16:23'),
+(140, 36, 'M', 'sty', 150, '2014-11-03', 'Tournament batch assignment (3rd Assignment)', 1, '2014-11-03 07:16:23'),
+(141, 25, 'M', 'xpr', 250, '2014-11-03', 'Tournament batch assignment (Best Style)', 1, '2014-11-03 07:16:23'),
+(142, 25, 'M', 'war', 200, '2014-11-03', 'Tournament batch assignment (Best Style)', 1, '2014-11-03 07:16:23'),
+(143, 25, 'M', 'sty', 100, '2014-11-03', 'Tournament batch assignment (Best Style)', 1, '2014-11-03 07:16:23'),
+(144, 21, 'M', 'sty', 100, '2014-11-03', 'Tournament batch assignment (Best Sequence)', 1, '2014-11-03 08:28:38'),
+(145, 20, 'M', 'xpr', 1500, '2014-11-03', 'Tournament batch assignment (Best Fight)', 1, '2014-11-03 08:28:38'),
+(146, 20, 'M', 'war', 1000, '2014-11-03', 'Tournament batch assignment (Best Fight)', 1, '2014-11-03 08:28:39'),
+(147, 20, 'M', 'sty', 500, '2014-11-03', 'Tournament batch assignment (Best Fight)', 1, '2014-11-03 08:28:39'),
+(148, 23, 'M', 'xpr', 1000, '2014-11-03', 'Tournament batch assignment (1st Assignment)', 1, '2014-11-03 09:14:28'),
+(149, 23, 'M', 'war', 500, '2014-11-03', 'Tournament batch assignment (1st Assignment)', 1, '2014-11-03 09:14:28'),
+(150, 23, 'M', 'sty', 250, '2014-11-03', 'Tournament batch assignment (1st Assignment)', 1, '2014-11-03 09:14:28'),
+(151, 21, 'M', 'xpr', 750, '2014-11-03', 'Tournament batch assignment (2nd Assignment)', 1, '2014-11-03 09:14:28'),
+(152, 21, 'M', 'war', 400, '2014-11-03', 'Tournament batch assignment (2nd Assignment)', 1, '2014-11-03 09:14:28'),
+(153, 21, 'M', 'sty', 200, '2014-11-03', 'Tournament batch assignment (2nd Assignment)', 1, '2014-11-03 09:14:28'),
+(154, 36, 'M', 'xpr', 500, '2014-11-03', 'Tournament batch assignment (3rd Assignment)', 1, '2014-11-03 09:14:28'),
+(155, 36, 'M', 'war', 300, '2014-11-03', 'Tournament batch assignment (3rd Assignment)', 1, '2014-11-03 09:14:28'),
+(156, 36, 'M', 'sty', 150, '2014-11-03', 'Tournament batch assignment (3rd Assignment)', 1, '2014-11-03 09:14:28'),
+(157, 16, 'M', 'xpr', 250, '2014-11-03', 'Tournament batch assignment (Best Style)', 1, '2014-11-03 09:14:28'),
+(158, 16, 'M', 'war', 200, '2014-11-03', 'Tournament batch assignment (Best Style)', 1, '2014-11-03 09:14:29'),
+(159, 16, 'M', 'sty', 100, '2014-11-03', 'Tournament batch assignment (Best Style)', 1, '2014-11-03 09:14:29'),
+(160, 21, 'M', 'sty', 100, '2014-11-03', 'Tournament batch assignment (Best Sequence)', 1, '2014-11-03 09:14:29'),
+(161, 36, 'M', 'xpr', 1500, '2014-11-03', 'Tournament batch assignment (Best Fight)', 1, '2014-11-03 09:14:29'),
+(162, 36, 'M', 'war', 1000, '2014-11-03', 'Tournament batch assignment (Best Fight)', 1, '2014-11-03 09:14:29'),
+(163, 36, 'M', 'sty', 500, '2014-11-03', 'Tournament batch assignment (Best Fight)', 1, '2014-11-03 09:14:29');
 
 -- --------------------------------------------------------
 
@@ -1557,7 +1667,7 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   `status` enum('A','P','U','P2') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
 -- Dumping data for table `userdetails`
@@ -1566,22 +1676,28 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
 INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `degree_id`, `honour_id`, `master_id`, `qualification_id`, `security_id`, `color_of_blade`, `xpr`, `war`, `sty`, `total_score`, `first_lesson_date`, `approved_by`, `palce_of_birth`, `zip_code`, `tax_code`, `blood_group`, `status`, `user_id`, `timestamp`) VALUES
 (1, 14, 3, 3, 0, 0, 0, 0, 6, 300, 8, 0, 308, '2014-09-25', 2, NULL, NULL, NULL, NULL, 'A', 1, '2014-08-04 00:09:02'),
 (2, 15, 2, 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
-(3, 16, 2, 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
+(3, 16, 2, 3, 0, 0, 0, 0, 6, 550, 216, 100, 866, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
 (4, 17, 5, 3, 0, 0, 0, 0, 6, 300, 40, 0, 340, '2014-08-11', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-05 00:09:27'),
-(5, 20, 6, 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-08-28', 2, '', 390016, 963852, 'B-ve ', 'A', 20, '2009-08-21 01:37:12'),
+(5, 20, 6, 3, 0, 0, 0, 0, 6, 1800, 1016, 500, 3316, '2014-08-28', 2, '', 390016, 963852, 'B-ve ', 'A', 20, '2009-08-21 01:37:12'),
 (6, 13, 5, 3, 0, 0, 0, 0, 6, 300, 32, 0, 332, '2014-08-30', 3, NULL, NULL, NULL, NULL, 'A', 13, '2014-08-25 05:27:01'),
-(7, 21, 6, 3, 0, 0, 0, 0, 6, 300, 32, 0, 332, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2014-08-25 05:52:04'),
-(8, 25, 6, 3, 0, 0, 0, 0, 6, 1302, 16, 0, 1318, '2014-10-01', 3, NULL, NULL, NULL, NULL, 'A', 25, '2010-08-25 05:52:04'),
+(7, 21, 6, 3, 0, 0, 0, 0, 6, 1050, 432, 400, 1882, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2014-08-25 05:52:04'),
+(8, 25, 6, 3, 0, 0, 0, 0, 6, 1552, 700, 350, 1868, '2014-10-01', 3, NULL, NULL, NULL, NULL, 'A', 25, '2010-08-25 05:52:04'),
 (9, 27, 6, 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-09-09', 8, 'roma', 0, 0, 'ah+', 'A', 27, '2014-09-04 15:25:53'),
 (10, 28, 6, 3, 0, 0, 0, 0, 6, 0, 0, 0, 0, '2014-09-16', 0, NULL, NULL, NULL, NULL, 'A', 28, '2014-09-05 08:45:20'),
 (11, 31, 1, 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-16', 8, NULL, NULL, NULL, NULL, 'A', 31, '2014-09-05 11:33:36'),
 (12, 33, 6, 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-30', 8, NULL, NULL, NULL, NULL, 'A', 33, '2014-09-05 13:05:45'),
 (13, 34, 1, 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-23', 8, NULL, NULL, NULL, NULL, 'A', 34, '2014-09-05 13:18:57'),
-(14, 23, 6, 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-08-04', 2, 'Milan', 20162, 610093, 'O +ve', 'A', 2, '2014-08-04 00:09:02'),
-(16, 37, 1, 6, 20, 0, 21, 0, 1, 1442, 408, 56, 1906, '2014-10-10', 0, 'Vadodara', 390016, 610093, 'B -ve', 'A', 1, '2013-09-25 09:46:53'),
-(20, 36, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-13', 0, 'Vadodara', 390016, 963852, 'B -ve', 'A', 36, '2014-10-13 05:00:29'),
+(14, 23, 6, 3, 0, 0, 0, 0, 6, 3000, 1500, 750, 3816, '2014-08-04', 2, 'Milan', 20162, 610093, 'O +ve', 'A', 2, '2014-08-04 00:09:02'),
+(16, 37, 1, 6, 20, 0, 21, 0, 1, 2192, 808, 256, 3256, '2014-10-10', 0, 'Vadodara', 390016, 610093, 'B -ve', 'A', 1, '2013-09-25 09:46:53'),
+(20, 36, 1, 6, 0, 0, 0, 0, 1, 3502, 1600, 800, 5902, '2014-10-13', 0, 'Vadodara', 390016, 963852, 'B -ve', 'A', 36, '2014-10-13 05:00:29'),
 (27, 38, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-20', 0, 'Vadodara', 390016, 963850, 'O +ve', 'A', 38, '2014-10-20 05:04:25'),
-(28, 39, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-20', 0, 'Vadodara', 390016, 963852, 'B -ve', 'A', 39, '2014-10-20 05:17:36');
+(28, 39, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-20', 0, 'Vadodara', 390016, 963852, 'B -ve', 'A', 39, '2014-10-20 05:17:36'),
+(29, 0, 0, 0, 0, 0, 0, 0, 1, 1000, 0, 0, 1000, NULL, 0, NULL, NULL, NULL, NULL, 'P', 0, '2014-11-03 07:04:36'),
+(30, 0, 0, 0, 0, 0, 0, 0, 1, 0, 500, 0, 500, NULL, 0, NULL, NULL, NULL, NULL, 'P', 0, '2014-11-03 07:04:36'),
+(31, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 250, 250, NULL, 0, NULL, NULL, NULL, NULL, 'P', 0, '2014-11-03 07:04:36'),
+(32, 0, 0, 0, 0, 0, 0, 0, 1, 1000, 0, 0, 1000, NULL, 0, NULL, NULL, NULL, NULL, 'P', 0, '2014-11-03 07:09:13'),
+(33, 0, 0, 0, 0, 0, 0, 0, 1, 0, 500, 0, 500, NULL, 0, NULL, NULL, NULL, NULL, 'P', 0, '2014-11-03 07:09:13'),
+(34, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 250, 250, NULL, 0, NULL, NULL, NULL, NULL, 'P', 0, '2014-11-03 07:09:13');
 
 -- --------------------------------------------------------
 
@@ -1613,7 +1729,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `status` enum('A','D','P','U') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
 
 --
 -- Dumping data for table `users`
@@ -1660,49 +1776,64 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `last
 CREATE TABLE IF NOT EXISTS `user_batches_histories` (
 `id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
+  `event_id` int(11) NOT NULL DEFAULT '0',
   `batch_type` enum('D','H','M','Q','S','T') NOT NULL,
   `batch_id` int(11) NOT NULL,
   `assign_date` date NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
 
 --
 -- Dumping data for table `user_batches_histories`
 --
 
-INSERT INTO `user_batches_histories` (`id`, `student_id`, `batch_type`, `batch_id`, `assign_date`, `user_id`, `timestamp`) VALUES
-(1, 14, 'D', 3, '2013-08-13', 1, '2014-09-19 12:10:21'),
-(2, 15, 'D', 3, '2014-08-04', 0, '2014-09-19 12:10:21'),
-(3, 16, 'D', 3, '2014-08-04', 0, '2014-09-19 12:10:21'),
-(4, 17, 'D', 3, '2014-08-05', 0, '2014-09-19 12:10:21'),
-(5, 20, 'D', 3, '2009-08-21', 0, '2014-09-19 12:10:21'),
-(6, 13, 'D', 3, '2014-08-25', 0, '2014-09-19 12:10:21'),
-(7, 21, 'D', 3, '2014-08-25', 0, '2014-09-19 12:10:21'),
-(8, 25, 'D', 3, '2010-08-25', 0, '2014-09-19 12:10:21'),
-(9, 27, 'D', 3, '2014-09-04', 0, '2014-09-19 12:10:21'),
-(10, 31, 'D', 3, '2014-09-05', 0, '2014-09-19 12:10:21'),
-(11, 33, 'D', 3, '2014-09-05', 0, '2014-09-19 12:10:21'),
-(12, 34, 'D', 3, '2014-09-05', 0, '2014-09-19 12:10:21'),
-(13, 23, 'D', 3, '2014-08-04', 0, '2014-09-19 12:10:21'),
-(16, 25, 'D', 6, '2010-05-01', 0, '2014-09-19 12:10:21'),
-(19, 37, 'H', 10, '2014-09-25', 2, '2014-09-25 09:46:53'),
-(23, 37, 'D', 3, '2014-01-01', 1, '2014-09-25 12:45:57'),
-(26, 36, 'D', 6, '2014-10-13', 36, '2014-10-13 05:01:33'),
-(28, 38, 'D', 6, '2014-10-20', 38, '2014-10-20 05:04:24'),
-(29, 39, 'D', 6, '2014-10-20', 39, '2014-10-20 05:32:46'),
-(30, 37, 'D', 6, '2014-01-31', 1, '2014-10-28 09:19:57'),
-(31, 37, 'H', 20, '2013-04-15', 1, '2014-10-28 09:20:46'),
-(32, 40, 'D', 3, '2014-10-28', 2, '2014-10-28 12:34:27'),
-(33, 40, 'S', 1008, '2014-10-28', 2, '2014-10-28 12:34:27'),
-(34, 40, 'S', 1009, '2014-10-28', 2, '2014-10-28 12:34:27'),
-(36, 40, 'S', 10010, '2014-10-29', 2, '2014-10-29 04:47:12'),
-(38, 40, 'S', 10013, '2014-10-29', 1, '2014-10-29 07:30:25'),
-(39, 40, 'Q', 21, '2014-10-29', 1, '2014-10-29 09:48:53'),
-(40, 37, 'Q', 21, '2014-10-29', 1, '2014-10-29 09:54:02'),
-(41, 40, 'S', 36, '2014-10-29', 3, '2014-10-29 09:55:13'),
-(42, 40, 'Q', 12, '2014-10-29', 1, '2014-10-29 10:29:06'),
-(43, 40, 'S', 35, '2014-10-29', 1, '2014-10-29 10:29:18');
+INSERT INTO `user_batches_histories` (`id`, `student_id`, `event_id`, `batch_type`, `batch_id`, `assign_date`, `user_id`, `timestamp`) VALUES
+(1, 14, 0, 'D', 3, '2013-08-13', 1, '2014-09-19 12:10:21'),
+(2, 15, 0, 'D', 3, '2014-08-04', 0, '2014-09-19 12:10:21'),
+(3, 16, 0, 'D', 3, '2014-08-04', 0, '2014-09-19 12:10:21'),
+(4, 17, 0, 'D', 3, '2014-08-05', 0, '2014-09-19 12:10:21'),
+(5, 20, 0, 'D', 3, '2009-08-21', 0, '2014-09-19 12:10:21'),
+(6, 13, 0, 'D', 3, '2014-08-25', 0, '2014-09-19 12:10:21'),
+(7, 21, 0, 'D', 3, '2014-08-25', 0, '2014-09-19 12:10:21'),
+(8, 25, 0, 'D', 3, '2010-08-25', 0, '2014-09-19 12:10:21'),
+(9, 27, 0, 'D', 3, '2014-09-04', 0, '2014-09-19 12:10:21'),
+(10, 31, 0, 'D', 3, '2014-09-05', 0, '2014-09-19 12:10:21'),
+(11, 33, 0, 'D', 3, '2014-09-05', 0, '2014-09-19 12:10:21'),
+(12, 34, 0, 'D', 3, '2014-09-05', 0, '2014-09-19 12:10:21'),
+(13, 23, 0, 'D', 3, '2014-08-04', 0, '2014-09-19 12:10:21'),
+(16, 25, 0, 'D', 6, '2010-05-01', 0, '2014-09-19 12:10:21'),
+(19, 37, 0, 'H', 10, '2014-09-25', 2, '2014-09-25 09:46:53'),
+(23, 37, 0, 'D', 3, '2014-01-01', 1, '2014-09-25 12:45:57'),
+(26, 36, 0, 'D', 6, '2014-10-13', 36, '2014-10-13 05:01:33'),
+(28, 38, 0, 'D', 6, '2014-10-20', 38, '2014-10-20 05:04:24'),
+(29, 39, 0, 'D', 6, '2014-10-20', 39, '2014-10-20 05:32:46'),
+(30, 37, 0, 'D', 6, '2014-01-31', 1, '2014-10-28 09:19:57'),
+(31, 37, 0, 'H', 20, '2013-04-15', 1, '2014-10-28 09:20:46'),
+(32, 40, 0, 'D', 3, '2014-10-28', 2, '2014-10-28 12:34:27'),
+(33, 40, 0, 'S', 1008, '2014-10-28', 2, '2014-10-28 12:34:27'),
+(34, 40, 0, 'S', 1009, '2014-10-28', 2, '2014-10-28 12:34:27'),
+(36, 40, 0, 'S', 10010, '2014-10-29', 2, '2014-10-29 04:47:12'),
+(38, 40, 0, 'S', 10013, '2014-10-29', 1, '2014-10-29 07:30:25'),
+(39, 40, 0, 'Q', 21, '2014-10-29', 1, '2014-10-29 09:48:53'),
+(40, 37, 0, 'Q', 21, '2014-10-29', 1, '2014-10-29 09:54:02'),
+(41, 40, 0, 'S', 36, '2014-10-29', 3, '2014-10-29 09:55:13'),
+(42, 40, 0, 'Q', 12, '2014-10-29', 1, '2014-10-29 10:29:06'),
+(43, 40, 0, 'S', 35, '2014-10-29', 1, '2014-10-29 10:29:18'),
+(56, 23, 1, 'T', 42, '2014-11-03', 1, '2014-11-03 07:16:22'),
+(57, 37, 1, 'T', 43, '2014-11-03', 1, '2014-11-03 07:16:23'),
+(58, 36, 1, 'T', 44, '2014-11-03', 1, '2014-11-03 07:16:23'),
+(59, 25, 1, 'T', 45, '2014-11-03', 1, '2014-11-03 07:16:23'),
+(60, 13, 1, 'T', 46, '2014-11-03', 1, '2014-11-03 08:25:10'),
+(61, 23, 1, 'T', 47, '2014-11-03', 1, '2014-11-03 08:28:38'),
+(62, 23, 1, 'T', 48, '2014-11-03', 1, '2014-11-03 08:28:38'),
+(63, 23, 2, 'T', 42, '2014-11-03', 1, '2014-11-03 09:14:28'),
+(64, 23, 2, 'T', 43, '2014-11-03', 1, '2014-11-03 09:14:28'),
+(65, 36, 2, 'T', 44, '2014-11-03', 1, '2014-11-03 09:14:28'),
+(66, 16, 2, 'T', 45, '2014-11-03', 1, '2014-11-03 09:14:28'),
+(67, 14, 2, 'T', 46, '2014-11-03', 1, '2014-11-03 09:14:29'),
+(68, 21, 2, 'T', 47, '2014-11-03', 1, '2014-11-03 09:14:29'),
+(69, 36, 2, 'T', 48, '2014-11-03', 1, '2014-11-03 09:14:29');
 
 --
 -- Indexes for dumped tables
@@ -1958,7 +2089,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `batches`
 --
 ALTER TABLE `batches`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT for table `batchrequests`
 --
@@ -1998,17 +2129,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
 -- AUTO_INCREMENT for table `eventattendances`
 --
 ALTER TABLE `eventattendances`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
 --
 -- AUTO_INCREMENT for table `eventcategories`
 --
 ALTER TABLE `eventcategories`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `eventinvitations`
 --
 ALTER TABLE `eventinvitations`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=63;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=82;
 --
 -- AUTO_INCREMENT for table `events`
 --
@@ -2068,7 +2199,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `payments`
 --
@@ -2088,7 +2219,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `score_histories`
 --
 ALTER TABLE `score_histories`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=117;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=164;
 --
 -- AUTO_INCREMENT for table `states`
 --
@@ -2108,17 +2239,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
 -- AUTO_INCREMENT for table `userdetails`
 --
 ALTER TABLE `userdetails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `user_batches_histories`
 --
 ALTER TABLE `user_batches_histories`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
