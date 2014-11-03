@@ -499,14 +499,14 @@
 
                             <li class="<?php echo ($page == 'shop') ? 'active selected' : ''; ?>">
                                 <a href="<?php echo base_url(). 'shop'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('shop'); ?>">
-                                    <i class="fa fa-calendar icon-sidebar"></i>
+                                    <i class="fa fa-shopping-cart icon-sidebar"></i>
                                     <?php echo $this->lang->line('shop'); ?>
                                 </a>
                             </li>
 
                             <li class="<?php echo ($page == 'payment' || $page == 'received' || $page == 'renewals' || $page == 'certificates') ? 'active selected' : ''; ?>">
                                 <a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('administrations'); ?>">
-                                    <i class="fa fa-table icon-sidebar"></i>
+                                    <i class="fa fa-cog icon-sidebar"></i>
                                     <i class="fa fa-angle-right chevron-icon-sidebar"></i>
                                     <?php echo $this->lang->line('administrations'); ?>
                                 </a>

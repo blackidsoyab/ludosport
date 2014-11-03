@@ -419,7 +419,7 @@ class events extends CI_Controller
                     $obj_event_invitations = new Eventinvitation();
                     $current_date = get_current_date_time()->get_date_for_db();
                     $data['event_students'] = $obj_event_invitations->getStudentsForEvent($event_id, $current_date);
-                    
+
                     $data['show_save_button'] = false;
                     $running_events_ids = $event_detail->getRunningEventIDS();
                     if (in_array($event_id, $running_events_ids)) {
@@ -1035,5 +1035,149 @@ class events extends CI_Controller
             redirect(base_url() . 'event', 'refresh');
         }
         $this->layout->view('events/view_event_inivted');
+    }
+
+    /*
+    *   Assign the Tournament Batches
+    *   Param1(required) : event ID
+    */
+    function assignTournamentBatches($event_id){
+        $event_details = new Event($event_id);
+        $event_cat_details = $event_details->Eventcategory->get();
+        
+        if($event_details->result_count() == 1 && $event_cat_details->result_count() == 1 && $event_cat_details->is_tournament ==1){
+            if($this->input->post() != false){
+                $assign_date = get_current_date_time()->get_date_for_db();
+                $batches = $this->input->post('batch');
+
+                foreach ($batches as $batch_id => $student_id) {
+                    if(!empty($student_id)){
+                        //get the batch details
+                        $obj_batch = new Batch($batch_id);
+
+                        $merit_score = false;
+                        $demerit_score = false;
+
+                        //get the batch history
+                        $obj_batch_history = new Userbatcheshistory();
+                        //che data already extit or not
+                        $obj_batch_history->where(array('batch_type' => 'T', 'batch_id' => $batch_id, 'event_id'=>$event_id))->get();
+
+                        $obj_batch_history->batch_type = 'T';
+                        $obj_batch_history->batch_id = $batch_id;
+                        $obj_batch_history->event_id = $event_id;
+
+                        /*
+                        *   CASE 1 : If not record exit add student ID and merit score
+                        *   case 2 : If record exit and current studdent id is not same as previous
+                                    Then revert previous student score
+                                    ELSE continue
+                        */
+
+                        if($obj_batch_history->result_count() == 0){
+                            $obj_batch_history->student_id = $student_id;
+                            $obj_batch_history->assign_date = $assign_date;
+                            $merit_score = true;
+                        } else {
+                            if($obj_batch_history->student_id != $student_id){
+                                $obj_batch_history->student_id = $student_id;
+                                $demerit_score = true;
+                            } else if($obj_batch_history->student_id == $student_id){
+                                continue;
+                            }else{
+                                continue;
+                            }
+                        }
+
+                        $obj_batch_history->user_id = $this->session_data->id;
+                        $obj_batch_history->timestamp = get_current_date_time()->get_date_time_for_db();
+                        $obj_batch_history->save();
+
+                        if ($merit_score && $obj_batch->has_point == 1) {
+                            $obj_score_history = new Scorehistory();
+                            $obj_score_history->meritStudentScore($student_id, 'xpr', $obj_batch->xpr, 'Tournament batch assignment (' . $obj_batch->en_name .')');
+                            $obj_score_history->meritStudentScore($student_id, 'war', $obj_batch->war, 'Tournament batch assignment (' . $obj_batch->en_name .')');
+                            $obj_score_history->meritStudentScore($student_id, 'sty', $obj_batch->sty, 'Tournament batch assignment (' . $obj_batch->en_name .')');
+                        }
+
+                        if ($demerit_score && $obj_batch->has_point == 1) {
+                                $obj_score_history = new Scorehistory();
+                                $obj_score_history->demeritStudentScore($student_id, 'xpr', $obj_batch->xpr, 'Revert tournament batch assignment (' . $obj_batch->en_name .')');
+                                $obj_score_history->demeritStudentScore($student_id, 'war', $obj_batch->war, 'Revert tournament batch assignment (' . $obj_batch->en_name .')');
+                                $obj_score_history->demeritStudentScore($student_id, 'sty', $obj_batch->sty, 'Revert tournament batch assignment (' . $obj_batch->en_name .')');
+                        }
+                    }
+                }
+
+                $this->session->set_flashdata('success', $this->lang->line('tournament_batch_assign_success'));
+                redirect(base_url() . 'event/view/'. $event_id, 'refresh');
+            }else{
+                $data['event_detail'] = $event_details->stored;
+
+                $obj_event_attendance = new Eventattendance();
+                $data['present_students'] =  $obj_event_attendance->getStudentDetailsByEvent($event_id, 1);
+
+                $obj_batch = new Batch();
+                $data['batches_details'] = $obj_batch->getBatchAssignmentByRole('T', $this->session_data->role);
+
+                $obj_batch_history = new Userbatcheshistory();
+                $obj_batch_history->where(array('batch_type' => 'T', 'event_id'=>$event_id))->get();
+
+                if($obj_batch_history->result_count() > 0) {
+                    $assigned_batches = array();
+                    foreach ($obj_batch_history as $batch) {
+                        $data['assigned_batches'][$batch->batch_id] = $batch->student_id;
+                    }
+                }else{
+                    $data['assigned_batches'] = array();
+                }
+
+                $this->layout->view('events/assign_torunament_batches', $data);
+            }
+        }else{
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'event', 'refresh');
+        }
+    }
+
+    public function viewEventBatchDetails($batch_id, $student_id = null){
+        if(is_null($student_id)){
+            if($this->session_data->role== 6){
+                $student_id = $this->session_data->id;
+            }else{
+                $student_id = 0;
+            }
+        }
+        $obj_batch_history = new Userbatcheshistory();
+        $obj_batch_history->where(array('batch_type'=>'T', 'batch_id'=>$batch_id, 'student_id'=>$student_id))->get();
+        if($obj_batch_history->result_count() > 0){
+            $obj_batch = new Batch($batch_id);
+            $str = '<div class="row">';
+                $str .= '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">';
+                    $str .= '<h1 class="page-heading">' . $obj_batch->{$this->session_data->language.'_name'} . '</h1>';
+                $str .='</div>';
+
+                $str .= '<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">';
+                    $str .= '<img src="' . IMG_URL . 'batches/' . $obj_batch->image . '" class="img-responsive img-circle" />';
+                $str .='</div>';
+
+                $str .= '<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">';
+                $str .= ' <ul class="list-group success-block">';
+                foreach ($obj_batch_history as $batch) {
+                    $event = new Event($batch->event_id);
+                    if(strtotime($event->date_from) == strtotime($event->date_to)){
+                        $event_date = date('d-m-Y', strtotime($event->date_from));
+                    } else{
+                       $event_date = date('d-m-Y', strtotime($event->date_from)). ' : ' .date('d-m-Y', strtotime($event->date_to));
+                    }
+                    $str .= '<li class="list-group-item">' . $event->{$this->session_data->language.'_name'} .' (' . $event_date . ')' . '</li>';
+                }
+                $str .= '</ul>';
+                $str .='</div>';
+            $str .='</div>';
+            echo $str;
+        }else{
+            echo '';
+        }
     }
 }

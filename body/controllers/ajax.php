@@ -307,26 +307,30 @@ class ajax extends CI_Controller
         
         $str.= '<h4 class="text-center text-black"> Class Timing : ' . date('H.i a', $clan->lesson_from) . '  - ' . date('H.i a', $clan->lesson_to) . '</h4>';
         
-        foreach ($temp_dates as $date) {
-            $obj_clan_date = new Clandate();
-            $obj_clan_date->where(array('clan_id' => $clan_id, 'clan_shift_from' => $date))->get();
-            if ($obj_clan_date->result_count() == 1) {
-                $dates[] = $obj_clan_date->clan_date;
-            } else {
-                $dates[] = $date;
+        if(!empty($temp_dates)){
+            foreach ($temp_dates as $date) {
+                $obj_clan_date = new Clandate();
+                $obj_clan_date->where(array('clan_id' => $clan_id, 'clan_shift_from' => $date))->get();
+                if ($obj_clan_date->result_count() == 1) {
+                    $dates[] = $obj_clan_date->clan_date;
+                } else {
+                    $dates[] = $date;
+                }
             }
+
+            sort($dates);
+            foreach ($dates as $date) {
+                $str.= '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 clan-date">';
+                $str.= '<div class="the-box rounded text-center padding-killer mar-bt-10" data-clan-date="' . $date . '">';
+                $str.= '<input type="radio" value="' . $date . '" name="date" />';
+                $str.= '<h4 class="light">' . date('l', strtotime($date)) . '<br />' . date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date)) . '</h4>';
+                $str.= '</div></div>';
+                $str.= "\n";
+            }
+            echo $str;    
+        }else{
+            echo '';
         }
-        
-        sort($dates);
-        foreach ($dates as $date) {
-            $str.= '<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 clan-date">';
-            $str.= '<div class="the-box rounded text-center padding-killer mar-bt-10" data-clan-date="' . $date . '">';
-            $str.= '<input type="radio" value="' . $date . '" name="date" />';
-            $str.= '<h4 class="light">' . date('l', strtotime($date)) . '<br />' . date('j<\s\u\p>S</\s\u\p> F Y', strtotime($date)) . '</h4>';
-            $str.= '</div></div>';
-            $str.= "\n";
-        }
-        echo $str;
     }
     
     function generateCalendatDates($year, $month) {

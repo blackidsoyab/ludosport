@@ -38,6 +38,7 @@ $lang['change_email_privacy'] = 'Change Email Privacy';
 $lang['processing'] = 'Processing';
 
 //Operation's Messages
+$lang['all_field_compulsory'] = ' * All fields are compulsory >:(';
 $lang['you_logged_in'] = 'You are already logged in :)';
 $lang['not_active_member'] = 'You are not an active member. <br /> Contact Admin.';
 $lang['invalid_user'] = 'Invalid Username or Password';
@@ -64,6 +65,7 @@ $lang['message_reply_error'] = 'Error in replying Mail';
 $lang['unauthorize_access'] = 'Unauthorize Access';
 $lang['no_data_exit'] = 'No Data Exits';
 $lang['no_student_exit'] = 'No Student Exits';
+$lang['no_student_present'] = 'No student present';
 $lang['invitation_send_successfully'] = 'Invitation Sent Successfully';
 $lang['attendance_next_week_done'] = 'Attendance for next week done';
 $lang['attendance_save_successfully'] = 'Attendance Saved Successfully';
@@ -84,6 +86,8 @@ $lang['payment_cancelled'] = 'Your payment is cancelled.';
 $lang['payment_failed'] = 'Your payment is failed.';
 $lang['payment_expired'] = 'Your payment is expired.';
 $lang['event_over'] = 'Event is over';
+$lang['tournament_batch_assign_success'] = 'Tournament batch assignment successfully done';
+$lang['tournament_batch_assign_error'] = 'Error in assign the tournament batch';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';
@@ -366,6 +370,7 @@ $lang['description'] = 'Description';
 $lang['all'] = 'All';
 $lang['date'] = 'date';
 $lang['from'] = 'from';
+$lang['batch_assignment'] = 'Batch Assignment';
 
 //Event Invitations
 $lang['send'] = 'Send';
@@ -447,6 +452,7 @@ $lang['year_of_practice'] = 'Years of practice';
 $lang['tournaments'] = 'TOURNAMENTS';
 $lang['my_combat_style'] = 'MY COMBAT STYLES';
 $lang['timeline'] = 'TIMELINE';
+$lang['tournament_batch_history'] = 'Tournament batches history';
 
 //Ratting
 $lang['top_10_rating'] = 'Top 10 Rating';

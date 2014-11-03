@@ -255,7 +255,9 @@ $route['event/get_event_inivtation_json/(:num)'] = "json/getEventInvitationJsonD
 $route['event/attendance/(:num)'] = "events/takeEventAttendance/$1";
 $route['event/view_inivted'] = "events/viewEventInvited";
 $route['event/get_event_invited_json'] = "json/getviewEventInvitedJsonData";
-
+$route['event/tournament/batch_assignment/(:num)'] = "events/assignTournamentBatches/$1";
+$route['event/batch_details/(:num)'] = "events/viewEventBatchDetails/$1";
+$route['event/batch_details/(:num)/(:num)'] = "events/viewEventBatchDetails/$1/$2";
 
 //Role
 $route['role/check/(:num)'] = "ajax/checkValidRole/$1";

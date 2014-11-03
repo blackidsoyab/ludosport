@@ -94,5 +94,14 @@ class Event extends DataMapper
             return array(0);
         }
     }
+
+    function getTotalEventsByStudent($student_id, $school_id){
+        $this->db->select('count(*) as total');
+        $this->db->from('events');
+        $this->db->where('FIND_IN_SET('. $school_id .', school_id)');
+        $this->db->or_where('event_for', 'ALL');
+        $res = $this->db->get()->result();
+        return $res[0]->total;
+    }
 }
 ?>

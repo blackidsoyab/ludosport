@@ -1,5 +1,8 @@
 <?php $session = $this->session->userdata('user_session'); ?>
-<h1 class="page-heading h1"><?php echo $this->lang->line('event_take_attendance') ,' : ', $event_detail->{$session->language.'_name'}; ?></h1>
+<h1 class="page-heading">
+	<?php echo $this->lang->line('event_take_attendance') ,' : '; ?>
+ 	<a href="<?php echo base_url() .'event/view/'. $event_detail->id;?>"><?php echo $event_detail->{$session->language.'_name'}; ?></a>
+ </h1>
 
 <?php if(!empty($event_students)){ ?>
 	<div class="the-box full no-border">	

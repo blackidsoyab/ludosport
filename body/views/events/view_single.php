@@ -39,7 +39,8 @@
 	<div class="the-box">
 		<div class="featured-post-wide">
 			<div class="row">
-				<?php if (hasPermission('events', 'sendEventInvitation') || in_array($session->id, explode(',', $event_detail->manager))) { ?>
+				<?php if (hasPermission('events', 'sendEventInvitation') || in_array($session->id, explode(',', $event_detail->
+				manager))) { ?>
 					<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
 						<a href="<?php echo base_url() . 'event/invitation/' . $event_detail->id; ?>" class="btn btn-block btn-primary" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('send') .' '. $this->lang->line('invitation'); ?>"> <?php echo $this->lang->line('send') .' '. $this->lang->line('invitation'); ?></a>
 					</div>
@@ -51,7 +52,13 @@
 			        </div>
 			    <?php } ?>
 
-			    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-right event-action-btn">
+			    <?php if (hasPermission('events', 'assignTournamentBatches') || in_array($session->id, explode(',', $event_detail->manager))) { ?>
+			    	<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+			        	<a href="<?php echo base_url() . 'event/tournament/batch_assignment/' . $event_detail->id; ?>" class="btn btn-block btn-primary" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('batch_assignment'); ?>"><?php echo $this->lang->line('batch_assignment'); ?> </a>
+			        </div>
+			    <?php } ?>
+
+			    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 text-right event-action-btn">
 					<?php if (hasPermission('events', 'editEvent') || in_array($session->id, explode(',', $event_detail->manager))) { ?>
 			        	<a href="<?php echo base_url() . 'event/edit/' . $event_detail->id; ?>" class="actions" data-toggle="tooltip" title="" data-original-title="<?php echo $this->lang->line('edit'); ?>"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>
 				    <?php } ?>

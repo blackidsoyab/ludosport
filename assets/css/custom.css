@@ -712,3 +712,7 @@ h1.page-heading a{
 .fc-day.badge-danger, .fc-day.badge-warning, .fc-day.badge-success {
     opacity: 0.75;
 }
+
+#tournament_batch_history .modal-header.bg-success{
+    background-color: #8CC152;
+}

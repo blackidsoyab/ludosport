@@ -3,6 +3,7 @@ class Userbatcheshistory extends DataMapper
 {
     
     public $table = 'user_batches_histories';
+    public $has_one = array('batch');
     
     function __construct($id = NULL) {
         parent::__construct($id);

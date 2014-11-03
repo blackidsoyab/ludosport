@@ -260,8 +260,8 @@ class Clan extends DataMapper
         $this->db->join('levels', 'levels.id=clans.level_id');
         $this->db->where('is_basic', "'1'", null);
         $this->db->where('under_sixteen', "$under_sixteen");
+        $this->db->where('clan_to >=', get_current_date_time()->get_date_for_db());
         $this->db->limit($class_limit);
-        $this->db->order_by('id', 'desc');
         $query = $this->db->get();
         if ($query->num_rows > 0) {
             return $query->result_array();

@@ -337,6 +337,7 @@ if (!function_exists('createPermissionArray')) {
                     'viewEventInvitation' => array('name' => 'List Invited Member'),
                     'viewEventInvited' => array('name' => 'List events invited in'),
                     'takeEventAttendance' => array('name' => 'Take Event Attendances'),
+                    'assignTournamentBatches' => array('name' => 'Tournament batch assignment'),
                     )),
             'evolutioncategories' => array(
                 'name' => 'Evolution Categories',

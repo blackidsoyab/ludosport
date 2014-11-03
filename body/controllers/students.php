@@ -203,6 +203,21 @@ class students extends CI_Controller
             $data['missed_percentage'] = round(($data['total_absent'] * 100) / $total_attendance, 2);
             $data['recover_percentage'] = round(($data['total_recover'] * 100) / $total_attendance, 2);
         }
+
+        //Tournament Attendance
+        $user_details = new Userdetail();
+        $school_details = $user_details->where('student_master_id', $this->session_data->id)->get()->Clan->School->get();
+        
+        $obj_event = new Event();
+        $total_torunament_events = (int)$obj_event->getTotalEventsByStudent($this->session_data->id, $school_details->id);
+
+        $obj_event_attendance = new Eventattendance();
+        $data['tournament_present'] = (int)$obj_event_attendance->getTotalAttendanceByStudent($this->session_data->id, 1);
+        $data['tournament_absent'] = (int)$obj_event_attendance->getTotalAttendanceByStudent($this->session_data->id, 0);
+        if ($total_torunament_events != 0) {
+            $data['tournament_present_percentage'] = round(($data['tournament_present'] * 100) / $total_torunament_events, 2);
+            $data['tournament_absent_percentage'] = round(($data['tournament_absent'] * 100) / $total_torunament_events, 2);
+        }
         
         unset($obj_batch_history);
         $obj_batch_history = new Userbatcheshistory();
@@ -230,8 +245,15 @@ class students extends CI_Controller
             }
         }
         
-        //$data['evolution_batch_master'] = evolutionMasterLevels();
-        
+        unset($obj_batch_history);
+        $obj_batch_history = new Userbatcheshistory();
+        $obj_batch_history->where(array('batch_type' => 'T', 'student_id' => $this->session_data->id))->get();
+
+        foreach ($obj_batch_history as $batch_detail) {
+            $temp_batch = $batch_detail->Batch->get();
+            $data['assigned_tournament_batches'][$batch_detail->batch_id] = objectToArray($temp_batch->stored);
+        }
+
         //For Timeline
         $obj = new Notification();
         $obj->where('to_id', $this->session_data->id);

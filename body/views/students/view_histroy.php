@@ -1,4 +1,25 @@
 <?php $session = $this->session->userdata('user_session'); ?>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+    $('a[data-toggle~="modal"]').on('click', function(e) {
+        var target_modal = $(e.currentTarget).data('target');
+        var remote_content = e.currentTarget.href;
+        var modal = $(target_modal);
+        var modalBody = $(target_modal + ' .modal-body');
+        modal.on('show.bs.modal', function () {
+            modalBody.load(remote_content);
+        }).modal();
+        return false;
+    });
+
+    $('#tournament_batch_history').on('hidden.bs.modal', function(){
+        $('.modal-body').html('');
+    });
+});
+</script>
+
+
 <h1 class="page-heading h1"><?php echo $this->lang->line('history'); ?></h1>
 
 <div class="row" id="history">
@@ -89,31 +110,31 @@
                         </div>
                         <div class="col-sm-6">
                             <h4 class="small-heading"><?php echo $this->lang->line('tournaments'); ?> </h4>
-                            <p class="small"><?php echo $this->lang->line('attended'); ?> - <span class="text-success">0%</span></p>
+                            <p class="small"><?php echo $this->lang->line('attended'); ?> - <span class="text-success"><?php echo @$tournament_present_percentage; ?>%</span></p>
                             <div class="progress no-rounded progress-xs">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$tournament_present_percentage; ?>%">
                                 </div>
                             </div>
-                            <p class="small"><?php echo $this->lang->line('missed'); ?>- <span class="text-danger">0%</span></p>
+                            <p class="small"><?php echo $this->lang->line('missed'); ?>- <span class="text-danger"><?php echo @$tournament_absent_percentage; ?>%</span></p>
                             <div class="progress no-rounded progress-xs">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$tournament_absent_percentage; ?>%">
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-3">
-                                    <img src="<?php echo IMG_URL . 'history_tournament/torneo_1classificato.png'; ?>" alt="Avatar" width="80" class="img-responsive img-circle">
-                                </div>
-                                
-                                <div class="col-xs-3">
-                                    <img src="<?php echo IMG_URL . 'history_tournament/torneo_2classificato.png'; ?>" alt="Avatar" width="80" class="img-responsive img-circle">
-                                </div>
-                                
-                                <div class="col-xs-3">
-                                    <img src="<?php echo IMG_URL . 'history_tournament/torneo_3classificato.png'; ?>" alt="Avatar" width="80" class="img-responsive img-circle">
-                                </div>
-                                <div class="col-xs-3">
-                                    <img src="<?php echo IMG_URL . 'history_tournament/torneo_premiostile.png'; ?>" alt="Avatar" width="80" class="img-responsive img-circle">
-                                </div>
+                                <?php if(isset($assigned_tournament_batches)) {
+                                    $sequence = array_map(function($element){return $element['sequence']; }, $assigned_tournament_batches);
+                                    array_multisort($sequence, SORT_ASC, $assigned_tournament_batches);
+                                    foreach ($assigned_tournament_batches as $tournament_batch) {
+                                ?>
+                                    <div class="col-xs-3">
+                                        <a href="<?php echo base_url(). 'event/batch_details/'. $tournament_batch['id']; ?>" data-toggle="modal" data-target="#tournament_batch_history">
+                                            <img src="<?php echo IMG_URL . 'batches/' . $tournament_batch['image']; ?>" class="img-responsive img-circle"  data-toggle="tooltip" data-original-title="<?php echo $tournament_batch[$session->language . '_name']; ?>" >
+                                        </a>
+                                    </div>
+                                <?php
+                                        }
+                                    }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -260,6 +281,20 @@
     </div>
 </div>
 
+<div class="modal fade" id="tournament_batch_history" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content modal-no-shadow modal-no-border">
+            <div class="modal-header bg-success no-border">
+                <h4 class="modal-title text-white padding-killer"><?php echo $this->lang->line('tournament_batch_history'); ?></h4>
+            </div>
+            <div class="modal-body padding-top-killer">
+            </div>
+            <div class="modal-footer pad-10">
+                <button type="button" class="btn btn-success" data-dismiss="modal"><?php echo $this->lang->line('ok'); ?></button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
     $(document).ready(function() {

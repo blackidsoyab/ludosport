@@ -47,22 +47,30 @@ class authenticate extends CI_Controller
     }
     
     function validateUser() {
-        $user = new User();
-        $user->where('username', $this->input->post('username'));
-        $user->where('password', md5($this->input->post('password')));
-        $user->get();
-        
-        if ($user->result_count() === 1) {
-            if ($user->status == 'D') {
-                $this->session->set_flashdata('info', $this->lang->line('not_active_member'));
-                redirect(base_url() . 'login', 'refresh');
-            } else {
-                $this->_setSessionData($user);
-                redirect(base_url() . 'dashboard', 'refresh');
-            }
+        $this->form_validation->set_rules('username', $this->lang->line('username'), 'required');
+        $this->form_validation->set_rules('password', $this->lang->line('password'), 'required');
+
+        if ($this->form_validation->run() == FALSE){
+            $this->session->set_flashdata('error', $this->lang->line('all_field_compulsory'));
+            redirect(base_url() .'login', 'refresh');
         } else {
-            $this->session->set_flashdata('error', $this->lang->line('invalid_user'));
-            redirect(base_url() . 'login', 'refresh');
+            $user = new User();
+            $user->where('username', $this->input->post('username'));
+            $user->where('password', md5($this->input->post('password')));
+            $user->get();
+            
+            if ($user->result_count() === 1) {
+                if ($user->status == 'D') {
+                    $this->session->set_flashdata('info', $this->lang->line('not_active_member'));
+                    redirect(base_url() . 'login', 'refresh');
+                } else {
+                    $this->_setSessionData($user);
+                    redirect(base_url() . 'dashboard', 'refresh');
+                }
+            } else {
+                $this->session->set_flashdata('error', $this->lang->line('invalid_user'));
+                redirect(base_url() . 'login', 'refresh');
+            }
         }
     }
 
@@ -139,106 +147,122 @@ class authenticate extends CI_Controller
     }
     
     function saveUser() {
-        $new_user = new User();
-        $new_user->role_id = 6;
-        $new_user->firstname = $this->input->post('firstname');
-        $new_user->lastname = $this->input->post('lastname');
-        $new_user->username = $this->input->post('username');
-        $new_user->city_id = $this->input->post('city_id');
-        $city = new City();
-        $city->where('id', $this->input->post('city_id'))->get();
-        $new_user->state_id = $city->state->id;
-        $new_user->country_id = $city->state->country->id;
-        $new_user->date_of_birth = strtotime(date('Y-m-d', strtotime($this->input->post('date_of_birth'))));
-        $new_user->city_of_residence = $this->input->post('city_of_residence');
-        $new_user->email = $this->input->post('email');
-        $new_user->password = md5($this->input->post('password'));
-        if ($new_user->save()) {
-            
-            //Mail Template for registration thanks
-            $email = new Email();
-            $email->where('type', 'user_registration')->get();
-            $message = $email->message;
-            $message = str_replace('#firstname', $new_user->firstname, $message);
-            $message = str_replace('#lastname', $new_user->lastname, $message);
-            $location = $city->en_name . ', ' . $city->state->en_name . ', ' . $city->state->country->en_name;
-            $message = str_replace('#location', $location, $message);
-            $message = str_replace('#dob', $this->input->post('date_of_birth'), $message);
-            $message = str_replace('#nickname', $this->input->post('username'), $message);
-            $message = str_replace('#password', $this->input->post('password'), $message);
-            
-            $option = null;
-            $option = array();
-            $option['tomailid'] = $new_user->email;
-            $option['subject'] = $email->subject;
-            $option['message'] = $message;
-            if (!is_null($email->attachment)) {
-                $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
-            }
-            
-            send_mail($option);
-            
-            //Get all the Admins, Rectors, Deans, Teachers
-            $ids = array();
-            $ids[] = User::getAdminIds();
-            $ids[] = Academy::getAssignRectorIds();
-            $ids[] = School::getAssignDeanIds();
-            $ids[] = Clan::getAssignTeacherIds();
-            
-            //Make single array form all ids
-            $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
-            
-            //Fecth all the User details
-            $user = new User();
-            $users = $user->where_in('id', $final_ids)->get();
-            
-            // Mail Template for new user register notification to all above ids
-            $email = new Email();
-            $email->where('type', 'user_registration_notification')->get();
-            $message = $email->message;
-            $message = str_replace('#firstname', $new_user->firstname, $message);
-            $message = str_replace('#lastname', $new_user->lastname, $message);
-            $location = $city->en_name . ', ' . $city->state->en_name . ', ' . $city->state->country->en_name;
-            $message = str_replace('#dob', $this->input->post('date_of_birth'), $message);
-            $message = str_replace('#nickname', $this->input->post('username'), $message);
-            $message = str_replace('#location', $location, $message);
-            $message = str_replace('#date', get_current_date_time()->get_date_time_for_db(), $message);
-            
-            foreach ($users as $value) {
-                $notification = new Notification();
-                $notification->type = 'I';
-                $notification->notify_type = 'user_register';
-                $notification->from_id = 0;
-                $notification->to_id = $value->id;
-                $notification->object_id = $new_user->id;
-                $notification->data = serialize($this->input->post());
-                $notification->save();
-                
-                $check_privacy = unserialize($value->email_privacy);
-                if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy['user_registration_notification']) || $check_privacy['user_registration_notification'] == 1) {
-                    $option = null;
-                    $option = array();
-                    $option['tomailid'] = $value->email;
-                    $option['subject'] = $email->subject;
-                    $option['message'] = $message;
-                    if (!is_null($email->attachment)) {
-                        $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
-                    }
-                    
-                    send_mail($option);
-                }
-            }
-            
-            unset($obj_user);
-            $obj_user = new User();
-            $obj_user->where('id', $new_user->id)->get();
-            
-            $this->_setSessionData($obj_user);
-            $this->session->set_flashdata('success', $this->lang->line('register_success'));
-            redirect(base_url() . 'dashboard', 'refresh');
+        $this->form_validation->set_rules('firstname', $this->lang->line('firstname'), 'required');
+        $this->form_validation->set_rules('lastname', $this->lang->line('lastname'), 'required');
+        $this->form_validation->set_rules('username', $this->lang->line('username'), 'required');
+        $this->form_validation->set_rules('city_id', $this->lang->line('city_id'), 'required');
+        $this->form_validation->set_rules('date_of_birth', $this->lang->line('date_of_birth'), 'required');
+        $this->form_validation->set_rules('city_of_residence', $this->lang->line('city_of_residence'), 'required');
+        $this->form_validation->set_rules('email', $this->lang->line('email'), 'required|email');
+        $this->form_validation->set_rules('password', $this->lang->line('password'), 'required');
+        $this->form_validation->set_rules('cpassword', $this->lang->line('re_enter_password'), 'required');
+        $this->form_validation->set_rules('terms_conditions', $this->lang->line('terms_conditions'), 'required');
+        $this->form_validation->set_rules('captcha', $this->lang->line('captcha'), 'required');
+
+        if ($this->form_validation->run() == FALSE){
+            $this->register();
         } else {
-            $this->session->set_flashdata('error', $this->lang->line('try_after_sometime'));
-            redirect(base_url() . 'register', 'refresh');
+            $new_user = new User();
+            $new_user->role_id = 6;
+            $new_user->firstname = $this->input->post('firstname');
+            $new_user->lastname = $this->input->post('lastname');
+            $new_user->username = $this->input->post('username');
+            $new_user->city_id = $this->input->post('city_id');
+            $city = new City();
+            $city->where('id', $this->input->post('city_id'))->get();
+            $new_user->state_id = $city->state->id;
+            $new_user->country_id = $city->state->country->id;
+            $new_user->date_of_birth = strtotime(date('Y-m-d', strtotime($this->input->post('date_of_birth'))));
+            $new_user->city_of_residence = $this->input->post('city_of_residence');
+            $new_user->email = $this->input->post('email');
+            $new_user->password = md5($this->input->post('password'));
+            if ($new_user->save()) {
+                
+                //Mail Template for registration thanks
+                $email = new Email();
+                $email->where('type', 'user_registration')->get();
+                $message = $email->message;
+                $message = str_replace('#firstname', $new_user->firstname, $message);
+                $message = str_replace('#lastname', $new_user->lastname, $message);
+                $location = $city->en_name . ', ' . $city->state->en_name . ', ' . $city->state->country->en_name;
+                $message = str_replace('#location', $location, $message);
+                $message = str_replace('#dob', $this->input->post('date_of_birth'), $message);
+                $message = str_replace('#nickname', $this->input->post('username'), $message);
+                $message = str_replace('#password', $this->input->post('password'), $message);
+                
+                $option = null;
+                $option = array();
+                $option['tomailid'] = $new_user->email;
+                $option['subject'] = $email->subject;
+                $option['message'] = $message;
+                if (!is_null($email->attachment)) {
+                    $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                }
+                
+                send_mail($option);
+                
+                //Get all the Admins, Rectors, Deans, Teachers
+                $ids = array();
+                $ids[] = User::getAdminIds();
+                $ids[] = Academy::getAssignRectorIds();
+                $ids[] = School::getAssignDeanIds();
+                $ids[] = Clan::getAssignTeacherIds();
+                
+                //Make single array form all ids
+                $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
+                
+                //Fecth all the User details
+                $user = new User();
+                $users = $user->where_in('id', $final_ids)->get();
+                
+                // Mail Template for new user register notification to all above ids
+                $email = new Email();
+                $email->where('type', 'user_registration_notification')->get();
+                $message = $email->message;
+                $message = str_replace('#firstname', $new_user->firstname, $message);
+                $message = str_replace('#lastname', $new_user->lastname, $message);
+                $location = $city->en_name . ', ' . $city->state->en_name . ', ' . $city->state->country->en_name;
+                $message = str_replace('#dob', $this->input->post('date_of_birth'), $message);
+                $message = str_replace('#nickname', $this->input->post('username'), $message);
+                $message = str_replace('#location', $location, $message);
+                $message = str_replace('#date', get_current_date_time()->get_date_time_for_db(), $message);
+                
+                foreach ($users as $value) {
+                    $notification = new Notification();
+                    $notification->type = 'I';
+                    $notification->notify_type = 'user_register';
+                    $notification->from_id = 0;
+                    $notification->to_id = $value->id;
+                    $notification->object_id = $new_user->id;
+                    $notification->data = serialize($this->input->post());
+                    $notification->save();
+                    
+                    $check_privacy = unserialize($value->email_privacy);
+                    if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy['user_registration_notification']) || $check_privacy['user_registration_notification'] == 1) {
+                        $option = null;
+                        $option = array();
+                        $option['tomailid'] = $value->email;
+                        $option['subject'] = $email->subject;
+                        $option['message'] = $message;
+                        if (!is_null($email->attachment)) {
+                            $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                        }
+                        
+                        send_mail($option);
+                    }
+                }
+                
+                unset($obj_user);
+                $obj_user = new User();
+                $obj_user->where('id', $new_user->id)->get();
+                
+                $this->_setSessionData($obj_user);
+                $this->session->set_flashdata('success', $this->lang->line('register_success'));
+                redirect(base_url() . 'dashboard', 'refresh');
+            } else {
+                $this->session->set_flashdata('error', $this->lang->line('try_after_sometime'));
+                redirect(base_url() . 'register', 'refresh');
+            }
         }
     }
     

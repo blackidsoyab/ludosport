@@ -374,8 +374,6 @@ class dashboard extends CI_Controller
     }
     
     function pendingStudnetSaveTrailLesson() {
-        echo 'hi';
-        exit();
         $user_details = new Userdetail();
         
         //Get Current login Student Extra Detail

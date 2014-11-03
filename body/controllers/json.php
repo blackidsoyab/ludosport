@@ -1295,6 +1295,10 @@ class json extends CI_Controller
                 $temp_arr[] = '<span class="label label-warning">' . $this->lang->line('qualification') . '</span>';
             } else if ($aRow['batch_type'] == 'S') {
                 $temp_arr[] = '<span class="label label-danger">' . $this->lang->line('security') . '</span>';
+            } else if ($aRow['batch_type'] == 'T') {
+                $temp_arr[] = '<span class="label label-default">' . $this->lang->line('tournament') . '</span>';
+            } else if ($aRow['batch_type'] == 'M') {
+                $temp_arr[] = '<span class="label label-default">' . $this->lang->line('master_degree') . '</span>';
             } else {
                 $temp_arr[] = '&nbsp;';
             }
