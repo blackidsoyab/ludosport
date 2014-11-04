@@ -352,21 +352,14 @@ class dashboard extends CI_Controller
         if (!isset($data['clans'])) {
             $data['clans'] = null;
         }
-
+        
         $this->load->helper('captcha');
         $this->session->unset_userdata('captcha_string');
         $random_string = random_string('alnum', 6);
         $this->session->set_userdata('captcha_string', $random_string);
-
-        $captcha_argument = array(
-            'word'  => $random_string,
-            'img_path'  => './assets/captcha/',
-            'img_url'   => base_url(). 'assets/captcha/',
-            'img_width' => 150,
-            'img_height' => 50,
-            'expiration' => 7200
-        );
-
+        
+        $captcha_argument = array('word' => $random_string, 'img_path' => './assets/captcha/', 'img_url' => base_url() . 'assets/captcha/', 'img_width' => 150, 'img_height' => 50, 'expiration' => 7200);
+        
         $data['captcha_details'] = create_captcha($captcha_argument);
         
         //Set Layout view
@@ -472,23 +465,23 @@ class dashboard extends CI_Controller
             } else {
                 $degree_id = $this->config->item('basic_level_above_16');
             }
-
+            
             $user_details->degree_id = $degree_id;
             $user_details->palce_of_birth = $this->input->post('palce_of_birth');
             $user_details->first_lesson_date = get_current_date_time()->get_date_for_db();
             $user_details->zip_code = $this->input->post('zip_code');
             $user_details->tax_code = $this->input->post('tax_code');
             $user_details->blood_group = $this->input->post('blood_group');
-
-            if(PAYMEMT_GATEWAY_ENABLE){
+            
+            if (PAYMEMT_GATEWAY_ENABLE) {
                 $user_details->status = 'P2';
-            } else{
-                $user_details->status = 'A';
+            } else {
+                $user_details->status = 'P2';
             }
             $user_details->user_id = $this->session_data->id;
             $user_details->save();
             
-            if(PAYMEMT_GATEWAY_ENABLE){
+            if (PAYMEMT_GATEWAY_ENABLE) {
                 try {
                     $clan_id = $this->input->post('clan_id');
                     $obj_academy = new Academy();
@@ -519,10 +512,10 @@ class dashboard extends CI_Controller
                     $this->session->set_flashdata('error', $message);
                     redirect(base_url() . 'register/step_2', 'refresh');
                 }
-            }else{
+            } else {
                 $obj_batch_history = new Userbatcheshistory();
                 $obj_batch_history->saveStudentBatchHistory($this->session_data->id, 'D', $degree_id);
-
+                
                 $obj_batch = new Batch($degree_id);
                 if ($obj_batch->has_point == 1) {
                     $obj_score_history = new Scorehistory();
@@ -531,13 +524,10 @@ class dashboard extends CI_Controller
                     $obj_score_history->meritStudentScore($this->session_data->id, 'sty', $obj_batch->sty, 'Assign badge at time of Registration');
                 }
 
-                $obj_user = new User();
-                $obj_user->where('id', $this->session_data->id)->update('status', 'A');
+                $obj_user_details = new Userdetail();
+                $obj_user_details->where('student_master_id', $this->session_data->id)->get();
 
-                $session = $this->session->userdata('user_session');
-                $session->status = 'A';
-                $newdata = array('user_session' => $session);
-                $this->session->set_userdata($newdata);
+                $this->_sendRegistrationPart2Notification('registration_payment_recived', $obj_user_details->stored, $this->session_data->id);
                 
                 redirect(base_url() . 'dashboard', 'refresh');
             }
@@ -587,10 +577,7 @@ class dashboard extends CI_Controller
             $payment = executePayment($obj_payment->payment_id, $_GET['PayerID']);
             if ($payment->getState() == 'approved') {
                 $obj_user_details = new Userdetail();
-                $obj_user_details->where('student_master_id', $this->session_data->id)->update('status', 'A');
-                
-                $obj_user = new User();
-                $obj_user->where('id', $this->session_data->id)->update('status', 'A');
+                $obj_user_details->where('student_master_id', $this->session_data->id)->update('status', 'P2');
                 
                 $obj_user_details = new Userdetail();
                 $obj_user_details->where('student_master_id', $this->session_data->id)->get();
@@ -608,11 +595,8 @@ class dashboard extends CI_Controller
                     $obj_score_history->meritStudentScore($this->session_data->id, 'war', $obj_batch->war, 'Assign badge at time of Registration');
                     $obj_score_history->meritStudentScore($this->session_data->id, 'sty', $obj_batch->sty, 'Assign badge at time of Registration');
                 }
-                
-                $session = $this->session->userdata('user_session');
-                $session->status = 'A';
-                $newdata = array('user_session' => $session);
-                $this->session->set_userdata($newdata);
+
+                $this->_sendRegistrationPart2Notification('registration_payment_recived', $obj_user_details->stored, $this->session_data->id);
                 
                 $this->session->set_flashdata('success', $this->lang->line('payment_success'));
                 
@@ -628,6 +612,55 @@ class dashboard extends CI_Controller
                 $this->session->set_flashdata('error', $this->lang->line('payment_expired'));
             }
             redirect(base_url() . 'register/step_2', 'refresh');
+        }
+    }
+    
+    function _sendRegistrationPart2Notification($type, $post, $object_id) {
+        $clan = new Clan($post->clan_id);
+        $school = $clan->School->get();
+        $academy = $clan->School->Academy->get();
+        $final_ids = array_unique(array_merge(explode(',', $academy->rector_id), User::getAdminIds()));
+        $student_detail = userNameEmail($object_id);
+        $current_date = get_current_date_time()->get_date_for_db();
+
+        foreach ($final_ids as $user_id) {
+            $notification = new Notification();
+            $notification->type = 'N';
+            $notification->notify_type = $type;
+            $notification->from_id = $this->session_data->id;
+            $notification->to_id = $user_id;
+            $notification->object_id = $object_id;
+            $notification->data = serialize(objectToArray($post));
+            $notification->save();
+            
+            $email = new Email();
+            $email->where('type', $type)->get();
+            $message = $email->message;
+            
+            $user = userNameEmail($user_id);
+             
+            if ($type == 'registration_payment_recived') {
+                $message = str_replace('#user_name', $user['name'], $message);
+                $message = str_replace('#clan_name', $clan->en_class_name, $message);
+                $message = str_replace('#school_name', $school->en_school_name, $message);
+                $message = str_replace('#academy_name', $academy->en_academy_name, $message);
+                $message = str_replace('#student_name', $student_detail['name'], $message);
+                $message = str_replace('#payment_date', $current_date, $message);
+            }
+            
+            $check_privacy = unserialize($user['email_privacy']);
+            if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$type]) || $check_privacy[$type] == 1) {
+                
+                //set option for sending mail
+                $option = array();
+                $option['tomailid'] = $user['email'];
+                $option['subject'] = $email->subject;
+                $option['message'] = $message;
+                if (!is_null($email->attachment)) {
+                    $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                }
+                send_mail($option);
+            }
         }
     }
     

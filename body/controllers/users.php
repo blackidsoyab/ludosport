@@ -203,7 +203,7 @@ class users extends CI_Controller
         }
     }
     
-    function editUser($id) {
+    function editUser($id, $type = null) {
         if (!empty($id)) {
             if ($this->input->post() !== false) {
                 
@@ -341,6 +341,10 @@ class users extends CI_Controller
                     redirect(base_url() . 'user', 'refresh');
                 } else {
                     $this->layout->setField('page_title', $this->lang->line('edit') . ' ' . $this->lang->line('user'));
+
+                    if ($type == 'notification') {
+                        Notification::updateNotification('registration_payment_recived', $this->session_data->id, $id);
+                    }
                     
                     $userdetail = new Userdetail();
                     $data['userdetail'] = $userdetail->where('student_master_id', $id)->get();

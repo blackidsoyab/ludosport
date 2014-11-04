@@ -56,6 +56,7 @@ $route[$controller . '/view/(:num)'] = plural($controller) . "/view" . ucwords($
 $route[$controller . '/view/(:num)/(:any)'] = plural($controller) . "/view" . ucwords($controller) . "/$1/$2";
 $route[$controller . '/add'] = plural($controller) . "/add" . ucwords($controller);
 $route[$controller . '/edit/(:num)'] = plural($controller) . "/edit" . ucwords($controller) . "/$1";
+$route[$controller . '/edit/(:num)/notification'] = plural($controller) . "/edit" . ucwords($controller) . "/$1/notification";
 $route[$controller . '/delete/(:num)'] = plural($controller) . "/delete" . ucwords($controller) . "/$1";
 $route[$controller . '/getjson'] = "json/get" . plural($controller) . "JsonData";
 $route[$controller . '/getjson/(:any)'] = "json/get" . plural($controller) . "JsonData/$1";

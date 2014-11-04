@@ -99,6 +99,10 @@ function makeURL($options) {
         $url = base_url() . 'clan/change_status_trial_student/' . $options['data']['clan_id'] . '/' . $options['data']['student_id'] . '/notification';
     }
 
+    if ($options['notify_type'] == 'registration_payment_recived') {
+        $url = base_url() . 'user/edit/' . $options['object_id'] . '/notification';
+    }
+
     if ($options['notify_type'] == 'trial_lesson_approved') {
         $url = base_url() . 'clan/change_status_trial_student/' . $options['data']['clan_id'] . '/' . $options['data']['student_id'] . '/notification';
     }
@@ -214,6 +218,15 @@ function getNotificationTemplate($options, $user_name_link = false) {
         $template_edit = true;
         $user_request = userNameAvtar($options['data']['student_id'], $user_name_link);
         $new_template = sprintf($templates[$options['notify_type']][$session->language], $user_request['name']);
+    }
+
+    if ($options['notify_type'] == 'registration_payment_recived') {
+        $template_edit = true;
+        $student_details = userNameAvtar($options['object_id'], $user_name_link);
+        $clan = new Clan($options['data']['clan_id']);
+        $school = $clan->School->get();
+        $academy = $clan->School->Academy->get();
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $student_details['name'],$clan->{$session->language.'_class_name'}, $school->{$session->language.'_school_name'}, $academy->{$session->language.'_academy_name'});
     }
 
     if ($options['notify_type'] == 'student_absent') {
@@ -456,6 +469,11 @@ function seNotificationTemplate() {
             'en' => '%s requestd for trial lesson unapporved by %s',
             'it' => '%s requestd for trial lesson unapporved by %s',
         ),
+        'registration_payment_recived' =>
+        array(
+            'en' => 'The %s has done payment for clan %s, %s, %s.',
+            'it' => 'The %s has done payment for clan %s, %s, %s.',
+        ),
         'accept_as_student' =>
         array(
             'en' => '%s requestd for trial lesson Accept as student by %s',
@@ -596,6 +614,15 @@ function getTimelineTemplate($options, $user_name_link = false) {
     $templates = setTimelineTemplate();
     $session = & get_instance()->session->userdata('user_session');
     $template_edit = false;
+
+     if ($options['notify_type'] == 'registration_payment_recived') {
+        $template_edit = true;
+        $student_details = userNameAvtar($options['object_id'], $user_name_link);
+        $clan = new Clan($options['data']['clan_id']);
+        $school = $clan->School->get();
+        $academy = $clan->School->Academy->get();
+        $new_template = sprintf($templates[$options['notify_type']][$session->language], $student_details['name'],$clan->{$session->language.'_class_name'}, $school->{$session->language.'_school_name'}, $academy->{$session->language.'_academy_name'});
+    }
 
     if ($options['notify_type'] == 'trial_lesson_approved' || $options['notify_type'] == 'trial_lesson_unapproved' || $options['notify_type'] == 'accept_as_student') {
         $template_edit = true;
@@ -826,6 +853,11 @@ function setTimelineTemplate() {
         array(
             'en' => 'Requestd for trial lesson unapporved by %s',
             'it' => 'Requestd for trial lesson unapporved by %s',
+        ),
+        'registration_payment_recived' =>
+        array(
+            'en' => 'The %s has done payment for clan %s, %s, %s.',
+            'it' => 'The %s has done payment for clan %s, %s, %s.',
         ),
         'accept_as_student' =>
         array(
