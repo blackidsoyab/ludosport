@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 03, 2014 at 06:38 PM
+-- Generation Time: Nov 04, 2014 at 11:41 AM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3
 
@@ -658,7 +658,7 @@ CREATE TABLE IF NOT EXISTS `emails` (
   `format_info` text CHARACTER SET utf8,
   `user_id` int(11) NOT NULL DEFAULT '1',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
 
 --
 -- Dumping data for table `emails`
@@ -696,7 +696,8 @@ INSERT INTO `emails` (`id`, `type`, `subject`, `message`, `attachment`, `format_
 (29, 'evolution_clan_request', 'Request for Evolution Clan | MyLudosport', '<div >Dear #user_name,</div><div ><br></div><div >#request_username has requested for Evolution clan &nbsp;#clan_name</div><div ><br></div><div >Thanks </div><div ><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#clan_name\r\n#request_username', 1, '2014-08-25 08:05:22'),
 (30, 'evolution_clan_request_approved', 'Request for Evolution Clan Approved | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>#request_username has requested for Evolution clan &nbsp;#clan_name</div><div><span style="line-height: 21.4285717010498px;">It is approved by #authorized_username</span><br></div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#clan_name\r\n#request_username\r\n#authorized_username', 1, '2014-08-25 08:05:22'),
 (31, 'evolution_clan_request_unapproved', 'Request for Evolution Clan unapproved | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>#request_username has requested for Evolution clan &nbsp;#clan_name</div><div>It is unapproved by #authorized_username</div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#clan_name\r\n#request_username\r\n#authorized_username', 1, '2014-08-25 08:05:22'),
-(32, 'evolution_clan_result', 'Evolution Clan Result | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>The result is declare for the evolution clan&nbsp;<span style="line-height: 21.4285717010498px;">#clan_name of student&nbsp;</span><span style="line-height: 1.42857143;">#request_username.</span></div><div><span style="line-height: 1.42857143;">The result is #result</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>It is declared by #authorized_username</div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#clan_name\r\n#request_username\r\n#result\r\n#authorized_username', 1, '2014-08-25 08:05:22');
+(32, 'evolution_clan_result', 'Evolution Clan Result | MyLudosport', '<div>Dear #user_name,</div><div><br></div><div>The result is declare for the evolution clan&nbsp;<span style="line-height: 21.4285717010498px;">#clan_name of student&nbsp;</span><span style="line-height: 1.42857143;">#request_username.</span></div><div><span style="line-height: 1.42857143;">The result is #result</span></div><div><span style="line-height: 1.42857143;"><br></span></div><div>It is declared by #authorized_username</div><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#clan_name\r\n#request_username\r\n#result\r\n#authorized_username', 1, '2014-08-25 08:05:22'),
+(33, 'registration_payment_recived', 'Payment recived (student registration) | MyLudosport', '<div>Dear #user_name,</div><p><br></p><p>The student #student_name has register for the #clan_name, #school_name, #academy_name. <br> Payment is done. <br>The payment date is #payment_date</p><p><br></p><div>Thanks </div><div><hr>Please Click Here to&nbsp;<a href="http:/#" target="_blank">unsubscribe</a></div>', NULL, '#user_name\r\n#clan_name\r\n#school_name\r\n#academy_name\r\n#student_name\r\n#payment_date', 1, '2014-08-25 08:05:22');
 
 -- --------------------------------------------------------
 
@@ -1256,7 +1257,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `data` longtext CHARACTER SET utf8 COLLATE utf8_bin,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `notifications`
@@ -1270,7 +1271,9 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (5, 'I', 'user_register', 0, 6, 41, 'a:10:{s:9:"firstname";s:0:"";s:8:"lastname";s:0:"";s:8:"username";s:0:"";s:7:"city_id";s:0:"";s:17:"city_of_residence";s:0:"";s:13:"date_of_birth";s:0:"";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:0:"";s:7:"captcha";s:0:"";}', 0, '2014-11-03 11:19:38'),
 (6, 'I', 'user_register', 0, 7, 41, 'a:10:{s:9:"firstname";s:0:"";s:8:"lastname";s:0:"";s:8:"username";s:0:"";s:7:"city_id";s:0:"";s:17:"city_of_residence";s:0:"";s:13:"date_of_birth";s:0:"";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:0:"";s:7:"captcha";s:0:"";}', 0, '2014-11-03 11:19:47'),
 (7, 'I', 'user_register', 0, 8, 41, 'a:10:{s:9:"firstname";s:0:"";s:8:"lastname";s:0:"";s:8:"username";s:0:"";s:7:"city_id";s:0:"";s:17:"city_of_residence";s:0:"";s:13:"date_of_birth";s:0:"";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:0:"";s:7:"captcha";s:0:"";}', 0, '2014-11-03 11:19:55'),
-(8, 'I', 'user_register', 0, 25, 41, 'a:10:{s:9:"firstname";s:0:"";s:8:"lastname";s:0:"";s:8:"username";s:0:"";s:7:"city_id";s:0:"";s:17:"city_of_residence";s:0:"";s:13:"date_of_birth";s:0:"";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:0:"";s:7:"captcha";s:0:"";}', 0, '2014-11-03 11:20:07');
+(8, 'I', 'user_register', 0, 25, 41, 'a:10:{s:9:"firstname";s:0:"";s:8:"lastname";s:0:"";s:8:"username";s:0:"";s:7:"city_id";s:0:"";s:17:"city_of_residence";s:0:"";s:13:"date_of_birth";s:0:"";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:0:"";s:7:"captcha";s:0:"";}', 0, '2014-11-03 11:20:07'),
+(11, 'N', 'registration_payment_recived', 31, 6, 31, 'a:22:{s:2:"id";i:37;s:17:"student_master_id";s:2:"31";s:7:"clan_id";s:1:"2";s:9:"degree_id";s:1:"6";s:9:"honour_id";s:1:"0";s:9:"master_id";s:1:"0";s:16:"qualification_id";s:1:"0";s:11:"security_id";s:1:"0";s:14:"color_of_blade";s:1:"1";s:3:"xpr";s:4:"1000";s:3:"war";s:1:"0";s:3:"sty";s:1:"0";s:11:"total_score";s:4:"1000";s:17:"first_lesson_date";s:10:"2014-11-04";s:11:"approved_by";s:1:"0";s:14:"palce_of_birth";s:8:"Vadodara";s:8:"zip_code";s:6:"390016";s:8:"tax_code";s:6:"610093";s:11:"blood_group";s:5:"O +ve";s:6:"status";s:2:"P2";s:7:"user_id";s:2:"31";s:9:"timestamp";s:19:"2014-11-04 11:22:25";}', 0, '2014-11-04 05:52:25'),
+(12, 'N', 'registration_payment_recived', 31, 2, 31, 'a:22:{s:2:"id";i:37;s:17:"student_master_id";s:2:"31";s:7:"clan_id";s:1:"2";s:9:"degree_id";s:1:"6";s:9:"honour_id";s:1:"0";s:9:"master_id";s:1:"0";s:16:"qualification_id";s:1:"0";s:11:"security_id";s:1:"0";s:14:"color_of_blade";s:1:"1";s:3:"xpr";s:4:"1000";s:3:"war";s:1:"0";s:3:"sty";s:1:"0";s:11:"total_score";s:4:"1000";s:17:"first_lesson_date";s:10:"2014-11-04";s:11:"approved_by";s:1:"0";s:14:"palce_of_birth";s:8:"Vadodara";s:8:"zip_code";s:6:"390016";s:8:"tax_code";s:6:"610093";s:11:"blood_group";s:5:"O +ve";s:6:"status";s:2:"P2";s:7:"user_id";s:2:"31";s:9:"timestamp";s:19:"2014-11-04 11:22:25";}', 1, '2014-11-04 05:52:31');
 
 -- --------------------------------------------------------
 
@@ -1379,7 +1382,7 @@ CREATE TABLE IF NOT EXISTS `score_histories` (
   `description` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=164 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=167 ;
 
 --
 -- Dumping data for table `score_histories`
@@ -1487,7 +1490,10 @@ INSERT INTO `score_histories` (`id`, `student_id`, `oper`, `score_type`, `score`
 (160, 21, 'M', 'sty', 100, '2014-11-03', 'Tournament batch assignment (Best Sequence)', 1, '2014-11-03 09:14:29'),
 (161, 36, 'M', 'xpr', 1500, '2014-11-03', 'Tournament batch assignment (Best Fight)', 1, '2014-11-03 09:14:29'),
 (162, 36, 'M', 'war', 1000, '2014-11-03', 'Tournament batch assignment (Best Fight)', 1, '2014-11-03 09:14:29'),
-(163, 36, 'M', 'sty', 500, '2014-11-03', 'Tournament batch assignment (Best Fight)', 1, '2014-11-03 09:14:29');
+(163, 36, 'M', 'sty', 500, '2014-11-03', 'Tournament batch assignment (Best Fight)', 1, '2014-11-03 09:14:29'),
+(164, 31, 'M', 'xpr', 1000, '2014-11-04', 'Assign badge at time of Registration', 0, '2014-11-04 05:01:01'),
+(165, 31, 'M', 'xpr', 1000, '2014-11-04', 'Assign badge at time of Registration', 0, '2014-11-04 05:49:42'),
+(166, 31, 'M', 'xpr', 1000, '2014-11-04', 'Assign badge at time of Registration', 0, '2014-11-04 05:52:25');
 
 -- --------------------------------------------------------
 
@@ -1667,7 +1673,7 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   `status` enum('A','P','U','P2') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
 
 --
 -- Dumping data for table `userdetails`
@@ -1684,7 +1690,6 @@ INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `degree_id`, `h
 (8, 25, 6, 3, 0, 0, 0, 0, 6, 1552, 700, 350, 1868, '2014-10-01', 3, NULL, NULL, NULL, NULL, 'A', 25, '2010-08-25 05:52:04'),
 (9, 27, 6, 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-09-09', 8, 'roma', 0, 0, 'ah+', 'A', 27, '2014-09-04 15:25:53'),
 (10, 28, 6, 3, 0, 0, 0, 0, 6, 0, 0, 0, 0, '2014-09-16', 0, NULL, NULL, NULL, NULL, 'A', 28, '2014-09-05 08:45:20'),
-(11, 31, 1, 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-16', 8, NULL, NULL, NULL, NULL, 'A', 31, '2014-09-05 11:33:36'),
 (12, 33, 6, 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-30', 8, NULL, NULL, NULL, NULL, 'A', 33, '2014-09-05 13:05:45'),
 (13, 34, 1, 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-23', 8, NULL, NULL, NULL, NULL, 'A', 34, '2014-09-05 13:18:57'),
 (14, 23, 6, 3, 0, 0, 0, 0, 6, 3000, 1500, 750, 3816, '2014-08-04', 2, 'Milan', 20162, 610093, 'O +ve', 'A', 2, '2014-08-04 00:09:02'),
@@ -1692,12 +1697,7 @@ INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `degree_id`, `h
 (20, 36, 1, 6, 0, 0, 0, 0, 1, 3502, 1600, 800, 5902, '2014-10-13', 0, 'Vadodara', 390016, 963852, 'B -ve', 'A', 36, '2014-10-13 05:00:29'),
 (27, 38, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-20', 0, 'Vadodara', 390016, 963850, 'O +ve', 'A', 38, '2014-10-20 05:04:25'),
 (28, 39, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-20', 0, 'Vadodara', 390016, 963852, 'B -ve', 'A', 39, '2014-10-20 05:17:36'),
-(29, 0, 0, 0, 0, 0, 0, 0, 1, 1000, 0, 0, 1000, NULL, 0, NULL, NULL, NULL, NULL, 'P', 0, '2014-11-03 07:04:36'),
-(30, 0, 0, 0, 0, 0, 0, 0, 1, 0, 500, 0, 500, NULL, 0, NULL, NULL, NULL, NULL, 'P', 0, '2014-11-03 07:04:36'),
-(31, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 250, 250, NULL, 0, NULL, NULL, NULL, NULL, 'P', 0, '2014-11-03 07:04:36'),
-(32, 0, 0, 0, 0, 0, 0, 0, 1, 1000, 0, 0, 1000, NULL, 0, NULL, NULL, NULL, NULL, 'P', 0, '2014-11-03 07:09:13'),
-(33, 0, 0, 0, 0, 0, 0, 0, 1, 0, 500, 0, 500, NULL, 0, NULL, NULL, NULL, NULL, 'P', 0, '2014-11-03 07:09:13'),
-(34, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 250, 250, NULL, 0, NULL, NULL, NULL, NULL, 'P', 0, '2014-11-03 07:09:13');
+(37, 31, 2, 6, 0, 0, 0, 0, 1, 1000, 0, 0, 1000, '2014-11-04', 0, 'Vadodara', 390016, 610093, 'O +ve', 'P2', 31, '2014-11-04 05:52:25');
 
 -- --------------------------------------------------------
 
@@ -1729,7 +1729,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `status` enum('A','D','P','U') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=42 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
 
 --
 -- Dumping data for table `users`
@@ -1758,7 +1758,7 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `last
 (27, '6', 'Fede', '202cb962ac59075b964b07152d234b70', 'Federico', 'De Medici', 'ranasoyab@yopmail.com', 752565600, 5, 4, 2, NULL, NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'D', 0, '2014-09-04 15:20:52'),
 (28, '6', '123', '202cb962ac59075b964b07152d234b70', 'Carmelo2', 'Samperi1', 'ranasoyab@yopmail.com', 635061600, 5, 4, 2, NULL, NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'D', 28, '2014-09-05 07:18:30'),
 (30, '6', '1234', '81dc9bdb52d04dc20036dbd8313ed055', 'Pietro', 'Rossi', 'ranasoyab@yopmail.com', 1239685200, 5, 4, 2, 'Pietro', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'D', 0, '2014-09-05 11:04:54'),
-(31, '6', 'eu', '202cb962ac59075b964b07152d234b70', 'Eugenio', 'Di Fraia', 'ranasoyab@yopmail.com', 317973600, 1, 1, 1, 'Cassina de Pecchi', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'D', 0, '2014-09-05 11:32:37'),
+(31, '6', 'eu', '202cb962ac59075b964b07152d234b70', 'Eugenio', 'Di Fraia', 'ranasoyab@yopmail.com', 317973600, 1, 1, 1, 'Cassina de Pecchi', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'P', 0, '2014-09-05 11:32:37'),
 (33, '6', 'bart', '202cb962ac59075b964b07152d234b70', 'Bart', 'Simpson', 'ranasoyab@yopmail.com', 633938400, 5, 4, 2, 'e', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'D', 33, '2014-09-05 13:00:47'),
 (34, '6', 'merge', '202cb962ac59075b964b07152d234b70', 'Merge', 'Simpson', 'ranasoyab@yopmail.com', 633852000, 1, 1, 1, 's', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'D', 0, '2014-09-05 13:17:44'),
 (36, '6', 'spyker', '202cb962ac59075b964b07152d234b70', 'Spyker', 'Jeans', 'soyab@yopmail.com', 525724200, 1, 1, 1, 'Vadodara', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'A', 2, '2014-09-22 06:02:11'),
@@ -1782,7 +1782,7 @@ CREATE TABLE IF NOT EXISTS `user_batches_histories` (
   `assign_date` date NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=71 ;
 
 --
 -- Dumping data for table `user_batches_histories`
@@ -1833,7 +1833,8 @@ INSERT INTO `user_batches_histories` (`id`, `student_id`, `event_id`, `batch_typ
 (66, 16, 2, 'T', 45, '2014-11-03', 1, '2014-11-03 09:14:28'),
 (67, 14, 2, 'T', 46, '2014-11-03', 1, '2014-11-03 09:14:29'),
 (68, 21, 2, 'T', 47, '2014-11-03', 1, '2014-11-03 09:14:29'),
-(69, 36, 2, 'T', 48, '2014-11-03', 1, '2014-11-03 09:14:29');
+(69, 36, 2, 'T', 48, '2014-11-03', 1, '2014-11-03 09:14:29'),
+(70, 31, 0, 'D', 6, '2014-11-04', 31, '2014-11-04 05:01:01');
 
 --
 -- Indexes for dumped tables
@@ -2124,7 +2125,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `emails`
 --
 ALTER TABLE `emails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `eventattendances`
 --
@@ -2199,7 +2200,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `payments`
 --
@@ -2219,7 +2220,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `score_histories`
 --
 ALTER TABLE `score_histories`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=164;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=167;
 --
 -- AUTO_INCREMENT for table `states`
 --
@@ -2239,17 +2240,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
 -- AUTO_INCREMENT for table `userdetails`
 --
 ALTER TABLE `userdetails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT for table `user_batches_histories`
 --
 ALTER TABLE `user_batches_histories`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=71;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
