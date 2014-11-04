@@ -295,6 +295,8 @@ class ajax extends CI_Controller
             }
             
             echo $str;
+        } else {
+            echo $this->lang->line('trail_lesson_clan_selecion_not_found');
         }
     }
     
@@ -733,6 +735,8 @@ class ajax extends CI_Controller
                 $str.= '</div>' . "\n";
                 $str.= '</div>' . "\n";
             }
+        }else{
+            $str .= $this->lang->line('step_2_clan_selecion_not_found');
         }
         
         echo $str;
@@ -914,8 +918,8 @@ class ajax extends CI_Controller
     }
     
     function downloadRegistrationPdf($file) {
-        if (file_exists('assets/registration_attachments/' . $file)) {
-            $path = './assets/registration_attachments/' . $file;
+        if (file_exists('assets/attribution_cards/' . $file)) {
+            $path = './assets/attribution_cards/' . $file;
             downloadFile($path, $file);
         }
     }

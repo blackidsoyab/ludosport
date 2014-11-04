@@ -162,6 +162,8 @@ $lang['select_date'] = 'Select Date';
 $lang['confirm'] = 'Confirm';
 $lang['captcha_code_info'] = 'Enter the captcha code';
 $lang['captcha_code_error'] = 'wrong captcha code enter';
+$lang['trail_lesson_clan_selecion_not_found'] = 'Ci dispiace, in questo momento non è possibile effettuare una lezione di prova. Per qualsiasi comunicazione scrivi a <a href="mailto:info@myludosport.net">info@myludosport.net</a> <br />Grazie';
+$lang['step_2_clan_selecion_not_found'] = 'Siamo spiacenti, in questo momento non è possibile selezionare clan. Per qualsiasi informazione si prega di scrivere a <a href="mailto:info@myludosport.net">info@myludosport.net</a> <br />Grazie';
 
 //Student
 $lang['communicate_absence'] = 'Communicate Absence';

@@ -154,19 +154,68 @@ if (!function_exists('downloadFile')) {
 if (!function_exists('attributionCards')) {
     function attributionCards($age) {
         $array = array();
+
+        //$current_day = get_current_date_time()->day;
+        $current_month = get_current_date_time()->month;
+
         
         if ($age < 16) {
-            $array['unique_solution'] = array('file' => '1.pdf', 'en' => 'Unique Solution', 'it' => 'Soluzione Unica');
-            $array['two_installments'] = array('file' => '1.pdf', 'en' => 'Two Installments', 'it' => 'Due Rate');
-            $array['no_choice'] = array('file' => '1.pdf', 'en' => 'No Choice', 'it' => 'Nessuna Scelta');
+            if($current_month >=1  && $current_month <= 2){
+                $array['unique_solution'] = array('file' => 'WhiteCard.pdf', 'en' => 'Unique Solution', 'it' => 'Soluzione Unica');
+            }
+
+            if($current_month >=1  && $current_month <= 2){
+                $array['two_installments'] = array('file' => 'GrayCard.pdf', 'en' => 'Two Installments', 'it' => 'Due Rate');
+            }
+
+            if($current_month >=3  && $current_month <= 6){
+                $array['no_choice_1'] = array('file' => 'YellowCard.pdf', 'en' => 'No Choice', 'it' => 'Nessuna Scelta');
+            }
+
+            if($current_month >=7  && $current_month <= 12){
+                $array['no_choice_2'] = array('file' => 'VioletCard.pdf', 'en' => 'No Choice', 'it' => 'Nessuna Scelta');
+            }   
         } else if ($age >= 16 & $age < 18) {
-            $array['unique_solution'] = array('file' => '1.pdf', 'en' => 'Unique Solution', 'it' => 'Soluzione Unica');
-            $array['two_installments'] = array('file' => '1.pdf', 'en' => 'Two Installments', 'it' => 'Due Rate');
-            $array['no_choice'] = array('file' => '1.pdf', 'en' => 'No Choice', 'it' => 'Nessuna Scelta');
+            if($current_month >=1  && $current_month <= 2){
+                $array['unique_solution'] = array('file' => 'BlackCard_minore.pdf', 'en' => 'Unique Solution', 'it' => 'Soluzione Unica');
+            }
+
+            if($current_month >=1  && $current_month <= 2){
+                $array['two_installments'] = array('file' => 'AmberCard_minore.pdf', 'en' => 'Two Installments', 'it' => 'Due Rate');
+            }
+
+            if($current_month >=3  && $current_month <= 6){
+                $array['no_choice_1'] = array('file' => 'RedCard_minore.pdf', 'en' => 'No Choice', 'it' => 'Nessuna Scelta');
+            }
+
+            if($current_month >=7  && $current_month <= 12){
+                $array['no_choice_2'] = array('file' => 'BlueCard_minore.pdf', 'en' => 'No Choice', 'it' => 'Nessuna Scelta');
+            }
+
+            if($current_month >=1  && $current_month <= 11){
+                $array['no_choice_3'] = array('file' => 'BrownCard_minore.pdf', 'en' => 'No Choice', 'it' => 'Nessuna Scelta');
+            }
         } else if ($age >= 18) {
-            $array['unique_solution'] = array('file' => '1.pdf', 'en' => 'Unique Solution', 'it' => 'Soluzione Unica');
-            $array['two_installments'] = array('file' => '1.pdf', 'en' => 'Two Installments', 'it' => 'Due Rate');
-            $array['no_choice'] = array('file' => '1.pdf', 'en' => 'No Choice', 'it' => 'Nessuna Scelta');
+            if($current_month >=1  && $current_month <= 2){
+                $array['unique_solution'] = array('file' => 'BlackCard.pdf', 'en' => 'Unique Solution', 'it' => 'Soluzione Unica');
+            }
+
+            if($current_month >=1  && $current_month <= 2){
+                $array['two_installments'] = array('file' => 'AmberCard.pdf', 'en' => 'Two Installments', 'it' => 'Due Rate');
+            }
+
+            if($current_month >=3  && $current_month <= 6){
+                $array['no_choice_1'] = array('file' => 'RedCard.pdf', 'en' => 'No Choice', 'it' => 'Nessuna Scelta');
+            }
+
+            if($current_month >=7  && $current_month <= 12){
+                $array['no_choice_2'] = array('file' => 'BlueCard.pdf', 'en' => 'No Choice', 'it' => 'Nessuna Scelta');
+            }
+
+            if($current_month >=1  && $current_month <= 11){
+                $array['no_choice_3'] = array('file' => 'BrownCard.pdf', 'en' => 'No Choice', 'it' => 'Nessuna Scelta');
+            }
+            
         }
         
         return $array;
