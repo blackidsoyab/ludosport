@@ -3,7 +3,7 @@
 //Common
 $lang['hello'] = 'Hello';
 $lang['welcome'] = 'Welcome';
-$lang['logout'] = 'Log out';
+$lang['logout'] = 'Logout';
 $lang['manage'] = 'Manage';
 $lang['list'] = 'List';
 $lang['view'] = 'View';

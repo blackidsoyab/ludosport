@@ -234,22 +234,23 @@ if (!function_exists('loopPermissionArray')) {
 
 if (!function_exists('createPermissionArray')) {
     function createPermissionArray() {
+        $CI =& get_instance();
         $permission = array(
             'roles' => array(
-                'name' => 'Role',
+                'name' => $CI->lang->line('role'),
                 'hasChild' => array(
-                    'viewRole' => array('name' => 'List'),
-                    'addRole' => array('name' => 'Add'),
-                    'editRole' => array('name' => 'Edit'),
-                    'deleteRole' => array('name' => 'Delete'),
+                    'viewRole' => array('name' => $CI->lang->line('list')),
+                    'addRole' => array('name' => $CI->lang->line('add')),
+                    'editRole' => array('name' => $CI->lang->line('edit')),
+                    'deleteRole' => array('name' => $CI->lang->line('delete')),
                     )),
             'users' => array(
-                'name' => 'User',
+                'name' => $CI->lang->line('user'),
                 'hasChild' => array(
-                    'viewUser' => array('name' => 'List'),
-                    'addUser' => array('name' => 'Add'),
-                    'editUser' => array('name' => 'Edit'),
-                    'deleteUser' => array('name' => 'Delete'),
+                    'viewUser' => array('name' => $CI->lang->line('list')),
+                    'addUser' => array('name' => $CI->lang->line('add')),
+                    'editUser' => array('name' => $CI->lang->line('edit')),
+                    'deleteUser' => array('name' => $CI->lang->line('delete')),
                     'listStudentBatches' => array('name' => 'List Student Badge History'),
                     'addStudentBatches' => array('name' => 'Add Student Badge History'),
                     'editStudentBatches' => array('name' => 'Edit Student Badge History'),
@@ -258,59 +259,59 @@ if (!function_exists('createPermissionArray')) {
                     'deleteStudentScore' => array('name' => 'Score Student Score History'),
                     )),
             'studentratings' => array(
-                'name' => 'Student Rating (Merit/Demerit)',
+                'name' => $CI->lang->line('rating') . '(Merit/Demerit)',
                 'hasChild' => array(
-                    'viewStudentrating' => array('name' => 'List'),
-                    'editStudentrating' => array('name' => 'Edit'),
+                    'viewStudentrating' => array('name' => $CI->lang->line('list')),
+                    'editStudentrating' => array('name' => $CI->lang->line('edit')),
                     )),
             'batches' => array(
-                'name' => 'Batches',
+                'name' => $CI->lang->line('batch'),
                 'hasChild' => array(
-                    'viewBatch' => array('name' => 'List'),
-                    'addBatch' => array('name' => 'Add'),
-                    'editBatch' => array('name' => 'Edit'),
-                    'deleteBatch' => array('name' => 'Delete'),
+                    'viewBatch' => array('name' => $CI->lang->line('list')),
+                    'addBatch' => array('name' => $CI->lang->line('add')),
+                    'editBatch' => array('name' => $CI->lang->line('edit')),
+                    'deleteBatch' => array('name' => $CI->lang->line('delete')),
                     )),
             'batchrequests' => array(
-                'name' => 'Batch request',
+                'name' => $CI->lang->line('batch_request'),
                 'hasChild' => array(
-                    'viewBatchrequest' => array('name' => 'List'),
+                    'viewBatchrequest' => array('name' => $CI->lang->line('list')),
                     'changeStatusBatchrequest' => array('name' => 'Approve / Unapprove Request'),
-                    'addBatchrequest' => array('name' => 'Add'),
-                    'editBatchrequest' => array('name' => 'Edit'),
-                    'deleteBatchrequest' => array('name' => 'Delete'),
+                    'addBatchrequest' => array('name' => $CI->lang->line('add')),
+                    'editBatchrequest' => array('name' => $CI->lang->line('edit')),
+                    'deleteBatchrequest' => array('name' => $CI->lang->line('delete')),
                     )),
             'academies' => array(
-                'name' => 'Academy',
+                'name' => $CI->lang->line('academy'),
                 'hasChild' => array(
-                    'viewAcademy' => array('name' => 'List'),
-                    'addAcademy' => array('name' => 'Add'),
-                    'editAcademy' => array('name' => 'Edit'),
-                    'deleteAcademy' => array('name' => 'Delete'),
+                    'viewAcademy' => array('name' => $CI->lang->line('list')),
+                    'addAcademy' => array('name' => $CI->lang->line('add')),
+                    'editAcademy' => array('name' => $CI->lang->line('edit')),
+                    'deleteAcademy' => array('name' => $CI->lang->line('delete')),
                     )),
             'schools' => array(
-                'name' => 'School',
+                'name' => $CI->lang->line('school'),
                 'hasChild' => array(
-                    'viewSchool' => array('name' => 'List'),
-                    'addSchool' => array('name' => 'Add'),
-                    'editSchool' => array('name' => 'Edit'),
-                    'deleteSchool' => array('name' => 'Delete'),
+                    'viewSchool' => array('name' => $CI->lang->line('list')),
+                    'addSchool' => array('name' => $CI->lang->line('add')),
+                    'editSchool' => array('name' => $CI->lang->line('edit')),
+                    'deleteSchool' => array('name' => $CI->lang->line('delete')),
                     )),
             'levels' => array(
-                'name' => 'Level',
+                'name' => $CI->lang->line('level'),
                 'hasChild' => array(
-                    'viewLevel' => array('name' => 'List'),
-                    'addLevel' => array('name' => 'Add'),
-                    'editLevel' => array('name' => 'Edit'),
-                    'deleteLevel' => array('name' => 'Delete'),
+                    'viewLevel' => array('name' => $CI->lang->line('list')),
+                    'addLevel' => array('name' => $CI->lang->line('add')),
+                    'editLevel' => array('name' => $CI->lang->line('edit')),
+                    'deleteLevel' => array('name' => $CI->lang->line('delete')),
                     )),
             'clans' => array(
-                'name' => 'Classes',
+                'name' => $CI->lang->line('clan'),
                 'hasChild' => array(
-                    'viewClan' => array('name' => 'List'),
-                    'addClan' => array('name' => 'Add'),
-                    'editClan' => array('name' => 'Edit'),
-                    'deleteClan' => array('name' => 'Delete'),
+                    'viewClan' => array('name' => $CI->lang->line('list')),
+                    'addClan' => array('name' => $CI->lang->line('add')),
+                    'editClan' => array('name' => $CI->lang->line('edit')),
+                    'deleteClan' => array('name' => $CI->lang->line('delete')),
                     'clanTeacherList' => array('name' => 'Teacher List'),
                     'clanStudentList' => array('name' => 'Student List'),
                     'clanViewAttendance' => array('name' => 'Student Attendance (Register)'),
@@ -319,89 +320,89 @@ if (!function_exists('createPermissionArray')) {
                     'changeClanDate' => array('name' => 'Change Clan Dates'),
                     )),
             'eventcategories' => array(
-                'name' => 'Event Categories',
+                'name' => $CI->lang->line('eventcategory'),
                 'hasChild' => array(
-                    'viewEventcategory' => array('name' => 'List'),
-                    'addEventcategory' => array('name' => 'Add'),
-                    'editEventcategory' => array('name' => 'Edit'),
-                    'deleteEventcategory' => array('name' => 'Delete'),
+                    'viewEventcategory' => array('name' => $CI->lang->line('list')),
+                    'addEventcategory' => array('name' => $CI->lang->line('add')),
+                    'editEventcategory' => array('name' => $CI->lang->line('edit')),
+                    'deleteEventcategory' => array('name' => $CI->lang->line('delete')),
                     )),
             'events' => array(
-                'name' => 'Events',
+                'name' => $CI->lang->line('event'),
                 'hasChild' => array(
-                    'viewEvent' => array('name' => 'List'),
-                    'addEvent' => array('name' => 'Add'),
-                    'editEvent' => array('name' => 'Edit'),
-                    'deleteEvent' => array('name' => 'Delete'),
+                    'viewEvent' => array('name' => $CI->lang->line('list')),
+                    'addEvent' => array('name' => $CI->lang->line('add')),
+                    'editEvent' => array('name' => $CI->lang->line('edit')),
+                    'deleteEvent' => array('name' => $CI->lang->line('delete')),
                     'sendEventInvitation' => array('name' => 'Send Invitation'),
                     'viewEventInvitation' => array('name' => 'List Invited Member'),
                     'viewEventInvited' => array('name' => 'List events invited in'),
                     'takeEventAttendance' => array('name' => 'Take Event Attendances'),
-                    'assignTournamentBatches' => array('name' => 'Tournament batch assignment'),
+                    'assignTournamentBatches' => array('name' => 'Tournament badge assignment'),
                     )),
             'evolutioncategories' => array(
-                'name' => 'Evolution Categories',
+                'name' => $CI->lang->line('evolutioncategory'),
                 'hasChild' => array(
-                    'viewEvolutioncategory' => array('name' => 'List'),
-                    'editEvolutioncategory' => array('name' => 'Edit'),
+                    'viewEvolutioncategory' => array('name' => $CI->lang->line('list')),
+                    'editEvolutioncategory' => array('name' => $CI->lang->line('edit')),
                     )),
             'evolutionclans' => array(
-                'name' => 'Evolution',
+                'name' => $CI->lang->line('evolutionclan'),
                 'hasChild' => array(
-                    'viewEvolutionclan' => array('name' => 'List'),
-                    'addEvolutionclan' => array('name' => 'Add'),
-                    'editEvolutionclan' => array('name' => 'Edit'),
-                    'deleteEvolutionclan' => array('name' => 'Delete'),
+                    'viewEvolutionclan' => array('name' => $CI->lang->line('list')),
+                    'addEvolutionclan' => array('name' => $CI->lang->line('add')),
+                    'editEvolutionclan' => array('name' => $CI->lang->line('edit')),
+                    'deleteEvolutionclan' => array('name' => $CI->lang->line('delete')),
                     'listEvolutionClanRequest' => array('name' => 'List Clan Request'),
                     'evolutionclanStudentList' => array('name' => 'Student List'),
                     'changeRequestStatus' => array('name' => 'Approve / Unapprove Clan Request'),
                     'resultEvolutionclan' => array('name' => 'Declare student result'),
                     )),
             'profiles' => array(
-                'name' => 'Profile',
+                'name' => $CI->lang->line('profile'),
                 'hasChild' => array(
                     'viewProfile' => array('name' => 'View'),
-                    'editProfile' => array('name' => 'Edit'),
+                    'editProfile' => array('name' => $CI->lang->line('edit')),
                     'changePassword' => array('name' => 'Change Password'),
                     'changeEmailPrivacy' => array('name' => 'Change Email Privacy'),
                     )),
             'emails' => array(
-                'name' => 'Email Templates',
+                'name' => $CI->lang->line('email_template'),
                 'hasChild' => array(
-                    'viewEmail' => array('name' => 'List'),
-                    'editEmail' => array('name' => 'Edit'),
+                    'viewEmail' => array('name' => $CI->lang->line('list')),
+                    'editEmail' => array('name' => $CI->lang->line('edit')),
                     )),
             'countries' => array(
-                'name' => 'Country',
+                'name' => $CI->lang->line('country'),
                 'hasChild' => array(
-                    'viewCountry' => array('name' => 'List'),
-                    'addCountry' => array('name' => 'Add'),
-                    'editCountry' => array('name' => 'Edit'),
-                    'deleteCountry' => array('name' => 'Delete'),
+                    'viewCountry' => array('name' => $CI->lang->line('list')),
+                    'addCountry' => array('name' => $CI->lang->line('add')),
+                    'editCountry' => array('name' => $CI->lang->line('edit')),
+                    'deleteCountry' => array('name' => $CI->lang->line('delete')),
                     )),
             'states' => array(
-                'name' => 'State',
+                'name' => $CI->lang->line('state'),
                 'hasChild' => array(
-                    'viewState' => array('name' => 'List'),
-                    'addState' => array('name' => 'Add'),
-                    'editState' => array('name' => 'Edit'),
-                    'deleteState' => array('name' => 'Delete'),
+                    'viewState' => array('name' => $CI->lang->line('list')),
+                    'addState' => array('name' => $CI->lang->line('add')),
+                    'editState' => array('name' => $CI->lang->line('edit')),
+                    'deleteState' => array('name' => $CI->lang->line('delete')),
                     )),
             'cities' => array(
-                'name' => 'City',
+                'name' => $CI->lang->line('city'),
                 'hasChild' => array(
-                    'viewCity' => array('name' => 'List'),
-                    'addCity' => array('name' => 'Add'),
-                    'editCity' => array('name' => 'Edit'),
-                    'deleteCity' => array('name' => 'Delete'),
+                    'viewCity' => array('name' => $CI->lang->line('list')),
+                    'addCity' => array('name' => $CI->lang->line('add')),
+                    'editCity' => array('name' => $CI->lang->line('edit')),
+                    'deleteCity' => array('name' => $CI->lang->line('delete')),
                     )),
             'systemsettings' => array(
-                'name' => 'System Setting',
+                'name' => $CI->lang->line('system_setting'),
                 'hasChild' => array(
-                    'viewSystemSetting' => array('name' => 'Edit')
+                    'viewSystemSetting' => array('name' => $CI->lang->line('edit'))
                     )),
             'messages' => array(
-                'name' => 'Message',
+                'name' => $CI->lang->line('message'),
                 'hasChild' => array(
                     'single' => array(
                         'name' => 'Single',
@@ -416,7 +417,7 @@ if (!function_exists('createPermissionArray')) {
                     )
                 ),
             'announcements' => array(
-                'name' => 'Announcement',
+                'name' => $CI->lang->line('announcement'),
                 'hasChild' => array(
                     'single' => array(
                         'name' => 'Single',
