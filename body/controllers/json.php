@@ -1768,4 +1768,43 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
+
+    public function getSolutioncoursesJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('solutioncourses.' . $this->session_data->language . '_name AS solutioncourse', 'academies.' . $this->session_data->language . '_academy_name AS academy');
+        $this->datatable->eColumns = array('solutioncourses.id', 'type_1', 'type_2','form');
+        $this->datatable->sIndexColumn = "solutioncourses.id";
+        $this->datatable->sTable = " solutioncourses, academies";
+        $this->datatable->myWhere = 'WHERE academies.id=solutioncourses.academy_id';
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['solutioncourse'];
+            $temp_arr[] = $aRow['academy'];
+
+
+            $type_1 = getSolutionCoursesType1($aRow['type_1']);
+            $temp_arr[] = $type_1[$this->session_data->language.'_name'];
+
+            $type_2 = getSolutionCoursesType2($aRow['type_2']);
+            $temp_arr[] = $type_2[$this->session_data->language.'_name'];
+
+            $temp_arr[] = '<a href="'. base_url() .'moduli/'. $aRow['type_1'] .'/'. $aRow['type_2'] .'/'. $aRow['form'] .'" >'. $this->lang->line('download') .'</a>';
+            
+            $str = NULL;
+            if (hasPermission('solutioncourses', 'editSolutioncourse')) {
+                $str.= '<a href="' . base_url() . 'solutioncourse/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
+            }
+            
+            if (hasPermission('solutioncourses', 'deleteSolutioncourse')) {
+                $str.= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }
+            $temp_arr[] = $str;
+            
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
 }

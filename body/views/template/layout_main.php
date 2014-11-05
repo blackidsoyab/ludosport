@@ -393,6 +393,10 @@
 
                             <li class="static"><i class="fa fa-table icon-sidebar"></i>&nbsp;<?php echo $this->lang->line('setting'); ?></li>
 
+                            <?php if (hasPermission('solutionscourses', 'viewSolutionscourse')) { ?>   
+                            <li class="<?php echo ($page == 'solutioncourse') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'solutioncourse'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('solution_course'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('solution_course'); ?></a></li>
+                            <?php } ?>
+
                             <?php if (hasPermission('levels', 'viewLevel')) { ?>   
                             <li class="<?php echo ($page == 'level') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'level'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('level'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('level'); ?></a></li>
                             <?php } ?>                     
@@ -507,8 +511,10 @@
                                     <?php echo $this->lang->line('shop'); ?>
                                 </a>
                             </li>
+                        <?php } ?>
 
-                            <li class="<?php echo ($page == 'payment' || $page == 'received' || $page == 'renewals' || $page == 'certificates') ? 'active selected' : ''; ?>">
+                        <?php if($session->role == 6) { ?>
+                            <li class="<?php echo ($page == 'payment' || $page == 'application_form' || $page == 'list_docs' || $page == 'upload_file') ? 'active selected' : ''; ?>">
                                 <a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('administrations'); ?>">
                                     <i class="fa fa-cog icon-sidebar"></i>
                                     <i class="fa fa-angle-right chevron-icon-sidebar"></i>
@@ -516,13 +522,11 @@
                                 </a>
                                 <ul class="submenu">
                                     <li><a href="<?php echo base_url(). 'payment'?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('payment'); ?>"><?php echo $this->lang->line('payment'); ?></a></li>
-                                    <li><a href="<?php echo base_url(). 'received'?>"><?php echo $this->lang->line('received'); ?></a></li>
-                                    <li><a href="<?php echo base_url(). 'renewals'?>"><?php echo $this->lang->line('renewals'); ?></a></li>
-                                    <li><a href="<?php echo base_url(). 'certificates'?>"><?php echo $this->lang->line('certificates'); ?></a></li>
+                                    <li><a href="<?php echo base_url(). 'application_form'?>"><?php echo $this->lang->line('application_form'); ?></a></li>
+                                    <li><a href="<?php echo base_url(). 'list_docs'?>"><?php echo $this->lang->line('list_docs'); ?></a></li>
+                                    <li><a href="<?php echo base_url(). 'upload_file'?>"><?php echo $this->lang->line('student_administrations_menu_upload_file'); ?></a></li>
                                 </ul>
                             </li>
-                            
-                            <!-- <li class="static"><?php echo $this->lang->line('merchandising'); ?></li> -->
                         <?php } ?>
                     </ul>
                 </div>

@@ -85,6 +85,7 @@ $lang['payment_success'] = 'Your paymenent is done.';
 $lang['payment_cancelled'] = 'Your payment is cancelled.';
 $lang['payment_failed'] = 'Your payment is failed.';
 $lang['payment_expired'] = 'Your payment is expired.';
+$lang['subscribe_registration_successfull'] = 'Your subscription request has been sent to Myludosport - would receive an email registration confirmation';
 $lang['event_over'] = 'Event is over';
 $lang['tournament_batch_assign_success'] = 'Tournament batch assignment successfully done';
 $lang['tournament_batch_assign_error'] = 'Error in assign the tournament batch';
@@ -120,9 +121,9 @@ $lang['evolution'] = 'Evolution';
 $lang['news'] = 'News';
 $lang['shop'] = 'Shop';
 $lang['administrations'] = 'Administrations';
-$lang['received'] = 'Received';
-$lang['renewals'] = 'Renewals';
-$lang['certificates'] = 'Certificates';
+$lang['list_docs'] = 'List Documents';
+$lang['student_administrations_menu_upload_file'] = 'Upload File';
+$lang['application_form'] = 'Application form';
 $lang['merchandising'] = 'Merchandising';
 $lang['payment'] = 'Payment';
 $lang['amount'] = 'Amount';
@@ -583,4 +584,12 @@ $lang['btn_declare_result_of_evolution_clan'] = 'Declare Result';
 $lang['title_declare_result_of_evolution_clan'] = 'Declare result for Evolution clan';
 $lang['evolution_clan_pass'] = 'Pass';
 $lang['evolution_clan_fail'] = 'Fail';
+
+//Solution Courses
+$lang['solution_course'] = 'Solution Course';
+$lang['age_criteria'] = 'Age criteria';
+$lang['enrolment'] = 'Enrolment';
+$lang['price'] = 'Price';
+$lang['course_form'] = 'Course form';
+$lang['application_form'] = 'Application form';
 ?>

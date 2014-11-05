@@ -222,6 +222,46 @@ if (!function_exists('attributionCards')) {
     }
 }
 
+if (!function_exists('getSolutionCoursesType1')) {
+    function getSolutionCoursesType1($id = null) {
+        $array = array();
+        $array[]  = array('id'=>1, 'en_name'=>'Under 16', 'it_name' => 'Under 16');
+        $array[]  = array('id'=>2, 'en_name'=>'Between 16 to 18', 'it_name' => 'Between 16 to 18');
+        $array[]  = array('id'=>3, 'en_name'=>'Above 18', 'it_name' => 'Above 18');
+
+        if(is_null($id)){
+            return $array;
+        }else{
+            $ids = array_column($array,'id');
+            if (($key = array_search($id, $ids)) !== false) {
+                return $array[$key];
+            }else{
+                return array();
+            }
+        }
+    }
+}
+
+if (!function_exists('getSolutionCoursesType2')) {
+    function getSolutionCoursesType2($id = null) {
+         $array = array();
+        $array[]  = array('id'=>1, 'en_name'=>'Only for first Enrolment', 'it_name' => 'Only for first Enrolment');
+        $array[]  = array('id'=>2, 'en_name'=>'Enrolment Members', 'it_name' => 'Enrolment Members');
+        $array[]  = array('id'=>3, 'en_name'=>'Other Solutions', 'it_name' => 'Other Solutions');
+
+        if(is_null($id)){
+            return $array;
+        }else{
+            $ids = array_column($array, 'id');
+            if (($key = array_search($id, $ids)) !== false) {
+                return $array[$key];
+            }else{
+                return array();
+            }
+        }
+    }
+}
+
 if (!function_exists('colorOfBlades')) {
     function colorOfBlades($id = null, $return = null) {
         $array = array();
@@ -374,9 +414,12 @@ if (!function_exists('getArrayNexyValue')) {
 if (!function_exists('array_column')) {
     function array_column($array, $column) {
         $col = array();
-        $array = objectToArray($array);
+        if(is_object($array)){
+            $array = objectToArray($array);    
+        }
+        
         foreach ($array as $k => $v) {
-            $col[] = $v[$column];
+            $col[$k] = $v[$column];
         }
         return $col;
     }

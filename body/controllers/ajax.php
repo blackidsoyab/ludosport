@@ -1026,4 +1026,23 @@ class ajax extends CI_Controller
         }
     }
 
+    public function downladCourseForm($type_1, $type_2, $form) {
+        $solutioncourse = new Solutioncourse();
+        $solutioncourse->where('type_1', $type_1);
+        $solutioncourse->where('type_2', $type_2);
+        $solutioncourse->like('form', $form);
+        $solutioncourse->get();
+        
+        if ($solutioncourse->result_count() == 1) {
+            $file = $solutioncourse->form;
+            if (file_exists('assets/solution_courses_form/' . $file)) {
+                $path = './assets/solution_courses_form/' . $file;
+                $file_info = new SplFileInfo($file);
+                downloadFile($path, $solutioncourse->{$this->session_data->language . '_name'} . '.' . $file_info->getExtension());
+            }
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -1,0 +1,1 @@
+<h1 class="page-heading h1 pull-left"><?php echo $this->lang->line('manage'), ' ', $this->lang->line('solution_course'); ?></h1>

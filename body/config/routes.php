@@ -189,9 +189,9 @@ $route['evolution'] = "students/viewEvolution";
 $route['evolution/(:num)'] = "students/viewEvolution/$1";
 $route['evolution/(:num)/(:any)'] = "students/viewEvolution/$1/$2";
 $route['evolution/apply_for_clan'] = "students/applyEvolutionClan";
-$route['received'] = "students/viewAdministrationReceived";
-$route['renewals'] = "students/viewAdministrationRenewal";
-$route['certificates'] = "students/viewAdministrationCertificate";
+$route['list_docs'] = "students/viewAdministrationListDocs";
+$route['upload_file'] = "students/viewAdministrationUploadFile";
+$route['application_form'] = "students/viewAdministrationApplicationForm";
 
 
 //Message System
@@ -294,6 +294,9 @@ $route['evolutionclan/listEvolutionClanRequestJson/(:num)'] = "json/getEvolution
 $route['evolutionclan/evolution_result_box/(:num)/(:num)'] = "ajax/evolutionClanResultBox/$1/$2";
 $route['evolutionclan/result'] = "evolutionclans/resultEvolutionclan";
 $route['evolutionclandate/delete/(:num)'] = "evolutionclans/evolutionClandateDelete/$1";
+
+//Solution Courses
+$route['moduli/(:num)/(:num)/(:any)'] = 'ajax/downladCourseForm/$1/$2/$3';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

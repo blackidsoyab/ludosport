@@ -141,7 +141,7 @@ class dashboard extends CI_Controller
     }
     
     function getStudentDashboard() {
-        if ($this->session_data->status === 'P') {
+        if ($this->session_data->role == 6 && $this->session_data->status === 'P') {
             $userdetail = new Userdetail();
             
             //Get the User extra details exit.
@@ -152,7 +152,7 @@ class dashboard extends CI_Controller
             } else {
                 $this->getPendingStudentDashboard();
             }
-        } else if ($this->session_data->status === 'A') {
+        } else if ($this->session_data->role == 6 && $this->session_data->status === 'A') {
             $this->getActiveStudentDashboard();
         } else {
             $this->session->set_flashdata('error', $this->lang->line('status_error'));
@@ -528,10 +528,17 @@ class dashboard extends CI_Controller
                 $obj_user_details->where('student_master_id', $this->session_data->id)->get();
 
                 $this->_sendRegistrationPart2Notification('registration_payment_recived', $obj_user_details->stored, $this->session_data->id);
-                
+
+                $this->session->set_flashdata('success', $this->lang->line('subscribe_registration_successfull'));
                 redirect(base_url() . 'dashboard', 'refresh');
             }
         } else {
+
+            if($this->session_data->role != 6){
+                $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                redirect(base_url() . 'dashboard', 'refresh');
+            }
+
             $user = new User($this->session_data->id);
             
             $user_details = new Userdetail();
@@ -598,7 +605,7 @@ class dashboard extends CI_Controller
 
                 $this->_sendRegistrationPart2Notification('registration_payment_recived', $obj_user_details->stored, $this->session_data->id);
                 
-                $this->session->set_flashdata('success', $this->lang->line('payment_success'));
+                $this->session->set_flashdata('success', $this->lang->line('subscribe_registration_successfull'));
                 
                 redirect(base_url() . 'dashboard', 'refresh');
             }
