@@ -530,7 +530,7 @@ class dashboard extends CI_Controller
                 $this->_sendRegistrationPart2Notification('registration_payment_recived', $obj_user_details->stored, $this->session_data->id);
 
                 $this->session->set_flashdata('success', $this->lang->line('subscribe_registration_successfull'));
-                redirect(base_url() . 'dashboard', 'refresh');
+                redirect(base_url() . 'register/step_2', 'refresh');
             }
         } else {
 
@@ -607,7 +607,7 @@ class dashboard extends CI_Controller
                 
                 $this->session->set_flashdata('success', $this->lang->line('subscribe_registration_successfull'));
                 
-                redirect(base_url() . 'dashboard', 'refresh');
+                redirect(base_url() . 'register/step_2', 'refresh');
             }
         } else if ($payment->getState() == 'created' && $status == 0) {
             $obj->update(array('state' => 'canceled'));
