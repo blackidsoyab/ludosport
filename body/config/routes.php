@@ -191,6 +191,7 @@ $route['evolution/(:num)/(:any)'] = "students/viewEvolution/$1/$2";
 $route['evolution/apply_for_clan'] = "students/applyEvolutionClan";
 $route['list_docs'] = "students/viewAdministrationListDocs";
 $route['list_docs/json_data'] = "json/getListDocsJsonData";
+$route['list_docs/json_data/(:num)'] = "json/getListDocsJsonData/$1";
 $route['docs/download/(:any)'] = 'ajax/downladStudentDocuments/$1';
 $route['upload_file'] = "students/viewAdministrationUploadFile";
 $route['application_form'] = "students/viewAdministrationApplicationForm";
@@ -250,6 +251,10 @@ $route['user_student/score_history/list/(:num)'] = 'users/listStudentScore/$1';
 $route['user_student/score_history/view/(:num)'] = 'users/listStudentScore/$1';
 $route['user_student/score_history/delete/(:num)'] = 'users/deleteStudentScore/$1';
 $route['user_student/score_history/get_json_score_history/(:num)/(:any)'] = "json/getStudentScoreHistroyJsonData/$1/$2";
+
+//User Documents
+$route['user_student/docs_history/(:num)'] = 'users/listStudentDocuments/$1';
+$route['user_student/delete_docs_history/(:num)'] = 'users/deleteStudentDocuments/$1';
 
 //Events
 $route['event/invitation/(:num)'] = "events/sendEventInvitation/$1";

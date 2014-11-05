@@ -86,8 +86,8 @@ small.help-block{
 }
 
 .actions {
-    margin-right: 5px;
-    margin-left: 5px;
+    display: inline-block;
+    margin: 0 5px 10px;
 }
 
 .media .media-body .logout-action {

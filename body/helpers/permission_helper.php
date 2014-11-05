@@ -95,6 +95,36 @@ if (!function_exists('validAcess')) {
             }
         }
 
+        if($type == 'student'){
+            if($session->role == 1 || $session->role == 2){
+                return true;
+            }
+
+            if($session->role == 3){
+                $obj = new Userdetail();
+                $ids = $obj->getRelatedStudentsByRector($session->id);
+                return in_array($id, $ids);
+            }
+
+            if($session->role == 4){
+                $obj = new Userdetail();
+                $ids = $obj->getRelatedStudentsByDean($session->id);
+                return in_array($id, $ids);
+            }
+
+            if($session->role == 5){
+                $obj = new Userdetail();
+                $ids = $obj->getRelatedStudentsByTeacher($session->id);
+                return in_array($id, $ids);
+            }
+
+            if($session->role == 6){
+                $obj = new Userdetail();
+                $ids = $obj->getRelatedStudentsByStudent($session->id);
+                return in_array($id, $ids);
+            }
+        }
+
         if($type == 'evolutionclan'){
             if($session->role == 1 || $session->role == 2){
                 return true;
@@ -124,7 +154,6 @@ if (!function_exists('validAcess')) {
                 return in_array($id, $ids);
             }
         }
-
     }
 }
 
@@ -257,6 +286,8 @@ if (!function_exists('createPermissionArray')) {
                     'deleteStudentBatches' => array('name' => 'Delete Student Badge History'),
                     'listStudentScore' => array('name' => 'List Student Score History'),
                     'deleteStudentScore' => array('name' => 'Score Student Score History'),
+                    'listStudentDocuments' => array('name' => 'List Student Document History'),
+                    'deleteStudentDocuments' => array('name' => 'Delte Student Document History'),
                     )),
             'studentratings' => array(
                 'name' => $CI->lang->line('rating') . '(Merit/Demerit)',

@@ -589,4 +589,26 @@ class users extends CI_Controller
             $obj_score_history->delete();
         }
     }
+
+    public function listStudentDocuments($student_id){
+        $this->layout->setField('page_title', $this->lang->line('list_docs'));
+        $data['user'] = new User($student_id);
+        $this->layout->view('users/student_docs_history_view', $data);
+    }
+    public function deleteStudentDocuments($id){
+        $obj = new Studentdocument($id);
+        if($obj->result_count() == 1){
+            if(validAcess($obj->student_id, 'student')){
+                if (file_exists('assets/student_documents/' . $obj->file)) {
+                    unlink('assets/student_documents/' . $obj->file);
+                }
+                $obj->delete();
+            } else {
+                return false;
+            }
+        }else{
+            return false;
+        }
+        
+    }
 }

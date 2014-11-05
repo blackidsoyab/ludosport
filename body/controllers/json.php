@@ -307,13 +307,21 @@ class json extends CI_Controller
             }
             
             $str = NULL;
-            if (in_array(6, explode(',', $aRow['role_id'])) && $aRow['status'] == 'A' && hasPermission('users', 'listStudentScore')) {
-                $str.= '<a href="' . base_url() . 'user_student/score_history/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('list_score_history') . '"><i class="fa fa-star icon-circle icon-xs icon-info"></i></a>';
-            }
-            
-            if (in_array(6, explode(',', $aRow['role_id'])) && $aRow['status'] == 'A' && hasPermission('users', 'listStudentBatches')) {
-                $str.= '<a href="' . base_url() . 'user_student/badge_history/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('list_badge_history') . '"><i class="fa fa-graduation-cap icon-circle icon-xs icon-warning"></i></a>';
-            }
+            if (in_array(6, explode(',', $aRow['role_id'])) && $aRow['status'] == 'A' ){
+                if(hasPermission('users', 'listStudentScore')) {
+                    $str.= '<a href="' . base_url() . 'user_student/score_history/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('list_score_history') . '"><i class="fa fa-star icon-circle icon-xs icon-info"></i></a>';
+                }
+
+                if (hasPermission('users', 'listStudentBatches')) {
+                    $str.= '<a href="' . base_url() . 'user_student/badge_history/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('list_badge_history') . '"><i class="fa fa-graduation-cap icon-circle icon-xs icon-warning"></i></a>';
+                }
+
+                if (hasPermission('users', 'listStudentDocuments')) {
+                    $str.= '<a href="' . base_url() . 'user_student/docs_history/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('list_doc_history') . '"><i class="fa fa-files-o icon-circle icon-xs icon-success"></i></a>';
+                }
+
+                $str .= '<br />';
+            } 
             
             if (hasPermission('users', 'editUser')) {
                 $str.= '<a href="' . base_url() . 'user/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
@@ -1805,13 +1813,16 @@ class json extends CI_Controller
         exit();
     }
     
-    public function getListDocsJsonData() {
+    public function getListDocsJsonData($student_id = null) {
+        if(is_null($student_id)){
+            $student_id = $this->session_data->id;
+        }
         $this->load->library('datatable');
         $this->datatable->aColumns = array('name', 'valid_till');
-        $this->datatable->eColumns = array('id', 'file');
+        $this->datatable->eColumns = array('id', 'file', 'student_id');
         $this->datatable->sIndexColumn = "id";
         $this->datatable->sTable = " studentdocuments";
-        $this->datatable->myWhere = 'WHERE student_id = ' . $this->session_data->id;
+        $this->datatable->myWhere = 'WHERE student_id = ' . $student_id;
         $this->datatable->datatable_process();
         
         foreach ($this->datatable->rResult->result_array() as $aRow) {
@@ -1820,8 +1831,14 @@ class json extends CI_Controller
             $temp_arr[] = date('d-m-Y', strtotime($aRow['valid_till']));
             
             $temp_arr[] = '<a href="' . base_url() . 'docs/download/' . $aRow['file'] . '" >' . $this->lang->line('download') . '</a>';
-            
-            $temp_arr[] = '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+
+            if($this->session_data->role != 6 && hasPermission('users', 'deleteStudentDocuments')) {
+                $temp_arr[] = '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            }else if($this->session_data->role == 6 && $this->session_data->id == $aRow['student_id']) {
+                $temp_arr[] = '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
+            } else {
+                $temp_arr[] = null;
+            }
             
             $this->datatable->output['aaData'][] = $temp_arr;
         }
