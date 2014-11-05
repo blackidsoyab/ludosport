@@ -13,5 +13,6 @@
 /assets/email_attachments/*
 /assets/solution_courses_form/*
 /assets/attribution_cards/*
+/assets/student_documents/*
 upload_to_ftp.sh
 git-ftp.py

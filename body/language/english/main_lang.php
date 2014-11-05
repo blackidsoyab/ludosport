@@ -592,4 +592,9 @@ $lang['enrolment'] = 'Enrolment';
 $lang['price'] = 'Price';
 $lang['course_form'] = 'Course form';
 $lang['application_form'] = 'Application form';
+
+//Student Administration Upload File
+$lang['student_file_name'] = 'File Name';
+$lang['student_file'] = 'File';
+$lang['student_file_valid_till'] = 'Valid till';
 ?>

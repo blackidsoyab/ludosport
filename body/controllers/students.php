@@ -1136,8 +1136,50 @@ class students extends CI_Controller
     }
     
     function viewAdministrationUploadFile() {
-        $this->layout->setField('page_title', $this->lang->line('student_administrations_menu_upload_file'));
-        $this->layout->view('students/administration_upload_file');
+        if($this->input->post() != false){
+            $obj = new Studentdocument();
+
+            if ($_FILES['student_file']['name'] != '') {
+                $file = $this->uploadFiles('student_file');
+                if (isset($file['error'])) {
+                    $this->session->set_flashdata('file_error_form', $file['error']);
+                    redirect(base_url() . 'upload_file', 'refresh');
+                } else if (isset($file['upload_data'])) {
+                    $obj->file = $file['upload_data']['file_name'];
+                }
+            }
+
+            $obj->student_id = $this->session_data->id;
+            $obj->name = $this->input->post('name');
+            $obj->valid_till = date('Y-m-d', strtotime($this->input->post('valid_till')));
+            $obj->user_id = $this->session_data->id;
+            $obj->save();
+
+            $this->session->set_flashdata('success', $this->lang->line('add_data_success'));
+            redirect(base_url() . 'upload_file', 'refresh');
+
+        }else {
+            $this->layout->setField('page_title', $this->lang->line('student_administrations_menu_upload_file'));
+            $this->layout->view('students/administration_upload_file');
+        }
+    }
+
+    function uploadFiles($field) {
+        if ($field == 'student_file') {
+            $this->upload->initialize(array('upload_path' => "./assets/student_documents/", 'allowed_types' => 'pdf|doc|docx|jpg|jpeg|gif|png|bmp', 'overwrite' => FALSE, 'remove_spaces' => TRUE, 'encrypt_name' => TRUE));
+        }
+        
+        if (!$this->upload->do_upload($field)) {
+            $data = array('error' => $this->upload->display_errors());
+        } else {
+            $data = array('upload_data' => $this->upload->data($field));
+            
+            if ($field == 'student_file') {
+                chmod("./assets/student_documents/" . $data['upload_data']['file_name'], 0755);
+            }
+        }
+        
+        return $data;
     }
     
     function viewAdministrationApplicationForm() {

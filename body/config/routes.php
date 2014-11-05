@@ -190,6 +190,8 @@ $route['evolution/(:num)'] = "students/viewEvolution/$1";
 $route['evolution/(:num)/(:any)'] = "students/viewEvolution/$1/$2";
 $route['evolution/apply_for_clan'] = "students/applyEvolutionClan";
 $route['list_docs'] = "students/viewAdministrationListDocs";
+$route['list_docs/json_data'] = "json/getListDocsJsonData";
+$route['docs/download/(:any)'] = 'ajax/downladStudentDocuments/$1';
 $route['upload_file'] = "students/viewAdministrationUploadFile";
 $route['application_form'] = "students/viewAdministrationApplicationForm";
 

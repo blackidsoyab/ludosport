@@ -798,8 +798,8 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
-
-        public function getEventInvitationJsonData($event_id) {
+    
+    public function getEventInvitationJsonData($event_id) {
         $this->load->library('datatable');
         $this->datatable->aColumns = array('GROUP_CONCAT(CONCAT(f.firstname," ",f.lastname,"_",from_id) ORDER BY f.firstname ASC, f.lastname ASC) AS from_name', 'CONCAT(t.firstname," ",t.lastname,"_",to_id) AS to_name', 'COUNT(*) AS total');
         $this->datatable->eColumns = array('e.id');
@@ -825,7 +825,7 @@ class json extends CI_Controller
                 $to_str.= ',&nbsp;<a href="' . base_url() . 'profile/view/' . $id . '">' . ucwords($name) . '</a>' . "\n";
             }
             $temp_arr[] = substr($to_str, 7);
-
+            
             $temp_arr[] = $aRow['total'];
             
             $this->datatable->output['aaData'][] = $temp_arr;
@@ -833,36 +833,35 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
-
-    public function getviewEventInvitedJsonData(){
+    
+    public function getviewEventInvitedJsonData() {
         $this->load->library('datatable');
-        $this->datatable->aColumns = array($this->session_data->language.'_name AS event_name', 'CONCAT(date_from, " ", date_to) AS event_date','GROUP_CONCAT(CONCAT(f.firstname," ",f.lastname,"_",from_id) ORDER BY f.firstname ASC, f.lastname ASC) AS from_name', 'COUNT(*) AS total');
+        $this->datatable->aColumns = array($this->session_data->language . '_name AS event_name', 'CONCAT(date_from, " ", date_to) AS event_date', 'GROUP_CONCAT(CONCAT(f.firstname," ",f.lastname,"_",from_id) ORDER BY f.firstname ASC, f.lastname ASC) AS from_name', 'COUNT(*) AS total');
         $this->datatable->eColumns = array('e.id');
         $this->datatable->sIndexColumn = "e.id";
         $this->datatable->sTable = " eventinvitations e, events, users f";
         $this->datatable->myWhere = ' WHERE events.id=e.event_id AND f.id=e.from_id AND to_id= ' . $this->session_data->id;
         $this->datatable->groupBy = ' GROUP BY e.event_id';
         $this->datatable->datatable_process();
-
+        
         foreach ($this->datatable->rResult->result_array() as $aRow) {
             $temp_arr = array();
-
+            
             $temp_arr[] = $aRow['event_name'];
             list($date_from, $date_to) = explode(' ', $aRow['event_date']);
-            if(strtotime($date_from) == strtotime($date_to)){
+            if (strtotime($date_from) == strtotime($date_to)) {
                 $temp_arr[] = date('d-m-Y', strtotime($date_from));
-            } else{
+            } else {
                 $temp_arr[] = date('d-m-Y', strtotime($date_from)) . ' <br />-<br /> ' . date('d-m-Y', strtotime($date_to));
             }
             
-
             $from_str = null;
             foreach (explode(',', $aRow['from_name']) as $from) {
                 list($name, $id) = explode('_', $from);
                 $from_str.= ',&nbsp;<a href="' . base_url() . 'profile/view/' . $id . '">' . ucwords($name) . '</a>' . "\n";
             }
             $temp_arr[] = substr($from_str, 7);
-
+            
             $temp_arr[] = $aRow['total'];
             
             $this->datatable->output['aaData'][] = $temp_arr;
@@ -902,7 +901,7 @@ class json extends CI_Controller
             if ($aRow['type'] == 'S') {
                 $temp_arr[] = '<span class="label label-danger">' . $this->lang->line('security') . '</span>';
             }
-
+            
             if ($aRow['type'] == 'T') {
                 $temp_arr[] = '<span class="label label-default">' . $this->lang->line('tournament') . '</span>';
             }
@@ -1586,7 +1585,7 @@ class json extends CI_Controller
             if (hasPermission('evolutioncategories', 'editEvolutioncategory')) {
                 $str.= '<a href="' . base_url() . 'evolutioncategory/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
             }
-
+            
             $temp_arr[] = $str;
             
             $this->datatable->output['aaData'][] = $temp_arr;
@@ -1742,13 +1741,12 @@ class json extends CI_Controller
             $temp_arr[] = $aRow['class_name'];
             $temp_arr[] = $aRow['school_name'];
             $temp_arr[] = $aRow['academy_name'];
-
+            
             if ($aRow['status'] == 'A') {
                 $str = '<label class="label label-info">' . $this->lang->line('evolution_active_student') . '</label>';
                 if (hasPermission('evolutionclans', 'resultEvolutionclan')) {
-                    $str .= '<br /><a href="'.base_url().'evolutionclan/evolution_result_box/'.$aRow['evolutionclan_id'].'/'.$aRow['student_id'].'" class="btn btn-default btn-perspective mar-tp-10" data-toggle="modal" data-target="#declare_result" data-studentid="' . $aRow['student_id'] . '" data-evolutionclanid="' . $aRow['evolutionclan_id'] . '">'. $this->lang->line('btn_declare_result_of_evolution_clan') .'</a>';
+                    $str.= '<br /><a href="' . base_url() . 'evolutionclan/evolution_result_box/' . $aRow['evolutionclan_id'] . '/' . $aRow['student_id'] . '" class="btn btn-default btn-perspective mar-tp-10" data-toggle="modal" data-target="#declare_result" data-studentid="' . $aRow['student_id'] . '" data-evolutionclanid="' . $aRow['evolutionclan_id'] . '">' . $this->lang->line('btn_declare_result_of_evolution_clan') . '</a>';
                 }
-                
             } else if ($aRow['status'] == 'U') {
                 $str = '<label class="label label-danger">' . $this->lang->line('rejected_evolution_clan_request') . '</label>';
             } else if ($aRow['status'] == 'P') {
@@ -1760,7 +1758,7 @@ class json extends CI_Controller
             } else {
                 $str = null;
             }
-
+            
             $temp_arr[] = $str;
             
             $this->datatable->output['aaData'][] = $temp_arr;
@@ -1768,11 +1766,11 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
-
+    
     public function getSolutioncoursesJsonData() {
         $this->load->library('datatable');
         $this->datatable->aColumns = array('solutioncourses.' . $this->session_data->language . '_name AS solutioncourse', 'academies.' . $this->session_data->language . '_academy_name AS academy');
-        $this->datatable->eColumns = array('solutioncourses.id', 'type_1', 'type_2','form');
+        $this->datatable->eColumns = array('solutioncourses.id', 'type_1', 'type_2', 'form');
         $this->datatable->sIndexColumn = "solutioncourses.id";
         $this->datatable->sTable = " solutioncourses, academies";
         $this->datatable->myWhere = 'WHERE academies.id=solutioncourses.academy_id';
@@ -1782,15 +1780,14 @@ class json extends CI_Controller
             $temp_arr = array();
             $temp_arr[] = $aRow['solutioncourse'];
             $temp_arr[] = $aRow['academy'];
-
-
+            
             $type_1 = getSolutionCoursesType1($aRow['type_1']);
-            $temp_arr[] = $type_1[$this->session_data->language.'_name'];
-
+            $temp_arr[] = $type_1[$this->session_data->language . '_name'];
+            
             $type_2 = getSolutionCoursesType2($aRow['type_2']);
-            $temp_arr[] = $type_2[$this->session_data->language.'_name'];
-
-            $temp_arr[] = '<a href="'. base_url() .'moduli/'. $aRow['type_1'] .'/'. $aRow['type_2'] .'/'. $aRow['form'] .'" >'. $this->lang->line('download') .'</a>';
+            $temp_arr[] = $type_2[$this->session_data->language . '_name'];
+            
+            $temp_arr[] = '<a href="' . base_url() . 'moduli/' . $aRow['type_1'] . '/' . $aRow['type_2'] . '/' . $aRow['form'] . '" >' . $this->lang->line('download') . '</a>';
             
             $str = NULL;
             if (hasPermission('solutioncourses', 'editSolutioncourse')) {
@@ -1801,6 +1798,30 @@ class json extends CI_Controller
                 $str.= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
             }
             $temp_arr[] = $str;
+            
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+    
+    public function getListDocsJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('name', 'valid_till');
+        $this->datatable->eColumns = array('id', 'file');
+        $this->datatable->sIndexColumn = "id";
+        $this->datatable->sTable = " studentdocuments";
+        $this->datatable->myWhere = 'WHERE student_id = ' . $this->session_data->id;
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = $aRow['name'];
+            $temp_arr[] = date('d-m-Y', strtotime($aRow['valid_till']));
+            
+            $temp_arr[] = '<a href="' . base_url() . 'docs/download/' . $aRow['file'] . '" >' . $this->lang->line('download') . '</a>';
+            
+            $temp_arr[] = '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
             
             $this->datatable->output['aaData'][] = $temp_arr;
         }

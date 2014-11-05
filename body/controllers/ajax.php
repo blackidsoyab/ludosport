@@ -1045,4 +1045,28 @@ class ajax extends CI_Controller
         }
     }
 
+    public function downladStudentDocuments($file){
+        if(!empty($file)){
+            $obj = new Studentdocument();
+            $obj->where('file', $file);
+            if($this->session_data->role == 6){
+                $obj->where('student_id', $this->session_data->id);
+            }
+            $obj->get();
+
+            if($obj->result_count() == 1){
+                if (file_exists('assets/student_documents/' . $file)) {
+                    $path = './assets/student_documents/' . $file;
+                    $file_info = new SplFileInfo($file);
+                    downloadFile($path, $obj->name . '.' . $file_info->getExtension());
+                }
+            }else{
+                return false;
+            }
+
+        } else {
+            return false;
+        }
+    }
+
 }
