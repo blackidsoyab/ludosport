@@ -393,10 +393,6 @@
 
                             <li class="static"><i class="fa fa-table icon-sidebar"></i>&nbsp;<?php echo $this->lang->line('setting'); ?></li>
 
-                            <?php if (hasPermission('solutionscourses', 'viewSolutionscourse')) { ?>   
-                            <li class="<?php echo ($page == 'solutioncourse') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'solutioncourse'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('solution_course'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('solution_course'); ?></a></li>
-                            <?php } ?>
-
                             <?php if (hasPermission('levels', 'viewLevel')) { ?>   
                             <li class="<?php echo ($page == 'level') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'level'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('level'); ?>"><i class="fa fa-wrench icon-sidebar"></i><?php echo $this->lang->line('level'); ?></a></li>
                             <?php } ?>                     
@@ -511,9 +507,7 @@
                                     <?php echo $this->lang->line('shop'); ?>
                                 </a>
                             </li>
-                        <?php } ?>
 
-                        <?php if($session->role == 6) { ?>
                             <li class="<?php echo ($page == 'payment' || $page == 'application_form' || $page == 'list_docs' || $page == 'upload_file') ? 'active selected' : ''; ?>">
                                 <a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('administrations'); ?>">
                                     <i class="fa fa-cog icon-sidebar"></i>
