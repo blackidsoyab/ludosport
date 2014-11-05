@@ -12,7 +12,7 @@ class students extends CI_Controller
         $this->layout->setField('page_title', $this->config->item('app_name'));
         $this->session_data = $this->session->userdata('user_session');
         
-        if ($this->session_data->role != 6 || ($this->session_data->role == 6 && $this->session_data->sataus != 'A')) {
+        if ($this->session_data->role != 6) {
             $this->session->set_flashdata('error', $this->lang->line('permisson_error'));
             redirect(base_url() . 'denied', 'refresh');
         }

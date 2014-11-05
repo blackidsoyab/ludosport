@@ -716,3 +716,8 @@ h1.page-heading a{
 #tournament_batch_history .modal-header.bg-success{
     background-color: #8CC152;
 }
+
+.solution-course-img{
+    width: 100%;
+    height: auto;
+}

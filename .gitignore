@@ -7,8 +7,11 @@
 /nbproject/*
 /assets/img/user_avtar/*
 /assets/img/batches/*
+/assets/img/event_images/*
+/assets/img/solution_courses/*
 /assets/message_attachments/*
 /assets/email_attachments/*
-/assets/img/event_images/*
+/assets/solution_courses_form/*
+/assets/attribution_cards/*
 upload_to_ftp.sh
 git-ftp.py
