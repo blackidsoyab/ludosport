@@ -105,17 +105,15 @@
     }
 //]]>
 </script>
-<h1 class="page-heading"><?php echo $session->role_name; ?></h1>
-
+<br />
 <div class="row">
-    <div class="col-lg-12 text-center">
-        <a href="" class="btn btn-primary btn-perspective btn-lg" id="request-trail-lesson"><?php echo $this->lang->line('request_for_trail_lesson'); ?></a>
-        <a href="<?php echo base_url() .'register/step_2'; ?>" class="btn btn-success btn-perspective btn-lg"><?php echo $this->lang->line('continue_registration_process'); ?></a>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="the-box">
+            <div class="blog-detail-image">
+            <img src="<?php echo IMG_URL .'banner.png'; ?>" class="img-blog" alt="Banner">
+            </div>
+        </div>
     </div>
-</div>
-
-<div class="clear">
-&nbsp;
 </div>
 
 <?php if(isset($already_applied)) { ?>
@@ -129,6 +127,13 @@
         </div>
     </div>   
 <?php } ?>
+
+<div class="row">
+    <div class="col-lg-12 text-center">
+        <a href="" class="btn btn-primary btn-perspective btn-lg" id="request-trail-lesson"><?php echo $this->lang->line('request_for_trail_lesson'); ?></a>
+        <a href="<?php echo base_url() .'register/step_2'; ?>" class="btn btn-success btn-perspective btn-lg"><?php echo $this->lang->line('continue_registration_process'); ?></a>
+    </div>
+</div>
 
 <form id="trial_clan_selection" action="<?php echo base_url() . 'pending_student/save_trial_lesson'; ?>" method="post">
     <input type="hidden" value="<?php echo $session->id ?>" name="student_id" />

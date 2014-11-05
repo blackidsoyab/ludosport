@@ -180,7 +180,7 @@ class academies extends CI_Controller
               $user->User_details->delete_all();
               }
               $academy->School->delete_all(); */
-            $academy->delete();
+            //$academy->delete();
             
             $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
             redirect(base_url() . 'academy', 'refresh');

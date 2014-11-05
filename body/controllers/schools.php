@@ -99,8 +99,16 @@ class schools extends CI_Controller
         } else {
             $this->layout->setField('page_title', $this->lang->line('add') . ' ' . $this->lang->line('school'));
             
-            $academy = New Academy();
-            $data['academies'] = $academy->get();
+            $academy = new Academy();
+            if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+                $data['academies'] = $academy->get();
+            } else if ($this->session_data->role == '3') {
+                $data['academies'] = $academy->getAcademyOfRector($this->session_data->id);
+            } else if ($this->session_data->role == '4') {
+                $data['academies'] = $academy->getAcademyOfDean($this->session_data->id);
+            } else if ($this->session_data->role == '5') {
+                $data['academies'] = $academy->getAcademyOfTeacher($this->session_data->id);
+            }
             
             $users = New User();
             $data['users'] = $users->getUsersByRole(4);
@@ -175,7 +183,7 @@ class schools extends CI_Controller
         if (!empty($id)) {
             $school = new School();
             $school->where('id', $id)->get();
-            $school->delete();
+            //$school->delete();
             $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
             redirect(base_url() . 'school', 'refresh');
         } else {

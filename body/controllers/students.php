@@ -1130,19 +1130,63 @@ class students extends CI_Controller
         return true;
     }
     
-    function viewAdministrationReceived() {
-        $this->layout->setField('page_title', $this->lang->line('administrations') . ' ' . $this->lang->line('received'));
-        $this->layout->view('students/administration_received');
+    function viewAdministrationListDocs() {
+        $this->layout->setField('page_title', $this->lang->line('list_docs'));
+        $this->layout->view('students/administration_list_docs');
     }
     
-    function viewAdministrationRenewal() {
-        $this->layout->setField('page_title', $this->lang->line('administrations') . ' ' . $this->lang->line('renewals'));
-        $this->layout->view('students/administration_renewal');
+    function viewAdministrationUploadFile() {
+        $this->layout->setField('page_title', $this->lang->line('student_administrations_menu_upload_file'));
+        $this->layout->view('students/administration_upload_file');
     }
     
-    function viewAdministrationCertificate() {
-        $this->layout->setField('page_title', $this->lang->line('administrations') . ' ' . $this->lang->line('certificates'));
-        $this->layout->view('students/administration_certificate');
+    function viewAdministrationApplicationForm() {
+        $this->layout->setField('page_title', $this->lang->line('application_form'));
+        /*
+        $user = new User($this->session_data->id);
+
+        $user_details = new Userdetail();
+        $user_details->where('student_master_id', $this->session_data->id)->get();
+
+        $clan = new Clan();
+        $data['clan_details'] = $clan->where('id', $user_details->clan_id)->get();
+        $data['school_details'] = $clan->School->get();
+        $data['academy_details'] = $clan->School->Academy->get();
+
+        $age = explode(' ', time_elapsed_string(date('Y-m-d H:i:s', $user->date_of_birth)));
+        if ($age[1] == 'year' && $age[0] != 0) {
+            $type = 0;
+            if ($age < 16) {
+                $type_1 = 1;
+            } else if ($age >= 16 & $age <= 18) {
+                $type_1 = 2;
+            } else if ($age > 18) {
+                $type_1 = 3;
+            }
+
+            $data['application_forms_type_2'] = getSolutionCoursesType2();
+            foreach ($data['application_forms_type_2'] as $type_2) {
+                $solution_course = new Solutioncourse();
+                $solution_course->where('type_1', $type_1);
+                $solution_course->where('type_2', $type_2['id']);
+                $solution_course->where('academy_id', $data['academy_details']->id);
+                $solution_course->get();
+
+                if($solution_course->result_count() > 0){
+                    foreach ($solution_course as $course) {
+                        $data['application_forms_'.$type_2['id']][] = $course->stored;
+                    }
+                }else{
+                    $data['application_forms_'.$type_2['id']] = false;
+                }
+            }
+        } else {
+            $data['application_forms'] = false;
+        }
+        */
+        $data['application_forms_type_2'] = array();
+
+        $this->layout->view('students/administration_application_form', $data);
     }
 
     function viewTimline($year = 0){

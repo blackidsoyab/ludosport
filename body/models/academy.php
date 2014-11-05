@@ -3,7 +3,7 @@ class Academy extends DataMapper
 {
     
     public $table = 'academies';
-    public $has_many = array('school');
+    public $has_many = array('school','solutioncourse');
     
     function __construct($id = NULL) {
         parent::__construct($id);
