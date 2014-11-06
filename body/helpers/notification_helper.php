@@ -354,11 +354,7 @@ function getNotificationTemplate($options, $user_name_link = false) {
 
     if ($options['notify_type'] == 'challenge_winner') {
         $template_edit = true;
-        if($options['data']['result'] == $session->id){
-            $user_name['name'] = 'You';
-        }else{
-            $user_name = userNameAvtar($options['data']['result'], $user_name_link);
-        }
+        $user_name = userNameAvtar($options['data']['result'], $user_name_link);
         $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name']);
     }
 
@@ -456,8 +452,8 @@ function seNotificationTemplate() {
         ),
         'apply_trial_lesson' =>
         array(
-            'en' => '%s applied for trial lesson',
-            'it' => '%s applied for trial lesson'
+            'en' => '%s has applied for trial lesson',
+            'it' => '%s has applied for trial lesson'
         ),
         'trial_lesson_approved' =>
         array(
@@ -471,13 +467,13 @@ function seNotificationTemplate() {
         ),
         'registration_payment_recived' =>
         array(
-            'en' => 'The %s has done payment for clan %s, %s, %s.',
-            'it' => 'The %s has done payment for clan %s, %s, %s.',
+            'en' => '%s made the payment for clan %s, %s, %s.',
+            'it' => '%s made the payment for clan %s, %s, %s.',
         ),
         'accept_as_student' =>
         array(
-            'en' => '%s requestd for trial lesson Accept as student by %s',
-            'it' => '%s requestd for trial lesson Accept as student by %s',
+            'en' => '%s has requestd for trial lesson Accept as student by %s',
+            'it' => '%s has requestd for trial lesson Accept as student by %s',
         ),
         'student_absent' =>
         array(
@@ -491,13 +487,13 @@ function seNotificationTemplate() {
         ),
         'recovery_assign_by_teacher_student' =>
         array(
-            'en' => '%s reschedule your clan. The recovery Clan is %s on %s',
-            'it' => '%s reschedule your clan. The recovery Clan is %s on %s',
+            'en' => '%s has reschedule your clan. The recovery Clan is %s on %s',
+            'it' => '%s has reschedule your clan. The recovery Clan is %s on %s',
         ),
         'recovery_assign_by_teacher_teacher' =>
         array(
-            'en' => '%s reschedule student %s  clan. The recovery Clan is %s on %s',
-            'it' => '%s reschedule student %s clan. The recovery Clan is %s on %s',
+            'en' => '%s has reschedule student %s  clan. The recovery Clan is %s on %s',
+            'it' => '%s has reschedule student %s clan. The recovery Clan is %s on %s',
         ),
         'event_invitation' =>
         array(
@@ -516,8 +512,8 @@ function seNotificationTemplate() {
         ),
         'recovery_teacher' =>
         array(
-            'en' => '%s will take lesson of %s on %s inplace of <strong>%s</strong>. It is approved by <strong>%s</strong>',
-            'it' => '%s avrà lezione di %s su %s inplace di <strong>%s</strong>. It is approved by <strong>%s</strong>',
+            'en' => '%s will take lesson of %s on %s inplace of %s. It is approved by %s',
+            'it' => '%s avrà lezione di %s su %s inplace di %s. It is approved by %s',
         ),
         'holiday_approved' =>
         array(
@@ -586,8 +582,8 @@ function seNotificationTemplate() {
         ),
         'evolution_clan_request' =>
         array(
-            'en' => '%s requested for the evolution clan %s',
-            'it' => '%s requested for the evolution clan %s',
+            'en' => '%s has requested for the evolution clan %s',
+            'it' => '%s has requested for the evolution clan %s',
         ),
         'evolution_clan_request_approved' =>
         array(
@@ -734,13 +730,19 @@ function getTimelineTemplate($options, $user_name_link = false) {
     
     if ($options['notify_type'] == 'challenge_made') {
         $template_edit = true;
-        if($options['data']['from_id'] == $session->id){
-            $user_name = userNameAvtar($options['data']['to_id'], $user_name_link);
+        if($options['data']['to_id'] == $session->id){
+            $user_name_to['name'] = 'You';
         }else{
-            $user_name['name'] = 'You';
-            //$user_name = userNameAvtar($options['data']['result'], $user_name_link);
+            $user_name_to = userNameAvtar($options['data']['to_id'], $user_name_link);
         }
-        $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name['name']);
+
+        if($options['data']['from_id'] == $session->id){
+            $user_name_from['name'] = 'You';
+        }else{
+            $user_name_from = userNameAvtar($options['data']['from_id'], $user_name_link);
+        }
+        
+        $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name_from['name'], $user_name_to['name']);
     }
 
     if ($options['notify_type'] == 'challenge_winner') {
@@ -856,8 +858,8 @@ function setTimelineTemplate() {
         ),
         'registration_payment_recived' =>
         array(
-            'en' => 'The %s has done payment for clan %s, %s, %s.',
-            'it' => 'The %s has done payment for clan %s, %s, %s.',
+            'en' => '%s made the payment for clan %s, %s, %s.',
+            'it' => '%s made the payment for clan %s, %s, %s.',
         ),
         'accept_as_student' =>
         array(
@@ -901,8 +903,8 @@ function setTimelineTemplate() {
         ),
         'recovery_teacher' =>
         array(
-            'en' => '<strong>%s</strong> will take lesson of %s on %s inplace of <strong>%s</strong>. It is approved by <strong>%s</strong>',
-            'it' => '<strong>%s</strong> avrà lezione di %s su %s inplace di <strong>%s</strong>. It is approved by <strong>%s</strong>',
+            'en' => '%s will take lesson of %s on %s inplace of %s. It is approved by %s',
+            'it' => '%s avrà lezione di %s su %s inplace di %s. It is approved by %s',
         ),
         'holiday_approved' =>
         array(
@@ -916,13 +918,13 @@ function setTimelineTemplate() {
         ),
         'change_clan_date' =>
         array(
-            'en' => 'Your clan <strong>%s</strong> has been reschedule from %s to %s',
-            'it' => 'Your clan <strong>%s</strong> has been reschedule from %s to %s',
+            'en' => 'Your clan %s has been reschedule from %s to %s',
+            'it' => 'Your clan %s has been reschedule from %s to %s',
         ),
         'challenge_made' =>
         array(
-            'en' => 'Has challenged %s.',
-            'it' => 'Has challenged %s.',
+            'en' => '%s has challenged %s.',
+            'it' => '%s has challenged %s.',
         ),
         'challenge_accepted' =>
         array(
@@ -936,8 +938,8 @@ function setTimelineTemplate() {
         ),
         'challenge_winner' =>
         array(
-            'en' => '<strong>%s</strong> won the challenge.',
-            'it' => '<strong>%s</strong> won the challenge.',
+            'en' => '%s won the challenge.',
+            'it' => '%s won the challenge.',
         ),
         'challenge_winner_confirmation' =>
         array(
@@ -951,18 +953,18 @@ function setTimelineTemplate() {
         ),
         'batch_request' =>
         array(
-            'en' => 'Request for a badge <strong>%s</strong> to %s.',
-            'it' => 'Request for a badge <strong>%s</strong> to %s.',
+            'en' => 'Request for a badge %s to %s.',
+            'it' => 'Request for a badge %s to %s.',
         ),
         'batch_request_approved' =>
         array(
-            'en' => 'Your request for a badge <strong>%s</strong> to %s is approved.',
-            'it' => 'Your request for a badge <strong>%s</strong> to %s is approved.',
+            'en' => 'Your request for a badge %s to %s is approved.',
+            'it' => 'Your request for a badge %s to %s is approved.',
         ),
         'batch_request_unapproved' =>
         array(
-            'en' => 'Your request for a badge <strong>%s</strong> to %s is unapproved.',
-            'it' => 'Your request for a badge <strong>%s</strong> to %s is unapproved.',
+            'en' => 'Your request for a badge %s to %s is unapproved.',
+            'it' => 'Your request for a badge %s to %s is unapproved.',
         ),
         'new_announcement' =>
         array(

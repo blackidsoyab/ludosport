@@ -196,37 +196,37 @@
                 <div class="col-sm-3 col-xs-6 col-md-6">
                     <div class="tiles dribbble-tile text-center">
                         <h1 class="bolded less-distance" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('wins'); ?>"><?php echo $total_victories; ?></h1>
-                        <h4 class="overflow-hidden nowrap overflow-text-dot" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('wins'); ?>"><?php echo $this->lang->line('wins'); ?></h4>
+                        <h4 class="" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('wins'); ?>"><?php echo $this->lang->line('wins'); ?></h4>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 col-md-6">
                     <div class="tiles dribbble-tile text-center">
                         <h1 class="bolded less-distance" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('defeat'); ?>"><?php echo $total_defeats; ?></h1>
-                        <h4 class="overflow-hidden nowrap overflow-text-dot" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('defeat'); ?>"><?php echo $this->lang->line('defeat'); ?></h4>
+                        <h4 class="" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('defeat'); ?>"><?php echo $this->lang->line('defeat'); ?></h4>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 col-md-6">
                     <div class="tiles dribbble-tile text-center">
                         <h1 class="bolded less-distance" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_made'); ?>"><?php echo $total_made; ?></h1>
-                        <h4 class="overflow-hidden nowrap overflow-text-dot" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_made'); ?>"><?php echo $this->lang->line('challenges_made'); ?></h4>
+                        <h4 class="" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_made'); ?>"><?php echo $this->lang->line('challenges_made'); ?></h4>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 col-md-6">
                     <div class="tiles dribbble-tile text-center">
                         <h1 class="bolded less-distance" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_recevied'); ?>"><?php echo $total_received; ?></h1>
-                        <h4 class="overflow-hidden nowrap overflow-text-dot" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_recevied'); ?>"><?php echo $this->lang->line('challenges_recevied'); ?></h4>
+                        <h4 class="" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('challenges_recevied'); ?>"><?php echo $this->lang->line('challenges_recevied'); ?></h4>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 col-md-6">
                     <div class="tiles dribbble-tile text-center">
                         <i class="fa fa-dribbble icon-lg-size"></i>
-                        <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('tournaments'); ?>"><?php echo $this->lang->line('tournaments'); ?></a></h4>
+                        <h4 class="" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('tournaments'); ?>"><?php echo $this->lang->line('tournaments'); ?></h4>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 col-md-6">
                     <div class="tiles dribbble-tile text-center">
                         <i class="fa fa-dribbble icon-lg-size"></i>
-                        <h4 class="overflow-hidden nowrap overflow-text-dot"><a href="#fakelink" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('year_course'); ?>"><?php echo $this->lang->line('year_course'); ?></a></h4>
+                        <h4 class="" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('year_course'); ?>"><?php echo $this->lang->line('year_course'); ?></h4>
                     </div>
                 </div>
             </div>

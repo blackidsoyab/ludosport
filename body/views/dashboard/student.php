@@ -159,7 +159,7 @@
                         </p>
                     <?php } ?>
                 </div>
-                <button class="btn btn-warning btn-block btn-lg btn-square"><?php echo $this->lang->line('score'); ?>. <?php echo $userdetail->total_score; ?></button>
+                <button class="btn btn-warning btn-block btn-lg btn-square"><?php echo $this->lang->line('score'); ?>: <?php echo $userdetail->total_score; ?></button>
             </div>
         </div>
 
@@ -187,7 +187,7 @@
                             </li>
                         <?php } ?>
                     </ul>
-                <?php } else { echo  $this->lang->line('no_personal_communication'); }?>
+                <?php } else { echo  '<a href="'.base_url() .'announcement">'. $this->lang->line('no_personal_communication') .'</a>'; }?>
             </div>
         </div>
         

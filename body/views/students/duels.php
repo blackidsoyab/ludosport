@@ -148,7 +148,7 @@
     });
 </script>
 
-<h1 class="page-heading h1"><?php echo $this->lang->line('duel'); ?></h1>
+<h1 class="page-heading h1"><?php echo $this->lang->line('duels'); ?></h1>
 
 <div class="row">
 	<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
@@ -251,7 +251,7 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<a class="block-collapse collapsed" data-parent="#challenges" data-toggle="collapse" href="#challenges-recived">
-							<?php echo $this->lang->line('challenge_received'); ?>
+							<?php echo $this->lang->line('challenges_recevied'); ?>
 							<span class="right-content">
 							<span class="right-icon"><i class="glyphicon glyphicon-plus icon-collapse"></i></span>
 							</span>

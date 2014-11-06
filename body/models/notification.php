@@ -27,6 +27,7 @@ class Notification extends DataMapper
         if($year != 0){
             $this->db->where('YEAR(notifications.timestamp)', $year);    
         }
+        $this->db->group_by(array('notifications.notify_type', 'notifications.from_id', 'notifications.object_id'));
         $this->db->order_by('notifications.timestamp ', 'DESC');
         if (!is_null($limit) && !is_null($offset)) {
             $this->db->limit($limit, $offset);

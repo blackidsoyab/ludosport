@@ -7,6 +7,7 @@
     		<div class="form-group">
 	            <label for="question" class="col-lg-4 control-label">
 	                <?php echo  $email_value; ?>
+	                <span class="text-danger">*</span>
 	            </label>
 	            <div class="col-lg-5">
 	                <div class="radio pull-left margin-killer padding-left-killer padding-top-killer">

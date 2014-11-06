@@ -188,11 +188,7 @@ class ajax extends CI_Controller
                 $options['data'] = unserialize($notify->data);
                 
                 if ($notify->type == 'N') {
-                    if ($notify->from_id == $this->session_data->id) {
-                        $user_name = 'You';
-                    } else {
-                        $user_name = '<a href="' . base_url() . 'profile/view/' . $notify->from_id . '">' . $notify->from_name . '</a>';
-                    }
+                    $user_name = '<a href="' . base_url() . 'profile/view/' . $notify->from_id . '">' . $notify->from_name . '</a>';
                     $message = getTimelineTemplate($options);
                     $img = '<img src="' . IMG_URL . 'user_avtar/100X100/' . $notify->from_avtar . '" class="avatar">';
                 } else {

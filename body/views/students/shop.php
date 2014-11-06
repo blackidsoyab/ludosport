@@ -42,4 +42,4 @@
     </div>
 </div>
 -->
-<h1 class="text-white text-center">Comming Soon</h1>  
+<h1 class="text-white text-center">coming soon</h1>  

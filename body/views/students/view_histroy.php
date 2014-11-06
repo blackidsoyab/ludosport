@@ -67,17 +67,17 @@
                                 <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$defeats_percentage, '%'; ?>">
                                 </div>
                             </div>
-                            <p class="small"><?php echo $this->lang->line('challenge_made'); ?> - <?php echo @$total_made; ?></p>
+                            <p class="small"><?php echo $this->lang->line('challenges_made'); ?> - <?php echo @$total_made; ?></p>
                             <div class="progress no-rounded progress-xs">
                                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$made_percentage, '%'; ?>">
                                 </div>
                             </div>
-                            <p class="small"><?php echo $this->lang->line('challenge_received'); ?> - <?php echo @$total_received; ?></p>
+                            <p class="small"><?php echo $this->lang->line('challenges_recevied'); ?> - <?php echo @$total_received; ?></p>
                             <div class="progress no-rounded progress-xs">
                                 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$received_percentage, '%'; ?>">
                                 </div>
                             </div>
-                            <p class="small"><?php echo $this->lang->line('challenge_rejected'); ?> - <?php echo @$total_rejected; ?></p>
+                            <p class="small"><?php echo $this->lang->line('challenges_rejected'); ?> - <?php echo @$total_rejected; ?></p>
                             <div class="progress no-rounded progress-xs">
                                 <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$rejected_percentage, '%'; ?>">
                                 </div>
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <h4 class="small-heading"><?php echo $this->lang->line('tournaments'); ?> </h4>
+                            <h4 class="small-heading"><?php echo strtoupper($this->lang->line('tournaments')); ?> </h4>
                             <p class="small"><?php echo $this->lang->line('attended'); ?> - <span class="text-success"><?php echo @$tournament_present_percentage; ?>%</span></p>
                             <div class="progress no-rounded progress-xs">
                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo @$tournament_present_percentage; ?>%">

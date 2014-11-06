@@ -498,10 +498,10 @@ class students extends CI_Controller
                     //if Status is Pending and challenge Rejected
                     if ($challenge->to_status == 'P' && $this->input->post('action') == 'R') {
                         if ($challenge->from_id == $this->session_data->id) {
-                            $challenge->from_stauts = 'R';
+                            $challenge->from_status = 'R';
                             $challenge->to_stauts = 'A';
                         } else {
-                            $challenge->from_stauts = 'A';
+                            $challenge->from_status = 'A';
                             $challenge->to_stauts = 'R';
                         }
                     }
@@ -552,6 +552,15 @@ class students extends CI_Controller
                             }
                             $obj_score = new Scorehistory();
                             $obj_score->meritStudentScore($challenge->from_id, $winner_rating_point['type'], $winner_rating_point['score'], 'Challenge winner as challenge opponet rejected');
+                        }
+                    }
+
+                    //if Status is Pending and challenge Accepted
+                    if ($challenge->to_status == 'P' && $this->input->post('action') == 'A') {
+                        $challenge->to_status = 'A';
+                        $challenge->status_changed_on = get_current_date_time()->get_date_time_for_db();
+                        if (is_null($challenge->played_on)) {
+                            $challenge->played_on = get_current_date_time()->get_date_time_for_db();
                         }
                     }
                     
@@ -608,7 +617,7 @@ class students extends CI_Controller
             } else if ($this->session_data->id == $single[0]->to_id) {
                 $user_id = $single[0]->from_id;
                 $data['type'] = 'Received';
-                if ($single[0]->result_status == 'MNP' && $single[0]->to_status == 'P') {
+                if ($single[0]->result_status == 'MNP' && $single[0]->to_status == 'A' && $single[0]->to_status == 'P') {
                     $data['show_accept_button'] = true;
                 }
             }
