@@ -283,6 +283,7 @@ $lang['assign_date'] = 'Assign on';
 $lang['assign_by'] = 'Assign by';
 $lang['list_score_history'] = 'List score history';
 $lang['list_badge_history'] = 'List badge history';
+$lang['list_doc_history'] = 'List document history';
 $lang['affect_score'] = 'Reflect Score';
 $lang['batch_title'] = 'Badge title';
 

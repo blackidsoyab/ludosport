@@ -453,12 +453,21 @@ class users extends CI_Controller
     }
     
     function listStudentBatches($id) {
+        if(!validAcess($id, 'student')){
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'user', 'refresh');
+        }
         $this->layout->setField('page_title', $this->lang->line('batch_history'));
         $data['user'] = new User($id);
         $this->layout->view('users/student_batch_history_view', $data);
     }
 
     function addStudentBatches($student_id) {
+        if(!validAcess($student_id, 'student')){
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'user', 'refresh');
+        }
+
         if ($this->input->post() !== false) {
             $obj_batch = new Batch($this->input->post('batch_id'));
             
@@ -500,6 +509,11 @@ class users extends CI_Controller
     
     function editStudentBatches($id) {
         if (!empty($id)) {
+            if(!validAcess($id, 'student')){
+                $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                redirect(base_url() . 'dashboard', 'refresh');
+            }
+
             if ($this->input->post() !== false) {
                 $obj_batch_history = new Userbatcheshistory($id);
                 $obj_batch_history->assign_date = date('Y-m-d', strtotime($this->input->post('date')));
@@ -558,6 +572,10 @@ class users extends CI_Controller
     }
     
     function listStudentScore($id) {
+        if(!validAcess($id, 'student')){
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'user', 'refresh');
+        }
         $this->layout->setField('page_title', $this->lang->line('list_score_history'));
         $data['user'] = new User($id);
         $this->layout->view('users/student_score_history_view', $data);
@@ -590,12 +608,18 @@ class users extends CI_Controller
         }
     }
 
-    public function listStudentDocuments($student_id){
+    function listStudentDocuments($student_id){
+        if(!validAcess($student_id, 'student')){
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'user', 'refresh');
+        }
+
         $this->layout->setField('page_title', $this->lang->line('list_docs'));
         $data['user'] = new User($student_id);
         $this->layout->view('users/student_docs_history_view', $data);
     }
-    public function deleteStudentDocuments($id){
+    
+    function deleteStudentDocuments($id){
         $obj = new Studentdocument($id);
         if($obj->result_count() == 1){
             if(validAcess($obj->student_id, 'student')){
@@ -609,6 +633,5 @@ class users extends CI_Controller
         }else{
             return false;
         }
-        
     }
 }
