@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 04, 2014 at 11:41 AM
+-- Generation Time: Nov 06, 2014 at 02:52 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3
 
@@ -439,14 +439,15 @@ CREATE TABLE IF NOT EXISTS `challenges` (
   `result_status` enum('MP','MNP','SP','CW','CO') NOT NULL DEFAULT 'MNP',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `challenges`
 --
 
 INSERT INTO `challenges` (`id`, `type`, `from_id`, `from_status`, `to_id`, `to_status`, `made_on`, `status_changed_on`, `played_on`, `place`, `result_declare_by`, `result`, `result_status`, `user_id`, `timestamp`) VALUES
-(1, 'R', 37, 'A', 25, 'A', '2014-10-16 12:11:24', '2014-10-16 14:22:33', '2014-10-19 01:05:00', 'Baroda', 25, 37, 'MP', 37, '2014-10-16 06:41:24');
+(1, 'R', 37, 'A', 25, 'A', '2014-10-16 12:11:24', '2014-10-16 14:22:33', '2014-10-19 01:05:00', 'Baroda', 25, 37, 'MP', 37, '2014-10-16 06:41:24'),
+(2, 'R', 37, 'R', 36, 'P', '2014-11-06 13:55:57', '2014-11-06 13:56:24', '2014-11-12 01:05:00', '', 0, 36, 'MNP', 37, '2014-11-06 08:25:57');
 
 -- --------------------------------------------------------
 
@@ -1257,7 +1258,7 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `data` longtext CHARACTER SET utf8 COLLATE utf8_bin,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `notifications`
@@ -1273,7 +1274,14 @@ INSERT INTO `notifications` (`id`, `type`, `notify_type`, `from_id`, `to_id`, `o
 (7, 'I', 'user_register', 0, 8, 41, 'a:10:{s:9:"firstname";s:0:"";s:8:"lastname";s:0:"";s:8:"username";s:0:"";s:7:"city_id";s:0:"";s:17:"city_of_residence";s:0:"";s:13:"date_of_birth";s:0:"";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:0:"";s:7:"captcha";s:0:"";}', 0, '2014-11-03 11:19:55'),
 (8, 'I', 'user_register', 0, 25, 41, 'a:10:{s:9:"firstname";s:0:"";s:8:"lastname";s:0:"";s:8:"username";s:0:"";s:7:"city_id";s:0:"";s:17:"city_of_residence";s:0:"";s:13:"date_of_birth";s:0:"";s:5:"email";s:21:"ranasoyab@yopmail.com";s:8:"password";s:3:"123";s:9:"cpassword";s:0:"";s:7:"captcha";s:0:"";}', 0, '2014-11-03 11:20:07'),
 (11, 'N', 'registration_payment_recived', 31, 6, 31, 'a:22:{s:2:"id";i:37;s:17:"student_master_id";s:2:"31";s:7:"clan_id";s:1:"2";s:9:"degree_id";s:1:"6";s:9:"honour_id";s:1:"0";s:9:"master_id";s:1:"0";s:16:"qualification_id";s:1:"0";s:11:"security_id";s:1:"0";s:14:"color_of_blade";s:1:"1";s:3:"xpr";s:4:"1000";s:3:"war";s:1:"0";s:3:"sty";s:1:"0";s:11:"total_score";s:4:"1000";s:17:"first_lesson_date";s:10:"2014-11-04";s:11:"approved_by";s:1:"0";s:14:"palce_of_birth";s:8:"Vadodara";s:8:"zip_code";s:6:"390016";s:8:"tax_code";s:6:"610093";s:11:"blood_group";s:5:"O +ve";s:6:"status";s:2:"P2";s:7:"user_id";s:2:"31";s:9:"timestamp";s:19:"2014-11-04 11:22:25";}', 0, '2014-11-04 05:52:25'),
-(12, 'N', 'registration_payment_recived', 31, 2, 31, 'a:22:{s:2:"id";i:37;s:17:"student_master_id";s:2:"31";s:7:"clan_id";s:1:"2";s:9:"degree_id";s:1:"6";s:9:"honour_id";s:1:"0";s:9:"master_id";s:1:"0";s:16:"qualification_id";s:1:"0";s:11:"security_id";s:1:"0";s:14:"color_of_blade";s:1:"1";s:3:"xpr";s:4:"1000";s:3:"war";s:1:"0";s:3:"sty";s:1:"0";s:11:"total_score";s:4:"1000";s:17:"first_lesson_date";s:10:"2014-11-04";s:11:"approved_by";s:1:"0";s:14:"palce_of_birth";s:8:"Vadodara";s:8:"zip_code";s:6:"390016";s:8:"tax_code";s:6:"610093";s:11:"blood_group";s:5:"O +ve";s:6:"status";s:2:"P2";s:7:"user_id";s:2:"31";s:9:"timestamp";s:19:"2014-11-04 11:22:25";}', 1, '2014-11-04 05:52:31');
+(12, 'N', 'registration_payment_recived', 31, 2, 31, 'a:22:{s:2:"id";i:37;s:17:"student_master_id";s:2:"31";s:7:"clan_id";s:1:"2";s:9:"degree_id";s:1:"6";s:9:"honour_id";s:1:"0";s:9:"master_id";s:1:"0";s:16:"qualification_id";s:1:"0";s:11:"security_id";s:1:"0";s:14:"color_of_blade";s:1:"1";s:3:"xpr";s:4:"1000";s:3:"war";s:1:"0";s:3:"sty";s:1:"0";s:11:"total_score";s:4:"1000";s:17:"first_lesson_date";s:10:"2014-11-04";s:11:"approved_by";s:1:"0";s:14:"palce_of_birth";s:8:"Vadodara";s:8:"zip_code";s:6:"390016";s:8:"tax_code";s:6:"610093";s:11:"blood_group";s:5:"O +ve";s:6:"status";s:2:"P2";s:7:"user_id";s:2:"31";s:9:"timestamp";s:19:"2014-11-04 11:22:25";}', 1, '2014-11-04 05:52:31'),
+(13, 'N', 'registration_payment_recived', 31, 6, 31, 'a:22:{s:2:"id";i:37;s:17:"student_master_id";s:2:"31";s:7:"clan_id";s:1:"2";s:9:"degree_id";s:1:"6";s:9:"honour_id";s:1:"0";s:9:"master_id";s:1:"0";s:16:"qualification_id";s:1:"0";s:11:"security_id";s:1:"0";s:14:"color_of_blade";s:1:"1";s:3:"xpr";s:4:"2000";s:3:"war";s:1:"0";s:3:"sty";s:1:"0";s:11:"total_score";s:4:"2000";s:17:"first_lesson_date";s:10:"2014-11-05";s:11:"approved_by";s:1:"0";s:14:"palce_of_birth";s:8:"Vadodara";s:8:"zip_code";s:6:"390016";s:8:"tax_code";s:6:"610093";s:11:"blood_group";s:5:"B -ve";s:6:"status";s:2:"P2";s:7:"user_id";s:2:"31";s:9:"timestamp";s:19:"2014-11-04 11:22:25";}', 0, '2014-11-05 11:15:06'),
+(14, 'N', 'registration_payment_recived', 31, 2, 31, 'a:22:{s:2:"id";i:37;s:17:"student_master_id";s:2:"31";s:7:"clan_id";s:1:"2";s:9:"degree_id";s:1:"6";s:9:"honour_id";s:1:"0";s:9:"master_id";s:1:"0";s:16:"qualification_id";s:1:"0";s:11:"security_id";s:1:"0";s:14:"color_of_blade";s:1:"1";s:3:"xpr";s:4:"2000";s:3:"war";s:1:"0";s:3:"sty";s:1:"0";s:11:"total_score";s:4:"2000";s:17:"first_lesson_date";s:10:"2014-11-05";s:11:"approved_by";s:1:"0";s:14:"palce_of_birth";s:8:"Vadodara";s:8:"zip_code";s:6:"390016";s:8:"tax_code";s:6:"610093";s:11:"blood_group";s:5:"B -ve";s:6:"status";s:2:"P2";s:7:"user_id";s:2:"31";s:9:"timestamp";s:19:"2014-11-04 11:22:25";}', 0, '2014-11-05 11:15:12'),
+(15, 'N', 'challenge_made', 37, 36, 2, 'a:15:{s:2:"id";i:2;s:4:"type";s:1:"R";s:7:"from_id";s:2:"37";s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"36";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-11-06 13:55:57";s:17:"status_changed_on";N;s:9:"played_on";s:19:"2014-11-12 01:05:00";s:5:"place";s:0:"";s:17:"result_declare_by";s:1:"0";s:6:"result";s:1:"0";s:13:"result_status";s:3:"MNP";s:7:"user_id";s:2:"37";s:9:"timestamp";s:19:"2014-11-06 13:55:57";}', 1, '2014-11-06 08:25:57'),
+(16, 'N', 'challenge_accepted', 36, 37, 2, 'a:15:{s:2:"id";i:2;s:4:"type";s:1:"R";s:7:"from_id";s:2:"37";s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"36";s:9:"to_status";s:1:"A";s:7:"made_on";s:19:"2014-11-06 13:55:57";s:17:"status_changed_on";s:19:"2014-11-06 13:56:24";s:9:"played_on";s:19:"2014-11-12 01:05:00";s:5:"place";s:0:"";s:17:"result_declare_by";s:1:"0";s:6:"result";s:1:"0";s:13:"result_status";s:3:"MNP";s:7:"user_id";s:2:"37";s:9:"timestamp";s:19:"2014-11-06 13:55:57";}', 1, '2014-11-06 08:26:24'),
+(17, 'N', 'challenge_rejected', 37, 36, 2, 'a:15:{s:2:"id";i:2;s:4:"type";s:1:"R";s:7:"from_id";s:2:"37";s:11:"from_status";s:1:"R";s:5:"to_id";s:2:"36";s:9:"to_status";s:1:"A";s:7:"made_on";s:19:"2014-11-06 13:55:57";s:17:"status_changed_on";s:19:"2014-11-06 13:56:24";s:9:"played_on";s:19:"2014-11-12 01:05:00";s:5:"place";s:0:"";s:17:"result_declare_by";s:1:"0";s:6:"result";s:2:"36";s:13:"result_status";s:2:"MP";s:7:"user_id";s:2:"37";s:9:"timestamp";s:19:"2014-11-06 13:55:57";}', 1, '2014-11-06 08:47:47'),
+(18, 'N', 'challenge_rejected', 37, 36, 2, 'a:15:{s:2:"id";i:2;s:4:"type";s:1:"R";s:7:"from_id";s:2:"37";s:11:"from_status";s:1:"A";s:5:"to_id";s:2:"36";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-11-06 13:55:57";s:17:"status_changed_on";s:19:"2014-11-06 13:56:24";s:9:"played_on";s:19:"2014-11-12 01:05:00";s:5:"place";s:0:"";s:17:"result_declare_by";s:1:"0";s:6:"result";s:2:"36";s:13:"result_status";s:3:"MNP";s:7:"user_id";s:2:"37";s:9:"timestamp";s:19:"2014-11-06 13:55:57";}', 1, '2014-11-06 08:48:47'),
+(19, 'N', 'challenge_rejected', 37, 36, 2, 'a:15:{s:2:"id";i:2;s:4:"type";s:1:"R";s:7:"from_id";s:2:"37";s:11:"from_status";s:1:"R";s:5:"to_id";s:2:"36";s:9:"to_status";s:1:"P";s:7:"made_on";s:19:"2014-11-06 13:55:57";s:17:"status_changed_on";s:19:"2014-11-06 13:56:24";s:9:"played_on";s:19:"2014-11-12 01:05:00";s:5:"place";s:0:"";s:17:"result_declare_by";s:1:"0";s:6:"result";s:2:"36";s:13:"result_status";s:3:"MNP";s:7:"user_id";s:2:"37";s:9:"timestamp";s:19:"2014-11-06 13:55:57";}', 1, '2014-11-06 08:55:11');
 
 -- --------------------------------------------------------
 
@@ -1325,11 +1333,11 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 INSERT INTO `roles` (`id`, `en_role_name`, `it_role_name`, `is_manager`, `permission`, `is_delete`, `user_id`, `timestamp`) VALUES
 (1, 'Super Admin', 'Super Amministratore', 0, NULL, '0', 0, '2014-07-17 07:04:55'),
-(2, 'Admin', 'Admin', 0, 'a:20:{s:5:"roles";a:2:{i:0;s:8:"viewRole";i:1;s:8:"editRole";}s:5:"users";a:10:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:17:"addStudentBatches";i:6;s:18:"editStudentBatches";i:7;s:20:"deleteStudentBatches";i:8;s:16:"listStudentScore";i:9;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:7:"batches";a:3:{i:0;s:9:"viewBatch";i:1;s:9:"editBatch";i:2;s:11:"deleteBatch";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:4:{i:0;s:11:"viewAcademy";i:1;s:10:"addAcademy";i:2;s:11:"editAcademy";i:3;s:13:"deleteAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:6:"levels";a:4:{i:0;s:9:"viewLevel";i:1;s:8:"addLevel";i:2;s:9:"editLevel";i:3;s:11:"deleteLevel";}s:5:"clans";a:10:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:18:"clanViewAttendance";i:7;s:22:"listTrialLessonRequest";i:8;s:24:"changeStatusTrialStudent";i:9;s:14:"changeClanDate";}s:15:"eventcategories";a:4:{i:0;s:17:"viewEventcategory";i:1;s:16:"addEventcategory";i:2;s:17:"editEventcategory";i:3;s:19:"deleteEventcategory";}s:6:"events";a:9:{i:0;s:9:"viewEvent";i:1;s:8:"addEvent";i:2;s:9:"editEvent";i:3;s:11:"deleteEvent";i:4;s:19:"sendEventInvitation";i:5;s:19:"viewEventInvitation";i:6;s:16:"viewEventInvited";i:7;s:19:"takeEventAttendance";i:8;s:23:"assignTournamentBatches";}s:19:"evolutioncategories";a:2:{i:0;s:21:"viewEvolutioncategory";i:1;s:21:"editEvolutioncategory";}s:14:"evolutionclans";a:8:{i:0;s:17:"viewEvolutionclan";i:1;s:16:"addEvolutionclan";i:2;s:17:"editEvolutionclan";i:3;s:19:"deleteEvolutionclan";i:4;s:24:"listEvolutionClanRequest";i:5;s:24:"evolutionclanStudentList";i:6;s:19:"changeRequestStatus";i:7;s:19:"resultEvolutionclan";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:6:"emails";a:2:{i:0;s:9:"viewEmail";i:1;s:9:"editEmail";}s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:9:"viewState";i:1;s:8:"addState";i:2;s:9:"editState";i:3;s:11:"deleteState";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"5";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 07:27:03'),
-(3, 'Rector', 'Rettore', 1, 'a:12:{s:5:"users";a:10:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:17:"addStudentBatches";i:6;s:18:"editStudentBatches";i:7;s:20:"deleteStudentBatches";i:8;s:16:"listStudentScore";i:9;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:9:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:18:"clanViewAttendance";i:7;s:22:"listTrialLessonRequest";i:8;s:14:"changeClanDate";}s:6:"events";a:6:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"viewEventInvitation";i:3;s:16:"viewEventInvited";i:4;s:19:"takeEventAttendance";i:5;s:23:"assignTournamentBatches";}s:19:"evolutioncategories";a:2:{i:0;s:21:"viewEvolutioncategory";i:1;s:21:"editEvolutioncategory";}s:14:"evolutionclans";a:5:{i:0;s:17:"viewEvolutionclan";i:1;s:24:"listEvolutionClanRequest";i:2;s:24:"evolutionclanStudentList";i:3;s:19:"changeRequestStatus";i:4;s:19:"resultEvolutionclan";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 10:13:22'),
-(4, 'Dean', 'Preside', 0, 'a:11:{s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:5:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:18:"clanViewAttendance";i:4;s:22:"listTrialLessonRequest";}s:6:"events";a:5:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"viewEventInvitation";i:3;s:16:"viewEventInvited";i:4;s:19:"takeEventAttendance";}s:14:"evolutionclans";a:5:{i:0;s:17:"viewEvolutionclan";i:1;s:24:"listEvolutionClanRequest";i:2;s:24:"evolutionclanStudentList";i:3;s:19:"changeRequestStatus";i:4;s:19:"resultEvolutionclan";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 10:13:43'),
-(5, 'Teacher', 'Insegnante', 1, 'a:11:{s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:6:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:18:"clanViewAttendance";i:4;s:22:"listTrialLessonRequest";i:5;s:24:"changeStatusTrialStudent";}s:6:"events";a:5:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"viewEventInvitation";i:3;s:16:"viewEventInvited";i:4;s:19:"takeEventAttendance";}s:14:"evolutionclans";a:4:{i:0;s:17:"viewEvolutionclan";i:1;s:24:"listEvolutionClanRequest";i:2;s:24:"evolutionclanStudentList";i:3;s:19:"changeRequestStatus";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 10:16:50'),
-(6, 'Pupil', 'Pupil', 1, 'a:6:{s:5:"users";a:4:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:6:"events";a:2:{i:0;s:9:"viewEvent";i:1;s:19:"takeEventAttendance";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 10:17:08');
+(2, 'Admin', 'Admin', 0, 'a:20:{s:5:"roles";a:2:{i:0;s:8:"viewRole";i:1;s:8:"editRole";}s:5:"users";a:12:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:17:"addStudentBatches";i:6;s:18:"editStudentBatches";i:7;s:20:"deleteStudentBatches";i:8;s:16:"listStudentScore";i:9;s:18:"deleteStudentScore";i:10;s:20:"listStudentDocuments";i:11;s:22:"deleteStudentDocuments";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:7:"batches";a:3:{i:0;s:9:"viewBatch";i:1;s:9:"editBatch";i:2;s:11:"deleteBatch";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:4:{i:0;s:11:"viewAcademy";i:1;s:10:"addAcademy";i:2;s:11:"editAcademy";i:3;s:13:"deleteAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:6:"levels";a:4:{i:0;s:9:"viewLevel";i:1;s:8:"addLevel";i:2;s:9:"editLevel";i:3;s:11:"deleteLevel";}s:5:"clans";a:10:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:18:"clanViewAttendance";i:7;s:22:"listTrialLessonRequest";i:8;s:24:"changeStatusTrialStudent";i:9;s:14:"changeClanDate";}s:15:"eventcategories";a:4:{i:0;s:17:"viewEventcategory";i:1;s:16:"addEventcategory";i:2;s:17:"editEventcategory";i:3;s:19:"deleteEventcategory";}s:6:"events";a:9:{i:0;s:9:"viewEvent";i:1;s:8:"addEvent";i:2;s:9:"editEvent";i:3;s:11:"deleteEvent";i:4;s:19:"sendEventInvitation";i:5;s:19:"viewEventInvitation";i:6;s:16:"viewEventInvited";i:7;s:19:"takeEventAttendance";i:8;s:23:"assignTournamentBatches";}s:19:"evolutioncategories";a:2:{i:0;s:21:"viewEvolutioncategory";i:1;s:21:"editEvolutioncategory";}s:14:"evolutionclans";a:8:{i:0;s:17:"viewEvolutionclan";i:1;s:16:"addEvolutionclan";i:2;s:17:"editEvolutionclan";i:3;s:19:"deleteEvolutionclan";i:4;s:24:"listEvolutionClanRequest";i:5;s:24:"evolutionclanStudentList";i:6;s:19:"changeRequestStatus";i:7;s:19:"resultEvolutionclan";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:6:"emails";a:2:{i:0;s:9:"viewEmail";i:1;s:9:"editEmail";}s:9:"countries";a:4:{i:0;s:11:"viewCountry";i:1;s:10:"addCountry";i:2;s:11:"editCountry";i:3;s:13:"deleteCountry";}s:6:"states";a:4:{i:0;s:9:"viewState";i:1;s:8:"addState";i:2;s:9:"editState";i:3;s:11:"deleteState";}s:6:"cities";a:4:{i:0;s:8:"viewCity";i:1;s:7:"addCity";i:2;s:8:"editCity";i:3;s:10:"deleteCity";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"5";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 07:27:03'),
+(3, 'Rector', 'Rettore', 1, 'a:12:{s:5:"users";a:12:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:17:"addStudentBatches";i:6;s:18:"editStudentBatches";i:7;s:20:"deleteStudentBatches";i:8;s:16:"listStudentScore";i:9;s:18:"deleteStudentScore";i:10;s:20:"listStudentDocuments";i:11;s:22:"deleteStudentDocuments";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:4:{i:0;s:10:"viewSchool";i:1;s:9:"addSchool";i:2;s:10:"editSchool";i:3;s:12:"deleteSchool";}s:5:"clans";a:9:{i:0;s:8:"viewClan";i:1;s:7:"addClan";i:2;s:8:"editClan";i:3;s:10:"deleteClan";i:4;s:15:"clanTeacherList";i:5;s:15:"clanStudentList";i:6;s:18:"clanViewAttendance";i:7;s:22:"listTrialLessonRequest";i:8;s:14:"changeClanDate";}s:6:"events";a:6:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"viewEventInvitation";i:3;s:16:"viewEventInvited";i:4;s:19:"takeEventAttendance";i:5;s:23:"assignTournamentBatches";}s:19:"evolutioncategories";a:2:{i:0;s:21:"viewEvolutioncategory";i:1;s:21:"editEvolutioncategory";}s:14:"evolutionclans";a:5:{i:0;s:17:"viewEvolutionclan";i:1;s:24:"listEvolutionClanRequest";i:2;s:24:"evolutionclanStudentList";i:3;s:19:"changeRequestStatus";i:4;s:19:"resultEvolutionclan";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 10:13:22'),
+(4, 'Dean', 'Preside', 0, 'a:11:{s:5:"users";a:10:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";i:9;s:20:"listStudentDocuments";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:5:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:18:"clanViewAttendance";i:4;s:22:"listTrialLessonRequest";}s:6:"events";a:5:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"viewEventInvitation";i:3;s:16:"viewEventInvited";i:4;s:19:"takeEventAttendance";}s:14:"evolutionclans";a:5:{i:0;s:17:"viewEvolutionclan";i:1;s:24:"listEvolutionClanRequest";i:2;s:24:"evolutionclanStudentList";i:3;s:19:"changeRequestStatus";i:4;s:19:"resultEvolutionclan";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 2, '2014-07-17 10:13:43'),
+(5, 'Teacher', 'Insegnante', 1, 'a:11:{s:5:"users";a:9:{i:0;s:8:"viewUser";i:1;s:7:"addUser";i:2;s:8:"editUser";i:3;s:10:"deleteUser";i:4;s:18:"listStudentBatches";i:5;s:18:"editStudentBatches";i:6;s:20:"deleteStudentBatches";i:7;s:16:"listStudentScore";i:8;s:18:"deleteStudentScore";}s:14:"studentratings";a:2:{i:0;s:17:"viewStudentrating";i:1;s:17:"editStudentrating";}s:13:"batchrequests";a:5:{i:0;s:16:"viewBatchrequest";i:1;s:24:"changeStatusBatchrequest";i:2;s:15:"addBatchrequest";i:3;s:16:"editBatchrequest";i:4;s:18:"deleteBatchrequest";}s:9:"academies";a:1:{i:0;s:11:"viewAcademy";}s:7:"schools";a:1:{i:0;s:10:"viewSchool";}s:5:"clans";a:6:{i:0;s:8:"viewClan";i:1;s:15:"clanTeacherList";i:2;s:15:"clanStudentList";i:3;s:18:"clanViewAttendance";i:4;s:22:"listTrialLessonRequest";i:5;s:24:"changeStatusTrialStudent";}s:6:"events";a:5:{i:0;s:9:"viewEvent";i:1;s:19:"sendEventInvitation";i:2;s:19:"viewEventInvitation";i:3;s:16:"viewEventInvited";i:4;s:19:"takeEventAttendance";}s:14:"evolutionclans";a:4:{i:0;s:17:"viewEvolutionclan";i:1;s:24:"listEvolutionClanRequest";i:2;s:24:"evolutionclanStudentList";i:3;s:19:"changeRequestStatus";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}s:13:"announcements";a:2:{s:19:"single_announcement";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:18:"group_announcement";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 2, '2014-07-17 10:16:50'),
+(6, 'Pupil', 'Pupil', 1, 'a:3:{s:6:"events";a:4:{i:0;s:9:"viewEvent";i:1;s:19:"viewEventInvitation";i:2;s:16:"viewEventInvited";i:3;s:19:"takeEventAttendance";}s:8:"profiles";a:4:{i:0;s:11:"viewProfile";i:1;s:11:"editProfile";i:2;s:14:"changePassword";i:3;s:18:"changeEmailPrivacy";}s:8:"messages";a:2:{s:14:"single_message";a:5:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";}s:13:"group_message";a:6:{i:2;s:1:"2";i:3;s:1:"2";i:4;s:1:"2";i:5;s:1:"2";i:6;s:1:"2";s:5:"clans";s:1:"2";}}}', '0', 1, '2014-07-17 10:17:08');
 
 -- --------------------------------------------------------
 
@@ -1382,7 +1390,7 @@ CREATE TABLE IF NOT EXISTS `score_histories` (
   `description` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=167 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=171 ;
 
 --
 -- Dumping data for table `score_histories`
@@ -1493,7 +1501,46 @@ INSERT INTO `score_histories` (`id`, `student_id`, `oper`, `score_type`, `score`
 (163, 36, 'M', 'sty', 500, '2014-11-03', 'Tournament batch assignment (Best Fight)', 1, '2014-11-03 09:14:29'),
 (164, 31, 'M', 'xpr', 1000, '2014-11-04', 'Assign badge at time of Registration', 0, '2014-11-04 05:01:01'),
 (165, 31, 'M', 'xpr', 1000, '2014-11-04', 'Assign badge at time of Registration', 0, '2014-11-04 05:49:42'),
-(166, 31, 'M', 'xpr', 1000, '2014-11-04', 'Assign badge at time of Registration', 0, '2014-11-04 05:52:25');
+(166, 31, 'M', 'xpr', 1000, '2014-11-04', 'Assign badge at time of Registration', 0, '2014-11-04 05:52:25'),
+(167, 31, 'M', 'xpr', 1000, '2014-11-05', 'Assign badge at time of Registration', 0, '2014-11-05 11:15:06'),
+(168, 31, 'M', 'xpr', 1000, '2014-11-05', 'Assign badge at time of Registration', 0, '2014-11-05 11:18:12'),
+(169, 37, 'D', 'xpr', 2, '2014-11-06', 'Rejected own challenge', 0, '2014-11-06 08:47:46'),
+(170, 36, 'M', 'war', 3, '2014-11-06', 'Challenge winner as challenge owner rejected', 37, '2014-11-06 08:47:46');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `solutioncourses`
+--
+
+CREATE TABLE IF NOT EXISTS `solutioncourses` (
+`id` int(11) NOT NULL,
+  `academy_id` int(11) NOT NULL,
+  `type_1` int(11) NOT NULL,
+  `type_2` int(11) NOT NULL,
+  `en_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `it_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `form` varchar(255) NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `solutioncourses`
+--
+
+INSERT INTO `solutioncourses` (`id`, `academy_id`, `type_1`, `type_2`, `en_name`, `it_name`, `image`, `form`, `description`, `price`, `user_id`, `timestamp`) VALUES
+(1, 1, 1, 1, 'Yellow Card', 'Yellow Card', '4250e0ddc35281c530edfdb76042a400.png', 'dc9209625a8936b77b14b6a0a5a192f3.pdf', 'Lessons from April to June. Always available for subscription. Effective for first enrolment only, starting April, 1st.', 90.15, 1, '2014-11-05 06:17:40'),
+(2, 1, 1, 1, 'Yellow Card +', 'Yellow Card +', '5f0a4b35363fa715f1bba0ffbafa99a5.png', '44edcad29bb266de83d0e75a801b27b3.pdf', 'Lessons from September to December for YELLOW CARD owners only. Available in the same year of the YELLOW CARD.', 80.20, 1, '2014-11-05 06:22:09'),
+(3, 1, 1, 1, 'Violet Card', 'Violet Card', '5d0b5081a05b11535a25e65d19410e68.png', 'be53c6730d7af642ce4cd0db788c8cad.pdf', 'Lessons from September to December. Always available for subscription. Effective for first enrolment only, starting Sept 1st.', 120.00, 1, '2014-11-05 07:29:10'),
+(4, 1, 1, 2, 'White Card', 'White Card', 'a84d3508be0a2cfb657d5c1fd3286568.png', '58d2174849f15ba2da2635d4fb8e8a29.pdf', 'Lessons from January to December of the current year. Available for subscription starting January, 1st.', 300.00, 1, '2014-11-05 08:11:23'),
+(5, 1, 3, 1, 'Red Card', 'Red Card', 'd043a8ab4d92b935a4520ff84ddb227d.png', '4a61cdd0d6dc503f07601c8f6024d2ac.pdf', '<p><span style="text-align: justify;">Lessons from April to June. Always available for subscription. Effective for first enrolment only, starting April, 1st.</span><br></p>', 300.00, 1, '2014-11-05 08:13:34'),
+(6, 1, 3, 1, 'Red+ Card', 'Red+ Card', 'f858264167a1765645ef2e966a5ed5c1.png', '6ad3ea72a547d7949be9f8daf291dfdd.pdf', 'Lessons from April to June. Always available for subscription. Effective for first enrolment only, starting April, 1st.', 350.00, 1, '2014-11-05 08:14:22'),
+(7, 1, 3, 3, 'Brown Card', 'Brown Card', '63cd698cb91a49ebea61568dbb4a238d.png', '615791cb1ba22208c30ae494ac332400.pdf', 'Lessons from April to June. Always available for subscription. Effective for first enrolment only, starting April, 1st.', 250.00, 1, '2014-11-05 08:14:52'),
+(8, 1, 2, 1, 'Red Card', 'Red Card', '08571f6185cbd84f5a8ca73e31450c02.png', '82d3ae264dc9a80c6dae4ad19177a342.pdf', 'Lessons from April to June. Always available for subscription. Effective for first enrollment only, starting April, 1st.', 120.00, 1, '2014-11-05 08:31:41');
 
 -- --------------------------------------------------------
 
@@ -1519,6 +1566,29 @@ INSERT INTO `states` (`id`, `country_id`, `en_name`, `it_name`, `user_id`, `time
 (2, 1, 'Mumbai', '', 1, '2014-07-17 07:12:55'),
 (3, 2, 'xyz', 'xyz', 2, '2014-07-31 04:21:33'),
 (4, 2, 'Milan', NULL, 2, '2014-08-01 08:47:23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `studentdocuments`
+--
+
+CREATE TABLE IF NOT EXISTS `studentdocuments` (
+`id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `file` varchar(255) NOT NULL,
+  `valid_till` date NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `studentdocuments`
+--
+
+INSERT INTO `studentdocuments` (`id`, `student_id`, `name`, `file`, `valid_till`, `user_id`, `timestamp`) VALUES
+(1, 37, 'Testing Image 1', '33e61e23a02b1170880ff24e484df294.jpeg', '2014-11-12', 37, '2014-11-05 12:07:19');
 
 -- --------------------------------------------------------
 
@@ -1673,7 +1743,7 @@ CREATE TABLE IF NOT EXISTS `userdetails` (
   `status` enum('A','P','U','P2') NOT NULL DEFAULT 'P',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=39 ;
 
 --
 -- Dumping data for table `userdetails`
@@ -1693,11 +1763,11 @@ INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `degree_id`, `h
 (12, 33, 6, 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-30', 8, NULL, NULL, NULL, NULL, 'A', 33, '2014-09-05 13:05:45'),
 (13, 34, 1, 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-23', 8, NULL, NULL, NULL, NULL, 'A', 34, '2014-09-05 13:18:57'),
 (14, 23, 6, 3, 0, 0, 0, 0, 6, 3000, 1500, 750, 3816, '2014-08-04', 2, 'Milan', 20162, 610093, 'O +ve', 'A', 2, '2014-08-04 00:09:02'),
-(16, 37, 1, 6, 20, 0, 21, 0, 1, 2192, 808, 256, 3256, '2014-10-10', 0, 'Vadodara', 390016, 610093, 'B -ve', 'A', 1, '2013-09-25 09:46:53'),
-(20, 36, 1, 6, 0, 0, 0, 0, 1, 3502, 1600, 800, 5902, '2014-10-13', 0, 'Vadodara', 390016, 963852, 'B -ve', 'A', 36, '2014-10-13 05:00:29'),
+(16, 37, 1, 6, 20, 0, 21, 0, 1, 2190, 808, 256, 3254, '2014-10-10', 0, 'Vadodara', 390016, 610093, 'B -ve', 'A', 1, '2013-09-25 09:46:53'),
+(20, 36, 1, 6, 0, 0, 0, 0, 1, 3502, 1603, 800, 5905, '2014-10-13', 0, 'Vadodara', 390016, 963852, 'B -ve', 'A', 36, '2014-10-13 05:00:29'),
 (27, 38, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-20', 0, 'Vadodara', 390016, 963850, 'O +ve', 'A', 38, '2014-10-20 05:04:25'),
 (28, 39, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-20', 0, 'Vadodara', 390016, 963852, 'B -ve', 'A', 39, '2014-10-20 05:17:36'),
-(37, 31, 2, 6, 0, 0, 0, 0, 1, 1000, 0, 0, 1000, '2014-11-04', 0, 'Vadodara', 390016, 610093, 'O +ve', 'P2', 31, '2014-11-04 05:52:25');
+(38, 31, 2, 6, 0, 0, 0, 0, 1, 1000, 0, 0, 1000, '2014-11-05', 0, 'Vadodara', 390016, 610093, 'B -ve', 'P2', 31, '2014-11-05 11:18:12');
 
 -- --------------------------------------------------------
 
@@ -2027,9 +2097,21 @@ ALTER TABLE `score_histories`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `solutioncourses`
+--
+ALTER TABLE `solutioncourses`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `states`
 --
 ALTER TABLE `states`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `studentdocuments`
+--
+ALTER TABLE `studentdocuments`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -2100,7 +2182,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `challenges`
 --
 ALTER TABLE `challenges`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `cities`
 --
@@ -2200,7 +2282,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `payments`
 --
@@ -2220,12 +2302,22 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `score_histories`
 --
 ALTER TABLE `score_histories`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=167;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=171;
+--
+-- AUTO_INCREMENT for table `solutioncourses`
+--
+ALTER TABLE `solutioncourses`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `states`
 --
 ALTER TABLE `states`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `studentdocuments`
+--
+ALTER TABLE `studentdocuments`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `systemsettings`
 --
@@ -2240,7 +2332,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=62;
 -- AUTO_INCREMENT for table `userdetails`
 --
 ALTER TABLE `userdetails`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=39;
 --
 -- AUTO_INCREMENT for table `users`
 --
