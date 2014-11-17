@@ -349,6 +349,7 @@ class users extends CI_Controller
                     $userdetail = new Userdetail();
                     $data['userdetail'] = $userdetail->where('student_master_id', $id)->get();
                     
+
                     $class = new Clan();
                     $class->where('id', $userdetail->clan_id)->get();
                     $data['classes'] = $class->getClanforAjax($class->school_id);
@@ -364,7 +365,7 @@ class users extends CI_Controller
                     
                     $city = new City();
                     $data['cities'] = $city->where_in('id', $cities_ids)->get();
-                    
+                   
                     $role = new Role();
                     if ($this->session_data->id == 1) {
                         $data['roles'] = $role->get();
@@ -414,6 +415,8 @@ class users extends CI_Controller
                             $obj_batch = new Batch();
                             $data['security_batches'] = $obj_batch->getBatchAssignmentByRole('S', $this->session_data->role);
                         }
+
+
 
                         unset($obj_batch_history);
                         $obj_batch_history = new Userbatcheshistory();

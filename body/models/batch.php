@@ -18,7 +18,7 @@ class Batch extends DataMapper
         $this->db->where('FIND_IN_SET(' . $role_id . ', assign_role)');
         $res = $this->db->get();
         if ($res->num_rows > 0) {
-            return array_column($res->result(), 'type');
+            return array_column($res->result_array(), 'type');
         } else {
             return false;
         }
