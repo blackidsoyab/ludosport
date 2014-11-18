@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 06, 2014 at 02:52 PM
+-- Generation Time: Nov 18, 2014 at 03:30 PM
 -- Server version: 5.5.38-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3
 
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `academies` (
 
 INSERT INTO `academies` (`id`, `rector_id`, `en_academy_name`, `it_academy_name`, `type`, `contact_firstname`, `contact_lastname`, `association_fullname`, `role_referent`, `address`, `postal_code`, `city_id`, `state_id`, `country_id`, `phone_1`, `phone_2`, `email`, `fee1`, `fee2`, `user_id`, `timestamp`) VALUES
 (1, '3,5', 'Poppey Sailor Man', 'Poppey Sailor Man', 'ac', 'Soyab', 'Rana', 'PSM', 'Poppeyyyyyyyyyy Sailorrrrrrrrrrr Mannnnnnnnnnnnnnnnn', 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 500.00, 20.00, 2, '2014-07-25 08:45:52'),
-(2, '6', 'Dexter Laboratory', 'Dexter Laboratory', 'ac', 'Soyab', 'Rana', 'DL', 'Temparory', 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 10000.00, 3000.00, 1, '2014-07-25 11:22:54'),
+(2, '6', 'Dexter Laboratory', 'Dexter Laboratory', 'ac', 'Soyab', 'Rana', 'DL', 'Temparory', 'Baroda', '390016', 1, 1, 1, '91987654321', '91987654321', 'demo@yopmail.com', 400.00, 100.00, 1, '2014-07-25 11:22:54'),
 (3, '5', 'Power Puff Girls', 'Power Puff Girls', 'ac', 'John', 'Candy', 'Power Puff Girls', 'Maecenas nec leo nec lacus posuere ultricies. Mauris fermentum porta nulla. Vestibulum dictum, nulla vitae gravida sollicitudin, mauris justo bibendum velit, in varius tortor ipsum et nulla. Phasellus a convallis magna. Suspendisse potenti. In hac habitas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\r\nEtiam finibus purus vel augue consectetur, vitae viverra mauris egestas.\r\nInteger blandit elit vitae risus fringilla scelerisque.\r\nCurabitur sollicitudin sem non nibh mattis, eu blandit risus ultricies.', '123456', 4, 2, 1, '1234567890', '91987654321', 'ppg@yopmail.com', 100.00, 50.00, 2, '2014-07-31 04:29:26');
 
 -- --------------------------------------------------------
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `attendances` (
   `attendance` tinyint(1) NOT NULL DEFAULT '1',
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=191 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=195 ;
 
 --
 -- Dumping data for table `attendances`
@@ -291,7 +291,11 @@ INSERT INTO `attendances` (`id`, `clan_date`, `student_id`, `attendance`, `user_
 (187, '2014-11-06', 14, 1, 0, '2014-10-31 11:29:03'),
 (188, '2014-11-07', 14, 1, 0, '2014-10-31 11:29:03'),
 (189, '2014-11-07', 17, 1, 0, '2014-10-31 11:29:03'),
-(190, '2014-11-07', 13, 1, 0, '2014-10-31 11:29:03');
+(190, '2014-11-07', 13, 1, 0, '2014-10-31 11:29:03'),
+(191, '2014-11-17', 20, 1, 3, '2014-11-17 10:50:03'),
+(192, '2014-11-17', 23, 1, 3, '2014-11-17 10:50:03'),
+(193, '2014-11-17', 25, 0, 3, '2014-11-17 10:50:03'),
+(194, '2014-11-17', 21, 0, 3, '2014-11-17 10:50:03');
 
 -- --------------------------------------------------------
 
@@ -1390,7 +1394,7 @@ CREATE TABLE IF NOT EXISTS `score_histories` (
   `description` text,
   `user_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=171 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=173 ;
 
 --
 -- Dumping data for table `score_histories`
@@ -1505,7 +1509,9 @@ INSERT INTO `score_histories` (`id`, `student_id`, `oper`, `score_type`, `score`
 (167, 31, 'M', 'xpr', 1000, '2014-11-05', 'Assign badge at time of Registration', 0, '2014-11-05 11:15:06'),
 (168, 31, 'M', 'xpr', 1000, '2014-11-05', 'Assign badge at time of Registration', 0, '2014-11-05 11:18:12'),
 (169, 37, 'D', 'xpr', 2, '2014-11-06', 'Rejected own challenge', 0, '2014-11-06 08:47:46'),
-(170, 36, 'M', 'war', 3, '2014-11-06', 'Challenge winner as challenge owner rejected', 37, '2014-11-06 08:47:46');
+(170, 36, 'M', 'war', 3, '2014-11-06', 'Challenge winner as challenge owner rejected', 37, '2014-11-06 08:47:46'),
+(171, 20, 'M', 'xpr', 2, '2014-11-17', 'Clan Attendance', 3, '2014-11-17 10:50:03'),
+(172, 23, 'M', 'xpr', 2, '2014-11-17', 'Clan Attendance', 3, '2014-11-17 10:50:03');
 
 -- --------------------------------------------------------
 
@@ -1754,15 +1760,15 @@ INSERT INTO `userdetails` (`id`, `student_master_id`, `clan_id`, `degree_id`, `h
 (2, 15, 2, 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
 (3, 16, 2, 3, 0, 0, 0, 0, 6, 550, 216, 100, 866, '2014-08-04', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-04 00:09:27'),
 (4, 17, 5, 3, 0, 0, 0, 0, 6, 300, 40, 0, 340, '2014-08-11', 2, NULL, NULL, NULL, NULL, 'A', 2, '2014-08-05 00:09:27'),
-(5, 20, 6, 3, 0, 0, 0, 0, 6, 1800, 1016, 500, 3316, '2014-08-28', 2, '', 390016, 963852, 'B-ve ', 'A', 20, '2009-08-21 01:37:12'),
+(5, 20, 6, 3, 0, 0, 0, 0, 6, 1802, 1016, 500, 3318, '2014-08-28', 2, '', 390016, 963852, 'B-ve ', 'A', 20, '2009-08-21 01:37:12'),
 (6, 13, 5, 3, 0, 0, 0, 0, 6, 300, 32, 0, 332, '2014-08-30', 3, NULL, NULL, NULL, NULL, 'A', 13, '2014-08-25 05:27:01'),
 (7, 21, 6, 3, 0, 0, 0, 0, 6, 1050, 432, 400, 1882, '2014-08-28', 3, NULL, NULL, NULL, NULL, 'A', 21, '2014-08-25 05:52:04'),
 (8, 25, 6, 3, 0, 0, 0, 0, 6, 1552, 700, 350, 1868, '2014-10-01', 3, NULL, NULL, NULL, NULL, 'A', 25, '2010-08-25 05:52:04'),
 (9, 27, 6, 3, 0, 0, 0, 0, 6, 300, 16, 0, 316, '2014-09-09', 8, 'roma', 0, 0, 'ah+', 'A', 27, '2014-09-04 15:25:53'),
 (10, 28, 6, 3, 0, 0, 0, 0, 6, 0, 0, 0, 0, '2014-09-16', 0, NULL, NULL, NULL, NULL, 'A', 28, '2014-09-05 08:45:20'),
-(12, 33, 6, 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-30', 8, NULL, NULL, NULL, NULL, 'A', 33, '2014-09-05 13:05:45'),
+(12, 0, 6, 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-30', 8, NULL, NULL, NULL, NULL, 'A', 33, '2014-09-05 13:05:45'),
 (13, 34, 1, 3, 0, 0, 0, 0, 6, 300, 0, 0, 300, '2014-09-23', 8, NULL, NULL, NULL, NULL, 'A', 34, '2014-09-05 13:18:57'),
-(14, 23, 6, 3, 0, 0, 0, 0, 6, 3000, 1500, 750, 3816, '2014-08-04', 2, 'Milan', 20162, 610093, 'O +ve', 'A', 2, '2014-08-04 00:09:02'),
+(14, 23, 6, 3, 0, 0, 0, 0, 6, 3002, 1500, 750, 3818, '2014-08-04', 2, 'Milan', 20162, 610093, 'O +ve', 'A', 2, '2014-08-04 00:09:02'),
 (16, 37, 1, 6, 20, 0, 21, 0, 1, 2190, 808, 256, 3254, '2014-10-10', 0, 'Vadodara', 390016, 610093, 'B -ve', 'A', 1, '2013-09-25 09:46:53'),
 (20, 36, 1, 6, 0, 0, 0, 0, 1, 3502, 1603, 800, 5905, '2014-10-13', 0, 'Vadodara', 390016, 963852, 'B -ve', 'A', 36, '2014-10-13 05:00:29'),
 (27, 38, 1, 6, 0, 0, 0, 0, 1, 1002, 0, 0, 1002, '2014-10-20', 0, 'Vadodara', 390016, 963850, 'O +ve', 'A', 38, '2014-10-20 05:04:25'),
@@ -1806,7 +1812,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `lastname`, `email`, `date_of_birth`, `city_id`, `state_id`, `country_id`, `city_of_residence`, `permission`, `avtar`, `address`, `phone_no_1`, `phone_no_2`, `quote`, `about_me`, `email_privacy`, `status`, `user_id`, `timestamp`) VALUES
-(1, '1', 'superadmin', '202cb962ac59075b964b07152d234b70', 'Super Admin', 'User', 'superadmin@yopmail.com', 653682600, 1, 1, 1, 'Temp', NULL, 'dcf8544d6647c2095e8b2cc9796455be.jpg', 'Gorwa,Baroda', '9876543210', '1234567890', 'Only one thing is impossible for God: To find any sense in any copyright law on the planet', '<p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel sapien sapien. Duis dictum leo dui, nec blandit nisl imperdiet ut. Donec quis condimentum libero. In volutpat urna id feugiat porta. Suspendisse a sem augue. Curabitur sodales, odio ut tempor scelerisque, eros tellus lacinia elit, id euismod felis nulla id erat. Quisque porttitor velit in sollicitudin eleifend.</span></p>', NULL, 'A', 1, '2014-07-17 07:05:53'),
+(1, '1', 'superadmin', '202cb962ac59075b964b07152d234b70', 'Super Admin', 'User', 'superadmin@yopmail.com', 653682600, 1, 1, 1, 'Temp', NULL, '9b9d9f25f506d8a6ec225b1e93be1180.png', 'Gorwa,Baroda', '9876543210', '1234567890', 'Only one thing is impossible for God: To find any sense in any copyright law on the planet', '<p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel sapien sapien. Duis dictum leo dui, nec blandit nisl imperdiet ut. Donec quis condimentum libero. In volutpat urna id feugiat porta. Suspendisse a sem augue. Curabitur sodales, odio ut tempor scelerisque, eros tellus lacinia elit, id euismod felis nulla id erat. Quisque porttitor velit in sollicitudin eleifend.</span></p>', NULL, 'A', 1, '2014-07-17 07:05:53'),
 (2, '2', 'admin', '202cb962ac59075b964b07152d234b70', 'Carmelo', 'Samperi', 'ranasoyab@yopmail.com', 316809000, 5, 4, 2, 'Temp', NULL, '1adfa22db058e6383b4365cb7906590f.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'A', 2, '2014-07-17 07:28:01'),
 (3, '3,4,5', 'rector_1', '202cb962ac59075b964b07152d234b70', 'Rana', '1', 'ranasoyab@yopmail.com', 316895400, 1, 1, 1, 'Vadodara', NULL, '063fd00a3c30c83404faf36e32b2dada.jpg', NULL, NULL, NULL, NULL, NULL, 'a:14:{s:30:"user_registration_notification";s:1:"1";s:20:"trial_lesson_request";s:1:"0";s:21:"trial_lesson_accepted";s:1:"1";s:21:"trial_lesson_rejected";s:1:"0";s:16:"event_invitation";s:1:"1";s:16:"change_clan_date";s:1:"0";s:14:"teacher_absent";s:1:"1";s:14:"student_absent";s:1:"0";s:16:"recovery_student";s:1:"1";s:36:"teacher_recovery_student_for_student";s:1:"0";s:36:"teacher_recovery_student_for_teacher";s:1:"1";s:16:"recovery_teacher";s:1:"0";s:16:"holiday_approved";s:1:"1";s:18:"holiday_upapproved";s:1:"0";}', 'A', 3, '2014-07-17 07:28:01'),
 (4, '4', 'dean_1', '202cb962ac59075b964b07152d234b70', 'Dean', '1', 'ranasoyab@yopmail.com', 1277922600, 1, 1, 1, NULL, NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'A', 0, '2014-07-17 07:28:01'),
@@ -1829,7 +1835,6 @@ INSERT INTO `users` (`id`, `role_id`, `username`, `password`, `firstname`, `last
 (28, '6', '123', '202cb962ac59075b964b07152d234b70', 'Carmelo2', 'Samperi1', 'ranasoyab@yopmail.com', 635061600, 5, 4, 2, NULL, NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'D', 28, '2014-09-05 07:18:30'),
 (30, '6', '1234', '81dc9bdb52d04dc20036dbd8313ed055', 'Pietro', 'Rossi', 'ranasoyab@yopmail.com', 1239685200, 5, 4, 2, 'Pietro', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'D', 0, '2014-09-05 11:04:54'),
 (31, '6', 'eu', '202cb962ac59075b964b07152d234b70', 'Eugenio', 'Di Fraia', 'ranasoyab@yopmail.com', 317973600, 1, 1, 1, 'Cassina de Pecchi', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'P', 0, '2014-09-05 11:32:37'),
-(33, '6', 'bart', '202cb962ac59075b964b07152d234b70', 'Bart', 'Simpson', 'ranasoyab@yopmail.com', 633938400, 5, 4, 2, 'e', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'D', 33, '2014-09-05 13:00:47'),
 (34, '6', 'merge', '202cb962ac59075b964b07152d234b70', 'Merge', 'Simpson', 'ranasoyab@yopmail.com', 633852000, 1, 1, 1, 's', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'D', 0, '2014-09-05 13:17:44'),
 (36, '6', 'spyker', '202cb962ac59075b964b07152d234b70', 'Spyker', 'Jeans', 'soyab@yopmail.com', 525724200, 1, 1, 1, 'Vadodara', NULL, 'no_avatar.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'A', 2, '2014-09-22 06:02:11'),
 (37, '6', 'ranasoyab', '202cb962ac59075b964b07152d234b70', 'Soyab', 'Rana', 'soyab@blackidsolutions.com', 653596200, 1, 1, 1, 'Vadodara', NULL, '5865aa782c8c4ee571acac7af45b9d94.jpg', 'Baroda', '9876543210', '91987654321', 'It is better to be hated for what you are than to be loved for what you are not.', '<p ><span >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus accumsan non lorem et bibendum. Ut imperdiet sed lectus vitae euismod. Nulla lobortis hendrerit pharetra. Vivamus vitae egestas velit. Vivamus vitae sodales turpis. In hac habitasse platea dictumst. Cras volutpat mi porta, sollicitudin mauris in, volutpat diam. Ut vel velit molestie, auctor mi sed, posuere purus. Donec malesuada mi urna, at iaculis nisi venenatis ac. Sed et rhoncus neque. Morbi nisi velit, mattis in metus nec, efficitur dignissim ex. Vestibulum bibendum ligula scelerisque orci fermentum egestas. Morbi non enim purus.</span></p><p ><span >Duis urna turpis, porttitor sodales felis in, interdum porttitor nunc. Vivamus dictum accumsan mauris, ac gravida ligula venenatis sit amet. Quisque quam leo, auctor et tortor at, auctor aliquam lorem. In et lorem sit amet lectus hendrerit mattis ut eu arcu. Integer interdum luctus elit at elementum. Suspendisse consequat leo nec diam lobortis, sed mollis lectus bibendum. Integer et finibus ex. Vivamus maximus consectetur eros ut ultricies. Ut convallis nibh a erat vulputate, sed rutrum libero ullamcorper. Suspendisse et metus in odio tincidunt maximus non quis lacus. Morbi bibendum feugiat quam, et posuere orci malesuada eu.</span></p>', 'a:8:{s:36:"teacher_recovery_student_for_student";s:1:"1";s:16:"event_invitation";s:1:"1";s:16:"change_clan_date";s:1:"1";s:14:"challenge_made";s:1:"1";s:18:"challenge_accepted";s:1:"1";s:18:"challenge_rejected";s:1:"1";s:16:"challenge_winner";s:1:"1";s:16:"new_announcement";s:1:"0";}', 'A', 1, '2013-09-25 09:46:53'),
@@ -2162,7 +2167,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=191;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=195;
 --
 -- AUTO_INCREMENT for table `attendance_recovers`
 --
@@ -2302,7 +2307,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `score_histories`
 --
 ALTER TABLE `score_histories`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=171;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=173;
 --
 -- AUTO_INCREMENT for table `solutioncourses`
 --
