@@ -319,8 +319,6 @@ class json extends CI_Controller
                 if (hasPermission('users', 'listStudentDocuments')) {
                     $str.= '<a href="' . base_url() . 'user_student/docs_history/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('list_doc_history') . '"><i class="fa fa-files-o icon-circle icon-xs icon-success"></i></a>';
                 }
-
-                $str .= '<br />';
             } 
             
             if (hasPermission('users', 'editUser')) {

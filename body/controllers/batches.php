@@ -198,6 +198,7 @@ class batches extends CI_Controller
 
             if($batch->result_count() == 1){
                 $user_details = new Userdetail();
+                $filed = null;
                 if($batch->type == 'D'){
                     $filed = 'degree_id';
                 }
@@ -219,8 +220,11 @@ class batches extends CI_Controller
                     $filed = 'security_id';
                 }
 
-                $user_details->where($filed, $id)->get(); 
-                $user_details->update_all($filed, 0);
+                if(!is_null($field)){
+                    $user_details->where($filed, $id)->get(); 
+                    $user_details->update_all($filed, 0);    
+                }
+                
 
                 $obj_user_batch = new Userbatcheshistory();
                 $obj_user_batch->where('batch_id', $id)->get();                

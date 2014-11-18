@@ -553,16 +553,13 @@ class users extends CI_Controller
     
     function deleteStudentBatches($id) {
         $obj_batch_history = new Userbatcheshistory($id);
+
         $can_perform_action = false;
-        if ($obj_batch_history->user_id == $this->session_data->id || $this->session_data->role == 1 || $this->session_data->role == 2) {
+        if ($this->session_data->role == 1 || $this->session_data->role == 2 || $obj_batch_history->user_id == $this->session_data->id) {
             $can_perform_action = true;
         }
         
         if ($obj_batch_history->result_count() == 1 && $can_perform_action) {
-            $obj_batch = new Batch();
-            $batches_details = $obj_batch->getAssignBatchIds($this->session_data->role);
-            $batches_ids = array_column($batches_details, 'id');
-            if (in_array($obj_batch_history->batch_id, $batches_ids)) {
                 if ($batches_details[$obj_batch_history->batch_id]['has_point'] == 1) {
                     $obj_score_history = new Scorehistory();
                     $obj_score_history->demeritStudentScore($obj_batch_history->student_id, 'xpr', $batches_details[$obj_batch_history->batch_id]['xpr'], 'Delete badge');
@@ -570,7 +567,9 @@ class users extends CI_Controller
                     $obj_score_history->demeritStudentScore($obj_batch_history->student_id, 'sty', $batches_details[$obj_batch_history->batch_id]['sty'], 'Delete badge');
                 }
                 $obj_batch_history->delete();
-            }
+        } else {
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'user', 'refresh');
         }
     }
     
