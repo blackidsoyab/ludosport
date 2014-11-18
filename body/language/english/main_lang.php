@@ -87,8 +87,8 @@ $lang['payment_failed'] = 'Your payment is failed.';
 $lang['payment_expired'] = 'Your payment is expired.';
 $lang['subscribe_registration_successfull'] = 'Your subscription request has been sent to Myludosport - would receive an email registration confirmation';
 $lang['event_over'] = 'Event is over';
-$lang['tournament_batch_assign_success'] = 'Tournament batch assignment successfully done';
-$lang['tournament_batch_assign_error'] = 'Error in assign the tournament batch';
+$lang['tournament_batch_assign_success'] = 'Tournament badge assignment successfully done';
+$lang['tournament_batch_assign_error'] = 'Error in assign the tournament badge';
 
 //Menus
 $lang['dashboard'] = 'Dashboard';
@@ -279,11 +279,11 @@ $lang['basic'] = 'Basic';
 $lang['access_control'] = 'Access Controls';
 $lang['change_status'] = 'Change Status';
 $lang['extra_permission'] = 'Extra Permission';
-$lang['batch_history'] = 'Batch History';
+$lang['batch_history'] = 'Badge History';
 $lang['assign_date'] = 'Assign on';
 $lang['assign_by'] = 'Assign by';
 $lang['list_score_history'] = 'List score history';
-$lang['list_badge_history'] = 'List badge history';
+$lang['list_badge_history'] = 'List Badge history';
 $lang['list_doc_history'] = 'List document history';
 $lang['affect_score'] = 'Reflect Score';
 $lang['batch_title'] = 'Badge title';
@@ -375,7 +375,7 @@ $lang['description'] = 'Description';
 $lang['all'] = 'All';
 $lang['date'] = 'date';
 $lang['from'] = 'from';
-$lang['batch_assignment'] = 'Batch Assignment';
+$lang['batch_assignment'] = 'Badge Assignment';
 
 //Event Invitations
 $lang['send'] = 'Send';

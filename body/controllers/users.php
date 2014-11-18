@@ -512,10 +512,7 @@ class users extends CI_Controller
     
     function editStudentBatches($id) {
         if (!empty($id)) {
-            if(!validAcess($id, 'student')){
-                $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
-                redirect(base_url() . 'dashboard', 'refresh');
-            }
+
 
             if ($this->input->post() !== false) {
                 $obj_batch_history = new Userbatcheshistory($id);
