@@ -617,7 +617,7 @@ class ajax extends CI_Controller
         $states = New State();
         $states->Where('country_id', $country_id);
         $state_name = $session->language . '_name';
-        echo '<option value="0">', $this->lang->line('select'), ' ', $this->lang->line('state'), '</option>';
+        echo '<option value="">', $this->lang->line('select'), ' ', $this->lang->line('state'), '</option>';
         foreach ($states->get() as $state) {
             echo '<option value="' . $state->id . '">' . $state->$state_name . '</option>';
         }
@@ -628,7 +628,7 @@ class ajax extends CI_Controller
         $cities = New City();
         $cities->Where('state_id', $state_id);
         $city_name = $session->language . '_name';
-        echo '<option value="0">', $this->lang->line('select'), ' ', $this->lang->line('city'), '</option>';
+        echo '<option value="">', $this->lang->line('select'), ' ', $this->lang->line('city'), '</option>';
         foreach ($cities->get() as $city) {
             echo '<option value="' . $city->id . '">' . $city->$city_name . '</option>';
         }
@@ -638,7 +638,7 @@ class ajax extends CI_Controller
         $session = $this->session->userdata('user_session');
         $obj = New School();
         $schools = $obj->getSchoolforAjax($academy_id);
-        echo '<option value="0">', $this->lang->line('all'), ' ', $this->lang->line('school'), '</option>';
+        echo '<option value="">', $this->lang->line('all'), ' ', $this->lang->line('school'), '</option>';
         foreach ($schools as $sc) {
             echo '<option value="' . $sc->id . '">' . $sc->{$session->language . '_school_name'} . '</option>';
         }
@@ -648,7 +648,7 @@ class ajax extends CI_Controller
         $session = $this->session->userdata('user_session');
         $obj = New Clan();
         $clans = $obj->getClanforAjax($school_id);
-        echo '<option value="0">', $this->lang->line('all'), ' ', $this->lang->line('clan'), '</option>';
+        echo '<option value="">', $this->lang->line('all'), ' ', $this->lang->line('clan'), '</option>';
         foreach ($clans as $clan) {
             echo '<option value="' . $clan->id . '">' . $clan->{$session->language . '_class_name'} . '</option>';
         }
@@ -976,7 +976,7 @@ class ajax extends CI_Controller
         $session = $this->session->userdata('user_session');
         $obj = New Evolutionclan();
         $clans = $obj->getEvolutionClanforAjax($school_id);
-        echo '<option value="0">', $this->lang->line('all'), ' ', $this->lang->line('evolutionclan'), '</option>';
+        echo '<option value="">', $this->lang->line('all'), ' ', $this->lang->line('evolutionclan'), '</option>';
         foreach ($clans as $clan) {
             echo '<option value="' . $clan->id . '">' . $clan->{$session->language . '_class_name'} . '</option>';
         }

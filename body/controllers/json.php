@@ -386,7 +386,7 @@ class json extends CI_Controller
                 $temp_arr[] = $aRow['total_students'];
             }
             
-            $temp_arr[] = (float)$aRow['fee1'] + ((int)$aRow['total_students'] * (float)$aRow['fee2']);
+            $temp_arr[] = number_format(((float)$aRow['fee1'] + ((int)$aRow['total_students'] * (float)$aRow['fee2'])),2,",","");
             
             $str = NULL;
             if (hasPermission('academies', 'editAcademy')) {

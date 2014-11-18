@@ -195,17 +195,51 @@ class batches extends CI_Controller
         if (!empty($id)) {
             $batch = new Batch();
             $batch->where('id', $id)->get();
-            if (file_exists('assets/img/batches/' . $batch->image)) {
-                unlink('assets/img/batches/' . $batch->image);
+
+            if($batch->result_count() == 1){
+                $user_details = new Userdetail();
+                if($batch->type == 'D'){
+                    $filed = 'degree_id';
+                }
+
+                if($batch->type == 'H'){
+                    $filed = 'honour_id';
+                }
+
+
+                if($batch->type == 'M'){
+                    $filed = 'master_id';
+                }
+
+                if($batch->type == 'Q'){
+                    $filed = 'qualification_id';
+                }
+
+                if($batch->type == 'S'){
+                    $filed = 'security_id';
+                }
+
+                $user_details->where($filed, $id)->get(); 
+                $user_details->update_all($filed, 0);
+
+                $obj_user_batch = new Userbatcheshistory();
+                $obj_user_batch->where('batch_id', $id)->get();                
+                $obj_user_batch->delete_all();
+
+
+                if (file_exists('assets/img/batches/' . $batch->image)) {
+                    unlink('assets/img/batches/' . $batch->image);
+                }
+                if (!is_null($batch->dashboard_cover) && file_exists('assets/img/batches/dashboard_cover/' . $batch->dashboard_cover)) {
+                    unlink('assets/img/batches/dashboard_cover/' . $batch->dashboard_cover);
+                }
+                if (!is_null($batch->profile_cover) && file_exists('assets/img/batches/profile_cover/' . $batch->profile_cover)) {
+                    unlink('assets/img/batches/profile_cover/' . $batch->profile_cover);
+                }
+
+                $batch->delete();
+                $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
             }
-            if (!is_null($batch->dashboard_cover) && file_exists('assets/img/batches/dashboard_cover/' . $batch->dashboard_cover)) {
-                unlink('assets/img/batches/dashboard_cover/' . $batch->dashboard_cover);
-            }
-            if (!is_null($batch->profile_cover) && file_exists('assets/img/batches/profile_cover/' . $batch->profile_cover)) {
-                unlink('assets/img/batches/profile_cover/' . $batch->profile_cover);
-            }
-            $batch->delete();
-            $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
             redirect(base_url() . 'batch', 'refresh');
         } else {
             $this->session->set_flashdata('error', $this->lang->line('delete_data_error'));

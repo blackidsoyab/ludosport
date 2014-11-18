@@ -96,7 +96,7 @@ class batchrequests extends CI_Controller
             }
             
             $user = new User();
-            $data['student_details'] = $user->where_in('id ', $student_ids)->get();
+            $data['student_details'] = $user->where_in('id ', $student_ids)->order_by('firstname', 'ASC')->get();
             
             $this->layout->view('batchrequests/add', $data);
         }
@@ -148,7 +148,7 @@ class batchrequests extends CI_Controller
                 }
                 
                 $user = new User();
-                $data['student_details'] = $user->where_in('id ', $student_ids)->get();
+                $data['student_details'] = $user->where_in('id ', $student_ids)->order_by('firstname', 'ASC')->get();
                 
                 $this->layout->view('batchrequests/edit', $data);
             }

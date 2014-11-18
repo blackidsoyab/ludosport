@@ -43,7 +43,7 @@
                             url: http_host_js + 'evolutionclan/delete/' + current_id,
                             data: id = current_id,
                             success: function() {
-                                //window.location.reload();
+                                window.location.reload();
                             }
                         });
                     }
