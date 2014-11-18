@@ -151,7 +151,7 @@
                         </p>
                     <?php } ?>
 
-                    <?php if(!is_null($batch_image)) { ?>
+                    <?php if(!is_null(@$batch_image)) { ?>
                         <p class="social-icon">
                             <?php foreach ($batch_image as $image) { ?>
                                 <img src="<?php echo $image['image']; ?>" width="40" height="40" alt="<?php echo $image['name']; ?>" data-toggle="tooltip" data-original-title="<?php echo $image['name']; ?>">

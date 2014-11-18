@@ -419,6 +419,9 @@ if (!function_exists('array_column')) {
         }
         
         foreach ($array as $k => $v) {
+            if(is_object($v)){
+                $v = objectToArray($v);    
+            }
             $col[$k] = $v[$column];
         }
         return $col;
