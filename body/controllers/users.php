@@ -492,8 +492,48 @@ class users extends CI_Controller
             $this->layout->setField('page_title', $this->lang->line('add').' '.$this->lang->line('batch_history'));
             $data['user'] = new User($student_id);
 
-            $obj_batch = new Batch();
-            $data['batches'] = $obj_batch->order_by('type','ASC')->order_by('sequence' , 'ASC')->get();
+            if ($this->session_data->role == 1) {
+                $assignments = array('D', 'H', 'Q', 'S');
+            } else {
+                $obj_batch = new Batch();
+                $assignments = $obj_batch->getBatchTypeAssignmentByRole($this->session_data->role);
+            }
+            
+            if (in_array('D', $assignments)) {
+                $obj_batch = new Batch();
+                $degrees = $obj_batch->getBatchAssignmentByRole('D', $this->session_data->role);
+                foreach ($degrees as $degree) {
+                    $data['batches'][] = $degree;
+                }
+                 
+            }
+            
+            if (in_array('H', $assignments)) {
+                $obj_batch = new Batch();
+                $honours = $obj_batch->getBatchAssignmentByRole('H', $this->session_data->role);
+
+                foreach ($honours as $honour) {
+                    $data['batches'][] = $honour;
+                }
+            }
+            
+            if (in_array('Q', $assignments)) {
+                $obj_batch = new Batch();
+                $qualifications = $obj_batch->getBatchAssignmentByRole('Q', $this->session_data->role);
+
+                foreach ($qualifications as $qualification) {
+                    $data['batches'][] = $qualification;
+                }
+            }
+            
+            if (in_array('S', $assignments)) {
+                $obj_batch = new Batch();
+                $securities = $obj_batch->getBatchAssignmentByRole('S', $this->session_data->role);
+
+                foreach ($securities as $security) {
+                    $data['batches'][] = $security;
+                }
+            }
 
             $obj_batch_history = new Userbatcheshistory();
             $obj_batch_history->select('batch_id')->where('student_id', $student_id)->get();
@@ -504,6 +544,10 @@ class users extends CI_Controller
 
             if(!isset($data['assigned_batches'])){
                 $data['assigned_batches'] = array();   
+            }
+
+            if(!isset($data['batches'])){
+                $data['batches'] = array();   
             }
 
             $this->layout->view('users/student_batch_history_add', $data);
