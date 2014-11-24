@@ -63,6 +63,54 @@ class profiles extends CI_Controller
             if ($total_attendance != 0) {
                 $data['attendance_percentage'] = round(((int)$obj_attendance->getTotalAttendance($this->session_data->id, 'present') * 100) / $total_attendance, 2);
             }
+
+            //Right Hand side Batches Images
+            $obj_batch_history = new Userbatcheshistory();
+            $batches = $obj_batch_history->getStudentBatchHistory($id);
+            
+            foreach ($batches as $batch) {
+                if ($batch->type == 'D') {
+                    $data['student_degrees'][] = $batch;
+                }
+                
+                if ($batch->type == 'S') {
+                    $data['student_securities'][] = $batch;
+                }
+                
+                if ($batch->type == 'Q') {
+                    $data['student_qualifications'][] = $batch;
+                }
+                
+                if ($batch->type == 'H') {
+                    $data['student_honours'][] = $batch;
+                }
+            }
+
+            unset($obj_batch_history);
+            $obj_batch_history = new Userbatcheshistory();
+            $obj_batch_history->select('batch_id')->where(array('batch_type' => 'S', 'student_id' => $id))->get();
+            
+            foreach ($obj_batch_history as $batch_detail) {
+                $assigned_batches[] = $batch_detail->batch_id;
+            }
+            
+            if (!isset($assigned_batches)) {
+                $assigned_batches = array();
+            }
+            
+            for ($i = 0; $i <= 2; $i++) {
+                for ($j = 1; $j <= 7; $j++) {
+                    $evolution_batch_master = evolutionMasterLevels($i, $j);
+                    if (in_array($evolution_batch_master['id'], $assigned_batches)) {
+                        $data['evolution_batch_master'][$j] = $evolution_batch_master;
+                    } else {
+                        if (!isset($data['evolution_batch_master'][$j])) {
+                            $evolution_batch_master = evolutionMasterLevels(0, $j);
+                            $data['evolution_batch_master'][$j] = $evolution_batch_master;
+                        }
+                    }
+                }
+            }
         } else {
             $data['ac_sc_clan_name'] = null;
             $data['batch_detail'] = null;

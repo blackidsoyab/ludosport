@@ -44,8 +44,40 @@ class evolutionclans extends CI_Controller
             $school = new School();
             $data['schools'] = $school->getSchoolOfTeacher($this->session_data->id, false);
         }
+
+        if (is_null($id)) {
+             $this->layout->view('evolutionclans/view', $data);
+        } else {
+            
+            $obj = new Evolutionclan();
+            $data['evolution_clan'] = $obj->where('id', $id)->get();
+
+            $obj_clan_dates = New Evolutionclandate();
+            $data['next_clan_dates'] = $obj_clan_dates->where('evolutionclan_id', $id)->order_by('clan_date','desc')->get();
+            
+            $data['school'] = $obj->School->get();
+            $data['academy'] = $obj->School->Academy->get();
+            $data['teacher'] = userNameAvtar($obj->teacher_id);
+            
+            $students = $obj->Evolutionstudent->get();
+            
+            if ($students->result_count() > 0) {  
+                foreach ($students as $value) {
+                    $user = $value->User->get();
+                    if (!is_null($user->id)) {
+                        $data['students'][] = $user->stored;
+                    }
+                }
+            }
+            
+            if (!isset($data['students'])) {
+                $data['students'] = null;
+            }
+            
+            $this->layout->view('evolutionclans/view_single', $data);
+        }
         
-        $this->layout->view('evolutionclans/view', $data);
+       
     }
     
     //Add the Evolution
@@ -484,18 +516,13 @@ class evolutionclans extends CI_Controller
         }
         
         $clan = New Evolutionclan();
-        
-        //get the Number of day like Monday : 1 .... Sunday : 7
-        $day_numeric = date('N', strtotime($date));
-        $details = $clan->getClansDetailsByDay($clan_id, $day_numeric);
-
-        if (!$details) {
-            $obj_clan_date = new Clandate();
-            $obj_clan_date->where(array('clan_id' => $clan_id, 'clan_date' => $date))->get();
-            if ($obj_clan_date->result_count() == 1) {
-                $details = true;
-            }
+        $details = false;
+        $obj_clan_date = new Evolutionclandate();
+        $obj_clan_date->where(array('evolutionclan_id' => $clan_id, 'clan_date' => $date))->get();
+        if ($obj_clan_date->result_count() == 1) {
+            $details = true;
         }
+
         
         //Current Date
         $current_date = get_current_date_time()->get_date_for_db();

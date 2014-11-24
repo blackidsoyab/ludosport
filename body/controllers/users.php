@@ -446,6 +446,12 @@ class users extends CI_Controller
         if (!empty($id)) {
             $user = new User();
             $user->where('id', $id)->get();
+            $roles = explode(',', $user->role_id);
+            if(in_array(6, $roles)){
+                $obj_user_details = new Userdetail();
+                $obj_user_details->where('student_master_id', $id)->get();
+                $obj_user_details->delete();
+            }
             $user->delete();
             $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
             redirect(base_url() . 'user', 'refresh');

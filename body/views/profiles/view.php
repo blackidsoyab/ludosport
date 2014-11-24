@@ -163,6 +163,19 @@
                 </div>
             </div>
         </div>
+
+        <div class="the-box">
+                <h3 class="panel-title"><strong><?php echo $this->lang->line('my_combat_style'); ?></strong></h3>
+                <div class="">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <?php foreach ($evolution_batch_master as $master) { ?>
+                                <img src="<?php echo $master['image']; ?>" alt="Avatar" class="seven-style-icon img-responsive img-circle" data-toggle="tooltip" title="" data-original-title="<?php echo $master[$session->language]; ?>">    
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
 
     <?php if(in_array(6, explode(',',$profile->role_id))){ ?>
@@ -175,22 +188,105 @@
                 </div>
             </div>
 
-            <div class="the-box">
-                <div class="row">
-                    <div class="col-xs-6 text-center">
-                        <h4 class="small-heading" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('wins'), '/', $this->lang->line('defeat'); ?>"><?php echo $this->lang->line('wins'), '/', $this->lang->line('defeat'); ?></h4>
-                        <span class="chart chart-widget-pie widget-easy-pie-1" data-percent="<?php echo @$victories_percentage; ?>">
-                            <span class="percent"><?php echo @$victories_percentage; ?></span>
-                        </span>
+            <?php if ($student_degrees != false) { ?>
+                <div class="panel panel-degree panel-square panel-no-border">
+                    <div class="panel-heading">
+                        <div class="right-content">
+                            <button class="btn btn-degree to-collapse collapsed" data-toggle="collapse" data-target="#panel-student-degree"><i class="fa fa-chevron-up"></i></button>
+                        </div>
+                        <h3 class="panel-title"><strong><?php echo $this->lang->line('degree'); ?></strong></h3>
                     </div>
-                    <div class="col-xs-6 text-center">
-                        <h4 class="small-heading overflow-hidden overflow-text-dot" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('attendance'), '/', $this->lang->line('absence'); ?>"><?php echo $this->lang->line('attendance'), '/', $this->lang->line('absence'); ?></h4>
-                        <span class="chart chart-widget-pie widget-easy-pie-2" data-percent="<?php echo @$attendance_percentage; ?>">
-                            <span class="percent"><?php echo @$attendance_percentage; ?></span>
-                        </span>
-                    </div>
+
+                    <div id="panel-student-degree" class="collapse">
+                        <div class="the-box no-border">
+                            <?php foreach ($student_degrees as $degree) { ?>
+                                <div class="media user-card-sm">
+                                        <img class="pull-left media-object img-circle <?php echo ($userdetail->degree_id != $degree->id) ? (!is_null($degree->assign_date)) ? 'opacity-7' : 'opacity-3' : ''; ?>" src="<?php echo IMG_URL . 'batches/' . $degree->image; ?>" alt="<?php echo $degree->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $degree->{$session->language . '_name'}; ?>">
+                                    <div class="media-body">
+                                        <h4 class="<?php echo ($userdetail->degree_id != $degree->id) ? (!is_null($degree->assign_date)) ? 'opacity-7' : 'opacity-3' : ''; ?>"><?php echo $degree->{$session->language . '_name'}; ?></h4>
+                                        <p class="text-danger"><?php echo (!is_null($degree->assign_date)) ? date('d/m/Y', strtotime($degree->assign_date)) : ''; ?></p>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
+                     </div>
                 </div>
-            </div>
+            <?php } ?>
+
+            <?php if ($student_securities != false) { ?>
+                <div class="panel panel-security panel-square panel-no-border">
+                        <div class="panel-heading">
+                            <div class="right-content">
+                                <button class="btn btn-security to-collapse collapsed" data-toggle="collapse" data-target="#panel-student-security"><i class="fa fa-chevron-up"></i></button>
+                            </div>
+                            <h3 class="panel-title"><strong><?php echo $this->lang->line('security'); ?></strong></h3>
+                        </div>
+
+                        <div id="panel-student-security" class="collapse">
+                            <div class="the-box no-border">
+                                <?php foreach ($student_securities as $security) { ?>
+                                    <div class="media user-card-sm">
+                                        <img class="pull-left media-object img-circle <?php echo ($userdetail->security_id != $security->id) ? (!is_null($security->assign_date)) ? 'opacity-7' : 'opacity-3' : ''; ?>" src="<?php echo IMG_URL . 'batches/' . $security->image; ?>" alt="<?php echo $security->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $security->{$session->language . '_name'}; ?>">
+                                        <div class="media-body">
+                                            <h4 class="<?php echo ($userdetail->security_id != $security->id) ? (!is_null($security->assign_date)) ? 'opacity-7' : 'opacity-3' : ''; ?>"><?php echo $security->{$session->language . '_name'}; ?></h4>
+                                            <p class="text-danger"><?php echo (!is_null($security->assign_date)) ? date('d/m/Y', strtotime($security->assign_date)) : ''; ?></p>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                         </div>
+                </div>
+            <?php } ?>
+
+            <?php if ($student_qualifications != false) { ?>
+                <div class="panel panel-qualification panel-square panel-no-border">
+                    <div class="panel-heading">
+                        <div class="right-content">
+                            <button class="btn btn-qualification to-collapse collapsed" data-toggle="collapse" data-target="#panel-student-qualification"><i class="fa fa-chevron-up"></i></button>
+                        </div>
+                        <h3 class="panel-title"><strong><?php echo $this->lang->line('qualification'); ?></strong></h3>
+                    </div>
+
+                    <div id="panel-student-qualification" class="collapse">
+                        <div class="the-box no-border">
+                            <?php foreach ($student_qualifications as $qualification) { ?>
+                                <div class="media user-card-sm">
+                                   <img class="pull-left media-object img-circle <?php echo ($userdetail->qualification_id != $qualification->id) ? (!is_null($qualification->assign_date)) ? 'opacity-7' : 'opacity-3' : ''; ?>" src="<?php echo IMG_URL . 'batches/' . $qualification->image; ?>" alt="<?php echo $qualification->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $qualification->{$session->language . '_name'}; ?>">
+                                    <div class="media-body">
+                                        <h4 class="<?php echo ($userdetail->qualification_id != $qualification->id) ? (!is_null($qualification->assign_date)) ? 'opacity-7' : 'opacity-3' : ''; ?>"><?php echo $qualification->{$session->language . '_name'}; ?></h4>
+                                        <p class="text-danger"><?php echo (!is_null($qualification->assign_date)) ? date('d/m/Y', strtotime($qualification->assign_date)) : ''; ?></p>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
+                     </div>
+                </div>
+            <?php } ?>
+
+            <?php if ($student_honours != false) { ?>
+                <div class="panel panel-honour panel-square panel-no-border">
+                        <div class="panel-heading">
+                            <div class="right-content">
+                                <button class="btn btn-honour to-collapse collapsed" data-toggle="collapse" data-target="#panel-student-honour"><i class="fa fa-chevron-up"></i></button>
+                            </div>
+                            <h3 class="panel-title"><strong><?php echo $this->lang->line('honour'); ?></strong></h3>
+                        </div>
+
+                        <div id="panel-student-honour" class="collapse">
+                            <div class="the-box no-border">
+                                <?php foreach ($student_honours as $honour) { ?>
+                                    <div class="media user-card-sm">
+                                        <img class="pull-left media-object img-circle <?php echo ($userdetail->honour_id != $honour->id) ? (!is_null($honour->assign_date)) ? 'opacity-7' : 'opacity-3' : ''; ?>" src="<?php echo IMG_URL . 'batches/' . $honour->image; ?>" alt="<?php echo $honour->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $honour->{$session->language . '_name'}; ?>">
+                                        <div class="media-body">
+                                            <h4 class="<?php echo ($userdetail->honour_id != $honour->id) ? (!is_null($honour->assign_date)) ? 'opacity-7' : 'opacity-3' : ''; ?>"><?php echo $honour->{$session->language . '_name'}; ?></h4>
+                                            <p class="text-danger"><?php echo (!is_null($honour->assign_date)) ? date('d/m/Y', strtotime($honour->assign_date)) : ''; ?></p>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                </div>
+            <?php } ?> 
         
             <div class="row">
                 <div class="col-sm-3 col-xs-6 col-md-6">

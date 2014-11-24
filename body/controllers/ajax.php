@@ -466,29 +466,29 @@ class ajax extends CI_Controller
         }
 
         $obj_evolution_clan = New Evolutionclan();
-            $obj_evolution_details = $obj_evolution_clan->getEvolutionClanMonth($month);
-            if ($obj_evolution_details) {
-                foreach ($obj_evolution_details as $value) {
-                    $temp = array();
-                    $temp['title'] = $value->clan;
-                    $temp['start'] = $value->clan_date;
-                    $temp['tooltip'] = $value->clan . ', ' . $value->school . ', ' . $value->academy;
-                    if (strtotime($value->clan_date) < strtotime($current_date)) {
-                        $temp['url'] = base_url() . 'evolutionclan/clan_attendance/' . $value->id . '/' . $date;
-                        $temp['type'] = 'past';
-                        $temp['class'] = 'label badge-info';
-                    } else if (strtotime($value->clan_date) == strtotime($current_date)) {
-                        $temp['url'] = base_url() . 'evolutionclan/clan_attendance/' . $value->id . '/' . $date;
-                        $temp['type'] = 'present';
-                        $temp['class'] = 'label badge-success';
-                    } else {
-                        $temp['url'] = base_url() . 'evolutionclan/clan_attendance/' . $value->id . '/' . $date;
-                        $temp['type'] = 'future';
-                        $temp['class'] = 'label badge-inverse';
-                    }
-                    $return[] = $temp;
+        $obj_evolution_details = $obj_evolution_clan->getEvolutionClanMonth($month);
+        if ($obj_evolution_details) {
+            foreach ($obj_evolution_details as $obj_evolution_date) {
+                $temp = array();
+                $temp['title'] = $obj_evolution_date->clan;
+                $temp['start'] = $obj_evolution_date->clan_date;
+                $temp['tooltip'] = $obj_evolution_date->clan . ', ' . $obj_evolution_date->school . ', ' . $obj_evolution_date->academy;
+                if (strtotime($obj_evolution_date->clan_date) < strtotime($current_date)) {
+                    $temp['url'] = base_url() . 'evolutionclan/clan_attendance/' . $obj_evolution_date->id . '/' . $obj_evolution_date->clan_date;
+                    $temp['type'] = 'past';
+                    $temp['class'] = 'label badge-info';
+                } else if (strtotime($obj_evolution_date->clan_date) == strtotime($current_date)) {
+                    $temp['url'] = base_url() . 'evolutionclan/clan_attendance/' . $obj_evolution_date->id . '/' . $obj_evolution_date->clan_date;
+                    $temp['type'] = 'present';
+                    $temp['class'] = 'label badge-success';
+                } else {
+                    $temp['url'] = base_url() . 'evolutionclan/clan_attendance/' . $obj_evolution_date->id . '/' . $obj_evolution_date->clan_date;
+                    $temp['type'] = 'future';
+                    $temp['class'] = 'label badge-inverse';
                 }
+                $return[] = $temp;
             }
+        }
 
         $schools = new School();
         if ($this->session_data->role == '1' || $this->session_data->role == '2') {

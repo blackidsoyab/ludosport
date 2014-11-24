@@ -465,8 +465,8 @@ class json extends CI_Controller
         }
         
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', 'CONCAT(users.firstname," ", users.lastname) AS instructor', 'levels.' . $this->session_data->language . '_level_name AS level', 'schools.' . $this->session_data->language . '_school_name AS school_name', 'academies.' . $this->session_data->language . '_academy_name AS academy_name', '(SELECT count(*) from userdetails, clans temp_clan where  userdetails.clan_id=temp_clan.id AND temp_clan.id=clans.id) AS total_students');
-        $this->datatable->eColumns = array('clans.id');
+        $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', 'CONCAT(users.firstname," ", users.lastname) AS instructor', 'levels.' . $this->session_data->language . '_level_name AS level', 'schools.' . $this->session_data->language . '_school_name AS school_name', '(SELECT count(*) from userdetails, clans temp_clan where  userdetails.clan_id=temp_clan.id AND temp_clan.id=clans.id) AS total_students');
+        $this->datatable->eColumns = array('clans.id', 'academies.' . $this->session_data->language . '_academy_name AS academy_name');
         $this->datatable->sIndexColumn = "clans.id";
         $this->datatable->sTable = " clans, users, schools, academies, levels";
         
@@ -507,7 +507,7 @@ class json extends CI_Controller
                 $str.= '<a href="' . base_url() . 'clan/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
             }
             
-            if (hasPermission('clans', 'deleteClan')) {
+            if (hasPermission('clans', 'deleteClan') && $aRow['total_students'] == 0) {
                 $str.= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
             }
             $temp_arr[] = $str;
@@ -999,9 +999,9 @@ class json extends CI_Controller
             }
             
             if ($this->session_data->role < $aRow['from_role'] && hasPermission('batchrequests', 'changeStatusBatchrequest')) {
-                $str.= '<a href="' . base_url() . 'batchrequest/changestatus/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('change_status') . '"><i class="fa fa-info icon-circle icon-xs icon-default"></i></a>';
+                $str.= '<a href="' . base_url() . 'batchrequest/changestatus/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('change_status') . '"><i class="fa fa-info icon-circle icon-xs icon-success"></i></a>';
             } else {
-                $str.= '<a href="' . base_url() . 'batchrequest/view/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('view') . '"><i class="fa fa-info icon-circle icon-xs icon-default"></i></a>';
+                $str.= '<a href="' . base_url() . 'batchrequest/view/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('view') . '"><i class="fa fa-info icon-circle icon-xs icon-success"></i></a>';
             }
             
             if ($perform_action && hasPermission('batchrequests', 'editBatchrequest')) {
@@ -1260,12 +1260,18 @@ class json extends CI_Controller
             $temp_arr[] = $aRow['class_name'];
             $temp_arr[] = $aRow['school_name'];
             $temp_arr[] = $aRow['academy_name'];
+
+            $str = null;
+
+            if(hasPermission('users', 'listStudentScore')) {
+                $str.= '<a href="' . base_url() . 'user_student/score_history/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('list_score_history') . '"><i class="fa fa-star icon-circle icon-xs icon-info"></i></a>';
+            }
             
             if (hasPermission('studentratings', 'editStudentrating')) {
-                $temp_arr[] = '<a href="' . base_url() . 'studentrating/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
-            } else {
-                $temp_arr[] = '&nbsp;';
+                $str .= '<a href="' . base_url() . 'studentrating/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
             }
+
+            $temp_arr[] = $str;
             
             $this->datatable->output['aaData'][] = $temp_arr;
         }

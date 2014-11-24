@@ -323,9 +323,28 @@ class clans extends CI_Controller
         if (!empty($id)) {
             $clan = new Clan();
             $clan->where('id', $id)->get();
-            //$clan->delete();
-            
-            $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
+
+            $obj_user_details = new Userdetail();
+            $obj_user_details->where('clan_id', $id)->get();
+            if($obj_user_details->result_count() == 0){
+                $obj_teacher_attendance = new Teacherattendance();
+                $obj_teacher_attendance->where('clan_id', $id)->get();
+                $obj_teacher_attendance->delete_all();
+
+                $obj_attendance_recover = new Attendancerecover();
+                $obj_attendance_recover->where('clan_id', $id)->get();
+                $obj_attendance_recover->delete_all();
+
+                $obj_clan_dates = new Clandate();
+                $obj_clan_dates->where('clan_id', $id)->get();
+                $obj_clan_dates->delete_all();
+
+                $clan->delete();
+                $this->session->set_flashdata('success', $this->lang->line('delete_data_success'));
+            } else{
+                $this->session->set_flashdata('error', $this->lang->line('delete_data_error'));
+            }
+
             redirect(base_url() . 'clan', 'refresh');
         } else {
             $this->session->set_flashdata('error', $this->lang->line('delete_data_error'));

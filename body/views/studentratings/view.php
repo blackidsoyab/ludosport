@@ -121,7 +121,7 @@
                     <th width="150"><?php echo $this->lang->line('clan'), ' ', $this->lang->line('name'); ?></th>
                     <th width="150"><?php echo $this->lang->line('school'), ' ', $this->lang->line('name'); ?></th>
                     <th width="150"><?php echo $this->lang->line('academy'), ' ', $this->lang->line('name'); ?></th>
-                    <th width="50"><?php echo $this->lang->line('actions'); ?></th>
+                    <th width="75"><?php echo $this->lang->line('actions'); ?></th>
                 </tr>
             </thead>
             <tbody>
