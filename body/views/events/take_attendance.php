@@ -1,4 +1,22 @@
 <?php $session = $this->session->userdata('user_session'); ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".clan-selection").change(function(){
+	        var filter = 'clan-' + $(this).val();
+	        var count = 0;
+	        $(".event_attendance tr").each(function(){
+	        	console.log($(this).hasClass(filter));
+	            if ($(this).hasClass(filter) > 0) {
+	                $(this).show();
+	            } else {
+	                $(this).fadeOut();
+	            }
+	        });
+	        PositionFooter();
+	    });
+	});
+</script>
+
 <h1 class="page-heading">
 	<?php echo $this->lang->line('event_take_attendance') ,' : '; ?>
  	<a href="<?php echo base_url() .'event/view/'. $event_detail->id;?>"><?php echo $event_detail->{$session->language.'_name'}; ?></a>
@@ -14,9 +32,17 @@
 							<td style="width: 50px;"><?php echo $this->lang->line('no'); ?></td>
 							<td style="width: 150px;"><?php echo $this->lang->line('full_name'); ?></td>
 							<td style="width: 250px;"><?php echo date('l, j<\s\u\p>S</\s\u\p> F Y', strtotime(get_current_date_time()->get_date_for_db()));?></td>
+							<td style="width: 150px;">
+								<select class="form-control clan-selection">
+									<option value="0">All</option>
+									<?php foreach ($clans as $clan) { ?>
+										<option value="<?php echo $clan->id?>"><?php echo $clan->{$session->language.'_class_name'}?></option>
+									<?php } ?>
+								</select>
+							</td>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="event_attendance">
 						<?php 
 						$count = 0;
 						$first_names = array_map(function($element){return strtolower($element['firstname']); }, $event_students);
@@ -24,14 +50,10 @@
 						foreach ($event_students as $value) { 
 							$count++;
 							?>
-							<tr id="<?php echo 'user_id_', $value['id']; ?>">
-								<td>
-									<?php echo $count; ?>
-								</td>
-								<td>
-									<a href="<?php echo base_url() .'profile/view/' . $value['id']; ?>"><?php echo ucwords($value['firstname']), ' ', ucwords($value['lastname']); ?></a>
-								</td>
-								<td>
+							<tr id="<?php echo 'user_id_', $value['id']; ?>" class="main_tr clan-0 clan-<?php echo @$value['clan_id']; ?> ">
+								<td><?php echo $count; ?></td>
+								<td><a href="<?php echo base_url() .'profile/view/' . $value['id']; ?>"><?php echo ucwords($value['firstname']), ' ', ucwords($value['lastname']); ?></a></td>
+								<td colspan="2">
 									<div class="row">
 										<div class="col-md-12">
 											<label class="radio-inline" for="p-radios-<?php echo $value['id']; ?>">
@@ -47,6 +69,8 @@
 								</td>
 							</tr>
 							<?php } ?>
+						</tbody>
+						<tfoot>
 							<?php if($show_save_button){ ?>
 								<tr>
 									<td colspan="5">
@@ -55,8 +79,8 @@
 										</button>
 									</td>
 								</tr>
-							<?php } ?>							
-						</tbody>
+							<?php } ?>	
+						</tfoot>
 					</table>
 				</form>
 			</div>

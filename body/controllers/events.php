@@ -415,6 +415,18 @@ class events extends CI_Controller
                     $this->layout->setField('page_title', $this->lang->line('event_take_attendance'));
                     //set array for view part
                     $data['event_detail'] = $event_detail;
+
+                    if($event_detail->event_for == 'ALL'){
+                        $obj_clan = new Clan();
+                        $data['clans'] = $obj_clan->get();
+                    }
+
+                    if($event_detail->event_for == 'AC' || $event_detail->event_for == 'SC'){
+                        $obj_schools = new School();
+                        $school_ids = explode(',', $event_detail->school_id);
+                        $obj_schools->where_in('id', $school_ids)->get();
+                        $data['clans'] = $obj_schools->Clan->get();
+                    }
                     
                     $obj_event_invitations = new Eventinvitation();
                     $current_date = get_current_date_time()->get_date_for_db();
