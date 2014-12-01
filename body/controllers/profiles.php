@@ -116,6 +116,13 @@ class profiles extends CI_Controller
             $data['batch_detail'] = null;
             $data['cover_image'] = IMG_URL . 'banner.png';
         }
+
+        //For Timeline
+        $obj = new Notification();
+        $obj->where('to_id', $id);
+        $obj->or_where('from_id', $id);
+        $obj->get();
+        $data['per_page'] = ceil($obj->result_count() / 10);
         
         $this->layout->view('profiles/view', $data);
     }

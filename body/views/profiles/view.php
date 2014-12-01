@@ -164,7 +164,8 @@
             </div>
         </div>
 
-        <div class="the-box">
+        <?php if(in_array(6, explode(',',$profile->role_id))){ ?>
+            <div class="the-box">
                 <h3 class="panel-title"><strong><?php echo $this->lang->line('my_combat_style'); ?></strong></h3>
                 <div class="">
                     <div class="row">
@@ -176,6 +177,29 @@
                     </div>
                 </div>
             </div>
+        <?php } ?>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h3 class="panel-title pull-left"><strong><?php echo $this->lang->line('timeline'); ?></strong></h3>
+                    </div>
+                </div>
+                <ul class="timeline">
+                    <li class="centering-line"></li>
+                    <div id="timeline-data">
+                    </div>
+                </ul>
+
+                <div align="center">
+                    <button class="btn btn-warning btn-perspective text-center load_more" >Click here / Scroll down to load more <i class="padding-killer fa fa-long-arrow-down text-white"></i></button>
+                </div>
+                <div class="animation_image" style="display:none" align="center">
+                    <i class="fa fa-cog fa-spin fa-2x text-white padding-killer"></i>
+                </div>
+            </div>
+        </div>
     </div>
 
     <?php if(in_array(6, explode(',',$profile->role_id))){ ?>
@@ -329,6 +353,52 @@
         </div>
     <?php } ?>
 </div>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var track_load = 0;
+        var loading  = false;
+        var total_groups = <?php echo $per_page; ?>;
+
+        $('#timeline-data').load('<?php echo base_url() . "history/load_more_timeline/$profile->id/0/"; ?>' + track_load , function() {track_load++;});
+
+        $(window).scroll(function() {
+            if($(window).scrollTop() + $(window).height() == $(document).height()){
+                if(track_load <= total_groups && loading==false)
+                {
+                    loading = true;
+                    $('.animation_image').show();
+                    $.post('<?php echo base_url() . "history/load_more_timeline/$profile->id/0/"; ?>' + track_load , function(data){
+                        $("#timeline-data").append(data);
+                        $('.animation_image').hide();
+                        track_load++;
+                        loading = false; 
+                    }).fail(function(xhr, ajaxOptions, thrownError) {
+                        $('.animation_image').hide();
+                        loading = false;
+                    });
+                }
+            }
+        });
+
+         $('.load_more').click(function(){
+            if(track_load <= total_groups && loading==false){
+                loading = true;
+                $('.animation_image').show();
+                $.post('<?php echo base_url() . "history/load_more_timeline/$profile->id/0/"; ?>' + track_load , function(data){
+                    $("#timeline-data").append(data);
+                    $('.animation_image').hide();
+                    track_load++;
+                    loading = false; 
+                }).fail(function(xhr, ajaxOptions, thrownError) {
+                    $('.animation_image').hide();
+                    loading = false;
+                });
+            }
+        });
+    });
+</script>
 
 <script src="<?php echo PLUGIN_URL; ?>easypie-chart/easypiechart.min.js"></script>
 <script src="<?php echo PLUGIN_URL; ?>easypie-chart/jquery.easypiechart.min.js"></script>

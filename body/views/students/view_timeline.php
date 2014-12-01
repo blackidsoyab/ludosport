@@ -35,7 +35,7 @@
         var loading  = false;
         var total_groups = <?php echo $per_page; ?>;
 
-        $('#timeline-data').load("<?php echo base_url() . 'history/load_more_timeline/' . $year .'/'; ?>" + track_load , function() {track_load++;
+        $('#timeline-data').load("<?php echo base_url() . 'history/load_more_timeline/' . $session->id .'/'.$year .'/'; ?>" + track_load , function() {track_load++;
             PositionFooter();
         });
 
@@ -44,7 +44,7 @@
                 if(track_load <= total_groups && loading==false){
                     loading = true;
                     $('.animation_image').show();
-                    $.post('<?php echo base_url() . "history/load_more_timeline/" . $year ."/"; ?>' + track_load , function(data){
+                    $.post('<?php echo base_url() . "history/load_more_timeline/" . $session->id .'/'.$year ."/"; ?>' + track_load , function(data){
                         $("#timeline-data").append(data);
                         $('.animation_image').hide();
                         track_load++;
@@ -61,7 +61,7 @@
             if(track_load <= total_groups && loading==false){
                 loading = true;
                 $('.animation_image').show();
-                $.post('<?php echo base_url() . "history/load_more_timeline/" . $year ."/"; ?>' + track_load , function(data){
+                $.post('<?php echo base_url() . "history/load_more_timeline/" . $session->id .'/'.$year ."/"; ?>' + track_load , function(data){
                     $("#timeline-data").append(data);
                     $('.animation_image').hide();
                     track_load++;
