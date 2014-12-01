@@ -310,6 +310,30 @@
                             </div>
                         </div>
                 </div>
+            <?php } ?>
+
+            <?php if ($student_tournament != false) { ?>
+                <div class="panel panel-tournament panel-square panel-no-border">
+                        <div class="panel-heading">
+                            <div class="right-content">
+                                <button class="btn btn-tournament to-collapse collapsed" data-toggle="collapse" data-target="#panel-student-tournament"><i class="fa fa-chevron-up"></i></button>
+                            </div>
+                            <h3 class="panel-title"><strong><?php echo $this->lang->line('tournaments'); ?></strong></h3>
+                        </div>
+
+                        <div id="panel-student-tournament" class="collapse">
+                            <div class="the-box no-border">
+                                <?php foreach ($student_tournament as $tournament) { ?>
+                                    <div class="media user-card-sm">
+                                        <img class="pull-left media-object img-circle <?php echo ($userdetail->tournament_id != $tournament->id) ? (!is_null($tournament->assign_date)) ? 'opacity-7' : 'opacity-3' : ''; ?>" src="<?php echo IMG_URL . 'batches/' . $tournament->image; ?>" alt="<?php echo $tournament->{$session->language . '_name'}; ?>"  data-toggle="tooltip" data-original-title="<?php echo $tournament->{$session->language . '_name'}; ?>">
+                                        <div class="media-body">
+                                            <h4 class="<?php echo ($userdetail->tournament_id != $tournament->id) ? (!is_null($tournament->assign_date)) ? 'opacity-7' : 'opacity-3' : ''; ?>"><?php echo $tournament->{$session->language . '_name'}; ?></h4>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                </div>
             <?php } ?> 
         
             <div class="row">
@@ -339,14 +363,20 @@
                 </div>
                 <div class="col-sm-3 col-xs-6 col-md-6">
                     <div class="tiles dribbble-tile text-center">
-                        <i class="fa fa-dribbble icon-lg-size"></i>
+                        <h1 class="bolded less-distance" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('tournaments'); ?>"><?php echo $total_tournaments_present; ?></h1>
                         <h4 class="" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('tournaments'); ?>"><?php echo $this->lang->line('tournaments'); ?></h4>
                     </div>
                 </div>
                 <div class="col-sm-3 col-xs-6 col-md-6">
                     <div class="tiles dribbble-tile text-center">
-                        <i class="fa fa-dribbble icon-lg-size"></i>
-                        <h4 class="" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('year_course'); ?>"><?php echo $this->lang->line('year_course'); ?></h4>
+                        <h1 class="bolded less-distance" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('year_of_entry'); ?>"><?php echo date('Y', strtotime($userdetail->timestamp)); ?></h1>
+                        <h4 class="" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('year_of_entry'); ?>"><?php echo $this->lang->line('year_of_entry'); ?></h4>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-xs-6 col-md-6">
+                    <div class="tiles dribbble-tile text-center">
+                        <h1 class="bolded less-distance" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('tournament_badges'); ?>"><?php echo @$total_tournament_badges; ?></h1>
+                        <h4 class="" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('tournament_badges'); ?>"><?php echo $this->lang->line('tournament_badges'); ?></h4>
                     </div>
                 </div>
             </div>

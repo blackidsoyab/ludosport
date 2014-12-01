@@ -609,7 +609,7 @@ h1.page-heading a{
 }
 
 /* Student Role Histories Page */
-.panel-degree .panel-heading, .panel-security .panel-heading, .panel-qualification .panel-heading, .panel-honour .panel-heading{
+.panel-degree .panel-heading, .panel-security .panel-heading, .panel-qualification .panel-heading, .panel-honour .panel-heading, .panel-tournament .panel-heading{
     color: #fff;
 }
 
@@ -627,6 +627,10 @@ h1.page-heading a{
 
 .btn-honour, .panel-honour{
     background-color: #005E98;
+}
+
+.btn-tournament, .panel-tournament{
+    background-color: #ed8b00;
 }
 /* ************************** */
 

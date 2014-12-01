@@ -64,10 +64,13 @@ class profiles extends CI_Controller
                 $data['attendance_percentage'] = round(((int)$obj_attendance->getTotalAttendance($this->session_data->id, 'present') * 100) / $total_attendance, 2);
             }
 
+            //Tournament Attendance
+            $obj_event_attendance = new Eventattendance();
+            $data['total_tournaments_present'] = (int)$obj_event_attendance->getTotalAttendanceByStudent($id, 1);
+
             //Right Hand side Batches Images
             $obj_batch_history = new Userbatcheshistory();
             $batches = $obj_batch_history->getStudentBatchHistory($id);
-            
             foreach ($batches as $batch) {
                 if ($batch->type == 'D') {
                     $data['student_degrees'][] = $batch;
@@ -84,7 +87,16 @@ class profiles extends CI_Controller
                 if ($batch->type == 'H') {
                     $data['student_honours'][] = $batch;
                 }
+
+                if ($batch->type == 'T') {
+                    $data['student_tournament'][] = $batch;
+                }
             }
+
+            unset($obj_batch_history);
+            $obj_batch_history = new Userbatcheshistory();
+            $obj_batch_history->where(array('batch_type' => 'T', 'student_id' => $id))->get();
+            $data['total_tournament_badges'] = $obj_batch_history->result_count();
 
             unset($obj_batch_history);
             $obj_batch_history = new Userbatcheshistory();
