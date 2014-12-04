@@ -17,7 +17,7 @@
             "aoColumns": [
                 {"sClass": ""},{"sClass": "text-center"}
             ],
-            "sAjaxSource": "<?php echo base_url() . 'clan/view_student_attendance_json/' . $student_id; ?>",
+            "sAjaxSource": "<?php echo base_url() . 'clan/view_single_teacher_attendance_json/' . $teacher_id; ?>",
             "fnInitComplete": function (oSettings, json) {
                 PositionFooter();     
             }
@@ -26,7 +26,7 @@
 </script>
 <?php $session = $this->session->userdata('user_session'); ?>
 
-<h1 class="page-heading h1"><?php echo $this->lang->line('view'), ' ', $this->lang->line('view_attendance'); ?></h1>    
+<h1 class="page-heading h1"><?php echo $this->lang->line('view'), ' ',  $this->lang->line('view_teacher_attendance'); ?></h1>    
 
 
 <div class="the-box">

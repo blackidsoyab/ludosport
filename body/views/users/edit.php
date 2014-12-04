@@ -28,16 +28,29 @@
         });
 
         $('#role_id').change(function(){
-            var check = false;
+            var check_pupil = false;
+            var check_teacher = false;
+
             $("#role_id option:selected").each(function() {
                 if($(this).val() == '6'){
-                    check = true;
+                    check_pupil = true;
+                }
+
+                 if($(this).val() == '5'){
+                    check_teacher = true;
                 }
             });
-            if(check == true){
-                $('#role_pupil1').show();
+
+            if(check_pupil == true){
+                $('#role_pupil').show();
             }else{
-                $('#role_pupil1').hide();
+                $('#role_pupil').hide()
+            }
+
+            if(check_teacher == true){
+                $('#role_teacher').show();
+            }else{
+                $('#role_teacher').hide()
             }
         });
 
@@ -157,6 +170,17 @@
                 </select>
             </div>
         </div>
+
+        <?php if(in_array(5, explode(',',$user->role_id))){ ?>
+            <div id="role_teacher">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"><?php echo $this->lang->line('instructor'), ' ' , $this->lang->line('fee'); ?> <span class="text-danger">*</span></label>
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control required money2_masking" name="teacher_fee" maxlength="9" placeholder="0,00" value="<?php echo number_format($user->teacher_fee,2,",",""); ?>">
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
 
         <?php if(in_array(6, explode(',',$user->role_id))){ ?>
             <div id="role_pupil1">

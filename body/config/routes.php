@@ -140,6 +140,10 @@ $route['clan/view_clan_attendance/(:num)'] = "clans/viewClanAttendance/$1";
 $route['clan/view_clan_attendance_json/(:num)'] = "json/getViewClanAttendanceJsonData/$1";
 $route['clan/view_student_attendance/(:num)'] = "clans/viewStudentAttendance/$1";
 $route['clan/view_student_attendance_json/(:num)'] = "json/getViewStudentAttendanceJsonData/$1";
+$route['clan/view_teacher_attendance'] = "clans/clanViewTeacherAttendance";
+$route['clan/view_teacher_attendance_json'] = "json/getClanViewTeacherAttendanceJsonData";
+$route['clan/view_single_teacher_attendance/(:num)'] = "clans/getViewSinlgleTeacherAttendance/$1";
+$route['clan/view_single_teacher_attendance_json/(:num)'] = "json/getViewSinlgleTeacherAttendanceJsonData/$1";
 
 //Dean Dashboard
 $route['dean/absence_approval/(:num)'] = "deans/teacherAbsenceApproval/$1";

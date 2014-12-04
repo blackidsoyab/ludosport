@@ -1849,4 +1849,70 @@ class json extends CI_Controller
         echo json_encode($this->datatable->output);
         exit();
     }
+
+    public function getClanViewTeacherAttendanceJsonData() {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('CONCAT(firstname, " ", lastname) AS teacher_name', '(SELECT count(*) FROM teacher_attendances presence WHERE presence.teacher_id = users.id AND presence.attendance=1) AS total_presence', '(SELECT count(*) FROM teacher_attendances absence WHERE absence.teacher_id = users.id AND absence.attendance=0) AS total_absence', '(SELECT count(*) FROM teacher_attendances recover WHERE recover.recovery_teacher = users.id) AS total_recovery');
+        $this->datatable->eColumns = array('users.id', 'clans.teacher_id', 'teacher_fee', 'avtar');
+        $this->datatable->sIndexColumn = "users.id";
+        $this->datatable->sTable = " clans, users, schools, academies";
+        
+        if ($this->session_data->role == '1' || $this->session_data->role == '2') {
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND FIND_IN_SET(users.id,clans.teacher_id) > 0 AND users.status = "A"';
+        } else if ($this->session_data->role == '3') {
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', academies.rector_id) > 0 AND users.status = "A"';
+        } else if ($this->session_data->role == '4') {
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', schools.dean_id) > 0 AND users.status = "A"';
+        } else if ($this->session_data->role == '5') {
+            $this->datatable->myWhere = 'WHERE academies.id=schools.academy_id AND schools.id=clans.school_id AND clans.teacher_id=users.id AND FIND_IN_SET(' . $this->session_data->id . ', clans.teacher_id) > 0 AND users.status = "A"';
+        }
+        
+        $this->datatable->groupBy = ' GROUP BY users.id';
+        
+        $this->datatable->datatable_process();
+        $currency = getCurrency();
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = '<img src="' . IMG_URL . 'user_avtar/40X40/' . $aRow['avtar'] . '" class="avatar img-circle" alt="avatar"><a href="'. base_url() .'clan/view_single_teacher_attendance/'.$aRow['id'].'" class="text-black">' . $aRow['teacher_name'] . '</a>';
+            
+            $temp_arr[] = '<span class="badge badge-danger">' . $aRow['total_absence'] . '</span>';;
+            $temp_arr[] = '<span class="badge badge-success">' . $aRow['total_presence'] . '</span>';
+            $temp_arr[] = '<span class="badge badge-warning">' . $aRow['total_recovery'] . '</span>';
+            $temp_arr[] = number_format($aRow['teacher_fee'],2,",","");
+            $price = ((int)$aRow['total_presence'] + (int)$aRow['total_recovery']) * (float)$aRow['teacher_fee'];
+            $temp_arr[] = '<i class="'.$currency["icon"].'"></i>&nbsp;' . number_format($price,2,",","");
+            
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
+
+    public function getViewSinlgleTeacherAttendanceJsonData($teacher_id) {
+        $this->load->library('datatable');
+        $this->datatable->aColumns = array('clan_date');
+        $this->datatable->eColumns = array('attendance', 'recovery_teacher');
+        $this->datatable->sIndexColumn = "id";
+        $this->datatable->sTable = " teacher_attendances";
+        $this->datatable->myWhere = 'WHERE teacher_id=' . $teacher_id .' OR recovery_teacher=' . $teacher_id;
+        
+        $this->datatable->datatable_process();
+        
+        foreach ($this->datatable->rResult->result_array() as $aRow) {
+            $temp_arr = array();
+            $temp_arr[] = date('d-m-Y', strtotime($aRow['clan_date']));
+            
+            if ($aRow['attendance'] == 1) {
+                $temp_arr[] = '<label class="label label-success">P</label>';
+            } else if ($aRow['attendance'] == 0 && $aRow['recovery_teacher'] != $teacher_id) {
+                $temp_arr[] = '<label class="label label-danger">A</label>';
+            } else if ($aRow['attendance'] == 0 && $aRow['recovery_teacher'] == $teacher_id) {
+                $temp_arr[] = '<label class="label label-warning">R</label>';
+            }
+            
+            $this->datatable->output['aaData'][] = $temp_arr;
+        }
+        echo json_encode($this->datatable->output);
+        exit();
+    }
 }

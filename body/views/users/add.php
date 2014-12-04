@@ -4,6 +4,7 @@
     $(document).ready(function() {
         
         $('#role_pupil').hide();
+        $('#role_teacher').hide();
                 
         $("#add").validate({
             rules: {
@@ -31,16 +32,29 @@
         });
         
         $('#role_id').change(function(){
-            var check = false;
+            var check_pupil = false;
+            var check_teacher = false;
+
             $("#role_id option:selected").each(function() {
                 if($(this).val() == '6'){
-                    check = true;
+                    check_pupil = true;
+                }
+
+                 if($(this).val() == '5'){
+                    check_teacher = true;
                 }
             });
-            if(check == true){
+
+            if(check_pupil == true){
                 $('#role_pupil').show();
             }else{
                 $('#role_pupil').hide()
+            }
+
+            if(check_teacher == true){
+                $('#role_teacher').show();
+            }else{
+                $('#role_teacher').hide()
             }
         });
         
@@ -161,6 +175,15 @@
                         <option value="<?php echo $city->id; ?>"><?php echo $city->$field ?></option>
                     <?php } ?>
                 </select>
+            </div>
+        </div>
+
+        <div id="role_teacher">
+            <div class="form-group">
+                <label class="col-lg-3 control-label"><?php echo $this->lang->line('instructor'), ' ' , $this->lang->line('fee'); ?> <span class="text-danger">*</span></label>
+                <div class="col-lg-5">
+                    <input type="text" class="form-control required money2_masking" name="teacher_fee" maxlength="9" placeholder="0,00">
+                </div>
             </div>
         </div>
 

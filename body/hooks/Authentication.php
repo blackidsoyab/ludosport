@@ -67,7 +67,8 @@ class Authentication extends CI_Controller {
             'deleteEvent',
             'changeRequestStatus',
             'evolutionClanAttendances',
-            'saveEvolutionClanAttendances'
+            'saveEvolutionClanAttendances',
+            'getViewSinlgleTeacherAttendance'
         );
     }
 

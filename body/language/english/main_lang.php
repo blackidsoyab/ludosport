@@ -36,6 +36,7 @@ $lang['yes'] = 'Yes';
 $lang['download'] = 'Download';
 $lang['change_email_privacy'] = 'Change Email Privacy';
 $lang['processing'] = 'Processing';
+$lang['instructor'] = 'Instructor';
 
 //Operation's Messages
 $lang['all_field_compulsory'] = ' * All fields are compulsory >:(';
@@ -548,11 +549,14 @@ $lang['cannot_challenge_error'] = 'You have more than 7 duel pending. Please acc
 $lang['7_day_time_over'] = '7 days are over now you cannot declare the result.';
 $lang['101_min_time_over'] = '101 minutes are over now you cannot confirm the result.';
 
-//Student Register
-$lang['view_attendance'] = 'Register';
+//Teacher Register
+$lang['view_teacher_attendance'] = 'Teacher Register';
 $lang['absence'] = 'Absence';
 $lang['presence'] = 'Presence';
 $lang['recovery'] = 'Recovery';
+
+//Student Register
+$lang['view_attendance'] = 'Pupil Register';
 
 //Announcements
 $lang['announcement'] = 'Announcement';

@@ -27,6 +27,7 @@ if ($_SERVER['SERVER_ADDR'] == '127.0.0.1') {
     $config['base_url'] = 'http://demo.blackidlabs.com/ludosport/';
 }
 
+
 if (!defined('ADMIN_URL')) {
     define('ADMIN_URL', $config['base_url'] . 'admin/');
 }
@@ -74,6 +75,11 @@ $config['custom_months'] = array(
     array('en' => 'December', 'it' => 'Dicembre'),
 );
 
+$config['custom_currencies'] = array(
+    'USD' => array('name' => 'USD', 'icon' => 'fa fa-dollar'),
+    'EUR' => array('name' => 'EUR', 'icon' => 'fa fa-euro'),
+    'INR' => array('name' => 'INR', 'icon' => 'fa fa-rupee')
+);
 /*
   |--------------------------------------------------------------------------
   | Index File

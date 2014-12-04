@@ -864,6 +864,17 @@ class clans extends CI_Controller
                         $recover->update('attendance', $recover_value);
                     }
                 }
+
+                $teacher_attadence = new Teacherattendance();
+                $teacher_attadence->where(array('clan_id' => $clan_id, 'clan_date' => $this->input->post('date'), 'teacher_id' => $this->session_data->id))->get();
+                if ($teacher_attadence->result_count() == 0) {
+                    $teacher_attadence->clan_date = $this->input->post('date');
+                    $teacher_attadence->clan_id = $clan_id;
+                    $teacher_attadence->teacher_id = $this->session_data->id;
+                    $teacher_attadence->attendance = 1;
+                    $teacher_attadence->user_id = $this->session_data->id;
+                    $teacher_attadence->save();
+                }
             }
         }
         
@@ -1396,5 +1407,25 @@ class clans extends CI_Controller
         
         $data['student_id'] = $student_id;
         $this->layout->view('clans/view_student_attendance', $data);
+    }
+
+
+
+    /*
+     * Get the Student Attendance for the clan
+    */
+    public function clanViewTeacherAttendance() {
+        $this->layout->view('clans/view_teacher_attendance');
+    }
+
+
+    public function getViewSinlgleTeacherAttendance($teacher_id){
+        if (!hasPermission('clans', 'clanViewTeacherAttendance')) {
+            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+            redirect(base_url() . 'dashboard', 'refresh');
+        }
+        
+        $data['teacher_id'] = $teacher_id;
+        $this->layout->view('clans/view_single_teacher_attendance', $data);
     }
 }

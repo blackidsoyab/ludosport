@@ -51,9 +51,14 @@ class users extends CI_Controller
             $user->username = $this->input->post('username');
             $user->password = md5($this->input->post('new_password'));
             $user->status = $this->input->post('status');
+
+            if (in_array('5', $this->input->post('role_id'))) {
+                $user->teacher_fee = $this->input->post('teacher_fee');
+            }
+
             $user->user_id = $this->session_data->id;
             $user->save();
-            
+
             if (in_array('6', $this->input->post('role_id'))) {
                 $user_details = new Userdetail();
                 $user_details->student_master_id = $user->id;
@@ -230,6 +235,10 @@ class users extends CI_Controller
                 $user->country_id = $city->state->country->id;
                 $user->city_of_residence = $this->input->post('city_of_residence');
                 $user->role_id = implode(',', $new_roles);
+
+                if (in_array('5', $this->input->post('role_id'))) {
+                    $user->teacher_fee = $this->input->post('teacher_fee');
+                }
                 
                 if ($this->input->post('username') != '') {
                     $user->username = $this->input->post('username');

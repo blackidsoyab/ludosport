@@ -337,6 +337,20 @@ if (!function_exists('evolutionMasterLevels')) {
     }
 }
 
+if (!function_exists('getCurrency')) {
+    
+    function getCurrency($key = '') {
+        $ci = & get_instance();
+        $currencies = $ci->config->item('custom_currencies');
+
+        if(in_array($key, $currencies)){
+            return $currencies[$key];
+        } else{
+            return $currencies['USD'];
+        }
+    }
+}
+
 /*
  *   Array Function Start
 */

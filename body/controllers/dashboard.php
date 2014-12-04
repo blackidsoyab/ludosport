@@ -670,11 +670,4 @@ class dashboard extends CI_Controller
             }
         }
     }
-    
-    function mail_testing() {
-        $option['tomailid'] = 'soyab@blackidsolutions.com';
-        $option['subject'] = 'Testing';
-        $option['message'] = 'Testing';
-        send_mail($option);
-    }
 }
