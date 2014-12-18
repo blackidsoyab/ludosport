@@ -60,6 +60,7 @@ class events extends CI_Controller
             $event->where('id', $id)->get();
             if ($event->result_count() == 1) {
                 $data['event_detail'] = $event;
+                $data['event_category_detail'] = $event->Eventcategory->get();
                 $this->layout->view('events/view_single', $data);
             } else {
                 redirect(base_url() . 'event', 'refresh');

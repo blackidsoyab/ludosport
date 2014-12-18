@@ -115,7 +115,7 @@ $lang['pupil'] = 'Allievi';
 //Student Menu
 $lang['history'] = 'Storia';
 $lang['rating'] = 'Rating';
-$lang['top_10'] = 'I migliori 10';
+$lang['top_10'] = 'Top 10';
 $lang['journal'] = 'Calendario';
 $lang['duels'] = 'Duelli';
 $lang['evolution'] = 'Evoluzione';
@@ -175,7 +175,7 @@ $lang['recover_absence'] = 'Recupera l\'assenza';
 $lang['confirm_absence'] = 'Conferma l\'assenza';
 $lang['select_date_for_recover'] = 'Seleziona la data di recupero';
 $lang['degree'] = 'Grado';
-$lang['honour'] = 'Onorificenze';
+$lang['honour'] = 'Onori';
 $lang['qualification'] = 'Qualifiche';
 $lang['security'] = 'Titoli';
 $lang['security'] = 'Lotta';
@@ -379,8 +379,6 @@ $lang['all'] = 'Tutto';
 $lang['date'] = 'Data';
 $lang['from'] = 'Da';
 $lang['batch_assignment'] = 'Assegnazione dei combattimenti';
-$lang['event_from_date'] = 'From Dal';
-$lang['event_to_date'] = 'To Al';
 
 //Event Invitations
 $lang['send'] = 'Invia';
@@ -437,28 +435,22 @@ $lang['unapproved_batch_request'] = 'Respinto';
 $lang['done_by'] = 'Fatto da';
 
 //Message System
-$lang['message'] = 'Messaggio';
+$lang['message'] = 'Messaggi';
 $lang['compose'] = 'Scrivi';
 $lang['inbox'] = 'Posta in arrivo';
-$lang['sent'] = 'Posta inviata';
+$lang['sent'] = 'Inviati';
 $lang['draft'] = 'Bozze';
-$lang['trash'] = 'Cestino';
-$lang['search'] = 'Cerca';
+$lang['trash'] = 'Eliminati';
+$lang['search'] = 'Ricerca';
 $lang['to'] = 'A';
 $lang['send'] = 'Invia';
 $lang['subject'] = 'Oggetto';
-$lang['discard'] = 'Elimina';
+$lang['discard'] = 'Scarta';
 $lang['leave_group'] = 'Lascia il gruppo';
 $lang['attachmments'] = 'Allegati';
-$lang['message_inbox'] = 'Message Inbox';
-$lang['message_compose'] = 'Compose Message';
-$lang['message_read'] = 'Read Message';
-$lang['message_reply'] = 'Reply Message';
-$lang['single_message'] = 'Single';
-$lang['group_message'] = 'Group';
 
 //Students History
-$lang['my_personal_data'] = 'STATISTICHE PERSONALI';
+$lang['my_personal_data'] = 'DATI PERSONALI';
 $lang['my_duels'] = 'DUELLI';
 $lang['clan_logs'] = 'CLAN LOG';
 $lang['attended'] = 'Frequentate';
@@ -470,18 +462,14 @@ $lang['timeline'] = 'TIMELINE';
 $lang['tournament_batch_history'] = 'Storia delle partite del torneo';
 
 //Ratting
-$lang['top_10_rating'] = 'I migliori 10 per punteggio';
-$lang['rating_list'] = 'Lista punteggi';
+$lang['top_10_rating'] = 'Top 10 Valutazione';
+$lang['rating_list'] = 'Valutazione List';
 $lang['xpr'] = 'XPR';
 $lang['war'] = 'WAR';
 $lang['sty'] = 'STY';
-$lang['my_academy'] = 'La mia Accademia';
-$lang['my_school'] = 'my Scuola';
-$lang['my_clan'] = 'my Clan';
-$lang['list_no'] = 'n.';
-$lang['ratting_xpr_content_pupil'] = 'Punteggio ottenuto attraverso la frequenza alle lezioni, la partecipazione agli eventi e la crescita nel percorso didattico.';
-$lang['ratting_war_content_pupil'] = 'Punteggio ottenuto attraverso la vittoria nei Duelli e nelle altre competizioni ufficiali.';
-$lang['ratting_sty_content_pupil'] = 'Punteggio ottenuto attraverso la crescita tecnica e in conseguimento di Premi di Stile.';
+$lang['my_academy'] = 'Accademia';
+$lang['my_school'] = 'Scuola';
+$lang['my_clan'] = 'Clan';
 
 //Studnet Rating
 $lang['operation'] = 'Operazione';
@@ -497,7 +485,7 @@ $lang['duel_suggested'] = 'Duelli suggeriti';
 $lang['duel_recommended'] = 'Scegli il tuo avversario';
 $lang['choose_by_rating'] = 'Scegli in base al punteggio';
 $lang['score'] = 'Punteggio';
-$lang['the_best'] = 'I MIGLIORI';
+$lang['the_best'] = 'Il migliore';
 $lang['duel_accept'] = 'Si, sono pronto';
 $lang['duel_reject'] = 'Mi ritiro';
 $lang['duel_result'] = 'Infine, ecco il risultato';
@@ -507,7 +495,7 @@ $lang['waiting_for_confirm'] = 'In attesa di conferma';
 $lang['opnion_contrast'] = 'Opinione in contrasto';
 $lang['i_agree_result'] = 'Si, sono d\'accordo';
 $lang['i_disagree_result'] = 'No, non sono d\'accordo';
-$lang['challenged_you'] = 'Ti ha sfidato';
+$lang['challenged_you'] = 'Sei stato sfidato';
 $lang['challenge_encourage_message'] = 'Raccogli il guanto e preparati a combattere';
 $lang['challenge_to_duel'] = 'SFIDA A DUELLO';
 $lang['write_message'] = 'SCRIVI MESSAGGIO';
@@ -571,9 +559,9 @@ $lang['recovery'] = 'Recuperi';
 $lang['view_attendance'] = 'Registro allievi';
 
 //Announcements
-$lang['announcement'] = 'Avvisi';
-$lang['student_dashboard_announcement_title'] = 'Avvisi';
-$lang['no_personal_communication'] = 'Nessun avviso presente';
+$lang['announcement'] = 'Avviso';
+$lang['student_dashboard_announcement_title'] = 'Comunicaizoni personali';
+$lang['no_personal_communication'] = 'Nessuna comunicazione personale';
 
 //Evolution Categories
 $lang['evolutioncategory'] = 'Categoria delle evoluzioni';

@@ -30,12 +30,13 @@
 					<div class="panel-body">
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="tab-xp">
+								<p><?php echo $this->lang->line('ratting_xpr_content_pupil'); ?></p>
 								<?php if($top_ten_xpr != false) { ?>
 									<div class="table-responsive">
 										<table class="table table-th-block margin-bottom-killer">
 											<thead>
 												<tr>
-													<th width="5%"><?php echo $this->lang->line('no'); ?></th>
+													<th width="5%"><?php echo $this->lang->line('list_no'); ?></th>
 													<th width="55%"><?php echo $this->lang->line('name'); ?></th>
 													<th width="15%"><?php echo $this->lang->line('score'); ?></th>
 													<th width="15%"><?php echo $this->lang->line('academy'); ?></th>
@@ -62,12 +63,13 @@
 							</div>
 
 							<div class="tab-pane fade" id="tab-war">
+								<p><?php echo $this->lang->line('ratting_war_content_pupil'); ?></p>
 								<?php if($top_ten_war != false) { ?>
 									<div class="table-responsive">
 										<table class="table table-th-block margin-bottom-killer">
 											<thead>
 												<tr>
-													<th width="5%"><?php echo $this->lang->line('no'); ?></th>
+													<th width="5%"><?php echo $this->lang->line('list_no'); ?></th>
 													<th width="55%"><?php echo $this->lang->line('name'); ?></th>
 													<th width="15%"><?php echo $this->lang->line('score'); ?></th>
 													<th width="15%"><?php echo $this->lang->line('academy'); ?></th>
@@ -94,12 +96,13 @@
 							</div>
 
 							<div class="tab-pane fade" id="tab-style">
+								<p><?php echo $this->lang->line('ratting_sty_content_pupil'); ?></p>
 								<?php if($top_ten_sty != false) { ?>
 									<div class="table-responsive">
 										<table class="table table-th-block margin-bottom-killer">
 											<thead>
 												<tr>
-													<th width="5%"><?php echo $this->lang->line('no'); ?></th>
+													<th width="5%"><?php echo $this->lang->line('list_no'); ?></th>
 													<th width="55%"><?php echo $this->lang->line('name'); ?></th>
 													<th width="15%"><?php echo $this->lang->line('score'); ?></th>
 													<th width="15%"><?php echo $this->lang->line('academy'); ?></th>
@@ -150,7 +153,7 @@
 										<table class="table table-th-block margin-bottom-killer">
 											<thead>
 												<tr>
-													<th width="5%"><?php echo $this->lang->line('no'); ?></th>
+													<th width="5%"><?php echo $this->lang->line('list_no'); ?></th>
 													<th><?php echo $this->lang->line('name'); ?></th>
 													<th width="15%"><?php echo $this->lang->line('score'); ?></th>
 													<th width="15%"><?php echo $this->lang->line('school'); ?></th>
@@ -182,7 +185,7 @@
 										<table class="table table-th-block margin-bottom-killer">
 											<thead>
 												<tr>
-													<th width="5%"><?php echo $this->lang->line('no'); ?></th>
+													<th width="5%"><?php echo $this->lang->line('list_no'); ?></th>
 													<th><?php echo $this->lang->line('name'); ?></th>
 													<th width="20%"><?php echo $this->lang->line('score'); ?></th>
 													<th width="20%"><?php echo $this->lang->line('clan'); ?></th>
@@ -212,7 +215,7 @@
 										<table class="table table-th-block margin-bottom-killer">
 											<thead>
 												<tr>
-													<th width="5%"><?php echo $this->lang->line('no'); ?></th>
+													<th width="5%"><?php echo $this->lang->line('list_no'); ?></th>
 													<th><?php echo $this->lang->line('name'); ?></th>
 													<th width="15%"><?php echo $this->lang->line('score'); ?></th>
 												</tr>

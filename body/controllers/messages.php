@@ -42,7 +42,7 @@ class messages extends CI_Controller
     //Main method to view the message layout were indox is loaded
     public function viewMessage() {
         $data = $this->_sidebarData();
-        $data['view_title'] = 'Message Inbox';
+        $data['view_title'] = $this->lang->line('message_inbox');
         $data['message_box'] = 'inbox';
         $data['message_page_layout'] = $this->load->view('messages/list', $data, true);
         $this->layout->view('messages/sidebar', $data);
@@ -81,7 +81,7 @@ class messages extends CI_Controller
             $data = $this->_sidebarData();
             
             //set array for View
-            $data['view_title'] = 'Compose Message';
+            $data['view_title'] = $this->lang->line('message_compose');
             $data['type'] = $type;
             
             //get all the types allowed in permission
@@ -827,7 +827,7 @@ class messages extends CI_Controller
             
             $data = $this->_sidebarData();
             $data['id'] = $id;
-            $data['view_title'] = 'Read Message';
+            $data['view_title'] = $this->lang->line('message_read');
             $data['messages_data'] = $result;
             $data['message_page_layout'] = $this->load->view('messages/read', $data, true);
             $this->layout->view('messages/sidebar', $data);
@@ -925,7 +925,7 @@ class messages extends CI_Controller
             } else {
                 
                 //set the array to display in view part
-                $data['view_title'] = 'Reply Message';
+                $data['view_title'] = $this->lang->line('message_reply');
                 $data['reply_id'] = $id;
                 $data['messages_data'] = $result_1;
                 $data['to_reply_data'] = $result_2;

@@ -122,12 +122,17 @@
             <input type="hidden" value="0" id="evolution-img-width">
         </div>
 
-        <div class="form-group">
-            <label class="col-lg-3 control-label"><?php echo $this->lang->line('description'); ?> <span class="text-danger">&nbsp;</span></label>
-            <div class="col-lg-8">
-                <textarea  class="form-control summernote-sm" name="description"><?php echo $evolutioncategory->description; ?></textarea>
+        <?php foreach ($this->config->item('custom_languages') as $key => $value) { ?>
+            <div class="form-group">
+                <label for="question" class="col-lg-3 control-label">
+                    <?php echo ucwords($value), ' ', $this->lang->line('description'); ?>
+                    <span class="text-danger">&nbsp;</span>
+                </label>
+                <div class="col-lg-8">
+                    <textarea  class="form-control summernote-sm" name="<?php echo $key . '_description'; ?>"><?php echo $evolutioncategory->{$key . '_description'} ?></textarea>
+                </div>
             </div>
-        </div>
+        <?php } ?>
 
         <div class="form-group">
             <label class="col-lg-3 control-label">&nbsp;</label>

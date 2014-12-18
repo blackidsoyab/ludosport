@@ -46,8 +46,12 @@ class evolutioncategories extends CI_Controller
                     }
                 }
 
-                if($this->input->post('description') != '' && $this->input->post('description') != '<p><br></p>'){
-                    $evolutioncategory->description = $this->input->post('description');
+                foreach ($this->config->item('custom_languages') as $key => $value) {
+                    if ($this->input->post($key . '_description') != '' && $this->input->post($key . '_description') != '<p><br></p>') {
+                            $evolutioncategory->{$key . '_description'} = $this->input->post($key . '_description');
+                    } else {
+                        $evolutioncategory->{$key . '_description'} = $this->input->post('en_description');
+                    }
                 }
                 
                 $evolutioncategory->user_id = $this->session_data->id;

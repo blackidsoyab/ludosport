@@ -337,7 +337,7 @@
                         </li>
 
                         <?php if ($session->status == 'A') { ?>
-                            <li class="<?php echo ($page == 'message') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'message'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('message'); ?>"><i class="fa fa-envelope icon-sidebar"></i><?php echo ucwords(plural($this->lang->line('message'))); ?></a></li>
+                            <li class="<?php echo ($page == 'message') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'message'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('message'); ?>"><i class="fa fa-envelope icon-sidebar"></i><?php echo ucwords($this->lang->line('messages')); ?></a></li>
 
                             <li class="<?php echo ($page == 'announcement') ? 'active selected' : ''; ?>"><a href="<?php echo base_url() . 'announcement'; ?>" data-toggle="tooltip" data-original-title="<?php echo $this->lang->line('announcement'); ?>"><i class="fa fa-bullhorn icon-sidebar"></i><?php echo ($session->role != 6) ? $this->lang->line('announcement') : $this->lang->line('student_dashboard_announcement_title'); ?></a></li>
                         <?php } ?>
@@ -596,8 +596,8 @@
                 </div>
                 <!-- BEGIN FOOTER -->
                 <footer id="footer" style="position:fixed">
-                    &copy; <?php echo get_current_date_time()->year, ' ', $this->config->item('app_name'); ?><a href="#fakelink"></a><br />
-                    Not Associated with disney, lucasfilm ltd. Or any lfl ltd. Film or franchise.
+                    &copy;&nbsp;2014 Abridge.<br />
+                    Not associated with Disney, Lucasfilm LTD or any LFL LTD film or franchise.
                 </footer>
                 <!-- END FOOTER -->
             </div>

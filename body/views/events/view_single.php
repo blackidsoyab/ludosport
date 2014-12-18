@@ -72,18 +72,15 @@
 			<img src="<?php echo IMG_URL .'event_images/780X450/' . $event_detail->image; ?>" class="img-responsive" alt="Image">
 			<div class="featured-text relative-left">
 				<h3><a href="#"><?php echo ucfirst($event_detail->{$session->language.'_name'}); ?></a></h3>
+				<h4 class="text-muted"><?php echo $event_category_detail->{$session->language.'_name'}; ?></h4>
 				<p class="date">
 				 	<?php
-                                if(strtotime($event_detail->date_from) == strtotime($event_detail->date_to)){
-                                    echo ucwords($this->lang->line('date')) ,' : ', date('d-m-Y', strtotime($event_detail->date_from));
-                                } else{
-                                    echo ucwords($this->lang->line('date')), ' ', $this->lang->line('from') ,' : ' , date('d-m-Y', strtotime($event_detail->date_from)), ' ', strtolower($this->lang->line('to')) ,' ' , date('d-m-Y', strtotime($event_detail->date_to));
-                                }
-                                
+                        if(strtotime($event_detail->date_from) == strtotime($event_detail->date_to)){
+                            echo ucwords($this->lang->line('date')) ,' : ', date('d-m-Y', strtotime($event_detail->date_from));
+                        } else{
+                            echo $this->lang->line('event_from_date') ,' ' , date('d-m-Y', strtotime($event_detail->date_from)), ' ', $this->lang->line('event_to_date') ,' ' , date('d-m-Y', strtotime($event_detail->date_to));
+                        }
                     ?>
-                    <?php
-						
-					?>
 				</p>
 				<p><?php echo $event_detail->description; ?></p>
 				<p class="additional-post-wrap">

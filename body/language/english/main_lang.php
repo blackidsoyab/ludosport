@@ -140,15 +140,15 @@ $lang['students'] = 'Students';
 $lang['languages'] = 'Languages';
 $lang['notifications'] = 'Notifications';
 $lang['today'] = 'Today';
-$lang['clan_past'] = 'Past Clan';
-$lang['clan_past_shif_on'] = 'Past Shifted Clan on';
-$lang['clan_past_shif_of'] = 'Past Shifted Clan of';
-$lang['clan_present'] = 'Present Clan';
-$lang['clan_present_shif_on'] = 'Present Shifted Clan on';
-$lang['clan_present_shif_of'] = 'Present Shifted Clan of';
+$lang['clan_past'] = 'Past Class';
+$lang['clan_past_shif_on'] = 'Past Shifted Class  on';
+$lang['clan_past_shif_of'] = 'Past Shifted Class of';
+$lang['clan_present'] = 'Present Class';
+$lang['clan_present_shif_on'] = 'Present Shifted Class on';
+$lang['clan_present_shif_of'] = 'Present Shifted Class of';
 $lang['clan_future'] = 'Future Clan';
-$lang['clan_future_shif_on'] = 'Future Shifted Clan on';
-$lang['clan_future_shif_of'] = 'Future Shifted Clan of';
+$lang['clan_future_shif_on'] = 'Future Shifted Class on';
+$lang['clan_future_shif_of'] = 'Future Shifted Class of';
 $lang['event_past'] = 'Event over';
 $lang['event_current'] = 'Running event';
 $lang['event_future'] = 'Upcoming event';
@@ -379,6 +379,8 @@ $lang['all'] = 'All';
 $lang['date'] = 'date';
 $lang['from'] = 'from';
 $lang['batch_assignment'] = 'Badge Assignment';
+$lang['event_from_date'] = 'From date';
+$lang['event_to_date'] = 'To date';
 
 //Event Invitations
 $lang['send'] = 'Send';
@@ -448,6 +450,12 @@ $lang['subject'] = 'Subject';
 $lang['discard'] = 'Discard';
 $lang['leave_group'] = 'Leave Group';
 $lang['attachmments'] = 'Attachmment(s)';
+$lang['message_inbox'] = 'Message Inbox';
+$lang['message_compose'] = 'Compose Message';
+$lang['message_read'] = 'Read Message';
+$lang['message_reply'] = 'Reply Message';
+$lang['single_message'] = 'Single';
+$lang['group_message'] = 'Group';
 
 //Students History
 $lang['my_personal_data'] = 'MY PERSONAL DATA';
@@ -470,6 +478,10 @@ $lang['sty'] = 'STY';
 $lang['my_academy'] = 'My Academy';
 $lang['my_school'] = 'My School';
 $lang['my_clan'] = 'My Clan';
+$lang['list_no'] = 'no';
+$lang['ratting_xpr_content_pupil'] = 'Score gained through classes attendance, participation in events and personal improvements in the learning path.';
+$lang['ratting_war_content_pupil'] = 'Score gained through success in Duels and other official competitions.';
+$lang['ratting_sty_content_pupil'] = 'Score gained through technical growth and the achievement of Style Awards.';
 
 //Studnet Rating
 $lang['operation'] = 'Operation';
@@ -523,7 +535,7 @@ $lang['challenge_opponent'] = 'Opponent';
 $lang['winner'] = 'Winner';
 $lang['result_of_fight'] = 'Result of fight';
 $lang['blind'] = 'Blind';
-$lang['duel_logs'] = 'Duel Logs';
+$lang['duel_logs'] = 'Duel Log';
 $lang['victories'] = 'Victories';
 $lang['my_last_victoreis'] = 'MY LAST VICTORIES';
 $lang['no_victories'] = 'No Victories';
@@ -568,7 +580,7 @@ $lang['evolutioncategory'] = 'Evolution Category';
 
 //Evolution Levels
 $lang['evolutionlevel'] = 'Evolution Level';
-$lang['basic_evolution_level'] = 'Basci Level';
+$lang['basic_evolution_level'] = 'Basic Level';
 $lang['apply_after_passing'] = 'Only apply after passing level';
 $lang['criteria'] = 'Criteria';
 
@@ -591,17 +603,46 @@ $lang['btn_declare_result_of_evolution_clan'] = 'Declare Result';
 $lang['title_declare_result_of_evolution_clan'] = 'Declare result for Evolution clan';
 $lang['evolution_clan_pass'] = 'Pass';
 $lang['evolution_clan_fail'] = 'Fail';
-
-//Solution Courses
-$lang['solution_course'] = 'Solution Course';
-$lang['age_criteria'] = 'Age criteria';
-$lang['enrolment'] = 'Enrolment';
-$lang['price'] = 'Price';
-$lang['course_form'] = 'Course form';
-$lang['application_form'] = 'Application form';
+$lang['no_level_clan'] = 'No clans in this Level !!';
+$lang['course_level_evolutions'] = 'Course Levels';
 
 //Student Administration Upload File
 $lang['student_file_name'] = 'File Name';
 $lang['student_file'] = 'File';
 $lang['student_file_valid_till'] = 'Valid till';
+
+//Numbers
+$lang['num_zero'] = 'zero';
+$lang['num_one'] = 'one';
+$lang['num_two'] = 'two';
+$lang['num_three'] = 'three';
+$lang['num_four'] = 'four';
+$lang['num_five'] = 'five';
+$lang['num_six'] = 'six';
+$lang['num_seven'] = 'seven';
+$lang['num_eight'] = 'eight';
+$lang['num_nine'] = 'nine';
+$lang['num_ten'] = 'ten';
+$lang['num_eleven'] = 'eleven';
+$lang['num_twelve'] = 'twelve';
+$lang['num_thirteen'] = 'thirteen';
+$lang['num_fourteen'] = 'fourteen';
+$lang['num_fifteen'] = 'fifteen';
+$lang['num_sixteen'] = 'sixteen';
+$lang['num_seventeen'] = 'seventeen';
+$lang['num_eighteen'] = 'eighteen';
+$lang['num_nineteen'] = 'nineteen';
+$lang['num_twenty'] = 'twenty';
+$lang['num_thirty'] = 'thirty';
+$lang['num_fourty'] = 'fourty';
+$lang['num_fifty'] = 'fifty';
+$lang['num_sixty'] = 'sixty';
+$lang['num_seventy'] = 'seventy';
+$lang['num_eighty'] = 'eighty';
+$lang['num_ninety'] = 'ninety';
+$lang['num_hundred'] = 'hundre';
+$lang['num_thousand'] = 'thousand';
+$lang['num_million'] = 'million';
+$lang['num_billion'] = 'billion';
+$lang['num_trillion'] = 'trillion';
 ?>

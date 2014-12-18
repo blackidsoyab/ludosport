@@ -1,19 +1,19 @@
-﻿<?php
+<?php
 
 //Common
 $lang['hello'] = 'Ciao';
 $lang['welcome'] = 'Benvenuto';
 $lang['logout'] = 'Logout';
-$lang['manage'] = 'Gestione';
-$lang['list'] = 'Elenco';
-$lang['view'] = 'Mostra';
+$lang['manage'] = 'Gestire';
+$lang['list'] = 'Lista';
+$lang['view'] = 'Vista';
 $lang['ok'] = 'Ok';
 $lang['add'] = 'Aggiungere';
 $lang['save'] = 'Salvare';
 $lang['edit'] = 'Modifica';
 $lang['update'] = 'Aggiornare';
 $lang['delete'] = 'Cancellare';
-$lang['cancel'] = 'Annullare';
+$lang['cancel'] = 'Disdire';
 $lang['back'] = 'Indietro';
 $lang['actions'] = 'Azioni';
 $lang['select'] = 'Selezionare';
@@ -22,7 +22,7 @@ $lang['name'] = 'Nome';
 $lang['total'] = 'Totale';
 $lang['information'] = 'Informazioni';
 $lang['activity'] = 'Attività';
-$lang['users'] = 'Utenti';
+$lang['users'] = 'Users';
 $lang['new'] = 'Nuovo';
 $lang['read_all'] = 'Segna tutti come letti';
 $lang['see_all'] = 'Vedi tutti';
@@ -96,8 +96,8 @@ $lang['dashboard'] = 'Dashboard';
 $lang['management'] = 'Gestione';
 $lang['access'] = 'Accesso';
 $lang['permission'] = 'Autorizzazione';
-$lang['role'] = 'Ruoli';
-$lang['location'] = 'Località';
+$lang['role'] = 'Ruolo';
+$lang['location'] = 'Posizione';
 $lang['country'] = 'Paese';
 $lang['state'] = 'Stato';
 $lang['city'] = 'Città';
@@ -106,19 +106,19 @@ $lang['academy'] = 'Accademia';
 $lang['school'] = 'Scuola';
 $lang['student'] = 'Studente';
 $lang['clan'] = 'Clan';
-$lang['level'] = 'Livelli';
-$lang['email_template'] = 'Modelli Email';
+$lang['level'] = 'Livello';
+$lang['email_template'] = 'Modello Email';
 $lang['setting'] = 'Impostazioni';
 $lang['events'] = 'Eventi';
 $lang['pupil'] = 'Allievi';
 
 //Student Menu
-$lang['history'] = 'Storia';
-$lang['rating'] = 'Rating';
-$lang['top_10'] = 'I migliori 10';
-$lang['journal'] = 'Calendario';
+$lang['history'] = 'STORIA';
+$lang['rating'] = 'Valutazione';
+$lang['top_10'] = 'Top 10';
+$lang['journal'] = 'Diario';
 $lang['duels'] = 'Duelli';
-$lang['evolution'] = 'Evoluzione';
+$lang['evolution'] = 'Progressi';
 $lang['news'] = 'News';
 $lang['shop'] = 'Shop';
 $lang['administrations'] = 'Amministrazione';
@@ -134,24 +134,24 @@ $lang['invoice'] = 'Fattura';
 $lang['control_panel'] = 'Pannello di controllo';
 $lang['numbers'] = 'Numeri';
 $lang['academies'] = 'Accademie';
-$lang['schools'] = 'Scuole';
+$lang['schools'] = 'Scuola';
 $lang['teachers'] = 'Insegnanti';
 $lang['students'] = 'Studenti';
 $lang['languages'] = 'Lingue';
 $lang['notifications'] = 'Notifiche';
 $lang['today'] = 'Oggi';
-$lang['clan_past'] = 'Lezione passata';
-$lang['clan_past_shif_on'] = 'Lezione passata trasferita al';
-$lang['clan_past_shif_of'] = 'Lezione passata trasferita dal';
-$lang['clan_present'] = 'Lezione odierna';
-$lang['clan_present_shif_on'] = 'Lezione odierna trasferita al';
-$lang['clan_present_shif_of'] = 'Lezione odierna trasferita dal';
-$lang['clan_future'] = 'Lezione futura';
-$lang['clan_future_shif_on'] = 'Lezione futura trasferita al';
-$lang['clan_future_shif_of'] = 'Lezione futura trasferita dal';
-$lang['event_past'] = 'Evento passato';
+$lang['clan_past'] = 'Past Clan';
+$lang['clan_past_shif_on'] = 'Past Shifted Clan on';
+$lang['clan_past_shif_of'] = 'Past Shifted Clan of';
+$lang['clan_present'] = 'Present Clan';
+$lang['clan_present_shif_on'] = 'Present Shifted Clan on';
+$lang['clan_present_shif_of'] = 'Present Shifted Clan of';
+$lang['clan_future'] = 'Future Clan';
+$lang['clan_future_shif_on'] = 'Future Shifted Clan on';
+$lang['clan_future_shif_of'] = 'Future Shifted Clan of';
+$lang['event_past'] = 'Evento terminato';
 $lang['event_current'] = 'Evento in corso';
-$lang['event_future'] = 'Evento futuro';
+$lang['event_future'] = 'Evento imminente';
 
 //Pending Student
 $lang['request_for_trail_lesson'] = 'Richiesta per la lezione di prova';
@@ -168,14 +168,14 @@ $lang['trail_lesson_clan_selecion_not_found'] = 'Ci dispiace, in questo momento 
 $lang['step_2_clan_selecion_not_found'] = 'Siamo spiacenti, in questo momento non è possibile selezionare il clan. Per qualsiasi informazione scrivi a <a href="mailto:info@myludosport.net">info@myludosport.net</a> <br />Grazie';
 
 //Student
-$lang['communicate_absence'] = 'COMUNICA ASSENZA';
+$lang['communicate_absence'] = 'Comunica l\'assenza';
 $lang['going_to_miss_class'] = 'Mancherai a una lezione? Comunicalo!';
 $lang['select_date_of_absence'] = 'Seleziona la data dell\'assenza';
 $lang['recover_absence'] = 'Recupera l\'assenza';
 $lang['confirm_absence'] = 'Conferma l\'assenza';
 $lang['select_date_for_recover'] = 'Seleziona la data di recupero';
 $lang['degree'] = 'Grado';
-$lang['honour'] = 'Onorificenze';
+$lang['honour'] = 'Onori';
 $lang['qualification'] = 'Qualifiche';
 $lang['security'] = 'Titoli';
 $lang['security'] = 'Lotta';
@@ -211,7 +211,7 @@ $lang['mail'] = 'Mail';
 
 //Profile
 $lang['profile'] = 'Profilo';
-$lang['my_profile'] = 'Profilo';
+$lang['my_profile'] = 'Mio profilo';
 $lang['change_password'] = 'Cambia la Password';
 $lang['wins'] = 'Vittorie';
 $lang['defeat'] = 'Sconfitte';
@@ -282,9 +282,9 @@ $lang['basic'] = 'Base';
 $lang['access_control'] = 'Controlli di accesso';
 $lang['change_status'] = 'Cambia Status';
 $lang['extra_permission'] = 'Permessi extra';
-$lang['batch_history'] = 'Cronologia dei combattimenti';
-$lang['assign_date'] = 'Assegnato il';
-$lang['assign_by'] = 'Assegnato da';
+$lang['batch_history'] = 'Cronologia dei combattimento';
+$lang['assign_date'] = 'Assegna a';
+$lang['assign_by'] = 'Assegna da';
 $lang['list_score_history'] = 'Cronologia dei punteggi';
 $lang['list_badge_history'] = 'Cronologia dei badge';
 $lang['list_doc_history'] = 'Elenco cronologico dei documenti';
@@ -318,21 +318,21 @@ $lang['teacher'] = 'Insegnante';
 $lang['same_as_school'] = 'Simile alla scuola';
 $lang['day'] = 'Giorno';
 $lang['lesson'] = 'Lezione';
-$lang['time_from'] = 'inizia alle';
-$lang['time_to'] = 'finisce alle';
-$lang['start_from'] = 'Inizia il';
-$lang['end_in'] = 'Finisce il';
-$lang['trial_lesson'] = 'Lezioni di prova';
+$lang['time_from'] = 'Tempo da';
+$lang['time_to'] = 'Tempo a';
+$lang['start_from'] = 'Inizia da';
+$lang['end_in'] = 'Finisce';
+$lang['trial_lesson'] = 'Lezione di prova';
 $lang['date'] = 'Data';
-$lang['approval'] = 'Accettazione richiesta';
+$lang['approval'] = 'Accettare la richiesta della lezione di prova';
 $lang['approved'] = 'Richiesta per la lezione di prova accettata';
 $lang['unapproved'] = 'Richiesta per la lezione di prova rifiutata';
 $lang['reset'] = 'Reset';
-$lang['filter'] = 'Filtri';
+$lang['filter'] = 'Filtra';
 $lang['accept_as_student'] = 'Accetta come studente';
 $lang['no_clan'] = 'Nessun Clan';
 $lang['no_student'] = 'Nessuno Studente';
-$lang['holiday_aproval_pending'] = 'Richiesta esonero in attesa';
+$lang['holiday_aproval_pending'] = 'Approvazione di vacanza in attesa di';
 $lang['present'] = 'Presenza';
 $lang['absence'] = 'Assenza';
 $lang['absence_recover_teacher'] = 'Assenza + Recupero insegnante da assegnare';
@@ -366,21 +366,19 @@ $lang['remove'] = 'Rimuovi';
 $lang['pre_format'] = 'Pre Formato';
 
 //Event Category
-$lang['eventcategory'] = 'Categorie degli eventi';
+$lang['eventcategory'] = 'Categoria evento';
 $lang['is_tournament'] = 'Torneo';
 
 //Events
 $lang['event'] = 'Evento';
 $lang['date_from'] = 'Data da';
 $lang['date_to'] = 'Data a';
-$lang['manager'] = 'Responsabile';
+$lang['manager'] = 'Manager';
 $lang['description'] = 'Descrizione';
 $lang['all'] = 'Tutto';
 $lang['date'] = 'Data';
 $lang['from'] = 'Da';
 $lang['batch_assignment'] = 'Assegnazione dei combattimenti';
-$lang['event_from_date'] = 'From Dal';
-$lang['event_to_date'] = 'To Al';
 
 //Event Invitations
 $lang['send'] = 'Invia';
@@ -399,7 +397,7 @@ $lang['select_any_student'] = 'Seleziona qualunque studente';
 $lang['invitation_send_from_name'] = 'Dall\'user';
 $lang['invitation_send_to_name'] = 'All\'user';
 $lang['total_invitation_send'] = 'Totale';
-$lang['event_inivted'] = 'inviti agli eventi';
+$lang['event_inivted'] = 'Eventi invitati in';
 
 //Event Attendance
 $lang['no_manager_attendance_error'] = 'Non sei la persona autorizzata a confermare le presenze';
@@ -416,13 +414,13 @@ $lang['dashboard_cover'] = 'Cover Dashboard';
 $lang['profile_cover'] = 'Cover Profilo';
 $lang['badge_120_width_image'] = 'Se la larghezza dell\'immagine è superiore a 120px, il risultato sarà buono';
 $lang['badge_750_width_image'] = 'Se la larghezza dell\'immagine è superiore a 750px, il risultato sarà buono';
-$lang['badge_change_sequence_information'] = 'Per modificare la sequenza dei badge seleziona un distintivo, quindi trascina e rilascia';
+$lang['badge_change_sequence_information'] = 'Per modificare la sequenza di BADGE, prima selezionarne qualcuno, quindi trascinare e rilasciare il distintivo per cambiare la sequenza';
 
 //Batch Request
-$lang['batch_request'] = 'Badge richiesto';
+$lang['batch_request'] = 'Richiesta del badge';
 $lang['request_student_name'] = 'Nome dell’alunno';
-$lang['request_user_name'] = 'Nome del richiedente';
-$lang['request_user'] = 'Richiedente';
+$lang['request_user_name'] = 'Richiesta del nome utente';
+$lang['request_user'] = 'Richiesta dello user';
 $lang['top_most_autority_cannot_request'] = 'Siete la massima autorità, non è possibile fare alcuna richiesta';
 $lang['make_batch_request_to_dean'] = 'Richiedere un badge al preside';
 $lang['make_batch_request_to_rector'] = 'Richiedere un bafge al rettore';
@@ -437,51 +435,41 @@ $lang['unapproved_batch_request'] = 'Respinto';
 $lang['done_by'] = 'Fatto da';
 
 //Message System
-$lang['message'] = 'Messaggio';
-$lang['compose'] = 'Scrivi';
+$lang['message'] = 'Messaggi';
+$lang['compose'] = 'Comporre';
 $lang['inbox'] = 'Posta in arrivo';
-$lang['sent'] = 'Posta inviata';
+$lang['sent'] = 'Inviati';
 $lang['draft'] = 'Bozze';
-$lang['trash'] = 'Cestino';
-$lang['search'] = 'Cerca';
+$lang['trash'] = 'Eliminati';
+$lang['search'] = 'Ricerca';
 $lang['to'] = 'A';
 $lang['send'] = 'Invia';
 $lang['subject'] = 'Oggetto';
-$lang['discard'] = 'Elimina';
+$lang['discard'] = 'Scarta';
 $lang['leave_group'] = 'Lascia il gruppo';
 $lang['attachmments'] = 'Allegati';
-$lang['message_inbox'] = 'Message Inbox';
-$lang['message_compose'] = 'Compose Message';
-$lang['message_read'] = 'Read Message';
-$lang['message_reply'] = 'Reply Message';
-$lang['single_message'] = 'Single';
-$lang['group_message'] = 'Group';
 
 //Students History
-$lang['my_personal_data'] = 'STATISTICHE PERSONALI';
+$lang['my_personal_data'] = 'DATI PERSONALI';
 $lang['my_duels'] = 'DUELLI';
 $lang['clan_logs'] = 'CLAN LOG';
 $lang['attended'] = 'Frequentate';
 $lang['missed'] = 'Perse';
 $lang['catch_up'] = 'Recuperate';
 $lang['year_of_practice'] = 'Anni di pratica';
-$lang['my_combat_style'] = 'STILE DI COMBATTIMENTO';
+$lang['my_combat_style'] = 'MIO STILE DI COMBATTIMENTO';
 $lang['timeline'] = 'TIMELINE';
 $lang['tournament_batch_history'] = 'Storia delle partite del torneo';
 
 //Ratting
-$lang['top_10_rating'] = 'I migliori 10 per punteggio';
-$lang['rating_list'] = 'Lista punteggi';
+$lang['top_10_rating'] = 'Top 10 Valutazione';
+$lang['rating_list'] = 'Valutazione List';
 $lang['xpr'] = 'XPR';
 $lang['war'] = 'WAR';
 $lang['sty'] = 'STY';
-$lang['my_academy'] = 'La mia Accademia';
-$lang['my_school'] = 'my Scuola';
-$lang['my_clan'] = 'my Clan';
-$lang['list_no'] = 'n.';
-$lang['ratting_xpr_content_pupil'] = 'Punteggio ottenuto attraverso la frequenza alle lezioni, la partecipazione agli eventi e la crescita nel percorso didattico.';
-$lang['ratting_war_content_pupil'] = 'Punteggio ottenuto attraverso la vittoria nei Duelli e nelle altre competizioni ufficiali.';
-$lang['ratting_sty_content_pupil'] = 'Punteggio ottenuto attraverso la crescita tecnica e in conseguimento di Premi di Stile.';
+$lang['my_academy'] = 'Accademia';
+$lang['my_school'] = 'Scuola';
+$lang['my_clan'] = 'Clan';
 
 //Studnet Rating
 $lang['operation'] = 'Operazione';
@@ -497,7 +485,7 @@ $lang['duel_suggested'] = 'Duelli suggeriti';
 $lang['duel_recommended'] = 'Scegli il tuo avversario';
 $lang['choose_by_rating'] = 'Scegli in base al punteggio';
 $lang['score'] = 'Punteggio';
-$lang['the_best'] = 'I MIGLIORI';
+$lang['the_best'] = 'Il migliore';
 $lang['duel_accept'] = 'Si, sono pronto';
 $lang['duel_reject'] = 'Mi ritiro';
 $lang['duel_result'] = 'Infine, ecco il risultato';
@@ -507,10 +495,10 @@ $lang['waiting_for_confirm'] = 'In attesa di conferma';
 $lang['opnion_contrast'] = 'Opinione in contrasto';
 $lang['i_agree_result'] = 'Si, sono d\'accordo';
 $lang['i_disagree_result'] = 'No, non sono d\'accordo';
-$lang['challenged_you'] = 'Ti ha sfidato';
-$lang['challenge_encourage_message'] = 'Raccogli il guanto e preparati a combattere';
+$lang['challenged_you'] = 'Sei stato sfidato';
+$lang['challenge_encourage_message'] = 'Raccogli la sfida e preparati a combattere.';
 $lang['challenge_to_duel'] = 'SFIDA A DUELLO';
-$lang['write_message'] = 'SCRIVI MESSAGGIO';
+$lang['write_message'] = 'SCRIVI UN MESSAGGIO';
 $lang['challenge_history'] = 'Cronologia delle sfide';
 $lang['all'] = 'Tutto';
 $lang['made'] = 'Concluse';
@@ -535,7 +523,7 @@ $lang['challenge_opponent'] = 'Avversario';
 $lang['winner'] = 'Vincitore';
 $lang['result_of_fight'] = 'Risultato del combattimento';
 $lang['blind'] = 'Casuale';
-$lang['duel_logs'] = 'Registro duelli';
+$lang['duel_logs'] = 'Duelli registrati';
 $lang['victories'] = 'Vittorie';
 $lang['my_last_victoreis'] = 'ULTIME VITTORIE';
 $lang['no_victories'] = 'Nessuna vittoria';
@@ -562,21 +550,21 @@ $lang['7_day_time_over'] = 'Sono passati 7 giorni e non hai ancora dichiarato il
 $lang['101_min_time_over'] = 'Sono passati 101 minuti e il risultato non è stato ancora confermato.';
 
 //Teacher Register
-$lang['view_teacher_attendance'] = 'Registro insegnanti';
+$lang['view_teacher_attendance'] = 'Registro dell\'insegnante';
 $lang['absence'] = 'Assenze';
 $lang['presence'] = 'Presenze';
 $lang['recovery'] = 'Recuperi';
 
 //Student Register
-$lang['view_attendance'] = 'Registro allievi';
+$lang['view_attendance'] = 'Registro dell\'allievo';
 
 //Announcements
 $lang['announcement'] = 'Avvisi';
-$lang['student_dashboard_announcement_title'] = 'Avvisi';
-$lang['no_personal_communication'] = 'Nessun avviso presente';
+$lang['student_dashboard_announcement_title'] = 'Comunicaizoni personali';
+$lang['no_personal_communication'] = 'Nessuna comunicazione personale';
 
 //Evolution Categories
-$lang['evolutioncategory'] = 'Categoria delle evoluzioni';
+$lang['evolutioncategory'] = 'Categoria dell\'evoluzione';
 
 //Evolution Levels
 $lang['evolutionlevel'] = 'Livello di evoluzione';
@@ -585,12 +573,12 @@ $lang['apply_after_passing'] = 'Si applica solo dopo aver passato il livello';
 $lang['criteria'] = 'Criteri';
 
 //Evolution Clans
-$lang['evolutionclan'] = 'Evoluzioni';
-$lang['no_of_studnet'] = 'Nessun studente';
+$lang['evolutionclan'] = 'Evoluzione';
+$lang['no_of_studnet'] = 'Nessuno studente';
 $lang['evolution_clan_request'] = 'Richiesta di evoluzione';
 $lang['applied_for_clan_successfully'] = 'Richiesta inviata con successo';
 $lang['applied_for_clan_error'] = 'Errore nell\'invio della richiesta';
-$lang['evolution_clan_request'] = 'Richiesta di evoluzione dei clan';
+$lang['evolution_clan_request'] = 'Richiesta di evoluzione del clan';
 $lang['accept_evolution_clan_request'] = 'Accetta la richiesta';
 $lang['reject_evolution_clan_request'] = 'Rifiuta la richiesta';
 $lang['accepted_evolution_clan_request'] = 'Richiesta accettata';
@@ -601,46 +589,14 @@ $lang['evolution_completed_student'] = 'Completato';
 $lang['evolution_fail_student'] = 'Fallito';
 $lang['btn_declare_result_of_evolution_clan'] = 'Dichiara il risultato';
 $lang['title_declare_result_of_evolution_clan'] = 'Dichiara il risultato dell\'evoluzione del clan';
-$lang['evolution_clan_pass'] = 'Superato';
-$lang['evolution_clan_fail'] = 'Fallito';
+$lang['evolution_clan_pass'] = 'Superare';
+$lang['evolution_clan_fail'] = 'Fallire';
 
-//Student Administration Upload File
-$lang['student_file_name'] = 'File Name';
-$lang['student_file'] = 'File';
-$lang['student_file_valid_till'] = 'Valid till';
-
-//Numbers
-$lang['num_zero'] = 'zero';
-$lang['num_one'] = 'Il primo';
-$lang['num_two'] = 'I Due';
-$lang['num_three'] = 'I Tre';
-$lang['num_four'] = 'I Quattro';
-$lang['num_five'] = 'five';
-$lang['num_six'] = 'six';
-$lang['num_seven'] = 'seven';
-$lang['num_eight'] = 'eight';
-$lang['num_nine'] = 'nine';
-$lang['num_ten'] = 'ten';
-$lang['num_eleven'] = 'eleven';
-$lang['num_twelve'] = 'twelve';
-$lang['num_thirteen'] = 'thirteen';
-$lang['num_fourteen'] = 'fourteen';
-$lang['num_fifteen'] = 'fifteen';
-$lang['num_sixteen'] = 'sixteen';
-$lang['num_seventeen'] = 'seventeen';
-$lang['num_eighteen'] = 'eighteen';
-$lang['num_nineteen'] = 'nineteen';
-$lang['num_twenty'] = 'twenty';
-$lang['num_thirty'] = 'thirty';
-$lang['num_fourty'] = 'fourty';
-$lang['num_fifty'] = 'fifty';
-$lang['num_sixty'] = 'sixty';
-$lang['num_seventy'] = 'seventy';
-$lang['num_eighty'] = 'eighty';
-$lang['num_ninety'] = 'ninety';
-$lang['num_hundred'] = 'hundre';
-$lang['num_thousand'] = 'thousand';
-$lang['num_million'] = 'million';
-$lang['num_billion'] = 'billion';
-$lang['num_trillion'] = 'trillion';
+//Solution Courses
+$lang['solution_course'] = 'Soluzione del\'corso';
+$lang['age_criteria'] = 'Criterio d\'età';
+$lang['enrolment'] = 'Iscrizione';
+$lang['price'] = 'Prezzo';
+$lang['course_form'] = 'Modulo del corso';
+$lang['application_form'] = 'Modulo di registrazione';
 ?>

@@ -101,7 +101,7 @@
         <?php if (count($message_all_types) > 0) { ?>
             <div class="form-group">
                 <?php foreach ($message_all_types as $all_type) { ?>
-                    <a href="<?php echo base_url() . 'message/compose/' . $all_type; ?>" class="btn <?php echo ($type == $all_type ? 'btn-primary active' : 'btn-default'); ?>"><?php echo ucwords($all_type); ?></a>
+                    <a href="<?php echo base_url() . 'message/compose/' . $all_type; ?>" class="btn <?php echo ($type == $all_type ? 'btn-primary active' : 'btn-default'); ?>"><?php echo ($all_type == 'single')?  $this->lang->line('single_message') :  $this->lang->line('group_message')  ; ?></a>
                 <?php } ?>
             </div>
         <?php } ?>

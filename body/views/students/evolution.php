@@ -41,7 +41,7 @@
 			<img src="<?php echo IMG_URL . 'evolution_images/'. $category->image; ?>" class="img-responsive" alt="Image">
 			<div class="featured-text relative-left">
 				<h3><a href="#"><?php echo $category->{$session->language.'_name'}; ?></a></h3>
-				<p><?php echo @$category->description; ?></p>
+				<p><?php echo @$category->{$session->language.'_description'}; ?></p>
 			</div>
 		</div>
 
@@ -72,7 +72,7 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<a class="block-collapse" data-toggle="collapse" href="<?php echo '#evolution_' . $category->id; ?>">
-							Course Levels
+							<?php echo $this->lang->line('course_level_evolutions'); ?>
 							<span class="right-content">
 								<span class="right-icon"><i class="glyphicon glyphicon-plus icon-collapse"></i></span>
 							</span>
@@ -197,7 +197,7 @@
 														</div>
 													<?php } ?>
 												</ul>
-											<?php } else { echo '<h4 class="text-danger">No clans in this Level !!</h4>'; }?>
+											<?php } else { echo '<h4 class="text-danger">'.  $this->lang->line('no_level_clan') .'</h4>'; }?>
 										</div>
 									</div>
 								</div>

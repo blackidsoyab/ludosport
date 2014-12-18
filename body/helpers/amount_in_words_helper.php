@@ -8,7 +8,41 @@ if (!function_exists('convertNumber2Words')) {
         $separator = ' ';
         $negative = 'negative ';
         $decimal = ' point ';
-        $dictionary = array(0 => 'zero', 1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four', 5 => 'five', 6 => 'six', 7 => 'seven', 8 => 'eight', 9 => 'nine', 10 => 'ten', 11 => 'eleven', 12 => 'twelve', 13 => 'thirteen', 14 => 'fourteen', 15 => 'fifteen', 16 => 'sixteen', 17 => 'seventeen', 18 => 'eighteen', 19 => 'nineteen', 20 => 'twenty', 30 => 'thirty', 40 => 'fourty', 50 => 'fifty', 60 => 'sixty', 70 => 'seventy', 80 => 'eighty', 90 => 'ninety', 100 => 'hundred', 1000 => 'thousand', 1000000 => 'million', 1000000000 => 'billion', 1000000000000 => 'trillion', 1000000000000000 => 'quadrillion', 1000000000000000000 => 'quintillion');
+        $ci = & get_instance();
+        $dictionary = array(
+            0 => $ci->lang->line('num_zero'),
+            1 => $ci->lang->line('num_one'),
+            2 => $ci->lang->line('num_two'),
+            3 => $ci->lang->line('num_three'),
+            4 => $ci->lang->line('num_four'),
+            5 => $ci->lang->line('num_five'),
+            6 => $ci->lang->line('num_six'),
+            7 => $ci->lang->line('num_seven'),
+            8 => $ci->lang->line('num_eight'),
+            9 => $ci->lang->line('num_nine'),
+            10 => $ci->lang->line('num_ten'),
+            11 => $ci->lang->line('num_eleven'),
+            12 => $ci->lang->line('num_twelve'),
+            13 => $ci->lang->line('num_thirteen'),
+            14 => $ci->lang->line('num_fourteen'),
+            15 => $ci->lang->line('num_fifteen'),
+            16 => $ci->lang->line('num_sixteen'),
+            17 => $ci->lang->line('num_seventeen'),
+            18 => $ci->lang->line('num_eighteen'),
+            19 => $ci->lang->line('num_nineteen'),
+            20 => $ci->lang->line('num_twenty'),
+            30 => $ci->lang->line('num_thirty'),
+            40 => $ci->lang->line('num_fourty'),
+            50 => $ci->lang->line('num_fifty'),
+            60 => $ci->lang->line('num_sixty'),
+            70 => $ci->lang->line('num_seventy'),
+            80 => $ci->lang->line('num_eighty'),
+            90 => $ci->lang->line('num_ninety'),
+            100 => $ci->lang->line('num_hundred'),
+            1000 => $ci->lang->line('num_thousand'),
+            1000000 => $ci->lang->line('num_million'),
+            1000000000 => $ci->lang->line('num_billion'),
+            1000000000000 => $ci->lang->line('num_trillion'));
         
         if (!is_numeric($number)) {
             return false;
