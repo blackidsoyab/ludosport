@@ -984,7 +984,13 @@ class students extends CI_Controller
                 $obj = new Batch();
                 $obj->where(array('type' => 'Q'))->order_by('sequence', 'ASC')->get();
                 $count = 0;
+                $temp_count = 0;
                 foreach ($obj as $level) {
+                    $temp_count++;
+                    if($temp_count == 1){
+                        continue;
+                    }
+                    
                     $std_obj = new stdClass();
                     $std_obj->id = $level->id;
                     if ($count == 0) {

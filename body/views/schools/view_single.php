@@ -64,14 +64,16 @@
 											?>
 										</td>
 									</tr>
-									<tr>
-										<td><?php echo $this->lang->line('fee'); ?>1 :</td>
-										<td><?php echo $academy->fee1; ?></td>
-									</tr>
-									<tr>
-										<td><?php echo $this->lang->line('fee'); ?>2 :</td>
-										<td><?php echo $academy->fee2; ?></td>
-									</tr>
+									<?php if($session->role == '1' || $session->role == '2' || $session->role == '3') { ?>
+										<tr>
+											<td><?php echo $this->lang->line('fee'); ?>1 :</td>
+											<td><?php echo number_format($academy->fee1,2,",",""); ?></td>
+										</tr>
+										<tr>
+											<td><?php echo $this->lang->line('fee'); ?>2 :</td>
+											<td><?php echo number_format($academy->fee2,2,",",""); ?></td>
+										</tr>
+									<?php } ?>
 								</tbody>
 							</table>
 						</div>

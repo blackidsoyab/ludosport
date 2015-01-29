@@ -333,6 +333,7 @@ class users extends CI_Controller
                     $user_details->first_lesson_date = get_current_date_time()->get_date_for_db();
                     $user_details->user_id = $this->session_data->id;
                     $user_details->status = $this->input->post('status');
+                    $user_details->timestamp = date('Y-m-d', strtotime($this->input->post('pupil_since'))) .' '. date('H:i:s', strtotime($user_details->timestamp));
                     $user_details->save();
                 } else {
                     $user_details = new Userdetail();

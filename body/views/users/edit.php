@@ -171,7 +171,7 @@
             </div>
         </div>
 
-        <?php if(in_array(5, explode(',',$user->role_id))){ ?>
+        <?php if(($session->role == '1' || $session->role == '2' || $session->role == '3') && in_array(5, explode(',',$user->role_id))){ ?>
             <div id="role_teacher">
                 <div class="form-group">
                     <label class="col-lg-3 control-label"><?php echo $this->lang->line('instructor'), ' ' , $this->lang->line('fee'); ?> <span class="text-danger">*</span></label>
@@ -318,6 +318,16 @@
                         </div>
                     </div>
                 <?php } ?>
+            </div>
+
+            <div class="form-group">
+                <label for="question" class="col-lg-3 control-label">
+                    <?php echo $this->lang->line('pupil_since'); ?>
+                    <span class="text-danger">*</span>
+                </label>
+                <div class="col-lg-5">
+                    <input type="text" name="pupil_since"  class="form-control required datepicker" placeholder="<?php echo $this->lang->line('pupil_since'); ?>" style="border-radius: 0px;"  data-date-format="dd-mm-yyyy" value="<?php echo date('d-m-Y', strtotime($userdetail->timestamp)); ?>" />
+                </div>
             </div>
         <?php } ?>
 

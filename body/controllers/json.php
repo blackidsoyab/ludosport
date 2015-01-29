@@ -620,7 +620,7 @@ class json extends CI_Controller
     public function getLevelsJsonData() {
         $this->load->library('datatable');
         $this->datatable->aColumns = array($this->session_data->language . '_level_name', 'is_basic', 'under_sixteen');
-        $this->datatable->eColumns = array('id');
+        $this->datatable->eColumns = array('id', '(SELECT count(*) from clans where level_id = levels.id) as total_association');
         $this->datatable->sIndexColumn = "id";
         $this->datatable->sTable = " levels";
         $this->datatable->datatable_process();
@@ -646,7 +646,7 @@ class json extends CI_Controller
                 $str.= '<a href="' . base_url() . 'level/edit/' . $aRow['id'] . '" class="actions" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('edit') . '"><i class="fa fa-pencil icon-circle icon-xs icon-primary"></i></a>';
             }
             
-            if (hasPermission('levels', 'deleteLevel')) {
+            if (hasPermission('levels', 'deleteLevel') && $aRow['total_association'] == 0) {
                 $str.= '<a href="javascript:;" onclick="UpdateRow(this)" class="actions" id="' . $aRow['id'] . '" data-toggle="tooltip" title="" data-original-title="' . $this->lang->line('delete') . '"><i class="fa fa-times-circle icon-circle icon-xs icon-danger"></i></a>';
             }
             
