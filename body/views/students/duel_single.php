@@ -40,7 +40,7 @@ $(document).ready(function() {
 });
 //]]>
 </script>
-<h1 class="page-heading"><?php echo $this->lang->line('challenge') . @$type; ?></h1>
+<h1 class="page-heading"><?php echo $this->lang->line('challenge') . ' '. @$type; ?></h1>
 <div class="row">
 	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 		<div class="the-box duel-single">

@@ -297,29 +297,29 @@ if (!function_exists('evolutionMasterLevels')) {
 
         $array = array();
 
-        $array[0][1] = array('id'=> 1001, 'image' => IMG_URL . 'seven_styles/01_shiicho_base.png' , 'en' => 'Style Master In Shii-Cho', 'it' => 'Style Master In Shii-Cho');
-        $array[0][2] = array('id'=> 1002, 'image' => IMG_URL . 'seven_styles/02_makashi_base.png', 'en' => 'Style Master In Makashi', 'it' => 'Style Master In Makashi');
-        $array[0][3] = array('id'=> 1003, 'image' => IMG_URL . 'seven_styles/03_soresu_base.png', 'en' => 'Style Master In Soresu', 'it' => 'Style Master In Soresu');
-        $array[0][4] = array('id'=> 1004, 'image' => IMG_URL . 'seven_styles/04_ataru_base.png', 'en' => 'Style Master In Ataru', 'it' => 'Style Master In Ataru');
-        $array[0][5] = array('id'=> 1005, 'image' => IMG_URL . 'seven_styles/05_djemso_base.png', 'en' => 'Style Master In Djemso', 'it' => 'Style Master In Djemso');
-        $array[0][6] = array('id'=> 1006, 'image' => IMG_URL . 'seven_styles/06_niman_base.png', 'en' => 'Style Master In Niman', 'it' => 'Style Master In Niman');
-        $array[0][7] = array('id'=> 1007, 'image' => IMG_URL . 'seven_styles/07_vaapad_base.png', 'en' => 'Style Master In Vaapad', 'it' => 'Style Master In Vaapad');
+        $array[0][1] = array('id'=> 1001, 'image' => IMG_URL . 'seven_styles/01_shiicho_base.png' , 'en' => '', 'it' => '');
+        $array[0][2] = array('id'=> 1002, 'image' => IMG_URL . 'seven_styles/02_makashi_base.png', 'en' => '', 'it' => '');
+        $array[0][3] = array('id'=> 1003, 'image' => IMG_URL . 'seven_styles/03_soresu_base.png', 'en' => '', 'it' => '');
+        $array[0][4] = array('id'=> 1004, 'image' => IMG_URL . 'seven_styles/04_ataru_base.png', 'en' => '', 'it' => '');
+        $array[0][5] = array('id'=> 1005, 'image' => IMG_URL . 'seven_styles/05_djemso_base.png', 'en' => '', 'it' => '');
+        $array[0][6] = array('id'=> 1006, 'image' => IMG_URL . 'seven_styles/06_niman_base.png', 'en' => '', 'it' => '');
+        $array[0][7] = array('id'=> 1007, 'image' => IMG_URL . 'seven_styles/07_vaapad_base.png', 'en' => '', 'it' => '');
 
-        $array[1][1] = array('id'=> 1008, 'image' => IMG_URL . 'seven_styles/01_shiicho_esamestile.png' , 'en' => 'Style Master In Shii-Cho', 'it' => 'Style Master In Shii-Cho');
-        $array[1][2] = array('id'=> 1009, 'image' => IMG_URL . 'seven_styles/02_makashi_esamestile.png', 'en' => 'Style Master In Makashi', 'it' => 'Style Master In Makashi');
-        $array[1][3] = array('id'=> 10010, 'image' => IMG_URL . 'seven_styles/03_soresu_esamestile.png', 'en' => 'Style Master In Soresu', 'it' => 'Style Master In Soresu');
-        $array[1][4] = array('id'=> 10011, 'image' => IMG_URL . 'seven_styles/04_ataru_esamestile.png', 'en' => 'Style Master In Ataru', 'it' => 'Style Master In Ataru');
-        $array[1][5] = array('id'=> 10012, 'image' => IMG_URL . 'seven_styles/05_djemso_esamestile.png', 'en' => 'Style Master In Djemso', 'it' => 'Style Master In Djemso');
-        $array[1][6] = array('id'=> 10013, 'image' => IMG_URL . 'seven_styles/06_niman_esamestile.png', 'en' => 'Style Master In Niman', 'it' => 'Style Master In Niman');
-        $array[1][7] = array('id'=> 10014, 'image' => IMG_URL . 'seven_styles/07_vaapad_esamestile.png', 'en' => 'Style Master In Vaapad', 'it' => 'Style Master In Vaapad');
+        $array[1][1] = array('id'=> 1008, 'image' => IMG_URL . 'seven_styles/01_shiicho_esamestile.png' , 'en' => 'Style closed in Shii-Cho', 'it' => 'Style closed in Shii-Cho');
+        $array[1][2] = array('id'=> 1009, 'image' => IMG_URL . 'seven_styles/02_makashi_esamestile.png', 'en' => 'Style closed in Makashi', 'it' => 'Style closed in Makashi');
+        $array[1][3] = array('id'=> 10010, 'image' => IMG_URL . 'seven_styles/03_soresu_esamestile.png', 'en' => 'Style closed in Soresu', 'it' => 'Style closed in Soresu');
+        $array[1][4] = array('id'=> 10011, 'image' => IMG_URL . 'seven_styles/04_ataru_esamestile.png', 'en' => 'Style closed in Ataru', 'it' => 'Style closed in Ataru');
+        $array[1][5] = array('id'=> 10012, 'image' => IMG_URL . 'seven_styles/05_djemso_esamestile.png', 'en' => 'Style closed in Djemso', 'it' => 'Style closed in Djemso');
+        $array[1][6] = array('id'=> 10013, 'image' => IMG_URL . 'seven_styles/06_niman_esamestile.png', 'en' => 'Style closed in Niman', 'it' => 'Style closed in Niman');
+        $array[1][7] = array('id'=> 10014, 'image' => IMG_URL . 'seven_styles/07_vaapad_esamestile.png', 'en' => 'Style closed in Vaapad', 'it' => 'Style closed in Vaapad');
 
-        $array[2][1] = array('id'=> 35, 'image' => IMG_URL . 'seven_styles/01_shiicho_esamemaster.png' , 'en' => 'Style Master In Shii-Cho', 'it' => 'Style Master In Shii-Cho');
-        $array[2][2] = array('id'=> 36, 'image' => IMG_URL . 'seven_styles/02_makashi_esamemaster.png', 'en' => 'Style Master In Makashi', 'it' => 'Style Master In Makashi');
-        $array[2][3] = array('id'=> 37, 'image' => IMG_URL . 'seven_styles/03_soresu_esamemaster.png', 'en' => 'Style Master In Soresu', 'it' => 'Style Master In Soresu');
-        $array[2][4] = array('id'=> 38, 'image' => IMG_URL . 'seven_styles/04_ataru_esamemaster.png', 'en' => 'Style Master In Ataru', 'it' => 'Style Master In Ataru');
-        $array[2][5] = array('id'=> 39, 'image' => IMG_URL . 'seven_styles/05_djemso_esamemaster.png', 'en' => 'Style Master In Djemso', 'it' => 'Style Master In Djemso');
-        $array[2][6] = array('id'=> 40, 'image' => IMG_URL . 'seven_styles/06_niman_esamemaster.png', 'en' => 'Style Master In Niman', 'it' => 'Style Master In Niman');
-        $array[2][7] = array('id'=> 41, 'image' => IMG_URL . 'seven_styles/07_vaapad_esamemaster.png', 'en' => 'Style Master In Vaapad', 'it' => 'Style Master In Vaapad');
+        $array[2][1] = array('id'=> 35, 'image' => IMG_URL . 'seven_styles/01_shiicho_esamemaster.png' , 'en' => 'Style master in Shii-Cho', 'it' => 'Style master in Shii-Cho');
+        $array[2][2] = array('id'=> 36, 'image' => IMG_URL . 'seven_styles/02_makashi_esamemaster.png', 'en' => 'Style master in Makashi', 'it' => 'Style master in Makashi');
+        $array[2][3] = array('id'=> 37, 'image' => IMG_URL . 'seven_styles/03_soresu_esamemaster.png', 'en' => 'Style master in Soresu', 'it' => 'Style master in Soresu');
+        $array[2][4] = array('id'=> 38, 'image' => IMG_URL . 'seven_styles/04_ataru_esamemaster.png', 'en' => 'Style master in Ataru', 'it' => 'Style master in Ataru');
+        $array[2][5] = array('id'=> 39, 'image' => IMG_URL . 'seven_styles/05_djemso_esamemaster.png', 'en' => 'Style master in Djemso', 'it' => 'Style master in Djemso');
+        $array[2][6] = array('id'=> 40, 'image' => IMG_URL . 'seven_styles/06_niman_esamemaster.png', 'en' => 'Style master in Niman', 'it' => 'Style master in Niman');
+        $array[2][7] = array('id'=> 41, 'image' => IMG_URL . 'seven_styles/07_vaapad_esamemaster.png', 'en' => 'Style master in Vaapad', 'it' => 'Style master in Vaapad');
 
         
 

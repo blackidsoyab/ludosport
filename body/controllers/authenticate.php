@@ -203,52 +203,54 @@ class authenticate extends CI_Controller
                 
                 //Get all the Admins, Rectors, Deans, Teachers
                 $ids = array();
-                $ids[] = User::getAdminIds();
+                /*$ids[] = User::getAdminIds();
                 $ids[] = Academy::getAssignRectorIds();
                 $ids[] = School::getAssignDeanIds();
-                $ids[] = Clan::getAssignTeacherIds();
-                
+                $ids[] = Clan::getAssignTeacherIds();*/
+
                 //Make single array form all ids
-                $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
-                
-                //Fecth all the User details
-                $user = new User();
-                $users = $user->where_in('id', $final_ids)->get();
-                
-                // Mail Template for new user register notification to all above ids
-                $email = new Email();
-                $email->where('type', 'user_registration_notification')->get();
-                $message = $email->message;
-                $message = str_replace('#firstname', $new_user->firstname, $message);
-                $message = str_replace('#lastname', $new_user->lastname, $message);
-                $location = $city->en_name . ', ' . $city->state->en_name . ', ' . $city->state->country->en_name;
-                $message = str_replace('#dob', $this->input->post('date_of_birth'), $message);
-                $message = str_replace('#nickname', $this->input->post('username'), $message);
-                $message = str_replace('#location', $location, $message);
-                $message = str_replace('#date', get_current_date_time()->get_date_time_for_db(), $message);
-                
-                foreach ($users as $value) {
-                    $notification = new Notification();
-                    $notification->type = 'I';
-                    $notification->notify_type = 'user_register';
-                    $notification->from_id = 0;
-                    $notification->to_id = $value->id;
-                    $notification->object_id = $new_user->id;
-                    $notification->data = serialize($this->input->post());
-                    $notification->save();
+                if(count($ids) > 0){
+                    $final_ids = array_unique(MultiArrayToSinlgeArray($ids));
                     
-                    $check_privacy = unserialize($value->email_privacy);
-                    if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy['user_registration_notification']) || $check_privacy['user_registration_notification'] == 1) {
-                        $option = null;
-                        $option = array();
-                        $option['tomailid'] = $value->email;
-                        $option['subject'] = $email->subject;
-                        $option['message'] = $message;
-                        if (!is_null($email->attachment)) {
-                            $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
-                        }
+                    //Fecth all the User details
+                    $user = new User();
+                    $users = $user->where_in('id', $final_ids)->get();
+                    
+                    // Mail Template for new user register notification to all above ids
+                    $email = new Email();
+                    $email->where('type', 'user_registration_notification')->get();
+                    $message = $email->message;
+                    $message = str_replace('#firstname', $new_user->firstname, $message);
+                    $message = str_replace('#lastname', $new_user->lastname, $message);
+                    $location = $city->en_name . ', ' . $city->state->en_name . ', ' . $city->state->country->en_name;
+                    $message = str_replace('#dob', $this->input->post('date_of_birth'), $message);
+                    $message = str_replace('#nickname', $this->input->post('username'), $message);
+                    $message = str_replace('#location', $location, $message);
+                    $message = str_replace('#date', get_current_date_time()->get_date_time_for_db(), $message);
+                    
+                    foreach ($users as $value) {
+                        $notification = new Notification();
+                        $notification->type = 'I';
+                        $notification->notify_type = 'user_register';
+                        $notification->from_id = 0;
+                        $notification->to_id = $value->id;
+                        $notification->object_id = $new_user->id;
+                        $notification->data = serialize($this->input->post());
+                        $notification->save();
                         
-                        send_mail($option);
+                        $check_privacy = unserialize($value->email_privacy);
+                        if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy['user_registration_notification']) || $check_privacy['user_registration_notification'] == 1) {
+                            $option = null;
+                            $option = array();
+                            $option['tomailid'] = $value->email;
+                            $option['subject'] = $email->subject;
+                            $option['message'] = $message;
+                            if (!is_null($email->attachment)) {
+                                $option['attachement'] = 'assets/email_attachments/' . $email->attachment;
+                            }
+                            
+                            send_mail($option);
+                        }
                     }
                 }
                 

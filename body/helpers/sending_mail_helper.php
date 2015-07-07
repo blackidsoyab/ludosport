@@ -29,7 +29,7 @@ if (!function_exists('send_mail')) {
         if (isset($options['attachement']))
             $ci->email->attach($options['attachement']);
 
-        $check = $ci->email->send();
+        /*$check = $ci->email->send();
 
         if (!$check) {
             $header = "From: MyLudosport <". $ci->config->item('smtp_user')."> \r\n";
@@ -39,7 +39,9 @@ if (!function_exists('send_mail')) {
             return $return;
         } else {
             return TRUE;
-        }
+        }*/
+
+        return TRUE;
     }
 
 }

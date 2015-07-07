@@ -730,6 +730,7 @@ function getTimelineTemplate($options, $user_name_link = false) {
     
     if ($options['notify_type'] == 'challenge_made') {
         $template_edit = true;
+        $sentence = 'has';
         if($options['data']['to_id'] == $session->id){
             $user_name_to['name'] = 'You';
         }else{
@@ -738,11 +739,12 @@ function getTimelineTemplate($options, $user_name_link = false) {
 
         if($options['data']['from_id'] == $session->id){
             $user_name_from['name'] = 'You';
+            $sentence = 'have';
         }else{
             $user_name_from = userNameAvtar($options['data']['from_id'], $user_name_link);
         }
         
-        $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name_from['name'], $user_name_to['name']);
+        $new_template = sprintf($templates[$options['notify_type']][$session->language],$user_name_from['name'], $sentence, $user_name_to['name']);
     }
 
     if ($options['notify_type'] == 'challenge_winner') {
@@ -923,8 +925,8 @@ function setTimelineTemplate() {
         ),
         'challenge_made' =>
         array(
-            'en' => '%s has challenged %s.',
-            'it' => '%s has challenged %s.',
+            'en' => '%s %s challenged %s.',
+            'it' => '%s %s challenged %s.',
         ),
         'challenge_accepted' =>
         array(

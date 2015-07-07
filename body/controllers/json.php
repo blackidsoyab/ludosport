@@ -465,7 +465,7 @@ class json extends CI_Controller
         }
         
         $this->load->library('datatable');
-        $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', 'CONCAT(users.firstname," ", users.lastname) AS instructor', 'levels.' . $this->session_data->language . '_level_name AS level', 'schools.' . $this->session_data->language . '_school_name AS school_name', '(SELECT count(*) from userdetails, clans temp_clan where  userdetails.clan_id=temp_clan.id AND temp_clan.id=clans.id) AS total_students');
+        $this->datatable->aColumns = array('clans.' . $this->session_data->language . '_class_name AS class_name', 'CONCAT(users.firstname," ", users.lastname) AS instructor', 'levels.' . $this->session_data->language . '_level_name AS level', 'schools.' . $this->session_data->language . '_school_name AS school_name', '(SELECT count(*) from userdetails, clans temp_clan where  userdetails.clan_id=temp_clan.id AND temp_clan.id=clans.id AND userdetails.status="A") AS total_students');
         $this->datatable->eColumns = array('clans.id', 'academies.' . $this->session_data->language . '_academy_name AS academy_name');
         $this->datatable->sIndexColumn = "clans.id";
         $this->datatable->sTable = " clans, users, schools, academies, levels";

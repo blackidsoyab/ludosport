@@ -976,7 +976,7 @@ class students extends CI_Controller
                 }
             }
         }
-        
+
         $obj_category = new Evolutioncategory();
         foreach ($obj_category->get() as $category) {
             $data['evolution_categories'][] = $category->stored;
@@ -1018,7 +1018,7 @@ class students extends CI_Controller
                     $std_obj = new stdClass();
                     $std_obj->id = $obj[$i]['id'];
                     if ($count == 0 && empty($orange_batch)) {
-                        $std_obj->elegible = true;
+                        $std_obj->elegible = false;
                         $count++;
                     } else {
                         $obj_temp = evolutionMasterLevels(1);
