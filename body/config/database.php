@@ -48,9 +48,9 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'blackid10';
+$db['default']['hostname'] = 'sql.myludosport.net.cloud.seeweb.it';
+$db['default']['username'] = 'admin';
+$db['default']['password'] = 'ymy5433';
 $db['default']['database'] = 'ludosport';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';

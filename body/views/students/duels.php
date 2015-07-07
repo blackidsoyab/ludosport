@@ -7,7 +7,6 @@
 	.bootstrap-timepicker-widget{z-index:9999 !important;}
 </style>
 
-
 <script type="text/javascript">
     $(document).ready(function(){
         if ($('#tiles-slide-2').length > 0){

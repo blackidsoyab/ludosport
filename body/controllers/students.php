@@ -279,13 +279,13 @@ class students extends CI_Controller
         $data['top_ten_sty'] = $userdetail->topStudents('sty', null, 10);
         
         //Top 10 XPR User
-        $data['top_ten_academy'] = $userdetail->topStudents('xpr', 'academy', 10);
+        $data['top_ten_academy'] = $userdetail->topStudents(null, 'academy', 10);
         
         //Top 10 WAR User
-        $data['top_ten_school'] = $userdetail->topStudents('war', 'school', 10);
+        $data['top_ten_school'] = $userdetail->topStudents(null, 'school', 10);
         
         //Top 10 XPR User
-        $data['top_ten_clan'] = $userdetail->topStudents('sty', 'clan', 10);
+        $data['top_ten_clan'] = $userdetail->topStudents(null, 'clan', 10);
         
         //Top Ten Users
         $data['top_ten_users'] = $userdetail->topStudents(null, null, 10);
@@ -617,7 +617,7 @@ class students extends CI_Controller
             } else if ($this->session_data->id == $single[0]->to_id) {
                 $user_id = $single[0]->from_id;
                 $data['type'] = 'Received';
-                if ($single[0]->result_status == 'MNP' && $single[0]->to_status == 'A' && $single[0]->to_status == 'P') {
+                if ($single[0]->result_status == 'MNP' && $single[0]->from_status == 'A' && $single[0]->to_status == 'P') {
                     $data['show_accept_button'] = true;
                 }
             }

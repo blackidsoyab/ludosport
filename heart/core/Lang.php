@@ -142,7 +142,7 @@ class CI_Lang {
 	 */
 	function line($line = '')
 	{
-		$value = ($line == '' OR ! isset($this->language[$line])) ? '' : $this->language[$line];
+		$value = ($line == '' OR ! isset($this->language[$line])) ? ucwords(str_replace('_', ' ', $line)) : $this->language[$line];
 
 		// Because killer robots like unicorns!
 		if ($value === FALSE)

@@ -26,7 +26,7 @@
 </script>
 <?php $session = $this->session->userdata('user_session'); ?>
 
-<h1 class="page-heading h1"><?php echo $this->lang->line('view'), ' ', $this->lang->line('view_attendance'); ?></h1>    
+<h1 class="page-heading h1"><?php echo $this->lang->line('view'), ' ', $this->lang->line('pupil'), ' ', $this->lang->line('view_attendance'); ?></h1>    
 
 
 <div class="the-box">
