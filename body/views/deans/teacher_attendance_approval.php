@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 			$('#change_recovery_teacher').submit(function(e) {
 				var post_data = {
-					'teacher_id' : $('input[name="teacher_id"]').val(),
+					'teacher_id' : $('input[name="teacher_id"]:checked').val(),
 					'attendance_id' : $('input[name="attendance_id"]').val()
 				};
 				$.ajax({
@@ -116,15 +116,15 @@ $(document).ready(function() {
 		            <div class="col-lg-5"> 
 		                <label class="radio-inline" for="radios-0">
 		                    <input type="radio" name="status" id="radios-0" value="A" <?php echo ($attendance->status == 'A') ? 'checked' : ''; ?>>
-		                    <?php echo $this->lang->line('approved'); ?>
+		                    <?php echo $this->lang->line('approve_holiday'); ?>
 		                </label> 
 		                <label class="radio-inline" for="radios-1">
 		                    <input type="radio" name="status" id="radios-1" value="P" <?php echo ($attendance->status == 'P') ? 'checked' : ''; ?>>
-		                    <?php echo $this->lang->line('pending'); ?>
+		                    <?php echo $this->lang->line('pending_holiday'); ?>
 		                </label> 
 		                <label class="radio-inline" for="radios-2">
 		                    <input type="radio" name="status" id="radios-2" value="U" <?php echo ($attendance->status == 'U') ? 'checked' : ''; ?>>
-		                    <?php echo $this->lang->line('unapproved'); ?>
+		                    <?php echo $this->lang->line('rejected_holiday'); ?>
 		                </label> 
 		            </div>
 		        </div>

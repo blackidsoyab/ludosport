@@ -232,7 +232,7 @@ if (!function_exists('getSolutionCoursesType1')) {
         if(is_null($id)){
             return $array;
         }else{
-            $ids = array_column($array,'id');
+            $ids = arraycolumn($array,'id');
             if (($key = array_search($id, $ids)) !== false) {
                 return $array[$key];
             }else{
@@ -252,7 +252,7 @@ if (!function_exists('getSolutionCoursesType2')) {
         if(is_null($id)){
             return $array;
         }else{
-            $ids = array_column($array, 'id');
+            $ids = arraycolumn($array, 'id');
             if (($key = array_search($id, $ids)) !== false) {
                 return $array[$key];
             }else{
@@ -425,8 +425,8 @@ if (!function_exists('getArrayNexyValue')) {
     }
 }
 
-if (!function_exists('array_column')) {
-    function array_column($array, $column) {
+if (!function_exists('arraycolumn')) {
+    function arraycolumn($array, $column) {
         $col = array();
         if(is_object($array)){
             $array = objectToArray($array);    

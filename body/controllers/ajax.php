@@ -433,6 +433,33 @@ class ajax extends CI_Controller
                     }
                 }
             }
+
+            if($this->session_data->role == 5){
+                $obj_attadence = New Teacherattendance();
+                $repalcement_clan = $obj_attadence->where(array('clan_date' => $date, 'recovery_teacher' => $this->session_data->id, 'status' => 'A'))->get();
+                if($repalcement_clan->stored->id != ''){
+                    $clan_details = $clans->where('id',$repalcement_clan->clan_id)->get();
+                    $temp = array();
+                    $temp['title'] = $clan_details->{$this->session_data->language .'_class_name'};
+                    $temp['start'] = $date;
+                    $temp['tooltip'] = $clan_details->School->{$this->session_data->language .'_school_name'} .', ' . $clan_details->School->Academy->{$this->session_data->language .'_academy_name'};
+                    if (strtotime($date) < strtotime($current_date)) {
+                        $temp['url'] = base_url() . 'clan/clan_attendance/' . $repalcement_clan->clan_id . '/' . $date;
+                        $temp['type'] = 'past';
+                        $temp['class'] = 'badge badge-info fc-cell-'.$date;
+                    } else if (strtotime($date) == strtotime($current_date)) {
+                        $temp['url'] = base_url() . 'clan/clan_attendance/' . $repalcement_clan->clan_id . '/' . $date;
+                        $temp['type'] = 'present';
+                        $temp['class'] = 'badge badge-success';
+                    } else {
+                        $temp['url'] = base_url() . 'clan/clan_attendance/' . $repalcement_clan->clan_id . '/' . $date;
+                        $temp['type'] = 'future';
+                        $temp['class'] = 'badge badge-inverse';
+                    }
+                    $return[] = $temp; 
+                }
+            }    
+
             
             unset($obj_clan_date);
             $obj_clan_date = new Clandate();

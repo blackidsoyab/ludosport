@@ -22,16 +22,19 @@ class deans extends CI_Controller
             Notification::updateNotification('teacher_absent', $this->session_data->id, $id);
         }
         
-        if ($this->input->post() !== false) {
+        if ($this->input->post() !== false) {           
             $attendance = new Teacherattendance();
             $attendance->where('id', $id)->get();
             $attendance->status = $this->input->post('status');
+            
             if ($this->input->post('status') == 'U') {
                 $attendance->attendance = 1;
             }
+            
             if ($this->input->post('to_reason') != '') {
                 $attendance->to_message = $this->input->post('to_reason');
             }
+            
             $attendance->save();
             
             if ($this->input->post('status') != 'P') {
@@ -57,7 +60,7 @@ class deans extends CI_Controller
                 $notification->save();
                 
                 $teacher_details = userNameEmail($attendance->teacher_id);
-                $check_privacy = unserialize($user_details['email_privacy']);
+                $check_privacy = unserialize($teacher_details['email_privacy']);
                 if (is_null($check_privacy) || $check_privacy == false || !isset($check_privacy[$notify_type]) || $check_privacy[$notify_type] == 1) {
                     $email = new Email();
                     
@@ -111,7 +114,7 @@ class deans extends CI_Controller
                         
                         $clan = new Clan();
                         $clan->where('id', $attendance->clan_id)->get();
-                        $message = str_replace('#clan_name', $ckan->en_class_name, $message);
+                        $message = str_replace('#clan_name', $clan->en_class_name, $message);
                         
                         $option = array();
                         $option['tomailid'] = $recovery_teacher_details['email'];

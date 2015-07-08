@@ -65,7 +65,7 @@ class users extends CI_Controller
                 
                 $obj_batch = new Batch();
                 $batches_details = $obj_batch->getAssignBatchIds($this->session_data->role);
-                $batches_ids = array_column($batches_details, 'id');
+                $batches_ids = arraycolumn($batches_details, 'id');
                 
                 $xpr = 0;
                 $war = 0;
@@ -259,7 +259,7 @@ class users extends CI_Controller
                     
                     $obj_batch = new Batch();
                     $batches_details = $obj_batch->getAssignBatchIds($this->session_data->role);
-                    $batches_ids = array_column($batches_details, 'id');
+                    $batches_ids = arraycolumn($batches_details, 'id');
                     
                     $xpr = 0;
                     $war = 0;

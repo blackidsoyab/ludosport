@@ -185,6 +185,11 @@ $lang['tournament'] = 'Tournament';
 //Teacher Dashboard
 $lang['replace_teacher'] = 'Replace Teacher';
 
+//Dean
+$lang['approve_holiday'] = 'Approve';
+$lang['pending_holiday'] = 'Pending';
+$lang['rejected_holiday'] = 'Rejected';
+
 //Login
 $lang['welcome_to_login'] = 'Welcome to MyLudosport, enter your credentials to access.';
 $lang['username'] = 'Username';

@@ -2,9 +2,9 @@
 
 if (!function_exists('validAcess')) {
     function validAcess($id, $type) {
+        
         $ci = & get_instance();
         $session = $ci->session->userdata('user_session');
-        
         if($type == 'academy'){
             if($session->role == 1 || $session->role == 2){
                 return true;
@@ -12,25 +12,25 @@ if (!function_exists('validAcess')) {
 
             if($session->role == 3){
                 $academy = new Academy();
-                $ids = array_column($academy->getAcademyOfRector($session->id), 'id');
+                $ids = arraycolumn($academy->getAcademyOfRector($session->id), 'id');
                 return in_array($id, $ids);
             }
 
             if($session->role == 4){
                 $academy = new Academy();
-                $ids = array_column($academy->getAcademyOfDean($session->id), 'id');
+                $ids = arraycolumn($academy->getAcademyOfDean($session->id), 'id');
                 return in_array($id, $ids);
             }
 
             if($session->role == 5){
                 $academy = new Academy();
-                $ids = array_column($academy->getAcademyOfTeacher($session->id), 'id');
+                $ids = arraycolumn($academy->getAcademyOfTeacher($session->id), 'id');
                 return in_array($id, $ids);
             }
 
             if($session->role == 6){
                 $academy = new Academy();
-                $ids = array_column($academy->getAcademyOfStudent($session->id), 'id');
+                $ids = arraycolumn($academy->getAcademyOfStudent($session->id), 'id');
                 return in_array($id, $ids);
             }
         }
@@ -42,25 +42,25 @@ if (!function_exists('validAcess')) {
 
             if($session->role == 3){
                 $school = new School();
-                $ids = array_column($school->getSchoolofRector($session->id), 'id');
+                $ids = arraycolumn($school->getSchoolofRector($session->id), 'id');
                 return in_array($id, $ids);
             }
 
             if($session->role == 4){
                 $school = new School();
-                $ids = array_column($school->getSchoolofDean($session->id), 'id');
+                $ids = arraycolumn($school->getSchoolofDean($session->id), 'id');
                 return in_array($id, $ids);
             }
 
             if($session->role == 5){
                 $school = new School();
-                $ids = array_column($school->getSchoolofTeacher($session->id), 'id');
+                $ids = arraycolumn($school->getSchoolofTeacher($session->id), 'id');
                 return in_array($id, $ids);
             }
 
             if($session->role == 6){
                 $school = new School();
-                $ids = array_column($school->getSchoolofStudent($session->id), 'id');
+                $ids = arraycolumn($school->getSchoolofStudent($session->id), 'id');
                 return in_array($id, $ids);
             }
         }
@@ -72,25 +72,26 @@ if (!function_exists('validAcess')) {
 
             if($session->role == 3){
                 $clan = new Clan();
-                $ids = array_column($clan->getClanofRector($session->id), 'id');
+                $ids = arraycolumn($clan->getClanofRector($session->id), 'id');
                 return in_array($id, $ids);
             }
 
             if($session->role == 4){
                 $clan = new Clan();
-                $ids = array_column($clan->getClanofDean($session->id), 'id');
+
+                $ids = arraycolumn($clan->getClanofDean($session->id), 'id');
                 return in_array($id, $ids);
             }
 
             if($session->role == 5){
                 $clan = new Clan();
-                $ids = array_column($clan->getClanofTeacher($session->id), 'id');
+                $ids = arraycolumn($clan->getClanofTeacher($session->id), 'id');                
                 return in_array($id, $ids);
             }
 
             if($session->role == 6){
                 $clan = new Clan();
-                $ids = array_column($clan->getClanofStudent($session->id), 'id');
+                $ids = arraycolumn($clan->getClanofStudent($session->id), 'id');
                 return in_array($id, $ids);
             }
         }
@@ -132,25 +133,25 @@ if (!function_exists('validAcess')) {
 
             if($session->role == 3){
                 $clan = new Evolutionclan();
-                $ids = array_column($clan->getClanofRector($session->id), 'id');
+                $ids = arraycolumn($clan->getClanofRector($session->id), 'id');
                 return in_array($id, $ids);
             }
 
             if($session->role == 4){
                 $clan = new Evolutionclan();
-                $ids = array_column($clan->getClanofDean($session->id), 'id');
+                $ids = arraycolumn($clan->getClanofDean($session->id), 'id');
                 return in_array($id, $ids);
             }
 
             if($session->role == 5){
                 $clan = new Evolutionclan();
-                $ids = array_column($clan->getClanofTeacher($session->id), 'id');
+                $ids = arraycolumn($clan->getClanofTeacher($session->id), 'id');
                 return in_array($id, $ids);
             }
 
             if($session->role == 6){
                 $clan = new Evolutionclan();
-                $ids = array_column($clan->getClanofStudent($session->id), 'id');
+                $ids = arraycolumn($clan->getClanofStudent($session->id), 'id');
                 return in_array($id, $ids);
             }
         }

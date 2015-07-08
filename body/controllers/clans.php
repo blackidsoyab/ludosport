@@ -681,8 +681,12 @@ class clans extends CI_Controller
     */
     public function clanAttendances($clan_id, $date) {
         if (!validAcess($clan_id, 'clan')) {
-            $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
-            redirect(base_url() . 'dashboard', 'refresh');
+            $obj_attadence = New Teacherattendance();
+            $repalcement_clan = $obj_attadence->where(array('clan_date' => $date, 'clan_id' => $clan_id, 'recovery_teacher' => $this->session_data->id, 'status' => 'A'))->get();
+            if($repalcement_clan->result_count() == 0){
+                $this->session->set_flashdata('error', $this->lang->line('unauthorize_access'));
+                redirect(base_url() . 'dashboard', 'refresh');    
+            }
         }
         
         $clan = New Clan();
